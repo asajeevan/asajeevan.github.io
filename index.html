@@ -1227,10 +1227,12 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
 
   /* ---------- visitor counter ----------
      Preferred: your own Cloudflare Worker (counter/README.md), set COUNTER_URL.
-     Fallback when COUNTER_URL is empty: the free hosted counterapi.dev service
-     (namespace = this site's host name). It needs no account, but it is a third
-     party you do not control, so treat the number as approximate. */
-  var COUNTER_URL = ''; // e.g. 'https://visitor-counter.<account>.workers.dev'
+     Fallback when COUNTER_URL is empty: a public counter on counterapi.dev v2
+     (free account, workspace + counter created in their dashboard). Counts are
+     buffered on their side, so the number can lag a little. */
+  var COUNTER_URL = 'https://visitor-counter.aswadhssajeevan7-3.workers.dev';
+  var COUNTER_WORKSPACE = 'asajeevan'; // counterapi.dev workspace name (public counter, no token)
+  var COUNTER_NAME = 'visits';
   (function visitorCounter() {
     var box = document.getElementById('visits'), num = document.getElementById('visitCount');
     if (!box || !num) return;
@@ -1240,9 +1242,8 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
     if (COUNTER_URL) {
       url = COUNTER_URL.replace(/\/$/, '') + (counted ? '/count' : '/hit');
     } else {
-      if (location.protocol === 'file:') return;
-      var ns = (location.hostname || 'local').replace(/[^a-z0-9.-]/gi, '');
-      url = 'https://api.counterapi.dev/v1/' + ns + '/visits' + (counted ? '' : '/up');
+      if (!COUNTER_WORKSPACE) return;
+      url = 'https://api.counterapi.dev/v2/' + COUNTER_WORKSPACE + '/' + COUNTER_NAME + (counted ? '' : '/up');
     }
     function readCount(d) {
       if (!d) return null;
@@ -1250,6 +1251,7 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
       if (typeof d.Count === 'number') return d.Count;
       if (d.data && typeof d.data.up_count === 'number') return d.data.up_count;
       if (d.data && typeof d.data.count === 'number') return d.data.count;
+      if (d.data && typeof d.data.value === 'number') return d.data.value;
       return null;
     }
     fetch(url, { mode: 'cors', credentials: 'omit' })
