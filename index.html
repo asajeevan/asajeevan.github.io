@@ -1225,20 +1225,41 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
   });
 
 
-  /* ---------- visitor counter (Cloudflare Worker, see counter/README.md) ---------- */
+  /* ---------- visitor counter ----------
+     Preferred: your own Cloudflare Worker (counter/README.md), set COUNTER_URL.
+     Fallback when COUNTER_URL is empty: the free hosted counterapi.dev service
+     (namespace = this site's host name). It needs no account, but it is a third
+     party you do not control, so treat the number as approximate. */
   var COUNTER_URL = ''; // e.g. 'https://visitor-counter.<account>.workers.dev'
   (function visitorCounter() {
-    if (!COUNTER_URL) return;
     var box = document.getElementById('visits'), num = document.getElementById('visitCount');
+    if (!box || !num) return;
     var counted = false;
     try { counted = sessionStorage.getItem('counted') === '1'; } catch (e) {}
-    fetch(COUNTER_URL.replace(/\/$/, '') + (counted ? '/count' : '/hit'), { mode: 'cors', credentials: 'omit' })
+    var url;
+    if (COUNTER_URL) {
+      url = COUNTER_URL.replace(/\/$/, '') + (counted ? '/count' : '/hit');
+    } else {
+      if (location.protocol === 'file:') return;
+      var ns = (location.hostname || 'local').replace(/[^a-z0-9.-]/gi, '');
+      url = 'https://api.counterapi.dev/v1/' + ns + '/visits' + (counted ? '' : '/up');
+    }
+    function readCount(d) {
+      if (!d) return null;
+      if (typeof d.count === 'number') return d.count;
+      if (typeof d.Count === 'number') return d.Count;
+      if (d.data && typeof d.data.up_count === 'number') return d.data.up_count;
+      if (d.data && typeof d.data.count === 'number') return d.data.count;
+      return null;
+    }
+    fetch(url, { mode: 'cors', credentials: 'omit' })
       .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
       .then(function (d) {
-        if (typeof d.count !== 'number') return;
+        var target = readCount(d);
+        if (target === null) return;
         try { sessionStorage.setItem('counted', '1'); } catch (e) {}
         box.hidden = false;
-        var target = d.count, start = Math.max(0, target - 40), t0 = null;
+        var start = Math.max(0, target - 40), t0 = null;
         function step(ts) {
           if (t0 === null) t0 = ts;
           var p = Math.min(1, (ts - t0) / 900), e = 1 - Math.pow(1 - p, 3);
