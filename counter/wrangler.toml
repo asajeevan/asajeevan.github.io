@@ -1,0 +1,12 @@
+# Optional: only needed if you deploy from the command line with `npx wrangler deploy`.
+# The dashboard route (paste worker.js, add the KV binding and the variable) needs no file.
+name = "visitor-counter"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[[kv_namespaces]]
+binding = "VISITS"
+id = "PASTE_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+ALLOWED_ORIGIN = "https://<username>.github.io"
