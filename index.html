@@ -489,64 +489,77 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
     <figure class="hero-fig" aria-label="Schematic cross-section of a solid polymer electrolyte lithium-metal cell: lithium-metal negative electrode on copper, polymer electrolyte with lithium ions moving towards the composite positive electrode on aluminium during discharge">
       <svg id="cellSvg" viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <pattern id="carbonDots" width="10" height="10" patternUnits="userSpaceOnUse">
-            <circle cx="3" cy="3" r="1.3" fill="var(--cyan, #83DBD0)" opacity=".55"/>
-            <circle cx="8" cy="8" r="0.9" fill="var(--cyan, #83DBD0)" opacity=".35"/>
+          <pattern id="carbonDots" width="9" height="9" patternUnits="userSpaceOnUse">
+            <circle cx="2.5" cy="2.5" r="1.1" fill="var(--cyan, #83DBD0)" opacity=".45"/>
+            <circle cx="7" cy="7" r="0.8" fill="var(--cyan, #83DBD0)" opacity=".3"/>
           </pattern>
           <linearGradient id="spe" x1="0" x2="1">
             <stop offset="0" stop-color="var(--cyan, #83DBD0)" stop-opacity=".22"/>
-            <stop offset="1" stop-color="var(--cyan, #83DBD0)" stop-opacity=".08"/>
+            <stop offset="1" stop-color="var(--cyan, #83DBD0)" stop-opacity=".1"/>
           </linearGradient>
-          <clipPath id="memClip"><rect x="196" y="60" width="126" height="200"/></clipPath>
-          <filter id="ionGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <marker id="arrLi" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#FFD166"/></marker>
+          <clipPath id="memClip"><rect x="170" y="60" width="200" height="200"/></clipPath>
+          <filter id="ionGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <marker id="arrLi" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#FFD166"/></marker>
         </defs>
 
         <!-- current collectors -->
-        <g class="layer" data-layer="cc-neg"><rect x="60" y="60" width="18" height="200" fill="var(--muted, #A3B6B1)" opacity=".55"/></g>
-        <!-- lithium metal -->
-        <g class="layer" data-layer="li"><rect x="80" y="60" width="114" height="200" fill="var(--amber, #F0B441)" opacity=".28"/><rect x="80" y="60" width="114" height="200" fill="none" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/></g>
-        <!-- polymer electrolyte -->
-        <g class="layer" data-layer="spe"><rect x="196" y="60" width="126" height="200" fill="url(#spe)"/><rect x="196" y="60" width="126" height="200" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
-          <path d="M210,80 q20,30 0,60 t0,60 t0,50" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".25" stroke-width="1.2"/>
-          <path d="M250,70 q-20,30 0,60 t0,60 t0,60" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".25" stroke-width="1.2"/>
-          <path d="M290,75 q20,30 0,60 t0,60 t0,55" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".25" stroke-width="1.2"/>
-        </g>
-        <!-- composite positive electrode -->
-        <g class="layer" data-layer="pos"><rect x="324" y="60" width="118" height="200" fill="var(--green, #2F6A5C)" opacity=".35"/><rect x="324" y="60" width="118" height="200" fill="url(#carbonDots)"/><rect x="324" y="60" width="118" height="200" fill="none" stroke="var(--green, #2F6A5C)"/>
-          <g class="active-material" fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55" stroke-width="1">
-            <circle cx="345" cy="90" r="6"/><circle cx="392" cy="105" r="7"/><circle cx="420" cy="80" r="5"/>
-            <circle cx="360" cy="140" r="7"/><circle cx="410" cy="150" r="6"/><circle cx="340" cy="185" r="5"/>
-            <circle cx="385" cy="200" r="7"/><circle cx="425" cy="225" r="6"/><circle cx="352" cy="235" r="6"/>
+        <g class="layer" data-layer="cc-neg"><rect x="60" y="60" width="14" height="200" fill="var(--muted, #A3B6B1)" opacity=".55"/></g>
+        <!-- lithium metal negative electrode -->
+        <g class="layer" data-layer="li"><rect x="74" y="60" width="96" height="200" fill="var(--amber, #F0B441)" opacity=".28"/><rect x="74" y="60" width="96" height="200" fill="none" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/></g>
+        <!-- solid polymer electrolyte membrane: amorphous polymer chains carrying Li+ -->
+        <g class="layer" data-layer="spe"><rect x="170" y="60" width="76" height="200" fill="url(#spe)"/>
+          <g fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".28" stroke-width="1.2">
+            <path d="M184,66 q14,24 0,48 q-14,24 0,48 q14,24 0,48 q-14,24 0,48"/><path d="M208,72 q-16,23 0,46 q16,23 0,46 q-16,23 0,46 q16,23 0,46"/><path d="M232,64 q14,25 0,50 q-14,25 0,50 q14,25 0,50 q-14,25 0,50"/>
           </g>
+          <rect x="170" y="60" width="76" height="200" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
         </g>
-        <g class="layer" data-layer="cc-pos"><rect x="444" y="60" width="18" height="200" fill="var(--muted, #A3B6B1)" opacity=".55"/></g>
+        <!-- composite positive electrode: active material + conductive carbon in the same polymer as binder -->
+        <g class="layer" data-layer="pos"><rect x="246" y="60" width="124" height="200" fill="var(--green, #2F6A5C)" opacity=".3"/>
+          <g fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".16" stroke-width="1.2"><path d="M290,66 q-14,24 0,48 q14,24 0,48 q-14,24 0,48 q14,24 0,48"/><path d="M338,70 q14,23 0,46 q-14,23 0,46 q14,23 0,46 q-14,23 0,46"/></g>
+          <rect x="246" y="60" width="124" height="200" fill="url(#carbonDots)"/>
+          <g class="active-material" fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55" stroke-width="1" stroke-linejoin="round">
+            <polygon points="275.2,93.0 274.7,97.1 269.0,99.8 262.6,96.2 260.7,92.9 262.1,87.0 267.0,84.3 274.3,87.2" data-cx="268" data-cy="92"/>
+            <polygon points="318.8,80.9 318.1,84.8 314.3,87.1 309.4,85.2 306.5,82.8 306.7,77.5 308.7,73.9 312.9,73.3 315.8,75.9" data-cx="312" data-cy="80"/>
+            <polygon points="360.6,104.0 356.7,111.0 349.2,111.6 345.4,107.8 345.7,100.3 349.6,95.8 356.9,97.2" data-cx="352" data-cy="104"/>
+            <polygon points="287.3,151.1 287.3,155.8 282.3,158.2 276.6,158.4 271.5,152.3 272.9,146.4 276.0,142.1 281.7,141.7 288.2,144.4" data-cx="280" data-cy="150"/>
+            <polygon points="335.6,140.3 334.1,144.7 329.8,147.1 325.0,145.1 323.8,139.3 326.2,135.0 330.2,133.4 334.0,135.3" data-cx="330" data-cy="140"/>
+            <polygon points="307.3,195.4 304.5,200.7 301.5,203.6 295.0,202.8 293.2,197.7 293.2,193.7 296.5,187.9 300.5,189.3 304.9,191.2" data-cx="300" data-cy="196"/>
+            <polygon points="361.9,182.6 360.4,185.8 355.9,188.9 352.2,186.3 348.3,181.2 351.1,176.7 355.9,174.5 361.6,177.7" data-cx="356" data-cy="182"/>
+            <polygon points="268.4,231.8 267.8,235.8 263.7,237.4 259.5,237.3 256.8,234.2 256.3,230.8 258.2,226.9 262.2,224.5 266.6,228.4" data-cx="262" data-cy="232"/>
+            <polygon points="330.8,241.2 327.3,245.2 322.0,250.0 316.4,245.7 312.7,241.0 316.4,233.6 322.5,231.4 328.4,232.4" data-cx="322" data-cy="240"/>
+            <polygon points="356.8,219.5 355.8,222.9 351.2,225.3 348.8,222.9 347.8,220.2 348.9,216.3 352.4,215.6 355.4,216.0" data-cx="352" data-cy="220"/>
+          </g>
+          <rect x="246" y="60" width="124" height="200" fill="none" stroke="var(--green, #2F6A5C)"/>
+        </g>
+        <g class="layer" data-layer="cc-pos"><rect x="370" y="60" width="14" height="200" fill="var(--muted, #A3B6B1)" opacity=".55"/></g>
 
-        <!-- Li+ ions: animated group filled by the script; static set shown when motion is off -->
+        <!-- Li+ ions: on discharge they leave the lithium surface, cross the membrane and insert into the active material.
+             The animated group is filled by the script; the static set is shown when motion is off. -->
         <g id="ions" clip-path="url(#memClip)" filter="url(#ionGlow)"></g>
         <g class="ion-static" clip-path="url(#memClip)" filter="url(#ionGlow)" aria-hidden="true">
-          <circle cx="212" cy="96" r="3.2"/><circle cx="236" cy="150" r="2.8"/><circle cx="222" cy="214" r="3.4"/>
-          <circle cx="258" cy="84" r="3"/><circle cx="262" cy="176" r="3.6"/><circle cx="248" cy="238" r="2.9"/>
-          <circle cx="286" cy="118" r="3.3"/><circle cx="300" cy="196" r="3"/><circle cx="308" cy="74" r="2.8"/><circle cx="292" cy="246" r="3.2"/>
-        </g>
-        <!-- Li+ transport direction on discharge: from lithium metal to the composite electrode -->
-        <g class="li-flow" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#FFD166">
-          <text x="198" y="55" text-anchor="end">Li⁺ on discharge</text>
-          <line x1="204" y1="52" x2="314" y2="52" stroke="#FFD166" stroke-opacity=".8" stroke-width="1.2" marker-end="url(#arrLi)"/>
+          <circle cx="178" cy="98" r="3"/><circle cx="196" cy="160" r="2.8"/><circle cx="186" cy="224" r="3.2"/>
+          <circle cx="214" cy="84" r="3"/><circle cx="222" cy="184" r="3.4"/><circle cx="208" cy="240" r="2.8"/>
+          <circle cx="238" cy="126" r="3.2"/><circle cx="240" cy="208" r="3"/>
+          <circle cx="258" cy="96" r="3"/><circle cx="292" cy="140" r="2.8"/><circle cx="312" cy="230" r="3"/>
         </g>
 
-        <!-- labels -->
-        <g class="cell-labels" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted, #A3B6B1)">
-          <text x="137" y="282" text-anchor="middle">Lithium metal</text>
-          <text x="259" y="282" text-anchor="middle">Polymer electrolyte</text>
-          <text x="383" y="282" text-anchor="middle">Composite electrode</text>
-          <text x="69" y="300" text-anchor="middle">Cu</text>
-          <text x="453" y="300" text-anchor="middle">Al</text>
+        <!-- layer labels -->
+        <g class="cell-labels" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="var(--muted, #A3B6B1)">
+          <text x="122" y="282" text-anchor="middle">Lithium metal</text>
+          <text x="208" y="282" text-anchor="middle">Polymer electrolyte</text>
+          <text x="308" y="282" text-anchor="middle">Composite electrode</text>
+          <text x="67" y="300" text-anchor="middle">Cu</text>
+          <text x="377" y="300" text-anchor="middle">Al</text>
         </g>
         <text x="60" y="40" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted, #A3B6B1)">Schematic, not experimental data</text>
-        <g class="cell-key" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted, #A3B6B1)">
-          <circle class="ion-key" cx="307" cy="36.5" r="3.2" filter="url(#ionGlow)"/><text x="315" y="40">Li⁺ ion</text>
-          <circle cx="374" cy="36.5" r="5" fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55"/><text x="384" y="40">Active material</text>
+
+        <!-- key -->
+        <g class="cell-key" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="var(--muted, #A3B6B1)">
+          <circle class="ion-key" cx="416" cy="76.5" r="3" filter="url(#ionGlow)"/><text x="428" y="80">Li⁺ ion</text>
+          <polygon points="411.5,95 415,91.5 419.5,92.5 421.5,96.5 419,101 414,101.5 411,98.5" fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55" stroke-linejoin="round"/><text x="428" y="100">Active material</text>
+          <g fill="var(--cyan, #83DBD0)"><circle cx="412.5" cy="118" r="1.2" opacity=".6"/><circle cx="417" cy="114.5" r="1" opacity=".45"/><circle cx="419.5" cy="119.5" r="1.1" opacity=".55"/><circle cx="414.5" cy="122.5" r=".9" opacity=".4"/></g><text x="428" y="120">Conductive carbon</text>
+          <path d="M409,138 q4,-5 8,0 t8,0" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".6" stroke-width="1.2"/><text x="428" y="140">Polymer chains</text>
+          <line x1="409" y1="167" x2="422" y2="167" stroke="#FFD166" stroke-opacity=".85" stroke-width="1.2" marker-end="url(#arrLi)"/><text x="428" y="170">Li⁺ on discharge</text>
         </g>
       </svg>
 
@@ -1306,7 +1319,7 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
   /* ---------- fallback: static page ---------- */
   function staticFinal() {
     root.classList.remove('motion');
-    if (reduce) Array.prototype.forEach.call(document.querySelectorAll('animateMotion'), function (a) { a.parentNode.removeChild(a); });
+    if (reduce) { Array.prototype.forEach.call(document.querySelectorAll('animateMotion'), function (a) { a.parentNode.removeChild(a); }); Array.prototype.forEach.call(document.querySelectorAll('.trace .soc'), function (g) { g.style.display = 'none'; }); }
     Array.prototype.forEach.call(document.querySelectorAll('.scene .bar'), function (b) {
       var big = b.classList.contains('bar-b');
       b.setAttribute('height', big ? '90' : '27'); b.setAttribute('y', big ? '10' : '73');
@@ -1383,21 +1396,27 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
     gsap.to(o, { v: target, duration: 1.8, ease: 'power2.out', delay: 1.3, onUpdate: function () { el.textContent = Math.round(o.v) + suffix; } });
   });
 
-  /* Li+ ions in the hero cell */
-  var ionsGroup = document.getElementById('ions'), NS = 'http://www.w3.org/2000/svg', ionTweens = [];
-  for (var k = 0; k < 14; k++) {
-    var c = document.createElementNS(NS, 'circle');
-    c.setAttribute('class', 'ion-dot'); c.setAttribute('r', String(2.6 + Math.random() * 1.6));
-    c.setAttribute('cx', String(196 + Math.random() * 126)); c.setAttribute('cy', String(70 + Math.random() * 180));
-    ionsGroup.appendChild(c);
-    (function (c) {
-      ionTweens.push(gsap.to(c, { attr: { cx: 322 }, duration: 4 + Math.random() * 4, delay: -Math.random() * 6, ease: 'none', repeat: -1,
-        onRepeat: function () { c.setAttribute('cx', '196'); c.setAttribute('cy', String(70 + Math.random() * 180)); } }));
-      gsap.to(c, { attr: { cy: '+=' + (Math.random() * 30 - 15) }, duration: 1.5 + Math.random(), yoyo: true, repeat: -1, ease: 'sine.inOut' });
-    })(c);
+  /* Li+ ions in the hero cell: each ion leaves the lithium surface, crosses the membrane and inserts into an active-material particle */
+  var ionsGroup = document.getElementById('ions'), NS = 'http://www.w3.org/2000/svg';
+  var sites = Array.prototype.map.call(document.querySelectorAll('#cellSvg .active-material polygon'), function (p) { return { x: +p.getAttribute('data-cx'), y: +p.getAttribute('data-cy') }; });
+  function launchIon(c, first) {
+    var site = sites[Math.floor(Math.random() * sites.length)], d = 4.5 + Math.random() * 3.5;
+    c.setAttribute('cx', '171'); c.setAttribute('cy', String(70 + Math.random() * 180)); c.setAttribute('opacity', '0');
+    var tl = gsap.timeline({ delay: first ? 0 : .3 + Math.random() * 2, onComplete: function () { launchIon(c, false); } });
+    tl.to(c, { attr: { opacity: 1 }, duration: .5 }, 0)
+      .to(c, { attr: { cx: site.x }, duration: d, ease: 'none' }, 0)
+      .to(c, { attr: { cy: site.y }, duration: d, ease: 'sine.inOut' }, 0)
+      .to(c, { attr: { opacity: 0 }, duration: .5 }, d - .5);
+    if (first) tl.progress(Math.random());
+    c._tl = tl;
   }
-  window.ScrollTrigger.create({ trigger: '#hero', start: 'top bottom', end: 'bottom top',
-    onLeave: function () { ionTweens.forEach(function (t) { t.pause(); }); }, onEnterBack: function () { ionTweens.forEach(function (t) { t.play(); }); } });
+  for (var k = 0; k < 12; k++) {
+    var c = document.createElementNS(NS, 'circle');
+    c.setAttribute('class', 'ion-dot'); c.setAttribute('r', String(2.6 + Math.random() * 1.2));
+    ionsGroup.appendChild(c); launchIon(c, true);
+  }
+  function ionsRun(play) { Array.prototype.forEach.call(ionsGroup.children, function (c) { if (c._tl) { play ? c._tl.play() : c._tl.pause(); } }); }
+  window.ScrollTrigger.create({ trigger: '#hero', start: 'top bottom', end: 'bottom top', onLeave: function () { ionsRun(false); }, onEnterBack: function () { ionsRun(true); } });
 
   /* Gentle parallax on the hero figure */
   gsap.to('.hero-fig', { yPercent: -8, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
