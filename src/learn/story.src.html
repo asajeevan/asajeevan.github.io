@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How batteries work | Aswadh Shyma Sajeevan</title>
+<meta name="description" content="An illustrated, cited introduction to batteries: from the switch and the lamp to lithium-ion cells, polymer electrolytes and why cells age. Every statement cites a textbook or a peer-reviewed article.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="How batteries work">
+<meta property="og:description" content="Follow one lithium ion through a battery. Twelve illustrated modules, every fact cited, every figure computed from its source.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How batteries work">
+<meta name="twitter:description" content="Follow one lithium ion through a battery. Twelve illustrated modules, every fact cited.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/learn.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"How batteries work","description":"An illustrated, cited introduction to batteries, from the very basics to lithium-ion cells, polymer electrolytes and ageing.","author":{"@type":"Person","name":"Aswadh Shyma Sajeevan","url":"https://asajeevan.github.io/"},"url":"https://asajeevan.github.io/batteries/","inLanguage":"en","educationalLevel":"beginner to undergraduate","learningResourceType":"explainer"}
+</script>
+</head>
+<body data-mode="teach">
+<a class="skip" href="#m01">Skip to the first module</a>
+
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Back to the home page">Aswadh Shyma Sajeevan</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="siteNav" aria-label="Sections">
+      <a href="../">Home</a>
+      <a href="#start">Start</a>
+      <a href="#actA">Act A: the push</a>
+      <a href="#actB">Act B: follow one ion</a>
+      <a href="#actC">Act C: where it goes wrong</a>
+      <a href="#references">References</a>
+    </nav>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<aside class="rail-cell" id="railCell" aria-hidden="true">
+  <svg viewBox="0 0 92 230" xmlns="http://www.w3.org/2000/svg">
+    <rect x="34" y="28" width="24" height="8" rx="2" fill="var(--muted, #A3B6B1)"/>
+    <rect x="22" y="36" width="48" height="160" rx="8" fill="var(--panel-2, #183840)" stroke="var(--line-2, rgba(234,240,236,.26))"/>
+    <rect class="rail-fill-rect" x="26" y="190" width="40" height="0" rx="4" fill="var(--amber, #F0B441)" fill-opacity=".85"/>
+    <text class="pct" x="46" y="216" text-anchor="middle">0%</text>
+    <text class="lab" data-act="A" x="6" y="178">A</text>
+    <text class="lab" data-act="B" x="6" y="120">B</text>
+    <text class="lab" data-act="C" x="6" y="62">C</text>
+  </svg>
+</aside>
+
+<main id="top">
+<!-- ===================== HERO ===================== -->
+<section class="learn-hero" id="start">
+  <div class="wrap">
+    <div class="hero-row">
+      <div>
+        <p class="kicker" data-reveal>Battery basics, from zero</p>
+        <h1 class="h1" data-reveal>How batteries work</h1>
+        <p class="promise" data-reveal>Follow one lithium ion through a cell: where the push comes from, how the ion travels, and why it sometimes gets stuck.</p>
+        <p class="lede" data-reveal>I spent my doctoral years building cells like the ones on this page. This is the explanation I wish I had had at the start: twelve short modules, each built around a figure you can play with. Every factual statement carries a numbered citation to a textbook or a peer-reviewed article, every curve is computed from the equation in its source, and every figure says what it is based on. Nothing here is experimental data.</p>
+        <div class="modes" role="group" aria-label="Choose how to read" data-reveal>
+          <button type="button" data-mode="show" aria-pressed="false">Just show me <small>(about 8 min)</small></button>
+          <button type="button" data-mode="teach" aria-pressed="true">Teach me <small>(about 35 min)</small></button>
+          <button type="button" data-mode="equations" aria-pressed="false">I want the equations</button>
+        </div>
+        <p class="modes-note">&#8220;Just show me&#8221; keeps the questions, the figures and the one-line answers. &#8220;I want the equations&#8221; opens every &#8220;Go deeper&#8221; panel and links each module to its mathematics.</p>
+        <a class="hint" href="#f1-1">Start by closing the switch in figure 1.1</a>
+      </div>
+      <figure class="fig hero-fig-learn" data-reveal>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="herot">
+          <title id="herot">The three acts of the page drawn on a lithium cell: the push, one ion crossing the electrolyte, and the places where it gets stuck.</title>
+          <rect x="60" y="70" width="14" height="160" fill="var(--muted, #A3B6B1)" opacity=".55"/>
+          <rect x="74" y="70" width="96" height="160" fill="var(--amber, #F0B441)" opacity=".28"/><rect x="74" y="70" width="96" height="160" fill="none" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/>
+          <rect x="170" y="70" width="76" height="160" fill="var(--cyan, #83DBD0)" fill-opacity=".14"/><rect x="170" y="70" width="76" height="160" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
+          <rect x="246" y="70" width="124" height="160" fill="var(--green, #2F6A5C)" opacity=".3"/><rect x="246" y="70" width="124" height="160" fill="none" stroke="var(--green, #2F6A5C)"/>
+          <rect x="370" y="70" width="14" height="160" fill="var(--muted, #A3B6B1)" opacity=".55"/>
+          <g fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55"><circle cx="272" cy="100" r="8"/><circle cx="330" cy="120" r="9"/><circle cx="290" cy="160" r="9"/><circle cx="345" cy="190" r="7"/><circle cx="268" cy="212" r="7"/></g>
+          <circle class="ion" cx="120" cy="150" r="5"/>
+          <path d="M126,150 C160,150 180,120 208,140 C230,156 250,150 262,152" fill="none" stroke="var(--cation, #FFD166)" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <text x="122" y="248" class="lbl" text-anchor="middle">Act A: the push</text>
+          <text x="208" y="248" class="lbl" text-anchor="middle">Act B: one ion</text>
+          <text x="308" y="248" class="lbl" text-anchor="middle">Act C: where it sticks</text>
+          <text x="60" y="52" class="lbl amber">Your cell: <tspan class="your-cell-name">Graphite | LiCoO2</tspan></text>
+          <text x="384" y="270" class="lbl" text-anchor="end">Schematic, not experimental data</text>
+        </svg>
+        <figcaption>The story in one cell. Your chosen electrodes from module 3 appear here and travel with you through the page.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACT A ===================== -->
+<div class="act-head wrap" id="actA">
+  <p class="act-k">Act A</p>
+  <h2>Why does the lamp light?</h2>
+  <p>Four modules on where the push comes from and how much of it there is. By the end you will have chosen the two electrodes of your own cell and worked out how much energy it can hold.</p>
+</div>
+
+{{include:mod-01.html}}
+{{include:mod-02.html}}
+{{include:mod-03.html}}
+
+<section class="module" id="m04" data-act="A">
+  <div class="wrap">
+    <p class="mod-n">Modules 4 to 12</p>
+    <h2 class="h2">Coming next</h2>
+    <div class="coming">
+      <p><b>This page is being built module by module.</b> Module 4 (capacity, energy and power, with the Faraday calculator for your cell) is next, followed by Act B, which follows one ion through a full cycle, and Act C, on how cells fail and what is being done about it. The reference list below already holds every source used so far; new modules will only cite sources that have been read and verified in full.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REFERENCES ===================== -->
+<section class="section" id="references">
+  <div class="wrap">
+    <h2 class="h2">References</h2>
+    <p class="policy"><b>How this page cites.</b> Every factual sentence carries a superscript number that links to the entry below. Only textbooks and peer-reviewed articles that I have read in full are cited; where a source&#8217;s printed equation contains a typographical error, the page uses the form that follows from the source&#8217;s own premises and notes the discrepancy on the theory page. Analogies and my own opinions are marked as such and carry no citation. Numbers are quoted with the conditions and the date given in the source.</p>
+    {{references}}
+  </div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../">Home</a></p>
+    <p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+  </div>
+</footer>
+
+<script src="../assets/js/gsap.min.js"></script>
+<script src="../assets/js/ScrollTrigger.min.js"></script>
+<script src="../assets/js/physics.js"></script>
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/learn.js"></script>
+</body>
+</html>

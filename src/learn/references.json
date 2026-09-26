@@ -1,0 +1,174 @@
+{
+  "_comment": "Reference registry for the learning pages. Only entries with status 'verified' may be cited; the build fails otherwise. 'verified' means the full text was read and the bibliographic details confirmed from the document itself. 'crosschecked' means details corroborated from a verified source's reference list but the document itself was not read. 'candidate' means from memory, not yet checked.",
+  "R1": {
+    "authors": "M. Winter, R. J. Brodd",
+    "title": "What Are Batteries, Fuel Cells, and Supercapacitors?",
+    "journal": "Chemical Reviews",
+    "year": 2004, "volume": "104", "pages": "4245-4269",
+    "doi": "10.1021/cr020730k",
+    "status": "verified",
+    "short": "Winter and Brodd 2004"
+  },
+  "R2": {
+    "authors": "J.-M. Tarascon, M. Armand",
+    "title": "Issues and challenges facing rechargeable lithium batteries",
+    "journal": "Nature",
+    "year": 2001, "volume": "414", "pages": "359-367",
+    "doi": "10.1038/35104644",
+    "status": "verified",
+    "short": "Tarascon and Armand 2001"
+  },
+  "R6": {
+    "authors": "J. B. Goodenough, K.-S. Park",
+    "title": "The Li-Ion Rechargeable Battery: A Perspective",
+    "journal": "Journal of the American Chemical Society",
+    "year": 2013, "volume": "135", "pages": "1167-1176",
+    "doi": "10.1021/ja3091438",
+    "status": "verified",
+    "short": "Goodenough and Park 2013"
+  },
+  "B2": {
+    "authors": "A. J. Bard, L. R. Faulkner, H. S. White",
+    "title": "Electrochemical Methods: Fundamentals and Applications",
+    "journal": "Wiley, 3rd edition",
+    "year": 2022, "volume": "", "pages": "",
+    "doi": "",
+    "status": "verified",
+    "short": "Bard, Faulkner and White 2022"
+  },
+  "R21": {
+    "authors": "V. Murray, D. S. Hall, J. R. Dahn",
+    "title": "A Guide to Full Coin Cell Making for Academic Researchers",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2019, "volume": "166", "pages": "A329-A333",
+    "doi": "10.1149/2.1171902jes",
+    "status": "verified",
+    "short": "Murray, Hall and Dahn 2019"
+  },
+  "R36": {
+    "authors": "B. Boz, T. Dev, A. Salvadori, J. L. Schaefer",
+    "title": "Review: Electrolyte and Electrode Designs for Enhanced Ion Transport Properties to Enable High Performance Lithium Batteries",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2021, "volume": "168", "pages": "090501",
+    "doi": "10.1149/1945-7111/ac1cc3",
+    "status": "verified",
+    "short": "Boz et al. 2021"
+  },
+  "R37": {
+    "authors": "L. von Kolzenberg, A. Latz, B. Horstmann",
+    "title": "Solid-Electrolyte Interphase During Battery Cycling: Theory of Growth Regimes",
+    "journal": "ChemSusChem",
+    "year": 2020, "volume": "13", "pages": "3901-3910",
+    "doi": "10.1002/cssc.202000867",
+    "status": "verified",
+    "short": "von Kolzenberg, Latz and Horstmann 2020"
+  },
+  "R38": {
+    "authors": "W. Weppner, R. A. Huggins",
+    "title": "Electrochemical Investigation of the Chemical Diffusion, Partial Ionic Conductivities, and Other Kinetic Parameters in Li3Sb and Li3Bi",
+    "journal": "Journal of Solid State Chemistry",
+    "year": 1977, "volume": "22", "pages": "297-308",
+    "doi": "10.1016/0022-4596(77)90006-8",
+    "status": "verified",
+    "short": "Weppner and Huggins 1977"
+  },
+  "R40": {
+    "authors": "P. Jindal, R. Katiyar, J. Bhattacharya",
+    "title": "Evaluation of accuracy for Bernardi equation in estimating heat generation rate for continuous and pulse-discharge protocols in LFP and NMC based Li-ion batteries",
+    "journal": "Applied Thermal Engineering",
+    "year": 2022, "volume": "201", "pages": "117794",
+    "doi": "10.1016/j.applthermaleng.2021.117794",
+    "status": "verified",
+    "short": "Jindal, Katiyar and Bhattacharya 2022"
+  },
+  "R41": {
+    "authors": "S. Pathak, M. Z. Bazant",
+    "title": "Scaling and Analytical Approximation of Porous Electrode Theory for Reaction-limited Batteries",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2026, "volume": "173", "pages": "160518",
+    "doi": "10.1149/1945-7111/ae9229",
+    "status": "verified",
+    "short": "Pathak and Bazant 2026"
+  },
+  "R39": {
+    "authors": "M. Z. Bazant",
+    "title": "Theory of Chemical Kinetics and Charge Transfer based on Nonequilibrium Thermodynamics",
+    "journal": "Accounts of Chemical Research",
+    "year": 2013, "volume": "46", "pages": "1144-1160",
+    "doi": "10.1021/ar300145c",
+    "status": "crosschecked",
+    "short": "Bazant 2013"
+  },
+  "R42": {
+    "authors": "R. D. Shannon",
+    "title": "Revised effective ionic radii and systematic studies of interatomic distances in halides and chalcogenides",
+    "journal": "Acta Crystallographica A",
+    "year": 1976, "volume": "32", "pages": "751-767",
+    "doi": "10.1107/S0567739476001551",
+    "status": "candidate",
+    "short": "Shannon 1976"
+  },
+  "R43": {
+    "authors": "D. Bernardi, E. Pawlikowski, J. Newman",
+    "title": "A General Energy Balance for Battery Systems",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 1985, "volume": "132", "pages": "5-12",
+    "doi": "10.1149/1.2113792",
+    "status": "crosschecked",
+    "short": "Bernardi, Pawlikowski and Newman 1985"
+  },
+  "L1": {
+    "authors": "M. S. Whittingham",
+    "title": "Electrical energy storage and intercalation chemistry",
+    "journal": "Science",
+    "year": 1976, "volume": "192", "pages": "1126-1127",
+    "doi": "10.1126/science.192.4244.1126",
+    "status": "crosschecked",
+    "short": "Whittingham 1976"
+  },
+  "L2": {
+    "authors": "K. Mizushima, P. C. Jones, P. J. Wiseman, J. B. Goodenough",
+    "title": "LixCoO2 (0<x<=1): a new cathode material for batteries of high energy density",
+    "journal": "Materials Research Bulletin",
+    "year": 1980, "volume": "15", "pages": "783-789",
+    "doi": "10.1016/0025-5408(80)90012-4",
+    "status": "crosschecked",
+    "short": "Mizushima et al. 1980"
+  },
+  "L3": {
+    "authors": "E. Peled",
+    "title": "The Electrochemical Behavior of Alkali and Alkaline Earth Metals in Nonaqueous Battery Systems: The Solid Electrolyte Interphase Model",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 1979, "volume": "126", "pages": "2047-2051",
+    "doi": "10.1149/1.2128859",
+    "status": "crosschecked",
+    "short": "Peled 1979"
+  },
+  "L5": {
+    "authors": "D. E. Fenton, J. M. Parker, P. V. Wright",
+    "title": "Complexes of alkali metal ions with poly(ethylene oxide)",
+    "journal": "Polymer",
+    "year": 1973, "volume": "14", "pages": "589",
+    "doi": "10.1016/0032-3861(73)90146-8",
+    "status": "crosschecked",
+    "short": "Fenton, Parker and Wright 1973"
+  },
+  "L12": {
+    "authors": "P. Poizot, S. Laruelle, S. Grugeon, L. Dupont, J.-M. Tarascon",
+    "title": "Nano-sized transition-metal oxides as negative-electrode materials for lithium-ion batteries",
+    "journal": "Nature",
+    "year": 2000, "volume": "407", "pages": "496-499",
+    "doi": "10.1038/35035045",
+    "status": "crosschecked",
+    "short": "Poizot et al. 2000"
+  },
+  "L16": {
+    "authors": "K. Zaghib, M. Dontigny, A. Guerfi, P. Charest, I. Rodrigues, A. Mauger, C. M. Julien",
+    "title": "Safe and fast-charging Li-ion battery with long shelf life for power applications",
+    "journal": "Journal of Power Sources",
+    "year": 2011, "volume": "196", "pages": "3949-3954",
+    "doi": "10.1016/j.jpowsour.2010.11.093",
+    "status": "crosschecked",
+    "short": "Zaghib et al. 2011"
+  }
+}

@@ -151,6 +151,8 @@ html.motion .ion-static{display:none}
 @media (max-width:820px){.two-col{grid-template-columns:1fr}}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
 
+.teaser{background:linear-gradient(90deg,rgba(131,219,208,.10),transparent);border-left:3px solid var(--cyan-2);border-radius:0 8px 8px 0;padding:10px 14px;margin:0 0 1em}
+
 /* chain figure */
 .chain-fig{position:sticky;top:96px}
 #chain .node circle{fill:var(--bg);stroke:var(--muted);stroke-width:2;transition:stroke .4s,fill .4s,r .3s}
