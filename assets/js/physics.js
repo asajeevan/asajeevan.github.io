@@ -123,7 +123,17 @@
       { name: 'Lithium-ion',             V: 4.0, kind: 'rechargeable', anode: 'Li(C)',       cathode: 'LiCoO2',             electrolyte: 'LiPF6 in nonaqueous solvents' }
     ],
     /* Molar masses (g/mol) for the capacity calculator, IUPAC 2013 conventional values rounded. */
-    molarMass: { Li: 6.94, C: 12.011, O: 15.999, Fe: 55.845, P: 30.974, Co: 58.933 }
+    molarMass: { Li: 6.94, C: 12.011, O: 15.999, Fe: 55.845, P: 30.974, Co: 58.933, Mn: 54.938, Ni: 58.693, S: 32.06, Ti: 47.867 },
+    /* Materials for the capacity calculator. 'basis' is the mass the capacity refers to;
+       'printed' is the value a verified source prints, 'src' its key; the rest are computed. */
+    materials: [
+      { key: 'gr',  name: 'Graphite (LiC6, per gram of carbon)', n: 1, M: 6 * 12.011,                          basis: 'C6 (delithiated host)', printed: 372, src: 'R2', practical: 'about 350 mAh/g in practice (Tarascon and Armand 2001)' },
+      { key: 'lfp', name: 'LiFePO4',                              n: 1, M: 6.94 + 55.845 + 30.974 + 4 * 15.999, basis: 'LiFePO4 (lithiated, as assembled)', printed: 170, src: 'R6', practical: 'used at about 90 % of the theoretical value (Tarascon and Armand 2001)' },
+      { key: 'lco', name: 'LiCoO2 (all lithium)',                 n: 1, M: 6.94 + 58.933 + 2 * 15.999,          basis: 'LiCoO2 (lithiated)', printed: null, src: null, practical: 'only about half the lithium is used for safety, about 140 mAh/g in practice (Tarascon and Armand 2001)' },
+      { key: 'li',  name: 'Lithium metal',                        n: 1, M: 6.94,                                basis: 'Li', printed: null, src: null, practical: 'the highest of all negative electrodes; module 9 explains why it is hard to use' },
+      { key: 'lto', name: 'Li4Ti5O12 (3 Li per formula unit)',    n: 3, M: 4 * 6.94 + 5 * 47.867 + 12 * 15.999, basis: 'Li4Ti5O12', printed: null, src: null, practical: 'Goodenough and Park 2013 give under 150 mAh/g' },
+      { key: 's',   name: 'Sulfur (to Li2S, 2 electrons)',        n: 2, M: 32.06,                               basis: 'S', printed: null, src: null, practical: 'a multi-electron reactant; see module 9' }
+    ]
   };
 
   return {

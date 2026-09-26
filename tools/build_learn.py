@@ -94,6 +94,15 @@ def build(src_name, out_path):
     out_path.write_text(text, encoding='utf-8')
     print('built %s (%d bytes, %d references)' % (out_path.relative_to(ROOT), len(text.encode('utf-8')), len(order)))
 
+def build_js():
+    core = (SRC / 'learn-core.js').read_text(encoding='utf-8')
+    parts = sorted((SRC / 'figs').glob('*.js'))
+    figs = '\n'.join(p.read_text(encoding='utf-8') for p in parts)
+    out = core.replace('  /* {{figures}} */', figs)
+    (ROOT / 'assets' / 'js' / 'learn.js').write_text(out, encoding='utf-8')
+    print('built assets/js/learn.js from core + %d figure files' % len(parts))
+
 if __name__ == '__main__':
+    build_js()
     for s, o in PAGES.items():
         build(s, o)

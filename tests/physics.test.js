@@ -103,3 +103,15 @@ test('ladder: every rung inside or outside the carbonate window is classified as
   assert.ok(r.lco <= w.high);    // LiCoO2 inside
   assert.ok(r.lnmo > w.high);    // LiNi0.5Mn1.5O4 needs a passivation layer
 });
+
+test('calculator materials reproduce their printed values where a source prints one', () => {
+  for (const m of P.data.materials) {
+    if (m.printed) close(P.specificCapacity(m.n, m.M), m.printed, 1);
+  }
+});
+
+test('lithium titanate: Faraday gives about 175 mAh/g for 3 Li, consistent with "under 150" practical (Goodenough and Park)', () => {
+  const m = P.data.materials.find(x => x.key === 'lto');
+  const q = P.specificCapacity(m.n, m.M);
+  assert.ok(q > 150 && q < 180, String(q));
+});
