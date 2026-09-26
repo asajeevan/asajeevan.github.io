@@ -154,7 +154,9 @@ svg{max-width:100%;height:auto;display:block}
 .hero-fig{background:linear-gradient(160deg,rgba(24,56,64,.9),rgba(18,42,48,.9));border:1px solid var(--line);border-radius:var(--r);padding:18px 14px 8px;box-shadow:var(--shadow);position:relative}
 .hero-fig::before{content:"";position:absolute;inset:0;border-radius:var(--r);background:radial-gradient(400px 200px at 50% 0%,rgba(131,219,208,.12),transparent 70%);pointer-events:none}
 .hero-fig .trace{margin-top:6px}
-.ion-dot{fill:var(--amber)}
+.ion-dot,.ion-static circle,.ion-key{fill:#FFD166;stroke:rgba(255,255,255,.85);stroke-width:.9}
+.ion-static circle{fill-opacity:.95}
+html.motion .ion-static{display:none}
 
 .figures{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px}
 .figures li{background:rgba(18,42,48,.6);border:1px solid var(--line);border-radius:var(--r);padding:20px 20px 18px;transition:transform .25s,border-color .25s}
@@ -419,6 +421,7 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
   .trace .tr,.draw,#map .arc,#chain .chain-line-fill{stroke-dashoffset:0 !important}
   .vft-pts circle{opacity:1 !important}
   .ion-dot,.scene .ion{display:none}
+  .ion-static{display:inline !important}
 }
 
 </style>
@@ -483,7 +486,7 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
       </div>
     </div>
 
-    <figure class="hero-fig" aria-label="Schematic cross-section of a solid polymer electrolyte lithium-metal cell">
+    <figure class="hero-fig" aria-label="Schematic cross-section of a solid polymer electrolyte lithium-metal cell: lithium-metal negative electrode on copper, polymer electrolyte with lithium ions moving towards the composite positive electrode on aluminium during discharge">
       <svg id="cellSvg" viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="carbonDots" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -495,6 +498,8 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
             <stop offset="1" stop-color="var(--cyan, #83DBD0)" stop-opacity=".08"/>
           </linearGradient>
           <clipPath id="memClip"><rect x="196" y="60" width="126" height="200"/></clipPath>
+          <filter id="ionGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <marker id="arrLi" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#FFD166"/></marker>
         </defs>
 
         <!-- current collectors -->
@@ -509,7 +514,7 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
         </g>
         <!-- composite positive electrode -->
         <g class="layer" data-layer="pos"><rect x="324" y="60" width="118" height="200" fill="var(--green, #2F6A5C)" opacity=".35"/><rect x="324" y="60" width="118" height="200" fill="url(#carbonDots)"/><rect x="324" y="60" width="118" height="200" fill="none" stroke="var(--green, #2F6A5C)"/>
-          <g fill="var(--amber, #F0B441)" opacity=".85">
+          <g class="active-material" fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55" stroke-width="1">
             <circle cx="345" cy="90" r="6"/><circle cx="392" cy="105" r="7"/><circle cx="420" cy="80" r="5"/>
             <circle cx="360" cy="140" r="7"/><circle cx="410" cy="150" r="6"/><circle cx="340" cy="185" r="5"/>
             <circle cx="385" cy="200" r="7"/><circle cx="425" cy="225" r="6"/><circle cx="352" cy="235" r="6"/>
@@ -517,8 +522,18 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
         </g>
         <g class="layer" data-layer="cc-pos"><rect x="444" y="60" width="18" height="200" fill="var(--muted, #A3B6B1)" opacity=".55"/></g>
 
-        <!-- ions (animated by main.js) -->
-        <g id="ions" clip-path="url(#memClip)"></g>
+        <!-- Li+ ions: animated group filled by the script; static set shown when motion is off -->
+        <g id="ions" clip-path="url(#memClip)" filter="url(#ionGlow)"></g>
+        <g class="ion-static" clip-path="url(#memClip)" filter="url(#ionGlow)" aria-hidden="true">
+          <circle cx="212" cy="96" r="3.2"/><circle cx="236" cy="150" r="2.8"/><circle cx="222" cy="214" r="3.4"/>
+          <circle cx="258" cy="84" r="3"/><circle cx="262" cy="176" r="3.6"/><circle cx="248" cy="238" r="2.9"/>
+          <circle cx="286" cy="118" r="3.3"/><circle cx="300" cy="196" r="3"/><circle cx="308" cy="74" r="2.8"/><circle cx="292" cy="246" r="3.2"/>
+        </g>
+        <!-- Li+ transport direction on discharge: from lithium metal to the composite electrode -->
+        <g class="li-flow" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#FFD166">
+          <text x="198" y="55" text-anchor="end">Li⁺ on discharge</text>
+          <line x1="204" y1="52" x2="314" y2="52" stroke="#FFD166" stroke-opacity=".8" stroke-width="1.2" marker-end="url(#arrLi)"/>
+        </g>
 
         <!-- labels -->
         <g class="cell-labels" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted, #A3B6B1)">
@@ -529,7 +544,10 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
           <text x="453" y="300" text-anchor="middle">Al</text>
         </g>
         <text x="60" y="40" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted, #A3B6B1)">Schematic, not experimental data</text>
-        <text x="462" y="40" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--cyan, #83DBD0)" text-anchor="end">Li⁺</text>
+        <g class="cell-key" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--muted, #A3B6B1)">
+          <circle class="ion-key" cx="307" cy="36.5" r="3.2" filter="url(#ionGlow)"/><text x="315" y="40">Li⁺ ion</text>
+          <circle cx="374" cy="36.5" r="5" fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55"/><text x="384" y="40">Active material</text>
+        </g>
       </svg>
 
       <svg class="trace" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Schematic charge and discharge profile of a lithiated organic positive electrode: potential against capacity, charge branch above, discharge branch below, a lithium-ion marker travelling round the loop">
@@ -1369,7 +1387,7 @@ html.motion .trace .hyst,html.motion .trace .arrows,html.motion .trace .soc{opac
   var ionsGroup = document.getElementById('ions'), NS = 'http://www.w3.org/2000/svg', ionTweens = [];
   for (var k = 0; k < 14; k++) {
     var c = document.createElementNS(NS, 'circle');
-    c.setAttribute('class', 'ion-dot'); c.setAttribute('r', String(2 + Math.random() * 1.6));
+    c.setAttribute('class', 'ion-dot'); c.setAttribute('r', String(2.6 + Math.random() * 1.6));
     c.setAttribute('cx', String(196 + Math.random() * 126)); c.setAttribute('cy', String(70 + Math.random() * 180));
     ionsGroup.appendChild(c);
     (function (c) {
