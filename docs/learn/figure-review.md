@@ -7,6 +7,8 @@ callouts, 2 visible cause for motion, 3 units and numbers, 4 potential profile w
 concept is voltage or an interface, 5 our ion, 6 legible at 360 px, 7 controls, 8 caption,
 9 reduced-motion frame), and the owner's initials and date.
 
+Figure 4.4 (theory against practice, the 25 % rule of thumb) was removed on 2026-09-27 at the owner's request: the rule is a 2004 statement that does not hold for every chemistry, so the page keeps only the qualitative causes and a worked example (see verification-record.md, Q4).
+
 Automated checks on 2026-09-27 (`tools/qa/acta.js`): no JS errors at 1300 or 360 px with
 motion on or off; every citation link resolves; every step button and player button on
 every Act A figure exercised; no SVG label overlaps or clips at 360 px.
@@ -34,4 +36,3 @@ every Act A figure exercised; no SVG label overlaps or clips at 360 px.
 | 4.1 | Faraday calculator | R1 eq. 7; B2 eq. 1.1.12; R2, R6 check values | Computed; reproduces 372 and 170 mAh/g (tests) | Basis labelled per bar; Wh/kg of one electrode's active material only | 1 3 6 7 8 9 | |
 | 4.2 | Energy as area | R6 eq. 5; R1 1.4 (polarization) | Illustrative model (stated); integral computed | Higher rate: lower and shorter curve, smaller area | 1 2 3 6 7 8 9 | |
 | 4.3 | Ragone map | R1 Fig. 3 and 1.1 | Schematic, unnumbered | Ordering as R1; engine stores energy in fuel (stated) | 1 6 8 9 | |
-| 4.4 | Theory against practice | R1 1.1 and Fig. 19 | Rule of thumb; blurred edge for "about" | Rechargeable about 25 %, primary over 50 %; three reasons unsized | 1 3 6 7 8 9 | |

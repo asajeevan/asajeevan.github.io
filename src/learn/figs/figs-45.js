@@ -73,7 +73,7 @@
         txt(g, inside ? 176 + w : 186 + w, y + 15, Math.round(r.q) + ' mAh/g', 'strong', inside ? 'end' : 'start', inside ? { fill: '#1a1405' } : null);
       });
       txt(g, 480, 194, 'theoretical specific capacity, 0 to 4000 mAh/g, each on its own mass basis', '', 'end');
-      read.innerHTML = 'Q = nF/(3.6 M) = ' + (+n.value) + ' × 96 485.3 / (3.6 × ' + (+M.value).toFixed(2) + ') = <b>' + Math.round(q) + ' mAh/g</b>' + (mat ? ' on the ' + mat.basis + ' basis' : '') + '. Against a counter electrode that puts the cell at ' + (+V.value).toFixed(1) + ' V, that is <b>' + Math.round(E) + ' Wh per kilogram of this electrode’s active material</b>, this electrode alone: the other electrode, the electrolyte and the packaging all add mass and none adds energy (figure 4.4).';
+      read.innerHTML = 'Q = nF/(3.6 M) = ' + (+n.value) + ' × 96 485.3 / (3.6 × ' + (+M.value).toFixed(2) + ') = <b>' + Math.round(q) + ' mAh/g</b>' + (mat ? ' on the ' + mat.basis + ' basis' : '') + '. Against a counter electrode that puts the cell at ' + (+V.value).toFixed(1) + ' V, that is <b>' + Math.round(E) + ' Wh per kilogram of this electrode’s active material</b>, this electrode alone: the other electrode, the electrolyte and the packaging all add mass and none adds energy (see the note under figure 4.3).';
       note.innerHTML = mat ? (mat.printed ? '<span class="flag ok">reproduces the printed value, ' + mat.printed + ' mAh/g</span> ' : '<span class="flag">computed from Faraday’s law; the sources print no theoretical value for this one</span> ') + '<span class="flag">' + mat.practical + '</span>' : '<span class="flag">custom entry: computed, no printed check</span>';
     }
     on(sel, 'change', render);
@@ -83,7 +83,7 @@
     steps(fig, [
       { text: 'The amber bar is the material you chose: its <b>theoretical capacity</b> from Faraday’s law, Q = nF/(3.6 M), in milliampere-hours per gram.' },
       { text: 'The cyan bars are three references. Read the small print: each is <b>per gram of a different thing</b> (the carbon host, the lithiated phosphate, the bare metal), so compare with care.' },
-      { text: 'Multiply by the cell voltage and you get watt-hours per kilogram <b>of this electrode’s active material only</b>. Energy belongs to a pair of electrodes; a whole cell delivers far less per kilogram (figure 4.4).' }
+      { text: 'Multiply by the cell voltage and you get watt-hours per kilogram <b>of this electrode’s active material only</b>. Energy belongs to a pair of electrodes; a whole cell delivers far less per kilogram (the note under figure 4.3 says why).' }
     ]);
     cellListeners.push(fromCell); fromCell();
   });
@@ -130,31 +130,6 @@
       { text: '<b>Supercapacitors</b> deliver energy fast but hold little; <b>fuel cells</b> hold much but deliver it slowly. Both axes are logarithmic and carry no numbers because the source figure is itself simplified.' },
       { text: '<b>Batteries</b> sit between the two and overlap both; a thin-film battery can reach the power of a supercapacitor.' },
       { text: 'The <b>combustion engine</b> is not an electrochemical device: it beats all three on both axes because its energy is stored in a fuel tank, not in an electrode. No single electrochemical system matches it, which is why the sources suggest combining them.' }
-    ]);
-  });
-
-  /* ===== 4.4 Theory against practice, predict then reveal ===== */
-  register('f4-4', function (fig) {
-    var svg = fig.querySelector('svg'), btns = fig.querySelectorAll('button[data-guess]'), reset = fig.querySelector('button.reset'), read = fig.querySelector('.readout');
-    var prac = svg.querySelector('.prac'), pract = svg.querySelector('.prac-t'), prim = svg.querySelector('.prim'), primt = svg.querySelector('.prim-t'), reasons = svg.querySelector('.reasons'), soft = svg.querySelector('.soft');
-    badge(svg, 500, 57, 1); badge(svg, 500, 127, 2); badge(svg, 20, 185, 3);
-    function reveal(gss) {
-      Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(+x.getAttribute('data-guess') === gss)); x.disabled = true; });
-      prac.setAttribute('width', String(440 * 0.25)); soft.setAttribute('x', String(40 + 440 * 0.25)); soft.style.display = ''; pract.style.display = ''; prim.setAttribute('width', String(440 * 0.5)); primt.style.display = ''; reasons.style.display = '';
-      reset.style.display = '';
-      read.innerHTML = (gss === 25 ? 'Yes: ' : gss === null ? '' : 'You guessed about ' + gss + ' %. ') + 'Winter and Brodd’s 2004 rule of thumb is <b>about 25 %</b> for a rechargeable battery and <b>over 50 %</b> for a primary one, reckoned on the mass of everything that reacts; the blurred edge says “about”. Among the causes they list inert parts, internal resistance and incomplete use of the active masses.';
-    }
-    function clearAll() {
-      Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', 'false'); x.disabled = false; });
-      prac.setAttribute('width', '0'); soft.style.display = 'none'; pract.style.display = 'none'; prim.setAttribute('width', '0'); primt.style.display = 'none'; reasons.style.display = 'none'; reset.style.display = 'none';
-      read.innerHTML = 'Guess first, then tap a button.';
-    }
-    Array.prototype.forEach.call(btns, function (b) { on(b, 'click', function () { reveal(+b.getAttribute('data-guess')); }); });
-    on(reset, 'click', clearAll); clearAll();
-    steps(fig, [
-      { text: 'The full bar is the energy the chemistry could deliver if nothing were lost, per kilogram of <b>all</b> the reacting materials: both electrodes, and the electrolyte where it reacts. Not figure 4.1’s single-electrode number; the worked example below does the sum for graphite and LiCoO₂.' },
-      { text: 'Guess what fraction a real rechargeable battery delivers, then tap. The revealed bar is a rule of thumb, drawn with a blurred edge for that reason.' },
-      { text: 'Three of the causes, none sized separately by the source: inert parts (collectors, containers, conductive diluents), internal resistance, and active material that is never fully used.', on: function () { if (reasons.style.display === 'none') reveal(null); } }
     ]);
   });
 

@@ -9,7 +9,7 @@ end of the Act A rework, for whoever continues
 
 The site lives in this repository (asajeevan/asajeevan.github.io, served by GitHub
 Pages from `main`). A learning page exists at `/batteries/` with a hero, Act A
-(Module 0 plus modules 1 to 4, 21 figures) and the first module of Act B (module 5),
+(Module 0 plus modules 1 to 4, 20 figures) and the first module of Act B (module 5),
 a cited reference list, and a "coming next" note for modules 6 to 12. The first
 build (commits `acb0412` and `757ea7f` on `main`) was reviewed by the owner, who
 judged every figure and the text inadequate for a first-year student; the findings

@@ -370,3 +370,10 @@ text says "among the causes" (R1 says "including") and dates the rule to 2004. P
 check added as a worked example: graphite|LiCoO2 with all the lithium, 158 mAh/g on 169.9 g
 per mole of electrons, about 600 Wh/kg at 3.8 V; the 1991 Sony cell's 120 to 150 Wh/kg (R2)
 is 20 to 25 % of it. Test added.
+
+Update, same day: the owner asked whether the rule holds for modern batteries. It does not
+as a single number (modern lithium-ion cells deliver a larger share; no source in hand
+gives a figure), so figure 4.4 and every quotation of "25 %" and "over 50 %" were REMOVED
+from the page. What remains is what R1 states without a number: practical values are
+significantly lower than theoretical, for the three listed reasons, plus the 1991-cell
+worked example ("a fifth to a quarter" of about 600 Wh/kg, from R2's 120 to 150 Wh/kg).

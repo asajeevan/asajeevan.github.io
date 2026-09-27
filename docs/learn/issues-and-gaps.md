@@ -3,7 +3,7 @@
 > **Status 2026-09-27.** Act A was reworked against this list on branch
 > `claude/ecstatic-bohr-ym5qe9`: the four errors of section 2 are fixed, Module 0 exists
 > with five figures, modules 1 to 4 are rewritten for a first-year reader with a
-> "where we are" opener, a worked example and a recap each, and all 21 Act A figures are
+> "where we are" opener, a worked example and a recap each, and all 20 Act A figures (figure 4.4, the 25 % rule of thumb, was removed as not generally true) are
 > rebuilt to the standard of section 5 (numbered callouts with a step bar, play/pause/step
 > on every animation, units on every quantity, a potential strip wherever the concept is
 > voltage or an interface, our ion followed by name, 12 px labels checked for overlaps at
