@@ -12,7 +12,7 @@
     // beaker with two half-cells
     el('rect', { x: bx0, y: by0, width: bx1 - bx0, height: by1 - by0, rx: 8, fill: 'var(--cyan)', 'fill-opacity': '.1', stroke: 'var(--cyan)', 'stroke-opacity': '.5' }, g);
     el('line', { x1: sep, y1: by0 + 6, x2: sep, y2: by1 - 6, stroke: 'var(--cyan)', 'stroke-dasharray': '3 5' }, g);
-    txt(g, 150, by0 + 16, 'ZnSO₄ solution', 'cyan', 'middle'); txt(g, 372, by0 + 16, 'CuSO₄ solution', 'cyan', 'middle');
+    txt(g, 193, by0 + 16, 'ZnSO₄ solution', 'cyan', 'middle'); txt(g, 327, by0 + 16, 'CuSO₄ solution', 'cyan', 'middle');
     txt(g, sep, by1 + 16, 'porous separator: ions pass, the liquids do not mix', '', 'middle');
     // electrodes (the zinc thins, the copper thickens, as the cell runs)
     var zn = el('rect', { x: 100, y: 70, width: 26, height: 200, rx: 2, fill: 'var(--metal)' }, g);
@@ -40,7 +40,7 @@
     var sulf = []; for (var i = 0; i < 7; i++) sulf.push({ x: 150 + Math.random() * 260, y: 130 + Math.random() * 140, c: el('circle', { r: 3.4, 'class': 'ion an' }, ions) });
     var cu2 = []; for (i = 0; i < 6; i++) cu2.push({ x: 300 + Math.random() * 80, y: 130 + Math.random() * 140, c: el('circle', { r: 3.4, 'class': 'ion' }, ions) });
     var zn2 = [];
-    var lab = { s: txt(g, 316, 176, 'SO₄²⁻', '', 'middle'), c: txt(g, 340, 150, 'Cu²⁺', 'amber', 'middle'), z: txt(g, 168, 150, 'Zn²⁺', 'amber', 'middle') };
+    var lab = { s: txt(g, 193, 190, 'SO₄²⁻', '', 'middle'), c: txt(g, 327, 150, 'Cu²⁺', 'amber', 'middle'), z: txt(g, 193, 150, 'Zn²⁺', 'amber', 'middle') };
     var our = ourIon(g, 140, 200, 5, 'our ion'); our.g.style.display = 'none';
     var fieldS = arrow(g, 190, 280, 240, 280, '#C4B5F7', 1.3, 'field-arrow'); var fieldSl = txt(g, 215, 296 - 20, '', 'field', 'middle');
     // events at the electrodes
@@ -131,7 +131,7 @@
     el('line', { x1: xb, y1: yT, x2: xb, y2: yB, stroke: 'var(--amber)', 'stroke-width': 2 }, g);
     var ev = el('g', { 'class': 'event' }, g);
     txt(g, xb, 24, 'boundary: a reaction hands the charge over', 'amber', 'middle');
-    badge(g, 52, yB - 4, 1); badge(g, 468, yB - 4, 2); badge(g, xb, yB + 22, 3); badge(g, 30, yB + 22, 4);
+    badge(g, 26, yB - 10, 1); badge(g, 494, yB - 10, 2); badge(g, xb, yB + 22, 3); badge(g, 30, yB + 22, 4);
     var t = 0, evT = 0;
     function place() {
       es.forEach(function (p) { p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', p.y); });

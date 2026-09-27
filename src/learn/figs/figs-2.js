@@ -43,8 +43,8 @@
     var strip = phiStrip(g, { x: 70, y: 286, w: 380, h: 40 }, [{ x: 0, phi: 0 }, { x: 0.18, phi: 0 }, { x: 0.181, phi: 0.6 }, { x: 0.8, phi: 0.6 }, { x: 0.801, phi: 1 }, { x: 1, phi: 1 }], { vmin: -0.1, vmax: 1.15, label: 'φ', units: '', xlabel: '' });
     txt(g, 100, 340, 'cap and graphite (−)', 'phi', 'middle'); txt(g, 260, 340, 'electrolyte in the separator', 'phi', 'middle'); txt(g, 420, 340, 'LiCoO₂ and can (+)', 'phi', 'middle');
     txt(g, 470, 300, 'V', 'phi strong', 'middle');
-    badge(g, 108, 150, 1); badge(g, 108, 196, 2); badge(g, 150, 118, 3); badge(g, 400, 96, 4); badge(g, 40, 286, 5);
-    function explode(k) { layers.forEach(function (L) { L.g.setAttribute('transform', 'translate(0,' + ((3 - L.i) * 30 * k) + ')'); }); Array.prototype.forEach.call(svg.querySelectorAll('.callout'), function (c) { var st = +c.getAttribute('data-step'); if (st === 4) c.setAttribute('transform', 'translate(400,' + (96 - 40 * k) + ')'); }); }
+    badge(g, 108, 187, 1); badge(g, 108, 216, 2); badge(g, 108, 140, 3); badge(g, 415, 84, 4); badge(g, 40, 286, 5);
+    function explode(k) { layers.forEach(function (L) { L.g.setAttribute('transform', 'translate(0,' + ((3 - L.i) * 30 * k) + ')'); }); Array.prototype.forEach.call(svg.querySelectorAll('.callout'), function (c) { var st = +c.getAttribute('data-step'); if (st === 4) c.setAttribute('transform', 'translate(415,' + (138 - 90 * k) + ')'); }); }
     function pick(L) { layers.forEach(function (x) { x.g.classList.toggle('picked', x === L); }); info.innerHTML = '<b>' + L.name + '.</b> ' + L.desc; }
     layers.forEach(function (L) { on(L.g, 'click', function () { pick(L); }); on(L.g, 'mouseenter', function () { pick(L); }); on(L.g, 'focus', function () { pick(L); }); on(L.g, 'keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(L); } }); });
     on(range, 'input', function () { explode(+range.value / 100); });
@@ -107,7 +107,7 @@
     var x0 = 60, x1 = 460, yTop = 40, yCol = 232;
     el('rect', { x: x0, y: yTop, width: x1 - x0, height: yCol - yTop, fill: 'var(--cyan)', 'fill-opacity': '.16' }, g); // pores: electrolyte
     el('rect', { x: x0, y: yCol, width: x1 - x0, height: 12, fill: '#cfd6d8' }, g); txt(g, 260, yCol + 26, 'current collector (aluminium foil)', '', 'middle');
-    txt(g, 260, yTop - 14, 'separator side: Li⁺ arrive from here', 'cyan', 'middle');
+    txt(g, 260, yTop - 24, 'separator side: Li⁺ arrive from here', 'cyan', 'middle');
     // particles: irregular polygons
     var parts = [[110, 90], [190, 70], [280, 84], [370, 72], [430, 120], [120, 170], [210, 150], [300, 160], [390, 168], [160, 214], [250, 212], [340, 218], [420, 212]];
     var pg = el('g', { fill: 'var(--amber-2)', stroke: 'var(--amber)', 'stroke-opacity': '.55' }, g);
@@ -120,7 +120,7 @@
     var cpath = el('path', { d: carbon, fill: 'none', stroke: 'var(--cyan)', 'stroke-opacity': '.85', 'stroke-width': 1.4, 'stroke-dasharray': '1.5 3.5', 'stroke-linecap': 'round' }, g);
     // roads to one particle (the one at 300,160): electrons up the carbon from the collector, Li+ down through the pores
     var ePath = el('path', { d: 'M340,232 C320,224 296,206 300,186 L300,170', fill: 'none', stroke: 'none' }, g);
-    var ionPath = el('path', { d: 'M330,30 C336,60 350,100 330,120 C318,132 310,140 304,150', fill: 'none', stroke: 'var(--cyan)', 'stroke-opacity': '.4', 'stroke-width': 7, 'stroke-linecap': 'round' }, g);
+    var ionPath = el('path', { d: 'M330,44 C336,66 350,100 330,120 C318,132 310,140 304,150', fill: 'none', stroke: 'var(--cyan)', 'stroke-opacity': '.4', 'stroke-width': 7, 'stroke-linecap': 'round' }, g);
     var ef = flow(svg, ePath, { n: 4, cls: 'e-dot', r: 2.6, speed: 40, parent: g });
     var ionf = flow(svg, ionPath, { n: 1, cls: 'ion our-ion', r: 4, speed: 34, parent: g });
     var ourT = txt(g, 0, 0, 'our ion', 'amber', 'start');

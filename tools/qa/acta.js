@@ -56,6 +56,14 @@ const url = 'file:///home/user/asajeevan.github.io/batteries/index.html';
           for (const a of texts) {
             if (a.r.left < sb.left - 1 || a.r.right > sb.right + 1 || a.r.top < sb.top - 1 || a.r.bottom > sb.bottom + 1) probs.push(id + ' CLIP "' + a.t + '"');
           }
+          // text crossing a stroked line, arrow or rectangle edge (report; intentional cases are allowed by data-ok)
+          const shapes = [...svg.querySelectorAll('line, path, rect, circle')].filter(e => vis(e) && !e.closest('.callout') && e.getAttribute('fill') !== 'transparent' && (e.getAttribute('stroke') || '').indexOf('none') < 0 && (e.tagName !== 'rect' || (e.getAttribute('stroke') && e.getAttribute('stroke') !== 'none' && !e.getAttribute('fill-opacity') && (e.getAttribute('fill') || 'none') === 'none')) && (e.tagName !== 'path' || (e.getAttribute('stroke') && e.getAttribute('fill') === 'none' && !/-dasharray/.test(e.outerHTML) || e.getAttribute('marker-end'))) && (e.tagName !== 'circle' || (+e.getAttribute('r') > 6)))
+            .map(e => ({ tag: e.tagName, r: e.getBoundingClientRect(), cls: e.getAttribute('class') || '' }));
+          for (const a of texts) { if (/\bok\b/.test(a.cls)) continue; for (const sh of shapes) {
+            const ox = Math.min(a.r.right, sh.r.right) - Math.max(a.r.left, sh.r.left), oy = Math.min(a.r.bottom, sh.r.bottom) - Math.max(a.r.top, sh.r.top);
+            const thin = sh.r.width < 3 || sh.r.height < 3; // a line: any overlap with the segment counts
+            if (thin ? (ox > 0.5 && oy > 0.5) : false) probs.push(id + ' TEXT-ON-LINE "' + a.t + '" (' + sh.tag + (sh.cls ? '.' + sh.cls.split(' ')[0] : '') + ')');
+          } }
           for (let i = 0; i < texts.length; i++) for (let j = i + 1; j < texts.length; j++) {
             const a = texts[i].r, b = texts[j].r;
             const ox = Math.min(a.right, b.right) - Math.max(a.left, b.left), oy = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);

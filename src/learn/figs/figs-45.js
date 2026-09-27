@@ -140,7 +140,7 @@
     badge(svg, 500, 57, 1); badge(svg, 500, 127, 2); badge(svg, 20, 185, 3);
     function reveal(gss) {
       Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(+x.getAttribute('data-guess') === gss)); x.disabled = true; });
-      prac.setAttribute('width', String(440 * 0.25)); soft.setAttribute('x', String(40 + 440 * 0.21)); soft.style.display = ''; pract.style.display = ''; prim.setAttribute('width', String(440 * 0.5)); primt.style.display = ''; reasons.style.display = '';
+      prac.setAttribute('width', String(440 * 0.25)); soft.setAttribute('x', String(40 + 440 * 0.25)); soft.style.display = ''; pract.style.display = ''; prim.setAttribute('width', String(440 * 0.5)); primt.style.display = ''; reasons.style.display = '';
       reset.style.display = '';
       read.innerHTML = (gss === 25 ? 'Yes: ' : gss === null ? '' : 'You guessed about ' + gss + ' %. ') + 'Winter and Brodd’s rule of thumb is <b>about 25 %</b> for a rechargeable battery and <b>over 50 %</b> for a primary one; the blurred edge says “about”. The rest goes to inert parts, internal resistance and incomplete use of the active masses.';
     }

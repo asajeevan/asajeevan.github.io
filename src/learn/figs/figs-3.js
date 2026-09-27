@@ -40,7 +40,7 @@
       mode = E < vac ? 'red' : E > occ ? 'ox' : 'none';
       gapL.setAttribute('y1', Y(0)); gapL.setAttribute('y2', y); gapT.setAttribute('y', (Y(0) + y) / 2 + 4); gapT.textContent = E === 0 ? '' : (E < 0 ? '+' : '−') + Math.abs(E).toFixed(2) + ' eV';
       hopLab.textContent = mode === 'red' ? 'reduction: e⁻ metal → A' : mode === 'ox' ? 'oxidation: e⁻ A → metal' : 'no transfer';
-      hopLab.setAttribute('y', mode === 'red' ? Y(vac) - 24 : mode === 'ox' ? Y(occ) + 34 : y - 20);
+      hopLab.setAttribute('y', mode === 'red' ? Y(vac) - 24 : mode === 'ox' ? Y(occ) + 34 : y + 30);
       read.innerHTML = 'Electrode at <b>' + (E > 0 ? '+' : '') + E.toFixed(2) + ' V</b> relative to the couple’s standard potential: every transferable electron on the metal sits <b>' + Math.abs(E).toFixed(2) + ' eV ' + (E < 0 ? 'higher' : E > 0 ? 'lower' : 'from where it was') + '</b>. ' +
         (mode === 'red' ? 'That is above the vacant orbital of A, so electrons flow from the metal into A: a <b>reduction</b> current.' : mode === 'ox' ? 'That is below the occupied orbital of A, so electrons on A find a lower energy on the metal and flow there: an <b>oxidation</b> current.' : 'Between the two orbitals nothing can transfer: no current flows in this window.');
     }
@@ -76,7 +76,7 @@
     // strip: potential across the interface (B2 Figure 1.6.3b)
     var strip = phiStrip(g, { x: xm, y: 228, w: xs - xm, h: 64 }, [], { vmin: -1.1, vmax: 1.1, label: 'φ', units: '', xlabel: 'position across the interface: metal → compact layer → diffuse layer → bulk' });
     var fLab = txt(g, 472, 250, '', 'field', 'end');
-    badge(g, xb - 22, yT + 16, 1); badge(g, xb + 54, yT + 16, 2); badge(g, 100, 244, 3); badge(g, 500, 246, 4);
+    badge(g, xb - 36, yT + 16, 1); badge(g, 330, yT + 16, 2); badge(g, 100, 244, 3); badge(g, 500, 246, 4);
     function render() {
       var q = +qSl.value; qv.textContent = q > 0 ? 'positive' : q < 0 ? 'negative' : 'zero';
       clear(surf); clear(compact); clear(diffuse); clear(solv);
@@ -86,7 +86,7 @@
       // diffuse layer on a fixed grid: denser near the surface, a few co-ions, no two on top of each other
       var grid = [[0, 0, -1], [0, 2, -1], [0, 4, -1], [1, 1, -1], [1, 3, -1], [1, 5, 1], [2, 0, -1], [2, 4, -1], [3, 2, -1], [3, 5, -1], [4, 1, 1], [4, 3, -1], [5, 0, -1], [5, 4, 1]];
       grid.forEach(function (c, i) { if (i < 4 + n * 5) charge(diffuse, xb + 44 + c[0] * 22, yT + 16 + c[1] * 26, 4, c[2] * -s * -1 === -s ? -s : s); });
-      var phiM = 0.9 * q, phiS = 0;
+      var phiM = 0.45 * q, phiS = 0;
       var pts = [{ x: 0, phi: phiM }, { x: (xb - xm) / (xs - xm), phi: phiM }]; var x2 = (xb + 22 - xm) / (xs - xm); pts.push({ x: x2, phi: phiM * 0.28 });
       for (var k = 1; k <= 12; k++) { var f = k / 12; pts.push({ x: x2 + f * ((xb + 130 - xm) / (xs - xm) - x2), phi: phiM * 0.28 * Math.exp(-4 * f) }); } pts.push({ x: 1, phi: phiS });
       strip.update(pts);
@@ -111,7 +111,7 @@
     el('line', { x1: 44, y1: 26, x2: 44, y2: 326, stroke: 'var(--line-2)' }, g);
     for (var v = 0; v <= 5; v++) { el('line', { x1: 40, y1: y(v), x2: 44, y2: y(v), stroke: 'var(--line-2)' }, g); txt(g, 36, y(v) + 4, v + ' V', '', 'end'); }
     txt(g, 14, 180, 'potential vs Li/Li⁺ (energy per unit charge)', '', 'middle', { transform: 'rotate(-90 14 180)' });
-    arrow(g, 232, 296, 232, 324, '#C4B5F7', 1.2); txt(g, 240, 308, 'electron energy', 'field', 'start'); txt(g, 240, 322, 'higher ↓', 'field', 'start');
+    arrow(g, 228, 296, 228, 324, '#C4B5F7', 1.2); txt(g, 246, 308, 'electron energy', 'field', 'start'); txt(g, 246, 322, 'higher ↓', 'field', 'start');
     txt(g, 140, 20, 'negative electrodes', 'cyan', 'middle'); txt(g, 390, 20, 'positive electrodes', 'amber', 'middle');
     var w = P.data.carbonateWindow;
     var bands = el('g', {}, g);
@@ -135,7 +135,7 @@
     var brace = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2, 'stroke-dasharray': '4 3' }, g);
     el('rect', { x: 227, y: 0, width: 52, height: 18, rx: 4, fill: 'var(--bg-2)', 'class': 'brace-bg' }, g);
     var braceBg = g.lastChild, braceT = txt(g, 253, 0, '', 'strong', 'middle');
-    badge(g, 30, 14, 1); badge(g, 300, 14, 2); badge(g, 208, 262, 3); var b4 = badge(g, 317, 0, 4);
+    badge(g, 30, 14, 1); badge(g, 300, 14, 2); badge(g, 190, 248, 3); var b4 = badge(g, 317, 0, 4);
     function renderAq() {
       var pH = +pHSl.value, ww = P.waterWindowVsLi(pH); pHv.textContent = 'pH ' + pH;
       aqBand.setAttribute('y', y(ww.high)); aqBand.setAttribute('height', y(ww.low) - y(ww.high));
@@ -178,16 +178,16 @@
     el('line', { x1: 200, x2: 320, y1: Y(w.high), y2: Y(w.high), stroke: 'var(--cyan)', 'stroke-width': 2 }, g); txt(g, 260, Y(w.high) + 16, 'highest filled level (HOMO)', 'cyan', 'middle');
     txt(g, 260, (Y(w.low) + Y(w.high)) / 2 + 4, 'window: 3.2 eV', 'cyan', 'middle');
     var muA = el('line', { x1: 60, x2: 160, stroke: 'var(--metal)', 'stroke-width': 3 }, g), muAt = txt(g, 68, 0, '', '');
-    var muC = el('line', { x1: 360, x2: 460, stroke: 'var(--amber-2)', 'stroke-width': 3 }, g), muCt = txt(g, 360, 0, '', '');
-    var warnA = txt(g, 60, 0, 'above the LUMO: layer needed', 'amber'), warnC = txt(g, 360, 0, 'below the HOMO: oxidation', 'amber');
+    var muC = el('line', { x1: 360, x2: 476, stroke: 'var(--amber-2)', 'stroke-width': 3 }, g), muCt = txt(g, 360, 0, '', '');
+    var warnA = txt(g, 68, 0, 'above the LUMO: layer needed', 'amber'), warnC = txt(g, 360, 0, 'below the HOMO: oxidation', 'amber');
     var gap = el('line', { x1: 340, x2: 340, stroke: 'var(--amber)', 'stroke-dasharray': '4 3' }, g), gapT = txt(g, 346, 0, '', 'strong');
     // the external circuit: a wire above the diagram; the electron goes round, never through the electrolyte
-    var wire = el('path', { d: 'M60,0 L60,22 L460,22 L460,0', fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2 }, g);
-    txt(g, 260, 18, 'external circuit: the electron goes round', 'cyan', 'middle');
+    var wire = el('path', { d: 'M60,0 L60,26 L476,26 L476,0', fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2 }, g);
+    txt(g, 260, 14, 'external circuit: the electron goes round', 'cyan', 'middle');
     var eDot = el('circle', { r: 4, 'class': 'e-dot anim-only' }, g);
     var ion = ourIon(g, 170, 0, 5, 'our ion (Li⁺) goes through', true); ion.g.classList.add('anim-only');
     var x1 = txt(g, 260, 276, 'no electrons cross the electrolyte; only ions do', '', 'middle');
-    badge(g, 46, 56, 1); badge(g, 340, 56, 2); badge(g, 492, 16, 3); badge(g, 486, 150, 4);
+    var b1 = badge(g, 110, 112, 1); badge(g, 340, 56, 2); badge(g, 120, 14, 3); badge(g, 500, 150, 4);
     var n, p, t = 0;
     function render() {
       n = rung(cell.neg); p = rung(cell.pos);
@@ -195,7 +195,7 @@
       muAt.setAttribute('y', Y(n.V) - 6); muAt.textContent = 'μ_A: ' + n.name; muCt.setAttribute('y', Y(p.V) + 16); muCt.textContent = 'μ_C: ' + p.name;
       warnA.setAttribute('y', Y(n.V) + 16); warnA.style.display = n.V < w.low ? '' : 'none'; warnC.setAttribute('y', Y(p.V) + 30); warnC.style.display = p.V > w.high ? '' : 'none';
       gap.setAttribute('y1', Y(n.V)); gap.setAttribute('y2', Y(p.V)); gapT.setAttribute('y', (Y(n.V) + Y(p.V)) / 2 + 4); gapT.textContent = 'e·V_OC = ' + (p.V - n.V).toFixed(2) + ' eV';
-      wire.setAttribute('d', 'M60,' + Y(n.V) + ' L60,22 L460,22 L460,' + Y(p.V));
+      wire.setAttribute('d', 'M60,' + Y(n.V) + ' L60,26 L476,26 L476,' + Y(p.V)); b1.setAttribute('transform', 'translate(110,' + (Y(n.V) + 34) + ')');
       read.innerHTML = 'An electron on the negative electrode sits <b>' + (p.V - n.V).toFixed(2) + ' eV</b> above one on the positive electrode. Divided by the electron charge that is the open-circuit voltage, V_OC = (μ_A − μ_C)/e. The electron gives up that energy only by going round the external circuit; inside the cell our ion crosses the electrolyte to keep the charge balanced.' + (n.V < w.low ? ' The negative electrode lies above the electrolyte’s empty level, so the electrolyte would be reduced there unless a passivating layer forms.' : '') + (p.V > w.high ? ' The positive electrode lies below the filled level, so the electrolyte would be oxidized there unless a layer forms.' : '');
     }
     cellListeners.push(render); render();
@@ -208,8 +208,8 @@
     var loop = anim(fig, function (dt) {
       if (dt === 0) return; t = (t + dt / 3) % 1; var k = smooth(Math.min(1, t / 0.85));
       var ya = Y(n.V), yc = Y(p.V);
-      var L1 = ya - 22, L2 = 400, L3 = yc - 22, L = L1 + L2 + L3, s = k * L, x, y;
-      if (s < L1) { x = 60; y = ya - s; } else if (s < L1 + L2) { x = 60 + (s - L1); y = 22; } else { x = 460; y = 22 + (s - L1 - L2); }
+      var L1 = ya - 26, L2 = 416, L3 = yc - 26, L = L1 + L2 + L3, s = k * L, x, y;
+      if (s < L1) { x = 60; y = ya - s; } else if (s < L1 + L2) { x = 60 + (s - L1); y = 26; } else { x = 476; y = 26 + (s - L1 - L2); }
       eDot.setAttribute('cx', x); eDot.setAttribute('cy', y);
       ion.move(lerp(178, 342, k), (Y(w.low) + Y(w.high)) / 2 + 26);
     }, { autoplay: true, stepDt: 0.3 });
@@ -220,18 +220,18 @@
   register('f3-5', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg);
     var Y = function (eV) { return 44 + eV * 42; }; // eV below the lithium level, downward
-    el('line', { x1: 60, x2: 470, y1: Y(0), y2: Y(0), stroke: 'var(--metal)', 'stroke-width': 2.5 }, g); txt(g, 470, Y(0) - 6, 'μ_A(Li): the lithium level, 0 eV', '', 'end');
+    el('line', { x1: 60, x2: 470, y1: Y(0), y2: Y(0), stroke: 'var(--metal)', 'stroke-width': 2.5 }, g); txt(g, 62, Y(0) + 15, 'μ_A(Li): the lithium level, 0 eV', '');
     txt(g, 155, 26, 'layered sulfide LiMS₂', 'strong', 'middle'); txt(g, 365, 26, 'layered oxide LiMO₂', 'strong', 'middle');
     el('rect', { x: 100, y: Y(2.5), width: 110, height: Y(4.15) - Y(2.5), fill: '#c9a35c', 'fill-opacity': '.35', stroke: '#c9a35c', 'stroke-opacity': '.6' }, g); txt(g, 155, Y(3.6), 'S-3p band (filled)', '', 'middle'); txt(g, 155, Y(3.95), 'top 2.5 eV below', '', 'middle');
     el('rect', { x: 310, y: Y(4.0), width: 110, height: Y(5.1) - Y(4.0), fill: 'var(--heat)', 'fill-opacity': '.3', stroke: 'var(--heat)', 'stroke-opacity': '.6' }, g); txt(g, 365, Y(4.6), 'O-2p band (filled)', '', 'middle'); txt(g, 365, Y(4.95), 'top 4.0 eV below', '', 'middle');
     [[155, 2.5, 'about 2.5 V'], [365, 4.0, 'about 4 V']].forEach(function (c) {
-      el('line', { x1: c[0] - 55, x2: c[0] + 55, y1: Y(c[1]) - 3, y2: Y(c[1]) - 3, stroke: 'var(--amber)', 'stroke-width': 3 }, g);
-      txt(g, c[0], Y(c[1]) - 24, 'M(IV)/M(III) couple', 'amber', 'middle'); txt(g, c[0], Y(c[1]) - 10, 'pinned here: ' + c[2], 'amber', 'middle');
-      arrow(g, c[0] + 70, Y(c[1]) - 40, c[0] + 70, Y(c[1]) - 8, '#F0B441', 1.4); txt(g, c[0] + 76, Y(c[1]) - 36, 'cannot', 'amber', 'start'); txt(g, c[0] + 76, Y(c[1]) - 22, 'go lower', 'amber', 'start');
+      el('line', { x1: c[0] - 55, x2: c[0] + 55, y1: Y(c[1]) - 3, y2: Y(c[1]) - 3, stroke: 'var(--amber)', 'stroke-width': 3 }, g); (function () {})();
+      txt(g, c[0] - 6, Y(c[1]) - 24, 'M(IV)/M(III) couple', 'amber', 'middle'); txt(g, c[0] - 6, Y(c[1]) - 10, 'pinned: ' + c[2], 'amber', 'middle');
+      arrow(g, c[0] + 66, Y(c[1]) - 40, c[0] + 66, Y(c[1]) - 8, '#F0B441', 1.4); txt(g, c[0] + 72, Y(c[1]) - 36, 'cannot', 'amber', 'start'); txt(g, c[0] + 72, Y(c[1]) - 22, 'go lower', 'amber', 'start');
     });
     el('line', { x1: 60, x2: 470, y1: Y(4.3), y2: Y(4.3), stroke: 'var(--cyan)', 'stroke-dasharray': '5 3' }, g); txt(g, 62, Y(4.3) + 15, 'carbonate HOMO: 4.3 eV below', 'cyan');
     arrow(g, 30, Y(0.3), 30, Y(4.6), '#A3B6B1', 1.2); txt(g, 22, Y(2.4), 'electron energy, eV below Li', '', 'middle', { transform: 'rotate(-90 22 ' + Y(2.4) + ')' });
-    badge(g, 480, Y(0) + 18, 1); badge(g, 84, Y(2.5) + 18, 2); badge(g, 262, Y(1.0), 3); badge(g, 480, Y(4.3) + 18, 4);
+    badge(g, 300, Y(0) + 18, 1); badge(g, 84, Y(2.5) + 18, 2); badge(g, 262, Y(1.0), 3); badge(g, 480, Y(4.3) + 18, 4);
     steps(fig, [
       { text: 'The top line is the lithium level, the electron energy of a lithium metal electrode. Every positive-electrode energy is measured down from it, in electron-volts, which is the ladder’s volts.' },
       { text: 'Each host has a filled band of anion states, a continuum of electron levels made from the anions’ p orbitals. Its top lies about <b>2.5 eV</b> below lithium in a sulfide and about <b>4.0 eV</b> below in an oxide.' },
@@ -253,7 +253,7 @@
     function render() {
       var nn = +n.value, EE = +E.value, dG = P.reactionEnergy(nn, EE) / 1000;
       var wpx = Math.min(440, -dG * 0.88); bar.setAttribute('width', String(wpx));
-      vt.setAttribute('x', wpx > 300 ? 40 + wpx - 6 : 40 + wpx + 6); vt.setAttribute('text-anchor', wpx > 300 ? 'end' : 'start'); vt.setAttribute('fill', wpx > 300 ? '#1a1405' : ''); vt.textContent = Math.round(-dG) + ' kJ/mol';
+      vt.setAttribute('x', wpx > 300 ? 40 + wpx - 6 : 40 + wpx + 6); vt.setAttribute('text-anchor', wpx > 300 ? 'end' : 'start'); vt.style.fill = wpx > 300 ? '#1a1405' : ''; vt.textContent = Math.round(-dG) + ' kJ/mol';
       var dx = 40 + 212.8 * 0.88; dan.setAttribute('x1', dx); dan.setAttribute('x2', dx); danT.setAttribute('x', dx);
       nl.textContent = nn; El.textContent = EE.toFixed(2) + ' V';
       read.innerHTML = 'ΔG = −nFE = −' + nn + ' × 96 485 C/mol × ' + EE.toFixed(2) + ' V = <b>−' + fmt(-dG, 0) + ' kJ/mol</b>. Per electron that is ' + EE.toFixed(2) + ' eV: the cell voltage is the reaction’s free energy per unit of charge, and nF, the charge per mole, is its capacity factor.';

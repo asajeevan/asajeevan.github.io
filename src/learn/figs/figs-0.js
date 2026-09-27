@@ -39,7 +39,7 @@
       fa.style.display = fb.style.display = L < 18 && Math.abs(F) < F2 ? '' : '';
       fLab.setAttribute('x', (xa + xb) / 2); fLab.textContent = (rep ? 'repel' : 'attract') + ': F = ' + fmt(Math.abs(F) * 1e12, Math.abs(F) * 1e12 < 10 ? 2 : 0) + ' pN on each';
       fLab2.setAttribute('x', (xa + xb) / 2); fLab2.textContent = 'same size on both, opposite directions';
-      b2.setAttribute('transform', 'translate(' + ((xa + xb) / 2) + ',' + (y + 18 + 24) + ')');
+      b2.setAttribute('transform', 'translate(' + (xa + 12) + ',' + (y + 44) + ')');
       b3.setAttribute('transform', 'translate(' + (xb + 34) + ',' + (y - 30) + ')');
       // the field of a at b's place: force per unit charge, direction away from a if a is +
       var E = P.fieldOfCharge(q1 * P.e, r * 1e-9);
@@ -68,7 +68,7 @@
     // field arrows on rings (computed lengths, 1/r^2)
     var arrows = el('g', {}, g);
     [1.2, 2.2, 3.4].forEach(function (rn) {
-      for (var k = 0; k < 8; k++) {
+      for (var k = 1; k < 8; k++) {
         var a = k * Math.PI / 4, E = P.fieldOfCharge(P.e, rn * 1e-9), L = 46 * Math.sqrt(E / P.fieldOfCharge(P.e, 1e-9));
         var x1 = cx + rn * sc * Math.cos(a), y1 = cy + rn * sc * Math.sin(a);
         arrow(arrows, x1, y1, x1 + L * Math.cos(a), y1 + L * Math.sin(a), '#C4B5F7', 1.4, 'field-arrow');
@@ -89,7 +89,6 @@
     var mark = el('circle', { r: 5, fill: 'var(--amber)' }, g), drop = el('line', { stroke: 'var(--amber)', 'stroke-dasharray': '3 3' }, g);
     var slope = el('line', { stroke: 'var(--field)', 'stroke-width': 1.6 }, g);
     var probe = null, pf = el('line', { 'class': 'force-arrow' }, g); pf.setAttribute('marker-end', marker(svg, '#F0B441'));
-    var plab = txt(g, 0, 0, '', 'amber', 'middle');
     badge(g, cx + 56, cy - 56, 1); badge(g, cx + 96, cy + 70, 2); var b3 = badge(g, 0, 0, 3); var b4 = badge(g, 0, 0, 4);
     function render() {
       var r = +rSl.value; rv.textContent = r.toFixed(1) + ' nm';
@@ -98,7 +97,6 @@
       var E = P.fieldOfCharge(P.e, r * 1e-9), phi = P.potentialOfCharge(P.e, r * 1e-9), F = qp * P.e * E;
       var L = 30 * Math.sqrt(E / P.fieldOfCharge(P.e, 1e-9)) + 6;
       pf.setAttribute('x1', px + (qp > 0 ? 10 : -10)); pf.setAttribute('x2', px + (qp > 0 ? 10 + L : -10 - L)); pf.setAttribute('y1', py); pf.setAttribute('y2', py);
-      plab.setAttribute('x', px); plab.setAttribute('y', py - 16); plab.textContent = 'probe ' + (qp > 0 ? '+e' : '−e');
       var mx = px0 + r / 5.5 * (px1 - px0), my = py0 - phi / 1.6 * (py0 - py1);
       mark.setAttribute('cx', mx); mark.setAttribute('cy', my); drop.setAttribute('x1', mx); drop.setAttribute('x2', mx); drop.setAttribute('y1', my); drop.setAttribute('y2', py0);
       var s = -E * 1e-9 / 1.6 * (py0 - py1) / ((px1 - px0) / 5.5); // slope in px/px
@@ -129,29 +127,29 @@
     txt(g, xL - 6, yB + 16, 'plate at φ = V', 'amber', 'middle'); txt(g, xR + 6, yB + 16, 'plate at φ = 0', 'cyan', 'middle');
     txt(g, 60, 110, 'metal:', 'strong', 'middle'); txt(g, 60, 124, 'one', '', 'middle'); txt(g, 60, 138, 'potential', '', 'middle');
     var fa = el('g', {}, g);
-    for (var k = 0; k < 4; k++) { var yy = yT + 20 + k * 32; arrow(fa, xL + 30, yy, xL + 70, yy, '#C4B5F7', 1.4, 'field-arrow'); arrow(fa, xR - 70, yy, xR - 30, yy, '#C4B5F7', 1.4, 'field-arrow'); }
+    for (var k = 0; k < 4; k++) { var yy = yT + 16 + k * 34; arrow(fa, xL + 30, yy, xL + 70, yy, '#C4B5F7', 1.4, 'field-arrow'); arrow(fa, xR - 70, yy, xR - 30, yy, '#C4B5F7', 1.4, 'field-arrow'); }
     var eLab = txt(g, (xL + xR) / 2, yT + 10, '', 'field', 'middle');
     // strip
     var strip = phiStrip(g, { x: xL - 12, y: 210, w: xR + 12 - (xL - 12), h: 70 }, [], { vmin: 0, vmax: 5, label: 'φ', units: '0', xlabel: 'position across the gap' });
     txt(g, xL - 20, 246, '', 'phi', 'end');
     var probe = null, pf = el('line', { 'class': 'force-arrow' }, g); pf.setAttribute('marker-end', marker(svg, '#F0B441'));
     var pm = el('circle', { r: 5, fill: 'var(--amber)' }, g), plab = txt(g, 0, 0, '', 'amber', 'middle');
-    badge(g, xL - 6, yT - 28, 1); badge(g, (xL + xR) / 2, yB + 40, 2); var b3 = badge(g, 0, 0, 3); badge(g, xR + 30, yB + 40, 4);
+    badge(g, 92, 48, 1); badge(g, (xL + xR) / 2, yB + 40, 2); var b3 = badge(g, 0, 0, 3); badge(g, xR + 30, yB + 40, 4);
     var loop;
     function render() {
       V = +VSl.value; l = +lSl.value; Vv.textContent = V.toFixed(1) + ' V'; lv.textContent = l.toFixed(0) + ' mm';
       pL.textContent = V.toFixed(1) + ' V';
       var E = P.uniformField(V, l * 1e-3);
-      eLab.textContent = 'field E = V / l = ' + fmt(E, 0) + ' V/m, uniform, from + to −';
+      eLab.textContent = 'E = V/l = ' + fmt(E, 0) + ' V/m, from + to −';
       var px = xL + xf * (xR - xL), py = 110;
       if (probe) g.removeChild(probe); probe = charge(g, px, py, 8, qp);
       var L = 20 + 8 * V;
       pf.setAttribute('x1', px + (qp > 0 ? 10 : -10)); pf.setAttribute('x2', px + (qp > 0 ? 10 + L : -10 - L)); pf.setAttribute('y1', py); pf.setAttribute('y2', py);
-      plab.setAttribute('x', px); plab.setAttribute('y', py - 16); plab.textContent = 'test charge ' + (qp > 0 ? '+e' : '−e');
+      plab.setAttribute('x', px); plab.setAttribute('y', py + 28); plab.textContent = 'test charge ' + (qp > 0 ? '+e' : '−e');
       strip.update([{ x: 0, phi: V }, { x: 12 / (xR - xL + 24), phi: V }, { x: 1 - 12 / (xR - xL + 24), phi: 0 }, { x: 1, phi: 0 }]);
       var phi = V * (1 - xf), sx = strip.X((12 + xf * (xR - xL)) / (xR - xL + 24)), sy = strip.Y(phi);
       pm.setAttribute('cx', sx); pm.setAttribute('cy', sy);
-      b3.setAttribute('transform', 'translate(' + (px) + ',' + (py + 26) + ')');
+      b3.setAttribute('transform', 'translate(' + (px - 30) + ',' + (py) + ')');
       var eV = qp * phi;
       read.innerHTML = 'V = ' + V.toFixed(1) + ' V across l = ' + l + ' mm gives a field of <b>' + fmt(E, 0) + ' V/m</b>. The test charge sits where φ = ' + fmt(phi, 2) + ' V, so its energy is qφ = <b>' + fmt(eV, 2) + ' eV</b>; crossing the whole gap changes it by ' + fmt(V, 1) + ' eV, which is ' + fmt(P.kJPerMolFromEV(V), 0) + ' kJ per mole of charges.';
     }
@@ -183,7 +181,7 @@
     el('rect', { x: cx - 16, y: ct + 10, width: 32, height: 26, rx: 2, fill: 'var(--amber-2)', 'fill-opacity': '.8' }, g);
     el('rect', { x: cx - 16, y: cb - 36, width: 32, height: 26, rx: 2, fill: 'var(--metal)' }, g);
     txt(g, cx, ct - 8, '+', 'strong big', 'middle'); txt(g, cx, cb + 16, '−', 'strong big', 'middle');
-    txt(g, cx, 112, 'cell', '', 'middle');
+    txt(g, cx - 30, 114, 'cell', '', 'end');
     var pathD = 'M' + cx + ',' + ct + ' V40 H200 M240,40 H410 V80 M410,140 V180 H' + cx + ' V' + cb;
     el('path', { d: pathD, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2.5 }, g);
     // switch
@@ -253,7 +251,7 @@
     fE.setAttribute('marker-end', marker(svg, '#F0B441')); fD.setAttribute('marker-end', marker(svg, '#9AA9A5')); fA.setAttribute('marker-end', marker(svg, '#F0B441'));
     var lE = txt(g, 0, 0, 'electric force |z|eE', 'amber', 'middle'), lD = txt(g, 0, 0, 'drag 6πηrv', '', 'middle');
     var strip = phiStrip(g, { x: xL - 12, y: 210, w: xR + 24 - xL, h: 60 }, [{ x: 0, phi: 1 }, { x: 0.03, phi: 1 }, { x: 0.97, phi: 0 }, { x: 1, phi: 0 }], { vmin: 0, vmax: 1.2, label: 'φ', units: '', xlabel: 'cations are driven down the slope, anions up' });
-    badge(g, 150, 60, 1); var b2 = badge(g, 0, 0, 2); badge(g, 380, 60, 3); badge(g, 260, 292, 4);
+    badge(g, 150, 60, 1); var b2 = badge(g, 0, 0, 2); badge(g, 380, 60, 3); badge(g, 36, 232, 4);
     var x = 200, v = 0, xa = 320, va = 0, E = 1, rad = 1;
     function render() {
       Ev.textContent = ESl.value + ' (relative)'; rv.textContent = rSl.value + ' (relative)';
