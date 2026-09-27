@@ -14,13 +14,13 @@
     var q1 = 1, q2 = 1, y = 118, xa = 150, xmid = 260;
     txt(g, 260, 22, 'two charges in vacuum, r apart', 'strong', 'middle');
     var line = el('line', { y1: y, y2: y, stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, g);
-    var rlab = txt(g, 0, y + 30, '', '', 'middle');
+    var rlab = txt(g, 0, y + 38, '', '', 'middle');
     var rbar = el('path', { fill: 'none', stroke: 'var(--muted)' }, g);
     var fa = el('line', { 'class': 'force-arrow', y1: y, y2: y }, g), fb = el('line', { 'class': 'force-arrow', y1: y, y2: y }, g);
     fa.setAttribute('marker-end', marker(svg, '#F0B441')); fb.setAttribute('marker-end', marker(svg, '#F0B441'));
     var ca = null, cb = null, fLab = txt(g, 0, y - 64, '', 'amber', 'middle'), fLab2 = txt(g, 0, y - 50, '', 'amber', 'middle');
-    var fieldLab = txt(g, 0, y + 60, '', 'field', 'middle');
-    var fieldArr = el('line', { 'class': 'field-arrow', y1: y + 40, y2: y + 40 }, g); fieldArr.setAttribute('marker-end', marker(svg, '#C4B5F7'));
+    var fieldLab = txt(g, 0, y + 67, '', 'field', 'middle');
+    var fieldArr = el('line', { 'class': 'field-arrow', y1: y + 48, y2: y + 48 }, g); fieldArr.setAttribute('marker-end', marker(svg, '#C4B5F7'));
     var b1 = badge(g, 0, 0, 1), b2 = badge(g, 0, 0, 2), b3 = badge(g, 0, 0, 3);
     txt(g, 260, 218, 'F = q q′ / (4π ε₀ r²),  with  ε₀ = 8.85 × 10⁻¹² C² N⁻¹ m⁻²', '', 'middle');
     function render() {
