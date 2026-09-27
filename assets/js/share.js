@@ -94,16 +94,14 @@
   function openMenu(btn) {
     if (!menu) buildMenu();
     opener = btn; menu.hidden = false;
-    // put the menu next to the button that opened it: above a floating button, below an inline one
-    var r = btn.getBoundingClientRect(), floating = btn.closest('.share-fab');
-    menu.classList.toggle('from-fab', !!floating);
-    if (floating) { menu.style.left = ''; menu.style.top = ''; }
-    else {
-      var w = menu.offsetWidth, left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left));
-      menu.style.left = (left + window.scrollX) + 'px'; menu.style.top = (r.bottom + 8 + window.scrollY) + 'px';
-    }
+    // put the menu just below the button that opened it, kept inside the viewport; if
+    // there is no room below (the footer button), put it above
+    var r = btn.getBoundingClientRect(), w = menu.offsetWidth, h = menu.offsetHeight;
+    var left = Math.max(8, Math.min(window.innerWidth - w - 8, r.left));
+    var top = r.bottom + 8 + h > window.innerHeight && r.top - 8 - h > 0 ? r.top - 8 - h : r.bottom + 8;
+    menu.style.left = (left + window.scrollX) + 'px'; menu.style.top = (top + window.scrollY) + 'px';
     btn.setAttribute('aria-expanded', 'true');
-    var first = menu.querySelector('.share-it'); if (first) first.focus();
+    var first = menu.querySelector('.share-it'); if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
   }
   function closeMenu() {
     if (!menu || menu.hidden) return;
