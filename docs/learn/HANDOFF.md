@@ -163,3 +163,18 @@ owner's review before the fast-forward. Every block is one commit, pushed to the
 branch and fast-forwarded into `main` (GitHub Pages deploys from `main`) after review. Commit
 messages describe the change and end with the attribution lines the session
 requires. Never rebase or force-push.
+
+## 9. Typography of scripts and equations (added 2026-09-27)
+
+Write chemical formulas and exponents in the sources with Unicode script characters
+(Zn²⁺, ε₀, 10⁻¹²) or with TeX-like markers (μ_A, V_OC, x^{2+}). The site font has no
+script glyphs, so the page never shows those characters raw:
+
+- `tools/build_learn.py` converts them in HTML text (outside `<svg>`) into `<sup>`/`<sub>`
+  at build time and wraps the inline equations listed in `EQUATIONS` in `<span class="eq">`
+  (math face). Add a new inline equation to that list to give it the math face.
+- `learn-core.js` converts them at run time: `txt()` and `setSvgText()` turn them into
+  raised or lowered `<tspan>`s in SVG labels (always update an SVG label with
+  `setSvgText(label, text)`, never with `.textContent`), and a MutationObserver on every
+  figure card converts them in dynamic HTML (readouts, step boxes, part descriptions).
+- CSS: `sup`, `sub`, `.eq` and `.worked .line` in `assets/css/learn.css`.

@@ -17,11 +17,67 @@
     if (parent) parent.appendChild(e);
     return e;
   }
+  /* ---------- typesetting: sub- and superscripts ----------
+     Labels are written with Unicode script characters (Zn²⁺, ε₀, 10⁻¹²) or with
+     TeX-like markers (μ_A, V_OC, x^2, x^{2+}). The site font has no script glyphs,
+     so both are converted into raised or lowered <tspan>s in SVG and <sup>/<sub>
+     in HTML, with the same size and offsets everywhere. */
+  var SUPC = '⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻ⁿ', SUPN = '0123456789+−n', SUBC = '₀₁₂₃₄₅₆₇₈₉₊₋', SUBN = '0123456789+−';
+  function scriptRuns(str) { // -> [{t: text, s: 0 | 1 (sup) | -1 (sub)}]
+    var out = [], i = 0, n = str.length, buf = '', mode = 0;
+    function flush() { if (buf) out.push({ t: buf, s: mode }); buf = ''; }
+    while (i < n) {
+      var c = str[i], m;
+      if (SUPC.indexOf(c) >= 0) { m = 1; c = SUPN[SUPC.indexOf(c)]; }
+      else if (SUBC.indexOf(c) >= 0) { m = -1; c = SUBN[SUBC.indexOf(c)]; }
+      else if ((c === '_' || c === '^') && i + 1 < n && i > 0 && !/\s/.test(str[i - 1])) {
+        var mm = c === '^' ? 1 : -1, j = i + 1, body = '';
+        if (str[j] === '{') { var k = str.indexOf('}', j); if (k < 0) { buf += c; i++; continue; } body = str.slice(j + 1, k); i = k + 1; }
+        else { var mt = /^[A-Za-z0-9+−-]+/.exec(str.slice(j)); if (!mt) { buf += c; i++; continue; } body = mt[0]; i = j + body.length; }
+        if (mode !== mm) { flush(); mode = mm; } buf += body; continue;
+      }
+      else m = 0;
+      if (m !== mode) { flush(); mode = m; }
+      buf += c; i++;
+    }
+    flush(); return out;
+  }
+  function setSvgText(t, str) {
+    if (!t || t.namespaceURI !== NS) { if (t) t.textContent = str; return t; } // HTML elements: plain text (the observer typesets them)
+    var runs = scriptRuns(str);
+    while (t.firstChild) t.removeChild(t.firstChild);
+    if (runs.length === 1 && runs[0].s === 0) { t.textContent = str; return t; }
+    var cur = 0; // current baseline offset in base em (negative = raised)
+    runs.forEach(function (r) {
+      var target = r.s === 1 ? -0.42 : r.s === -1 ? 0.22 : 0, scale = r.s ? 0.72 : 1;
+      var span = el('tspan', { dy: ((target - cur) / scale).toFixed(3) + 'em' }, t);
+      if (r.s) span.setAttribute('font-size', '72%');
+      span.textContent = r.t; cur = target;
+    });
+    return t;
+  }
   function txt(parent, x, y, str, cls, anchor, attrs) {
     var a = { x: x, y: y, 'class': 'lbl' + (cls ? ' ' + cls : '') };
     if (anchor) a['text-anchor'] = anchor;
     if (attrs) for (var k in attrs) a[k] = attrs[k];
-    var t = el('text', a, parent); t.textContent = str; return t;
+    var t = el('text', a, parent); setSvgText(t, String(str));
+    return t;
+  }
+  /* HTML side: convert the same characters inside a node's text into <sup>/<sub>. */
+  function mathifyHtml(str) {
+    var runs = scriptRuns(str), o = '';
+    runs.forEach(function (r) { var e = r.t.replace(/&/g, '&amp;').replace(/</g, '&lt;'); o += r.s === 1 ? '<sup>' + e + '</sup>' : r.s === -1 ? '<sub>' + e + '</sub>' : e; });
+    return o;
+  }
+  function mathifyNode(node) {
+    if (node.nodeType === 3) {
+      if (!node.parentNode) return;
+      var v = node.nodeValue; if (!/[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻ⁿ₀₁₂₃₄₅₆₇₈₉₊₋]|\S[_^][A-Za-z0-9{]/.test(v)) return;
+      var span = document.createElement('span'); span.className = 'ts'; span.innerHTML = mathifyHtml(v);
+      node.parentNode.replaceChild(span, node);
+    } else if (node.nodeType === 1 && node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE' && node.tagName !== 'svg' && !node.closest('svg')) {
+      Array.prototype.slice.call(node.childNodes).forEach(mathifyNode);
+    }
   }
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
   function store(key, val) {
@@ -164,7 +220,7 @@
     var c = el('circle', { cx: x, cy: y, r: rr, 'class': 'ion our-ion' }, grp);
     var pos = function (nx, ny) { return below ? { x: nx, y: ny + rr + 13, a: 'middle' } : { x: nx + rr + 4, y: ny + 4, a: 'start' }; };
     var p0 = pos(x, y);
-    var t = el('text', { x: p0.x, y: p0.y, 'class': 'our-ion-t', 'text-anchor': p0.a }, grp); t.textContent = label === undefined ? 'our ion' : label;
+    var t = el('text', { x: p0.x, y: p0.y, 'class': 'our-ion-t', 'text-anchor': p0.a }, grp); setSvgText(t, label === undefined ? 'our ion' : label);
     return { g: grp, c: c, t: t, move: function (nx, ny) { c.setAttribute('cx', nx); c.setAttribute('cy', ny); var q = pos(nx, ny); t.setAttribute('x', q.x); t.setAttribute('y', q.y); } };
   }
   /* a charge symbol: filled circle with + or - */
@@ -236,6 +292,14 @@
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
   /* {{figures}} */
+
+  /* ---------- typeset the dynamic text of every figure card ---------- */
+  var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {
+    recs.forEach(function (r) { Array.prototype.forEach.call(r.addedNodes, function (nd) { if (!nd.closest || !nd.closest('svg')) mathifyNode(nd); }); });
+  }) : null;
+  Array.prototype.forEach.call(document.querySelectorAll('.fig'), function (fig) {
+    if (mo) mo.observe(fig, { childList: true, subtree: true, characterData: false });
+  });
 
   /* ---------- boot ---------- */
   Array.prototype.forEach.call(document.querySelectorAll('[data-fig]'), function (fig) {

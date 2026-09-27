@@ -19,8 +19,8 @@
     var cu = el('rect', { x: 394, y: 70, width: 26, height: 200, rx: 2, fill: 'var(--copper)' }, g);
     txt(g, 113, 262, 'Zn', 'strong', 'middle'); txt(g, 407, 262, 'Cu', 'strong', 'middle');
     txt(g, 88, 66, '−', 'strong big', 'end'); txt(g, 432, 66, '+', 'strong big');
-    txt(g, 113, 320, 'Zn → Zn²⁺ + 2e⁻', '', 'middle'); txt(g, 407, 320, 'Cu²⁺ + 2e⁻ → Cu', '', 'middle');
-    txt(g, 113, 334, 'the zinc dissolves', '', 'middle'); txt(g, 407, 334, 'copper plates out', '', 'middle');
+    txt(g, 113, 326, 'Zn → Zn²⁺ + 2e⁻', '', 'middle'); txt(g, 407, 326, 'Cu²⁺ + 2e⁻ → Cu', '', 'middle');
+    txt(g, 113, 340, 'the zinc dissolves', '', 'middle'); txt(g, 407, 340, 'copper plates out', '', 'middle');
     // wire with switch and lamp; voltmeter across the terminals
     var wireD = 'M113,70 V26 H176 M216,26 H407 V70';
     el('path', { d: wireD, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2.2 }, g);
@@ -47,23 +47,23 @@
     var evZ = el('g', { 'class': 'event' }, g), evC = el('g', { 'class': 'event' }, g);
     var eflow = flow(svg, el('path', { d: 'M113,70 V26 H407 V70', fill: 'none', stroke: 'none' }, g), { n: 12, cls: 'e-dot', r: 3, speed: 60, parent: g });
     // the potential strip: Zn metal | solution (Zn side) | separator | solution (Cu side) | Cu metal
-    var strip = phiStrip(g, { x: 100, y: 342, w: 320, h: 56 }, [], { vmin: -0.1, vmax: 1.3, label: 'φ', units: '', xlabel: '' });
-    txt(g, 113, 342 + 68, 'Zn', 'phi', 'middle'); txt(g, 407, 410, 'Cu', 'phi', 'middle'); txt(g, 260, 410, 'solution', 'phi', 'middle');
-    var jumpL = txt(g, 150, 356, 'jump', 'phi', 'middle'), jumpR = txt(g, 372, 356, 'jump', 'phi', 'middle'), sumT = txt(g, 470, 366, '', 'phi strong', 'middle');
-    badge(g, 74, 210, 1); badge(g, 446, 210, 2); badge(g, 260, 244, 3); badge(g, 470, 396, 4); badge(g, 148, 26, 5);
+    var strip = phiStrip(g, { x: 100, y: 350, w: 320, h: 56 }, [], { vmin: -0.1, vmax: 1.3, label: 'φ', units: '', xlabel: '' });
+    txt(g, 113, 418, 'Zn', 'phi', 'middle'); txt(g, 407, 418, 'Cu', 'phi', 'middle'); txt(g, 260, 418, 'solution', 'phi', 'middle');
+    var jumpL = txt(g, 150, 364, 'jump', 'phi', 'middle'), jumpR = txt(g, 372, 364, 'jump', 'phi', 'middle'), sumT = txt(g, 470, 374, '', 'phi strong', 'middle');
+    badge(g, 74, 210, 1); badge(g, 446, 210, 2); badge(g, 260, 244, 3); badge(g, 470, 404, 4); badge(g, 148, 26, 5);
     var closed = false, t = 0, evT = 0, ranZn = 0, ranCu = 0;
     function render() {
       blade.setAttribute('x2', closed ? 216 : 208); blade.setAttribute('y2', closed ? 26 : 6); sw.setAttribute('aria-pressed', String(closed));
       lamp.setAttribute('class', 'lamp ' + (closed ? 'lamp-on glow' : 'lamp-off'));
       eflow.show(closed); if (closed) eflow.start(); else eflow.stop();
       fieldW.style.display = fieldS.style.display = closed ? '' : 'none';
-      fieldWl.textContent = closed ? 'field' : ''; fieldSl.textContent = closed ? 'field in the liquid' : '';
+      setSvgText(fieldWl, closed ? 'field' : ''); setSvgText(fieldSl, closed ? 'field in the liquid' : '');
       eLab.style.display = closed ? '' : 'none';
-      vm.textContent = closed ? 'below 1.10 V' : '1.10 V';
-      swBtn.textContent = closed ? 'Open the switch' : 'Close the switch';
+      setSvgText(vm, closed ? 'below 1.10 V' : '1.10 V');
+      setSvgText(swBtn, closed ? 'Open the switch' : 'Close the switch');
       var drop = closed ? 0.12 : 0, jL = 0.45, jR = E0 - jL; // the split between the two jumps is schematic (not measurable separately)
       strip.update([{ x: 0, phi: 0 }, { x: 0.08, phi: 0 }, { x: 0.081, phi: jL }, { x: 0.92, phi: jL - drop }, { x: 0.921, phi: jL - drop + jR }, { x: 1, phi: E0 - drop }]);
-      sumT.textContent = closed ? '< 1.10 V' : '1.10 V';
+      setSvgText(sumT, closed ? '< 1.10 V' : '1.10 V');
       zn.setAttribute('width', String(26 - 3 * Math.min(1, ranZn / 12))); zn.setAttribute('x', String(100 + 3 * Math.min(1, ranZn / 12)));
       cu.setAttribute('width', String(26 + 3 * Math.min(1, ranCu / 12)));
       read.innerHTML = closed
@@ -192,7 +192,7 @@
       for (var k in arr) arr[k].style.display = k === a ? '' : 'none';
       var n = a === 'single' ? 1 : 3, Vn = a === 'parallel' ? 1 : n, Qn = a === 'series' ? 1 : n;
       vbar.setAttribute('width', String(50 * Vn)); qbar.setAttribute('width', String(50 * Qn));
-      vlab.textContent = Vn + ' V'; qlab.textContent = Qn + ' Q';
+      setSvgText(vlab, Vn + ' V'); setSvgText(qlab, Qn + ' Q');
       var pts = [{ x: 0, phi: 0 }];
       for (var i = 0; i < Vn; i++) { var f0 = 0.1 + i * 0.8 / Vn, f1 = f0 + 0.8 / Vn * 0.4; pts.push({ x: f0, phi: i * V }); pts.push({ x: f1, phi: (i + 1) * V }); }
       pts.push({ x: 1, phi: Vn * V }); strip.update(pts);

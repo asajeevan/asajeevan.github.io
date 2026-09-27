@@ -377,3 +377,19 @@ gives a figure), so figure 4.4 and every quotation of "25 %" and "over 50 %" wer
 from the page. What remains is what R1 states without a number: practical values are
 significantly lower than theoretical, for the three listed reasons, plus the 1991-cell
 worked example ("a fifth to a quarter" of about 600 Wh/kg, from R2's 120 to 150 Wh/kg).
+
+### Q5. How the interfacial field forms (2026-09-27, owner's request for more detail)
+
+| Statement on the page (module 3, double-layer beat) | B2 location | Verdict |
+|---|---|---|
+| A species crosses a boundary in the direction that lowers its electrochemical potential until it is equal on both sides; Zn2+ in the metal and in solution as the example | 2.2.4 (intro and property 5) | Matches |
+| Chemical mechanisms for charging a phase: transfer of electrons (or ions) between metal and solution until the equilibrium potential is reached; "only a tiny charge is needed"; "net chemical effects on the solution are unnoticeable"; "the metal adapts to the solution" | 2.2.2 (last paragraphs) | Matches |
+| Electrons flow from the phase with the higher Fermi energy to the lower until equal; the charge transferred is small | 2.2.5(d) | Matches |
+| Field zero inside a conductor at rest; excess charge on the surface | 2.2.1 | Matches |
+| The coulombic field of the surface charge is "counterbalanced to a very large degree by polarization of the adjacent electrolyte" | 2.2.2 | Matches |
+| Interfacial potential differences can develop without excess charge, from preferentially oriented water dipoles at the metal | 2.2.2 (last paragraph) | Matches |
+| Field at the interface up to 1e7 V/cm | 2.2.3 | Matches |
+| With current: potential slopes through the electrolyte (ohmic drop), interfaces carry an overpotential in addition | 1.5.1 and Fig. 1.5.2 | Matches |
+| "Zinc dissolving makes the metal negative" as the direction for Zn/Zn2+; copper the reverse | Consistent with the sign of the standard potentials in Table C.1 and with the cell of Fig. 1.1.2 (zinc negative); B2 does not narrate the initial ion transfer per electrode explicitly, so the page states it as the direction that lowers the electrochemical potential (2.2.4) | Acceptable; flagged for the owner's review |
+
+Typography (same day): Unicode super- and subscript characters are converted at build time into <sup>/<sub> in HTML text and at run time into raised or lowered <tspan>s in SVG labels and into <sup>/<sub> in dynamic figure text, so that every script renders in the site font at one size and offset; known inline equations get a math face (.eq).

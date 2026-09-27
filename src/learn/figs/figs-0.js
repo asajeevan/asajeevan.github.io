@@ -22,13 +22,13 @@
     var fieldLab = txt(g, 0, y + 58, '', 'field', 'middle');
     var fieldArr = el('line', { 'class': 'field-arrow', y1: y + 44, y2: y + 44 }, g); fieldArr.setAttribute('marker-end', marker(svg, '#C4B5F7'));
     badge(g, xa - 34, y - 30, 1); var b2 = badge(g, 0, 0, 2); var b3 = badge(g, 0, 0, 3);
-    txt(g, 260, 218, 'F = q q′ / (4π ε₀ r²)      ε₀ = 8.85 × 10⁻¹² C² N⁻¹ m⁻²', '', 'middle');
+    txt(g, 260, 218, 'F = q q′ / (4π ε₀ r²),  with  ε₀ = 8.85 × 10⁻¹² C² N⁻¹ m⁻²', '', 'middle');
     function render() {
-      var r = +rSl.value; rv.textContent = r.toFixed(1) + ' nm';
+      var r = +rSl.value; setSvgText(rv, r.toFixed(1) + ' nm');
       var d = 40 + r * 62, xb = xa + d;
       line.setAttribute('x1', xa); line.setAttribute('x2', xb);
       rbar.setAttribute('d', 'M' + xa + ',' + (y + 18) + ' v6 M' + xb + ',' + (y + 18) + ' v6 M' + xa + ',' + (y + 21) + ' H' + xb);
-      rlab.setAttribute('x', (xa + xb) / 2); rlab.textContent = 'r = ' + r.toFixed(1) + ' nm';
+      rlab.setAttribute('x', (xa + xb) / 2); setSvgText(rlab, 'r = ' + r.toFixed(1) + ' nm');
       if (ca) g.removeChild(ca); if (cb) g.removeChild(cb);
       ca = charge(g, xa, y, 11, q1); cb = charge(g, xb, y, 11, q2);
       var F = P.coulombForce(q1 * P.e, q2 * P.e, r * 1e-9), F2 = P.coulombForce(P.e, P.e, 2e-9);
@@ -37,19 +37,19 @@
       fa.setAttribute('x1', xa + (rep ? -14 : 14)); fa.setAttribute('x2', xa + (rep ? -14 - L : 14 + L));
       fb.setAttribute('x1', xb + (rep ? 14 : -14)); fb.setAttribute('x2', xb + (rep ? 14 + L : -14 - L));
       fa.style.display = fb.style.display = L < 18 && Math.abs(F) < F2 ? '' : '';
-      fLab.setAttribute('x', (xa + xb) / 2); fLab.textContent = (rep ? 'repel' : 'attract') + ': F = ' + fmt(Math.abs(F) * 1e12, Math.abs(F) * 1e12 < 10 ? 2 : 0) + ' pN on each';
-      fLab2.setAttribute('x', (xa + xb) / 2); fLab2.textContent = 'same size on both, opposite directions';
+      fLab.setAttribute('x', (xa + xb) / 2); setSvgText(fLab, (rep ? 'repel' : 'attract') + ': F = ' + fmt(Math.abs(F) * 1e12, Math.abs(F) * 1e12 < 10 ? 2 : 0) + ' pN on each');
+      fLab2.setAttribute('x', (xa + xb) / 2); setSvgText(fLab2, 'same size on both, opposite directions');
       b2.setAttribute('transform', 'translate(' + (xa + 12) + ',' + (y + 44) + ')');
       b3.setAttribute('transform', 'translate(' + (xb + 34) + ',' + (y - 30) + ')');
       // the field of a at b's place: force per unit charge, direction away from a if a is +
       var E = P.fieldOfCharge(q1 * P.e, r * 1e-9);
       fieldArr.setAttribute('x1', xb); fieldArr.setAttribute('x2', xb + (q1 > 0 ? 1 : -1) * Math.min(90, 26 * Math.sqrt(Math.abs(E) / P.fieldOfCharge(P.e, 2e-9))));
-      fieldLab.setAttribute('x', xb); fieldLab.textContent = 'field of q at q′: ' + fmt(Math.abs(E) * 1e-9, 2) + ' V/nm';
+      fieldLab.setAttribute('x', xb); setSvgText(fieldLab, 'field of q at q′: ' + fmt(Math.abs(E) * 1e-9, 2) + ' V/nm');
       read.innerHTML = 'F = (' + (q1 > 0 ? '+' : '−') + 'e)(' + (q2 > 0 ? '+' : '−') + 'e) / (4π ε₀ r²) with r = ' + r.toFixed(1) + ' nm: <b>' + fmt(Math.abs(F) * 1e12, Math.abs(F) * 1e12 < 10 ? 2 : 1) + ' pN</b>, ' + (rep ? 'pushing the charges apart' : 'pulling them together') + '. Halve r and the force is four times larger.';
     }
     Array.prototype.forEach.call(sgn, function (b) { on(b, 'click', function () {
       var which = b.getAttribute('data-q'); if (which === 'a') q1 = -q1; else q2 = -q2;
-      Array.prototype.forEach.call(sgn, function (x) { x.textContent = (x.getAttribute('data-q') === 'a' ? 'q: ' : 'q′: ') + ((x.getAttribute('data-q') === 'a' ? q1 : q2) > 0 ? '+e (tap to flip)' : '−e (tap to flip)'); });
+      Array.prototype.forEach.call(sgn, function (x) { setSvgText(x, (x.getAttribute('data-q') === 'a' ? 'q: ' : 'q′: ') + ((x.getAttribute('data-q') === 'a' ? q1 : q2) > 0 ? '+e (tap to flip)' : '−e (tap to flip)')); });
       render();
     }); });
     on(rSl, 'input', render); render();
@@ -91,7 +91,7 @@
     var probe = null, pf = el('line', { 'class': 'force-arrow' }, g); pf.setAttribute('marker-end', marker(svg, '#F0B441'));
     badge(g, cx + 56, cy - 56, 1); badge(g, cx + 96, cy + 70, 2); var b3 = badge(g, 0, 0, 3); var b4 = badge(g, 0, 0, 4);
     function render() {
-      var r = +rSl.value; rv.textContent = r.toFixed(1) + ' nm';
+      var r = +rSl.value; setSvgText(rv, r.toFixed(1) + ' nm');
       var px = cx + r * sc, py = cy;
       if (probe) g.removeChild(probe); probe = charge(g, px, py, 8, qp);
       var E = P.fieldOfCharge(P.e, r * 1e-9), phi = P.potentialOfCharge(P.e, r * 1e-9), F = qp * P.e * E;
@@ -105,7 +105,7 @@
       read.innerHTML = 'At r = ' + r.toFixed(1) + ' nm from one elementary charge: field <b>' + fmt(E * 1e-9, 2) + ' V/nm</b> (' + sci(E, 1) + ' V/m), potential <b>' + fmt(phi, 2) + ' V</b>. The probe (' + (qp > 0 ? '+e' : '−e') + ') feels ' + fmt(Math.abs(F) * 1e12, 2) + ' pN ' + (qp > 0 ? 'outward' : 'inward') + ' and has energy qφ = <b>' + fmt(qp * phi, 2) + ' eV</b> here.';
     }
     on(rSl, 'input', render);
-    on(sgnBtn, 'click', function () { qp = -qp; sgnBtn.textContent = 'probe: ' + (qp > 0 ? '+e' : '−e') + ' (tap to flip)'; render(); });
+    on(sgnBtn, 'click', function () { qp = -qp; setSvgText(sgnBtn, 'probe: ' + (qp > 0 ? '+e' : '−e') + ' (tap to flip)'); render(); });
     render();
     steps(fig, [
       { text: 'The lilac arrows map the <b>field</b>: at each point, the force a unit positive charge would feel. Around a positive charge they point outward.' },
@@ -137,15 +137,15 @@
     badge(g, 92, 48, 1); badge(g, (xL + xR) / 2, yB + 40, 2); var b3 = badge(g, 0, 0, 3); badge(g, xR + 30, yB + 40, 4);
     var loop;
     function render() {
-      V = +VSl.value; l = +lSl.value; Vv.textContent = V.toFixed(1) + ' V'; lv.textContent = l.toFixed(0) + ' mm';
-      pL.textContent = V.toFixed(1) + ' V';
+      V = +VSl.value; l = +lSl.value; setSvgText(Vv, V.toFixed(1) + ' V'); setSvgText(lv, l.toFixed(0) + ' mm');
+      setSvgText(pL, V.toFixed(1) + ' V');
       var E = P.uniformField(V, l * 1e-3);
-      eLab.textContent = 'E = V/l = ' + fmt(E, 0) + ' V/m, from + to −';
+      setSvgText(eLab, 'E = V/l = ' + fmt(E, 0) + ' V/m, from + to −');
       var px = xL + xf * (xR - xL), py = 110;
       if (probe) g.removeChild(probe); probe = charge(g, px, py, 8, qp);
       var L = 20 + 8 * V;
       pf.setAttribute('x1', px + (qp > 0 ? 10 : -10)); pf.setAttribute('x2', px + (qp > 0 ? 10 + L : -10 - L)); pf.setAttribute('y1', py); pf.setAttribute('y2', py);
-      plab.setAttribute('x', px); plab.setAttribute('y', py + 28); plab.textContent = 'test charge ' + (qp > 0 ? '+e' : '−e');
+      plab.setAttribute('x', px); plab.setAttribute('y', py + 28); setSvgText(plab, 'test charge ' + (qp > 0 ? '+e' : '−e'));
       strip.update([{ x: 0, phi: V }, { x: 12 / (xR - xL + 24), phi: V }, { x: 1 - 12 / (xR - xL + 24), phi: 0 }, { x: 1, phi: 0 }]);
       var phi = V * (1 - xf), sx = strip.X((12 + xf * (xR - xL)) / (xR - xL + 24)), sy = strip.Y(phi);
       pm.setAttribute('cx', sx); pm.setAttribute('cy', sy);
@@ -154,7 +154,7 @@
       read.innerHTML = 'V = ' + V.toFixed(1) + ' V across l = ' + l + ' mm gives a field of <b>' + fmt(E, 0) + ' V/m</b>. The test charge sits where φ = ' + fmt(phi, 2) + ' V, so its energy is qφ = <b>' + fmt(eV, 2) + ' eV</b>; crossing the whole gap changes it by ' + fmt(V, 1) + ' eV, which is ' + fmt(P.kJPerMolFromEV(V), 0) + ' kJ per mole of charges.';
     }
     on(VSl, 'input', render); on(lSl, 'input', render); on(xSl, 'input', function () { xf = +xSl.value / 100; render(); });
-    on(sgnBtn, 'click', function () { qp = -qp; sgnBtn.textContent = 'test charge: ' + (qp > 0 ? '+e' : '−e') + ' (tap to flip)'; render(); });
+    on(sgnBtn, 'click', function () { qp = -qp; setSvgText(sgnBtn, 'test charge: ' + (qp > 0 ? '+e' : '−e') + ' (tap to flip)'); render(); });
     steps(fig, [
       { text: 'Each plate is a metal, a conductor. At rest a conductor has <b>no field inside</b> and sits at <b>one potential</b>: the strip is flat across each plate. Any excess charge sits on its surface.' },
       { text: 'Between the plates the potential falls in a straight line from V to 0. Its slope is the <b>field</b>, E = V / l: raise V or narrow the gap and the arrows strengthen.' },
@@ -205,7 +205,7 @@
     var segLabs = [['inside the cell', 0.1], ['wire', 0.3], ['switch', 0.44], ['lamp', 0.62], ['wire', 0.85]].map(function (s) { return txt(g, strip.X(s[1]), 212, s[0], '', 'middle'); });
     badge(g, cx + 40, ct - 8, 1); badge(g, 372, 150, 2); badge(g, 235, 166, 3); badge(g, 462, 150, 4);
     function render() {
-      V = +VSl.value; R = +RSl.value; Vv.textContent = V.toFixed(1) + ' V'; Rv.textContent = R + ' Ω'; Rlab.textContent = 'R = ' + R + ' Ω';
+      V = +VSl.value; R = +RSl.value; setSvgText(Vv, V.toFixed(1) + ' V'); setSvgText(Rv, R + ' Ω'); setSvgText(Rlab, 'R = ' + R + ' Ω');
       var I = closed ? P.ohmCurrent(V, R) : 0, Pw = P.power(I, V);
       blade.setAttribute('x2', closed ? 240 : 232); blade.setAttribute('y2', closed ? 40 : 16); sw.setAttribute('aria-pressed', String(closed));
       glow.setAttribute('class', 'lamp ' + (closed ? 'lamp-on glow' : 'lamp-off')); glow.setAttribute('fill-opacity', closed ? String(0.25 + 0.5 * Math.min(1, Pw / 2)) : '.15');
@@ -215,7 +215,7 @@
       // unrolled path fractions: 0..0.12 cell, 0.12..0.40 top wire, 0.40..0.48 switch, 0.48..0.76 lamp, 0.76..1 bottom wire
       strip.update([{ x: 0, phi: 0 }, { x: 0.02, phi: 0 }, { x: 0.12, phi: V }, { x: 0.40, phi: V - wireDrop }, { x: 0.48, phi: V - wireDrop - swDrop },
         { x: 0.76, phi: V - wireDrop - swDrop - lampDrop }, { x: 1, phi: 0 }]);
-      swBtn.textContent = closed ? 'Open the switch' : 'Close the switch';
+      setSvgText(swBtn, closed ? 'Open the switch' : 'Close the switch');
       read.innerHTML = closed
         ? 'I = V / R = ' + V.toFixed(1) + ' V / ' + R + ' Ω = <b>' + fmt(I, 2) + ' A</b>: ' + fmt(I, 2) + ' coulombs per second, or ' + sci(P.electronsPerSecond(I), 1) + ' electrons per second past any point of the wire. Power P = I V = <b>' + fmt(Pw, 2) + ' W</b>. Almost all of the ' + V.toFixed(1) + ' V is dropped across the lamp; the copper wire takes a small share because metals conduct so well.'
         : 'Switch open: no current, so no drop along any conductor. Each side of the wire sits at one potential, the whole ' + V.toFixed(1) + ' V appears across the open switch, and the lamp is dark. The push is there; nothing can move.';
@@ -254,8 +254,8 @@
     badge(g, 150, 60, 1); var b2 = badge(g, 0, 0, 2); badge(g, 380, 60, 3); badge(g, 36, 232, 4);
     var x = 200, v = 0, xa = 320, va = 0, E = 1, rad = 1;
     function render() {
-      Ev.textContent = ESl.value + ' (relative)'; rv.textContent = rSl.value + ' (relative)';
-      E = +ESl.value; rad = +rSl.value; Elab.textContent = 'field E = slope of φ; here ' + E + ' unit' + (E > 1 ? 's' : '');
+      setSvgText(Ev, ESl.value + ' (relative)'); setSvgText(rv, rSl.value + ' (relative)');
+      E = +ESl.value; rad = +rSl.value; setSvgText(Elab, 'field E = slope of φ; here ' + E + ' unit' + (E > 1 ? 's' : ''));
       var u = 1 / rad, vt = u * E;
       ion.move(x, 90); an.setAttribute('cx', xa);
       var L = 14 + 18 * E, Ld = 14 + 18 * (rad * Math.abs(v)); // drag = 6 pi eta r v, in the same units

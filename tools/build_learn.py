@@ -47,6 +47,60 @@ def fmt_ref(key, n):
             '<span class="ref-n">%d</span> <span class="ref-body">%s%s.%s</span></li>'
             % (n, 'Book' if key.startswith('B') else 'ScholarlyArticle', n, ' '.join(parts), tail, doi))
 
+SUP = {'⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁺': '+', '⁻': '−', 'ⁿ': 'n', '′': '′'}
+SUB = {'₀': '0', '₁': '1', '₂': '2', '₃': '3', '₄': '4', '₅': '5', '₆': '6', '₇': '7', '₈': '8', '₉': '9', '₊': '+', '₋': '−'}
+SUPC = ''.join(k for k in SUP if k != '′')
+SUBC = ''.join(SUB)
+
+EQUATIONS = [  # inline equations that get the math face (longest first so that prefixes do not steal a match)
+    'F = qq′/(4πε₀r²)', 'φ = −∫E·dl', 'φ = q/(4πε₀r)', 'q = ε₀∮E·dS', 'μ̄ = μ + zFφ', 'u = |z|e/(6πηr)', 'κ = FΣ|z|uC',
+    'Q = nF/(3.6 M)', 'Q = nF/(3.6 M)', 'mass = I·t·M/(nF)', 'R = ρl/A', 'i = dQ/dt', 'ΔG = −nFE', 'E = IR', 'P = IV', 'q = C·E', 'Q = nFN',
+    'V<sub>OC</sub> = (μ<sub>A</sub> − μ<sub>C</sub>)/e', 'φ<sup>Zn</sup> − φ<sup>Cu</sup> = (μ°<sub>e</sub><sup>Zn</sup> − μ°<sub>e</sub><sup>Cu</sup>)/F',
+    'μ̄<sub>e</sub> = μ°<sub>e</sub> − Fφ', '−nFE = n(μ̄<sub>e</sub><sup>Cu′</sup> − μ̄<sub>e</sub><sup>Cu</sup>)', '1 V = 1 J/C',
+]
+
+def scripts_to_html(seg):
+    """Unicode super/subscript runs in a text segment become <sup>/<sub> elements."""
+    out, i, n = [], 0, len(seg)
+    while i < n:
+        c = seg[i]
+        if c in SUPC:
+            j = i
+            while j < n and seg[j] in SUPC: j += 1
+            out.append('<sup>' + ''.join(SUP[x] for x in seg[i:j]) + '</sup>'); i = j
+        elif c in SUBC:
+            j = i
+            while j < n and seg[j] in SUBC: j += 1
+            out.append('<sub>' + ''.join(SUB[x] for x in seg[i:j]) + '</sub>'); i = j
+        else:
+            out.append(c); i += 1
+    return ''.join(out)
+
+def typeset(text):
+    """Apply scripts_to_html to text nodes outside <svg> (SVG text is typeset by learn.js),
+    then wrap the known inline equations in the math face."""
+    import html as _html
+    parts = re.split(r'(<svg\b.*?</svg>)', text, flags=re.S)
+    for k, part in enumerate(parts):
+        if part.startswith('<svg'):
+            continue
+        toks = re.split(r'(<[^>]+>)', part)
+        for t, tok in enumerate(toks):
+            if tok.startswith('<') or not tok:
+                continue
+            dec = _html.unescape(tok)
+            conv = scripts_to_html(dec)
+            if conv != dec:
+                toks[t] = conv.replace('&', '&amp;').replace('<sup>', '\x00sup\x00').replace('</sup>', '\x00/sup\x00').replace('<sub>', '\x00sub\x00').replace('</sub>', '\x00/sub\x00').replace('<', '&lt;').replace('>', '&gt;').replace('\x00sup\x00', '<sup>').replace('\x00/sup\x00', '</sup>').replace('\x00sub\x00', '<sub>').replace('\x00/sub\x00', '</sub>')
+                # keep the original entity form for everything except the converted scripts: re-escape only & < >
+                # (the decoded text may contain characters like – and ’ which are fine as UTF-8)
+        parts[k] = ''.join(toks)
+    text = ''.join(parts)
+    for eq in sorted(EQUATIONS, key=len, reverse=True):
+        eq_html = scripts_to_html(eq)
+        text = text.replace(eq_html, '<span class="eq">' + eq_html + '</span>')
+    return text
+
 def build(src_name, out_path):
     text = (SRC / src_name).read_text(encoding='utf-8')
 
@@ -108,6 +162,8 @@ def build(src_name, out_path):
         return html
     refs_html = '<ol class="refs">' + ''.join(ref_with_modules(k, i + 1) for i, k in enumerate(order)) + '</ol>'
     text = text.replace('{{references}}', refs_html)
+
+    text = typeset(text)
 
     leftover = re.findall(r'\{\{[^}]*\}\}', text)
     if leftover:

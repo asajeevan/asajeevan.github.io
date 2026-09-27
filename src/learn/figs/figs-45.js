@@ -39,10 +39,10 @@
     for (var v = Math.ceil(vmin * 2) / 2; v <= vmax; v += 0.5) {
       var yy = y0 - (v - vmin) / (vmax - vmin) * (y0 - y1);
       el('line', { x1: x0, y1: yy, x2: x1, y2: yy, stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, g);
-      var t = el('text', { x: x0 - 6, y: yy + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); t.textContent = v.toFixed(1);
+      var t = el('text', { x: x0 - 6, y: yy + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(t, v.toFixed(1));
     }
-    var tx = el('text', { x: x1, y: y0 + 18, 'text-anchor': 'end', 'class': 'lbl' }, g); tx.textContent = xlab;
-    var ty = el('text', { x: x0 - 34, y: y1 - 8, 'class': 'lbl' }, g); ty.textContent = ylab;
+    var tx = el('text', { x: x1, y: y0 + 18, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(tx, xlab);
+    var ty = el('text', { x: x0 - 34, y: y1 - 8, 'class': 'lbl' }, g); setSvgText(ty, ylab);
   }
   function pathOf(pts, x0, y0, x1, y1, vmin, vmax) {
     return pts.map(function (p, i) { return (i ? 'L' : 'M') + (x0 + p.x * (x1 - x0)).toFixed(1) + ',' + (y0 - (p.V - vmin) / (vmax - vmin) * (y0 - y1)).toFixed(1); }).join(' ');
@@ -51,8 +51,8 @@
   /* ===== 4.1 Faraday calculator ===== */
   register('f4-1', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.calc-bars'), sel = fig.querySelector('.mat'), M = fig.querySelector('.M'), n = fig.querySelector('.n'), V = fig.querySelector('.V'), Vv = fig.querySelector('.V-val'), read = fig.querySelector('.readout'), note = fig.querySelector('.note');
-    P.data.materials.forEach(function (m) { var o = document.createElement('option'); o.value = m.key; o.textContent = m.name; sel.appendChild(o); });
-    var o = document.createElement('option'); o.value = 'custom'; o.textContent = 'Custom (type M and n)'; sel.appendChild(o);
+    P.data.materials.forEach(function (m) { var o = document.createElement('option'); o.value = m.key; setSvgText(o, m.name); sel.appendChild(o); });
+    var o = document.createElement('option'); o.value = 'custom'; setSvgText(o, 'Custom (type M and n)'); sel.appendChild(o);
     var refs = [{ name: 'graphite', basis: 'per g of C₆', q: P.specificCapacity(1, 6 * 12.011) }, { name: 'LiFePO₄', basis: 'per g of LiFePO₄', q: P.specificCapacity(1, 6.94 + 55.845 + 30.974 + 4 * 15.999) }, { name: 'lithium metal', basis: 'per g of Li', q: P.specificCapacity(1, 6.94) }];
     var scale = 300 / 4000;
     badge(svg, 20, 42, 1); badge(svg, 20, 82, 2); badge(svg, 500, 190, 3);
@@ -60,7 +60,7 @@
     function render() {
       var mat = null; P.data.materials.forEach(function (m) { if (m.key === sel.value) mat = m; });
       if (mat) { M.value = mat.M.toFixed(2); n.value = mat.n; }
-      Vv.textContent = (+V.value).toFixed(1) + ' V';
+      setSvgText(Vv, (+V.value).toFixed(1) + ' V');
       clear(g);
       if (!valid()) { read.innerHTML = '<span class="invalid">Enter a molar mass between 1 and 1000 g/mol and an electron count between 0.1 and 10.</span>'; note.innerHTML = ''; return; }
       var q = P.specificCapacity(+n.value, +M.value), E = q * (+V.value); // mAh/g x V = mWh/g = Wh/kg
@@ -68,7 +68,7 @@
       rows.forEach(function (r, i) {
         var y = 30 + i * 40, w = Math.min(300, r.q * scale);
         el('rect', { x: 180, y: y, width: w, height: 22, rx: 4, fill: r.me ? 'var(--amber)' : 'var(--cyan)', 'fill-opacity': r.me ? '.95' : '.45' }, g);
-        txt(g, 174, y + 10, r.name, r.me ? 'strong' : '', 'end'); txt(g, 174, y + 23, r.basis, '', 'end');
+        txt(g, 174, y + 7, r.name, r.me ? 'strong' : '', 'end'); txt(g, 174, y + 24, r.basis, '', 'end');
         var inside = w > 200;
         txt(g, inside ? 176 + w : 186 + w, y + 15, Math.round(r.q) + ' mAh/g', 'strong', inside ? 'end' : 'start', inside ? { fill: '#1a1405' } : null);
       });
@@ -104,7 +104,7 @@
     badge(svg, x0 + 200, y0 - 60, 1); badge(svg, x1 - 30, y0 - 30, 2); badge(svg, 30, y1 + 14, 3);
     var E0 = null;
     function render() {
-      var shape = shapeOfCell(), c = rateFromSlider(+rate.value); rv.textContent = fmtRate(c);
+      var shape = shapeOfCell(), c = rateFromSlider(+rate.value); setSvgText(rv, fmtRate(c));
       var pts = model.curve(shape, c, false), slow = model.curve(shape, 0.1, false);
       var d = pathOf(pts, x0, y0, x1, y1, vmin, vmax); line.setAttribute('d', d);
       area.setAttribute('d', d + ' L' + (x0 + pts[pts.length - 1].x * (x1 - x0)).toFixed(1) + ',' + y0 + ' L' + x0 + ',' + y0 + ' Z');
@@ -144,7 +144,7 @@
     var cutLo = el('line', { stroke: 'var(--line-2)', 'stroke-dasharray': '4 3' }, g), cutHi = el('line', { stroke: 'var(--line-2)', 'stroke-dasharray': '4 3' }, g);
     var lab = el('text', { x: x0 + 8, y: y1 + 14, 'class': 'lbl' }, g);
     function render() {
-      var c = rateFromSlider(+rate.value); rv.textContent = fmtRate(c);
+      var c = rateFromSlider(+rate.value); setSvgText(rv, fmtRate(c));
       Array.prototype.forEach.call(sbtn, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-shape') === shape)); });
       var d = model.curve(shape, c, false), u = model.curve(shape, c, true), o = [];
       for (var i = 0; i <= 200; i++) o.push({ x: i / 200, V: model.voc(shape, i / 200) });
@@ -154,7 +154,7 @@
       var cut = model.cut(shape), yl = y0 - (cut.lo - vmin) / (vmax - vmin) * (y0 - y1), yh = y0 - (cut.hi - vmin) / (vmax - vmin) * (y0 - y1);
       cutLo.setAttribute('x1', x0); cutLo.setAttribute('x2', x1); cutLo.setAttribute('y1', yl); cutLo.setAttribute('y2', yl);
       cutHi.setAttribute('x1', x0); cutHi.setAttribute('x2', x1); cutHi.setAttribute('y1', yh); cutHi.setAttribute('y2', yh);
-      lab.textContent = 'dashed grey: open-circuit curve; dashed lines: cut-off voltages';
+      setSvgText(lab, 'dashed grey: open-circuit curve; dashed lines: cut-off voltages');
       var e = model.eta(c, 0.5), q = d[d.length - 1].x;
       read.innerHTML = 'At ' + fmtRate(c) + ' the gap at mid-capacity is 2η = <b>' + Math.round(2 * e.total * 1000) + ' mV</b> (ohmic ' + Math.round(e.ohm * 1000) + ', activation ' + Math.round(e.act * 1000) + ', concentration ' + Math.round(e.conc * 1000) + ' mV); the discharge reaches <b>' + Math.round(q * 100) + ' %</b> of the low-rate capacity before the cut-off. The shaded band between the branches is energy that leaves as heat.';
     }
@@ -169,17 +169,17 @@
     var x0 = 60, y0 = 210, x1 = 490, y1 = 30, tmin = -7, tmax = 2, vmin = -0.12, vmax = 0.01;
     var X = function (logt) { return x0 + (logt - tmin) / (tmax - tmin) * (x1 - x0); }, Y = function (v) { return y0 - (v - vmin) / (vmax - vmin) * (y0 - y1); };
     el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
-    for (var k = tmin; k <= tmax; k++) { el('line', { x1: X(k), y1: y0, x2: X(k), y2: y0 + 5, stroke: 'var(--line-2)' }, g); var t = el('text', { x: X(k), y: y0 + 18, 'text-anchor': 'middle', 'class': 'lbl' }, g); t.textContent = '10' + (k < 0 ? '⁻' : '') + String(Math.abs(k)).replace(/\d/g, function (d) { return '⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]; }); }
-    var xl = el('text', { x: x1, y: y0 + 34, 'text-anchor': 'end', 'class': 'lbl' }, g); xl.textContent = 'time after the current is switched off, seconds';
-    var yl = el('text', { x: x0 - 8, y: Y(0) + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); yl.textContent = 'V_oc';
-    var yl2 = el('text', { x: x0 - 8, y: Y(-0.1) + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); yl2.textContent = '−100 mV';
+    for (var k = tmin; k <= tmax; k++) { el('line', { x1: X(k), y1: y0, x2: X(k), y2: y0 + 5, stroke: 'var(--line-2)' }, g); var t = el('text', { x: X(k), y: y0 + 18, 'text-anchor': 'middle', 'class': 'lbl' }, g); setSvgText(t, '10' + (k < 0 ? '⁻' : '') + String(Math.abs(k)).replace(/\d/g, function (d) { return '⁰¹²³⁴⁵⁶⁷⁸⁹'[+d]; })); }
+    var xl = el('text', { x: x1, y: y0 + 34, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(xl, 'time after the current is switched off, seconds');
+    var yl = el('text', { x: x0 - 8, y: Y(0) + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(yl, 'V_oc');
+    var yl2 = el('text', { x: x0 - 8, y: Y(-0.1) + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(yl2, '−100 mV');
     var ohm = 0.03, act = 0.04, conc = 0.03, ta = 1e-3, tc = 2;
     var d = 'M' + X(tmin) + ',' + Y(-(act + conc)); // ohmic step already gone at 1e-7 s
     for (var i = 0; i <= 300; i++) { var lt = tmin + (tmax - tmin) * i / 300, tt = Math.pow(10, lt); d += ' L' + X(lt).toFixed(1) + ',' + Y(-(act * Math.exp(-tt / ta) + conc * Math.exp(-tt / tc))).toFixed(1); }
     el('path', { d: 'M' + (x0 - 6) + ',' + Y(-(ohm + act + conc)) + ' L' + x0 + ',' + Y(-(ohm + act + conc)) + ' L' + x0 + ',' + Y(-(act + conc)), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2 }, g);
     var path = el('path', { d: d, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2, 'class': 'draw-in' }, g);
     var labs = [[X(-6.8), Y(-0.055), 'ohmic step: instant, under 10⁻⁶ s', 'start'], [X(-3), Y(-0.02), 'activation: 10⁻⁴ to 10⁻² s', 'middle'], [X(0.6), Y(-0.045), 'concentration: 10⁻² s and longer', 'middle']];
-    labs.forEach(function (l) { var t = el('text', { x: l[0], y: l[1], 'class': 'lbl amber', 'text-anchor': l[3] }, g); t.textContent = l[2]; });
+    labs.forEach(function (l) { var t = el('text', { x: l[0], y: l[1], 'class': 'lbl amber', 'text-anchor': l[3] }, g); setSvgText(t, l[2]); });
     el('rect', { x: X(-4), y: y1, width: X(-2) - X(-4), height: y0 - y1, fill: 'var(--cyan)', 'fill-opacity': '.06' }, g);
     el('rect', { x: X(-2), y: y1, width: x1 - X(-2), height: y0 - y1, fill: 'var(--amber)', 'fill-opacity': '.05' }, g);
     var L = path.getTotalLength(); path.style.strokeDasharray = L; path.style.strokeDashoffset = motion ? L : 0;
@@ -194,8 +194,8 @@
     function trace(cx, flat) { var d = ''; for (var i = 0; i <= 40; i++) { var x = i / 40, v = flat ? 0.5 : 0.85 - 0.7 * x; d += (i ? 'L' : 'M') + (cx - 56 + x * 112).toFixed(1) + ',' + (y0 - v * h).toFixed(1); } return d; }
     el('path', { d: trace(130, true), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2 }, tr); el('path', { d: trace(390, false), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2 }, tr);
     var m1 = el('circle', { r: 4, 'class': 'ion' }, tr), m2 = el('circle', { r: 4, 'class': 'ion' }, tr);
-    var t1 = el('text', { x: 130, y: y0 + 8, 'class': 'lbl', 'text-anchor': 'middle' }, tr); t1.textContent = 'voltage stays flat as lithium enters';
-    var t2 = el('text', { x: 390, y: y0 + 8, 'class': 'lbl', 'text-anchor': 'middle' }, tr); t2.textContent = 'voltage slopes as lithium enters';
+    var t1 = el('text', { x: 130, y: y0 + 8, 'class': 'lbl', 'text-anchor': 'middle' }, tr); setSvgText(t1, 'voltage stays flat as lithium enters');
+    var t2 = el('text', { x: 390, y: y0 + 8, 'class': 'lbl', 'text-anchor': 'middle' }, tr); setSvgText(t2, 'voltage slopes as lithium enters');
     var t = 0.35, running = false, raf = 0, t0 = null;
     function place(x) {
       core.setAttribute('r', String(56 * Math.sqrt(1 - x))); // unlithiated core shrinks, front sweeps in
@@ -214,17 +214,17 @@
     var x0 = 60, y0 = 220, x1 = 490, y1 = 30, N = 1000;
     var X = function (n) { return x0 + n / N * (x1 - x0); }, Y = function (r) { return y0 - r * (y0 - y1); };
     el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
-    [0, 250, 500, 750, 1000].forEach(function (n) { var t = el('text', { x: X(n), y: y0 + 16, 'text-anchor': 'middle', 'class': 'lbl' }, g); t.textContent = n; });
-    [0.5, 0.8, 1].forEach(function (r) { var t = el('text', { x: x0 - 6, y: Y(r) + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); t.textContent = Math.round(r * 100) + ' %'; });
-    var xl = el('text', { x: x1, y: y0 + 32, 'text-anchor': 'end', 'class': 'lbl' }, g); xl.textContent = 'cycle number';
+    [0, 250, 500, 750, 1000].forEach(function (n) { var t = el('text', { x: X(n), y: y0 + 16, 'text-anchor': 'middle', 'class': 'lbl' }, g); setSvgText(t, n); });
+    [0.5, 0.8, 1].forEach(function (r) { var t = el('text', { x: x0 - 6, y: Y(r) + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(t, Math.round(r * 100) + ' %'); });
+    var xl = el('text', { x: x1, y: y0 + 32, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(xl, 'cycle number');
     el('line', { x1: x0, y1: Y(0.8), x2: x1, y2: Y(0.8), stroke: 'var(--amber)', 'stroke-dasharray': '4 3' }, g);
-    var t80 = el('text', { x: x1, y: Y(0.8) - 5, 'text-anchor': 'end', 'class': 'lbl amber' }, g); t80.textContent = '80 %: end of life (Goodenough and Park)';
+    var t80 = el('text', { x: x1, y: Y(0.8) - 5, 'text-anchor': 'end', 'class': 'lbl amber' }, g); setSvgText(t80, '80 %: end of life (Goodenough and Park)');
     el('line', { x1: X(300), y1: y0, x2: X(300), y2: y1, stroke: 'var(--cyan)', 'stroke-dasharray': '4 3' }, g);
-    var t300 = el('text', { x: X(300) + 6, y: Y(0.45), 'class': 'lbl cyan' }, g); t300.textContent = '300 cycles: commercial minimum (Winter and Brodd)';
-    var ghosts = [0.995, 0.999]; ghosts.forEach(function (c) { var d = ''; for (var n = 0; n <= N; n += 10) d += (n ? 'L' : 'M') + X(n).toFixed(1) + ',' + Y(Math.pow(c, n)).toFixed(1); el('path', { d: d, fill: 'none', stroke: 'var(--muted)', 'stroke-opacity': '.4' }, g); var t = el('text', { x: X(N) + 2, y: Y(Math.pow(c, N)) + 4, 'class': 'lbl' }, g); t.textContent = (c * 100).toFixed(1) + ' %'; });
+    var t300 = el('text', { x: X(300) + 6, y: Y(0.45), 'class': 'lbl cyan' }, g); setSvgText(t300, '300 cycles: commercial minimum (Winter and Brodd)');
+    var ghosts = [0.995, 0.999]; ghosts.forEach(function (c) { var d = ''; for (var n = 0; n <= N; n += 10) d += (n ? 'L' : 'M') + X(n).toFixed(1) + ',' + Y(Math.pow(c, n)).toFixed(1); el('path', { d: d, fill: 'none', stroke: 'var(--muted)', 'stroke-opacity': '.4' }, g); var t = el('text', { x: X(N) + 2, y: Y(Math.pow(c, N)) + 4, 'class': 'lbl' }, g); setSvgText(t, (c * 100).toFixed(1) + ' %'); });
     var line = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.2 }, g);
     function render() {
-      var c = 0.99 + 0.0099 * (+ce.value / 100); c = Math.min(0.9999, c); cv.textContent = (c * 100).toFixed(2) + ' %';
+      var c = 0.99 + 0.0099 * (+ce.value / 100); c = Math.min(0.9999, c); setSvgText(cv, (c * 100).toFixed(2) + ' %');
       var d = ''; for (var n = 0; n <= N; n += 5) d += (n ? 'L' : 'M') + X(n).toFixed(1) + ',' + Y(Math.pow(c, n)).toFixed(1); line.setAttribute('d', d);
       var n80 = Math.log(0.8) / Math.log(c);
       read.innerHTML = 'If ' + (100 - c * 100).toFixed(2) + ' % of the charge is lost for good every cycle, the cell reaches 80 % after <b>' + Math.round(n80) + ' cycles</b>' + (n80 >= 300 ? ', which meets' : ', which fails') + ' the 300-cycle requirement. Real cells also lose capacity reversibly and unevenly, so treat this as an upper bound.';
@@ -238,14 +238,14 @@
     var sign = 1, y0 = 120, sc = 600; // px per (V * C-rate) illustrative
     var zero = el('line', { x1: 60, y1: y0, x2: 490, y2: y0, stroke: 'var(--line-2)' }, g);
     var rev = el('rect', { x: 100, width: 110, rx: 4, fill: 'var(--cyan)', 'fill-opacity': '.7' }, g), irr = el('rect', { x: 300, width: 110, rx: 4, fill: 'var(--heat)', 'fill-opacity': '.8' }, g);
-    var t1 = el('text', { x: 155, y: y0 + 40, 'text-anchor': 'middle', 'class': 'lbl strong' }, g); t1.textContent = 'reversible (entropic) heat';
-    var t1b = el('text', { x: 155, y: y0 + 56, 'text-anchor': 'middle', 'class': 'lbl' }, g); t1b.textContent = 'sign set by dE/dT, size independent of rate';
-    var t2 = el('text', { x: 355, y: y0 + 40, 'text-anchor': 'middle', 'class': 'lbl strong' }, g); t2.textContent = 'irreversible (Joule) heat, I·η';
-    var t2b = el('text', { x: 355, y: y0 + 56, 'text-anchor': 'middle', 'class': 'lbl' }, g); t2b.textContent = 'grows faster than the current';
-    var up = el('text', { x: 62, y: 40, 'class': 'lbl' }, g); up.textContent = 'heat released on discharge ↑';
-    var dn = el('text', { x: 62, y: 206, 'class': 'lbl' }, g); dn.textContent = 'heat absorbed on discharge ↓';
+    var t1 = el('text', { x: 155, y: y0 + 40, 'text-anchor': 'middle', 'class': 'lbl strong' }, g); setSvgText(t1, 'reversible (entropic) heat');
+    var t1b = el('text', { x: 155, y: y0 + 56, 'text-anchor': 'middle', 'class': 'lbl' }, g); setSvgText(t1b, 'sign set by dE/dT, size independent of rate');
+    var t2 = el('text', { x: 355, y: y0 + 40, 'text-anchor': 'middle', 'class': 'lbl strong' }, g); setSvgText(t2, 'irreversible (Joule) heat, I·η');
+    var t2b = el('text', { x: 355, y: y0 + 56, 'text-anchor': 'middle', 'class': 'lbl' }, g); setSvgText(t2b, 'grows faster than the current');
+    var up = el('text', { x: 62, y: 40, 'class': 'lbl' }, g); setSvgText(up, 'heat released on discharge ↑');
+    var dn = el('text', { x: 62, y: 206, 'class': 'lbl' }, g); setSvgText(dn, 'heat absorbed on discharge ↓');
     function render() {
-      var c = rateFromSlider(+rate.value); rv.textContent = fmtRate(c);
+      var c = rateFromSlider(+rate.value); setSvgText(rv, fmtRate(c));
       var e = model.eta(c, 0.5).total, q = c * e * sc, r = 0.012 * c * sc * sign; // entropic term proportional to current, sign by dE/dT
       irr.setAttribute('y', y0 - Math.min(q, 90)); irr.setAttribute('height', Math.min(q, 90));
       rev.setAttribute('y', r > 0 ? y0 - Math.min(r, 90) : y0); rev.setAttribute('height', Math.min(Math.abs(r), 90));
