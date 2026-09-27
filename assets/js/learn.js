@@ -204,7 +204,7 @@
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
     txt(g, box.x - 6, box.y + box.h, opts.units || 'V', 'phi', 'end');
-    if (opts.xlabel) txt(g, X(1), box.y + box.h + 14, opts.xlabel, '', 'end');
+    if (opts.xlabel) txt(g, opts.xanchor === 'middle' ? X(0.5) : X(1), box.y + box.h + 14, opts.xlabel, '', opts.xanchor || 'end');
     var ticks = el('g', {}, g);
     function update(p) {
       if (!p || !p.length) return;
@@ -502,7 +502,7 @@
     txt(g, 252, 162, 'electrons: − to +, through the wire', 'cyan', 'middle');
     var fieldW = arrow(g, 296, 62, 336, 62, '#C4B5F7', 1.4, 'field-arrow'); txt(g, 316, 84, 'field along the wire', 'field', 'middle');
     // strip: the path unrolled from the − terminal, through the cell, the top wire, the switch, the lamp and the bottom wire
-    var strip = phiStrip(g, { x: 56, y: 224, w: 440, h: 70 }, [], { vmin: 0, vmax: 5, label: 'φ', units: '0', xlabel: 'path: − terminal → cell → wire → switch → lamp → wire → −' });
+    var strip = phiStrip(g, { x: 56, y: 224, w: 440, h: 70 }, [], { vmin: 0, vmax: 5, label: 'φ', units: '0', xlabel: 'the loop unrolled: from the − terminal round to the − terminal', xanchor: 'middle' });
     [0.12, 0.40, 0.48, 0.76].forEach(function (f) { el('line', { x1: strip.X(f), y1: 224, x2: strip.X(f), y2: 294, stroke: 'var(--line)', 'stroke-dasharray': '3 3' }, strip.ticks); });
     [['cell', 0.06], ['wire', 0.26], ['switch', 0.44], ['lamp', 0.62], ['wire', 0.88]].forEach(function (s) { txt(g, strip.X(s[1]), 214, s[0], '', 'middle'); });
     badge(g, cx + 40, ct - 8, 1); badge(g, 388, 158, 2); badge(g, 118, 158, 3); badge(g, 268, 24, 4);

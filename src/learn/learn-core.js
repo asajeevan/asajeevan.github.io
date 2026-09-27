@@ -204,7 +204,7 @@
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
     txt(g, box.x - 6, box.y + box.h, opts.units || 'V', 'phi', 'end');
-    if (opts.xlabel) txt(g, X(1), box.y + box.h + 14, opts.xlabel, '', 'end');
+    if (opts.xlabel) txt(g, opts.xanchor === 'middle' ? X(0.5) : X(1), box.y + box.h + 14, opts.xlabel, '', opts.xanchor || 'end');
     var ticks = el('g', {}, g);
     function update(p) {
       if (!p || !p.length) return;
