@@ -13,6 +13,80 @@
   var F = 96485.3;          // C/mol
   var R = 8.314462618;      // J/(mol K)
   var T0 = 298.15;          // K, 25 C
+  /* Elementary charge and Avogadro constant from CODATA 2018 (exact since the 2019 SI);
+     F = N_A e to within the rounding of the printed F. Vacuum permittivity as printed in
+     Bard, Faulkner and White, section 2.2.1 footnote 16 and section 14.3.1 footnote 6. */
+  var e = 1.602176634e-19;  // C
+  var NA = 6.02214076e23;   // 1/mol
+  var eps0 = 8.85419e-12;   // C^2 N^-1 m^-2
+
+  /* ---------- Module 0: charge, field, potential, voltage (Bard, Faulkner and White) ---------- */
+
+  /* Coulomb's law in SI form, Bard, Faulkner and White section 14.3.1 footnote 6:
+     F = q q' / (4 pi eps eps0 r^2), newtons, with eps the dielectric constant of the medium
+     (1 in vacuum). Positive means repulsion (like charges). */
+  function coulombForce(q1, q2, r, epsr) { return q1 * q2 / (4 * Math.PI * (epsr || 1) * eps0 * r * r); }
+
+  /* The electric field is the force exerted on a unit charge (BFW 2.2.1). For a point
+     charge q it follows from Coulomb's law: E = q / (4 pi eps0 r^2), V/m, directed away
+     from a positive q. */
+  function fieldOfCharge(q, r, epsr) { return q / (4 * Math.PI * (epsr || 1) * eps0 * r * r); }
+
+  /* The potential is the work to bring a unit positive charge from infinity,
+     phi = -integral of E dot dl (BFW eq. 2.2.1). Integrating the point-charge field from
+     infinity to r gives phi = q / (4 pi eps0 r), volts. */
+  function potentialOfCharge(q, r, epsr) { return q / (4 * Math.PI * (epsr || 1) * eps0 * r); }
+
+  /* Uniform field between two parallel plates: d(phi)/dx = Delta E / l (BFW eq. 4.2.3).
+     Field strength V/m from a potential difference V across a gap l (m). */
+  function uniformField(V, l) { return V / l; }
+
+  /* Energy change of a charge q moved across a potential difference dphi: Delta E = q dphi
+     (BFW 1.1.4 footnote 9). In joules; divide by e for electron-volts. */
+  function energyOfCharge(q, dphi) { return q * dphi; }
+  function electronVolts(joules) { return joules / e; }
+
+  /* One electron-volt per electron is 96.5 kJ per mole of electrons (BFW 1.1.4):
+     F x 1 V in J/mol. */
+  function kJPerMolFromEV(eV) { return F * eV / 1000; }
+
+  /* Faraday's law as BFW eq. 1.1.12: Q = n F N; and current as the rate of charge
+     collection, i = dQ/dt = nF dN/dt (eq. 1.1.13). Electrons per second at a current i. */
+  function chargeFromMoles(n, N) { return n * F * N; }
+  function electronsPerSecond(i) { return i / e; }
+
+  /* Ohm's law in the forms of BFW section 4.2: G = 1/R = kappa A / l (eq. 4.2.6),
+     R = rho l / A (eq. 4.2.8); i = E / R. Winter and Brodd 2.2: E = I R in electrolytes. */
+  function resistance(rho, l, A) { return rho * l / A; }
+  function conductance(kappa, A, l) { return kappa * A / l; }
+  function ohmCurrent(V, Rres) { return V / Rres; }
+  /* Power P = I V, Goodenough and Park 2013 (introduction). */
+  function power(I, V) { return I * V; }
+
+  /* Mobility, BFW eq. 2.3.9: at the terminal velocity the electric force |z| e E equals
+     the Stokes drag 6 pi eta r v, so u = |z| e / (6 pi eta r) and v = u E. */
+  function mobility(z, eta, r) { return Math.abs(z) * e / (6 * Math.PI * eta * r); }
+  function driftVelocity(u, E) { return u * E; }
+  function electricForce(z, E) { return Math.abs(z) * e * E; }
+  function stokesDrag(eta, r, v) { return 6 * Math.PI * eta * r * v; }
+  /* Conductivity from mobilities, BFW eqs. 2.3.10 and 4.2.7: kappa = F sum |z_j| u_j C_j.
+     ions: array of {z, u, C} with C in mol per cubic metre and u in m^2/(V s) gives S/m. */
+  function conductivity(ions) { var k = 0; for (var i = 0; i < ions.length; i++) k += Math.abs(ions[i].z) * ions[i].u * ions[i].C; return F * k; }
+
+  /* A capacitor, BFW eq. 1.6.4: q = C E. The Helmholtz double layer as a parallel-plate
+     capacitor, eq. 14.3.2: C_H = eps eps0 / d per unit area. */
+  function capacitorCharge(C, E) { return C * E; }
+  function helmholtzCapacitance(epsr, d) { return epsr * eps0 / d; }
+
+  /* The water window on the lithium scale. Standard potentials vs NHE from BFW Table C.1
+     (Li+/Li = -3.045 V) and section 2.1.9: hydrogen line E = 0.0 - 0.059 pH, oxygen line
+     E = 1.229 - 0.059 pH (eqs. 2.1.66 and 2.1.67). Both lines shift by the same amount, so
+     the window keeps its 1.229 V width and slides down 59 mV per pH unit. On the lithium
+     scale add 3.045 V. */
+  function waterWindowVsLi(pH) {
+    var li = -3.045, h = 0.0 - 0.059 * pH, o = 1.229 - 0.059 * pH;
+    return { low: h - li, high: o - li, width: o - h, pH: pH };
+  }
 
   /* Faraday's law, Winter and Brodd eq. 7: mass transformed = I t M / (n F). */
   function massTransformed(I, t, M, n) { return I * t * M / (n * F); }
@@ -91,7 +165,22 @@
   /* Reference data used by the figures. Every number carries its source. */
   var data = {
     /* Standard potentials vs NHE from the table in Bard, Faulkner and White. */
-    standardPotentials: { 'Cu2+/Cu': 0.340, 'Zn2+/Zn': -0.7626 },
+    standardPotentials: { 'Cu2+/Cu': 0.340, 'Zn2+/Zn': -0.7626, 'Li+/Li': -3.045, 'O2/H2O': 1.229, 'H+/H2': 0.0 },
+    /* The Daniell cell: E = 0.340 - (-0.7626) = 1.103 V (Table C.1), two electrons per
+       zinc atom (BFW 1.1.5). */
+    daniell: { E: 0.340 - (-0.7626), n: 2 },
+    /* Numbers from BFW used on the Module 0 and 3 figures, each with its section. */
+    electrostatics: {
+      mercuryDropVacuumCperV: 5e-14,      // C per volt for a 0.5 mm mercury drop in vacuum (2.2.1)
+      mercuryDropElectrolyteC: 1e-6,       // C for a 1 V change with 0.1 M electrolyte, A = 0.03 cm2 (2.2.2)
+      interfacialFieldVperCm: 1e7,         // field strength the interface can reach (2.2.3)
+      metalChargeLayerNm: 1,               // electrode charge sits in a layer under 1 nm (1.6.2)
+      diffuseLayerNmAbove10mM: 10,         // diffuse layer under about 10 nm above 0.01 M (1.6.3)
+      doubleLayerCapacitance: [10, 40],    // uF/cm2 (1.6.2; Winter and Brodd 4.2)
+      doubleLayerTimeConstantS: 1e-8,      // Winter and Brodd 4.2
+      workFunctionEV: [2, 6],              // typical metals (2.2.5 footnote 24)
+      nheAbsoluteV: 4.4                    // absolute potential of the NHE, about 4.4 V (2.2.5)
+    },
     /* Potential ladder vs Li/Li+ (volts). Sources: Goodenough and Park 2013 (R6)
        unless marked; sulfur and thiolate from Tarascon and Armand 2001 (R2). */
     ladder: [
@@ -137,7 +226,13 @@
   };
 
   return {
-    F: F, R: R, T0: T0,
+    F: F, R: R, T0: T0, e: e, NA: NA, eps0: eps0,
+    coulombForce: coulombForce, fieldOfCharge: fieldOfCharge, potentialOfCharge: potentialOfCharge, uniformField: uniformField,
+    energyOfCharge: energyOfCharge, electronVolts: electronVolts, kJPerMolFromEV: kJPerMolFromEV,
+    chargeFromMoles: chargeFromMoles, electronsPerSecond: electronsPerSecond,
+    resistance: resistance, conductance: conductance, ohmCurrent: ohmCurrent, power: power,
+    mobility: mobility, driftVelocity: driftVelocity, electricForce: electricForce, stokesDrag: stokesDrag, conductivity: conductivity,
+    capacitorCharge: capacitorCharge, helmholtzCapacitance: helmholtzCapacitance, waterWindowVsLi: waterWindowVsLi,
     massTransformed: massTransformed, specificCapacity: specificCapacity, reactionEnergy: reactionEnergy,
     nernst: nernst, dischargeVoltage: dischargeVoltage, chargeVoltage: chargeVoltage,
     butlerVolmer: butlerVolmer, butlerVolmerAnodic: butlerVolmerAnodic, chargeTransferResistance: chargeTransferResistance,

@@ -3,147 +3,145 @@
     <p class="mod-n">Module 3 of 12</p>
     <h2 class="h2">Where the voltage comes from</h2>
     <p class="hook">Why does a lithium-ion cell give over 3.6 V and a torch battery 1.5 V?</p>
+    <p class="where"><b>Where we are.</b> Module 1 measured 1.10 V between zinc and copper and showed that it sits in two jumps, one at each metal|liquid boundary. Module 2 named the parts. Now the physics of a jump: what a potential means for the electrons in a metal, what happens at the boundary, and why the two electrodes of your cell sit where they do on a ladder.</p>
 
     <div class="beat">
       <figure class="fig" data-fig="f3-1" id="f3-1">
         <span class="fnum">Figure 3.1</span>
-        <svg viewBox="0 0 520 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f31t">
-          <title id="f31t">A ladder of electrode potentials against lithium, with negative-electrode materials on the left, positive-electrode materials on the right, and the band in which the electrolyte is stable in the middle.</title>
-          <line x1="40" y1="28" x2="40" y2="318" stroke="var(--line-2, rgba(234,240,236,.26))"/>
-          <g class="lbl">
-            <text x="34" y="322" text-anchor="end">0</text><text x="34" y="264" text-anchor="end">1</text><text x="34" y="206" text-anchor="end">2</text><text x="34" y="148" text-anchor="end">3</text><text x="34" y="90" text-anchor="end">4</text><text x="34" y="32" text-anchor="end">5</text>
-          </g>
-          <text x="12" y="20" class="lbl">V vs Li/Li&#8314;</text>
-          <text x="135" y="20" class="lbl cyan" text-anchor="middle">negative electrodes</text>
-          <text x="381" y="20" class="lbl amber" text-anchor="middle">positive electrodes</text>
-          <g class="bands"></g>
-          <g class="rungs"></g>
-          <path class="brace" d="M258,300 L258,86" fill="none" stroke="var(--amber, #F0B441)" stroke-width="2" stroke-dasharray="4 3"/>
-          <rect class="brace-bg" x="234" y="178" width="52" height="18" rx="4" fill="var(--bg-2, #0F2126)"/>
-          <text class="brace-t lbl strong" x="260" y="191" text-anchor="middle">3.8 V</text>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f31t">
+          <title id="f31t">An electrode with its filled electron states up to a Fermi level, beside a species in solution with an empty orbital above and a filled orbital below. Sliding the electrode potential moves the Fermi level: more negative raises the electrons until they can jump into the empty orbital, a reduction; more positive lowers them until electrons from the filled orbital jump onto the metal, an oxidation.</title>
         </svg>
-        <div class="controls">
-          <label>Negative <select data-side="neg" aria-label="Choose the negative electrode"></select></label>
-          <label>Positive <select data-side="pos" aria-label="Choose the positive electrode"></select></label>
-          <label><input type="checkbox"> show the water window</label>
-        </div>
-        <div class="part-info"><span class="readout"></span><div class="flags"></div></div>
-        <figcaption>The potential ladder. Pick a negative and a positive electrode and read the gap. Your choice is remembered and carried into the next modules.
-          <span class="try">Try this: before you choose, guess which pair gives the most voltage, then check; then pick lithium titanate and see which warning disappears.</span>
-          <span class="basis">Rung values from Goodenough and Park 2013 and Tarascon and Armand 2001 (sulfur); electrolyte window from Goodenough and Park 2013; water window from Winter and Brodd 2004. Values are approximate operating potentials; real cells give sloping curves (module 5).</span>
+        <div class="controls"><label>electrode potential <input type="range" class="E" min="-1.5" max="1.5" step="0.05" value="0" aria-label="Electrode potential relative to the couple's standard potential, in volts"> <b class="E-val">0.00 V</b></label></div>
+        <div class="key"><span><i class="e"></i>electron</span><span><i class="carb"></i>orbitals of the species</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Potential as electron energy. Moving an electrode&#8217;s potential moves the energy of its electrons, one electron-volt per volt, the other way.
+          <span class="try">Try this: slide slowly negative until the first electron jumps, note the potential, then slide positive until one jumps back.</span>
+          <span class="basis">After Bard, Faulkner and White 2022, section 1.1.4 and Figure 1.1.3 (reduction when the electrode&#8217;s electrons reach a vacant orbital, oxidation when a filled orbital finds a lower energy on the electrode; 1 eV per volt) and section 2.2.5 (the Fermi energy as the energy of transferable electrons). The positions of the two orbitals, &#8722;0.6 and +0.6 V from the couple&#8217;s standard potential, are illustrative.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">The open-circuit voltage of a cell is the difference between the electrochemical potentials of its two electrodes.{{cite:R6}} Picture each material as a rung on a ladder: the voltage is the gap between the two rungs you choose. Battery scientists measure the rungs against lithium metal, which is why every value here reads &#8220;versus Li/Li&#8314;&#8221;.</p>
-        <p class="explain">Lithium sits at the bottom. In Tarascon and Armand&#8217;s words it is &#8220;the most electropositive&#8221; metal, meaning the one with the most negative standard potential, &#8722;3.04 V against the standard hydrogen electrode, and it is also the lightest metal, at 6.94 g/mol and 0.53 g/cm&#179;.{{cite:R2}} Any positive electrode paired with lithium, or with a host that holds lithium near its own potential, gets the largest possible gap.</p>
-        <p class="aside">Think of two reservoirs at different heights: the pressure at the pipe between them depends on the height difference, not on how wide the reservoirs are. The picture breaks as soon as water flows: the height stays, but the flow costs pressure. Module 5 is about that cost.</p>
-        <p class="lesson">Voltage is a property of the pair of materials, not of the size of the cell.</p>
+        <p class="explain">In module 0 a potential was energy per unit charge. For an electrode that has a sharp meaning: to observe or control the potential of an electrode is to observe or control the energy of its transferable electrons.{{cite:B2}} Drive an electrode to a more negative potential and the energy of its electrons is raised; for each volt, each electron gains one electron-volt, 96.5 kJ per mole of electrons, comparable to the energies of chemical bonds.{{cite:B2}}</p>
+        <p class="explain">The energy of those transferable electrons has a name: the <span class="def">Fermi energy</span>, or Fermi level. In a metal the electron states form a continuum, filled from the bottom up; the Fermi level marks the division between filled and empty, and because empty states lie just above it, an electron can move with almost no activation, which is what makes a metal conduct.{{cite:B2}} Raise the Fermi level above an empty orbital of a species in the electrolyte and electrons flow from the electrode into the solution, a reduction current; lower it below a filled orbital and electrons flow from the solution onto the electrode, an oxidation current.{{cite:B2}}</p>
+        <p class="explain">This is the same fact as the potential ladder further down: a more negative electrode holds its electrons at a higher energy, so it is the stronger reducing agent. Lithium, at the bottom of every ladder, holds them highest of all.</p>
+        <p class="lesson">Electrode potential is electron energy in disguise: more negative means higher-energy electrons, one electron-volt per volt.</p>
       </div>
     </div>
 
     <div class="beat alt">
       <figure class="fig" data-fig="f3-2" id="f3-2">
         <span class="fnum">Figure 3.2</span>
-        <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f32t">
-          <title id="f32t">Electron energy levels of the negative electrode, the electrolyte window between its lowest unoccupied and highest occupied orbitals, and the positive electrode; an electron drops from the higher level to the lower one, releasing the cell voltage times its charge.</title>
-          <line x1="30" y1="250" x2="30" y2="30" stroke="var(--line-2, rgba(234,240,236,.26))" marker-end="url(#arr32)"/>
-          <defs><marker id="arr32" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,10 L5,0 L10,10 z" fill="var(--muted, #A3B6B1)"/></marker></defs>
-          <text x="14" y="140" class="lbl" transform="rotate(-90 14 140)" text-anchor="middle">electron energy</text>
-          <text x="105" y="22" class="lbl strong" text-anchor="middle">negative electrode</text>
-          <text x="260" y="22" class="lbl strong" text-anchor="middle">electrolyte</text>
-          <text x="415" y="22" class="lbl strong" text-anchor="middle">positive electrode</text>
-          <rect class="win" x="200" y="86" width="120" height="134" fill="var(--cyan, #83DBD0)" fill-opacity=".14" rx="4"/>
-          <line class="lumo" x1="200" y1="86" x2="320" y2="86" stroke="var(--cyan, #83DBD0)" stroke-width="2"/>
-          <line class="homo" x1="200" y1="220" x2="320" y2="220" stroke="var(--cyan, #83DBD0)" stroke-width="2"/>
-          <text x="260" y="80" class="lbl cyan" text-anchor="middle">LUMO (empty)</text>
-          <text x="260" y="234" class="lbl cyan" text-anchor="middle">HOMO (filled)</text>
-          <text x="260" y="156" class="lbl" text-anchor="middle">window E&#8342;</text>
-          <line class="muA" x1="60" y1="48" x2="150" y2="48" stroke="#8fa3b0" stroke-width="3"/>
-          <text class="muA-t lbl" x="60" y="42">&#956;_A</text>
-          <text class="warnA lbl amber" x="60" y="62" style="display:none">above the LUMO: SEI needed</text>
-          <line class="muC" x1="370" y1="208" x2="460" y2="208" stroke="var(--amber-2, #C98D1E)" stroke-width="3"/>
-          <text class="muC-t lbl" x="370" y="224">&#956;_C</text>
-          <text class="warnC lbl amber" x="370" y="238" style="display:none">below the HOMO: oxidation</text>
-          <line class="gap" x1="340" y1="48" x2="340" y2="208" stroke="var(--amber, #F0B441)" stroke-dasharray="4 3"/>
-          <text class="gap-t lbl strong" x="346" y="130">e&#183;V_OC</text>
-          <circle class="e-drop e-dot anim-only" cx="150" cy="48" r="4"/>
+        <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f32t">
+          <title id="f32t">A metal in contact with an electrolyte. Excess charge on the metal sits in a layer less than a nanometre thick at its surface; ions of the opposite sign gather in the liquid, first a compact layer one solvent molecule out and then a diffuse layer a few nanometres deep; a strip below shows the potential flat in the metal, dropping steeply across the compact layer, tailing off through the diffuse layer and flat again in the bulk.</title>
         </svg>
+        <div class="controls"><label>charge on the metal <input type="range" class="q" min="-2" max="2" step="1" value="-2" aria-label="Excess charge on the metal, from negative through zero to positive"> <b class="q-val">negative</b></label></div>
+        <div class="key"><span><i class="neg"></i>negative charge</span><span><i class="pos"></i>positive charge</span><span><i class="carb"></i>solvent shell</span><span><i class="phi"></i>potential</span></div>
         <div class="part-info"><span class="readout"></span></div>
-        <figcaption>The same gap as a picture of electron energy. Higher on this axis means the electron is held less tightly. The figure follows your cell from figure 3.1.
-          <span class="basis">After Goodenough and Park 2013, Figure 2a and 2c. Carbonate electrolyte: LUMO about 1.1 eV and HOMO about 4.3 eV below the lithium level.</span>
+        <figcaption>Inside one jump: the electrical double layer.
+          <span class="try">Try this: slide the charge from negative to positive and watch the ions in the liquid swap sign; stop at zero and notice the jump vanish.</span>
+          <span class="basis">Structure and scales from Bard, Faulkner and White 2022, sections 1.6.2 and 1.6.3 (electrode charge in a layer under 1 nm, diffuse layer under about 10 nm above 0.01 M, capacitance 10 to 40 &#181;F/cm&#178;) and Figure 1.6.3b (the potential profile); equal and opposite charges from section 2.2.2; field up to 10&#8311; V/cm from 2.2.3; the Helmholtz capacitor from 14.3.1. Double-layer time constant about 10&#8315;&#8312; s from Winter and Brodd 2004, section 4.2. Ion positions are random; the profile shape is schematic.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">The gap has a ceiling. An electrolyte is stable only between two energy levels: the energy of its lowest unoccupied orbital and of its highest occupied one. A negative electrode whose electrons sit above the first will reduce the electrolyte, and a positive electrode whose empty states sit below the second will oxidize it, unless a passivating layer forms at the surface and blocks the reaction.{{cite:R6}}</p>
-        <p class="explain">Water is thermodynamically stable over only 1.23 V, and thanks to slow kinetics about 2 V in practice,{{cite:R1}} which is why cells with an aqueous electrolyte and a long shelf life stop near 1.5 V.{{cite:R6}} The organic carbonate electrolytes of lithium-ion cells reach about 4.3 V versus lithium before their filled orbitals are attacked,{{cite:R6}} and about 4.6 V in practice.{{cite:R1}} That is the difference between the torch battery and the phone battery: not a stronger reaction, but an electrolyte that tolerates a wider gap.</p>
-        <p class="explain">Graphite sits about 0.2 V above lithium, below the carbonate electrolyte&#8217;s limit, so a layer must form on it during the first charge; lithium titanate at 1.5 V sits inside the window and needs none.{{cite:R6}} Module 6 follows that layer as it forms.</p>
+        <p class="explain">Now zoom into one of the jumps of figure 1.1. Put a metal into an electrolyte and the two phases exchange a little charge until their electron energies match; equality of the Fermi energies of metal and solution is the condition for equilibrium, and electrons flow from the phase with the higher Fermi energy to the one with the lower until it is reached.{{cite:B2}} The amount of charge that moves is tiny, so the composition of the solution does not noticeably change.{{cite:B2}}</p>
+        <p class="explain">That charge cannot spread through the metal: a conductor at rest keeps its excess charge on its surface (module 0), and on an electrode it lies in a layer thinner than a nanometre.{{cite:B2}} The liquid answers with an equal and opposite charge right at the boundary, an excess of cations or of anions.{{cite:B2}} The whole array, charged metal surface, oriented solvent molecules, a compact layer of ions one solvent shell out and a diffuse layer beyond, is the <span class="def">electrical double layer</span>.{{cite:B2}} Above 0.01 M the diffuse part is less than about 10 nm thick.{{cite:B2}}</p>
+        <p class="explain">Two sheets of opposite charge a molecular distance apart: the potential steps across them, and the field inside the step can reach 10&#8311; V/cm, strong enough to distort the molecules that sit in it.{{cite:B2}} The arrangement behaves like a capacitor, q = C&#183;E, with 10 to 40 &#181;F for every square centimetre of electrode, and it forms and relaxes in about 10&#8315;&#8312; s.{{cite:B2,R1}} A cell&#8217;s voltage is the sum of such steps, taken along the path from one electrode to the other.{{cite:B2}}</p>
+        <p class="lesson">A cell&#8217;s voltage lives in two double layers, each a few nanometres thick.</p>
       </div>
     </div>
 
     <div class="beat">
       <figure class="fig" data-fig="f3-3" id="f3-3">
         <span class="fnum">Figure 3.3</span>
-        <svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f33t">
-          <title id="f33t">Energy bands of a sulfide and an oxide host. The top of the sulfur band lies about 2.5 electron-volts below the lithium level and the top of the oxygen band about 4.0 electron-volts below, so the redox couple of the host cannot be pushed lower than those tops.</title>
-          <line x1="60" y1="30" x2="470" y2="30" stroke="#8fa3b0" stroke-width="2"/>
-          <text x="470" y="24" class="lbl" text-anchor="end">&#956;_A(Li): the lithium level</text>
-                    <text x="155" y="52" class="lbl strong" text-anchor="middle">layered sulfide LiMS&#8322;</text>
-          <text x="365" y="52" class="lbl strong" text-anchor="middle">layered oxide LiMO&#8322;</text>
-          <rect x="90" y="125" width="130" height="115" fill="#c9a35c" fill-opacity=".35" stroke="#c9a35c" stroke-opacity=".6"/>
-          <text x="155" y="170" class="lbl" text-anchor="middle">S-3p band</text>
-          <text x="155" y="184" class="lbl" text-anchor="middle">top 2.5 eV below the lithium level</text>
-          <rect x="300" y="182" width="130" height="58" fill="var(--heat, #E8663D)" fill-opacity=".3" stroke="var(--heat, #E8663D)" stroke-opacity=".6"/>
-          <text x="365" y="218" class="lbl" text-anchor="middle">O-2p band</text>
-          <text x="365" y="232" class="lbl" text-anchor="middle">top 4.0 eV below</text>
-          <g class="couple" data-y0="70" data-y1="125">
-            <line x1="100" y1="70" x2="210" y2="70" stroke="var(--text, #EAF0EC)" stroke-width="2.5"/>
-            <text x="155" y="64" class="lbl" text-anchor="middle">M(IV)/M(III) couple</text>
-          </g>
-          <g class="couple" data-y0="70" data-y1="182">
-            <line x1="310" y1="70" x2="420" y2="70" stroke="var(--text, #EAF0EC)" stroke-width="2.5"/>
-            <text x="365" y="64" class="lbl" text-anchor="middle">M(IV)/M(III) couple</text>
-          </g>
-          <text x="155" y="146" class="lbl amber" text-anchor="middle">pinned here: about 2.5 V</text>
-          <text x="365" y="202" class="lbl amber" text-anchor="middle">pinned here: about 4 V</text>
+        <svg viewBox="0 0 520 344" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f33t">
+          <title id="f33t">A ladder of electrode potentials against lithium, negative-electrode materials on the left and positive-electrode materials on the right, the band in which carbonate electrolytes are stable in the middle, and, when switched on, the window in which water is stable, 1.23 volts wide, sitting between 3.05 and 4.27 volts versus lithium at pH 0 and sliding down with pH.</title>
         </svg>
-        <figcaption>Why oxide hosts give 4 V and sulfide hosts about 2.5 V. The redox couple of the transition metal can be lowered only as far as the top of the anion band.
-          <span class="basis">After Goodenough and Park 2013, text on the anion-p bands. Schematic; the couple&#8217;s starting position is illustrative.</span>
+        <div class="controls">
+          <label>Negative <select data-side="neg" aria-label="Choose the negative electrode"></select></label>
+          <label>Positive <select data-side="pos" aria-label="Choose the positive electrode"></select></label>
+          <label><input type="checkbox"> show the water window at</label>
+          <label><input type="range" class="pH" min="0" max="14" step="1" value="0" aria-label="pH of the aqueous electrolyte"> <b class="pH-val">pH 0</b></label>
+        </div>
+        <div class="part-info"><span class="readout"></span><div class="flags"></div></div>
+        <figcaption>The potential ladder. Pick a negative and a positive electrode and read the gap. Your choice is remembered and carried into the next modules.
+          <span class="try">Try this: guess which pair gives the most voltage before you choose; then switch on the water window and see how many rungs a water-based cell can never reach.</span>
+          <span class="basis">Rung values from Goodenough and Park 2013 (graphite about 0.2, alloys 0.2 to 0.8, lithium titanate 1.5, TiS&#8322; about 2.2, LiFePO&#8324; 3.5, LiCoO&#8322; about 4.0, LiNi&#8320;.&#8325;Mn&#8321;.&#8325;O&#8324; about 4.75 V) and Tarascon and Armand 2001 (sulfur 2.4 V, a lithium-sulfur conversion electrode, not an insertion host); carbonate window from Goodenough and Park 2013. Water window computed from Bard, Faulkner and White 2022: Li&#8314;/Li at &#8722;3.045 V and O&#8322;/H&#8322;O at 1.229 V vs NHE (Table C.1), lines E = 0 &#8722; 0.059 pH and E = 1.229 &#8722; 0.059 pH (eqs. 2.1.66 and 2.1.67), so 3.045 to 4.274 V vs Li at pH 0. Thermodynamic limits; kinetics widen the practical window to about 2 V (Winter and Brodd 2004). Values are approximate operating potentials; real cells give sloping curves (module 5).</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">Why do oxide positive electrodes reach 4 V when the sulfide of the first rechargeable lithium cell reached only 2.2 V? The redox couple of the host cannot be pushed below the top of the host&#8217;s anion band. In the layered sulfides that top sits about 2.5 eV below the lithium level; in the layered oxides it sits about 4.0 eV below, which is why oxide hosts are used in today&#8217;s lithium-ion cells.{{cite:R6}} Polyanions such as phosphate pull the band lower still through what chemists call the inductive effect, which is how LiFePO&#8324; reaches 3.5 V.{{cite:R6,R2}}</p>
+        <p class="explain">Chemists carry the same idea one step further. The energy of a charged species in a phase has two parts: a chemical part, from its surroundings on the scale of a molecule, and an electrical part, its charge times the local potential. Their sum is the <span class="def">electrochemical potential</span>, &#956;&#772; = &#956; + zF&#966;, and a species is at equilibrium between two phases when its electrochemical potential is the same in both.{{cite:B2}} Apply that to the electrons in the two electrodes of a cell and the open-circuit voltage falls out: it is the difference between the electrochemical potentials of the electrons in the two electrodes, divided by the electron charge, V<sub>OC</sub> = (&#956;<sub>A</sub> &#8722; &#956;<sub>C</sub>)/e.{{cite:R6,B2}}</p>
+        <p class="explain">So picture each material as a rung on a ladder of electron energy, drawn as a potential: the cell voltage is the gap between the two rungs you choose. Battery scientists measure the rungs against lithium metal, which is why every value here reads &#8220;versus Li/Li&#8314;&#8221;. Lithium sits at the bottom. In Tarascon and Armand&#8217;s words it is &#8220;the most electropositive&#8221; metal, the one with the most negative standard potential, &#8722;3.04 V against the standard hydrogen electrode, and it is also the lightest metal, at 6.94 g/mol and 0.53 g/cm&#179;.{{cite:R2}}</p>
+        <p class="explain">The gap has a ceiling, and the ceiling is the electrolyte. Water is thermodynamically stable over only 1.23 V, between the potential at which it gives off hydrogen and the potential at which it gives off oxygen;{{cite:B2}} slow kinetics stretch that to about 2 V in practice,{{cite:R1}} which is why cells with an aqueous electrolyte and a long shelf life stop near 1.5 V.{{cite:R6}} But where that 1.23 V sits matters as much as its width: at pH 0 it runs from 3.05 to 4.27 V versus lithium, and it slides 59 mV lower for every pH unit.{{cite:B2}} Every rung below about 3 V, which is every negative electrode on the ladder and most of the positive ones, is simply out of reach for water. The organic carbonate electrolytes of lithium-ion cells are stable from about 1.1 V to about 4.3 V versus lithium,{{cite:R6}} about 4.6 V in practice,{{cite:R1}} and there is the answer to the hook: not a stronger reaction, but an electrolyte that tolerates a wider gap, in the right place.</p>
+        <p class="aside">Two reservoirs at different heights: the pressure at the pipe between them depends on the height difference, not on how wide the reservoirs are. The picture breaks as soon as water flows: the height stays, but the flow costs pressure. Module 5 is about that cost.</p>
+        <p class="lesson">Voltage is a property of the pair of materials, and the electrolyte sets how far apart they may be.</p>
       </div>
     </div>
 
     <div class="beat alt">
       <figure class="fig" data-fig="f3-4" id="f3-4">
         <span class="fnum">Figure 3.4</span>
-        <svg viewBox="0 0 520 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f34t">
-          <title id="f34t">A bar whose length is the electrical energy available per mole of reaction, n F E.</title>
-          <text x="40" y="30" class="lbl strong">electrical energy available per mole of reaction, &#8722;&#916;G = nFE</text>
-          <rect x="40" y="44" width="440" height="30" rx="4" fill="var(--amber, #F0B441)" fill-opacity=".15"/>
-          <rect class="gbar" x="40" y="44" width="200" height="30" rx="4" fill="var(--amber, #F0B441)"/>
-          <text x="40" y="96" class="lbl">0</text><text x="480" y="96" class="lbl" text-anchor="end">1450 kJ/mol</text>
+        <svg viewBox="0 0 520 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f34t">
+          <title id="f34t">Electron energy levels of the negative electrode, the electrolyte window between its lowest empty and highest filled levels, and the positive electrode. An electron leaves the negative electrode, travels along a wire drawn above the cell and drops onto the positive electrode, releasing the cell voltage times its charge; a lithium ion crosses the electrolyte inside at the same time.</title>
         </svg>
-        <div class="controls">
-          <label>electrons per formula unit, n = <b class="n-val">1</b> <input type="range" data-p="n" min="1" max="3" step="1" value="1" aria-label="Number of electrons"></label>
-          <label>cell voltage E = <b class="E-val">3.6 V</b> <input type="range" data-p="E" min="0.5" max="5" step="0.1" value="3.6" aria-label="Cell voltage"></label>
-        </div>
+        <div class="key"><span><i class="e"></i>electron</span><span><i class="li"></i>our ion</span><span><i class="carb"></i>electrolyte window</span></div>
         <div class="part-info"><span class="readout"></span></div>
-        <figcaption>The same gap in the language of thermodynamics.
-          <span class="try">Try this: double the voltage and double the electrons, and watch which one the energy bar follows.</span>
-          <span class="basis">Computed from Winter and Brodd 2004, equation 3, with F = 96 485.3 C/mol.</span>
+        <figcaption>The same gap as a picture of electron energy. The figure follows your cell from figure 3.3.
+          <span class="try">Try this: choose lithium titanate in figure 3.3 and watch the warning on the left vanish; then choose the 4.75 V spinel and watch one appear on the right.</span>
+          <span class="basis">After Goodenough and Park 2013, Figure 2a and 2c, and their eq. 6: carbonate electrolyte with the LUMO about 1.1 eV and the HOMO about 4.3 eV below the lithium level. The wire is added so that the electron&#8217;s path is drawn correctly: through the external circuit, never through the electrolyte (Goodenough and Park 2013, Electrochemical Cells).</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">In the language of thermodynamics the same gap reads &#916;G = &#8722;nFE: the electrical energy available from a reaction is the number of electrons it moves per formula unit, times the Faraday constant, times the cell voltage. So the voltage is the reaction&#8217;s free energy per unit of charge, and nF, the total charge available, is its capacity factor.{{cite:R1}} The Faraday constant is the charge carried by one mole of electrons, 96 485.3 coulombs.{{cite:R1}} Module 4 turns that constant into the capacity of your cell.</p>
-        <p class="recap"><b>You can now explain</b> why lithium cells have the highest voltages, why oxide hosts beat sulfides, and what sets the ceiling.</p>
+        <p class="explain">The ceiling has a mechanism. An electrolyte is a collection of molecules, and each has a highest filled and a lowest empty energy level; the gap between them is the <span class="def">electrolyte window</span>. A negative electrode whose electrons sit above the empty level will reduce the electrolyte, and a positive electrode whose empty states sit below the filled level will oxidize it, unless a passivating layer forms at the surface and blocks the reaction.{{cite:R6}} Graphite sits about 0.2 V above lithium, outside the carbonate window, so a layer must form on it during the first charge; lithium titanate at 1.5 V sits inside the window and needs none.{{cite:R6}} Module 6 follows that layer as it forms.</p>
+        <p class="explain">Notice the path of the electron in the figure. It gives up its e&#183;V<sub>OC</sub> only by travelling round the external circuit, from the negative electrode to the positive one; it never crosses the electrolyte, which has no free electrons (module 1). Inside the cell it is our ion that crosses, keeping every region neutral.{{cite:R6,B2}}</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f3-5" id="f3-5">
+        <span class="fnum">Figure 3.5</span>
+        <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f35t">
+          <title id="f35t">Energy bands of a sulfide and an oxide host below the lithium level. The top of the sulfur band lies about 2.5 electron-volts below lithium and the top of the oxygen band about 4.0 electron-volts below; the transition-metal redox couple is pinned at those tops, so the sulfide gives about 2.5 volts and the oxide about 4 volts. The electrolyte's filled level at 4.3 electron-volts is drawn as a dashed line.</title>
+        </svg>
+        <figcaption>Why oxide hosts give 4 V and sulfide hosts about 2.5 V. The redox couple of the transition metal can be lowered only as far as the top of the anion band.
+          <span class="try">Try this: step through the four callouts and check that the oxide&#8217;s 4 V sits just above the electrolyte&#8217;s 4.3 eV line.</span>
+          <span class="basis">Numbers and the pinning argument from Goodenough and Park 2013 (text on the anion-p bands and Figure 2c); the band as a continuum of electron levels from Bard, Faulkner and White 2022, section 20.1.1. Schematic: band widths are not to scale.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Why do oxide positive electrodes reach 4 V when the sulfide of the first rechargeable lithium cell reached only 2.2 V? In a solid the electron levels of the many atoms merge into <span class="def">bands</span>, continuous ranges of energy, filled from the bottom up.{{cite:B2}} The redox couple of the host&#8217;s transition metal cannot be pushed below the top of the host&#8217;s filled anion band. In the layered sulfides that top sits about 2.5 eV below the lithium level; in the layered oxides it sits about 4.0 eV below, which is why oxide hosts are used in today&#8217;s lithium-ion cells.{{cite:R6}} Polyanions such as phosphate pull the band lower still through what chemists call the inductive effect, which is how LiFePO&#8324; reaches 3.5 V.{{cite:R6,R2}}</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f3-6" id="f3-6">
+        <span class="fnum">Figure 3.6</span>
+        <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f36t">
+          <title id="f36t">A bar whose length is the electrical energy available per mole of reaction, n F E, on a scale from 0 to 500 kilojoules per mole, with the Daniell cell marked at 213.</title>
+        </svg>
+        <div class="controls">
+          <button type="button" data-preset="daniell">Daniell cell</button><button type="button" data-preset="cell">your cell</button>
+          <label>n = <b class="n-val">1</b> <input type="range" data-p="n" min="1" max="3" step="1" value="2" aria-label="Number of electrons per formula unit"></label>
+          <label>E = <b class="E-val">3.6 V</b> <input type="range" data-p="E" min="0.5" max="5" step="0.05" value="1.10" aria-label="Cell voltage"></label>
+        </div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The same gap in the language of thermodynamics.
+          <span class="try">Try this: double the voltage and double the electrons, and watch which one the energy bar follows; then set n = 2, E = 1.10 V and find the Daniell mark.</span>
+          <span class="basis">Computed from &#916;G = &#8722;nFE (Bard, Faulkner and White 2022, eq. 2.1.25; Winter and Brodd 2004, eq. 3) with F = 96 485.3 C/mol; the Daniell value uses E = 1.103 V from Table C.1.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">In the language of thermodynamics the same gap reads &#916;G = &#8722;nFE: the free energy of a reaction, the energy it can deliver as work, equals the charge it moves per mole, nF, times the cell voltage, with the minus sign saying that a spontaneous reaction has a positive voltage.{{cite:B2,R1}} So the voltage is the reaction&#8217;s free energy per unit of charge, and nF, the total charge available, is its capacity factor.{{cite:R1}} The Faraday constant is the charge carried by one mole of electrons, 96 485.3 coulombs.{{cite:R1,B2}}</p>
+        <div class="worked"><b>Worked example.</b> The Daniell cell of module 1, Zn + Cu&#178;&#8314; &#8594; Zn&#178;&#8314; + Cu, moves two electrons per zinc atom at 1.103 V.
+          <span class="line">&#916;G = &#8722;nFE = &#8722;2 &#215; 96 485 C/mol &#215; 1.103 V = <i>&#8722;213 kJ/mol</i></span>
+          <span class="line">per electron: 1.103 eV; per zinc atom: 2.21 eV</span>
+          That 213 kJ per mole of zinc is what the lamp of figure 1.1 can get, at most, from 65 g of zinc; module 4 turns &#8220;per mole&#8221; into &#8220;per gram&#8221; and &#8220;per hour&#8221;.</div>
+        <p class="recap"><b>You can now explain</b> why a more negative electrode is the stronger reducing agent, where a cell&#8217;s voltage physically sits, why lithium cells have the highest voltages, why water caps a cell near 1.5 V and where on the lithium scale that cap lies, why oxide hosts beat sulfides, and what &#916;G = &#8722;nFE means.</p>
         <p class="bridge">You have chosen a voltage. How much charge can your cell hold?</p>
-        <details class="deeper"><summary>Go deeper: reading &#8220;versus Li/Li&#8314;&#8221;</summary><div class="body">
-          <p>A potential is always a difference, so every value needs a reference. Textbook tables use the standard hydrogen electrode, against which lithium sits at &#8722;3.04 V;{{cite:R2}} battery papers use lithium metal itself as the zero, which is why the same LiCoO&#8322; electrode reads about 4.0 V &#8220;versus Li/Li&#8314;&#8221; and about 1 V versus hydrogen.{{cite:R6,R2}} In a lithium-ion cell the negative electrode is not lithium metal but a host that holds lithium near lithium&#8217;s potential, so the cell voltage is a little less than the positive electrode&#8217;s ladder value: graphite costs about 0.2 V.{{cite:R6}}</p>
+        <details class="deeper"><summary>Go deeper: the electrochemical potential, from two metals in contact to the cell voltage</summary><div class="body">
+          <p>For electrons in a metal the electrochemical potential is &#956;&#772;<sub>e</sub> = &#956;&#176;<sub>e</sub> &#8722; F&#966;, with no activity term because the electron concentration never changes appreciably.{{cite:B2}} Touch a copper wire to a zinc electrode and electrons move between them until their electrochemical potentials are equal, which leaves a potential difference &#966;<sup>Zn</sup> &#8722; &#966;<sup>Cu</sup> = (&#956;&#176;<sub>e</sub><sup>Zn</sup> &#8722; &#956;&#176;<sub>e</sub><sup>Cu</sup>)/F between the two metals: a <em>contact potential</em>, one of the steps in figure 1.1&#8217;s profile.{{cite:B2}} Write the equilibrium of the whole cell reaction in electrochemical potentials and the terms in &#966; cancel everywhere except at the two copper leads, giving &#8722;nFE = n(&#956;&#772;<sub>e</sub><sup>Cu&#8242;</sup> &#8722; &#956;&#772;<sub>e</sub><sup>Cu</sup>) and, on expanding the chemical potentials, the Nernst equation.{{cite:B2}} Per electron, the same statement is Goodenough and Park&#8217;s V<sub>OC</sub> = (&#956;<sub>A</sub> &#8722; &#956;<sub>C</sub>)/e.{{cite:R6}}</p>
+          <p>A potential is always a difference, so every value needs a reference. Textbook tables use the standard hydrogen electrode, against which lithium sits at &#8722;3.045 V;{{cite:B2}} battery papers use lithium metal itself as the zero, which is why the same LiCoO&#8322; electrode reads about 4.0 V &#8220;versus Li/Li&#8314;&#8221; and about 1 V versus hydrogen.{{cite:R6,R2}} In a lithium-ion cell the negative electrode is not lithium metal but a host that holds lithium near lithium&#8217;s potential, so the cell voltage is a little less than the positive electrode&#8217;s ladder value: graphite costs about 0.2 V.{{cite:R6}}</p>
           <a class="theory-link" href="#references">The mathematics of this module: theory page, coming in a later phase</a>
         </div></details>
-        {{sources:R6,R2,R1}}
+        {{sources:B2,R6,R2,R1}}
       </div>
     </div>
   </div>

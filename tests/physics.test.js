@@ -115,3 +115,97 @@ test('lithium titanate: Faraday gives about 175 mAh/g for 3 Li, consistent with 
   const q = P.specificCapacity(m.n, m.M);
   assert.ok(q > 150 && q < 180, String(q));
 });
+
+/* ---------- Module 0 and the corrected figures (added in the Act A rework) ---------- */
+
+test('F = N_A e to the precision of the printed Faraday constant (BFW 1.1.5: 96,485.3 C/mol)', () => {
+  close(P.NA * P.e, P.F, 0.05);
+});
+
+test('Coulomb force between two elementary charges 1 nm apart is 0.231 nN, repulsive (BFW 14.3.1 footnote 6, SI form)', () => {
+  const Fc = P.coulombForce(P.e, P.e, 1e-9);
+  close(Fc, 2.307e-10, 2e-13);
+  assert.ok(P.coulombForce(P.e, -P.e, 1e-9) < 0);           // unlike charges attract
+  close(P.coulombForce(P.e, P.e, 2e-9), Fc / 4, 1e-14);    // inverse square
+});
+
+test('field is force per unit charge and potential is its integral from infinity (BFW 2.2.1)', () => {
+  const q = P.e, r = 2e-9;
+  close(P.fieldOfCharge(q, r) * q, P.coulombForce(q, q, r), 1e-20);
+  // phi(r) = q/(4 pi eps0 r): numerical integral of -E dr from far away to r
+  let phi = 0, x = 1e-6, dx = -1e-11;
+  while (x > r) { phi += -P.fieldOfCharge(q, x) * dx; x += dx; }
+  close(phi, P.potentialOfCharge(q, r), P.potentialOfCharge(q, r) * 2e-3);
+});
+
+test('a volt is a joule per coulomb: one electron across 1 V is 1 eV = 96.5 kJ/mol (BFW 1.1.2, 1.1.4)', () => {
+  close(P.energyOfCharge(1, 1), 1, 1e-12);                              // 1 C x 1 V = 1 J
+  close(P.electronVolts(P.energyOfCharge(P.e, 1)), 1, 1e-12);          // 1 eV
+  close(P.kJPerMolFromEV(1), 96.5, 0.05);
+  close(P.kJPerMolFromEV(1.5), 144.7, 0.1);                            // the torch cell of module 0's example
+});
+
+test('a current of 1 A is 6.24e18 electrons per second (BFW eq. 1.1.13 with e)', () => {
+  close(P.electronsPerSecond(1) / 1e18, 6.2415, 0.001);
+});
+
+test('Ohm: R = rho l / A and G = kappa A / l are reciprocal (BFW eqs. 4.2.6 and 4.2.8)', () => {
+  const rho = 2, l = 0.5, A = 0.1;
+  close(P.resistance(rho, l, A) * P.conductance(1 / rho, A, l), 1, 1e-12);
+  close(P.ohmCurrent(1.5, 3), 0.5, 1e-12);
+  close(P.power(0.5, 1.5), 0.75, 1e-12);
+});
+
+test('uniform field between parallel plates is V/l (BFW eq. 4.2.3): 1.5 V across 1 mm is 1500 V/m', () => {
+  close(P.uniformField(1.5, 1e-3), 1500, 1e-9);
+});
+
+test('mobility: terminal velocity where |z| e E balances Stokes drag 6 pi eta r v (BFW eq. 2.3.9)', () => {
+  const z = 1, eta = 1e-3, r = 1e-10, E = 100;
+  const u = P.mobility(z, eta, r), v = P.driftVelocity(u, E);
+  close(P.electricForce(z, E), P.stokesDrag(eta, r, v), 1e-30);
+  assert.ok(P.mobility(2, eta, r) > u);                 // doubly charged ion moves faster in the same field
+});
+
+test('conductivity kappa = F sum |z| u C reduces to F(u+ + u-) C for a 1:1 salt (BFW eqs. 2.3.10, 2.3.13)', () => {
+  const C = 100; // mol/m3 = 0.1 M
+  const k = P.conductivity([{ z: 1, u: 3.6e-8, C }, { z: -1, u: 7.9e-8, C }]);
+  close(k, P.F * (3.6e-8 + 7.9e-8) * C, 1e-9);
+});
+
+test('capacitor q = C E (BFW eq. 1.6.4): 2 V on 10 uF stores 20 uC, the book\'s example', () => {
+  close(P.capacitorCharge(10e-6, 2), 20e-6, 1e-15);
+});
+
+test('Helmholtz capacitance eps eps0 / d (BFW eq. 14.3.2) is tens of uF/cm2 for a molecular gap', () => {
+  const C = P.helmholtzCapacitance(6, 0.3e-9);      // illustrative dielectric constant and spacing
+  const uFcm2 = C * 1e6 / 1e4;
+  assert.ok(uFcm2 > 5 && uFcm2 < 60, String(uFcm2)); // the 10 to 40 uF/cm2 range of BFW 1.6.2
+});
+
+test('mercury-drop numbers: 5e-14 C/V is about 300 000 electrons per volt; 1e-6 C is about 6e12 electrons (BFW 2.2.1, 2.2.2)', () => {
+  const es = P.data.electrostatics;
+  close(es.mercuryDropVacuumCperV / P.e / 1e5, 3.12, 0.02);
+  close(es.mercuryDropElectrolyteC / P.e / 1e12, 6.24, 0.02);
+});
+
+test('water window on the lithium scale: 3.045 to 4.274 V at pH 0, 1.229 V wide, 59 mV per pH unit (BFW Table C.1, eqs. 2.1.66, 2.1.67)', () => {
+  const w0 = P.waterWindowVsLi(0), w7 = P.waterWindowVsLi(7), w14 = P.waterWindowVsLi(14);
+  close(w0.low, 3.045, 1e-9); close(w0.high, 4.274, 1e-9); close(w0.width, 1.229, 1e-9);
+  close(w0.low - w7.low, 7 * 0.059, 1e-9); close(w7.width, 1.229, 1e-9);
+  close(w14.high, 4.274 - 14 * 0.059, 1e-9);
+  // the whole window sits far above the old, wrong placement at 0 to 1.23 V vs Li
+  assert.ok(w14.low > 2.2);
+});
+
+test('Daniell worked example: n = 2, E = 1.103 V gives dG = -212.8 kJ/mol (BFW Table C.1 and eq. 2.1.25)', () => {
+  const d = P.data.daniell;
+  close(d.E, 1.103, 1e-3);   // 1.1026 V, printed as 1.10 V on the page
+  close(P.reactionEnergy(d.n, d.E) / 1000, -212.8, 0.1);
+});
+
+test('lithium metal is the most negative rung: Li+/Li = -3.045 V vs NHE (BFW Table C.1; Tarascon and Armand give -3.04 V)', () => {
+  const s = P.data.standardPotentials;
+  close(s['Li+/Li'], -3.045, 1e-9);
+  assert.ok(s['Li+/Li'] < s['Zn2+/Zn'] && s['Zn2+/Zn'] < s['Cu2+/Cu']);
+});

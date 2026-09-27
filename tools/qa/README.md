@@ -15,6 +15,10 @@ scripts point at `/home/user/asajeevan.github.io/...`; adjust if the clone lives
   checks that every citation link resolves, and screenshots the page at 1300 and 360 px.
 - `figshots.js`: element screenshots of each module 1 to 3 figure into `figs/`.
 - `check45.js`: the same for modules 4 and 5, plus interaction checks.
+- `acta.js [outdir]`: the Act A gate. Loads `/batteries/` at 1300 and 360 px with motion on and
+  off, exercises every step button and player button of every Act A figure, checks citation
+  links, screenshots each figure at both widths into `outdir`, and checks every visible SVG
+  label for overlaps and clipping at 360 px. Exits non-zero on any error or label problem.
 - `homebits.js`: screenshots of the home-page nav and teaser.
 
 Screenshots land in the current working directory (`figs/` subfolder for figure shots).

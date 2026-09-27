@@ -3,12 +3,13 @@
     <p class="mod-n">Module 4 of 12</p>
     <h2 class="h2">Capacity, energy and power</h2>
     <p class="hook">How long would your cell run a lamp?</p>
+    <p class="where"><b>Where we are.</b> Module 3 gave your cell a voltage: the gap between two rungs, which is the free energy of its reaction per unit of charge. Now the other factor: how much charge the materials hold. Charge times voltage is energy; energy per second is power.</p>
 
     <div class="beat">
       <figure class="fig" data-fig="f4-1" id="f4-1">
         <span class="fnum">Figure 4.1</span>
-        <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f41t">
-          <title id="f41t">Bar chart comparing the theoretical specific capacity of the chosen material with graphite, lithium iron phosphate and lithium metal.</title>
+        <svg viewBox="0 0 520 204" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f41t">
+          <title id="f41t">Bar chart comparing the theoretical specific capacity of the chosen material with graphite, lithium iron phosphate and lithium metal, each labelled with the mass it is referred to.</title>
           <g class="calc-bars"></g>
         </svg>
         <div class="controls">
@@ -20,12 +21,17 @@
         <div class="part-info"><span class="readout"></span><div class="note"></div></div>
         <figcaption>The Faraday calculator. Pick a material, or type your own molar mass and electron count.
           <span class="try">Try this: pick lithium metal and see why it tempts every battery designer; then pick your positive electrode and multiply by your cell&#8217;s voltage.</span>
-          <span class="basis">Computed from Faraday&#8217;s law as given in Winter and Brodd 2004, eq. 7, with F = 96 485.3 C/mol; molar masses from IUPAC atomic weights. Printed check values: graphite 372 mAh/g (Tarascon and Armand 2001), LiFePO&#8324; 170 mAh/g (Goodenough and Park 2013).</span>
+          <span class="basis">Computed from Faraday&#8217;s law as given in Winter and Brodd 2004, eq. 7, and Bard, Faulkner and White 2022, eq. 1.1.12, with F = 96 485.3 C/mol; molar masses from IUPAC atomic weights. Printed check values: graphite 372 mAh/g on the C&#8326; basis (Tarascon and Armand 2001), LiFePO&#8324; 170 mAh/g (Goodenough and Park 2013). Wh/kg refers to the active material of the chosen electrode alone.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">Capacity is a count of electrons. Faraday&#8217;s law ties the amount of material transformed to the charge that flows, mass = I&#183;t&#183;M/(nF), and it has &#8220;no known exceptions&#8221;.{{cite:R1}} Turn it around: a gram of a material of molar mass M that gives up n electrons per formula unit holds nF/M coulombs, which the battery world writes in milliampere-hours per gram, Q = nF/(3.6&#8239;M). The Faraday constant is the charge of one mole of electrons, 96&#8239;485.3 C or 26.8015 Ah.{{cite:R1}}</p>
+        <p class="explain">Capacity is a count of electrons. Faraday&#8217;s law ties the amount of material transformed to the charge that flows, Q = nFN for N moles of reactant, and it has &#8220;no known exceptions&#8221;.{{cite:B2,R1}} Turn it around: a gram of a material of molar mass M that gives up n electrons per formula unit holds nF/M coulombs, which the battery world writes in milliampere-hours per gram, Q = nF/(3.6&#8239;M). The Faraday constant is the charge of one mole of electrons, 96&#8239;485.3 C or 26.8015 Ah.{{cite:R1}}</p>
         <p class="explain">Two conventions hide in that formula. Graphite&#8217;s 372 mAh/g refers to the mass of carbon, the host as assembled, not to the mass of LiC&#8326;: Tarascon and Armand give 372 mAh/g for the end compound LiC&#8326; and about 350 mAh/g in practice.{{cite:R2}} Positive-electrode materials are referred to their lithiated mass: LiFePO&#8324; holds 170 mAh/g in theory{{cite:R6}} and is used at about 90 % of it,{{cite:R2}} while LiCoO&#8322; is limited to about half of its lithium for safety, 140 mAh/g in practice.{{cite:R2}}</p>
+        <div class="worked"><b>Worked example.</b> Graphite, one lithium per six carbons, referred to the carbon.
+          <span class="line">M(C&#8326;) = 6 &#215; 12.011 = 72.07 g/mol,  n = 1</span>
+          <span class="line">Q = 1 &#215; 96 485.3 C/mol &#247; (3.6 &#215; 72.07 g/mol) = <i>372 mAh/g</i></span>
+          <span class="line">at 3.8 V: 372 mAh/g &#215; 3.8 V = 1414 mWh/g = <i>1414 Wh/kg of graphite</i>, graphite alone</span>
+          The same calculation on the mass of LiC&#8326; (79.0 g/mol) gives 339 mAh/g. Both are right; they answer different questions.</div>
         <p class="lesson">Light elements and many electrons per formula unit give high capacity; high voltage turns capacity into energy.</p>
       </div>
     </div>
@@ -34,19 +40,23 @@
       <figure class="fig" data-fig="f4-2" id="f4-2">
         <span class="fnum">Figure 4.2</span>
         <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f42t">
-          <title id="f42t">A discharge curve of voltage against capacity with the area under it shaded; a higher rate lowers the curve, ends it earlier and shrinks the area.</title>
+          <title id="f42t">A discharge curve of voltage against capacity with the area under it shaded; a higher rate lowers the curve, ends it earlier and shrinks the area; the capacity axis runs from 0 to 100 percent of the low-rate value and a dashed reference curve marks the low-rate discharge.</title>
           <g class="plot"></g>
         </svg>
         <div class="controls"><label>Discharge rate <input type="range" class="rate" min="0" max="100" value="41" aria-label="Discharge rate"> <b class="rate-val">C/2</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
         <figcaption>Energy is the area under the discharge curve. The curve follows your cell&#8217;s positive electrode: flat for LiFePO&#8324;, sloping for the others.
           <span class="try">Try this: slide the rate up to 5C and watch the area shrink from both sides, lower and shorter.</span>
-          <span class="basis">Energy = &#8747;V dq after Goodenough and Park 2013, eq. 5. The curve is a schematic model: an illustrative open-circuit curve minus ohmic, activation and concentration polarization (Winter and Brodd 2004, section 1.4); parameters are illustrative, not measured.</span>
+          <span class="basis">Energy = &#8747;V dq after Goodenough and Park 2013, eq. 5. The curve is a schematic model: an illustrative open-circuit curve minus ohmic, activation and concentration polarization (Winter and Brodd 2004, section 1.4); parameters are illustrative, not measured. &#8220;C/2&#8221; means a current that would empty the C/10 capacity in two hours.</span>
         </figcaption>
       </figure>
       <div class="text">
         <p class="explain">Energy is the integral of the voltage over the charge delivered: on a discharge curve, the area under the line, which is also the average voltage times the capacity.{{cite:R6}} Per kilogram it is called specific energy (Wh/kg), per litre energy density (Wh/L); how fast it can be delivered is specific power (W/kg) and power density (W/L).{{cite:R1}}</p>
         <p class="explain">The capacity itself depends on how hard you pull. At high current the transfer of ions across the interfaces becomes diffusion-limited and the cell reaches less of its charge before the cut-off; that part of the loss is reversible and comes back at a gentler rate.{{cite:R6}} Module 5 takes the curve apart.</p>
+        <div class="worked"><b>Worked example.</b> A cell of capacity 2 Ah discharged at an average of 3.6 V.
+          <span class="line">energy = 3.6 V &#215; 2 Ah = <i>7.2 Wh</i></span>
+          <span class="line">a 6 W lamp (P = IV, module 0) runs for 7.2 Wh &#247; 6 W = <i>1.2 hours</i>, drawing 6 W / 3.6 V = 1.7 A</span>
+          At that current the curve would sag and the capacity would fall short of 2 Ah; the figure shows by how much, schematically.</div>
       </div>
     </div>
 
@@ -54,7 +64,7 @@
       <figure class="fig" data-fig="f4-3" id="f4-3">
         <span class="fnum">Figure 4.3</span>
         <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f43t">
-          <title id="f43t">A Ragone map: supercapacitors high in power and low in energy, fuel cells high in energy and low in power, batteries in between, and the combustion engine beyond all three.</title>
+          <title id="f43t">A Ragone map: supercapacitors high in power and low in energy, fuel cells high in energy and low in power, batteries in between, and the combustion engine beyond all three because its energy is stored in fuel.</title>
           <line x1="60" y1="250" x2="490" y2="250" stroke="var(--line-2, rgba(234,240,236,.26))" marker-end="url(#arr43)"/>
           <line x1="60" y1="250" x2="60" y2="30" stroke="var(--line-2, rgba(234,240,236,.26))" marker-end="url(#arr43)"/>
           <defs><marker id="arr43" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted, #A3B6B1)"/></marker></defs>
@@ -66,50 +76,54 @@
           <text x="240" y="146" class="lbl strong" text-anchor="middle">batteries</text><text x="240" y="162" class="lbl" text-anchor="middle">intermediate in both</text>
           <ellipse cx="370" cy="215" rx="72" ry="30" fill="var(--green, #2F6A5C)" fill-opacity=".35" stroke="var(--green, #2F6A5C)"/>
           <text x="370" y="212" class="lbl strong" text-anchor="middle">fuel cells</text><text x="370" y="228" class="lbl" text-anchor="middle">high energy, low power</text>
-          <ellipse cx="430" cy="80" rx="50" ry="26" fill="var(--heat, #E8663D)" fill-opacity=".18" stroke="var(--heat, #E8663D)" stroke-opacity=".7"/>
-          <text x="430" y="78" class="lbl strong" text-anchor="middle">combustion engine</text><text x="430" y="94" class="lbl" text-anchor="middle">both, but from fuel</text>
+          <ellipse cx="430" cy="80" rx="52" ry="28" fill="var(--heat, #E8663D)" fill-opacity=".18" stroke="var(--heat, #E8663D)" stroke-opacity=".7"/>
+          <text x="430" y="76" class="lbl strong" text-anchor="middle">combustion engine</text><text x="430" y="92" class="lbl" text-anchor="middle">energy stored in fuel</text>
         </svg>
         <figcaption>The Ragone map: energy against power. Regions only; the axes carry no numbers because the source figure is itself simplified.
-          <span class="basis">Schematic after Winter and Brodd 2004, Figure 3.</span>
+          <span class="try">Try this: find where a thin-film battery would sit, then read why the engine is off on its own.</span>
+          <span class="basis">Schematic after Winter and Brodd 2004, Figure 3 and section 1.1. The combustion engine is included there for comparison only: it is not an electrochemical system and stores its energy in a fuel, not in electrodes.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">To compare the two abilities, energy and power, engineers use the Ragone plot. On it, supercapacitors are high-power systems, fuel cells high-energy systems, and batteries sit between them, overlapping both; no single electrochemical system matches the combustion engine on both axes at once, which is why the review suggests combining them.{{cite:R1}}</p>
+        <p class="explain">To compare the two abilities, energy and power, engineers use the Ragone plot. On it, supercapacitors are high-power systems, fuel cells high-energy systems, and batteries sit between them, overlapping both: a battery with thin-film electrodes reaches the power of a supercapacitor.{{cite:R1}} No single electrochemical system matches the combustion engine on both axes at once, which is why the review suggests combining them: batteries or supercapacitors for the power, fuel cells for the energy.{{cite:R1}}</p>
       </div>
     </div>
 
     <div class="beat alt">
       <figure class="fig" data-fig="f4-4" id="f4-4">
         <span class="fnum">Figure 4.4</span>
-        <svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f44t">
-          <title id="f44t">A full bar of theoretical energy against the smaller practical share a battery delivers, with the three reasons for the difference.</title>
-          <text x="40" y="34" class="lbl strong">theoretical energy of the chemistry</text>
+        <svg viewBox="0 0 520 204" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f44t">
+          <title id="f44t">A full bar of theoretical energy against the smaller practical share a battery delivers, drawn with a blurred edge because it is a rule of thumb, with the three reasons for the difference.</title>
+          <defs><linearGradient id="soft44" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="var(--amber, #F0B441)" stop-opacity="1"/><stop offset="1" stop-color="var(--amber, #F0B441)" stop-opacity="0"/></linearGradient></defs>
+          <text x="40" y="34" class="lbl strong">theoretical energy of the chemistry (figure 4.1)</text>
           <rect x="40" y="44" width="440" height="26" rx="4" fill="var(--amber, #F0B441)" fill-opacity=".18" stroke="var(--amber, #F0B441)" stroke-opacity=".5"/>
           <text x="40" y="104" class="lbl strong">what a rechargeable battery delivers, as a rule of thumb</text>
           <rect class="prac" x="40" y="114" width="0" height="26" rx="4" fill="var(--amber, #F0B441)"/>
-          <text class="prac-t lbl amber" x="46" y="132" style="display:none">about 25 %</text>
+          <rect class="soft" x="0" y="114" width="36" height="26" fill="url(#soft44)" style="display:none"/>
+          <text class="prac-t lbl" x="46" y="132" style="display:none" fill="#1a1405">about 25 %</text>
           <rect class="prim" x="40" y="114" width="0" height="26" rx="4" fill="none" stroke="var(--cyan, #83DBD0)" stroke-dasharray="4 3"/>
           <text class="prim-t lbl cyan" x="480" y="158" text-anchor="end" style="display:none">a primary battery: over 50 %</text>
-          <g class="reasons" style="display:none" font-size="11" fill="var(--muted, #A3B6B1)">
-            <text x="40" y="180">lost to inert parts, internal resistance and incomplete use of the active masses</text><text x="40" y="194">(the source does not size the three separately)</text>
+          <g class="reasons" style="display:none">
+            <text x="40" y="180" class="lbl">lost to inert parts, internal resistance and incomplete use of the active masses</text><text x="40" y="196" class="lbl">(the source does not size the three separately)</text>
           </g>
         </svg>
-        <div class="controls"><span>Guess first: how much of the theoretical energy does a rechargeable battery deliver?</span><button type="button" data-guess="10">about 10 %</button><button type="button" data-guess="25">about 25 %</button><button type="button" data-guess="50">about 50 %</button><button type="button" data-guess="75">about 75 %</button></div>
+        <div class="controls"><span>Guess first: how much of the theoretical energy does a rechargeable battery deliver?</span><button type="button" data-guess="10">about 10 %</button><button type="button" data-guess="25">about 25 %</button><button type="button" data-guess="50">about 50 %</button><button type="button" data-guess="75">about 75 %</button><button type="button" class="reset" style="display:none">Reset and guess again</button></div>
         <div class="part-info"><span class="readout"></span></div>
         <figcaption>Theory against practice.
-          <span class="basis">Rule of thumb and the three reasons from Winter and Brodd 2004, section 1.1 and Figure 19. The source does not size the three losses separately, so neither does this figure.</span>
+          <span class="try">Try this: guess before you tap; then reset and see whether a friend guesses the same.</span>
+          <span class="basis">Rule of thumb and the three reasons from Winter and Brodd 2004, section 1.1 and Figure 19. The source does not size the three losses separately, so neither does this figure, and the practical bar is drawn with a blurred edge because &#8220;about 25 %&#8221; is a rule of thumb, not a measurement.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">As a rule of thumb, a rechargeable battery delivers about 25 % of its theoretical energy, and a primary battery more than 50 %. The difference has three causes: the inert parts a cell needs, such as conductive diluents, current collectors and containers; the internal resistances of electrodes, electrolyte and contacts; and incomplete use of the active masses.{{cite:R1}}</p>
+        <p class="explain">As a rule of thumb, a rechargeable battery delivers about 25 % of its theoretical energy, and a primary battery more than 50 %. The difference has three causes: the inert parts a cell needs, such as conductive diluents, current collectors and containers; the internal resistances of electrodes, electrolyte and contacts; and incomplete use of the active masses.{{cite:R1}} Module 2 showed the inert parts; module 0 showed why resistance costs voltage, and therefore energy, whenever current flows.</p>
         <p class="explain">To give the number a feel, Winter and Brodd note that a specific energy of 30 Wh/kg means one kilogram of lead-acid battery can power a 60 W lamp for only half an hour.{{cite:R1}} The first commercial lithium-ion cell of 1991 gave over 3.6 V and 120 to 150 Wh/kg, two to three times the usual nickel-cadmium cell of the day.{{cite:R2}}</p>
-        <p class="recap"><b>You can now explain</b> where a capacity in mAh/g comes from, why energy is an area, what the Ragone plot shows, and why practice gives a quarter of theory.</p>
+        <p class="recap"><b>You can now explain</b> where a capacity in mAh/g comes from and which mass it refers to, why energy is an area, what the Ragone plot shows, and why practice gives a quarter of theory.</p>
         <p class="bridge">Now let us watch your cell do it.</p>
         <details class="deeper"><summary>Go deeper: the mass basis, and 372 against 339</summary><div class="body">
           <p>Run Faraday&#8217;s law on the lithiated compound LiC&#8326; (79.0 g/mol) and you get 339 mAh/g; run it on the carbon host C&#8326; (72.07 g/mol) and you get 372 mAh/g. Both are correct; they answer different questions. The convention in the field is to refer negative-electrode hosts to their delithiated mass and positive-electrode materials to their lithiated mass, which is how each is weighed when the cell is built.{{cite:R2,R6}} Whenever you compare capacities, check the basis first.</p>
           <a class="theory-link" href="#references">The mathematics of this module: theory page, coming in a later phase</a>
         </div></details>
-        {{sources:R1,R2,R6}}
+        {{sources:R1,R2,R6,B2}}
       </div>
     </div>
   </div>

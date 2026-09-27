@@ -1,0 +1,151 @@
+<section class="module" id="m00" data-act="A" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 0 &#183; the foundation</p>
+    <h2 class="h2">Charge, field, potential, voltage</h2>
+    <p class="hook">A torch cell says 1.5 V on its side. What is a volt, and what exactly is being pushed?</p>
+    <p class="where"><b>Where we are.</b> Before the first cell, four words that every later screen uses: <b>charge</b>, the thing that pushes and is pushed; <b>field</b>, the push per unit charge at a place; <b>potential</b>, the energy per unit charge at a place; <b>voltage</b>, a difference of potential. Each gets one figure, one equation and one number.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f0-1" id="f0-1">
+        <span class="fnum">Figure 0.1</span>
+        <svg viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f01t">
+          <title id="f01t">Two point charges a distance r apart, with the force on each drawn as an arrow; the force is the same size on both, falls with the square of r, and reverses when one sign is flipped.</title>
+        </svg>
+        <div class="controls">
+          <label>distance r <input type="range" class="r" min="0.5" max="4" step="0.1" value="1.5" aria-label="Distance between the charges in nanometres"> <b class="r-val">1.5 nm</b></label>
+          <button type="button" data-q="a">q: +e (tap to flip)</button>
+          <button type="button" data-q="b">q&#8242;: +e (tap to flip)</button>
+        </div>
+        <div class="key"><span><i class="pos"></i>positive charge</span><span><i class="neg"></i>negative charge</span><span><i class="act"></i>force</span><span><i class="field"></i>field</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Coulomb&#8217;s law. Two charges of one elementary charge each, in vacuum.
+          <span class="try">Try this: set r to 1 nm, read the force, then set 2 nm and check that it is a quarter; then flip one sign.</span>
+          <span class="basis">Computed from Coulomb&#8217;s law in SI form, F = qq&#8242;/(4&#960;&#949;&#8320;r&#178;), and &#949;&#8320; = 8.85419 &#215; 10&#8315;&#185;&#178; C&#178; N&#8315;&#185; m&#8315;&#178;, as printed in Bard, Faulkner and White 2022, section 14.3.1 (footnote 6) and 2.2.1; e = 1.602 &#215; 10&#8315;&#185;&#8313; C (CODATA). Arrow lengths scale with the square root of the force so that both ends of the slider stay visible.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Everything on this page moves because charges push on one another. Charge comes in two signs, and the names are a convention older than the electron: Benjamin Franklin called an excess of what we now call electronic charge <span class="def">negative</span> and a deficiency of it <span class="def">positive</span>.{{cite:B2}} Between two charges q and q&#8242; a distance r apart there is a force F = qq&#8242;/(4&#960;&#949;&#8320;r&#178;), Coulomb&#8217;s law, where &#949;&#8320; is a measured constant, the permittivity of free space.{{cite:B2}} Read the formula: the force grows with either charge, falls with the <em>square</em> of the distance, and its sign follows the product of the charges, so like charges push apart and unlike charges pull together.</p>
+        <p class="explain">The unit of charge is the coulomb, and one electron carries 1.602 &#215; 10&#8315;&#185;&#8313; C of it. Put two electrons one nanometre apart, about the width of three water molecules, and the formula gives 0.23 nN pushing them apart: tiny in newtons, enormous for something that weighs 10&#8315;&#179;&#8304; kg.</p>
+        <p class="lesson">Charges push on each other with a force that falls as the square of the distance.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f0-2" id="f0-2">
+        <span class="fnum">Figure 0.2</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f02t">
+          <title id="f02t">The electric field around one positive charge drawn as arrows that point outward and shorten with distance, a probe charge whose force is shown, and a graph of the potential against distance with the probe marked on it.</title>
+        </svg>
+        <div class="controls">
+          <label>probe distance r <input type="range" class="r" min="1" max="5" step="0.1" value="2" aria-label="Distance of the probe from the charge in nanometres"> <b class="r-val">2.0 nm</b></label>
+          <button type="button" data-probe>probe: +e (tap to flip)</button>
+        </div>
+        <div class="key"><span><i class="field"></i>field (force per unit charge)</span><span><i class="phi"></i>potential &#966;</span><span><i class="act"></i>force on the probe</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Field and potential around a single charge. The map on the left and the graph on the right describe the same push in two languages.
+          <span class="try">Try this: slide the probe from 1 nm to 4 nm and watch the force arrow shrink four times faster than the potential falls.</span>
+          <span class="basis">Field as the force on a unit charge and potential as &#966; = &#8722;&#8747;E&#183;dl from Bard, Faulkner and White 2022, section 2.2.1 (eqs. 2.2.1 and 2.2.2). The 1/r curve is that integral evaluated with Coulomb&#8217;s law for one elementary charge; potential zero taken at infinity.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Take the second charge away and ask what is left at its place. The answer is the <span class="def">electric field</span>: the force that would act on a unit charge put there, a vector with a direction and a strength at every point in space.{{cite:B2}} Around a positive charge it points outward and falls as 1/r&#178;, because that is how the force falls.</p>
+        <p class="explain">Now bring a unit positive charge in from very far away, pushing against that field all the way. The work you do is the <span class="def">electric potential</span> &#966; at the point you reach, and it does not depend on the path you took: &#966; = &#8722;&#8747;E&#183;dl.{{cite:B2}} Only differences of &#966; between two points can be measured; the value at one point is a bookkeeping choice, and the usual choice sets &#966; = 0 infinitely far away.{{cite:B2}} For a single elementary charge the integral gives &#966; = q/(4&#960;&#949;&#8320;r), which is 1.44 V one nanometre out and half that at two.</p>
+        <p class="explain">The two pictures are one: the field is the slope of the potential. Where &#966; falls steeply the push is strong; where &#966; is flat there is no push at all. That last case is about to matter.</p>
+        <p class="lesson">Field is force per unit charge; potential is energy per unit charge; the field is the slope of the potential.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f0-3" id="f0-3">
+        <span class="fnum">Figure 0.3</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f03t">
+          <title id="f03t">Two metal plates held at a potential difference V with a uniform field between them, a test charge that is pushed downhill if positive and uphill if negative, and a strip below showing the potential flat inside each plate and falling in a straight line across the gap.</title>
+        </svg>
+        <div class="controls">
+          <label>V <input type="range" class="V" min="0.5" max="5" step="0.1" value="1.5" aria-label="Potential difference between the plates in volts"> <b class="V-val">1.5 V</b></label>
+          <label>gap l <input type="range" class="l" min="1" max="10" step="1" value="2" aria-label="Gap between the plates in millimetres"> <b class="l-val">2 mm</b></label>
+          <label>position <input type="range" class="x" min="0" max="100" step="1" value="30" aria-label="Position of the test charge across the gap"></label>
+          <button type="button" data-probe>test charge: +e (tap to flip)</button>
+        </div>
+        <div class="key"><span><i class="field"></i>field</span><span><i class="phi"></i>potential &#966;</span><span><i class="act"></i>force on the test charge</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Voltage as a potential hill. Two conductors, a gap, and a charge that rolls.
+          <span class="try">Try this: flip the test charge to &#8722;e, press Play, and watch it climb toward the higher potential; then double V and watch the field arrows.</span>
+          <span class="basis">Conductor at equilibrium (no field inside, one potential, excess charge on the surface) from Bard, Faulkner and White 2022, section 2.2.1; the linear potential and field E = V/l between parallel plates from their eq. 4.2.3; the energy q&#916;&#966; and the electron-volt from section 1.1.4 (footnote 9); 1 V = 1 J/C from section 1.1.2. Field strength computed; the strip is drawn to scale in volts.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">A <span class="def">voltage</span> is a difference of potential between two points, and its unit, the volt, is one joule per coulomb: the energy available to move each coulomb of charge from one point to the other.{{cite:B2}} Move a charge q across a potential difference &#916;&#966; and its energy changes by q&#916;&#966;.{{cite:B2}} For one electron across one volt that change is one <span class="def">electron-volt</span>, and per mole of electrons it is 96.5 kJ, comparable to the energies of chemical bonds and reactions; which is why a few volts are enough to drive chemistry.{{cite:B2}}</p>
+        <p class="explain">Metals are <span class="def">conductors</span>: they contain charges that are free to move. Leave a metal alone and those charges settle until there is no field left inside it, because any field would move them further; so a conductor at rest sits at a single potential throughout, and any excess charge it carries lies on its surface.{{cite:B2}} The plates in the figure are two such flat regions of the potential; between them, where there is no conductor, the potential falls in a straight line and the field is simply V divided by the gap.{{cite:B2}}</p>
+        <p class="aside">A picture to keep: potential is height, field is slope, and a positive charge rolls downhill while a negative one is pushed uphill. The picture breaks in one place: charges also push on each other and rearrange, so the hill is not fixed scenery. Module 3 is about how a cell builds its own hill.</p>
+        <div class="worked"><b>Worked example.</b> How much charge does it take to raise a metal by one volt? Bard, Faulkner and White give the answer for a mercury drop of 0.5 mm radius in vacuum: about 5 &#215; 10&#8315;&#185;&#8308; C per volt.{{cite:B2}}
+          <span class="line">electrons per volt = 5 &#215; 10&#8315;&#185;&#8308; C &#247; 1.602 &#215; 10&#8315;&#185;&#8313; C  &#8776;  <i>3 &#215; 10&#8309;</i></span>
+          Three hundred thousand electrons, out of the 10&#178;&#8304; or so in the drop, shift its potential by a full volt. Potentials are set by minute charge imbalances, which is why they are so easy to change and so hard to see.</div>
+        <p class="lesson">A volt is a joule per coulomb; a conductor at rest is all at one potential.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f0-4" id="f0-4">
+        <span class="fnum">Figure 0.4</span>
+        <svg viewBox="0 0 520 316" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f04t">
+          <title id="f04t">A cell, a switch and a lamp joined by a wire, with electrons drawn moving from the negative terminal through the wire to the positive one, and a strip below showing the potential rising inside the cell and falling along the path, mostly across the lamp; with the switch open the whole drop sits across the switch.</title>
+        </svg>
+        <div class="controls">
+          <label>cell voltage V <input type="range" class="V" min="0.5" max="5" step="0.1" value="1.5" aria-label="Cell voltage in volts"> <b class="V-val">1.5 V</b></label>
+          <label>lamp resistance R <input type="range" class="R" min="1" max="30" step="1" value="3" aria-label="Resistance of the lamp in ohms"> <b class="R-val">3 &#937;</b></label>
+          <button type="button" class="sw-btn">Open the switch</button>
+        </div>
+        <div class="key"><span><i class="e"></i>electron</span><span><i class="field"></i>field along the wire</span><span><i class="phi"></i>potential along the path</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Why a current needs a voltage. The strip unrolls the whole loop, starting and ending at the &#8722; terminal.
+          <span class="try">Try this: open the switch and watch where the drop goes; then close it and raise R until the lamp is barely lit.</span>
+          <span class="basis">Electrons move through the wire from the more negative electrode to the more positive one (Bard, Faulkner and White 2022, 1.1.1); current as charge per second, i = dQ/dt (1.1.5); a potential difference is needed to drive current through a resistance (2.2.1, footnote 15) and metals take only a small share because they conduct far better than electrolytes (1.5, footnote 39); Ohm&#8217;s law E = IR from Winter and Brodd 2004, section 2.2; P = IV from Goodenough and Park 2013. The split of the drop, 3 % in each wire and the rest in the lamp, is illustrative; I and P are computed.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">A cell keeps its two terminals at a fixed potential difference; module 1 shows how. Join them with a wire and electrons flow through the wire from the more negative terminal to the more positive one.{{cite:B2}} The amount of charge passing a point each second is the <span class="def">current</span>, i = dQ/dt, measured in amperes: one ampere is one coulomb per second.{{cite:B2}}</p>
+        <p class="explain">A wire carrying current is no longer at one potential. Between any two points on it there must be a potential difference to drive the current through the resistance between them.{{cite:B2}} That is Ohm&#8217;s law, E = IR: the same current through twice the resistance needs twice the voltage.{{cite:R1}} The resistance of a piece of conductor grows with its length and shrinks with its cross-section, R = &#961;l/A, where &#961; is the resistivity of the material.{{cite:B2}} Metals have a resistance too, but it is so much smaller than that of an electrolyte that on the scale of a cell the drop along the copper is invisible.{{cite:B2}} In the figure, nearly the whole voltage is spent across the lamp.</p>
+        <p class="explain">Energy per coulomb times coulombs per second is energy per second: the <span class="def">power</span> delivered is P = IV, in watts.{{cite:R6}}</p>
+        <div class="worked"><b>Worked example.</b> A 1.5 V cell drives a lamp of 3 &#937;.
+          <span class="line">I = V / R = 1.5 V / 3 &#937; = <i>0.5 A</i>, that is 0.5 C every second</span>
+          <span class="line">electrons per second = 0.5 C &#247; 1.602 &#215; 10&#8315;&#185;&#8313; C = <i>3.1 &#215; 10&#185;&#8312;</i></span>
+          <span class="line">P = I V = 0.5 A &#215; 1.5 V = <i>0.75 W</i></span>
+          Each electron gives up 1.5 eV on its way round; three billion billion of them a second add up to three quarters of a watt of light and heat.</div>
+        <p class="lesson">Current needs a potential difference to drive it through resistance; the power is current times voltage.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f0-5" id="f0-5">
+        <span class="fnum">Figure 0.5</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f05t">
+          <title id="f05t">A liquid between two electrodes with a field across it; a cation is pushed toward the negative side and an anion toward the positive side, each reaching a steady drift speed when the drag of the liquid balances the electric force; a strip shows the potential sloping across the liquid.</title>
+        </svg>
+        <div class="controls">
+          <label>field <input type="range" class="E" min="0.5" max="2" step="0.5" value="1" aria-label="Field strength, relative"> <b class="E-val">1 (relative)</b></label>
+          <label>ion radius <input type="range" class="rad" min="0.5" max="2" step="0.5" value="1" aria-label="Ion radius, relative"> <b class="rad-val">1 (relative)</b></label>
+        </div>
+        <div class="key"><span><i class="li"></i>our ion (cation)</span><span><i class="an"></i>anion</span><span><i class="act"></i>electric force</span><span><i class="sulf"></i>drag</span><span><i class="field"></i>field</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>How an ion moves through a liquid. Our ion, the amber cation, will be followed by name through the rest of the page.
+          <span class="try">Try this: double the ion radius and watch the drift halve; double the field and watch it double. Step through the launch to see the drag arrow grow until it matches the push.</span>
+          <span class="basis">Force |z|eE, Stokes drag 6&#960;&#951;rv, terminal velocity and mobility u = |z|e/(6&#960;&#951;r) from Bard, Faulkner and White 2022, section 2.3.3 and Figure 2.3.4; cations driven down the sloping potential and anions up from their section 1.5.1; conductivity &#954; = F&#931;|z|uC from eq. 2.3.10; electroneutrality from section 2.3.3. Speeds and forces are in relative units: no viscosity or radius is quoted because the sources give none for a battery electrolyte.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">In a liquid the mobile charges are not electrons but <span class="def">ions</span>, atoms or molecules that have lost or gained electrons; free electrons in a solution are so short-lived that they carry no current worth counting.{{cite:B2}} Put an ion of charge number z in a field E and it feels the force |z|eE. As it speeds up the liquid drags on it, with a drag that grows with speed; when the drag balances the push the ion stops accelerating and drifts at a steady <span class="def">terminal velocity</span>.{{cite:B2}} The velocity per unit field is the ion&#8217;s <span class="def">mobility</span>, u = |z|e/(6&#960;&#951;r): a smaller ion in a thinner liquid moves faster.{{cite:B2}}</p>
+        <p class="explain">When current flows through a liquid the potential slopes across it, exactly as it did along the wire, and the slope is the field: cations are driven down the slope and anions up it.{{cite:B2}} Both carry current, and the liquid&#8217;s <span class="def">conductivity</span> adds up every kind of ion, its charge, its mobility and its concentration: &#954; = F&#931;|z|uC.{{cite:B2}} One more rule holds everywhere in the liquid: on any scale you can see, positive and negative charge balance. An imbalance cannot build up, because it would create an enormous field that would move ions until it was gone.{{cite:B2}}</p>
+        <p class="explain">The constant F in that formula is the <span class="def">Faraday constant</span>, the charge carried by one mole of electrons, 96 485.3 C.{{cite:B2,R1}} It is the bridge between the chemist&#8217;s moles and the physicist&#8217;s coulombs, and it returns in module 4 to count how much charge a gram of material can hold.</p>
+        <p class="recap"><b>You can now explain</b> what a volt is, why a field makes charges move and which way, why a current needs a potential difference to drive it, and why an ion in a liquid drifts at a steady speed rather than accelerating.</p>
+        <p class="bridge">Now put two different metals into a liquid and see where a potential difference comes from.</p>
+        <details class="deeper"><summary>Go deeper: Gauss&#8217;s law, and why the charge sits on the surface</summary><div class="body">
+          <p>Draw an imaginary closed surface anywhere. Gauss&#8217;s law says that the net charge inside it equals &#949;&#8320; times the integral of the field over that surface, q = &#949;&#8320;&#8750;E&#183;dS.{{cite:B2}} Inside a conductor at rest the field is zero everywhere, so the integral over any surface drawn inside the conductor is zero, so the charge inside is zero: whatever excess charge the conductor carries must lie on its boundary.{{cite:B2}} In an electrolyte the same argument leaves the charge at the boundary too, but thermal motion smears it into a layer that can be tenths of a nanometre to thousands of nanometres thick, the <em>space charge region</em>; in a metal that layer is negligibly thin.{{cite:B2}} Module 3 uses this to build the double layer at an electrode.</p>
+          <p>Bring an electrolyte next to the metal and the coulombic field of the metal&#8217;s surface charge is largely cancelled by the polarization of the liquid: the same mercury drop then needs about 10&#8315;&#8310; C, some 6 &#215; 10&#185;&#178; electrons, for a one-volt change, more than 10&#8311; times what it needed in vacuum.{{cite:B2}}</p>
+          <a class="theory-link" href="#references">The mathematics of this module: theory page, coming in a later phase</a>
+        </div></details>
+        {{sources:B2,R1,R6}}
+      </div>
+    </div>
+  </div>
+</section>

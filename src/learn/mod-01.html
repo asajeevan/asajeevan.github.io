@@ -3,50 +3,31 @@
     <p class="mod-n">Module 1 of 12</p>
     <h2 class="h2">What a battery does</h2>
     <p class="hook">Why does the lamp light when you close the switch, and why not when it is open?</p>
+    <p class="where"><b>Where we are.</b> Module 0 gave you the volt (a joule per coulomb), the field (the push per unit charge), the conductor at rest (one potential throughout) and the two kinds of carrier: electrons in metals, ions in liquids. Now two different metals go into a liquid, and a potential difference appears between them.</p>
 
     <div class="beat">
       <figure class="fig" data-fig="f1-1" id="f1-1">
         <span class="fnum">Figure 1.1</span>
-        <svg viewBox="0 0 520 336" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f11t">
-          <title id="f11t">A zinc-copper cell with a switch and a lamp. Closing the switch lets electrons flow through the wire from zinc to copper while ions drift through the liquid.</title>
-          <defs>
-            <linearGradient id="elyte11" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--cyan, #83DBD0)" stop-opacity=".2"/><stop offset="1" stop-color="var(--cyan, #83DBD0)" stop-opacity=".08"/></linearGradient>
-          </defs>
-          <rect x="60" y="92" width="400" height="200" rx="8" fill="url(#elyte11)" stroke="var(--cyan, #83DBD0)" stroke-opacity=".6"/>
-          <line x1="260" y1="100" x2="260" y2="290" stroke="var(--cyan, #83DBD0)" stroke-dasharray="3 5" stroke-opacity=".9"/>
-          <text x="260" y="306" class="lbl" text-anchor="middle">porous separator: ions pass, electrodes stay apart</text>
-          <rect x="110" y="60" width="26" height="200" rx="2" fill="#8fa3b0"/>
-          <rect x="384" y="60" width="26" height="200" rx="2" fill="#c9773b"/>
-          <text x="123" y="278" class="lbl strong" text-anchor="middle">Zn</text>
-          <text x="397" y="278" class="lbl strong" text-anchor="middle">Cu</text>
-          <text x="112" y="326" class="lbl" text-anchor="middle">Zn &#8594; Zn&#178;&#8314; + 2e&#8315;</text>
-          <text x="408" y="326" class="lbl" text-anchor="middle">Cu&#178;&#8314; + 2e&#8315; &#8594; Cu</text>
-          <text x="104" y="52" class="lbl" text-anchor="end">&#8722;</text>
-          <text x="416" y="52" class="lbl">+</text>
-          <path id="wirePath" d="M123,60 L123,30 L200,30 L240,30 L397,30 L397,60" fill="none" stroke="var(--muted, #A3B6B1)" stroke-width="2"/>
-          <text x="330" y="20" class="lbl">e&#8315; through the wire &#8594;</text>
-          <g class="sw" role="button" tabindex="0" aria-pressed="false" aria-label="Toggle the switch">
-            <rect x="188" y="0" width="64" height="46" fill="transparent"/>
-            <circle cx="200" cy="30" r="4" fill="var(--text, #EAF0EC)"/><circle cx="240" cy="30" r="4" fill="var(--text, #EAF0EC)"/>
-            <line class="blade" x1="200" y1="30" x2="232" y2="8" stroke="var(--text, #EAF0EC)" stroke-width="3" stroke-linecap="round"/>
-            <text x="220" y="58" class="lbl amber" text-anchor="middle">switch (tap)</text>
-          </g>
-          <circle class="lamp lamp-off" cx="300" cy="30" r="14"/>
-          <text x="300" y="58" class="lbl" text-anchor="middle">lamp</text>
-          <text x="150" y="124" class="lbl amber">cations drift toward copper &#8594;</text>
-          <text x="372" y="268" class="lbl" text-anchor="end">&#8592; anions drift toward zinc</text>
+        <svg viewBox="0 0 520 416" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f11t">
+          <title id="f11t">A zinc electrode in zinc sulfate and a copper electrode in copper sulfate, separated by a porous wall, joined outside by a wire with a switch, a lamp and a voltmeter reading 1.10 volts. Closing the switch makes zinc atoms leave as ions, electrons run through the wire to the copper where copper ions plate out, and sulfate drift toward the zinc. A strip below shows the potential jumping at each electrode and flat through the liquid.</title>
         </svg>
-        <div class="controls"><button class="sw-btn" type="button">Open / close the switch</button><span class="readout"></span></div>
-        <div class="key"><span><i class="li"></i>cation</span><span><i class="an"></i>anion</span><span><i class="e"></i>electron</span></div>
-        <figcaption>The Daniell cell, the textbook battery: zinc and copper electrodes in their salt solutions, kept apart by a porous separator. The electrons can only get from one electrode to the other through the wire.
-          <span class="try">Try this: close the switch and watch which way the electrons and the ions go; then open it and notice that the voltage is still there.</span>
-          <span class="basis">Schematic, after Winter and Brodd 2004, Figure 1. Standard potentials from Bard, Faulkner and White 2022. Ion drift shown as direction only, not to scale.</span>
+        <div class="controls"><button class="sw-btn" type="button">Close the switch</button></div>
+        <div class="key"><span><i class="zn"></i>zinc</span><span><i class="cu"></i>copper</span><span><i class="li"></i>cation (Zn&#178;&#8314;, Cu&#178;&#8314;)</span><span><i class="an"></i>sulfate</span><span><i class="e"></i>electron</span><span><i class="phi"></i>potential</span><span><i class="field"></i>field</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The Daniell cell, the textbook battery. Two metals, two salt solutions, a porous wall, and one wire.
+          <span class="try">Try this: close the switch and watch the first zinc atom leave; then open it and notice that the voltmeter still reads 1.10 V.</span>
+          <span class="basis">Schematic after Winter and Brodd 2004, Figure 1. Open-circuit voltage 1.10 V computed from the standard potentials in Bard, Faulkner and White 2022, Table C.1 (Cu&#178;&#8314;/Cu +0.340 V, Zn&#178;&#8314;/Zn &#8722;0.7626 V vs NHE). Potential strip after their Figure 1.1.2 (open circuit) and Figure 1.5.2 (current flowing); the split between the two interfacial jumps is not measurable and is drawn schematically (their section 2.2.3). Ion drift shows direction only; the drop under load is illustrative.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">Close the switch. Zinc atoms at the left electrode give up two electrons each and dissolve into the liquid as zinc ions; at the right electrode copper ions take two electrons each and settle as copper metal. The electrons cannot cross the liquid, so they take the wire, and the lamp lights on the way.{{cite:R1,B2}} Inside the cell the current is carried by ions: cations drift toward the copper side and anions toward the zinc side, so no charge piles up anywhere.{{cite:R1,R6}}</p>
-        <p class="explain">Open the switch and everything stops, but nothing is lost. The push is still there: it is a property of the two materials and the electrolyte between them. The voltage you measure with nothing connected is called the open-circuit voltage,{{cite:R1}} and for this pair of electrodes it is 1.10 V.{{cite:B2}} The wire only lets the push act.</p>
+        <p class="explain">Close the switch. Zinc atoms at the left electrode give up two electrons each and dissolve into the liquid as Zn&#178;&#8314; ions; at the right electrode Cu&#178;&#8314; ions take two electrons each and settle as copper metal.{{cite:R1,B2}} Each of those is a <span class="def">half-reaction</span>, and neither can happen alone: each must be coupled, through a cell, to a second half-reaction running the other way.{{cite:B2}} The electrons cannot cross the liquid, so they take the wire, from the more negative electrode to the more positive, and the lamp lights on the way.{{cite:B2}} Inside the cell the current is carried by ions: cations drift toward the copper and sulfate toward the zinc, so no charge piles up anywhere.{{cite:R1,B2}}</p>
+        <p class="explain">Open the switch and everything stops, but nothing is lost. The voltage you measure with nothing else connected is the <span class="def">open-circuit voltage</span>,{{cite:R1}} and a high-impedance voltmeter can read it without drawing any appreciable current.{{cite:B2}} For this pair of metals it is 1.10 V: the difference between the standard potentials of the two half-reactions, +0.340 V for copper and &#8722;0.763 V for zinc.{{cite:B2}} Where a potential sits inside the cell is the strip under the figure: it jumps at each metal|liquid boundary, in a zone so narrow that a very strong field exists there, and stays flat through the liquid; the voltmeter reads the sum of the jumps along the path from one electrode to the other.{{cite:B2}}</p>
         <p class="explain">That is the whole trick, in Goodenough and Park&#8217;s words: the electrolyte &#8220;conducts the ionic component of the chemical reaction between the anode and the cathode, but it forces the electronic component to traverse an external circuit where it does work&#8221;.{{cite:R6}}</p>
+        <div class="worked"><b>Worked example.</b> Where does 1.10 V come from, and what does it buy?
+          <span class="line">E = E&#176;(Cu&#178;&#8314;/Cu) &#8722; E&#176;(Zn&#178;&#8314;/Zn) = 0.340 V &#8722; (&#8722;0.763 V) = <i>1.10 V</i></span>
+          <span class="line">energy per electron round the circuit = 1.10 eV; two electrons per zinc atom</span>
+          <span class="line">per mole of zinc: 2 &#215; 96 485 C &#215; 1.10 V = <i>213 kJ</i></span>
+          Module 3 shows that this 213 kJ is the free energy of the reaction Zn + Cu&#178;&#8314; &#8594; Zn&#178;&#8314; + Cu, and module 4 turns the &#8220;per mole&#8221; into &#8220;per gram&#8221;.</div>
         <p class="lesson">A battery is a chemical reaction that is only allowed to happen through a wire.</p>
       </div>
     </div>
@@ -54,95 +35,46 @@
     <div class="beat alt">
       <figure class="fig" data-fig="f1-2" id="f1-2">
         <span class="fnum">Figure 1.2</span>
-        <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f12t">
-          <title id="f12t">Three panels: a battery with its reacting materials inside, a fuel cell fed with hydrogen and oxygen from outside, and a supercapacitor whose ions line up at the electrode surfaces.</title>
-          <!-- battery -->
-          <text x="95" y="24" class="lbl strong" text-anchor="middle">Battery</text>
-          <text x="95" y="40" class="lbl" text-anchor="middle">closed system</text>
-          <rect x="30" y="56" width="130" height="140" rx="8" fill="rgba(131,219,208,.08)" stroke="var(--line-2, rgba(234,240,236,.26))"/>
-          <rect x="40" y="70" width="14" height="112" rx="2" fill="#8fa3b0"/>
-          <rect x="136" y="70" width="14" height="112" rx="2" fill="var(--amber-2, #C98D1E)"/>
-          <rect x="54" y="70" width="82" height="112" fill="var(--cyan, #83DBD0)" fill-opacity=".12"/>
-          <text x="95" y="212" class="lbl" text-anchor="middle">active masses inside</text>
-          <!-- fuel cell -->
-          <text x="265" y="24" class="lbl strong" text-anchor="middle">Fuel cell</text>
-          <text x="265" y="40" class="lbl" text-anchor="middle">open system</text>
-          <rect x="200" y="56" width="130" height="140" rx="8" fill="rgba(131,219,208,.08)" stroke="var(--line-2, rgba(234,240,236,.26))"/>
-          <rect x="240" y="70" width="10" height="112" rx="2" fill="#8fa3b0"/>
-          <rect x="280" y="70" width="10" height="112" rx="2" fill="var(--amber-2, #C98D1E)"/>
-          <rect x="250" y="70" width="30" height="112" fill="var(--cyan, #83DBD0)" fill-opacity=".12"/>
-          <path id="fcH2" d="M206,126 L240,126" fill="none" stroke="var(--muted, #A3B6B1)" stroke-width="1.5"/>
-          <path id="fcO2" d="M324,126 L290,126" fill="none" stroke="var(--muted, #A3B6B1)" stroke-width="1.5"/>
-          <text x="222" y="118" class="lbl" text-anchor="middle">H&#8322; in</text>
-          <text x="307" y="118" class="lbl" text-anchor="middle">O&#8322; in</text>
-          <text x="265" y="212" class="lbl" text-anchor="middle">reactants fed from outside</text>
-          <!-- supercapacitor -->
-          <text x="435" y="24" class="lbl strong" text-anchor="middle">Supercapacitor</text>
-          <text x="435" y="40" class="lbl" text-anchor="middle">no reaction</text>
-          <rect x="370" y="56" width="130" height="140" rx="8" fill="rgba(131,219,208,.08)" stroke="var(--line-2, rgba(234,240,236,.26))"/>
-          <rect x="380" y="70" width="12" height="112" rx="2" fill="#4b6a72"/>
-          <rect x="478" y="70" width="12" height="112" rx="2" fill="#4b6a72"/>
-          <rect x="392" y="70" width="86" height="112" fill="var(--cyan, #83DBD0)" fill-opacity=".12"/>
-          <g>
-            <circle class="ion sc-ion" r="3" cy="84" data-home="418" data-wall="397"/><circle class="ion sc-ion" r="3" cy="104" data-home="422" data-wall="397"/><circle class="ion sc-ion" r="3" cy="124" data-home="416" data-wall="397"/><circle class="ion sc-ion" r="3" cy="144" data-home="424" data-wall="397"/><circle class="ion sc-ion" r="3" cy="164" data-home="419" data-wall="397"/>
-            <circle class="ion an sc-ion" r="2.6" cy="94" data-home="448" data-wall="473"/><circle class="ion an sc-ion" r="2.6" cy="114" data-home="452" data-wall="473"/><circle class="ion an sc-ion" r="2.6" cy="134" data-home="446" data-wall="473"/><circle class="ion an sc-ion" r="2.6" cy="154" data-home="454" data-wall="473"/><circle class="ion an sc-ion" r="2.6" cy="174" data-home="449" data-wall="473"/>
-          </g>
-          <text x="435" y="212" class="lbl" text-anchor="middle">ions line up at the surfaces</text>
+        <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f12t">
+          <title id="f12t">A metal electrode beside a liquid electrolyte, sharing a boundary. In the metal only electrons move, through a lattice of fixed positive ion cores; in the liquid only ions move; at the boundary an ion takes an electron and becomes an atom. The same field points the same way in both, pushing electrons one way and cations the other.</title>
         </svg>
-        <figcaption>The three electrochemical cousins. All three separate electron transport from ion transport; they differ in where the energy is stored.
-          <span class="basis">Schematic, after Winter and Brodd 2004, Figures 1 and 2.</span>
+        <div class="key"><span><i class="e"></i>electron</span><span><i class="li"></i>cation</span><span><i class="an"></i>anion</span><span><i class="field"></i>field</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Two roads for charge, joined at the boundary. Why the electrons take the wire and the ions take the liquid.
+          <span class="try">Try this: press Step and watch what happens at the boundary each time an ion arrives; nothing crosses without a reaction.</span>
+          <span class="basis">After Bard, Faulkner and White 2022, section 1.1.1: charge is transported through an electrode by electrons and through an electrolyte by ions, and at the interface the two modes must be linked through an electrode reaction; free electrons in solution are very short-lived (their footnote 1). Field and force directions from their section 2.2.1 and 1.5.1. Schematic; particle speeds are not to scale.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">A battery keeps its reacting materials inside, so it is a closed system: storage and conversion happen in the same box. A fuel cell is an open system, fed with fuel and oxidant from outside, so its energy is stored in a tank and converted in the cell. A supercapacitor stores charge in the electrical double layers at its electrode surfaces, without a chemical reaction.{{cite:R1}}</p>
-        <p class="explain">One thing they share sets them apart from engines: none of them turns heat into work, so none is bound by the Carnot limit that caps every heat engine.{{cite:R1}}</p>
+        <p class="explain">Why do the electrons choose the wire? Because they have no other road. In a metal, charge is carried by electrons moving through a lattice of fixed ion cores; in an electrolyte it is carried by ions, and the &#8220;free&#8221; electrons a liquid might briefly hold are so short-lived that they contribute nothing to its conductivity.{{cite:B2}} At the boundary between the two, charge can pass only if the two kinds of carrier are linked by an <span class="def">electrode reaction</span>: electrons consumed or produced in the metal, ions produced or consumed in the liquid.{{cite:B2}}</p>
+        <p class="explain">The field does the rest. One field points from the positive side to the negative side; it pushes a positive ion along itself and an electron against itself, so the cations in the liquid and the electrons in the wire go round the circuit in opposite senses and meet again at the electrodes.{{cite:B2}} In the wire, the potential difference that drives the electrons through the lamp is the one you met in figure 0.4; in the liquid, the potential slopes gently and drives the ions.{{cite:B2}}</p>
+        <p class="lesson">Electrons travel in metals, ions travel in liquids, and only a reaction can hand charge from one to the other.</p>
       </div>
     </div>
 
     <div class="beat">
       <figure class="fig" data-fig="f1-3" id="f1-3">
         <span class="fnum">Figure 1.3</span>
-        <svg viewBox="0 0 520 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f13t">
-          <title id="f13t">One cell, three cells in series, or three cells in parallel, with bars showing how the voltage and the capacity change.</title>
-          <defs>
-            <symbol id="cellsym" viewBox="0 0 44 64"><rect x="1" y="1" width="42" height="62" rx="6" fill="var(--panel, #122A30)" stroke="var(--line-2, rgba(234,240,236,.26))"/><rect x="8" y="10" width="28" height="18" rx="2" fill="var(--amber-2, #C98D1E)" fill-opacity=".8"/><rect x="8" y="36" width="28" height="18" rx="2" fill="#8fa3b0"/><text x="22" y="9" font-size="9" fill="var(--text, #EAF0EC)" text-anchor="middle">+</text><text x="22" y="62" font-size="9" fill="var(--text, #EAF0EC)" text-anchor="middle">&#8722;</text></symbol>
-          </defs>
-          <g class="arr-single"><use href="#cellsym" x="120" y="60" width="44" height="64"/><text x="142" y="146" class="lbl" text-anchor="middle">one cell</text></g>
-          <g class="arr-series" style="display:none">
-            <use href="#cellsym" x="60" y="60" width="44" height="64"/><use href="#cellsym" x="120" y="60" width="44" height="64"/><use href="#cellsym" x="180" y="60" width="44" height="64"/>
-            <path d="M104,124 L112,124 L112,60 L120,60 M164,124 L172,124 L172,60 L180,60" fill="none" stroke="var(--muted, #A3B6B1)" stroke-width="1.5"/>
-            <text x="142" y="146" class="lbl" text-anchor="middle">plus to minus, in a chain</text>
-          </g>
-          <g class="arr-parallel" style="display:none">
-            <use href="#cellsym" x="60" y="60" width="44" height="64"/><use href="#cellsym" x="120" y="60" width="44" height="64"/><use href="#cellsym" x="180" y="60" width="44" height="64"/>
-            <path d="M82,60 L82,48 L202,48 L202,60 M142,60 L142,48 M82,124 L82,136 L202,136 L202,124 M142,124 L142,136" fill="none" stroke="var(--muted, #A3B6B1)" stroke-width="1.5"/>
-            <text x="142" y="152" class="lbl" text-anchor="middle">all pluses together, all minuses together</text>
-          </g>
-          <text x="300" y="52" class="lbl strong">Voltage</text>
-          <rect x="300" y="60" width="40" height="18" rx="3" fill="var(--cyan, #83DBD0)" fill-opacity=".3"/>
-          <rect class="vbar" x="300" y="60" width="40" height="18" rx="3" fill="var(--cyan, #83DBD0)"/>
-          <text class="vlab lbl strong" x="430" y="73">1 V</text>
-          <text x="300" y="112" class="lbl strong">Capacity (charge stored)</text>
-          <rect x="300" y="120" width="40" height="18" rx="3" fill="var(--amber, #F0B441)" fill-opacity=".3"/>
-          <rect class="qbar" x="300" y="120" width="40" height="18" rx="3" fill="var(--amber, #F0B441)"/>
-          <text class="qlab lbl strong" x="430" y="133">1 Q</text>
+        <svg viewBox="0 0 520 216" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f13t">
+          <title id="f13t">One cell, three cells in series, or three cells in parallel, with bars for voltage and capacity and a strip showing the potential rising once, three times in a row, or once with three paths side by side.</title>
         </svg>
-        <div class="controls"><button type="button" data-arr="single" aria-pressed="true">One cell</button><button type="button" data-arr="series">Three in series</button><button type="button" data-arr="parallel">Three in parallel</button><span class="readout"></span></div>
-        <figcaption>Cells and batteries.
-          <span class="try">Try this: switch between series and parallel and watch which bar grows.</span>
-          <span class="basis">After Goodenough and Park 2013 and Winter and Brodd 2004, footnote 1.</span>
+        <div class="controls"><button type="button" data-arr="single" aria-pressed="true">One cell</button><button type="button" data-arr="series">Three in series</button><button type="button" data-arr="parallel">Three in parallel</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Cells and batteries. Voltage adds along a path; charge adds across paths.
+          <span class="try">Try this: switch to series and count the steps on the strip; then to parallel and watch which bar grows instead.</span>
+          <span class="basis">Definitions from Winter and Brodd 2004, footnote 1; series adds voltage and parallel adds current and run time from Goodenough and Park 2013. The strip applies the rule that a potential difference along a path is the integral of the field along it (Bard, Faulkner and White 2022, eq. 2.2.2), so differences add. The 1.5 V per cell is illustrative.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">Strictly, one of these units is a cell, and several connected together are a battery, although the two words are used loosely.{{cite:R1}} Connecting cells in series adds their voltages; connecting them in parallel adds their current and their run time.{{cite:R6}} Everything in this story happens inside a single cell.</p>
-        <p class="recap"><b>You can now explain</b> why a battery has a voltage even when nothing is connected, why the wire matters, and what separates a battery from a fuel cell and a supercapacitor.</p>
-        <p class="bridge">So what is inside the box that makes the push?</p>
+        <p class="explain">Strictly, one of these units is a cell, and several connected together are a battery, although the two words are used loosely.{{cite:R1}} Connecting cells in series adds their voltages; connecting them in parallel adds their current and their run time.{{cite:R6}} The strip says why: a potential difference between two points is the sum of the drops and rises along any path between them,{{cite:B2}} so three cells in a chain give three rises, while three cells side by side each give the same single rise but share the current.</p>
+        <p class="explain">A battery keeps its reacting materials inside, so it is a closed system: storage and conversion happen in the same box. A fuel cell is an open system, fed with fuel and oxidant from outside, so its energy is stored in a tank and converted in the cell. A supercapacitor stores charge in the electrical double layers at its electrode surfaces, without a chemical reaction.{{cite:R1}} None of the three turns heat into work, so none is bound by the Carnot limit that caps every heat engine.{{cite:R1}} Everything on this page happens inside a single cell.</p>
+        <p class="recap"><b>You can now explain</b> why a cell has a voltage even when nothing is connected, where inside the cell that voltage sits, why the electrons take the wire and the ions the liquid, and why voltages add in series.</p>
+        <p class="bridge">So what is inside the box, part by part, and what does each part do?</p>
         <details class="deeper"><summary>Go deeper: primary and secondary cells</summary><div class="body">
-          <p>A primary battery is assembled in the charged state and used until exhausted. A secondary, or rechargeable, battery can be restored to its charged condition by a current flowing in the opposite direction to the discharge current; since secondary batteries are usually assembled in the discharged state, they must be charged before their first use.{{cite:R1}}</p>
-          <p>Which reactions can be run backwards, and which cannot, is the subject of module 6.</p>
+          <p>A primary battery is assembled in the charged state and used until exhausted. A secondary, or rechargeable, battery can be restored to its charged condition by a current flowing in the opposite direction to the discharge current; since secondary batteries are usually assembled in the discharged state, they must be charged before their first use.{{cite:R1}} To charge, a power supply is connected across the cell and its voltage is adjusted; the interfacial potential differences shift, especially at the electrode|electrolyte boundaries, and current can be driven in either direction.{{cite:B2}} Which reactions can be run backwards, and which cannot, is the subject of module 6.</p>
           <a class="theory-link" href="#references">The mathematics of this module: theory page, coming in a later phase</a>
         </div></details>
-        {{sources:R1,R6,B2}}
+        {{sources:R1,B2,R6}}
       </div>
     </div>
   </div>

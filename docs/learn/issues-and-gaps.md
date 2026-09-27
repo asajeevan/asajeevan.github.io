@@ -1,5 +1,21 @@
 # Issues, gaps and the sources to fill them
 
+> **Status 2026-09-27.** Act A was reworked against this list on branch
+> `claude/ecstatic-bohr-ym5qe9`: the four errors of section 2 are fixed, Module 0 exists
+> with five figures, modules 1 to 4 are rewritten for a first-year reader with a
+> "where we are" opener, a worked example and a recap each, and all 21 Act A figures are
+> rebuilt to the standard of section 5 (numbered callouts with a step bar, play/pause/step
+> on every animation, units on every quantity, a potential strip wherever the concept is
+> voltage or an interface, our ion followed by name, 12 px labels checked for overlaps at
+> 360 px by `tools/qa/acta.js`, captions with basis and try-this, reduced-motion frames).
+> Item 10 of the standard, the owner's initials, is open: see `figure-review.md`.
+> Still open from section 4: no introductory physics text was supplied, so Module 0 is
+> cited entirely to Bard, Faulkner and White (sections 2.2.1, 1.1.2, 1.1.4, 1.1.5, 2.3.3,
+> 4.2 and 14.3.1 cover Coulomb's law, field, potential, Gauss's law, conductors, the
+> electron-volt, current, Ohm's law and mobility); the glossary of 4.7 is not built; the
+> electron drift velocity in a metal and the surface-charge mechanism that sets up the
+> field along a wire are not in any source in hand and are not stated on the page.
+
 Written 2026-09-26 after the owner's review of modules 1 to 5. This is the work list
 for the rework. Sections: 1 the owner's verdict, 2 scientific errors to fix first,
 3 figure-by-figure critique, 4 content gaps for a first-year student and the sources

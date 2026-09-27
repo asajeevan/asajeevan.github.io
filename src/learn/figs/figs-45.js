@@ -8,8 +8,8 @@
   function fmtRate(c) { return c < 1 ? 'C/' + Math.round(1 / c) : c.toFixed(c < 3 ? 1 : 0) + 'C'; }
   var model = {
     voc: function (shape, x) { // x = fraction of capacity delivered (0..1)
-      if (shape === 'flat') return 3.42 + 0.06 * Math.exp(-x / 0.02) - 0.02 * x - 0.9 * Math.pow(Math.max(0, x - 0.93) / 0.07, 2);
-      return 4.15 - 0.55 * x - 0.35 * Math.pow(x, 8);
+      if (shape === 'flat') return 3.42 - 0.02 * x - 0.9 * Math.pow(Math.max(0, x - 0.93) / 0.07, 2);
+      return 4.15 - 0.5 * x - 0.25 * Math.pow(x, 4) - 0.2 * Math.pow(x, 12);
     },
     cut: function (shape) { return shape === 'flat' ? { lo: 2.5, hi: 3.9 } : { lo: 3.0, hi: 4.25 }; },
     eta: function (c, x) { // c in C-rate; ohmic + activation + concentration, illustrative parameters
@@ -53,30 +53,38 @@
     var svg = fig.querySelector('svg'), g = svg.querySelector('.calc-bars'), sel = fig.querySelector('.mat'), M = fig.querySelector('.M'), n = fig.querySelector('.n'), V = fig.querySelector('.V'), Vv = fig.querySelector('.V-val'), read = fig.querySelector('.readout'), note = fig.querySelector('.note');
     P.data.materials.forEach(function (m) { var o = document.createElement('option'); o.value = m.key; o.textContent = m.name; sel.appendChild(o); });
     var o = document.createElement('option'); o.value = 'custom'; o.textContent = 'Custom (type M and n)'; sel.appendChild(o);
-    var refs = [{ name: 'graphite (C6)', q: P.specificCapacity(1, 6 * 12.011) }, { name: 'LiFePO4', q: P.specificCapacity(1, 6.94 + 55.845 + 30.974 + 4 * 15.999) }, { name: 'lithium metal', q: P.specificCapacity(1, 6.94) }];
-    var scale = 340 / 4000;
+    var refs = [{ name: 'graphite', basis: 'per g of C₆', q: P.specificCapacity(1, 6 * 12.011) }, { name: 'LiFePO₄', basis: 'per g of LiFePO₄', q: P.specificCapacity(1, 6.94 + 55.845 + 30.974 + 4 * 15.999) }, { name: 'lithium metal', basis: 'per g of Li', q: P.specificCapacity(1, 6.94) }];
+    var scale = 300 / 4000;
+    badge(svg, 20, 42, 1); badge(svg, 20, 82, 2); badge(svg, 500, 190, 3);
+    function valid() { var mm = +M.value, nn = +n.value; return isFinite(mm) && mm >= 1 && mm <= 1000 && isFinite(nn) && nn >= 0.1 && nn <= 10; }
     function render() {
       var mat = null; P.data.materials.forEach(function (m) { if (m.key === sel.value) mat = m; });
       if (mat) { M.value = mat.M.toFixed(2); n.value = mat.n; }
-      var q = P.specificCapacity(+n.value, +M.value), E = q * (+V.value); // mAh/g x V = mWh/g = Wh/kg
       Vv.textContent = (+V.value).toFixed(1) + ' V';
-      while (g.firstChild) g.removeChild(g.firstChild);
-      var rows = [{ name: mat ? mat.name.split(' (')[0] : 'your material', q: q, me: true }].concat(refs.filter(function (r) { return Math.abs(r.q - q) > 0.5; }));
+      clear(g);
+      if (!valid()) { read.innerHTML = '<span class="invalid">Enter a molar mass between 1 and 1000 g/mol and an electron count between 0.1 and 10.</span>'; note.innerHTML = ''; return; }
+      var q = P.specificCapacity(+n.value, +M.value), E = q * (+V.value); // mAh/g x V = mWh/g = Wh/kg
+      var rows = [{ name: mat ? mat.name.split(' (')[0] : 'your material', basis: mat ? 'per g of ' + mat.basis.split(' (')[0] : 'per g of it', q: q, me: true }].concat(refs.filter(function (r) { return Math.abs(r.q - q) > 0.5; }));
       rows.forEach(function (r, i) {
-        var y = 30 + i * 40, w = Math.min(440, r.q * scale);
-        el('rect', { x: 150, y: y, width: w, height: 22, rx: 4, fill: r.me ? 'var(--amber)' : 'var(--cyan)', 'fill-opacity': r.me ? '.95' : '.45' }, g);
-        var t = el('text', { x: 144, y: y + 15, 'text-anchor': 'end', 'class': 'lbl' + (r.me ? ' strong' : '') }, g); t.textContent = r.name;
-        var inside = w > 260;
-        var v = el('text', { x: inside ? 146 + w : 154 + w, y: y + 15, 'text-anchor': inside ? 'end' : 'start', 'class': 'lbl strong', fill: inside ? '#1a1405' : undefined }, g); v.textContent = Math.round(r.q) + ' mAh/g';
+        var y = 30 + i * 40, w = Math.min(300, r.q * scale);
+        el('rect', { x: 180, y: y, width: w, height: 22, rx: 4, fill: r.me ? 'var(--amber)' : 'var(--cyan)', 'fill-opacity': r.me ? '.95' : '.45' }, g);
+        txt(g, 174, y + 10, r.name, r.me ? 'strong' : '', 'end'); txt(g, 174, y + 23, r.basis, '', 'end');
+        var inside = w > 200;
+        txt(g, inside ? 176 + w : 186 + w, y + 15, Math.round(r.q) + ' mAh/g', 'strong', inside ? 'end' : 'start', inside ? { fill: '#1a1405' } : null);
       });
-      var ax = el('text', { x: 500, y: 194, 'text-anchor': 'end', 'class': 'lbl' }, g); ax.textContent = 'theoretical specific capacity, 0 to 4000 mAh/g';
-      read.innerHTML = 'Q = nF/(3.6 M) = ' + (+n.value) + ' × 96 485.3 / (3.6 × ' + (+M.value).toFixed(2) + ') = <b>' + Math.round(q) + ' mAh/g</b>' + (mat ? ' on the ' + mat.basis + ' basis' : '') + '. At ' + (+V.value).toFixed(1) + ' V that is <b>' + Math.round(E) + ' Wh per kilogram of this material</b> (the active material alone; a whole cell delivers far less, see figure 4.4).';
-      note.innerHTML = mat ? (mat.printed ? '<span class="flag ok">reproduces the printed value, ' + mat.printed + ' mAh/g</span> ' : '<span class="flag">computed value; no printed check in the sources</span> ') + '<span class="flag">' + mat.practical + '</span>' : '';
+      txt(g, 480, 194, 'theoretical specific capacity, 0 to 4000 mAh/g, each on its own mass basis', '', 'end');
+      read.innerHTML = 'Q = nF/(3.6 M) = ' + (+n.value) + ' × 96 485.3 / (3.6 × ' + (+M.value).toFixed(2) + ') = <b>' + Math.round(q) + ' mAh/g</b>' + (mat ? ' on the ' + mat.basis + ' basis' : '') + '. Against a counter electrode that puts the cell at ' + (+V.value).toFixed(1) + ' V, that is <b>' + Math.round(E) + ' Wh per kilogram of this electrode’s active material</b>, this electrode alone: the other electrode, the electrolyte and the packaging all add mass and none adds energy (figure 4.4).';
+      note.innerHTML = mat ? (mat.printed ? '<span class="flag ok">reproduces the printed value, ' + mat.printed + ' mAh/g</span> ' : '<span class="flag">computed from Faraday’s law; the sources print no theoretical value for this one</span> ') + '<span class="flag">' + mat.practical + '</span>' : '<span class="flag">custom entry: computed, no printed check</span>';
     }
-    sel.addEventListener('change', render);
-    [M, n].forEach(function (i) { i.addEventListener('input', function () { sel.value = 'custom'; render(); }); });
-    V.addEventListener('input', render);
+    on(sel, 'change', render);
+    [M, n].forEach(function (i) { on(i, 'input', function () { sel.value = 'custom'; render(); }); });
+    on(V, 'input', render);
     function fromCell() { var p = rung(cell.pos), nn = rung(cell.neg); V.value = Math.max(0.5, Math.min(5, p.V - nn.V)).toFixed(1); if (cell.pos === 'lfp' || cell.pos === 'lco' || cell.pos === 's') sel.value = cell.pos; render(); }
+    steps(fig, [
+      { text: 'The amber bar is the material you chose: its <b>theoretical capacity</b> from Faraday’s law, Q = nF/(3.6 M), in milliampere-hours per gram.' },
+      { text: 'The cyan bars are three references. Read the small print: each is <b>per gram of a different thing</b> (the carbon host, the lithiated phosphate, the bare metal), so compare with care.' },
+      { text: 'Multiply by the cell voltage and you get watt-hours per kilogram <b>of this electrode’s active material only</b>. Energy belongs to a pair of electrodes; a whole cell delivers far less per kilogram (figure 4.4).' }
+    ]);
     cellListeners.push(fromCell); fromCell();
   });
 
@@ -84,9 +92,16 @@
   register('f4-2', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), read = fig.querySelector('.readout');
     var x0 = 60, y0 = 250, x1 = 490, y1 = 30, vmin = 2.0, vmax = 4.5;
-    var ax = el('g', {}, g); axes(ax, x0, y0, x1, y1, vmin, vmax, 'capacity delivered, fraction of the low-rate value', 'V');
+    var ax = el('g', {}, g); axes(ax, x0, y0, x1, y1, vmin, vmax, '', 'V');
+    [0, 25, 50, 75, 100].forEach(function (pc) { var xx = x0 + pc / 100 * (x1 - x0); el('line', { x1: xx, y1: y0, x2: xx, y2: y0 + 5, stroke: 'var(--line-2)' }, ax); txt(ax, xx, y0 + 18, pc + ' %', '', 'middle'); });
+    txt(ax, x1, y0 + 34, 'capacity delivered, % of the C/10 value', '', 'end');
     var area = el('path', { fill: 'var(--amber)', 'fill-opacity': '.22' }, g), line = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2 }, g);
-    var ref = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-opacity': '.35', 'stroke-dasharray': '3 4' }, g);
+    var ref = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-opacity': '.45', 'stroke-dasharray': '3 4' }, g);
+    // legend
+    el('line', { x1: x0 + 14, x2: x0 + 40, y1: y1 + 14, y2: y1 + 14, stroke: 'var(--amber)', 'stroke-width': 2 }, g); txt(g, x0 + 46, y1 + 18, 'this rate', '');
+    el('line', { x1: x0 + 120, x2: x0 + 146, y1: y1 + 14, y2: y1 + 14, stroke: 'var(--amber)', 'stroke-opacity': '.45', 'stroke-dasharray': '3 4' }, g); txt(g, x0 + 152, y1 + 18, 'C/10 reference', '');
+    el('rect', { x: x0 + 250, y: y1 + 7, width: 26, height: 14, fill: 'var(--amber)', 'fill-opacity': '.22' }, g); txt(g, x0 + 282, y1 + 18, 'energy = area', '');
+    badge(svg, x0 + 200, y0 - 60, 1); badge(svg, x1 - 30, y0 - 30, 2); badge(svg, 30, y1 + 14, 3);
     var E0 = null;
     function render() {
       var shape = shapeOfCell(), c = rateFromSlider(+rate.value); rv.textContent = fmtRate(c);
@@ -97,21 +112,50 @@
       var E = P.energyFromCurve(pts.map(function (p) { return p.x; }), pts.map(function (p) { return p.V; }));
       E0 = P.energyFromCurve(slow.map(function (p) { return p.x; }), slow.map(function (p) { return p.V; }));
       var q = pts[pts.length - 1].x, vavg = E / q;
-      read.innerHTML = 'At ' + fmtRate(c) + ': capacity reached <b>' + Math.round(q * 100) + ' %</b> of the low-rate value, average voltage <b>' + vavg.toFixed(2) + ' V</b>, energy (the shaded area) <b>' + Math.round(100 * E / E0) + ' %</b> of the energy at C/10 (dashed).';
+      read.innerHTML = 'At ' + fmtRate(c) + ': capacity reached <b>' + Math.round(q * 100) + ' %</b> of the C/10 value, average voltage <b>' + vavg.toFixed(2) + ' V</b>, energy (the shaded area) <b>' + Math.round(100 * E / E0) + ' %</b> of the energy at C/10 (dashed). Energy = average voltage × capacity.';
     }
-    rate.addEventListener('input', render); cellListeners.push(render); render();
+    on(rate, 'input', render); cellListeners.push(render); render();
+    steps(fig, [
+      { text: 'The curve is the cell voltage as charge is drawn out, for <b>your cell</b>: flat for LiFePO₄, sloping for the oxides (module 5 explains the shapes). The shaded <b>area</b> under it is the energy delivered.' },
+      { text: 'Slide the rate up. The curve drops (voltage lost to resistance and kinetics) and it ends earlier (capacity lost to slow transport): the area shrinks from both sides.' },
+      { text: 'The dashed line is the gentle C/10 discharge that sets 100 %. Whatever the rate, energy is the integral of V over the charge, which is the same as the average voltage times the capacity.' }
+    ]);
+  });
+
+  /* ===== 4.3 The Ragone map (static) ===== */
+  register('f4-3', function (fig) {
+    var svg = fig.querySelector('svg');
+    badge(svg, 190, 60, 1); badge(svg, 440, 200, 2); badge(svg, 380, 60, 3);
+    steps(fig, [
+      { text: '<b>Supercapacitors</b> deliver energy fast but hold little; <b>fuel cells</b> hold much but deliver it slowly. Both axes are logarithmic and carry no numbers because the source figure is itself simplified.' },
+      { text: '<b>Batteries</b> sit between the two and overlap both; a thin-film battery can reach the power of a supercapacitor.' },
+      { text: 'The <b>combustion engine</b> is not an electrochemical device: it beats all three on both axes because its energy is stored in a fuel tank, not in an electrode. No single electrochemical system matches it, which is why the sources suggest combining them.' }
+    ]);
   });
 
   /* ===== 4.4 Theory against practice, predict then reveal ===== */
   register('f4-4', function (fig) {
-    var svg = fig.querySelector('svg'), btns = fig.querySelectorAll('button[data-guess]'), read = fig.querySelector('.readout');
-    var prac = svg.querySelector('.prac'), pract = svg.querySelector('.prac-t'), prim = svg.querySelector('.prim'), primt = svg.querySelector('.prim-t'), reasons = svg.querySelector('.reasons');
-    Array.prototype.forEach.call(btns, function (b) { b.addEventListener('click', function () {
-      var gss = +b.getAttribute('data-guess');
-      Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(x === b)); x.disabled = true; });
-      prac.setAttribute('width', String(440 * 0.25)); pract.style.display = ''; prim.setAttribute('width', String(440 * 0.5)); primt.style.display = ''; reasons.style.display = '';
-      read.innerHTML = (gss === 25 ? 'Yes: ' : 'You guessed about ' + gss + ' %. ') + 'Winter and Brodd’s rule of thumb is <b>about 25 %</b> for a rechargeable battery and <b>over 50 %</b> for a primary one. The rest goes to inert parts, internal resistance and incomplete use of the active masses.';
-    }); });
+    var svg = fig.querySelector('svg'), btns = fig.querySelectorAll('button[data-guess]'), reset = fig.querySelector('button.reset'), read = fig.querySelector('.readout');
+    var prac = svg.querySelector('.prac'), pract = svg.querySelector('.prac-t'), prim = svg.querySelector('.prim'), primt = svg.querySelector('.prim-t'), reasons = svg.querySelector('.reasons'), soft = svg.querySelector('.soft');
+    badge(svg, 500, 57, 1); badge(svg, 500, 127, 2); badge(svg, 20, 185, 3);
+    function reveal(gss) {
+      Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(+x.getAttribute('data-guess') === gss)); x.disabled = true; });
+      prac.setAttribute('width', String(440 * 0.25)); soft.setAttribute('x', String(40 + 440 * 0.21)); soft.style.display = ''; pract.style.display = ''; prim.setAttribute('width', String(440 * 0.5)); primt.style.display = ''; reasons.style.display = '';
+      reset.style.display = '';
+      read.innerHTML = (gss === 25 ? 'Yes: ' : gss === null ? '' : 'You guessed about ' + gss + ' %. ') + 'Winter and Brodd’s rule of thumb is <b>about 25 %</b> for a rechargeable battery and <b>over 50 %</b> for a primary one; the blurred edge says “about”. The rest goes to inert parts, internal resistance and incomplete use of the active masses.';
+    }
+    function clearAll() {
+      Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', 'false'); x.disabled = false; });
+      prac.setAttribute('width', '0'); soft.style.display = 'none'; pract.style.display = 'none'; prim.setAttribute('width', '0'); primt.style.display = 'none'; reasons.style.display = 'none'; reset.style.display = 'none';
+      read.innerHTML = 'Guess first, then tap a button.';
+    }
+    Array.prototype.forEach.call(btns, function (b) { on(b, 'click', function () { reveal(+b.getAttribute('data-guess')); }); });
+    on(reset, 'click', clearAll); clearAll();
+    steps(fig, [
+      { text: 'The full bar is the energy the chemistry could deliver if every gram were active material and nothing were lost: the number the calculator of figure 4.1 gives.' },
+      { text: 'Guess what fraction a real rechargeable battery delivers, then tap. The revealed bar is a rule of thumb, drawn with a blurred edge for that reason.' },
+      { text: 'Three reasons, none sized separately by the source: inert parts (collectors, containers, conductive diluents), internal resistance, and active material that is never fully used.', on: function () { if (reasons.style.display === 'none') reveal(null); } }
+    ]);
   });
 
   /* ===== 5.1 Galvanostatic curve simulator ===== */

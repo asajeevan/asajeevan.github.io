@@ -291,3 +291,67 @@ sufficient for every check below; no page scans were needed.
 | | | Bernardi, "A General Energy Balance for Battery Systems", J. Electrochem. Soc. 1985, 132, 5, DOI 10.1149/1.2113792 | reference [15] | Bibliographic details cross-checked; DOI to resolve |
 | Pathak, Bazant, J. Electrochem. Soc. 2026, 173, 160518 | Confirmed from the article header; DOI 10.1149/1945-7111/ae9229 printed | Reaction-limited porous-electrode theory scaled on the thermal voltage; reaction distribution follows hyperbolic cosh/sinh profiles with 1/Lambda as the characteristic depth; overpotential uniform as Lambda -> 0; approximation most realistic for thin (order 10 um) electrodes, corrections needed above order 100 um | text around eqs. 13 to 22 and the discussion of Lambda | Sources the T8 cosh-profile card and figure 8.2 (qualitative depth dependence) |
 | Ionic radii supplied by you: Li+ 76 pm, Na+ 102 pm | Match Shannon's six-coordinate effective ionic radii (Acta Crystallogr. A 1976, 32, 751); DOI to resolve | Used in figure 9.6 to draw the two ions to scale | | Accepted pending the Shannon DOI check |
+
+## Q. Act A rework (2026-09-27): Module 0 physics, the four corrected errors, and the rebuilt figures
+
+Sources in hand for this round: B2 (markdown export), R1 (markdown), R2 (PDF and markdown),
+R6 (PDF and markdown), R21 (PDF), R36 (PDF), R37 (PDF), R38 (PDF), R41 (PDF), Bazant's
+2012 draft (PDF). Not supplied: an introductory physics text for electrostatics, and the
+Jindal 2022 PDF (R40, not needed for Act A). Every Module 0 statement is therefore cited
+to B2, which turned out to contain the whole electrostatics foundation the page needs.
+
+### Q1. The four errors of issues-and-gaps.md section 2
+
+| # | Error | Fix | Basis |
+|---|---|---|---|
+| 1 | Water window drawn at 0 to 1.23 V vs Li | Computed: Li+/Li = -3.045 V vs NHE (B2 Table C.1, both columns), H+/H2 line E = 0.0 - 0.059 pH and O2/H2O line E = 1.229 - 0.059 pH (B2 eqs. 2.1.64 to 2.1.67). Window 3.045 to 4.274 V vs Li at pH 0, 1.229 V wide, sliding 59 mV per pH unit; pH slider on figure 3.3; test in physics.test.js | B2 Table C.1, section 2.1.9(a) |
+| 2 | Electron crossing the electrolyte column in the energy picture | Figure 3.4 now draws the external circuit as a wire above the diagram; the electron travels up the negative electrode, along the wire, and down onto the positive electrode; our ion crosses the electrolyte inside. Caption says so | R6 (Electrochemical Cells); B2 1.1.1 footnote 1 |
+| 3 | "Wh per kilogram of this material" | Readout now reads "Wh per kilogram of this electrode's active material, this electrode alone: the other electrode, the electrolyte and the packaging all add mass and none adds energy (figure 4.4)"; bars carry their mass basis; caption states the basis | R1 1.1 (inert parts), R2/R6 (mass conventions) |
+| 4 | Ions drifting across the whole cell and wrapping round | Figure 1.1 rebuilt: Zn2+ created at the zinc (event ring, "2e- up"), Cu2+ consumed at the copper (event ring, "2e- in"), sulfate migrating toward the zinc across the separator, cations toward the copper; zinc thins, copper thickens; voltmeter reads 1.10 V open and "below 1.10 V" closed; potential strip with two jumps and a flat (open) or sloping (closed) bulk | R1 Fig. 1; B2 1.1.1, 1.1.2, Fig. 1.1.2, 1.5.1 and Fig. 1.5.2, 2.2.3 (split not measurable) |
+
+### Q2. Module 0 statements, each checked against B2
+
+| Statement on the page | B2 location | Verdict |
+|---|---|---|
+| Franklin's convention: minus is an excess of electronic charge, plus a deficiency | 2.1.3, text after eq. 2.1.21 | Matches |
+| Coulomb's law F = qq'/(4 pi eps eps0 r^2), newtons; eps0 = 8.85419e-12 C^2 N^-1 m^-2 | 14.3.1 footnote 6; 2.2.1 footnote 16 | Matches; test: two elementary charges 1 nm apart, 0.231 nN (recomputed) |
+| Field = force exerted on a unit charge; potential = work to bring a unit positive charge from infinity, path independent, phi = -integral E.dl (eq. 2.2.1); difference eq. 2.2.2 | 2.2.1 | Matches; phi(r) = q/(4 pi eps0 r) derived by integrating eq. 2.2.1 with Coulomb's law (numerical check in the test) |
+| Only differences of potential are measurable | 2.2.1 footnote 14; 2.2.3 | Matches |
+| Conductor at equilibrium: field zero inside, equipotential, excess charge on the surface (Gauss's law, eq. 2.2.3); space charge region in electrolytes and semiconductors, negligible in metals | 2.2.1 and footnote 17 | Matches |
+| 0.5 mm mercury drop: 5e-14 C/V, about 300 000 electrons per volt in vacuum; about 1e-6 C (6e12 electrons) for 1 V in 0.1 M electrolyte, over 1e7 times more | 2.2.1; 2.2.2 | Matches; arithmetic checked (5e-14/e = 3.1e5; 1e-6/e = 6.2e12) |
+| 1 V = 1 J/C; the cell potential is the energy available to drive charge externally | 1.1.2 | Matches |
+| eV = work to move charge e across 1 V; Delta E = q Delta phi; 1 eV per electron = 96.5 kJ/mol; comparable to bond and reaction energies | 1.1.4 and footnote 9 | Matches; F x 1 V = 96.485 kJ/mol |
+| Q = nFN (eq. 1.1.12), F = 96,485.3 C/mol; i = dQ/dt (eq. 1.1.13) | 1.1.5 | Matches |
+| Electrons move through the wire from the more negative electrode to the more positive | 1.1.1 | Matches |
+| Free electrons in solution short-lived, negligible conductivity; charge carried by ions; interface links the two modes through an electrode reaction | 1.1.1 and footnote 1 | Matches |
+| A potential difference is needed between two interior points to drive current through the resistance between them | 2.2.1 footnote 15 | Matches |
+| Metals have resistance too but their drop is invisible on the cell's scale | 1.5.1 footnote 39 | Matches |
+| Ohm's law E = IR in electrolytes | R1 section 2.2 | Matches |
+| G = 1/R = kappa A/l (eq. 4.2.6); kappa = F sum abs(z) u C (eqs. 2.3.10, 4.2.7); R = rho l/A (eq. 4.2.8); linear field between parallel plates d phi/dx = Delta E/l (eq. 4.2.3) | 4.2; 2.3.3 | Match |
+| P = IV | R6 introduction | Matches |
+| Mobility: force abs(z) e E, Stokes drag 6 pi eta r v, terminal velocity, u = abs(z) e/(6 pi eta r) (eq. 2.3.9), Fig. 2.3.4 | 2.3.3 | Matches |
+| Cations driven down the sloping potential, anions up, when current flows | 1.5.1 | Matches |
+| Electroneutrality: a charge imbalance cannot occur because a very large field would erase it | 2.3.3 | Matches |
+| Potential as electron energy; more negative raises electron energy; reduction when electrons reach a vacant orbital, oxidation when a filled orbital finds a lower energy on the electrode | 1.1.4, Fig. 1.1.3 | Matches (figure 3.1) |
+| Fermi energy = electrochemical potential of electrons per electron (eq. 2.2.34); equal Fermi energies at equilibrium (eq. 2.2.35); electrons flow from higher to lower Fermi energy; charge transferred is tiny | 2.2.5(b), (d) | Matches |
+| Metal band picture: continuum of states, filled and vacant levels near the Fermi energy, tiny activation to move, hence conduction; a band as a continuum of levels | 20.1.1, 20.1.2 | Matches (used for "band" definition in figure 3.5 text) |
+| Electrochemical potential mu-bar = mu + zF phi (eq. 2.2.6); equilibrium between phases: equal mu-bar (property 5); electrons in a metal mu-bar_e = mu0_e - F phi (property 4); contact potential eq. 2.2.20; cell potential eq. 2.2.24 | 2.2.4 | Matches |
+| Double layer: electrode charge in a layer < 1 nm; solution charge equal and opposite (eq. 1.6.5, 2.2.4); compact layer, OHP, diffuse layer < 10 nm above 0.01 M; C_d 10 to 40 uF/cm2; q = C E (eq. 1.6.4) | 1.6.2, 1.6.3, 2.2.2 | Matches |
+| Interfacial field up to 1e7 V/cm, distorts reactants | 2.2.3 | Matches |
+| Helmholtz: two sheets of charge, parallel-plate capacitor, C_H = eps eps0/d (eq. 14.3.2) | 14.3.1 | Matches |
+| Double-layer time constant about 1e-8 s; capacitance 10 to 40 uF/cm2 | R1 section 4.2 | Matches |
+| Cell potential is the sum of the interfacial potential differences along the path; stairstep profile; sharp transition implies a high field | 1.1.2, Fig. 1.1.2 | Matches |
+| Delta G = -nF E_rxn (eq. 2.1.25); positive emf for a spontaneous reaction | 2.1.3 | Matches; Daniell: 2 x 96485.3 x 1.1026 = 212.8 kJ/mol |
+| Standard potentials Cu2+/Cu 0.340, Zn2+/Zn -0.7626 (old NHE column; -0.7628 new), Li+/Li -3.045, O2/H2O 1.229 | Table C.1 | Match; the page keeps the old-NHE column used before |
+
+### Q3. New source statements used in Modules 1 to 4
+
+| Statement | Location | Verdict |
+|---|---|---|
+| Half-reactions cannot happen alone; each must be coupled in a cell | B2 1.1.1 | Matches |
+| A high-impedance voltmeter reads the open-circuit potential without drawing appreciable current | B2 1.1.2 | Matches |
+| Charging: a power supply across the cell shifts the interfacial potential differences, current can be driven either way | B2 1.1.2 | Matches |
+| Coin-cell stack: stainless cap and gasket, spring, spacer, graphite negative, two Celgard (or one BMF) separator, positive, aluminium-coated can; NMC622 positive; electrolyte 1 mol/L LiPF6 in 1:1 EC:DEC, about 38 mg (19 drops); BMF 0.25 mm, 90 % porous; misalignment from dropping spring and spacer from an angle, plating on the uncovered positive, 95/90/80 % retention after 100 cycles, vacuum pen fix; half cells can fail to predict full cells | R21 Fig. 1, Experimental, Results | Match |
+| Porous electrodes extend the surface area and lower the current density | R1 section 1.4 (end) | Matches |
+| Thin-film batteries reach the power of supercapacitors; hybrids; combination suggested | R1 section 1.1 | Matches |
+| Aqueous systems in Table 2 all at or below 2.0 V; systems above 2 V all lithium with nonaqueous electrolytes | R1 Table 2 (read row by row) | Matches (Li-FeS2 at 1.6 V is nonaqueous but below 2 V, so the statement is one-directional as written) |
