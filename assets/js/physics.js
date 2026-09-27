@@ -185,14 +185,14 @@
        unless marked; sulfur and thiolate from Tarascon and Armand 2001 (R2). */
     ladder: [
       { key: 'li',   name: 'Lithium metal',            side: 'neg', V: 0.0,  note: 'the reference itself',                       src: 'R6' },
-      { key: 'gr',   name: 'Graphite (LiC6)',           side: 'neg', V: 0.2,  note: 'about 0.2 V vs Li',                           src: 'R6' },
+      { key: 'gr',   name: 'Graphite (LiC₆)',           side: 'neg', V: 0.2,  note: 'about 0.2 V vs Li',                           src: 'R6' },
       { key: 'alloy',name: 'Li alloys (Si, Sn, Sb)',    side: 'neg', V: 0.5,  note: '0.2 to 0.8 V vs Li; 0.5 shown',              src: 'R6' },
       { key: 'lto',  name: 'Lithium titanate',          side: 'neg', V: 1.5,  note: '1.5 V vs Li, no SEI needed',                  src: 'R6' },
-      { key: 'tis2', name: 'TiS2 (1976)',               side: 'pos', V: 2.2,  note: 'about 2.2 V, the first rechargeable cell',    src: 'R6' },
+      { key: 'tis2', name: 'TiS₂ (1976)',               side: 'pos', V: 2.2,  note: 'about 2.2 V, the first rechargeable cell',    src: 'R6' },
       { key: 's',    name: 'Sulfur',                    side: 'pos', V: 2.4,  note: '2.4 V',                                       src: 'R2' },
-      { key: 'lfp',  name: 'LiFePO4',                   side: 'pos', V: 3.5,  note: '3.5 V, flat two-phase plateau',              src: 'R6' },
-      { key: 'lco',  name: 'LiCoO2',                    side: 'pos', V: 4.0,  note: 'about 4.0 V',                                 src: 'R6' },
-      { key: 'lnmo', name: 'LiNi0.5Mn1.5O4',            side: 'pos', V: 4.75, note: 'about 4.75 V, above the electrolyte limit',   src: 'R6' }
+      { key: 'lfp',  name: 'LiFePO₄',                   side: 'pos', V: 3.5,  note: '3.5 V, flat two-phase plateau',              src: 'R6' },
+      { key: 'lco',  name: 'LiCoO₂',                    side: 'pos', V: 4.0,  note: 'about 4.0 V',                                 src: 'R6' },
+      { key: 'lnmo', name: 'LiNi₀.₅Mn₁.₅O₄',            side: 'pos', V: 4.75, note: 'about 4.75 V, above the electrolyte limit',   src: 'R6' }
     ],
     /* Electrolyte window of the carbonate electrolytes, Goodenough and Park:
        LUMO about 1.1 eV below the lithium level, practical HOMO about 4.3 eV below. */
@@ -216,12 +216,12 @@
     /* Materials for the capacity calculator. 'basis' is the mass the capacity refers to;
        'printed' is the value a verified source prints, 'src' its key; the rest are computed. */
     materials: [
-      { key: 'gr',  name: 'Graphite (LiC6, per gram of carbon)', n: 1, M: 6 * 12.011,                          basis: 'C6 (delithiated host)', printed: 372, src: 'R2', practical: 'about 350 mAh/g in practice (Tarascon and Armand 2001)' },
-      { key: 'lfp', name: 'LiFePO4',                              n: 1, M: 6.94 + 55.845 + 30.974 + 4 * 15.999, basis: 'LiFePO4 (lithiated, as assembled)', printed: 170, src: 'R6', practical: 'used at about 90 % of the theoretical value (Tarascon and Armand 2001)' },
-      { key: 'lco', name: 'LiCoO2 (all lithium)',                 n: 1, M: 6.94 + 58.933 + 2 * 15.999,          basis: 'LiCoO2 (lithiated)', printed: null, src: null, practical: 'only about half the lithium is used for safety, about 140 mAh/g in practice (Tarascon and Armand 2001)' },
+      { key: 'gr',  name: 'Graphite (LiC₆, per gram of carbon)', n: 1, M: 6 * 12.011,                          basis: 'C₆ (delithiated host)', printed: 372, src: 'R2', practical: 'about 350 mAh/g in practice (Tarascon and Armand 2001)' },
+      { key: 'lfp', name: 'LiFePO₄',                              n: 1, M: 6.94 + 55.845 + 30.974 + 4 * 15.999, basis: 'LiFePO₄ (lithiated, as assembled)', printed: 170, src: 'R6', practical: 'used at about 90 % of the theoretical value (Tarascon and Armand 2001)' },
+      { key: 'lco', name: 'LiCoO₂ (all lithium)',                 n: 1, M: 6.94 + 58.933 + 2 * 15.999,          basis: 'LiCoO₂ (lithiated)', printed: null, src: null, practical: 'only about half the lithium is used for safety, about 140 mAh/g in practice (Tarascon and Armand 2001)' },
       { key: 'li',  name: 'Lithium metal',                        n: 1, M: 6.94,                                basis: 'Li', printed: null, src: null, practical: 'the highest of all negative electrodes; module 9 explains why it is hard to use' },
-      { key: 'lto', name: 'Li4Ti5O12 (3 Li per formula unit)',    n: 3, M: 4 * 6.94 + 5 * 47.867 + 12 * 15.999, basis: 'Li4Ti5O12', printed: null, src: null, practical: 'Goodenough and Park 2013 give under 150 mAh/g' },
-      { key: 's',   name: 'Sulfur (to Li2S, 2 electrons)',        n: 2, M: 32.06,                               basis: 'S', printed: null, src: null, practical: 'a multi-electron reactant; see module 9' }
+      { key: 'lto', name: 'Li₄Ti₅O₁₂ (3 Li per formula unit)',    n: 3, M: 4 * 6.94 + 5 * 47.867 + 12 * 15.999, basis: 'Li₄Ti₅O₁₂', printed: null, src: null, practical: 'Goodenough and Park 2013 give under 150 mAh/g' },
+      { key: 's',   name: 'Sulfur (to Li₂S, 2 electrons)',        n: 2, M: 32.06,                               basis: 'S', printed: null, src: null, practical: 'a multi-electron reactant; see module 9' }
     ]
   };
 

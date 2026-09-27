@@ -32,19 +32,19 @@
     var hop = el('circle', { r: 3.5, 'class': 'e-dot anim-only' }, g), hopLab = txt(g, 235, 0, '', 'amber', 'middle');
     var gapL = el('line', { x1: 220, x2: 220, stroke: 'var(--amber)', 'stroke-dasharray': '3 3' }, g), gapT = txt(g, 226, 0, '', 'amber');
     badge(g, 56, 40, 1); badge(g, 500, 24, 2); badge(g, 235, Y(vac) - 30, 3); badge(g, 235, Y(occ) + 34, 4);
-    var E = 0, t = 0, mode = 'none';
+    var E = 0, t = 0, mode = 'none', sweeping = false, sweepT = 0;
     function render() {
       E = +ESl.value; setSvgText(Ev, (E > 0 ? '+' : '') + E.toFixed(2) + ' V');
       var y = Y(E);
       fermi.setAttribute('y1', y); fermi.setAttribute('y2', y); filled.setAttribute('y', y); filled.setAttribute('height', 270 - y); fLab.setAttribute('y', y - 8);
       mode = E < vac ? 'red' : E > occ ? 'ox' : 'none';
-      gapL.setAttribute('y1', Y(0)); gapL.setAttribute('y2', y); gapT.setAttribute('y', (Y(0) + y) / 2 + 4); setSvgText(gapT, E === 0 ? '' : (E < 0 ? '+' : '−') + Math.abs(E).toFixed(2) + ' eV');
+      gapL.setAttribute('y1', Y(0)); gapL.setAttribute('y2', y); gapT.setAttribute('y', (Y(0) + y) / 2 + 4); setSvgText(gapT, Math.abs(E) < 0.3 ? '' : (E < 0 ? '+' : '−') + Math.abs(E).toFixed(2) + ' eV'); gapL.style.display = Math.abs(E) < 0.3 ? 'none' : '';
       setSvgText(hopLab, mode === 'red' ? 'reduction: e⁻ metal → A' : mode === 'ox' ? 'oxidation: e⁻ A → metal' : 'no transfer');
       hopLab.setAttribute('y', mode === 'red' ? Y(vac) - 24 : mode === 'ox' ? Y(occ) + 34 : y + 30);
       read.innerHTML = 'Electrode at <b>' + (E > 0 ? '+' : '') + E.toFixed(2) + ' V</b> relative to the couple’s standard potential: every transferable electron on the metal sits <b>' + Math.abs(E).toFixed(2) + ' eV ' + (E < 0 ? 'higher' : E > 0 ? 'lower' : 'from where it was') + '</b>. ' +
         (mode === 'red' ? 'That is above the vacant orbital of A, so electrons flow from the metal into A: a <b>reduction</b> current.' : mode === 'ox' ? 'That is below the occupied orbital of A, so electrons on A find a lower energy on the metal and flow there: an <b>oxidation</b> current.' : 'Between the two orbitals nothing can transfer: no current flows in this window.');
     }
-    on(ESl, 'input', render);
+    on(ESl, 'input', function () { sweeping = false; render(); });
     steps(fig, [
       { text: 'The pale line is the <b>Fermi level</b>: the energy of the electrons an electrode can give away or take in. Below it the metal’s states are full, above it empty.' },
       { text: 'Slide the potential. Making the electrode <b>more negative raises</b> its electrons: exactly <b>1 eV per volt</b>, the electron-volt of module 0. The right-hand axis is the same quantity measured as a potential, upside down.' },
@@ -53,11 +53,13 @@
     ]);
     render();
     var loop = anim(fig, function (dt) {
-      if (dt === 0) return; t = (t + dt / 1.6) % 1; var k = smooth(t);
+      if (dt === 0) return;
+      if (sweeping) { sweepT += dt; ESl.value = (1.5 * Math.sin(sweepT / 3.2)).toFixed(2); render(); }
+      t = (t + dt / 1.6) % 1; var k = smooth(t);
       if (mode === 'red') { hop.setAttribute('cx', lerp(xm1, xs0 + 30, k)); hop.setAttribute('cy', lerp(Y(E), Y(vac), k)); hop.style.display = ''; }
       else if (mode === 'ox') { hop.setAttribute('cx', lerp(xs0 + 30, xm1, k)); hop.setAttribute('cy', lerp(Y(occ), Y(E), k)); hop.style.display = ''; }
       else hop.style.display = 'none';
-    }, { autoplay: true, stepDt: 0.25 });
+    }, { autoplay: true, stepDt: 0.25, onPlay: function () { sweeping = true; } });
     bind(fig, loop);
   });
 
@@ -111,7 +113,7 @@
       { text: 'Two sheets of charge a distance apart is a <b>capacitor</b>: q = C·E, with 10 to 40 µF per cm² of electrode. Change the electrode’s potential and a charging current flows for about 10⁻⁸ s, with no chemistry at all.' },
       { text: '<b>How it forms.</b> Dip zinc into its salt: a few Zn²⁺ leave the metal and their electrons stay behind, so the metal goes negative and the liquid beside it positive. That separated charge is the field; it grows until its pull on the next ion balances the chemical push. Press Play or “Replay the formation”.', on: function () { startForming(); } }
     ]);
-    var loop = anim(fig, tick, { autoplay: false, stepDt: 0.3 });
+    var loop = anim(fig, tick, { autoplay: false, stepDt: 0.3, onPlay: function () { if (!forming) startForming(); } });
     function startForming() { if (+qSl.value === 0) qSl.value = -2; formT = 0; forming = true; qNow = 0; loop.wanted = true; if (motion) loop.start(); else { qNow = null; render(); } }
     on(formBtn, 'click', startForming);
     bind(fig, loop);
@@ -144,7 +146,7 @@
       el('line', { x1: x1, y1: y(r.V), x2: x2, y2: y(r.V), stroke: left ? 'var(--cyan)' : 'var(--amber)', 'stroke-width': 2 }, rg);
       var t = txt(rg, left ? x2 - 4 : x1 + 4, y(r.V) - 5, r.name + ' ' + r.V.toFixed(r.V === 4.75 ? 2 : 1) + (r.key === 's' ? ' (Li–S, conversion)' : ''), '', left ? 'end' : 'start'); prevT[r.side] = t;
       marks[r.key] = rg;
-      var o = document.createElement('option'); o.value = r.key; setSvgText(o, r.name + ' (' + r.V.toFixed(r.V === 4.75 ? 2 : 1) + ' V)'); (left ? selN : selP).appendChild(o);
+      var o = document.createElement('option'); o.value = r.key; o.textContent = plain(r.name) + ' (' + r.V.toFixed(r.V === 4.75 ? 2 : 1) + ' V)'; (left ? selN : selP).appendChild(o);
     });
     var brace = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2, 'stroke-dasharray': '4 3' }, g);
     el('rect', { x: 227, y: 0, width: 52, height: 18, rx: 4, fill: 'var(--bg-2)', 'class': 'brace-bg' }, g);

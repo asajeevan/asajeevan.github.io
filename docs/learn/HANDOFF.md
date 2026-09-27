@@ -191,3 +191,17 @@ script glyphs, so the page never shows those characters raw:
   `setSvgText(label, text)`, never with `.textContent`), and a MutationObserver on every
   figure card converts them in dynamic HTML (readouts, step boxes, part descriptions).
 - CSS: `sup`, `sub`, `.eq` and `.worked .line` in `assets/css/learn.css`.
+
+## 10. Later the same day: play buttons, hero, background
+
+- `anim(fig, tick, opts)` accepts `opts.onPlay`, called when the reader presses Play or
+  Step, so a figure can put itself into a state where something moves (1.1 closes the
+  switch, 3.1 sweeps the potential, 3.2 replays the formation). Any new animated figure
+  whose starting state is still must use it, or its Play button looks dead.
+- Material names in `physics.js` carry Unicode subscripts (LiCoO₂); `plain()` flattens
+  them for `<option>` text, `names()` typesets them for the `.your-cell-name` elements.
+- The hero figure is `register('hero', ...)` in `figs-0.js`. A `<canvas id="learnBg">`
+  behind the page carries slow drifting ions and electrons; it is skipped with reduced
+  motion, on coarse pointers and below 760 px.
+- The reading-mode note changes with the mode and, in equations mode, links to the first
+  mathematics panel (`#m00-maths`).

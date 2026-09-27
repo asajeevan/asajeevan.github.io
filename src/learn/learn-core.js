@@ -63,6 +63,8 @@
     var t = el('text', a, parent); setSvgText(t, String(str));
     return t;
   }
+  /* plain(str): scripts flattened to ordinary characters, for <option> text and titles */
+  function plain(str) { return scriptRuns(String(str)).map(function (r) { return r.t; }).join(''); }
   /* HTML side: convert the same characters inside a node's text into <sup>/<sub>. */
   function mathifyHtml(str) {
     var runs = scriptRuns(str), o = '';
@@ -172,8 +174,8 @@
     }
     loop.start = function () { if (running || !motion || !loop.wanted) return; running = true; t0 = null; raf = requestAnimationFrame(frame); sync(); };
     loop.stop = function () { running = false; cancelAnimationFrame(raf); sync(); };
-    loop.step = function () { loop.stop(); loop.wanted = false; var dt = opts.stepDt || 0.25; loop.t += dt; tick(dt, loop.t); sync(); };
-    loop.toggle = function () { if (running) { loop.wanted = false; loop.stop(); } else { loop.wanted = true; if (!motion) { loop.step(); } else loop.start(); } };
+    loop.step = function () { loop.stop(); loop.wanted = false; if (opts.onPlay) opts.onPlay(); var dt = opts.stepDt || 0.25; loop.t += dt; tick(dt, loop.t); sync(); };
+    loop.toggle = function () { if (running) { loop.wanted = false; loop.stop(); } else { loop.wanted = true; if (opts.onPlay) opts.onPlay(); if (!motion) { loop.step(); } else loop.start(); } };
     loop.running = function () { return running; };
     var bar = fig.querySelector('.stepbar') || fig.querySelector('.controls');
     var play = document.createElement('button'), step = document.createElement('button');
@@ -233,11 +235,17 @@
 
   /* ---------- reading modes ---------- */
   var body = document.body;
-  var modeBtns = document.querySelectorAll('.modes button[data-mode]');
+  var modeBtns = document.querySelectorAll('.modes button[data-mode]'), modeNote = document.querySelector('.modes-note');
+  var NOTES = {
+    show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
+    teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
+    equations: 'Equations: every “Go deeper” panel and every “The mathematics of this module” panel below is now open and outlined in cyan. <a href="#m00-maths">Jump to the first one</a>.'
+  };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
     Array.prototype.forEach.call(modeBtns, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === m)); });
-    if (m === 'equations') Array.prototype.forEach.call(document.querySelectorAll('details.deeper'), function (d) { d.open = true; });
+    Array.prototype.forEach.call(document.querySelectorAll('details.deeper'), function (d) { if (m === 'equations') d.open = true; else if (save) d.open = false; });
+    if (modeNote) modeNote.innerHTML = NOTES[m] || '';
     if (save) store('learn.mode', m);
   }
   Array.prototype.forEach.call(modeBtns, function (b) { b.addEventListener('click', function () { setMode(b.getAttribute('data-mode'), true); }); });
@@ -301,6 +309,39 @@
     if (mo) mo.observe(fig, { childList: true, subtree: true, characterData: false });
   });
 
+  /* ---------- background: slow ions and electrons behind the page ---------- */
+  (function background() {
+    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
+    if (!motion || coarse || small) { cv.style.display = 'none'; return; }
+    var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
+    function size() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+    size(); window.addEventListener('resize', size);
+    for (var i = 0; i < 46; i++) {
+      var ion = i % 5 !== 0; // four cations to one electron
+      ps.push({ ion: ion, x: Math.random() * 1600, y: Math.random() * 1000, r: ion ? 2.2 + Math.random() * 2.2 : 1.4 + Math.random(), v: ion ? 6 + Math.random() * 8 : -(14 + Math.random() * 14), ph: Math.random() * 6.28, a: 0.10 + Math.random() * 0.16 });
+    }
+    function frame(ts) {
+      if (!running) return;
+      var dt = t0 === null ? 0 : Math.min(0.05, (ts - t0) / 1000); t0 = ts;
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < ps.length; i++) {
+        var p = ps[i]; p.x += p.v * dt; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
+        if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
+        var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 5);
+        var c = p.ion ? '255,209,102' : '131,219,208';
+        g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 5, 0, 6.283); ctx.fill();
+        ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.2) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function start() { if (running) return; running = true; t0 = null; raf = requestAnimationFrame(frame); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+    start();
+  })();
+
   /* ---------- boot ---------- */
   Array.prototype.forEach.call(document.querySelectorAll('[data-fig]'), function (fig) {
     var id = fig.getAttribute('data-fig'); if (figs[id]) { try { figs[id](fig); } catch (e) { if (window.console) console.error('figure ' + id, e); } }
@@ -314,6 +355,6 @@
 
   /* The "your cell" name wherever it is shown */
   var cellName = document.querySelectorAll('.your-cell-name');
-  function names() { var n = rung(cell.neg), p = rung(cell.pos); Array.prototype.forEach.call(cellName, function (e) { e.textContent = n.name + ' | ' + p.name; }); }
+  function names() { var n = rung(cell.neg), p = rung(cell.pos), s = n.name + ' | ' + p.name; Array.prototype.forEach.call(cellName, function (e) { if (e.namespaceURI === NS) setSvgText(e, s); else e.innerHTML = mathifyHtml(s); }); }
   cellListeners.push(names); names();
 })();

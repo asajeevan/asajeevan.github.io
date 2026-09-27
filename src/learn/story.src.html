@@ -29,6 +29,7 @@
 </script>
 </head>
 <body data-mode="teach">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#m00">Skip to the first module</a>
 
 <header class="topbar" id="topbar">
@@ -68,33 +69,20 @@
         <p class="kicker" data-reveal>Battery basics, from zero</p>
         <h1 class="h1" data-reveal>How batteries work</h1>
         <p class="promise" data-reveal>Where the push in a battery comes from, and how much of it there is: from two charges in empty space to the energy in your phone&#8217;s cell.</p>
-        <p class="lede" data-reveal>I spent my doctoral years building cells like the ones on this page. This is the explanation I wish I had had at the start: five modules, from charge and voltage to capacity and energy, each built around a figure you can play with and told in the order the play raises the questions. Further modules, following one ion through a cycle and into the ways cells age, are being written. Every factual statement was checked against a textbook or a peer-reviewed article, listed at the end; every curve is computed from the equation in its source, and every figure can show you what it is based on. Nothing here is experimental data.</p>
+        <p class="lede" data-reveal>I spent my doctoral years building cells like the ones on this page. This is the explanation I wish someone had given me at the start: five modules, from charge and voltage to capacity and energy, each built around a figure you can play with and told in the order the play raises the questions. Further modules, following one ion through a cycle and into the ways cells age, are being written. Every factual statement was checked against a textbook or a peer-reviewed article, listed at the end; every curve is computed from the equation in its source, and every figure can show you what it is based on. Nothing here is experimental data.</p>
         <div class="modes" role="group" aria-label="Choose how to read" data-reveal>
           <button type="button" data-mode="show" aria-pressed="false">Just show me <small>(about 10 min)</small></button>
           <button type="button" data-mode="teach" aria-pressed="true">Teach me <small>(about 40 min)</small></button>
           <button type="button" data-mode="equations" aria-pressed="false">I want the equations</button>
         </div>
-        <p class="modes-note">&#8220;Just show me&#8221; keeps the questions, the figures and the one-line answers. &#8220;I want the equations&#8221; opens every &#8220;Go deeper&#8221; panel and the mathematics of each module.</p>
+        <p class="modes-note">Teach me: everything at the main level. The &#8220;Go deeper&#8221; and &#8220;The mathematics&#8221; panels stay closed until you open them.</p>
         <a class="hint" href="#f0-1">Start with two charges in figure 0.1</a>
       </div>
-      <figure class="fig hero-fig-learn" data-reveal>
-        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="herot">
-          <title id="herot">A lithium cell with the five modules of the page marked on it: charge and voltage, what a cell does, its anatomy, where the voltage comes from, and capacity and energy.</title>
-          <rect x="60" y="70" width="14" height="160" fill="var(--muted, #A3B6B1)" opacity=".55"/>
-          <rect x="74" y="70" width="96" height="160" fill="var(--amber, #F0B441)" opacity=".28"/><rect x="74" y="70" width="96" height="160" fill="none" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/>
-          <rect x="170" y="70" width="76" height="160" fill="var(--cyan, #83DBD0)" fill-opacity=".14"/><rect x="170" y="70" width="76" height="160" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
-          <rect x="246" y="70" width="124" height="160" fill="var(--green, #2F6A5C)" opacity=".3"/><rect x="246" y="70" width="124" height="160" fill="none" stroke="var(--green, #2F6A5C)"/>
-          <rect x="370" y="70" width="14" height="160" fill="var(--muted, #A3B6B1)" opacity=".55"/>
-          <g fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55"><circle cx="272" cy="100" r="8"/><circle cx="330" cy="120" r="9"/><circle cx="290" cy="160" r="9"/><circle cx="345" cy="190" r="7"/><circle cx="268" cy="212" r="7"/></g>
-          <circle class="ion" cx="120" cy="150" r="5"/>
-          <path d="M126,150 C160,150 180,120 208,140 C230,156 250,150 262,152" fill="none" stroke="var(--cation, #FFD166)" stroke-width="1.5" stroke-dasharray="3 4"/>
-          <text x="122" y="248" class="lbl" text-anchor="middle">0, 1: the push</text>
-          <text x="208" y="248" class="lbl" text-anchor="middle">2: the parts</text>
-          <text x="308" y="248" class="lbl" text-anchor="middle">3, 4: voltage, energy</text>
-          <text x="60" y="52" class="lbl amber">Your cell: <tspan class="your-cell-name">Graphite | LiCoO2</tspan></text>
-          <text x="384" y="270" class="lbl" text-anchor="end">Schematic, not experimental data</text>
+      <figure class="fig hero-fig-learn" data-reveal data-fig="hero" id="hero-fig">
+        <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="herot">
+          <title id="herot">A lithium-ion cell in motion: electrons run through an external wire and light a lamp while a lithium ion leaves the graphite, crosses the electrolyte and enters the positive host; a strip below shows the potential jumping at the two electrodes. The five modules of the page are tagged on the parts they explain.</title>
         </svg>
-        <figcaption>The page in one cell. The two electrodes you choose in module 3 appear here and travel with you through the page.</figcaption>
+        <figcaption>The page in one cell. The two electrodes you choose in module 3 appear here and travel with you through the page. Schematic, not experimental data.</figcaption>
       </figure>
     </div>
   </div>

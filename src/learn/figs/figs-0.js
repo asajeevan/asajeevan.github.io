@@ -284,3 +284,54 @@
     }, { autoplay: true, stepDt: 0.2 });
     bind(fig, loop);
   });
+
+  /* ===== hero: the page in one cell, animated ===== */
+  register('hero', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg);
+    var yT = 70, yB = 210, xN0 = 92, xN1 = 170, xP0 = 300, xP1 = 400;
+    // collectors, negative host (layered), electrolyte, positive host (particles)
+    el('rect', { x: xN0 - 12, y: yT, width: 12, height: yB - yT, fill: 'var(--copper)', 'fill-opacity': '.9' }, g);
+    el('rect', { x: xP1, y: yT, width: 12, height: yB - yT, fill: '#cfd6d8' }, g);
+    el('rect', { x: xN0, y: yT, width: xN1 - xN0, height: yB - yT, fill: '#2b3538' }, g);
+    for (var i = 0; i < 9; i++) el('line', { x1: xN0 + 6, x2: xN1 - 6, y1: yT + 12 + i * 15.5, y2: yT + 12 + i * 15.5, stroke: 'var(--cyan)', 'stroke-opacity': '.35' }, g);
+    el('rect', { x: xN1, y: yT, width: xP0 - xN1, height: yB - yT, fill: 'var(--cyan)', 'fill-opacity': '.12' }, g);
+    el('line', { x1: (xN1 + xP0) / 2, x2: (xN1 + xP0) / 2, y1: yT + 4, y2: yB - 4, stroke: 'var(--cyan)', 'stroke-dasharray': '3 5', 'stroke-opacity': '.7' }, g);
+    el('rect', { x: xP0, y: yT, width: xP1 - xP0, height: yB - yT, fill: 'var(--amber-2)', 'fill-opacity': '.18' }, g);
+    var parts = [[326, 96, 14], [368, 108, 16], [334, 150, 17], [380, 160, 13], [322, 192, 12], [366, 196, 15]];
+    parts.forEach(function (c) { el('circle', { cx: c[0], cy: c[1], r: c[2], fill: 'var(--amber-2)', 'fill-opacity': '.9', stroke: 'var(--amber)', 'stroke-opacity': '.6' }, g); });
+    var target = el('circle', { cx: parts[2][0], cy: parts[2][1], r: parts[2][2] + 3, fill: 'none', stroke: 'var(--cation)', 'stroke-opacity': '0' }, g);
+    // faint field arrows in the electrolyte (module 0)
+    for (var k = 0; k < 3; k++) { var yy = yT + 34 + k * 44; arrow(g, xN1 + 14, yy, xN1 + 44, yy, '#C4B5F7', 1.1, 'field-arrow').setAttribute('opacity', '.55'); arrow(g, xP0 - 44, yy, xP0 - 14, yy, '#C4B5F7', 1.1, 'field-arrow').setAttribute('opacity', '.55'); }
+    // the wire, the lamp and the electrons (module 1)
+    var wireD = 'M' + (xN0 - 6) + ',' + yT + ' V34 H' + (xP1 + 6) + ' V' + yT;
+    el('path', { d: wireD, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2 }, g);
+    var lampX = 246, lamp = el('circle', { cx: lampX, cy: 34, r: 13, fill: 'var(--cation)', 'fill-opacity': '.35', stroke: 'var(--line-2)' }, g);
+    var glow = el('circle', { cx: lampX, cy: 34, r: 22, fill: 'var(--cation)', 'fill-opacity': '.08' }, g);
+    var ePath = el('path', { d: 'M' + (xN0 - 6) + ',' + yT + ' V34 H' + (xP1 + 6) + ' V' + yT, fill: 'none', stroke: 'none' }, g);
+    var ef = flow(svg, ePath, { n: 9, cls: 'e-dot', r: 2.6, speed: 46, parent: g, animOnly: false });
+    // our ion crossing (modules 1 and 3)
+    var ion = ourIon(g, xN1 - 10, 150, 5, 'our ion', true);
+    // potential strip (module 3)
+    var strip = phiStrip(g, { x: xN0 - 12, y: 232, w: xP1 + 12 - (xN0 - 12), h: 40 }, [{ x: 0, phi: 0 }, { x: 0.24, phi: 0 }, { x: 0.241, phi: 0.5 }, { x: 0.76, phi: 0.5 }, { x: 0.761, phi: 1 }, { x: 1, phi: 1 }], { vmin: -0.1, vmax: 1.15, label: 'φ', units: '' });
+    var cellT = txt(g, 60, 22, '', 'amber'); cellT.classList.add('your-cell-name');
+    txt(g, 60, 22 - 12, 'Your cell', '');
+    // module tags
+    function tag(x, y, label, anchor) { var w = label.length * 6.6 + 14; var bx = anchor === 'end' ? x - w : anchor === 'middle' ? x - w / 2 : x; el('rect', { x: bx, y: y - 12, width: w, height: 17, rx: 8, 'class': 'tag-bg' }, g); txt(g, bx + w / 2, y, label, 'tag', 'middle'); }
+    tag(252, yB + 16, '0  charge and field', 'middle');
+    tag(lampX + 30, 44, '1  the wire and the lamp', 'start');
+    tag(xN0 - 22, yB + 16, '2  the parts', 'start');
+    tag(xP1 + 12, 292, '3  the voltage', 'end');
+    tag(xP1 + 12, yB + 16, '4  the energy', 'end');
+    var t = 0, ph = 0;
+    function tick(dt) {
+      if (dt === 0) { return; }
+      t += dt; ph = (ph + dt / 5.5) % 1; ef.advance(dt);
+      var k = smooth(Math.min(1, ph / 0.8)), x = lerp(xN1 - 10, parts[2][0], k), y = lerp(150, parts[2][1], k) + Math.sin(ph * 12) * 4 * (1 - k);
+      ion.move(x, y); ion.g.style.opacity = ph > 0.92 ? String((1 - ph) / 0.08) : ph < 0.05 ? String(ph / 0.05) : '1';
+      target.setAttribute('stroke-opacity', String(ph > 0.8 ? 0.9 * (1 - (ph - 0.8) / 0.2) : 0));
+      var pulse = 0.75 + 0.25 * Math.sin(t * 2.4);
+      lamp.setAttribute('fill-opacity', String(0.45 + 0.45 * pulse)); glow.setAttribute('fill-opacity', String(0.06 + 0.14 * pulse)); glow.setAttribute('r', String(20 + 6 * pulse));
+    }
+    var loop = anim(fig, tick, { autoplay: true, stepDt: 0.3 });
+    bind(fig, loop);
+  });

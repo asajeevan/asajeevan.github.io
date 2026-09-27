@@ -63,6 +63,8 @@
     var t = el('text', a, parent); setSvgText(t, String(str));
     return t;
   }
+  /* plain(str): scripts flattened to ordinary characters, for <option> text and titles */
+  function plain(str) { return scriptRuns(String(str)).map(function (r) { return r.t; }).join(''); }
   /* HTML side: convert the same characters inside a node's text into <sup>/<sub>. */
   function mathifyHtml(str) {
     var runs = scriptRuns(str), o = '';
@@ -172,8 +174,8 @@
     }
     loop.start = function () { if (running || !motion || !loop.wanted) return; running = true; t0 = null; raf = requestAnimationFrame(frame); sync(); };
     loop.stop = function () { running = false; cancelAnimationFrame(raf); sync(); };
-    loop.step = function () { loop.stop(); loop.wanted = false; var dt = opts.stepDt || 0.25; loop.t += dt; tick(dt, loop.t); sync(); };
-    loop.toggle = function () { if (running) { loop.wanted = false; loop.stop(); } else { loop.wanted = true; if (!motion) { loop.step(); } else loop.start(); } };
+    loop.step = function () { loop.stop(); loop.wanted = false; if (opts.onPlay) opts.onPlay(); var dt = opts.stepDt || 0.25; loop.t += dt; tick(dt, loop.t); sync(); };
+    loop.toggle = function () { if (running) { loop.wanted = false; loop.stop(); } else { loop.wanted = true; if (opts.onPlay) opts.onPlay(); if (!motion) { loop.step(); } else loop.start(); } };
     loop.running = function () { return running; };
     var bar = fig.querySelector('.stepbar') || fig.querySelector('.controls');
     var play = document.createElement('button'), step = document.createElement('button');
@@ -233,11 +235,17 @@
 
   /* ---------- reading modes ---------- */
   var body = document.body;
-  var modeBtns = document.querySelectorAll('.modes button[data-mode]');
+  var modeBtns = document.querySelectorAll('.modes button[data-mode]'), modeNote = document.querySelector('.modes-note');
+  var NOTES = {
+    show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
+    teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
+    equations: 'Equations: every “Go deeper” panel and every “The mathematics of this module” panel below is now open and outlined in cyan. <a href="#m00-maths">Jump to the first one</a>.'
+  };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
     Array.prototype.forEach.call(modeBtns, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === m)); });
-    if (m === 'equations') Array.prototype.forEach.call(document.querySelectorAll('details.deeper'), function (d) { d.open = true; });
+    Array.prototype.forEach.call(document.querySelectorAll('details.deeper'), function (d) { if (m === 'equations') d.open = true; else if (save) d.open = false; });
+    if (modeNote) modeNote.innerHTML = NOTES[m] || '';
     if (save) store('learn.mode', m);
   }
   Array.prototype.forEach.call(modeBtns, function (b) { b.addEventListener('click', function () { setMode(b.getAttribute('data-mode'), true); }); });
@@ -578,6 +586,57 @@
     bind(fig, loop);
   });
 
+  /* ===== hero: the page in one cell, animated ===== */
+  register('hero', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg);
+    var yT = 70, yB = 210, xN0 = 92, xN1 = 170, xP0 = 300, xP1 = 400;
+    // collectors, negative host (layered), electrolyte, positive host (particles)
+    el('rect', { x: xN0 - 12, y: yT, width: 12, height: yB - yT, fill: 'var(--copper)', 'fill-opacity': '.9' }, g);
+    el('rect', { x: xP1, y: yT, width: 12, height: yB - yT, fill: '#cfd6d8' }, g);
+    el('rect', { x: xN0, y: yT, width: xN1 - xN0, height: yB - yT, fill: '#2b3538' }, g);
+    for (var i = 0; i < 9; i++) el('line', { x1: xN0 + 6, x2: xN1 - 6, y1: yT + 12 + i * 15.5, y2: yT + 12 + i * 15.5, stroke: 'var(--cyan)', 'stroke-opacity': '.35' }, g);
+    el('rect', { x: xN1, y: yT, width: xP0 - xN1, height: yB - yT, fill: 'var(--cyan)', 'fill-opacity': '.12' }, g);
+    el('line', { x1: (xN1 + xP0) / 2, x2: (xN1 + xP0) / 2, y1: yT + 4, y2: yB - 4, stroke: 'var(--cyan)', 'stroke-dasharray': '3 5', 'stroke-opacity': '.7' }, g);
+    el('rect', { x: xP0, y: yT, width: xP1 - xP0, height: yB - yT, fill: 'var(--amber-2)', 'fill-opacity': '.18' }, g);
+    var parts = [[326, 96, 14], [368, 108, 16], [334, 150, 17], [380, 160, 13], [322, 192, 12], [366, 196, 15]];
+    parts.forEach(function (c) { el('circle', { cx: c[0], cy: c[1], r: c[2], fill: 'var(--amber-2)', 'fill-opacity': '.9', stroke: 'var(--amber)', 'stroke-opacity': '.6' }, g); });
+    var target = el('circle', { cx: parts[2][0], cy: parts[2][1], r: parts[2][2] + 3, fill: 'none', stroke: 'var(--cation)', 'stroke-opacity': '0' }, g);
+    // faint field arrows in the electrolyte (module 0)
+    for (var k = 0; k < 3; k++) { var yy = yT + 34 + k * 44; arrow(g, xN1 + 14, yy, xN1 + 44, yy, '#C4B5F7', 1.1, 'field-arrow').setAttribute('opacity', '.55'); arrow(g, xP0 - 44, yy, xP0 - 14, yy, '#C4B5F7', 1.1, 'field-arrow').setAttribute('opacity', '.55'); }
+    // the wire, the lamp and the electrons (module 1)
+    var wireD = 'M' + (xN0 - 6) + ',' + yT + ' V34 H' + (xP1 + 6) + ' V' + yT;
+    el('path', { d: wireD, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2 }, g);
+    var lampX = 246, lamp = el('circle', { cx: lampX, cy: 34, r: 13, fill: 'var(--cation)', 'fill-opacity': '.35', stroke: 'var(--line-2)' }, g);
+    var glow = el('circle', { cx: lampX, cy: 34, r: 22, fill: 'var(--cation)', 'fill-opacity': '.08' }, g);
+    var ePath = el('path', { d: 'M' + (xN0 - 6) + ',' + yT + ' V34 H' + (xP1 + 6) + ' V' + yT, fill: 'none', stroke: 'none' }, g);
+    var ef = flow(svg, ePath, { n: 9, cls: 'e-dot', r: 2.6, speed: 46, parent: g, animOnly: false });
+    // our ion crossing (modules 1 and 3)
+    var ion = ourIon(g, xN1 - 10, 150, 5, 'our ion', true);
+    // potential strip (module 3)
+    var strip = phiStrip(g, { x: xN0 - 12, y: 232, w: xP1 + 12 - (xN0 - 12), h: 40 }, [{ x: 0, phi: 0 }, { x: 0.24, phi: 0 }, { x: 0.241, phi: 0.5 }, { x: 0.76, phi: 0.5 }, { x: 0.761, phi: 1 }, { x: 1, phi: 1 }], { vmin: -0.1, vmax: 1.15, label: 'φ', units: '' });
+    var cellT = txt(g, 60, 22, '', 'amber'); cellT.classList.add('your-cell-name');
+    txt(g, 60, 22 - 12, 'Your cell', '');
+    // module tags
+    function tag(x, y, label, anchor) { var w = label.length * 6.6 + 14; var bx = anchor === 'end' ? x - w : anchor === 'middle' ? x - w / 2 : x; el('rect', { x: bx, y: y - 12, width: w, height: 17, rx: 8, 'class': 'tag-bg' }, g); txt(g, bx + w / 2, y, label, 'tag', 'middle'); }
+    tag(252, yB + 16, '0  charge and field', 'middle');
+    tag(lampX + 30, 44, '1  the wire and the lamp', 'start');
+    tag(xN0 - 22, yB + 16, '2  the parts', 'start');
+    tag(xP1 + 12, 292, '3  the voltage', 'end');
+    tag(xP1 + 12, yB + 16, '4  the energy', 'end');
+    var t = 0, ph = 0;
+    function tick(dt) {
+      if (dt === 0) { return; }
+      t += dt; ph = (ph + dt / 5.5) % 1; ef.advance(dt);
+      var k = smooth(Math.min(1, ph / 0.8)), x = lerp(xN1 - 10, parts[2][0], k), y = lerp(150, parts[2][1], k) + Math.sin(ph * 12) * 4 * (1 - k);
+      ion.move(x, y); ion.g.style.opacity = ph > 0.92 ? String((1 - ph) / 0.08) : ph < 0.05 ? String(ph / 0.05) : '1';
+      target.setAttribute('stroke-opacity', String(ph > 0.8 ? 0.9 * (1 - (ph - 0.8) / 0.2) : 0));
+      var pulse = 0.75 + 0.25 * Math.sin(t * 2.4);
+      lamp.setAttribute('fill-opacity', String(0.45 + 0.45 * pulse)); glow.setAttribute('fill-opacity', String(0.06 + 0.14 * pulse)); glow.setAttribute('r', String(20 + 6 * pulse));
+    }
+    var loop = anim(fig, tick, { autoplay: true, stepDt: 0.3 });
+    bind(fig, loop);
+  });
+
   /* =================================================================
      Module 1: what a battery does. The Daniell cell after Winter and
      Brodd 2004 Figure 1, with the potential profile after Bard, Faulkner
@@ -681,7 +740,7 @@
       { text: 'The strip: the potential <b>jumps</b> at each metal|liquid boundary and is flat through the liquid at open circuit. The voltmeter reads the sum of the jumps, <b>1.10 V</b>. Only the sum can be measured; the split drawn between the two jumps is schematic.' },
       { text: 'The electrons cannot cross the liquid (it has no free electrons) so they take the wire, from the more negative electrode to the more positive, and light the lamp on the way. The wire’s field points the other way; the force on a negative charge is against it.' }
     ]);
-    var loop = anim(fig, tick, { autoplay: true, stepDt: 0.4 });
+    var loop = anim(fig, tick, { autoplay: true, stepDt: 0.4, onPlay: function () { if (!closed) { closed = true; render(); } } });
     render();
     bind(fig, { start: function () { loop.start(); if (closed) eflow.start(); }, stop: function () { loop.stop(); eflow.stop(); } });
   });
@@ -888,8 +947,9 @@
       { text: 'Why so thin and so wide: ions move through the electrolyte far more slowly than electrons move through a metal, so a cell wants a <b>large area</b> of electrode facing a <b>thin</b> layer of electrolyte.', on: function () { wind.value = 0; render(); } },
       { text: 'Slide “wind”, or press Play, to roll the strip up. A cylindrical cell is exactly this stack, wound; coin, prismatic and flat cells hold the same layers in other shapes.' }
     ]);
-    var dir = 1;
-    var loop = anim(fig, function (dt) { if (dt === 0) return; var v = +wind.value + dir * dt * 28; if (v >= 100) { v = 100; dir = -1; } if (v <= 0) { v = 0; dir = 1; } wind.value = String(v); render(); }, { autoplay: false, stepDt: 0.5 });
+    var dir = 1, pos = 0;
+    on(wind, 'input', function () { pos = +wind.value; });
+    var loop = anim(fig, function (dt) { if (dt === 0) return; pos += dir * dt * 28; if (pos >= 100) { pos = 100; dir = -1; } if (pos <= 0) { pos = 0; dir = 1; } wind.value = String(Math.round(pos)); render(); }, { autoplay: false, stepDt: 0.5 });
     bind(fig, loop);
   });
 
@@ -999,19 +1059,19 @@
     var hop = el('circle', { r: 3.5, 'class': 'e-dot anim-only' }, g), hopLab = txt(g, 235, 0, '', 'amber', 'middle');
     var gapL = el('line', { x1: 220, x2: 220, stroke: 'var(--amber)', 'stroke-dasharray': '3 3' }, g), gapT = txt(g, 226, 0, '', 'amber');
     badge(g, 56, 40, 1); badge(g, 500, 24, 2); badge(g, 235, Y(vac) - 30, 3); badge(g, 235, Y(occ) + 34, 4);
-    var E = 0, t = 0, mode = 'none';
+    var E = 0, t = 0, mode = 'none', sweeping = false, sweepT = 0;
     function render() {
       E = +ESl.value; setSvgText(Ev, (E > 0 ? '+' : '') + E.toFixed(2) + ' V');
       var y = Y(E);
       fermi.setAttribute('y1', y); fermi.setAttribute('y2', y); filled.setAttribute('y', y); filled.setAttribute('height', 270 - y); fLab.setAttribute('y', y - 8);
       mode = E < vac ? 'red' : E > occ ? 'ox' : 'none';
-      gapL.setAttribute('y1', Y(0)); gapL.setAttribute('y2', y); gapT.setAttribute('y', (Y(0) + y) / 2 + 4); setSvgText(gapT, E === 0 ? '' : (E < 0 ? '+' : '−') + Math.abs(E).toFixed(2) + ' eV');
+      gapL.setAttribute('y1', Y(0)); gapL.setAttribute('y2', y); gapT.setAttribute('y', (Y(0) + y) / 2 + 4); setSvgText(gapT, Math.abs(E) < 0.3 ? '' : (E < 0 ? '+' : '−') + Math.abs(E).toFixed(2) + ' eV'); gapL.style.display = Math.abs(E) < 0.3 ? 'none' : '';
       setSvgText(hopLab, mode === 'red' ? 'reduction: e⁻ metal → A' : mode === 'ox' ? 'oxidation: e⁻ A → metal' : 'no transfer');
       hopLab.setAttribute('y', mode === 'red' ? Y(vac) - 24 : mode === 'ox' ? Y(occ) + 34 : y + 30);
       read.innerHTML = 'Electrode at <b>' + (E > 0 ? '+' : '') + E.toFixed(2) + ' V</b> relative to the couple’s standard potential: every transferable electron on the metal sits <b>' + Math.abs(E).toFixed(2) + ' eV ' + (E < 0 ? 'higher' : E > 0 ? 'lower' : 'from where it was') + '</b>. ' +
         (mode === 'red' ? 'That is above the vacant orbital of A, so electrons flow from the metal into A: a <b>reduction</b> current.' : mode === 'ox' ? 'That is below the occupied orbital of A, so electrons on A find a lower energy on the metal and flow there: an <b>oxidation</b> current.' : 'Between the two orbitals nothing can transfer: no current flows in this window.');
     }
-    on(ESl, 'input', render);
+    on(ESl, 'input', function () { sweeping = false; render(); });
     steps(fig, [
       { text: 'The pale line is the <b>Fermi level</b>: the energy of the electrons an electrode can give away or take in. Below it the metal’s states are full, above it empty.' },
       { text: 'Slide the potential. Making the electrode <b>more negative raises</b> its electrons: exactly <b>1 eV per volt</b>, the electron-volt of module 0. The right-hand axis is the same quantity measured as a potential, upside down.' },
@@ -1020,11 +1080,13 @@
     ]);
     render();
     var loop = anim(fig, function (dt) {
-      if (dt === 0) return; t = (t + dt / 1.6) % 1; var k = smooth(t);
+      if (dt === 0) return;
+      if (sweeping) { sweepT += dt; ESl.value = (1.5 * Math.sin(sweepT / 3.2)).toFixed(2); render(); }
+      t = (t + dt / 1.6) % 1; var k = smooth(t);
       if (mode === 'red') { hop.setAttribute('cx', lerp(xm1, xs0 + 30, k)); hop.setAttribute('cy', lerp(Y(E), Y(vac), k)); hop.style.display = ''; }
       else if (mode === 'ox') { hop.setAttribute('cx', lerp(xs0 + 30, xm1, k)); hop.setAttribute('cy', lerp(Y(occ), Y(E), k)); hop.style.display = ''; }
       else hop.style.display = 'none';
-    }, { autoplay: true, stepDt: 0.25 });
+    }, { autoplay: true, stepDt: 0.25, onPlay: function () { sweeping = true; } });
     bind(fig, loop);
   });
 
@@ -1078,7 +1140,7 @@
       { text: 'Two sheets of charge a distance apart is a <b>capacitor</b>: q = C·E, with 10 to 40 µF per cm² of electrode. Change the electrode’s potential and a charging current flows for about 10⁻⁸ s, with no chemistry at all.' },
       { text: '<b>How it forms.</b> Dip zinc into its salt: a few Zn²⁺ leave the metal and their electrons stay behind, so the metal goes negative and the liquid beside it positive. That separated charge is the field; it grows until its pull on the next ion balances the chemical push. Press Play or “Replay the formation”.', on: function () { startForming(); } }
     ]);
-    var loop = anim(fig, tick, { autoplay: false, stepDt: 0.3 });
+    var loop = anim(fig, tick, { autoplay: false, stepDt: 0.3, onPlay: function () { if (!forming) startForming(); } });
     function startForming() { if (+qSl.value === 0) qSl.value = -2; formT = 0; forming = true; qNow = 0; loop.wanted = true; if (motion) loop.start(); else { qNow = null; render(); } }
     on(formBtn, 'click', startForming);
     bind(fig, loop);
@@ -1111,7 +1173,7 @@
       el('line', { x1: x1, y1: y(r.V), x2: x2, y2: y(r.V), stroke: left ? 'var(--cyan)' : 'var(--amber)', 'stroke-width': 2 }, rg);
       var t = txt(rg, left ? x2 - 4 : x1 + 4, y(r.V) - 5, r.name + ' ' + r.V.toFixed(r.V === 4.75 ? 2 : 1) + (r.key === 's' ? ' (Li–S, conversion)' : ''), '', left ? 'end' : 'start'); prevT[r.side] = t;
       marks[r.key] = rg;
-      var o = document.createElement('option'); o.value = r.key; setSvgText(o, r.name + ' (' + r.V.toFixed(r.V === 4.75 ? 2 : 1) + ' V)'); (left ? selN : selP).appendChild(o);
+      var o = document.createElement('option'); o.value = r.key; o.textContent = plain(r.name) + ' (' + r.V.toFixed(r.V === 4.75 ? 2 : 1) + ' V)'; (left ? selN : selP).appendChild(o);
     });
     var brace = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2, 'stroke-dasharray': '4 3' }, g);
     el('rect', { x: 227, y: 0, width: 52, height: 18, rx: 4, fill: 'var(--bg-2)', 'class': 'brace-bg' }, g);
@@ -1304,7 +1366,7 @@
   /* ===== 4.1 Faraday calculator ===== */
   register('f4-1', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.calc-bars'), sel = fig.querySelector('.mat'), M = fig.querySelector('.M'), n = fig.querySelector('.n'), V = fig.querySelector('.V'), Vv = fig.querySelector('.V-val'), read = fig.querySelector('.readout'), note = fig.querySelector('.note');
-    P.data.materials.forEach(function (m) { var o = document.createElement('option'); o.value = m.key; setSvgText(o, m.name); sel.appendChild(o); });
+    P.data.materials.forEach(function (m) { var o = document.createElement('option'); o.value = m.key; o.textContent = plain(m.name); sel.appendChild(o); });
     var o = document.createElement('option'); o.value = 'custom'; setSvgText(o, 'Custom (type M and n)'); sel.appendChild(o);
     var refs = [{ name: 'graphite', basis: 'per g of C₆', q: P.specificCapacity(1, 6 * 12.011) }, { name: 'LiFePO₄', basis: 'per g of LiFePO₄', q: P.specificCapacity(1, 6.94 + 55.845 + 30.974 + 4 * 15.999) }, { name: 'lithium metal', basis: 'per g of Li', q: P.specificCapacity(1, 6.94) }];
     var scale = 300 / 4000;
@@ -1519,6 +1581,39 @@
     if (mo) mo.observe(fig, { childList: true, subtree: true, characterData: false });
   });
 
+  /* ---------- background: slow ions and electrons behind the page ---------- */
+  (function background() {
+    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
+    if (!motion || coarse || small) { cv.style.display = 'none'; return; }
+    var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
+    function size() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+    size(); window.addEventListener('resize', size);
+    for (var i = 0; i < 46; i++) {
+      var ion = i % 5 !== 0; // four cations to one electron
+      ps.push({ ion: ion, x: Math.random() * 1600, y: Math.random() * 1000, r: ion ? 2.2 + Math.random() * 2.2 : 1.4 + Math.random(), v: ion ? 6 + Math.random() * 8 : -(14 + Math.random() * 14), ph: Math.random() * 6.28, a: 0.10 + Math.random() * 0.16 });
+    }
+    function frame(ts) {
+      if (!running) return;
+      var dt = t0 === null ? 0 : Math.min(0.05, (ts - t0) / 1000); t0 = ts;
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < ps.length; i++) {
+        var p = ps[i]; p.x += p.v * dt; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
+        if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
+        var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 5);
+        var c = p.ion ? '255,209,102' : '131,219,208';
+        g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 5, 0, 6.283); ctx.fill();
+        ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.2) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function start() { if (running) return; running = true; t0 = null; raf = requestAnimationFrame(frame); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+    start();
+  })();
+
   /* ---------- boot ---------- */
   Array.prototype.forEach.call(document.querySelectorAll('[data-fig]'), function (fig) {
     var id = fig.getAttribute('data-fig'); if (figs[id]) { try { figs[id](fig); } catch (e) { if (window.console) console.error('figure ' + id, e); } }
@@ -1532,6 +1627,6 @@
 
   /* The "your cell" name wherever it is shown */
   var cellName = document.querySelectorAll('.your-cell-name');
-  function names() { var n = rung(cell.neg), p = rung(cell.pos); Array.prototype.forEach.call(cellName, function (e) { e.textContent = n.name + ' | ' + p.name; }); }
+  function names() { var n = rung(cell.neg), p = rung(cell.pos), s = n.name + ' | ' + p.name; Array.prototype.forEach.call(cellName, function (e) { if (e.namespaceURI === NS) setSvgText(e, s); else e.innerHTML = mathifyHtml(s); }); }
   cellListeners.push(names); names();
 })();

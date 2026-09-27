@@ -96,8 +96,9 @@
       { text: 'Why so thin and so wide: ions move through the electrolyte far more slowly than electrons move through a metal, so a cell wants a <b>large area</b> of electrode facing a <b>thin</b> layer of electrolyte.', on: function () { wind.value = 0; render(); } },
       { text: 'Slide “wind”, or press Play, to roll the strip up. A cylindrical cell is exactly this stack, wound; coin, prismatic and flat cells hold the same layers in other shapes.' }
     ]);
-    var dir = 1;
-    var loop = anim(fig, function (dt) { if (dt === 0) return; var v = +wind.value + dir * dt * 28; if (v >= 100) { v = 100; dir = -1; } if (v <= 0) { v = 0; dir = 1; } wind.value = String(v); render(); }, { autoplay: false, stepDt: 0.5 });
+    var dir = 1, pos = 0;
+    on(wind, 'input', function () { pos = +wind.value; });
+    var loop = anim(fig, function (dt) { if (dt === 0) return; pos += dir * dt * 28; if (pos >= 100) { pos = 100; dir = -1; } if (pos <= 0) { pos = 0; dir = 1; } wind.value = String(Math.round(pos)); render(); }, { autoplay: false, stepDt: 0.5 });
     bind(fig, loop);
   });
 
