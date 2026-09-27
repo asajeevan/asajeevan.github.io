@@ -142,7 +142,7 @@
       Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', String(+x.getAttribute('data-guess') === gss)); x.disabled = true; });
       prac.setAttribute('width', String(440 * 0.25)); soft.setAttribute('x', String(40 + 440 * 0.25)); soft.style.display = ''; pract.style.display = ''; prim.setAttribute('width', String(440 * 0.5)); primt.style.display = ''; reasons.style.display = '';
       reset.style.display = '';
-      read.innerHTML = (gss === 25 ? 'Yes: ' : gss === null ? '' : 'You guessed about ' + gss + ' %. ') + 'Winter and Brodd’s rule of thumb is <b>about 25 %</b> for a rechargeable battery and <b>over 50 %</b> for a primary one; the blurred edge says “about”. The rest goes to inert parts, internal resistance and incomplete use of the active masses.';
+      read.innerHTML = (gss === 25 ? 'Yes: ' : gss === null ? '' : 'You guessed about ' + gss + ' %. ') + 'Winter and Brodd’s 2004 rule of thumb is <b>about 25 %</b> for a rechargeable battery and <b>over 50 %</b> for a primary one, reckoned on the mass of everything that reacts; the blurred edge says “about”. Among the causes they list inert parts, internal resistance and incomplete use of the active masses.';
     }
     function clearAll() {
       Array.prototype.forEach.call(btns, function (x) { x.setAttribute('aria-pressed', 'false'); x.disabled = false; });
@@ -152,9 +152,9 @@
     Array.prototype.forEach.call(btns, function (b) { on(b, 'click', function () { reveal(+b.getAttribute('data-guess')); }); });
     on(reset, 'click', clearAll); clearAll();
     steps(fig, [
-      { text: 'The full bar is the energy the chemistry could deliver if every gram were active material and nothing were lost: the number the calculator of figure 4.1 gives.' },
+      { text: 'The full bar is the energy the chemistry could deliver if nothing were lost, per kilogram of <b>all</b> the reacting materials: both electrodes, and the electrolyte where it reacts. Not figure 4.1’s single-electrode number; the worked example below does the sum for graphite and LiCoO₂.' },
       { text: 'Guess what fraction a real rechargeable battery delivers, then tap. The revealed bar is a rule of thumb, drawn with a blurred edge for that reason.' },
-      { text: 'Three reasons, none sized separately by the source: inert parts (collectors, containers, conductive diluents), internal resistance, and active material that is never fully used.', on: function () { if (reasons.style.display === 'none') reveal(null); } }
+      { text: 'Three of the causes, none sized separately by the source: inert parts (collectors, containers, conductive diluents), internal resistance, and active material that is never fully used.', on: function () { if (reasons.style.display === 'none') reveal(null); } }
     ]);
   });
 

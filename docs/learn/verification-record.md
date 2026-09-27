@@ -355,3 +355,18 @@ to B2, which turned out to contain the whole electrostatics foundation the page 
 | Porous electrodes extend the surface area and lower the current density | R1 section 1.4 (end) | Matches |
 | Thin-film batteries reach the power of supercapacitors; hybrids; combination suggested | R1 section 1.1 | Matches |
 | Aqueous systems in Table 2 all at or below 2.0 V; systems above 2 V all lithium with nonaqueous electrolytes | R1 Table 2 (read row by row) | Matches (Li-FeS2 at 1.6 V is nonaqueous but below 2 V, so the statement is one-directional as written) |
+
+### Q4. Cross-check of the 25 % rule of thumb (2026-09-27, owner's question)
+
+R1 section 1.1, verbatim: "As a rule of thumb, the practical energy content of a
+rechargeable battery is 25% of its theoretical value, whereas a primary battery system can
+yield >50% of its theoretical value in delivered energy", and the difference "is related to
+several factors, including (1) inert parts ... (2) internal resistances ... (3) limited
+utilization of the active masses". The theoretical value is that of R1 Figure 4, reckoned on
+all reacting materials. CORRECTED on the page: figure 4.4 had labelled its full bar as "the
+number the calculator of figure 4.1 gives", which is one electrode's active material only
+(wrong base); the label, callout and caption now say "all the reacting materials", the
+text says "among the causes" (R1 says "including") and dates the rule to 2004. Practical
+check added as a worked example: graphite|LiCoO2 with all the lithium, 158 mAh/g on 169.9 g
+per mole of electrons, about 600 Wh/kg at 3.8 V; the 1991 Sony cell's 120 to 150 Wh/kg (R2)
+is 20 to 25 % of it. Test added.

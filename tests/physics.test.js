@@ -204,6 +204,16 @@ test('Daniell worked example: n = 2, E = 1.103 V gives dG = -212.8 kJ/mol (BFW T
   close(P.reactionEnergy(d.n, d.E) / 1000, -212.8, 0.1);
 });
 
+test('graphite | LiCoO2 on the mass of both active materials: 158 mAh/g and about 600 Wh/kg at 3.8 V; the 1991 cell at 120 to 150 Wh/kg is 20 to 25 % (R1 rule of thumb, R2 cell)', () => {
+  const m = P.data.molarMass;
+  const M = (m.Li + m.Co + 2 * m.O) + 6 * m.C;   // one electron per LiCoO2, one C6 host
+  const q = P.specificCapacity(1, M);
+  close(q, 158, 1);
+  const wh = q * 3.8;
+  assert.ok(wh > 590 && wh < 610, String(wh));
+  assert.ok(120 / wh > 0.19 && 150 / wh < 0.26);
+});
+
 test('lithium metal is the most negative rung: Li+/Li = -3.045 V vs NHE (BFW Table C.1; Tarascon and Armand give -3.04 V)', () => {
   const s = P.data.standardPotentials;
   close(s['Li+/Li'], -3.045, 1e-9);

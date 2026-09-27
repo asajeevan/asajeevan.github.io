@@ -95,7 +95,7 @@
         <svg viewBox="0 0 520 204" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f44t">
           <title id="f44t">A full bar of theoretical energy against the smaller practical share a battery delivers, drawn with a blurred edge because it is a rule of thumb, with the three reasons for the difference.</title>
           <defs><linearGradient id="soft44" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="var(--amber, #F0B441)" stop-opacity="1"/><stop offset="1" stop-color="var(--amber, #F0B441)" stop-opacity="0"/></linearGradient></defs>
-          <text x="40" y="34" class="lbl strong">theoretical energy of the chemistry (figure 4.1)</text>
+          <text x="40" y="34" class="lbl strong">theoretical energy: per kg of all the reacting materials, both electrodes</text>
           <rect x="40" y="44" width="440" height="26" rx="4" fill="var(--amber, #F0B441)" fill-opacity=".18" stroke="var(--amber, #F0B441)" stroke-opacity=".5"/>
           <text x="40" y="104" class="lbl strong">what a rechargeable battery delivers, as a rule of thumb</text>
           <rect class="prac" x="40" y="114" width="0" height="26" rx="4" fill="var(--amber, #F0B441)"/>
@@ -111,11 +111,16 @@
         <div class="part-info"><span class="readout"></span></div>
         <figcaption>Theory against practice.
           <span class="try">Try this: guess before you tap; then reset and see whether a friend guesses the same.</span>
-          <span class="basis">Rule of thumb and the three reasons from Winter and Brodd 2004, section 1.1 and Figure 19. The source does not size the three losses separately, so neither does this figure, and the practical bar is drawn with a blurred edge because &#8220;about 25 %&#8221; is a rule of thumb, not a measurement.</span>
+          <span class="basis">Rule of thumb and the three reasons from Winter and Brodd 2004, section 1.1 and Figure 4 (theoretical values on the mass of all reacting materials). The source lists the three causes as examples and does not size them, so neither does this figure; the practical bar is drawn with a blurred edge because &#8220;about 25 %&#8221; is a rule of thumb from 2004, not a measurement.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">As a rule of thumb, a rechargeable battery delivers about 25 % of its theoretical energy, and a primary battery more than 50 %. The difference has three causes: the inert parts a cell needs, such as conductive diluents, current collectors and containers; the internal resistances of electrodes, electrolyte and contacts; and incomplete use of the active masses.{{cite:R1}} Module 2 showed the inert parts; module 0 showed why resistance costs voltage, and therefore energy, whenever current flows.</p>
+        <p class="explain">As a rule of thumb, Winter and Brodd wrote in 2004, a rechargeable battery delivers about 25 % of its theoretical energy, and a primary battery more than 50 %. The theoretical value is reckoned on the mass of everything that reacts, both electrodes and the electrolyte where it takes part, not on one electrode as in figure 4.1. Among the causes of the difference they list three: the inert parts a cell needs, such as conductive diluents, current collectors and containers; the internal resistances of electrodes, electrolyte and contacts; and incomplete use of the active masses.{{cite:R1}} Module 2 showed the inert parts; module 0 showed why resistance costs voltage, and therefore energy, whenever current flows.</p>
+        <div class="worked"><b>Worked example.</b> Does the rule of thumb hold for the first lithium-ion cell, graphite against LiCoO&#8322;? Count all the lithium, so one electron per LiCoO&#8322; (97.87 g/mol) and one LiC&#8326; host (72.07 g of carbon) per electron.
+          <span class="line">active mass per mole of electrons = 97.87 + 72.07 = 169.9 g;  Q = 26 801 mAh &#247; 169.9 g = <i>158 mAh/g</i></span>
+          <span class="line">theoretical energy at 3.8 V = 158 mAh/g &#215; 3.8 V &#8776; <i>600 Wh/kg</i> of active material</span>
+          <span class="line">the 1991 Sony cell delivered 120 to 150 Wh/kg: <i>20 to 25 %</i> of that</span>
+          The rule fits the cell the review had in mind. Later cells do better than a quarter; the number here is the 2004 statement, and figure 4.1&#8217;s single-electrode value is not the right base for it.{{cite:R1,R2,R6}}</div>
         <p class="explain">To give the number a feel, Winter and Brodd note that a specific energy of 30 Wh/kg means one kilogram of lead-acid battery can power a 60 W lamp for only half an hour.{{cite:R1}} The first commercial lithium-ion cell of 1991 gave over 3.6 V and 120 to 150 Wh/kg, two to three times the usual nickel-cadmium cell of the day.{{cite:R2}}</p>
         <p class="recap"><b>You can now explain</b> where a capacity in mAh/g comes from and which mass it refers to, why energy is an area, what the Ragone plot shows, and why practice gives a quarter of theory.</p>
         <p class="bridge">Now let us watch your cell do it.</p>
