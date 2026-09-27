@@ -1,0 +1,5 @@
+# Built outputs of the learning page stay out of git until the owner approves publication.
+# tools/build_learn.py writes them locally for review; see docs/learn/HANDOFF.md, section 7.
+batteries/
+assets/js/learn.js
+assets/css/learn.css

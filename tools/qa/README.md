@@ -1,5 +1,9 @@
 # QA scripts
 
+The learning page's built files (`batteries/`, `assets/js/learn.js`, `assets/css/learn.css`)
+are git-ignored while the page is unpublished; run `python3 tools/build_learn.py` first so the
+scripts have something to load.
+
 Playwright scripts used to check the pages in a headless Chromium. In the Claude Code
 cloud container Playwright is preinstalled globally: run them with
 `NODE_PATH=/opt/node22/lib/node_modules node tools/qa/<script>.js`. Paths inside the

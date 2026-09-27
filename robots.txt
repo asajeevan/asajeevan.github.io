@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /batteries/
 Allow: /
 
 Sitemap: https://asajeevan.github.io/sitemap.xml

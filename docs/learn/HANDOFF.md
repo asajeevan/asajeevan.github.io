@@ -18,7 +18,8 @@ branch `claude/ecstatic-bohr-ym5qe9`** (second session): the four scientific err
 are fixed, Module 0 (charge, field, potential, voltage) is new, modules 1 to 4 are
 rewritten, every Act A figure is rebuilt to the figure standard, and the automated
 gate `tools/qa/acta.js` passes. The branch is pushed but **not** fast-forwarded into
-`main`: the owner asked to see Act A before anything continues. Module 5 still has
+`main`, and the page is offline (section 7): the owner asked to see Act A before
+anything continues and asked that the page stay unpublished until they say otherwise. Module 5 still has
 its first-build figures and is next.
 
 ## 2. Decisions already taken by the owner
@@ -138,7 +139,23 @@ pause off-screen via IntersectionObserver, reduced motion shows a complete stati
    and phone width; deploy by fast-forwarding `main` from the working branch; stop and
    report after each block.
 
-## 7. Git conventions used so far
+## 7. Publication state and how to publish
+
+**The learning page is not public.** On 2026-09-27 the owner asked for it to be taken
+offline until approved. Commit `82cec84` on `main` removed `batteries/index.html`,
+`assets/js/learn.js` and `assets/css/learn.css` from the deployed site, removed the
+"Learn" nav link and the About teaser from `index.html`, removed the sitemap entry and
+added `Disallow: /batteries/` to `robots.txt`. On the working branch those three built
+files are listed in `.gitignore`, so `python3 tools/build_learn.py` writes them locally
+for review but a push cannot publish them. The home page on the branch carries no link.
+
+To publish, after the owner's approval and in this order: delete the three lines from
+`.gitignore`; run the build; `git add batteries assets/js/learn.js assets/css/learn.css`;
+restore the nav link `<a href="batteries/">Learn</a>` and the About teaser in
+`index.html` (see commit `82cec84` for the exact lines); restore the sitemap entry;
+remove the `Disallow` line from `robots.txt`; commit; fast-forward `main`.
+
+## 8. Git conventions used so far
 
 First session: working branch `claude/nifty-cerf-9bok9j`, fast-forwarded into `main`.
 Second session (Act A rework): branch `claude/ecstatic-bohr-ym5qe9`, pushed, awaiting the
