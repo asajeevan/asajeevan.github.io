@@ -481,7 +481,7 @@
     el('rect', { x: cx - 24, y: ct, width: 48, height: cb - ct, rx: 6, fill: 'var(--panel)', stroke: 'var(--line-2)' }, g);
     el('rect', { x: cx - 16, y: ct + 10, width: 32, height: 26, rx: 2, fill: 'var(--amber-2)', 'fill-opacity': '.8' }, g);
     el('rect', { x: cx - 16, y: cb - 36, width: 32, height: 26, rx: 2, fill: 'var(--metal)' }, g);
-    txt(g, cx, ct - 8, '+', 'strong big', 'middle'); txt(g, cx, cb + 16, '−', 'strong big', 'middle');
+    txt(g, cx - 13, ct - 6, '+', 'strong big', 'middle'); txt(g, cx - 13, cb + 18, '−', 'strong big', 'middle');
     txt(g, cx - 30, 114, 'cell', '', 'end');
     var pathD = 'M' + cx + ',' + ct + ' V40 H200 M240,40 H410 V80 M410,140 V180 H' + cx + ' V' + cb;
     el('path', { d: pathD, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2.5 }, g);
@@ -490,21 +490,22 @@
     el('rect', { x: 190, y: 8, width: 60, height: 50, fill: 'transparent' }, sw);
     el('circle', { cx: 200, cy: 40, r: 4, fill: 'var(--text)' }, sw); el('circle', { cx: 240, cy: 40, r: 4, fill: 'var(--text)' }, sw);
     var blade = el('line', { x1: 200, y1: 40, x2: 240, y2: 40, stroke: 'var(--text)', 'stroke-width': 3, 'stroke-linecap': 'round' }, sw);
-    txt(sw, 220, 26, 'switch', 'amber', 'middle');
+    txt(sw, 220, 60, 'switch', 'amber', 'middle');
     // resistor as a zigzag (the lamp filament)
-    el('path', { d: 'M410,80 l-10,8 l20,8 l-20,8 l20,8 l-20,8 l20,8 l-20,8 l10,4', fill: 'none', stroke: 'var(--text)', 'stroke-width': 2.2 }, g);
-    var lamp = el('circle', { cx: 410, cy: 110, r: 24, fill: 'none', stroke: 'var(--line-2)' }, g);
     var glow = el('circle', { cx: 410, cy: 110, r: 24, 'class': 'lamp lamp-on' }, g); glow.setAttribute('fill-opacity', '.22');
+    el('circle', { cx: 410, cy: 110, r: 24, fill: 'none', stroke: 'var(--line-2)' }, g);
+    el('path', { d: 'M410,80 l-10,8 l20,8 l-20,8 l20,8 l-20,8 l20,8 l-20,8 l10,4', fill: 'none', stroke: 'var(--text)', 'stroke-width': 2.2 }, g);
     txt(g, 446, 106, 'lamp,', ''); var Rlab = txt(g, 446, 120, 'R', '');
     // electrons along the full wire path (one continuous path for the flow)
     var ePath = el('path', { d: 'M' + cx + ',' + cb + ' V180 H410 V40 H' + cx + ' V' + ct, fill: 'none', stroke: 'none' }, g);
     var ef = flow(svg, ePath, { n: 14, cls: 'e-dot', r: 3, speed: 40, parent: g });
-    txt(g, 300, 196, 'electrons: from − to +, through the wire', 'cyan', 'middle');
-    var fieldW = arrow(g, 330, 62, 290, 62, '#C4B5F7', 1.4, 'field-arrow'); txt(g, 310, 76, 'field along the wire', 'field', 'middle');
+    txt(g, 252, 162, 'electrons: − to +, through the wire', 'cyan', 'middle');
+    var fieldW = arrow(g, 296, 62, 336, 62, '#C4B5F7', 1.4, 'field-arrow'); txt(g, 316, 84, 'field along the wire', 'field', 'middle');
     // strip: the path unrolled from the − terminal, through the cell, the top wire, the switch, the lamp and the bottom wire
     var strip = phiStrip(g, { x: 56, y: 224, w: 440, h: 70 }, [], { vmin: 0, vmax: 5, label: 'φ', units: '0', xlabel: 'path: − terminal → cell → wire → switch → lamp → wire → −' });
-    var segLabs = [['inside the cell', 0.1], ['wire', 0.3], ['switch', 0.44], ['lamp', 0.62], ['wire', 0.85]].map(function (s) { return txt(g, strip.X(s[1]), 212, s[0], '', 'middle'); });
-    badge(g, cx + 40, ct - 8, 1); badge(g, 372, 150, 2); badge(g, 235, 166, 3); badge(g, 462, 150, 4);
+    [0.12, 0.40, 0.48, 0.76].forEach(function (f) { el('line', { x1: strip.X(f), y1: 224, x2: strip.X(f), y2: 294, stroke: 'var(--line)', 'stroke-dasharray': '3 3' }, strip.ticks); });
+    [['cell', 0.06], ['wire', 0.26], ['switch', 0.44], ['lamp', 0.62], ['wire', 0.88]].forEach(function (s) { txt(g, strip.X(s[1]), 214, s[0], '', 'middle'); });
+    badge(g, cx + 40, ct - 8, 1); badge(g, 388, 158, 2); badge(g, 118, 158, 3); badge(g, 268, 24, 4);
     function render() {
       V = +VSl.value; R = +RSl.value; setSvgText(Vv, V.toFixed(1) + ' V'); setSvgText(Rv, R + ' Ω'); setSvgText(Rlab, 'R = ' + R + ' Ω');
       var I = closed ? P.ohmCurrent(V, R) : 0, Pw = P.power(I, V);
@@ -545,26 +546,27 @@
     txt(g, 260, 24, 'liquid electrolyte between two electrodes', 'strong', 'middle');
     var farr = el('g', {}, g);
     for (var k = 0; k < 3; k++) { var yy = yT + 24 + k * 44; arrow(farr, xL + 20, yy, xL + 56, yy, '#C4B5F7', 1.2, 'field-arrow'); arrow(farr, xR - 56, yy, xR - 20, yy, '#C4B5F7', 1.2, 'field-arrow'); }
-    var Elab = txt(g, 260, yB - 8, '', 'field', 'middle');
+    var Elab = txt(g, 260, yB + 18, '', 'field', 'middle');
     // our ion (cation) and an anion, with force and drag arrows
-    var ion = ourIon(g, 200, 90, 7, 'our ion, +', true), an = el('circle', { cx: 320, cy: 130, r: 6, 'class': 'ion an' }, g); txt(g, 320, 150, 'anion, −', '', 'middle');
+    var ion = ourIon(g, 200, 90, 7, 'our ion, +', true), an = el('circle', { cx: 320, cy: 140, r: 6, 'class': 'ion an' }, g), anLab = txt(g, 320, 160, 'anion, −', '', 'middle');
     var fE = el('line', { 'class': 'force-arrow' }, g), fD = el('line', { stroke: 'var(--anion)', 'stroke-width': 2.2 }, g), fA = el('line', { 'class': 'force-arrow' }, g);
     fE.setAttribute('marker-end', marker(svg, '#F0B441')); fD.setAttribute('marker-end', marker(svg, '#9AA9A5')); fA.setAttribute('marker-end', marker(svg, '#F0B441'));
-    var lE = txt(g, 0, 0, 'electric force |z|eE', 'amber', 'middle'), lD = txt(g, 0, 0, 'drag 6πηrv', '', 'middle');
+    var lE = txt(g, 0, 0, 'electric force |z|eE', 'amber', 'start'), lD = txt(g, 0, 0, 'drag 6πηrv', '', 'end');
     var strip = phiStrip(g, { x: xL - 12, y: 210, w: xR + 24 - xL, h: 60 }, [{ x: 0, phi: 1 }, { x: 0.03, phi: 1 }, { x: 0.97, phi: 0 }, { x: 1, phi: 0 }], { vmin: 0, vmax: 1.2, label: 'φ', units: '', xlabel: 'cations are driven down the slope, anions up' });
-    badge(g, 150, 60, 1); var b2 = badge(g, 0, 0, 2); badge(g, 380, 60, 3); badge(g, 36, 232, 4);
+    badge(g, xL - 30, 105, 1); var b2 = badge(g, 0, 0, 2); badge(g, xR + 28, 46, 3); badge(g, 36, 232, 4);
     var x = 200, v = 0, xa = 320, va = 0, E = 1, rad = 1;
     function render() {
       setSvgText(Ev, ESl.value + ' (relative)'); setSvgText(rv, rSl.value + ' (relative)');
       E = +ESl.value; rad = +rSl.value; setSvgText(Elab, 'field E = slope of φ; here ' + E + ' unit' + (E > 1 ? 's' : ''));
       var u = 1 / rad, vt = u * E;
-      ion.move(x, 90); an.setAttribute('cx', xa);
+      ion.move(x, 90); an.setAttribute('cx', xa); anLab.setAttribute('x', xa);
       var L = 14 + 18 * E, Ld = 14 + 18 * (rad * Math.abs(v)); // drag = 6 pi eta r v, in the same units
       fE.setAttribute('x1', x + 10); fE.setAttribute('x2', x + 10 + L); fE.setAttribute('y1', 90); fE.setAttribute('y2', 90);
       fD.setAttribute('x1', x - 10); fD.setAttribute('x2', x - 10 - Ld); fD.setAttribute('y1', 90); fD.setAttribute('y2', 90); fD.style.display = Ld > 14.5 ? '' : 'none';
-      fA.setAttribute('x1', xa - 9); fA.setAttribute('x2', xa - 9 - (14 + 18 * E)); fA.setAttribute('y1', 130); fA.setAttribute('y2', 130);
-      lE.setAttribute('x', x + 10 + L / 2); lE.setAttribute('y', 78); lD.setAttribute('x', x - 10 - Ld / 2); lD.setAttribute('y', 126); lD.style.display = fD.style.display;
-      b2.setAttribute('transform', 'translate(' + (x - 10 - Ld - 16) + ',' + 90 + ')');
+      fA.setAttribute('x1', xa - 9); fA.setAttribute('x2', xa - 9 - (14 + 18 * E)); fA.setAttribute('y1', 140); fA.setAttribute('y2', 140);
+      lE.setAttribute('x', x + 12); lE.setAttribute('y', 74); lD.setAttribute('x', x - 12); lD.setAttribute('y', 104); lD.style.display = (Ld > 14.5 && x - 77 >= xL + 4) ? '' : 'none';
+      ion.t.setAttribute('text-anchor', 'start'); ion.t.setAttribute('x', x + 2);
+      b2.setAttribute('transform', 'translate(' + (x - 10 - Ld / 2) + ',' + 78 + ')');
       read.innerHTML = 'Mobility u = |z| e / (6π η r): a bigger ion (larger r) or a thicker liquid (larger η) moves more slowly for the same push. Terminal speed v = u E = <b>' + fmt(vt, 2) + '</b> relative units here (field ' + E + ', radius ' + rad + '). Both ions carry current: cations one way, anions the other.';
     }
     on(ESl, 'input', function () { v = 0; va = 0; render(); }); on(rSl, 'input', function () { v = 0; render(); });
@@ -580,7 +582,7 @@
       var u = 1 / rad, vt = u * E, tau = 0.35 * rad; // v relaxes to vt with the drag time scale
       v += (vt - v) * Math.min(1, dt / tau); va += (vt - va) * Math.min(1, dt / tau);
       x += v * 60 * dt; xa -= va * 60 * dt;
-      if (x > xR - 30) { x = xL + 30; v = 0; } if (xa < xL + 30) { xa = xR - 30; va = 0; }
+      if (x > xR - 34) { x = xL + 30; v = 0; } if (xa < xL + 30) { xa = xR - 30; va = 0; }
       render();
     }, { autoplay: true, stepDt: 0.2 });
     bind(fig, loop);
