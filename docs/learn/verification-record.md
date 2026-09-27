@@ -405,3 +405,16 @@ Module 2 from B2 4.2.6 and R36 eqs. 10 and 11 (Bruggeman, alpha = 1.5 and 1.53) 
 2.2.24, 2.2.28), 2.2.5 (eq. 2.2.34), 2.1.9 (eq. 2.1.63), 2.1.3 (eqs. 2.1.25, 2.1.27,
 2.1.28), 1.6.4 and 14.3.2, and R6 eq. 6; Module 4 from B2 1.1.12, R1 eq. 7 and R6 eqs. 2,
 4 and 5. Arithmetic: 0.3^1.5 = 0.164; RT/F at 298.15 K = 25.69 mV; 2.303 RT/F = 59.2 mV.
+
+### Q7. Anode and cathode on charge (2026-09-27, owner's request)
+
+R1 section 1.2 defines the anode as "the negative electrode of a cell associated with
+oxidative chemical reactions that release electrons into the external circuit" and the
+cathode as "the positive electrode ... associated with reductive chemical reactions that
+gain electrons from the external circuit"; its "charge" definition and Figure 11 caption
+say that on recharge the flow of electrons is reversed. The page now states: on discharge
+the negative electrode is oxidized (anode) and the positive reduced (cathode); on charge the
+current is reversed, the negative electrode is reduced and the positive oxidized, so by the
+reaction definition the names swap while the electrodes keep their signs. Derived from R1's
+definitions; consistent with B2 1.1.2 (the applied voltage drives current in either
+direction).

@@ -2,7 +2,7 @@
 :root{--electron:#DDF6F2;--anion:#9AA9A5;--heat:#E8663D;--cation:#FFD166;--field:#C4B5F7;--phi:#EAF0EC;--metal:#8fa3b0;--copper:#c9773b}
 
 /* ---------- background ---------- */
-.learn-bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.9}
+.learn-bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5}
 main,.topbar,.footer,.rail-cell,.totop{position:relative;z-index:1}
 .topbar{z-index:40}.rail-cell{z-index:35}.totop{z-index:30}
 

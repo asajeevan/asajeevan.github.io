@@ -618,11 +618,11 @@
     txt(g, 60, 22 - 12, 'Your cell', '');
     // module tags
     function tag(x, y, label, anchor) { var w = label.length * 6.6 + 14; var bx = anchor === 'end' ? x - w : anchor === 'middle' ? x - w / 2 : x; el('rect', { x: bx, y: y - 12, width: w, height: 17, rx: 8, 'class': 'tag-bg' }, g); txt(g, bx + w / 2, y, label, 'tag', 'middle'); }
-    tag(252, yB + 16, '0  charge and field', 'middle');
-    tag(lampX + 30, 44, '1  the wire and the lamp', 'start');
-    tag(xN0 - 22, yB + 16, '2  the parts', 'start');
-    tag(xP1 + 12, 292, '3  the voltage', 'end');
-    tag(xP1 + 12, yB + 16, '4  the energy', 'end');
+    tag(252, yB + 16, '0 · the field', 'middle');
+    tag(lampX + 30, 44, '1 · the wire and the lamp', 'start');
+    tag(xN0 - 22, yB + 16, '2 · the parts', 'start');
+    tag(xP1 + 12, 292, '3 · the voltage', 'end');
+    tag(xP1 + 12, yB + 16, '4 · the energy', 'end');
     var t = 0, ph = 0;
     function tick(dt) {
       if (dt === 0) { return; }
@@ -1589,9 +1589,9 @@
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
     function size() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
     size(); window.addEventListener('resize', size);
-    for (var i = 0; i < 46; i++) {
+    for (var i = 0; i < 34; i++) {
       var ion = i % 5 !== 0; // four cations to one electron
-      ps.push({ ion: ion, x: Math.random() * 1600, y: Math.random() * 1000, r: ion ? 2.2 + Math.random() * 2.2 : 1.4 + Math.random(), v: ion ? 6 + Math.random() * 8 : -(14 + Math.random() * 14), ph: Math.random() * 6.28, a: 0.10 + Math.random() * 0.16 });
+      ps.push({ ion: ion, x: Math.random() * 1600, y: Math.random() * 1000, r: ion ? 2.2 + Math.random() * 2.2 : 1.4 + Math.random(), v: ion ? 6 + Math.random() * 8 : -(14 + Math.random() * 14), ph: Math.random() * 6.28, a: 0.04 + Math.random() * 0.07 });
     }
     function frame(ts) {
       if (!running) return;
@@ -1600,11 +1600,11 @@
       for (var i = 0; i < ps.length; i++) {
         var p = ps[i]; p.x += p.v * dt; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
-        var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 5);
+        var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
         var c = p.ion ? '255,209,102' : '131,219,208';
         g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
-        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 5, 0, 6.283); ctx.fill();
-        ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.2) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 4, 0, 6.283); ctx.fill();
+        ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.4) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();
       }
       raf = requestAnimationFrame(frame);
     }

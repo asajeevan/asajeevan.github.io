@@ -317,11 +317,11 @@
     txt(g, 60, 22 - 12, 'Your cell', '');
     // module tags
     function tag(x, y, label, anchor) { var w = label.length * 6.6 + 14; var bx = anchor === 'end' ? x - w : anchor === 'middle' ? x - w / 2 : x; el('rect', { x: bx, y: y - 12, width: w, height: 17, rx: 8, 'class': 'tag-bg' }, g); txt(g, bx + w / 2, y, label, 'tag', 'middle'); }
-    tag(252, yB + 16, '0  charge and field', 'middle');
-    tag(lampX + 30, 44, '1  the wire and the lamp', 'start');
-    tag(xN0 - 22, yB + 16, '2  the parts', 'start');
-    tag(xP1 + 12, 292, '3  the voltage', 'end');
-    tag(xP1 + 12, yB + 16, '4  the energy', 'end');
+    tag(252, yB + 16, '0 · the field', 'middle');
+    tag(lampX + 30, 44, '1 · the wire and the lamp', 'start');
+    tag(xN0 - 22, yB + 16, '2 · the parts', 'start');
+    tag(xP1 + 12, 292, '3 · the voltage', 'end');
+    tag(xP1 + 12, yB + 16, '4 · the energy', 'end');
     var t = 0, ph = 0;
     function tick(dt) {
       if (dt === 0) { return; }
