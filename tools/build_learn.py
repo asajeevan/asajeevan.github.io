@@ -54,7 +54,7 @@ SUBC = ''.join(SUB)
 
 EQUATIONS = [  # inline equations that get the math face (longest first so that prefixes do not steal a match)
     'F = qq′/(4πε₀r²)', 'φ = −∫E·dl', 'φ = q/(4πε₀r)', 'q = ε₀∮E·dS', 'μ̄ = μ + zFφ', 'u = |z|e/(6πηr)', 'κ = FΣ|z|uC',
-    'Q = nF/(3.6 M)', 'Q = nF/(3.6 M)', 'mass = I·t·M/(nF)', 'R = ρl/A', 'i = dQ/dt', 'ΔG = −nFE', 'E = IR', 'P = IV', 'q = C·E', 'Q = nFN',
+    'Q = nF/(3.6 M)', 'Q = nF/(3.6 M)', 'mass = I·t·M/(nF)', 'R = ρl/A', 'i = dQ/dt', 'ΔG = −nFE', 'E = IR', 'V = IR', 'P = IV', 'q = C·E', 'Q = nFN',
     'V<sub>OC</sub> = (μ<sub>A</sub> − μ<sub>C</sub>)/e', 'φ<sup>Zn</sup> − φ<sup>Cu</sup> = (μ°<sub>e</sub><sup>Zn</sup> − μ°<sub>e</sub><sup>Cu</sup>)/F',
     'μ̄<sub>e</sub> = μ°<sub>e</sub> − Fφ', '−nFE = n(μ̄<sub>e</sub><sup>Cu′</sup> − μ̄<sub>e</sub><sup>Cu</sup>)', '1 V = 1 J/C',
 ]
