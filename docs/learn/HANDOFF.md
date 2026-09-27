@@ -205,3 +205,11 @@ script glyphs, so the page never shows those characters raw:
   motion, on coarse pointers and below 760 px.
 - The reading-mode note changes with the mode and, in equations mode, links to the first
   mathematics panel (`#m00-maths`).
+
+## 11. Visitor counter and share button (assets/js/share.js)
+
+- `assets/js/share.js` is loaded by both `index.html` and the learning page (after `learn.js`). It holds the visitor counter that used to live in `home.js` and the share button.
+- Counter: one site-wide count from the owner's Cloudflare Worker (`counter/README.md`; `COUNTER_URL` at the top of `share.js`). One `/hit` per browser session, `/count` on later page views; the footer line `#visits` stays hidden if the Worker cannot be reached. The learning page footer carries the same `#visits` line as the home page.
+- Share: every element with class `js-share` (the floating pill above the back-to-top arrow on both pages, "Share this site" in the home hero, "Share this page" at the end of the learning page). On browsers with the Web Share API it opens the system share sheet; otherwise a small menu with Copy link, LinkedIn, X, WhatsApp and e-mail. The link shared is the page's `<link rel="canonical">`, so the private preview artifact shares the public address, not its own.
+- Styles are in `site.css` under "share button and menu". QA: `scratchpad/qa/sharetest.js` mocks the Worker and checks the counter text, the menu, the clipboard and Escape on both pages.
+

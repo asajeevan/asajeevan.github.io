@@ -71,55 +71,6 @@
   });
 
 
-  /* ---------- visitor counter ----------
-     Preferred: your own Cloudflare Worker (counter/README.md), set COUNTER_URL.
-     Fallback when COUNTER_URL is empty: a public counter on counterapi.dev v2
-     (free account, workspace + counter created in their dashboard). Counts are
-     buffered on their side, so the number can lag a little. */
-  var COUNTER_URL = 'https://visitor-counter.aswadhssajeevan7-3.workers.dev';
-  var COUNTER_WORKSPACE = 'asajeevan'; // counterapi.dev workspace name (public counter, no token)
-  var COUNTER_NAME = 'visits';
-  (function visitorCounter() {
-    var box = document.getElementById('visits'), num = document.getElementById('visitCount');
-    if (!box || !num) return;
-    var counted = false;
-    try { counted = sessionStorage.getItem('counted') === '1'; } catch (e) {}
-    var url;
-    if (COUNTER_URL) {
-      url = COUNTER_URL.replace(/\/$/, '') + (counted ? '/count' : '/hit');
-    } else {
-      if (!COUNTER_WORKSPACE) return;
-      url = 'https://api.counterapi.dev/v2/' + COUNTER_WORKSPACE + '/' + COUNTER_NAME + (counted ? '' : '/up');
-    }
-    function readCount(d) {
-      if (!d) return null;
-      if (typeof d.count === 'number') return d.count;
-      if (typeof d.Count === 'number') return d.Count;
-      if (d.data && typeof d.data.up_count === 'number') return d.data.up_count;
-      if (d.data && typeof d.data.count === 'number') return d.data.count;
-      if (d.data && typeof d.data.value === 'number') return d.data.value;
-      return null;
-    }
-    fetch(url, { mode: 'cors', credentials: 'omit' })
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-      .then(function (d) {
-        var target = readCount(d);
-        if (target === null) return;
-        try { sessionStorage.setItem('counted', '1'); } catch (e) {}
-        box.hidden = false;
-        var start = Math.max(0, target - 40), t0 = null;
-        function step(ts) {
-          if (t0 === null) t0 = ts;
-          var p = Math.min(1, (ts - t0) / 900), e = 1 - Math.pow(1 - p, 3);
-          num.textContent = Math.round(start + (target - start) * e).toLocaleString('en-GB');
-          if (p < 1) requestAnimationFrame(step);
-        }
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) num.textContent = target.toLocaleString('en-GB');
-        else requestAnimationFrame(step);
-      })
-      .catch(function () { box.hidden = true; });
-  })();
-
   /* ---------- fallback: static page ---------- */
   function staticFinal() {
     root.classList.remove('motion');

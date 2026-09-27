@@ -16,11 +16,11 @@ The site is static, so the number has to live somewhere else. This uses a Cloudf
 Test it: open `<worker url>/count` in a browser. You should see `{"count":0}`.
 
 ## 3. Connect the site
-In `index.html`, find the line
+In `assets/js/share.js`, find the line
 
-    var COUNTER_URL = '';
+    var COUNTER_URL = '...';
 
-and put the Worker URL between the quotes. Upload the file. The footer now shows "Visitors: n".
+and put the Worker URL between the quotes. Upload the file. The footer of the home page and of the learning page now shows "Visitors: n" (one counter for the whole site).
 
 ## How counting works
 - One count per browser session: the page calls `/hit` once, then remembers in `sessionStorage` that it has been counted and only reads `/count` on reloads and further page views in that session.
