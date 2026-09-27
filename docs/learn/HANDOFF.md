@@ -9,7 +9,7 @@ end of the Act A rework, for whoever continues
 
 The site lives in this repository (asajeevan/asajeevan.github.io, served by GitHub
 Pages from `main`). A learning page exists at `/batteries/` with a hero, Act A
-(Module 0 plus modules 1 to 4, 20 figures) and the first module of Act B (module 5),
+(Module 0 plus modules 1 to 4, 20 figures, each with its mathematics panel) and the first module of Act B (module 5),
 a cited reference list, and a "coming next" note for modules 6 to 12. The first
 build (commits `acb0412` and `757ea7f` on `main`) was reviewed by the owner, who
 judged every figure and the text inadequate for a first-year student; the findings
@@ -139,7 +139,20 @@ pause off-screen via IntersectionObserver, reduced motion shows a complete stati
    and phone width; deploy by fast-forwarding `main` from the working branch; stop and
    report after each block.
 
-## 7. Publication state and how to publish
+## 7. Publication state (updated 2026-09-27, later the same day)
+
+**Published.** The owner asked for modules 0 to 4 to go live as a self-contained piece with
+the mathematics included. The page ends after Module 4 with a closing note that further
+modules are being written; each module's "theory page" placeholder is replaced by an
+in-page "The mathematics of this module" panel (`details.deeper.maths`, one `.eqline`
+per equation, each cited through the module's `{{sources}}` line); the nav lists the five
+modules; the rail shows reading progress only. `mod-05.html` and the module 5 figure code
+in `figs-45.js` stay in the repository, unused by the build, for the next block. The built
+files are tracked again, the home page carries the Learn link and teaser, the sitemap
+entry is back and robots.txt allows the page. `main` is fast-forwarded from the working
+branch after every reviewed block, as before.
+
+### Earlier state, for the record: how the page was taken offline and what to undo
 
 **The learning page is not public.** On 2026-09-27 the owner asked for it to be taken
 offline until approved. Commit `82cec84` on `main` removed `batteries/index.html`,

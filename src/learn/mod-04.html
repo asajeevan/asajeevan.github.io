@@ -1,6 +1,6 @@
 <section class="module" id="m04" data-act="A" data-nav>
   <div class="wrap">
-    <p class="mod-n">Module 4 of 12</p>
+    <p class="mod-n">Module 4</p>
     <h2 class="h2">Capacity, energy and power</h2>
     <p class="hook">How long would your cell run a lamp?</p>
     <p class="where"><b>Where we are.</b> Module 3 gave your cell a voltage: the gap between two rungs, which is the free energy of its reaction per unit of charge. Now the other factor: how much charge the materials hold. Charge times voltage is energy; energy per second is power.</p>
@@ -52,7 +52,7 @@
       </figure>
       <div class="text">
         <p class="explain">Energy is the integral of the voltage over the charge delivered: on a discharge curve, the area under the line, which is also the average voltage times the capacity.{{cite:R6}} Per kilogram it is called specific energy (Wh/kg), per litre energy density (Wh/L); how fast it can be delivered is specific power (W/kg) and power density (W/L).{{cite:R1}}</p>
-        <p class="explain">The capacity itself depends on how hard you pull. At high current the transfer of ions across the interfaces becomes diffusion-limited and the cell reaches less of its charge before the cut-off; that part of the loss is reversible and comes back at a gentler rate.{{cite:R6}} Module 5 takes the curve apart.</p>
+        <p class="explain">The capacity itself depends on how hard you pull. At high current the transfer of ions across the interfaces becomes diffusion-limited and the cell reaches less of its charge before the cut-off; that part of the loss is reversible and comes back at a gentler rate.{{cite:R6}} The next module to come takes the curve apart.</p>
         <div class="worked"><b>Worked example.</b> A cell of capacity 2 Ah discharged at an average of 3.6 V.
           <span class="line">energy = 3.6 V &#215; 2 Ah = <i>7.2 Wh</i></span>
           <span class="line">a 6 W lamp (P = IV, module 0) runs for 7.2 Wh &#247; 6 W = <i>1.2 hours</i>, drawing 6 W / 3.6 V = 1.7 A</span>
@@ -97,7 +97,14 @@
         <p class="bridge">Now let us watch your cell do it.</p>
         <details class="deeper"><summary>Go deeper: the mass basis, and 372 against 339</summary><div class="body">
           <p>Run Faraday&#8217;s law on the lithiated compound LiC&#8326; (79.0 g/mol) and you get 339 mAh/g; run it on the carbon host C&#8326; (72.07 g/mol) and you get 372 mAh/g. Both are correct; they answer different questions. The convention in the field is to refer negative-electrode hosts to their delithiated mass and positive-electrode materials to their lithiated mass, which is how each is weighed when the cell is built.{{cite:R2,R6}} Whenever you compare capacities, check the basis first.</p>
-          <a class="theory-link" href="#references">The mathematics of this module: theory page, coming in a later phase</a>
+        </div></details>
+        <details class="deeper maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">Q = nFN,&#8195;m = ItM / (nF)</span><span class="eqnote">Faraday&#8217;s law: the charge for N moles of reactant that give n electrons each; turned round, the mass transformed by a current I for a time t</span></p>
+          <p class="eqline"><span class="eq">Q<sub>spec</sub> = nF / (3.6 M)&#8195;mAh/g</span><span class="eqnote">the theoretical specific capacity of a material of molar mass M (g/mol); 3.6 converts coulombs per gram to milliampere-hours per gram (figure 4.1). Graphite as C&#8326;: 372; LiFePO&#8324;: 170; lithium metal: 3861.</span></p>
+          <p class="eqline"><span class="eq">energy = &#8747;<sub>0</sub><sup>&#916;t</sup> IV dt = &#8747;<sub>0</sub><sup>Q</sup> V(q) dq = &#9001;V&#9002; Q</span><span class="eqnote">the energy delivered is the area under the discharge curve, or the average voltage times the capacity (figure 4.2)</span></p>
+          <p class="eqline"><span class="eq">P = IV,&#8195;specific energy = energy / mass,&#8195;specific power = P / mass</span><span class="eqnote">the two axes of the Ragone plot (figure 4.3), in Wh/kg and W/kg</span></p>
+          <p class="eqline"><span class="eq">&#951;<sub>Coulombic</sub> = 100 &#215; Q<sub>dis</sub> / Q<sub>ch</sub></span><span class="eqnote">the share of the charge put in on charging that comes back on discharge; a later module follows it cycle by cycle</span></p>
+          <p class="eqline"><span class="eq">&#951;<sub>energy</sub> = 100 &#215; &#8747;V<sub>dis</sub> dq / &#8747;V<sub>ch</sub> dq</span><span class="eqnote">the share of the energy that comes back; lower than the Coulombic efficiency because the charge branch sits above the discharge branch</span></p>
         </div></details>
         {{sources:R1,R2,R6,B2}}
       </div>

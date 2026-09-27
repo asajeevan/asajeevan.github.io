@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How batteries work | Aswadh Shyma Sajeevan</title>
+<meta name="description" content="An illustrated introduction to batteries for a first-year student: charge, field and voltage; what a cell does; its anatomy; where the voltage comes from; capacity, energy and power. Every statement is checked against a textbook or a peer-reviewed article, and every figure is computed from its source.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="How batteries work">
+<meta property="og:description" content="From charge and voltage to capacity and energy: five illustrated modules on how a battery works, every fact checked against its source, every figure computed from it.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How batteries work">
+<meta name="twitter:description" content="From charge and voltage to capacity and energy: five illustrated modules on how a battery works, every fact checked against its source.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/learn.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"How batteries work","description":"An illustrated introduction to batteries: charge, field and voltage; what a cell does; its anatomy; where the voltage comes from; capacity, energy and power. Every statement checked against a textbook or a peer-reviewed article.","author":{"@type":"Person","name":"Aswadh Shyma Sajeevan","url":"https://asajeevan.github.io/"},"url":"https://asajeevan.github.io/batteries/","inLanguage":"en","educationalLevel":"beginner to undergraduate","learningResourceType":"explainer"}
+</script>
+</head>
+<body data-mode="teach">
+<a class="skip" href="#m00">Skip to the first module</a>
+
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Back to the home page">Aswadh Shyma Sajeevan</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="siteNav" aria-label="Sections">
+      <a href="../">Home</a>
+      <a href="#start">Start</a>
+      <a href="#m00">0 Charge</a>
+      <a href="#m01">1 The cell</a>
+      <a href="#m02">2 Anatomy</a>
+      <a href="#m03">3 Voltage</a>
+      <a href="#m04">4 Energy</a>
+      <a href="#references">References</a>
+    </nav>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<aside class="rail-cell" id="railCell" aria-hidden="true">
+  <svg viewBox="0 0 92 230" xmlns="http://www.w3.org/2000/svg">
+    <rect x="34" y="28" width="24" height="8" rx="2" fill="var(--muted, #A3B6B1)"/>
+    <rect x="22" y="36" width="48" height="160" rx="8" fill="var(--panel-2, #183840)" stroke="var(--line-2, rgba(234,240,236,.26))"/>
+    <rect class="rail-fill-rect" x="26" y="190" width="40" height="0" rx="4" fill="var(--amber, #F0B441)" fill-opacity=".85"/>
+    <text class="pct" x="46" y="216" text-anchor="middle">0%</text>
+    <text class="lab" data-act="A" x="2" y="120">read</text>
+  </svg>
+</aside>
+
+<main id="top">
+<!-- ===================== HERO ===================== -->
+<section class="learn-hero" id="start">
+  <div class="wrap">
+    <div class="hero-row">
+      <div>
+        <p class="kicker" data-reveal>Battery basics, from zero</p>
+        <h1 class="h1" data-reveal>How batteries work</h1>
+        <p class="promise" data-reveal>Where the push in a battery comes from, and how much of it there is: from two charges in empty space to the energy in your phone&#8217;s cell.</p>
+        <p class="lede" data-reveal>I spent my doctoral years building cells like the ones on this page. This is the explanation I wish I had had at the start: five modules, from charge and voltage to capacity and energy, each built around a figure you can play with and told in the order the play raises the questions. Further modules, following one ion through a cycle and into the ways cells age, are being written. Every factual statement was checked against a textbook or a peer-reviewed article, listed at the end; every curve is computed from the equation in its source, and every figure can show you what it is based on. Nothing here is experimental data.</p>
+        <div class="modes" role="group" aria-label="Choose how to read" data-reveal>
+          <button type="button" data-mode="show" aria-pressed="false">Just show me <small>(about 10 min)</small></button>
+          <button type="button" data-mode="teach" aria-pressed="true">Teach me <small>(about 40 min)</small></button>
+          <button type="button" data-mode="equations" aria-pressed="false">I want the equations</button>
+        </div>
+        <p class="modes-note">&#8220;Just show me&#8221; keeps the questions, the figures and the one-line answers. &#8220;I want the equations&#8221; opens every &#8220;Go deeper&#8221; panel and the mathematics of each module.</p>
+        <a class="hint" href="#f0-1">Start with two charges in figure 0.1</a>
+      </div>
+      <figure class="fig hero-fig-learn" data-reveal>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="herot">
+          <title id="herot">A lithium cell with the five modules of the page marked on it: charge and voltage, what a cell does, its anatomy, where the voltage comes from, and capacity and energy.</title>
+          <rect x="60" y="70" width="14" height="160" fill="var(--muted, #A3B6B1)" opacity=".55"/>
+          <rect x="74" y="70" width="96" height="160" fill="var(--amber, #F0B441)" opacity=".28"/><rect x="74" y="70" width="96" height="160" fill="none" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/>
+          <rect x="170" y="70" width="76" height="160" fill="var(--cyan, #83DBD0)" fill-opacity=".14"/><rect x="170" y="70" width="76" height="160" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
+          <rect x="246" y="70" width="124" height="160" fill="var(--green, #2F6A5C)" opacity=".3"/><rect x="246" y="70" width="124" height="160" fill="none" stroke="var(--green, #2F6A5C)"/>
+          <rect x="370" y="70" width="14" height="160" fill="var(--muted, #A3B6B1)" opacity=".55"/>
+          <g fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55"><circle cx="272" cy="100" r="8"/><circle cx="330" cy="120" r="9"/><circle cx="290" cy="160" r="9"/><circle cx="345" cy="190" r="7"/><circle cx="268" cy="212" r="7"/></g>
+          <circle class="ion" cx="120" cy="150" r="5"/>
+          <path d="M126,150 C160,150 180,120 208,140 C230,156 250,150 262,152" fill="none" stroke="var(--cation, #FFD166)" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <text x="122" y="248" class="lbl" text-anchor="middle">0, 1: the push</text>
+          <text x="208" y="248" class="lbl" text-anchor="middle">2: the parts</text>
+          <text x="308" y="248" class="lbl" text-anchor="middle">3, 4: voltage, energy</text>
+          <text x="60" y="52" class="lbl amber">Your cell: <tspan class="your-cell-name">Graphite | LiCoO2</tspan></text>
+          <text x="384" y="270" class="lbl" text-anchor="end">Schematic, not experimental data</text>
+        </svg>
+        <figcaption>The page in one cell. The two electrodes you choose in module 3 appear here and travel with you through the page.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACT A ===================== -->
+<div class="act-head wrap" id="actA">
+  <p class="act-k">Five modules</p>
+  <h2>Why does the lamp light?</h2>
+  <p>A foundation module on charge, field, potential and voltage, then four modules on where a cell&#8217;s push comes from and how much of it there is. By the end you will have chosen the two electrodes of your own cell and worked out how much energy it can hold. Each module ends with its mathematics, folded away until you want it.</p>
+</div>
+
+<section class="module" id="m00" data-act="A" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 0 &#183; the foundation</p>
+    <h2 class="h2">Charge, field, potential, voltage</h2>
+    <p class="hook">A torch cell says 1.5 V on its side. What is a volt, and what exactly is being pushed?</p>
+    <p class="where"><b>Where we are.</b> Before the first cell, four words that every later screen uses: <b>charge</b>, the thing that pushes and is pushed; <b>field</b>, the push per unit charge at a place; <b>potential</b>, the energy per unit charge at a place; <b>voltage</b>, a difference of potential. Each gets one figure, one equation and one number.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f0-1" id="f0-1">
+        <span class="fnum">Figure 0.1</span>
+        <svg viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f01t">
+          <title id="f01t">Two point charges a distance r apart, with the force on each drawn as an arrow; the force is the same size on both, falls with the square of r, and reverses when one sign is flipped.</title>
+        </svg>
+        <div class="controls">
+          <label>distance r <input type="range" class="r" min="0.5" max="4" step="0.1" value="1.5" aria-label="Distance between the charges in nanometres"> <b class="r-val">1.5 nm</b></label>
+          <button type="button" data-q="a">q: +e (tap to flip)</button>
+          <button type="button" data-q="b">q&#8242;: +e (tap to flip)</button>
+        </div>
+        <div class="key"><span><i class="pos"></i>positive charge</span><span><i class="neg"></i>negative charge</span><span><i class="act"></i>force</span><span><i class="field"></i>field</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Coulomb&#8217;s law. Two charges of one elementary charge each, in vacuum.
+          <span class="try">Try this: set r to 1 nm, read the force, then set 2 nm and check that it is a quarter; then flip one sign.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Computed from Coulomb’s law in SI form, <span class="eq">F = qq′/(4πε<sub>0</sub>r<sup>2</sup>)</span>, and ε<sub>0</sub> = 8.85419 × 10<sup>−12</sup> C<sup>2</sup> N<sup>−1</sup> m<sup>−2</sup>, as printed in Bard, Faulkner and White 2022, section 14.3.1 (footnote 6) and 2.2.1; e = 1.602 × 10<sup>−19</sup> C (CODATA). Arrow lengths scale with the square root of the force so that both ends of the slider stay visible.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Everything on this page moves because charges push on one another. Charge comes in two signs, and the names are a convention older than the electron: Benjamin Franklin called an excess of what we now call electronic charge <span class="def">negative</span> and a deficiency of it <span class="def">positive</span>. Between two charges q and q′ a distance r apart there is a force <span class="eq">F = qq′/(4πε<sub>0</sub>r<sup>2</sup>)</span>, Coulomb’s law, where ε<sub>0</sub> is a measured constant, the permittivity of free space. Read the formula: the force grows with either charge, falls with the <em>square</em> of the distance, and its sign follows the product of the charges, so like charges push apart and unlike charges pull together.</p>
+        <p class="explain">The unit of charge is the coulomb, and one electron carries 1.602 × 10<sup>−19</sup> C of it. Put two electrons one nanometre apart, about the width of three water molecules, and the formula gives 0.23 nN pushing them apart: tiny in newtons, enormous for something that weighs 10<sup>−30</sup> kg.</p>
+        <p class="lesson">Charges push on each other with a force that falls as the square of the distance.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f0-2" id="f0-2">
+        <span class="fnum">Figure 0.2</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f02t">
+          <title id="f02t">The electric field around one positive charge drawn as arrows that point outward and shorten with distance, a probe charge whose force is shown, and a graph of the potential against distance with the probe marked on it.</title>
+        </svg>
+        <div class="controls">
+          <label>probe distance r <input type="range" class="r" min="1" max="5" step="0.1" value="2" aria-label="Distance of the probe from the charge in nanometres"> <b class="r-val">2.0 nm</b></label>
+          <button type="button" data-probe>probe: +e (tap to flip)</button>
+        </div>
+        <div class="key"><span><i class="field"></i>field (force per unit charge)</span><span><i class="phi"></i>potential &#966;</span><span><i class="act"></i>force on the probe</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Field and potential around a single charge. The map on the left and the graph on the right describe the same push in two languages.
+          <span class="try">Try this: slide the probe from 1 nm to 4 nm and watch the force arrow shrink four times faster than the potential falls.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Field as the force on a unit charge and potential as &#966; = &#8722;&#8747;E&#183;dl from Bard, Faulkner and White 2022, section 2.2.1 (eqs. 2.2.1 and 2.2.2). The 1/r curve is that integral evaluated with Coulomb&#8217;s law for one elementary charge; potential zero taken at infinity.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Take the second charge away and ask what is left at its place. The answer is the <span class="def">electric field</span>: the force that would act on a unit charge put there, a vector with a direction and a strength at every point in space. Around a positive charge it points outward and falls as 1/r<sup>2</sup>, because that is how the force falls.</p>
+        <p class="explain">Now bring a unit positive charge in from very far away, pushing against that field all the way. The work you do is the <span class="def">electric potential</span> φ at the point you reach, and it does not depend on the path you took: <span class="eq">φ = −∫E·dl</span>. Only differences of φ between two points can be measured; the value at one point is a bookkeeping choice, and the usual choice sets φ = 0 infinitely far away. For a single elementary charge the integral gives <span class="eq">φ = q/(4πε<sub>0</sub>r)</span>, which is 1.44 V one nanometre out and half that at two.</p>
+        <p class="explain">The two pictures are one: the field is the slope of the potential. Where &#966; falls steeply the push is strong; where &#966; is flat there is no push at all. That last case is about to matter.</p>
+        <p class="lesson">Field is force per unit charge; potential is energy per unit charge; the field is the slope of the potential.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f0-3" id="f0-3">
+        <span class="fnum">Figure 0.3</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f03t">
+          <title id="f03t">Two metal plates held at a potential difference V with a uniform field between them, a test charge that is pushed downhill if positive and uphill if negative, and a strip below showing the potential flat inside each plate and falling in a straight line across the gap.</title>
+        </svg>
+        <div class="controls">
+          <label>V <input type="range" class="V" min="0.5" max="5" step="0.1" value="1.5" aria-label="Potential difference between the plates in volts"> <b class="V-val">1.5 V</b></label>
+          <label>gap l <input type="range" class="l" min="1" max="10" step="1" value="2" aria-label="Gap between the plates in millimetres"> <b class="l-val">2 mm</b></label>
+          <label>position <input type="range" class="x" min="0" max="100" step="1" value="30" aria-label="Position of the test charge across the gap"></label>
+          <button type="button" data-probe>test charge: +e (tap to flip)</button>
+        </div>
+        <div class="key"><span><i class="field"></i>field</span><span><i class="phi"></i>potential &#966;</span><span><i class="act"></i>force on the test charge</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Voltage as a potential hill. Two conductors, a gap, and a charge that rolls.
+          <span class="try">Try this: flip the test charge to &#8722;e, press Play, and watch it climb toward the higher potential; then double V and watch the field arrows.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Conductor at equilibrium (no field inside, one potential, excess charge on the surface) from Bard, Faulkner and White 2022, section 2.2.1; the linear potential and field E = V/l between parallel plates from their eq. 4.2.3; the energy q&#916;&#966; and the electron-volt from section 1.1.4 (footnote 9); <span class="eq">1 V = 1 J/C</span> from section 1.1.2. Field strength computed; the strip is drawn to scale in volts.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">A <span class="def">voltage</span> is a difference of potential between two points, and its unit, the volt, is one joule per coulomb: the energy available to move each coulomb of charge from one point to the other. Move a charge q across a potential difference &#916;&#966; and its energy changes by q&#916;&#966;. For one electron across one volt that change is one <span class="def">electron-volt</span>, and per mole of electrons it is 96.5 kJ, comparable to the energies of chemical bonds and reactions; which is why a few volts are enough to drive chemistry.</p>
+        <p class="explain">Metals are <span class="def">conductors</span>: they contain charges that are free to move. Leave a metal alone and those charges settle until there is no field left inside it, because any field would move them further; so a conductor at rest sits at a single potential throughout, and any excess charge it carries lies on its surface. The plates in the figure are two such flat regions of the potential; between them, where there is no conductor, the potential falls in a straight line and the field is simply V divided by the gap.</p>
+        <p class="aside">A picture to keep: potential is height, field is slope, and a positive charge rolls downhill while a negative one is pushed uphill. The picture breaks in one place: charges also push on each other and rearrange, so the hill is not fixed scenery. Module 3 is about how a cell builds its own hill.</p>
+        <div class="worked"><b>Worked example.</b> How much charge does it take to raise a metal by one volt? Bard, Faulkner and White give the answer for a mercury drop of 0.5 mm radius in vacuum: about 5 × 10<sup>−14</sup> C per volt.
+          <span class="line">electrons per volt = 5 × 10<sup>−14</sup> C ÷ 1.602 × 10<sup>−19</sup> C  ≈  <i>3 × 10<sup>5</sup></i></span>
+          Three hundred thousand electrons, out of the 10<sup>20</sup> or so in the drop, shift its potential by a full volt. Potentials are set by minute charge imbalances, which is why they are so easy to change and so hard to see.</div>
+        <p class="lesson">A volt is a joule per coulomb; a conductor at rest is all at one potential.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f0-4" id="f0-4">
+        <span class="fnum">Figure 0.4</span>
+        <svg viewBox="0 0 520 316" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f04t">
+          <title id="f04t">A cell, a switch and a lamp joined by a wire, with electrons drawn moving from the negative terminal through the wire to the positive one, and a strip below showing the potential rising inside the cell and falling along the path, mostly across the lamp; with the switch open the whole drop sits across the switch.</title>
+        </svg>
+        <div class="controls">
+          <label>cell voltage V <input type="range" class="V" min="0.5" max="5" step="0.1" value="1.5" aria-label="Cell voltage in volts"> <b class="V-val">1.5 V</b></label>
+          <label>lamp resistance R <input type="range" class="R" min="1" max="30" step="1" value="3" aria-label="Resistance of the lamp in ohms"> <b class="R-val">3 &#937;</b></label>
+          <button type="button" class="sw-btn">Open the switch</button>
+        </div>
+        <div class="key"><span><i class="e"></i>electron</span><span><i class="field"></i>field along the wire</span><span><i class="phi"></i>potential along the path</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Why a current needs a voltage. The strip unrolls the whole loop, starting and ending at the &#8722; terminal.
+          <span class="try">Try this: open the switch and watch where the drop goes; then close it and raise R until the lamp is barely lit.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Electrons move through the wire from the more negative electrode to the more positive one (Bard, Faulkner and White 2022, 1.1.1); current as charge per second, <span class="eq">i = dQ/dt</span> (1.1.5); a potential difference is needed to drive current through a resistance (2.2.1, footnote 15) and metals take only a small share because they conduct far better than electrolytes (1.5, footnote 39); Ohm&#8217;s law <span class="eq">E = IR</span> from Winter and Brodd 2004, section 2.2; <span class="eq">P = IV</span> from Goodenough and Park 2013. The split of the drop, 3 % in each wire and the rest in the lamp, is illustrative; I and P are computed.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">A cell keeps its two terminals at a fixed potential difference; module 1 shows how. Join them with a wire and electrons flow through the wire from the more negative terminal to the more positive one. The amount of charge passing a point each second is the <span class="def">current</span>, <span class="eq">i = dQ/dt</span>, measured in amperes: one ampere is one coulomb per second.</p>
+        <p class="explain">A wire carrying current is no longer at one potential. Between any two points on it there must be a potential difference to drive the current through the resistance between them. That is Ohm&#8217;s law, <span class="eq">E = IR</span>: the same current through twice the resistance needs twice the voltage. The resistance of a piece of conductor grows with its length and shrinks with its cross-section, R = &#961;l/A, where &#961; is the resistivity of the material. Metals have a resistance too, but it is so much smaller than that of an electrolyte that on the scale of a cell the drop along the copper is invisible. In the figure, nearly the whole voltage is spent across the lamp.</p>
+        <p class="explain">Energy per coulomb times coulombs per second is energy per second: the <span class="def">power</span> delivered is <span class="eq">P = IV</span>, in watts.</p>
+        <div class="worked"><b>Worked example.</b> A 1.5 V cell drives a lamp of 3 &#937;.
+          <span class="line">I = V / R = 1.5 V / 3 &#937; = <i>0.5 A</i>, that is 0.5 C every second</span>
+          <span class="line">electrons per second = 0.5 C ÷ 1.602 × 10<sup>−19</sup> C = <i>3.1 × 10<sup>18</sup></i></span>
+          <span class="line">P = I V = 0.5 A &#215; 1.5 V = <i>0.75 W</i></span>
+          Each electron gives up 1.5 eV on its way round; three billion billion of them a second add up to three quarters of a watt of light and heat.</div>
+        <p class="lesson">Current needs a potential difference to drive it through resistance; the power is current times voltage.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f0-5" id="f0-5">
+        <span class="fnum">Figure 0.5</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f05t">
+          <title id="f05t">A liquid between two electrodes with a field across it; a cation is pushed toward the negative side and an anion toward the positive side, each reaching a steady drift speed when the drag of the liquid balances the electric force; a strip shows the potential sloping across the liquid.</title>
+        </svg>
+        <div class="controls">
+          <label>field <input type="range" class="E" min="0.5" max="2" step="0.5" value="1" aria-label="Field strength, relative"> <b class="E-val">1 (relative)</b></label>
+          <label>ion radius <input type="range" class="rad" min="0.5" max="2" step="0.5" value="1" aria-label="Ion radius, relative"> <b class="rad-val">1 (relative)</b></label>
+        </div>
+        <div class="key"><span><i class="li"></i>our ion (cation)</span><span><i class="an"></i>anion</span><span><i class="act"></i>electric force</span><span><i class="sulf"></i>drag</span><span><i class="field"></i>field</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>How an ion moves through a liquid. Our ion, the amber cation, will be followed by name through the rest of the page.
+          <span class="try">Try this: double the ion radius and watch the drift halve; double the field and watch it double. Step through the launch to see the drag arrow grow until it matches the push.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Force |z|eE, Stokes drag 6&#960;&#951;rv, terminal velocity and mobility u = |z|e/(6&#960;&#951;r) from Bard, Faulkner and White 2022, section 2.3.3 and Figure 2.3.4; cations driven down the sloping potential and anions up from their section 1.5.1; conductivity &#954; = F&#931;|z|uC from eq. 2.3.10; electroneutrality from section 2.3.3. Speeds and forces are in relative units: no viscosity or radius is quoted because the sources give none for a battery electrolyte.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">In a liquid the mobile charges are not electrons but <span class="def">ions</span>, atoms or molecules that have lost or gained electrons; free electrons in a solution are so short-lived that they carry no current worth counting. Put an ion of charge number z in a field E and it feels the force |z|eE. As it speeds up the liquid drags on it, with a drag that grows with speed; when the drag balances the push the ion stops accelerating and drifts at a steady <span class="def">terminal velocity</span>. The velocity per unit field is the ion&#8217;s <span class="def">mobility</span>, u = |z|e/(6&#960;&#951;r): a smaller ion in a thinner liquid moves faster.</p>
+        <p class="explain">When current flows through a liquid the potential slopes across it, exactly as it did along the wire, and the slope is the field: cations are driven down the slope and anions up it. Both carry current, and the liquid&#8217;s <span class="def">conductivity</span> adds up every kind of ion, its charge, its mobility and its concentration: &#954; = F&#931;|z|uC. One more rule holds everywhere in the liquid: on any scale you can see, positive and negative charge balance. An imbalance cannot build up, because it would create an enormous field that would move ions until it was gone.</p>
+        <p class="explain">The constant F in that formula is the <span class="def">Faraday constant</span>, the charge carried by one mole of electrons, 96 485.3 C. It is the bridge between the chemist&#8217;s moles and the physicist&#8217;s coulombs, and it returns in module 4 to count how much charge a gram of material can hold.</p>
+        <p class="recap"><b>You can now explain</b> what a volt is, why a field makes charges move and which way, why a current needs a potential difference to drive it, and why an ion in a liquid drifts at a steady speed rather than accelerating.</p>
+        <p class="bridge">Now put two different metals into a liquid and see where a potential difference comes from.</p>
+        <details class="deeper"><summary>Go deeper: Gauss&#8217;s law, and why the charge sits on the surface</summary><div class="body">
+          <p>Draw an imaginary closed surface anywhere. Gauss’s law says that the net charge inside it equals ε<sub>0</sub> times the integral of the field over that surface, <span class="eq">q = ε<sub>0</sub>∮E·dS</span>. Inside a conductor at rest the field is zero everywhere, so the integral over any surface drawn inside the conductor is zero, so the charge inside is zero: whatever excess charge the conductor carries must lie on its boundary. In an electrolyte the same argument leaves the charge at the boundary too, but thermal motion smears it into a layer that can be tenths of a nanometre to thousands of nanometres thick, the <em>space charge region</em>; in a metal that layer is negligibly thin. Module 3 uses this to build the double layer at an electrode.</p>
+          <p>Bring an electrolyte next to the metal and the coulombic field of the metal’s surface charge is largely cancelled by the polarization of the liquid: the same mercury drop then needs about 10<sup>−6</sup> C, some 6 × 10<sup>12</sup> electrons, for a one-volt change, more than 10<sup>7</sup> times what it needed in vacuum.</p>
+        </div></details>
+        <details class="deeper maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="mnote">Everything below is the equation behind a figure above, in the form Bard, Faulkner and White give it. Quantities: q, q′ charges (C); r distance (m); ε<sub>0</sub> = 8.854 × 10<sup>−12</sup> C<sup>2</sup> N<sup>−1</sup> m<sup>−2</sup>; e = 1.602 × 10<sup>−19</sup> C; F = 96 485.3 C/mol.</p>
+          <p class="eqline"><span class="eq">F = qq′ / (4πε<sub>0</sub>r<sup>2</sup>)</span><span class="eqnote">Coulomb&#8217;s law; positive means repulsion (figure 0.1)</span></p>
+          <p class="eqline"><span class="eq">E = F / q′ = q / (4πε<sub>0</sub>r<sup>2</sup>)</span><span class="eqnote">the field of a point charge: force per unit charge, pointing away from a positive q</span></p>
+          <p class="eqline"><span class="eq">&#966;(r) = &#8722;&#8747;<sub>&#8734;</sub><sup>r</sup> E·dl = q / (4πε<sub>0</sub>r)</span><span class="eqnote">the potential: work per unit charge from infinity, path-independent (figure 0.2)</span></p>
+          <p class="eqline"><span class="eq">&#966;(B) &#8722; &#966;(A) = &#8722;&#8747;<sub>A</sub><sup>B</sup> E&#183;dl</span><span class="eqnote">a potential difference is the field integrated along any path; in one dimension, E = &#8722;d&#966;/dx: the field is the slope of the potential</span></p>
+          <p class="eqline"><span class="eq">q<sub>enclosed</sub> = ε<sub>0</sub> ∮ E·dS</span><span class="eqnote">Gauss&#8217;s law; with E = 0 inside a conductor at rest, the enclosed charge is zero and the excess charge sits on the surface</span></p>
+          <p class="eqline"><span class="eq">E = V / l</span><span class="eqnote">the uniform field between two parallel plates a distance l apart (figure 0.3)</span></p>
+          <p class="eqline"><span class="eq">&#916;U = q &#916;&#966;</span><span class="eqnote">energy change of a charge moved across Δφ; for q = e and Δφ = 1 V, ΔU = 1 eV = 1.602 × 10<sup>−19</sup> J</span></p>
+          <p class="eqline"><span class="eq">F = N<sub>A</sub> e = 96 485.3 C/mol</span><span class="eqnote">the Faraday constant: one electron-volt per electron is F &#215; 1 V = 96.5 kJ per mole</span></p>
+          <p class="eqline"><span class="eq"><span class="eq">i = dQ/dt</span></span><span class="eqnote">current, in amperes = coulombs per second (figure 0.4); at 1 A, 1/e = 6.24 × 10<sup>18</sup> electrons pass each second</span></p>
+          <p class="eqline"><span class="eq">V = IR,&#8195;R = &#961;l/A,&#8195;G = 1/R = &#954;A/l</span><span class="eqnote">Ohm&#8217;s law; resistance grows with length and falls with cross-section; &#961; resistivity, &#954; conductivity</span></p>
+          <p class="eqline"><span class="eq"><span class="eq">P = IV</span></span><span class="eqnote">power delivered, in watts</span></p>
+          <p class="eqline"><span class="eq">|z|eE = 6&#960;&#951;rv&#8195;&#8658;&#8195;u = |z|e / (6&#960;&#951;r),&#8195;v = uE</span><span class="eqnote">an ion of charge number z in a liquid of viscosity &#951;: the electric force balances the Stokes drag at the terminal velocity v; u is the mobility (figure 0.5)</span></p>
+          <p class="eqline"><span class="eq">&#954; = F &#931;<sub>j</sub> |z<sub>j</sub>| u<sub>j</sub> C<sub>j</sub>,&#8195;t<sub>j</sub> = |z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub> / &#931;<sub>k</sub> |z<sub>k</sub>|u<sub>k</sub>C<sub>k</sub></span><span class="eqnote">the conductivity of an electrolyte adds up every ion&#8217;s charge, mobility and concentration; t<sub>j</sub>, the transference number, is the share of the current that ion j carries</span></p>
+          <p class="eqline"><span class="eq">J<sub>j</sub> = &#8722;D<sub>j</sub> &#8711;C<sub>j</sub> &#8722; (z<sub>j</sub>F/RT) D<sub>j</sub> C<sub>j</sub> &#8711;&#966;</span><span class="eqnote">the Nernst&#8211;Planck equation: an ion&#8217;s flux has a diffusion part (down the concentration gradient) and a migration part (along the field); with D<sub>j</sub> = u<sub>j</sub>RT/(|z<sub>j</sub>|F) the two pictures agree. The modules on ion transport, still to come, are built on it.</span></p>
+        </div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m01" data-act="A" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 1</p>
+    <h2 class="h2">What a battery does</h2>
+    <p class="hook">Why does the lamp light when you close the switch, and why not when it is open?</p>
+    <p class="where"><b>Where we are.</b> Module 0 gave you the volt (a joule per coulomb), the field (the push per unit charge), the conductor at rest (one potential throughout) and the two kinds of carrier: electrons in metals, ions in liquids. Now two different metals go into a liquid, and a potential difference appears between them.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f1-1" id="f1-1">
+        <span class="fnum">Figure 1.1</span>
+        <svg viewBox="0 0 520 426" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f11t">
+          <title id="f11t">A zinc electrode in zinc sulfate and a copper electrode in copper sulfate, separated by a porous wall, joined outside by a wire with a switch, a lamp and a voltmeter reading 1.10 volts. Closing the switch makes zinc atoms leave as ions, electrons run through the wire to the copper where copper ions plate out, and sulfate drift toward the zinc. A strip below shows the potential jumping at each electrode and flat through the liquid.</title>
+        </svg>
+        <div class="controls"><button class="sw-btn" type="button">Close the switch</button></div>
+        <div class="key"><span><i class="zn"></i>zinc</span><span><i class="cu"></i>copper</span><span><i class="li"></i>cation (Zn<sup>2+</sup>, Cu<sup>2+</sup>)</span><span><i class="an"></i>sulfate</span><span><i class="e"></i>electron</span><span><i class="phi"></i>potential</span><span><i class="field"></i>field</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The Daniell cell, the textbook battery. Two metals, two salt solutions, a porous wall, and one wire.
+          <span class="try">Try this: close the switch and watch the first zinc atom leave; then open it and notice that the voltmeter still reads 1.10 V.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Schematic after Winter and Brodd 2004, Figure 1. Open-circuit voltage 1.10 V computed from the standard potentials in Bard, Faulkner and White 2022, Table C.1 (Cu<sup>2+</sup>/Cu +0.340 V, Zn<sup>2+</sup>/Zn −0.7626 V vs NHE). Potential strip after their Figure 1.1.2 (open circuit) and Figure 1.5.2 (current flowing); the split between the two interfacial jumps is not measurable and is drawn schematically (their section 2.2.3). Ion drift shows direction only; the drop under load is illustrative.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Close the switch. Zinc atoms at the left electrode give up two electrons each and dissolve into the liquid as Zn<sup>2+</sup> ions; at the right electrode Cu<sup>2+</sup> ions take two electrons each and settle as copper metal. Each of those is a <span class="def">half-reaction</span>, and neither can happen alone: each must be coupled, through a cell, to a second half-reaction running the other way. The electrons cannot cross the liquid, so they take the wire, from the more negative electrode to the more positive, and the lamp lights on the way. Inside the cell the current is carried by ions: cations drift toward the copper and sulfate toward the zinc, so no charge piles up anywhere.</p>
+        <p class="explain">Open the switch and everything stops, but nothing is lost. The voltage you measure with nothing else connected is the <span class="def">open-circuit voltage</span>, and a high-impedance voltmeter can read it without drawing any appreciable current. For this pair of metals it is 1.10 V: the difference between the standard potentials of the two half-reactions, +0.340 V for copper and &#8722;0.763 V for zinc. Where a potential sits inside the cell is the strip under the figure: it jumps at each metal|liquid boundary, in a zone so narrow that a very strong field exists there, and stays flat through the liquid; the voltmeter reads the sum of the jumps along the path from one electrode to the other. Module 3 shows how each jump is built: the chemistry moves a minute charge across the boundary, and the field of that separated charge is what the strip shows.</p>
+        <p class="explain">That is the whole trick, in Goodenough and Park&#8217;s words: the electrolyte &#8220;conducts the ionic component of the chemical reaction between the anode and the cathode, but it forces the electronic component to traverse an external circuit where it does work&#8221;.</p>
+        <div class="worked"><b>Worked example.</b> Where does 1.10 V come from, and what does it buy?
+          <span class="line">E = E°(Cu<sup>2+</sup>/Cu) − E°(Zn<sup>2+</sup>/Zn) = 0.340 V − (−0.763 V) = <i>1.10 V</i></span>
+          <span class="line">energy per electron round the circuit = 1.10 eV; two electrons per zinc atom</span>
+          <span class="line">per mole of zinc: 2 &#215; 96 485 C &#215; 1.10 V = <i>213 kJ</i></span>
+          Module 3 shows that this 213 kJ is the free energy of the reaction Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu, and module 4 turns the “per mole” into “per gram”.</div>
+        <p class="lesson">A battery is a chemical reaction that is only allowed to happen through a wire.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f1-2" id="f1-2">
+        <span class="fnum">Figure 1.2</span>
+        <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f12t">
+          <title id="f12t">A metal electrode beside a liquid electrolyte, sharing a boundary. In the metal only electrons move, through a lattice of fixed positive ion cores; in the liquid only ions move; at the boundary an ion takes an electron and becomes an atom. The same field points the same way in both, pushing electrons one way and cations the other.</title>
+        </svg>
+        <div class="key"><span><i class="e"></i>electron</span><span><i class="li"></i>cation</span><span><i class="an"></i>anion</span><span><i class="field"></i>field</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Two roads for charge, joined at the boundary. Why the electrons take the wire and the ions take the liquid.
+          <span class="try">Try this: press Step and watch what happens at the boundary each time an ion arrives; nothing crosses without a reaction.</span>
+          <details class="src"><summary>Source</summary><span class="basis">After Bard, Faulkner and White 2022, section 1.1.1: charge is transported through an electrode by electrons and through an electrolyte by ions, and at the interface the two modes must be linked through an electrode reaction; free electrons in solution are very short-lived (their footnote 1). Field and force directions from their section 2.2.1 and 1.5.1. Schematic; particle speeds are not to scale.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Why do the electrons choose the wire? Because they have no other road. In a metal, charge is carried by electrons moving through a lattice of fixed ion cores; in an electrolyte it is carried by ions, and the &#8220;free&#8221; electrons a liquid might briefly hold are so short-lived that they contribute nothing to its conductivity. At the boundary between the two, charge can pass only if the two kinds of carrier are linked by an <span class="def">electrode reaction</span>: electrons consumed or produced in the metal, ions produced or consumed in the liquid.</p>
+        <p class="explain">The field does the rest. One field points from the positive side to the negative side; it pushes a positive ion along itself and an electron against itself, so the cations in the liquid and the electrons in the wire go round the circuit in opposite senses and meet again at the electrodes. In the wire, the potential difference that drives the electrons through the lamp is the one you met in figure 0.4; in the liquid, the potential slopes gently and drives the ions.</p>
+        <p class="lesson">Electrons travel in metals, ions travel in liquids, and only a reaction can hand charge from one to the other.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f1-3" id="f1-3">
+        <span class="fnum">Figure 1.3</span>
+        <svg viewBox="0 0 520 216" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f13t">
+          <title id="f13t">One cell, three cells in series, or three cells in parallel, with bars for voltage and capacity and a strip showing the potential rising once, three times in a row, or once with three paths side by side.</title>
+        </svg>
+        <div class="controls"><button type="button" data-arr="single" aria-pressed="true">One cell</button><button type="button" data-arr="series">Three in series</button><button type="button" data-arr="parallel">Three in parallel</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Cells and batteries. Voltage adds along a path; charge adds across paths.
+          <span class="try">Try this: switch to series and count the steps on the strip; then to parallel and ask yourself which cell a given coulomb came from.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Definitions from Winter and Brodd 2004, footnote 1; series adds voltage and parallel adds current and run time from Goodenough and Park 2013. The strip applies the rule that a potential difference along a path is the integral of the field along it (Bard, Faulkner and White 2022, eq. 2.2.2), so differences add. The 1.5 V per cell is illustrative.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Strictly, one of these units is a cell, and several connected together are a battery, although the two words are used loosely. Connecting cells in series adds their voltages; connecting them in parallel adds their current and their run time. The strip says why the voltages add: a potential difference between two points is the sum of the rises and drops along any path between them, so three cells in a chain give three rises of V, and a coulomb that travels the whole chain picks up energy at each one.</p>
+        <p class="explain">Why the capacity does not add in series is a matter of counting coulombs. The cells in a chain carry one and the same current: the charge that leaves the first cell has nowhere to go but through the second and the third, so every coulomb drawn from the chain is a coulomb drawn from each cell. When one cell has given up its Q, they all have. In parallel the picture is reversed. All three + terminals are tied together and all three &#8722; terminals are tied together, so the ends of the battery see one potential difference, V, and no more; but the current is shared, each cell supplies a third of it, and together they can deliver three times the charge before they are empty. Series adds the rises along the path; parallel adds the paths.</p>
+        <p class="explain">A battery keeps its reacting materials inside, so it is a closed system: storage and conversion happen in the same box. A fuel cell is an open system, fed with fuel and oxidant from outside, so its energy is stored in a tank and converted in the cell. A supercapacitor stores charge in the electrical double layers at its electrode surfaces, without a chemical reaction. None of the three turns heat into work, so none is bound by the Carnot limit that caps every heat engine. Everything on this page happens inside a single cell.</p>
+        <p class="recap"><b>You can now explain</b> why a cell has a voltage even when nothing is connected, where inside the cell that voltage sits, why the electrons take the wire and the ions the liquid, and why voltages add in series.</p>
+        <p class="bridge">So what is inside the box, part by part, and what does each part do?</p>
+        <details class="deeper"><summary>Go deeper: primary and secondary cells</summary><div class="body">
+          <p>A primary battery is assembled in the charged state and used until exhausted. A secondary, or rechargeable, battery can be restored to its charged condition by a current flowing in the opposite direction to the discharge current; since secondary batteries are usually assembled in the discharged state, they must be charged before their first use. To charge, a power supply is connected across the cell and its voltage is adjusted; the interfacial potential differences shift, especially at the electrode|electrolyte boundaries, and current can be driven in either direction. Which reactions can be run backwards, and which cannot, is a question for the modules still to come.</p>
+        </div></details>
+        <details class="deeper maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">Zn → Zn<sup>2+</sup> + 2e<sup>−</sup>  Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu</span><span class="eqnote">the two half-reactions; neither can run alone</span></p>
+          <p class="eqline"><span class="eq">Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu</span><span class="eqnote">the cell reaction, their sum; n = 2 electrons per zinc atom</span></p>
+          <p class="eqline"><span class="eq">E<sub>cell</sub> = E°(Cu<sup>2+</sup>/Cu) − E°(Zn<sup>2+</sup>/Zn) = 0.340 − (−0.763) = 1.103 V</span><span class="eqnote">open-circuit voltage at unit activities, from the standard potentials against the hydrogen electrode (figure 1.1)</span></p>
+          <p class="eqline"><span class="eq">E = &#966;<sup>Cu&#8242;</sup> &#8722; &#966;<sup>Cu</sup> = &#931; &#916;&#966;<sub>interfaces</sub></span><span class="eqnote">the voltage between two like leads is the sum of the potential steps met along the path through the cell: the two metal|liquid jumps plus the metal|metal contact potentials; only the sum is measurable (the strip under figure 1.1)</span></p>
+          <p class="eqline"><span class="eq">&#916;G = &#8722;nFE = &#8722;2 &#215; 96 485 &#215; 1.103 = &#8722;213 kJ/mol</span><span class="eqnote">the electrical work a mole of the reaction can do (module 3 derives it)</span></p>
+          <p class="eqline"><span class="eq">V<sub>series</sub> = &#931; V<sub>i</sub>,&#8195;Q<sub>series</sub> = Q</span><span class="eqnote">cells in a chain: potential differences along a path add; the same current threads every cell, so each coulomb passes all of them (figure 1.3)</span></p>
+          <p class="eqline"><span class="eq">V<sub>parallel</sub> = V,&#8195;I = &#931; I<sub>i</sub>,&#8195;Q<sub>parallel</sub> = &#931; Q<sub>i</sub></span><span class="eqnote">cells side by side: one potential difference between the joined ends; the current, and therefore the charge, is shared</span></p>
+        </div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m02" data-act="A" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 2</p>
+    <h2 class="h2">Anatomy of a cell</h2>
+    <p class="hook">If you cut a cell open, what would you find, and what does each part do?</p>
+    <p class="where"><b>Where we are.</b> Module 1 showed the four jobs in a cell: give electrons, take electrons, carry ions, keep the two electrodes apart. Now the parts that do those jobs in a real cell, and why they have the shapes they have.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f2-1" id="f2-1">
+        <span class="fnum">Figure 2.1</span>
+        <svg viewBox="0 0 520 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f21t">
+          <title id="f21t">A coin cell drawn in cross-section and pulled apart into its layers: aluminium-coated can, positive electrode, separator soaked with electrolyte, graphite negative electrode on copper, stainless-steel spacer, spring, and cap with gasket; a small top view shows the round shape; a strip below shows the potential jumping at the two electrodes.</title>
+        </svg>
+        <div class="controls"><label>Pull apart <input type="range" min="0" max="100" value="60" aria-label="Explode the stack"></label></div>
+        <div class="key"><span><i class="act"></i>positive active material</span><span><i class="carb"></i>separator and electrolyte</span><span><i class="cu"></i>copper foil</span><span><i class="phi"></i>potential</span></div>
+        <div class="part-info"></div>
+        <figcaption>A coin cell, the kind used to test new materials in research laboratories, cut through the middle and pulled apart layer by layer.
+          <span class="try">Try this: hover or tap each layer to read its job; drag the slider to close the stack; then find the two layers that decide the voltage.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Stack order, materials and the assembly lessons from Murray, Hall and Dahn 2019, Figure 1 and text (electrolyte 1 mol/L LiPF<sub>6</sub> in EC:DEC 1:1, about 38 mg per cell); jobs from the definitions in Winter and Brodd 2004, section 1.2 and 2.2; copper and aluminium collectors from Goodenough and Park 2013, Figure 1. Thicknesses not to scale; a CR2032 coin cell is 20 mm across (the number in its name). Potential strip after Bard, Faulkner and White 2022, Figure 1.1.2; the split of the voltage between the two jumps is schematic.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Every cell has the same four jobs. The negative electrode gives up electrons: it is a good reducing agent, such as lithium, zinc or lead. The positive electrode takes them: an electron acceptor, such as lithium cobalt oxide, manganese dioxide or lead oxide. The electrolyte &#8220;provides pure ionic conductivity&#8221; between the two: it lets ions through and blocks electrons. The separator is a porous barrier, permeable to ions and inert in the cell, that keeps the electrodes from touching. If they touched, the whole stored energy would be released as heat inside the cell.</p>
+        <p class="aside"><b>Anode or cathode?</b> You will meet both words. In battery usage the anode is the negative electrode, where oxidation releases electrons into the external circuit, and the cathode is the positive electrode, where reduction takes them back. Because the roles reverse when the cell is charged, this page says <b>negative electrode</b> and <b>positive electrode</b> from here on.</p>
+        <p class="explain">In the coin cell above, graphite sits on copper foil and the lithium host on aluminium, exactly as in the first commercial lithium-ion cell. Each foil is a <span class="def">current collector</span>: a metal path for the electrons between the coating and the terminal. The electrolyte is a liquid, added drop by drop during assembly: in Murray, Hall and Dahn’s research cells, about 38 mg of a 1 mol/L solution of LiPF<sub>6</sub> in a carbonate solvent, enough to soak the separator and wet both electrodes. New positive-electrode materials are usually tested in a “half cell” against a piece of lithium foil; such cells are easy to make but can fail to predict how the material behaves against graphite in a full cell, which is why full coin cells like this one are built.</p>
+        <p class="lesson">Every part has one job, and the electrolyte&#8217;s job is to let ions through and block electrons.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f2-2" id="f2-2">
+        <span class="fnum">Figure 2.2</span>
+        <svg viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f22t">
+          <title id="f22t">A flat stack of copper foil, graphite, separator with electrolyte, lithium cobalt oxide and aluminium foil, which winds itself into a spiral as the slider moves, showing that a cylindrical cell is the same stack rolled up.</title>
+        </svg>
+        <div class="controls"><label>wind <input type="range" class="wind" min="0" max="100" value="0" aria-label="Wind the stack into a roll"></label></div>
+        <div class="key"><span><i class="cu"></i>copper foil</span><span><i class="carb"></i>separator and electrolyte</span><span><i class="act"></i>LiCoO<sub>2</sub></span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Why cells are built from thin, wide layers, and how the layers fit in a can.
+          <span class="try">Try this: drag the slider slowly and watch the five layers keep their order as they curl.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Layer order and collectors after Goodenough and Park 2013, Figure 1, and their argument that a cell needs large-area electrodes and a thin electrolyte; wound construction after Winter and Brodd 2004, Figure 20. Schematic, not to scale.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Ions move through an electrolyte far more slowly than electrons move through a metal (module 0 showed why: an ion drags its way through a liquid at a terminal speed set by its mobility). So a cell is built with large-area electrodes separated by a thin electrolyte, and metallic current collectors carry the electrons between the electrodes and the terminals. A cylindrical cell is exactly that stack, wound into a roll; coin, prismatic and flat cells hold the same layers in other shapes.</p>
+        <div class="worked"><b>Worked example.</b> Why area matters: the resistance of a layer is R = &#961;l/A (module 0). Keep the electrolyte layer as thin as the separator allows (small l) and make the electrodes as wide as will fit (large A), and the ionic resistance of the whole cell falls with both. A wound strip is the way to put a large A inside a small can.</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f2-3" id="f2-3">
+        <span class="fnum">Figure 2.3</span>
+        <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f23t">
+          <title id="f23t">A zoom into an electrode coating on its foil: irregular active particles, a connected network of carbon dots linking every particle to the foil, short binder strands at the contacts, and pores filled with electrolyte; electrons arrive along the carbon from the foil and a lithium ion arrives through the pores from the separator side, meeting at one particle.</title>
+        </svg>
+        <div class="key"><span><i class="act"></i>active material</span><span><i class="carb"></i>conductive carbon</span><span><i class="binder"></i>binder</span><span><i class="pore"></i>pores with electrolyte</span><span><i class="e"></i>electron</span><span><i class="li"></i>our ion</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>An electrode is a coating, not a block.
+          <span class="try">Try this: follow our ion from the top down through the pores, and the electrons up the carbon from the foil, and find the particle where they meet.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Composition and the porosity of about 30 % from Winter and Brodd 2004, section 1.6; the two roads after their Figure 9. Schematic, not to scale; particle shapes are illustrative.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">An electrode is not a solid block of the active material. It is a coating: particles of active material, a conductive diluent such as carbon powder, and a polymer binder that holds the mixture together and bonds it to the current collector. Typically about 30 % of its volume is pores, and the pores are filled with electrolyte. The porous structure extends the surface area where the reaction can happen and lowers the current density, so the cell works more efficiently. A particle can only react where electrons reach it through the carbon and ions reach it through the electrolyte; a later module returns to what happens where one of them does not.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f2-4" id="f2-4">
+        <span class="fnum">Figure 2.4</span>
+        <svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f24t">
+          <title id="f24t">Bar chart of the nominal voltages of common battery systems, primary and rechargeable, from 1.2 volts for zinc-air and the nickel cells to 4.0 volts for lithium-ion; a dot marks whether the electrolyte is water-based or nonaqueous.</title>
+        </svg>
+        <div class="part-info"></div>
+        <figcaption>Different chemistries, different voltages.
+          <span class="try">Try this: hover or tap a bar to see the two electrodes and the electrolyte inside; then find the highest bar with a cyan dot.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Data: Winter and Brodd 2004, Table 2, as printed in 2004; the aqueous versus nonaqueous marking reads the electrolyte column of the same table.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The same four parts, in different materials, give very different cells. The table behind this chart lists the systems on the market in 2004: zinc and manganese dioxide in the 1.5 V cells of a torch, lead and lead oxide in the 2.0 V cells of a car battery, and graphite with lithium cobalt oxide in the 4.0 V cells of a phone. Two patterns are already visible: every system with a water-based electrolyte stays at or below 2 V, and every system above 2 V is built on lithium with a nonaqueous electrolyte. Where the voltage comes from, and why water sets a ceiling, is the next question.</p>
+        <p class="recap"><b>You can now explain</b> the parts of a cell and their jobs, why the separator must never let the electrodes touch, why cells are built from thin, wide layers, and why an electrode is a porous coating rather than a block.</p>
+        <p class="bridge">Two of those parts decide how hard the push is.</p>
+        <details class="deeper"><summary>Go deeper: what a research coin cell taught its makers</summary><div class="body">
+          <p>Murray, Hall and Dahn built full coin cells with graphite and a nickel-rich oxide and found that three &#8220;identical&#8221; cells kept 95 %, 90 % and 80 % of their capacity after 100 cycles. Taking them apart showed the cause: the positive and negative discs were slightly misaligned, and lithium had plated on the parts of the positive electrode not covered by the negative one. The spring and spacer had been dropped in at an angle from tweezers; placing them from directly above with a vacuum pen, and using a thicker, more compliant separator, brought the cells to the reproducibility of machine-made pouch cells. Why plated lithium is lost for good is a story for a later module.</p>
+        </div></details>
+        <details class="deeper maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">R<sub>ion</sub> = l / (&#954;A)</span><span class="eqnote">the ionic resistance of the electrolyte layer between the electrodes: thin (small l) and wide (large A) is the whole design brief of figure 2.2. Winter and Brodd give κ of order 1 S/cm for aqueous and 10<sup>−2</sup> to 10<sup>−3</sup> S/cm for the organic electrolytes of lithium cells.</span></p>
+          <p class="eqline"><span class="eq">&#954;<sub>eff</sub> = &#954; &#949;<sup>&#945;</sup>,&#8195;&#945; &#8776; 1.5</span><span class="eqnote">inside a porous electrode only the pore fraction ε (about 0.3, figure 2.3) carries ions, along winding paths; the Bruggeman relation gives the effective conductivity of the electrolyte in the pores. Boz and co-workers quote α = 1.5, and 1.53 measured for LiFePO<sub>4</sub> electrodes.</span></p>
+          <p class="eqline"><span class="eq">D<sub>eff</sub> = D &#949;/&#964;,&#8195;&#964; = &#949;<sup>1&#8722;&#945;</sup></span><span class="eqnote">the same correction for diffusion, with &#964; the tortuosity of the pore network</span></p>
+          <p class="mnote">With &#949; = 0.3 and &#945; = 1.5, &#954;<sub>eff</sub> = 0.3<sup>1.5</sup> &#954; = 0.16 &#954;: the electrolyte inside a coating conducts about a sixth as well as the free liquid. The module on composite electrodes, still to come, builds on this.</p>
+        </div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m03" data-act="A" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 3</p>
+    <h2 class="h2">Where the voltage comes from</h2>
+    <p class="hook">Why does a lithium-ion cell give over 3.6 V and a torch battery 1.5 V?</p>
+    <p class="where"><b>Where we are.</b> Module 1 measured 1.10 V between zinc and copper and showed that it sits in two jumps, one at each metal|liquid boundary. Module 2 named the parts. Now the physics of a jump: what a potential means for the electrons in a metal, what happens at the boundary, and why the two electrodes of your cell sit where they do on a ladder.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f3-1" id="f3-1">
+        <span class="fnum">Figure 3.1</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f31t">
+          <title id="f31t">An electrode with its filled electron states up to a Fermi level, beside a species in solution with an empty orbital above and a filled orbital below. Sliding the electrode potential moves the Fermi level: more negative raises the electrons until they can jump into the empty orbital, a reduction; more positive lowers them until electrons from the filled orbital jump onto the metal, an oxidation.</title>
+        </svg>
+        <div class="controls"><label>electrode potential <input type="range" class="E" min="-1.5" max="1.5" step="0.05" value="0" aria-label="Electrode potential relative to the couple's standard potential, in volts"> <b class="E-val">0.00 V</b></label></div>
+        <div class="key"><span><i class="e"></i>electron</span><span><i class="carb"></i>orbitals of the species</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Potential as electron energy. Moving an electrode&#8217;s potential moves the energy of its electrons, one electron-volt per volt, the other way.
+          <span class="try">Try this: slide slowly negative until the first electron jumps, note the potential, then slide positive until one jumps back.</span>
+          <details class="src"><summary>Source</summary><span class="basis">After Bard, Faulkner and White 2022, section 1.1.4 and Figure 1.1.3 (reduction when the electrode&#8217;s electrons reach a vacant orbital, oxidation when a filled orbital finds a lower energy on the electrode; 1 eV per volt) and section 2.2.5 (the Fermi energy as the energy of transferable electrons). The positions of the two orbitals, &#8722;0.6 and +0.6 V from the couple&#8217;s standard potential, are illustrative.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">In module 0 a potential was energy per unit charge. For an electrode that has a sharp meaning: to observe or control the potential of an electrode is to observe or control the energy of its transferable electrons. Drive an electrode to a more negative potential and the energy of its electrons is raised; for each volt, each electron gains one electron-volt, 96.5 kJ per mole of electrons, comparable to the energies of chemical bonds.</p>
+        <p class="explain">The energy of those transferable electrons has a name: the <span class="def">Fermi energy</span>, or Fermi level. In a metal the electron states form a continuum, filled from the bottom up; the Fermi level marks the division between filled and empty, and because empty states lie just above it, an electron can move with almost no activation, which is what makes a metal conduct. Raise the Fermi level above an empty orbital of a species in the electrolyte and electrons flow from the electrode into the solution, a reduction current; lower it below a filled orbital and electrons flow from the solution onto the electrode, an oxidation current.</p>
+        <p class="explain">This is the same fact as the potential ladder further down: a more negative electrode holds its electrons at a higher energy, so it is the stronger reducing agent. Lithium, at the bottom of every ladder, holds them highest of all.</p>
+        <p class="lesson">Electrode potential is electron energy in disguise: more negative means higher-energy electrons, one electron-volt per volt.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f3-2" id="f3-2">
+        <span class="fnum">Figure 3.2</span>
+        <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f32t">
+          <title id="f32t">A metal in contact with an electrolyte. Excess charge on the metal sits in a layer less than a nanometre thick at its surface; ions of the opposite sign gather in the liquid, first a compact layer one solvent molecule out and then a diffuse layer a few nanometres deep; a strip below shows the potential flat in the metal, dropping steeply across the compact layer, tailing off through the diffuse layer and flat again in the bulk.</title>
+        </svg>
+        <div class="controls"><label>charge on the metal <input type="range" class="q" min="-2" max="2" step="1" value="-2" aria-label="Excess charge on the metal, from negative through zero to positive"> <b class="q-val">negative</b></label><button type="button" class="form-btn">Replay the formation</button></div>
+        <div class="key"><span><i class="neg"></i>negative charge</span><span><i class="pos"></i>positive charge</span><span><i class="carb"></i>solvent shell</span><span><i class="phi"></i>potential</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Inside one jump: the electrical double layer.
+          <span class="try">Try this: press &#8220;Replay the formation&#8221; and watch the charge separate and the jump grow with it; then slide the charge to positive and watch the ions in the liquid swap sign.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Structure and scales from Bard, Faulkner and White 2022, sections 1.6.2 and 1.6.3 (electrode charge in a layer under 1 nm, diffuse layer under about 10 nm above 0.01 M, capacitance 10 to 40 µF/cm<sup>2</sup>) and Figure 1.6.3b (the potential profile); equal and opposite charges from section 2.2.2; field up to 10<sup>7</sup> V/cm from 2.2.3; the Helmholtz capacitor from 14.3.1. Double-layer time constant about 10<sup>−8</sup> s from Winter and Brodd 2004, section 4.2. Ion positions are random; the profile shape is schematic.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Now zoom into one of the jumps of figure 1.1. Put a metal into an electrolyte and the two phases exchange a little charge until their electron energies match; equality of the Fermi energies of metal and solution is the condition for equilibrium, and electrons flow from the phase with the higher Fermi energy to the one with the lower until it is reached. The amount of charge that moves is tiny, so the composition of the solution does not noticeably change.</p>
+        <p class="explain">Here is how that field is built, step by step. Dip a piece of zinc into a solution of its own ions. A zinc ion sitting in the metal and a zinc ion dissolved in the liquid are not in the same state: their electrochemical potentials differ, and a species moves across a boundary in the direction that lowers its electrochemical potential until it is the same on both sides. So a few Zn<sup>2+</sup> ions leave the metal and enter the liquid, and each leaves its two electrons behind. Now the metal is slightly negative and the liquid touching it slightly positive. Those separated charges <em>are</em> the field: the excess electrons sit on the metal&#8217;s surface, the excess cations gather in the liquid right against it, and between two sheets of opposite charge a molecular distance apart runs a strong field, pointing from the liquid into the metal. Every ion that crosses makes that field a little stronger, and the field pulls back on the next ion that tries; the crossing stops when the electrical pull exactly balances the chemical push, which is the equilibrium of equal electrochemical potentials. At a copper electrode in copper sulfate the exchange runs the other way, ions from the liquid plating onto the metal and leaving it positive. Where the exchange is of electrons rather than ions, as at a platinum wire in a solution of iron ions, the rule is the same: electrons cross from the phase with the higher Fermi energy to the one with the lower until the two are equal. In every case the amount of charge that crosses is tiny, far too small to change the composition of the liquid, yet it sets up a potential difference of a volt or so across a few nanometres.</p>
+        <p class="explain">That charge cannot spread through the metal: a conductor at rest keeps its excess charge on its surface (module 0), and on an electrode it lies in a layer thinner than a nanometre. The liquid answers with an equal and opposite charge right at the boundary, an excess of cations or of anions. The whole array, charged metal surface, oriented solvent molecules, a compact layer of ions one solvent shell out and a diffuse layer beyond, is the <span class="def">electrical double layer</span>. Above 0.01 M the diffuse part is less than about 10 nm thick.</p>
+        <p class="explain">Why does the field stay inside that thin layer and not reach out into the liquid? Inside the metal it is zero for the reason module 0 gave: any field in a conductor at rest would move the free charges until it was gone. On the liquid side the Coulomb field of the metal&#8217;s surface charge is almost entirely cancelled by the polarization of the electrolyte: ions of the opposite sign crowd in and solvent molecules turn, and a few nanometres out the field has been screened to nothing, so the bulk of the liquid sits at one potential. That is why the strip under figure 1.1 is flat through the solution at open circuit. The liquid can even hold a potential step with no excess charge at all: water molecules touching a metal tend to line up, and a layer of aligned dipoles is itself a charge separation.</p>
+        <p class="explain">Draw current and one thing changes. A gentle field appears through the bulk liquid, the slope of the potential that drives the ions, and it is small because the electrolyte conducts well; this is the ohmic drop. The two interfacial fields remain, shifted a little from their rest values because each reaction needs an extra push, an overpotential, to run at a finite rate. So the field in a working cell has three parts: a strong, nanometre-thin one at each electrode, built by the chemistry itself out of a minute charge separation and held in place by the electrolyte&#8217;s screening, and a weak one across the liquid that exists only while current flows.</p>
+        <p class="explain">Two sheets of opposite charge a molecular distance apart: the potential steps across them, and the field inside the step can reach 10<sup>7</sup> V/cm, strong enough to distort the molecules that sit in it. The arrangement behaves like a capacitor, <span class="eq">q = C·E</span>, with 10 to 40 µF for every square centimetre of electrode, and it forms and relaxes in about 10<sup>−8</sup> s. A cell’s voltage is the sum of such steps, taken along the path from one electrode to the other.</p>
+        <p class="lesson">A cell&#8217;s voltage lives in two double layers, each a few nanometres thick, built by a tiny charge separation that the chemistry itself creates.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f3-3" id="f3-3">
+        <span class="fnum">Figure 3.3</span>
+        <svg viewBox="0 0 520 344" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f33t">
+          <title id="f33t">A ladder of electrode potentials against lithium, negative-electrode materials on the left and positive-electrode materials on the right, the band in which carbonate electrolytes are stable in the middle, and, when switched on, the window in which water is stable, 1.23 volts wide, sitting between 3.05 and 4.27 volts versus lithium at pH 0 and sliding down with pH.</title>
+        </svg>
+        <div class="controls">
+          <label>Negative <select data-side="neg" aria-label="Choose the negative electrode"></select></label>
+          <label>Positive <select data-side="pos" aria-label="Choose the positive electrode"></select></label>
+          <label><input type="checkbox"> show the water window at</label>
+          <label><input type="range" class="pH" min="0" max="14" step="1" value="0" aria-label="pH of the aqueous electrolyte"> <b class="pH-val">pH 0</b></label>
+        </div>
+        <div class="part-info"><span class="readout"></span><div class="flags"></div></div>
+        <figcaption>The potential ladder. Pick a negative and a positive electrode and read the gap. Your choice is remembered and carried into the next modules.
+          <span class="try">Try this: guess which pair gives the most voltage before you choose; then switch on the water window and see how many rungs a water-based cell can never reach.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Rung values from Goodenough and Park 2013 (graphite about 0.2, alloys 0.2 to 0.8, lithium titanate 1.5, TiS<sub>2</sub> about 2.2, LiFePO<sub>4</sub> 3.5, LiCoO<sub>2</sub> about 4.0, LiNi<sub>0</sub>.<sub>5</sub>Mn<sub>1</sub>.<sub>5</sub>O<sub>4</sub> about 4.75 V) and Tarascon and Armand 2001 (sulfur 2.4 V, a lithium-sulfur conversion electrode, not an insertion host); carbonate window from Goodenough and Park 2013. Water window computed from Bard, Faulkner and White 2022: Li<sup>+</sup>/Li at −3.045 V and O<sub>2</sub>/H<sub>2</sub>O at 1.229 V vs NHE (Table C.1), lines E = 0 − 0.059 pH and E = 1.229 − 0.059 pH (eqs. 2.1.66 and 2.1.67), so 3.045 to 4.274 V vs Li at pH 0. Thermodynamic limits; kinetics widen the practical window to about 2 V (Winter and Brodd 2004). Values are approximate operating potentials; real cells give sloping curves, the subject of the next module to come.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Chemists carry the same idea one step further. The energy of a charged species in a phase has two parts: a chemical part, from its surroundings on the scale of a molecule, and an electrical part, its charge times the local potential. Their sum is the <span class="def">electrochemical potential</span>, &#956;&#772; = &#956; + zF&#966;, and a species is at equilibrium between two phases when its electrochemical potential is the same in both. Apply that to the electrons in the two electrodes of a cell and the open-circuit voltage falls out: it is the difference between the electrochemical potentials of the electrons in the two electrodes, divided by the electron charge, V<sub>OC</sub> = (&#956;<sub>A</sub> &#8722; &#956;<sub>C</sub>)/e.</p>
+        <p class="explain">So picture each material as a rung on a ladder of electron energy, drawn as a potential: the cell voltage is the gap between the two rungs you choose. Battery scientists measure the rungs against lithium metal, which is why every value here reads “versus Li/Li<sup>+</sup>”. Lithium sits at the bottom. In Tarascon and Armand’s words it is “the most electropositive” metal, the one with the most negative standard potential, −3.04 V against the standard hydrogen electrode, and it is also the lightest metal, at 6.94 g/mol and 0.53 g/cm<sup>3</sup>.</p>
+        <p class="explain">The gap has a ceiling, and the ceiling is the electrolyte. Water is thermodynamically stable over only 1.23 V, between the potential at which it gives off hydrogen and the potential at which it gives off oxygen; slow kinetics stretch that to about 2 V in practice, which is why cells with an aqueous electrolyte and a long shelf life stop near 1.5 V. But where that 1.23 V sits matters as much as its width: at pH 0 it runs from 3.05 to 4.27 V versus lithium, and it slides 59 mV lower for every pH unit. Every rung below about 3 V, which is every negative electrode on the ladder and most of the positive ones, is simply out of reach for water. The organic carbonate electrolytes of lithium-ion cells are stable from about 1.1 V to about 4.3 V versus lithium, about 4.6 V in practice, and there is the answer to the hook: not a stronger reaction, but an electrolyte that tolerates a wider gap, in the right place.</p>
+        <p class="aside">Two reservoirs at different heights: the pressure at the pipe between them depends on the height difference, not on how wide the reservoirs are. The picture breaks as soon as water flows: the height stays, but the flow costs pressure. The next module to come is about that cost.</p>
+        <p class="lesson">Voltage is a property of the pair of materials, and the electrolyte sets how far apart they may be.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f3-4" id="f3-4">
+        <span class="fnum">Figure 3.4</span>
+        <svg viewBox="0 0 520 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f34t">
+          <title id="f34t">Electron energy levels of the negative electrode, the electrolyte window between its lowest empty and highest filled levels, and the positive electrode. An electron leaves the negative electrode, travels along a wire drawn above the cell and drops onto the positive electrode, releasing the cell voltage times its charge; a lithium ion crosses the electrolyte inside at the same time.</title>
+        </svg>
+        <div class="key"><span><i class="e"></i>electron</span><span><i class="li"></i>our ion</span><span><i class="carb"></i>electrolyte window</span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The same gap as a picture of electron energy. The figure follows your cell from figure 3.3.
+          <span class="try">Try this: choose lithium titanate in figure 3.3 and watch the warning on the left vanish; then choose the 4.75 V spinel and watch one appear on the right.</span>
+          <details class="src"><summary>Source</summary><span class="basis">After Goodenough and Park 2013, Figure 2a and 2c, and their eq. 6: carbonate electrolyte with the LUMO about 1.1 eV and the HOMO about 4.3 eV below the lithium level. The wire is added so that the electron&#8217;s path is drawn correctly: through the external circuit, never through the electrolyte (Goodenough and Park 2013, Electrochemical Cells).</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The ceiling has a mechanism. An electrolyte is a collection of molecules, and each has a highest filled and a lowest empty energy level; the gap between them is the <span class="def">electrolyte window</span>. A negative electrode whose electrons sit above the empty level will reduce the electrolyte, and a positive electrode whose empty states sit below the filled level will oxidize it, unless a passivating layer forms at the surface and blocks the reaction. Graphite sits about 0.2 V above lithium, outside the carbonate window, so a layer must form on it during the first charge; lithium titanate at 1.5 V sits inside the window and needs none. A later module follows that layer as it forms.</p>
+        <p class="explain">Notice the path of the electron in the figure. It gives up its e&#183;V<sub>OC</sub> only by travelling round the external circuit, from the negative electrode to the positive one; it never crosses the electrolyte, which has no free electrons (module 1). Inside the cell it is our ion that crosses, keeping every region neutral.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f3-5" id="f3-5">
+        <span class="fnum">Figure 3.5</span>
+        <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f35t">
+          <title id="f35t">Energy bands of a sulfide and an oxide host below the lithium level. The top of the sulfur band lies about 2.5 electron-volts below lithium and the top of the oxygen band about 4.0 electron-volts below; the transition-metal redox couple is pinned at those tops, so the sulfide gives about 2.5 volts and the oxide about 4 volts. The electrolyte's filled level at 4.3 electron-volts is drawn as a dashed line.</title>
+        </svg>
+        <figcaption>Why oxide hosts give 4 V and sulfide hosts about 2.5 V. The redox couple of the transition metal can be lowered only as far as the top of the anion band.
+          <span class="try">Try this: step through the four callouts and check that the oxide&#8217;s 4 V sits just above the electrolyte&#8217;s 4.3 eV line.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Numbers and the pinning argument from Goodenough and Park 2013 (text on the anion-p bands and Figure 2c); the band as a continuum of electron levels from Bard, Faulkner and White 2022, section 20.1.1. Schematic: band widths are not to scale.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Why do oxide positive electrodes reach 4 V when the sulfide of the first rechargeable lithium cell reached only 2.2 V? In a solid the electron levels of the many atoms merge into <span class="def">bands</span>, continuous ranges of energy, filled from the bottom up. The redox couple of the host’s transition metal cannot be pushed below the top of the host’s filled anion band. In the layered sulfides that top sits about 2.5 eV below the lithium level; in the layered oxides it sits about 4.0 eV below, which is why oxide hosts are used in today’s lithium-ion cells. Polyanions such as phosphate pull the band lower still through what chemists call the inductive effect, which is how LiFePO<sub>4</sub> reaches 3.5 V.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f3-6" id="f3-6">
+        <span class="fnum">Figure 3.6</span>
+        <svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f36t">
+          <title id="f36t">A bar whose length is the electrical energy available per mole of reaction, n F E, on a scale from 0 to 500 kilojoules per mole, with the Daniell cell marked at 213.</title>
+        </svg>
+        <div class="controls">
+          <button type="button" data-preset="daniell">Daniell cell</button><button type="button" data-preset="cell">your cell</button>
+          <label>n = <b class="n-val">1</b> <input type="range" data-p="n" min="1" max="3" step="1" value="2" aria-label="Number of electrons per formula unit"></label>
+          <label>E = <b class="E-val">3.6 V</b> <input type="range" data-p="E" min="0.5" max="5" step="0.05" value="1.10" aria-label="Cell voltage"></label>
+        </div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The same gap in the language of thermodynamics.
+          <span class="try">Try this: double the voltage and double the electrons, and watch which one the energy bar follows; then set n = 2, E = 1.10 V and find the Daniell mark.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Computed from &#916;G = &#8722;nFE (Bard, Faulkner and White 2022, eq. 2.1.25; Winter and Brodd 2004, eq. 3) with F = 96 485.3 C/mol; the Daniell value uses E = 1.103 V from Table C.1.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">In the language of thermodynamics the same gap reads &#916;G = &#8722;nFE: the free energy of a reaction, the energy it can deliver as work, equals the charge it moves per mole, nF, times the cell voltage, with the minus sign saying that a spontaneous reaction has a positive voltage. So the voltage is the reaction&#8217;s free energy per unit of charge, and nF, the total charge available, is its capacity factor. The Faraday constant is the charge carried by one mole of electrons, 96 485.3 coulombs.</p>
+        <div class="worked"><b>Worked example.</b> The Daniell cell of module 1, Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu, moves two electrons per zinc atom at 1.103 V.
+          <span class="line">&#916;G = &#8722;nFE = &#8722;2 &#215; 96 485 C/mol &#215; 1.103 V = <i>&#8722;213 kJ/mol</i></span>
+          <span class="line">per electron: 1.103 eV; per zinc atom: 2.21 eV</span>
+          That 213 kJ per mole of zinc is what the lamp of figure 1.1 can get, at most, from 65 g of zinc; module 4 turns &#8220;per mole&#8221; into &#8220;per gram&#8221; and &#8220;per hour&#8221;.</div>
+        <p class="recap"><b>You can now explain</b> why a more negative electrode is the stronger reducing agent, where a cell&#8217;s voltage physically sits, why lithium cells have the highest voltages, why water caps a cell near 1.5 V and where on the lithium scale that cap lies, why oxide hosts beat sulfides, and what &#916;G = &#8722;nFE means.</p>
+        <p class="bridge">You have chosen a voltage. How much charge can your cell hold?</p>
+        <details class="deeper"><summary>Go deeper: the electrochemical potential, from two metals in contact to the cell voltage</summary><div class="body">
+          <p>For electrons in a metal the electrochemical potential is &#956;&#772;<sub>e</sub> = &#956;&#176;<sub>e</sub> &#8722; F&#966;, with no activity term because the electron concentration never changes appreciably. Touch a copper wire to a zinc electrode and electrons move between them until their electrochemical potentials are equal, which leaves a potential difference &#966;<sup>Zn</sup> &#8722; &#966;<sup>Cu</sup> = (&#956;&#176;<sub>e</sub><sup>Zn</sup> &#8722; &#956;&#176;<sub>e</sub><sup>Cu</sup>)/F between the two metals: a <em>contact potential</em>, one of the steps in figure 1.1&#8217;s profile. Write the equilibrium of the whole cell reaction in electrochemical potentials and the terms in &#966; cancel everywhere except at the two copper leads, giving &#8722;nFE = n(&#956;&#772;<sub>e</sub><sup>Cu&#8242;</sup> &#8722; &#956;&#772;<sub>e</sub><sup>Cu</sup>) and, on expanding the chemical potentials, the Nernst equation. Per electron, the same statement is Goodenough and Park&#8217;s V<sub>OC</sub> = (&#956;<sub>A</sub> &#8722; &#956;<sub>C</sub>)/e.</p>
+          <p>A potential is always a difference, so every value needs a reference. Textbook tables use the standard hydrogen electrode, against which lithium sits at −3.045 V; battery papers use lithium metal itself as the zero, which is why the same LiCoO<sub>2</sub> electrode reads about 4.0 V “versus Li/Li<sup>+</sup>” and about 1 V versus hydrogen. In a lithium-ion cell the negative electrode is not lithium metal but a host that holds lithium near lithium’s potential, so the cell voltage is a little less than the positive electrode’s ladder value: graphite costs about 0.2 V.</p>
+        </div></details>
+        <details class="deeper maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">&#956;&#772;<sub>j</sub> = &#956;<sub>j</sub> + z<sub>j</sub>F&#966;</span><span class="eqnote">the electrochemical potential of species j: its chemical potential plus its charge times the local potential (per mole)</span></p>
+          <p class="eqline"><span class="eq">&#956;<sub>j</sub> = &#956;&#176;<sub>j</sub> + RT ln a<sub>j</sub></span><span class="eqnote">the chemical potential in terms of the activity a<sub>j</sub> (roughly, concentration relative to a standard state)</span></p>
+          <p class="eqline"><span class="eq">&#956;&#772;<sub>j</sub><sup>&#945;</sup> = &#956;&#772;<sub>j</sub><sup>&#946;</sup></span><span class="eqnote">equilibrium of species j between phases &#945; and &#946;; the condition that stops the charge transfer described in figure 3.2</span></p>
+          <p class="eqline"><span class="eq">&#956;&#772;<sub>e</sub> = &#956;&#176;<sub>e</sub> &#8722; F&#966;,&#8195;E<sub>F</sub> = &#956;&#772;<sub>e</sub> / N<sub>A</sub></span><span class="eqnote">electrons in a metal (no activity term: their concentration never changes appreciably); the Fermi energy is the electrochemical potential of the electrons, per electron (figure 3.1). Making &#966; more negative by 1 V raises E<sub>F</sub> by 1 eV.</span></p>
+          <p class="eqline"><span class="eq">&#966;<sup>Zn</sup> &#8722; &#966;<sup>Cu</sup> = (&#956;&#176;<sub>e</sub><sup>Zn</sup> &#8722; &#956;&#176;<sub>e</sub><sup>Cu</sup>) / F</span><span class="eqnote">two metals in contact exchange electrons until &#956;&#772;<sub>e</sub> is equal: the contact potential</span></p>
+          <p class="eqline"><span class="eq">&#8722;nFE = n(&#956;&#772;<sub>e</sub><sup>Cu&#8242;</sup> &#8722; &#956;&#772;<sub>e</sub><sup>Cu</sup>)</span><span class="eqnote">write the equilibrium of the whole cell reaction in electrochemical potentials; the &#966; terms cancel everywhere except at the two copper leads, which is why only the whole-cell voltage is measurable</span></p>
+          <p class="eqline"><span class="eq">E = E&#176; &#8722; (RT/nF) ln (a<sub>products</sub> / a<sub>reactants</sub>)</span><span class="eqnote">expanding the chemical potentials gives the Nernst equation; at 25 &#176;C, RT/F = 25.7 mV, so a tenfold change in an activity ratio shifts a one-electron E by 59 mV</span></p>
+          <p class="eqline"><span class="eq">V<sub>OC</sub> = (&#956;<sub>A</sub> &#8722; &#956;<sub>C</sub>) / e</span><span class="eqnote">the same statement per electron, in Goodenough and Park&#8217;s notation: the open-circuit voltage is the difference in electron energy of the two electrodes (figures 3.3 and 3.4)</span></p>
+          <p class="eqline"><span class="eq">E = E&#176; &#8722; 0.059 (q/n) pH</span><span class="eqnote">a half-reaction with q protons per n electrons shifts 59 mV per pH unit; for water, E = 0 &#8722; 0.059 pH (hydrogen) and E = 1.229 &#8722; 0.059 pH (oxygen), so the window is 1.229 V wide at every pH and sits at 3.045 to 4.274 V versus lithium at pH 0 (figure 3.3)</span></p>
+          <p class="eqline"><span class="eq">&#916;G = &#8722;nFE,&#8195;&#916;S = nF(&#8706;E/&#8706;T)<sub>P</sub>,&#8195;&#916;H = &#916;G + T&#916;S</span><span class="eqnote">the thermodynamics of the cell reaction (figure 3.6); the temperature coefficient of the voltage gives the entropy change, which a later module turns into reversible heat</span></p>
+          <p class="eqline"><span class="eq">q = C&#183;E,&#8195;C<sub>H</sub> = εε<sub>0</sub>/d</span><span class="eqnote">the double layer as a capacitor (figure 3.2); in the Helmholtz picture two sheets of charge a distance d apart in a medium of dielectric constant ε; measured values 10 to 40 µF/cm<sup>2</sup></span></p>
+        </div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="module" id="m04" data-act="A" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 4</p>
+    <h2 class="h2">Capacity, energy and power</h2>
+    <p class="hook">How long would your cell run a lamp?</p>
+    <p class="where"><b>Where we are.</b> Module 3 gave your cell a voltage: the gap between two rungs, which is the free energy of its reaction per unit of charge. Now the other factor: how much charge the materials hold. Charge times voltage is energy; energy per second is power.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f4-1" id="f4-1">
+        <span class="fnum">Figure 4.1</span>
+        <svg viewBox="0 0 520 204" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f41t">
+          <title id="f41t">Bar chart comparing the theoretical specific capacity of the chosen material with graphite, lithium iron phosphate and lithium metal, each labelled with the mass it is referred to.</title>
+          <g class="calc-bars"></g>
+        </svg>
+        <div class="controls">
+          <label>Material <select class="mat" aria-label="Choose a material"></select></label>
+          <label>M = <input type="number" class="M" min="1" max="1000" step="0.01" value="72.07" aria-label="Molar mass in grams per mole"> g/mol</label>
+          <label>n = <input type="number" class="n" min="0.1" max="10" step="0.1" value="1" aria-label="Electrons per formula unit"></label>
+          <label>at <input type="range" class="V" min="0.5" max="5" step="0.1" value="3.8" aria-label="Cell voltage"> <b class="V-val">3.8 V</b></label>
+        </div>
+        <div class="part-info"><span class="readout"></span><div class="note"></div></div>
+        <figcaption>The Faraday calculator. Pick a material, or type your own molar mass and electron count.
+          <span class="try">Try this: pick lithium metal and see why it tempts every battery designer; then pick your positive electrode and multiply by your cell&#8217;s voltage.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Computed from Faraday’s law as given in Winter and Brodd 2004, eq. 7, and Bard, Faulkner and White 2022, eq. 1.1.12, with F = 96 485.3 C/mol; molar masses from IUPAC atomic weights. Printed check values: graphite 372 mAh/g on the C<sub>6</sub> basis (Tarascon and Armand 2001), LiFePO<sub>4</sub> 170 mAh/g (Goodenough and Park 2013). Wh/kg refers to the active material of the chosen electrode alone.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Capacity is a count of electrons. Faraday&#8217;s law ties the amount of material transformed to the charge that flows, <span class="eq">Q = nFN</span> for N moles of reactant, and it has &#8220;no known exceptions&#8221;. Turn it around: a gram of a material of molar mass M that gives up n electrons per formula unit holds nF/M coulombs, which the battery world writes in milliampere-hours per gram, Q = nF/(3.6&#8239;M). The Faraday constant is the charge of one mole of electrons, 96&#8239;485.3 C or 26.8015 Ah.</p>
+        <p class="explain">Two conventions hide in that formula. Graphite’s 372 mAh/g refers to the mass of carbon, the host as assembled, not to the mass of LiC<sub>6</sub>: Tarascon and Armand give 372 mAh/g for the end compound LiC<sub>6</sub> and about 350 mAh/g in practice. Positive-electrode materials are referred to their lithiated mass: LiFePO<sub>4</sub> holds 170 mAh/g in theory and is used at about 90 % of it, while LiCoO<sub>2</sub> is limited to about half of its lithium for safety, 140 mAh/g in practice.</p>
+        <div class="worked"><b>Worked example.</b> Graphite, one lithium per six carbons, referred to the carbon.
+          <span class="line">M(C<sub>6</sub>) = 6 × 12.011 = 72.07 g/mol,  n = 1</span>
+          <span class="line">Q = 1 &#215; 96 485.3 C/mol &#247; (3.6 &#215; 72.07 g/mol) = <i>372 mAh/g</i></span>
+          <span class="line">at 3.8 V: 372 mAh/g &#215; 3.8 V = 1414 mWh/g = <i>1414 Wh/kg of graphite</i>, graphite alone</span>
+          The same calculation on the mass of LiC<sub>6</sub> (79.0 g/mol) gives 339 mAh/g. Both are right; they answer different questions.</div>
+        <p class="lesson">Light elements and many electrons per formula unit give high capacity; high voltage turns capacity into energy.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f4-2" id="f4-2">
+        <span class="fnum">Figure 4.2</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f42t">
+          <title id="f42t">A discharge curve of voltage against capacity with the area under it shaded; a higher rate lowers the curve, ends it earlier and shrinks the area; the capacity axis runs from 0 to 100 percent of the low-rate value and a dashed reference curve marks the low-rate discharge.</title>
+          <g class="plot"></g>
+        </svg>
+        <div class="controls"><label>Discharge rate <input type="range" class="rate" min="0" max="100" value="41" aria-label="Discharge rate"> <b class="rate-val">C/2</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Energy is the area under the discharge curve. The curve follows your cell’s positive electrode: flat for LiFePO<sub>4</sub>, sloping for the others.
+          <span class="try">Try this: slide the rate up to 5C and watch the area shrink from both sides, lower and shorter.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Energy = &#8747;V dq after Goodenough and Park 2013, eq. 5. The curve is a schematic model: an illustrative open-circuit curve minus ohmic, activation and concentration polarization (Winter and Brodd 2004, section 1.4); parameters are illustrative, not measured. &#8220;C/2&#8221; means a current that would empty the C/10 capacity in two hours.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Energy is the integral of the voltage over the charge delivered: on a discharge curve, the area under the line, which is also the average voltage times the capacity. Per kilogram it is called specific energy (Wh/kg), per litre energy density (Wh/L); how fast it can be delivered is specific power (W/kg) and power density (W/L).</p>
+        <p class="explain">The capacity itself depends on how hard you pull. At high current the transfer of ions across the interfaces becomes diffusion-limited and the cell reaches less of its charge before the cut-off; that part of the loss is reversible and comes back at a gentler rate. The next module to come takes the curve apart.</p>
+        <div class="worked"><b>Worked example.</b> A cell of capacity 2 Ah discharged at an average of 3.6 V.
+          <span class="line">energy = 3.6 V &#215; 2 Ah = <i>7.2 Wh</i></span>
+          <span class="line">a 6 W lamp (<span class="eq">P = IV</span>, module 0) runs for 7.2 Wh &#247; 6 W = <i>1.2 hours</i>, drawing 6 W / 3.6 V = 1.7 A</span>
+          At that current the curve would sag and the capacity would fall short of 2 Ah; the figure shows by how much, schematically.</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f4-3" id="f4-3">
+        <span class="fnum">Figure 4.3</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f43t">
+          <title id="f43t">A Ragone map: supercapacitors high in power and low in energy, fuel cells high in energy and low in power, batteries in between, and the combustion engine beyond all three because its energy is stored in fuel.</title>
+          <line x1="60" y1="250" x2="490" y2="250" stroke="var(--line-2, rgba(234,240,236,.26))" marker-end="url(#arr43)"/>
+          <line x1="60" y1="250" x2="60" y2="30" stroke="var(--line-2, rgba(234,240,236,.26))" marker-end="url(#arr43)"/>
+          <defs><marker id="arr43" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted, #A3B6B1)"/></marker></defs>
+          <text x="490" y="272" class="lbl" text-anchor="end">specific energy, Wh/kg (log scale, unnumbered)</text>
+          <text x="20" y="140" class="lbl" transform="rotate(-90 20 140)" text-anchor="middle">specific power, W/kg (log scale)</text>
+          <ellipse cx="130" cy="80" rx="60" ry="36" fill="var(--cyan, #83DBD0)" fill-opacity=".18" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
+          <text x="130" y="76" class="lbl strong" text-anchor="middle">supercapacitors</text><text x="130" y="92" class="lbl" text-anchor="middle">high power, low energy</text>
+          <ellipse cx="240" cy="150" rx="78" ry="48" fill="var(--amber, #F0B441)" fill-opacity=".18" stroke="var(--amber, #F0B441)" stroke-opacity=".7"/>
+          <text x="240" y="146" class="lbl strong" text-anchor="middle">batteries</text><text x="240" y="162" class="lbl" text-anchor="middle">intermediate in both</text>
+          <ellipse cx="370" cy="215" rx="72" ry="30" fill="var(--green, #2F6A5C)" fill-opacity=".35" stroke="var(--green, #2F6A5C)"/>
+          <text x="370" y="212" class="lbl strong" text-anchor="middle">fuel cells</text><text x="370" y="228" class="lbl" text-anchor="middle">high energy, low power</text>
+          <ellipse cx="430" cy="80" rx="52" ry="28" fill="var(--heat, #E8663D)" fill-opacity=".18" stroke="var(--heat, #E8663D)" stroke-opacity=".7"/>
+          <text x="430" y="76" class="lbl strong" text-anchor="middle">combustion engine</text><text x="430" y="92" class="lbl" text-anchor="middle">energy stored in fuel</text>
+        </svg>
+        <figcaption>The Ragone map: energy against power. Regions only; the axes carry no numbers because the source figure is itself simplified.
+          <span class="try">Try this: find where a thin-film battery would sit, then read why the engine is off on its own.</span>
+          <details class="src"><summary>Source</summary><span class="basis">Schematic after Winter and Brodd 2004, Figure 3 and section 1.1. The combustion engine is included there for comparison only: it is not an electrochemical system and stores its energy in a fuel, not in electrodes.</span></details>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">To compare the two abilities, energy and power, engineers use the Ragone plot. On it, supercapacitors are high-power systems, fuel cells high-energy systems, and batteries sit between them, overlapping both: a battery with thin-film electrodes reaches the power of a supercapacitor. No single electrochemical system matches the combustion engine on both axes at once, which is why the review suggests combining them: batteries or supercapacitors for the power, fuel cells for the energy.</p>
+        <p class="explain">One caution before you trust any Wh/kg figure: the theoretical energy of a chemistry, reckoned on the mass of everything that reacts, is never what a cell delivers. Practical values are significantly lower, and Winter and Brodd list among the causes the inert parts a cell needs (conductive diluents, current collectors, containers), the internal resistances of electrodes, electrolyte and contacts, and incomplete use of the active masses. Module 2 showed the inert parts; module 0 showed why resistance costs voltage, and therefore energy, whenever current flows. How large the gap is depends on the chemistry and on how the cell is built, so this page quotes delivered values only where a source gives them.</p>
+        <p class="explain">To give the numbers a feel, Winter and Brodd note that a specific energy of 30 Wh/kg means one kilogram of lead-acid battery can power a 60 W lamp for only half an hour. The first commercial lithium-ion cell of 1991 gave over 3.6 V and 120 to 150 Wh/kg, two to three times the usual nickel-cadmium cell of the day.</p>
+        <div class="worked"><b>Worked example.</b> Theoretical against delivered, for that 1991 cell: graphite against LiCoO<sub>2</sub>, counting all the lithium, so one electron per LiCoO<sub>2</sub> (97.87 g/mol) and one LiC<sub>6</sub> host (72.07 g of carbon) per electron.
+          <span class="line">active mass per mole of electrons = 97.87 + 72.07 = 169.9 g;  Q = 26 801 mAh &#247; 169.9 g = <i>158 mAh/g</i></span>
+          <span class="line">theoretical energy at 3.8 V = 158 mAh/g &#215; 3.8 V &#8776; <i>600 Wh/kg</i> of active material</span>
+          <span class="line">delivered by the 1991 cell: 120 to 150 Wh/kg, <i>a fifth to a quarter</i> of that</span>
+          The rest of the mass was copper, aluminium, separator, electrolyte, can and carbon, and part of the lithium in LiCoO<sub>2</sub> was never used.</div>
+        <p class="recap"><b>You can now explain</b> where a capacity in mAh/g comes from and which mass it refers to, why energy is an area, what the Ragone plot shows, and why a cell delivers less than its chemistry promises.</p>
+        <p class="bridge">Now let us watch your cell do it.</p>
+        <details class="deeper"><summary>Go deeper: the mass basis, and 372 against 339</summary><div class="body">
+          <p>Run Faraday’s law on the lithiated compound LiC<sub>6</sub> (79.0 g/mol) and you get 339 mAh/g; run it on the carbon host C<sub>6</sub> (72.07 g/mol) and you get 372 mAh/g. Both are correct; they answer different questions. The convention in the field is to refer negative-electrode hosts to their delithiated mass and positive-electrode materials to their lithiated mass, which is how each is weighed when the cell is built. Whenever you compare capacities, check the basis first.</p>
+        </div></details>
+        <details class="deeper maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq"><span class="eq">Q = nFN</span>,&#8195;m = ItM / (nF)</span><span class="eqnote">Faraday&#8217;s law: the charge for N moles of reactant that give n electrons each; turned round, the mass transformed by a current I for a time t</span></p>
+          <p class="eqline"><span class="eq">Q<sub>spec</sub> = nF / (3.6 M)&#8195;mAh/g</span><span class="eqnote">the theoretical specific capacity of a material of molar mass M (g/mol); 3.6 converts coulombs per gram to milliampere-hours per gram (figure 4.1). Graphite as C<sub>6</sub>: 372; LiFePO<sub>4</sub>: 170; lithium metal: 3861.</span></p>
+          <p class="eqline"><span class="eq">energy = &#8747;<sub>0</sub><sup>&#916;t</sup> IV dt = &#8747;<sub>0</sub><sup>Q</sup> V(q) dq = &#9001;V&#9002; Q</span><span class="eqnote">the energy delivered is the area under the discharge curve, or the average voltage times the capacity (figure 4.2)</span></p>
+          <p class="eqline"><span class="eq"><span class="eq">P = IV</span>,&#8195;specific energy = energy / mass,&#8195;specific power = P / mass</span><span class="eqnote">the two axes of the Ragone plot (figure 4.3), in Wh/kg and W/kg</span></p>
+          <p class="eqline"><span class="eq">&#951;<sub>Coulombic</sub> = 100 &#215; Q<sub>dis</sub> / Q<sub>ch</sub></span><span class="eqnote">the share of the charge put in on charging that comes back on discharge; a later module follows it cycle by cycle</span></p>
+          <p class="eqline"><span class="eq">&#951;<sub>energy</sub> = 100 &#215; &#8747;V<sub>dis</sub> dq / &#8747;V<sub>ch</sub> dq</span><span class="eqnote">the share of the energy that comes back; lower than the Coulombic efficiency because the charge branch sits above the discharge branch</span></p>
+        </div></details>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="wrap"><div class="act-end" data-reveal>
+  <h3>Where this leaves you</h3>
+  <p>You started with two charges in empty space and ended with the energy of a cell. In between you saw why a voltage exists before anything is connected, where inside the cell it sits, how the parts are built and why, what sets the voltage of a pair of materials and the ceiling the electrolyte puts on it, and how Faraday&#8217;s constant turns grams into ampere-hours and volts into watt-hours. Your cell, <b class="your-cell-name">Graphite | LiCoO2</b>, is remembered by this page.</p>
+  <p>What comes next is being written: the voltage curve a cell draws as it runs, the lithium ion&#8217;s journey out of one host, across the electrolyte and into the other, the composite electrode it has to find its way into, and the ways in which all of that goes wrong as a cell ages. It will appear here, module by module, each one checked against its sources in the same way.</p>
+</div></div>
+
+<!-- ===================== REFERENCES ===================== -->
+<section class="section" id="references">
+  <div class="wrap">
+    <h2 class="h2">References</h2>
+    <p class="policy"><b>How this page uses its sources.</b> Every factual sentence on this page was checked against one of the textbooks and peer-reviewed articles below, all of which I have read in full; each entry says which modules rest on it, and each figure&#8217;s &#8220;Source&#8221; toggle names the figure or equation it is drawn from. Where a source&#8217;s printed equation contains a typographical error, the page uses the form that follows from the source&#8217;s own premises. Analogies and my own opinions are marked as such. Numbers are quoted with the conditions and the date given in the source.</p>
+    <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/Book"><span class="ref-n">1</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span><span class="ref-mods">Modules 0, 1, 2, 3, 4</span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span><span class="ref-mods">Modules 0, 1, 2, 3, 4</span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">J. B. Goodenough, K.-S. Park, "The Li-Ion Rechargeable Battery: A Perspective", <i>Journal of the American Chemical Society</i> <b>135</b>, 2013, 1167-1176. <a href="https://doi.org/10.1021/ja3091438" target="_blank" rel="noopener">doi:10.1021/ja3091438</a></span><span class="ref-mods">Modules 0, 1, 2, 3, 4</span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">V. Murray, D. S. Hall, J. R. Dahn, "A Guide to Full Coin Cell Making for Academic Researchers", <i>Journal of The Electrochemical Society</i> <b>166</b>, 2019, A329-A333. <a href="https://doi.org/10.1149/2.1171902jes" target="_blank" rel="noopener">doi:10.1149/2.1171902jes</a></span><span class="ref-mods">Module 2</span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span><span class="ref-mods">Modules 2, 3, 4</span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">B. Boz, T. Dev, A. Salvadori, J. L. Schaefer, "Review: Electrolyte and Electrode Designs for Enhanced Ion Transport Properties to Enable High Performance Lithium Batteries", <i>Journal of The Electrochemical Society</i> <b>168</b>, 2021, 090501. <a href="https://doi.org/10.1149/1945-7111/ac1cc3" target="_blank" rel="noopener">doi:10.1149/1945-7111/ac1cc3</a></span><span class="ref-mods">Module 2</span></li></ol>
+  </div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../">Home</a></p>
+    <p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+  </div>
+</footer>
+
+<script src="../assets/js/gsap.min.js"></script>
+<script src="../assets/js/ScrollTrigger.min.js"></script>
+<script src="../assets/js/physics.js"></script>
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/learn.js"></script>
+</body>
+</html>

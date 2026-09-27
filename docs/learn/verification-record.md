@@ -393,3 +393,15 @@ worked example ("a fifth to a quarter" of about 600 Wh/kg, from R2's 120 to 150 
 | "Zinc dissolving makes the metal negative" as the direction for Zn/Zn2+; copper the reverse | Consistent with the sign of the standard potentials in Table C.1 and with the cell of Fig. 1.1.2 (zinc negative); B2 does not narrate the initial ion transfer per electrode explicitly, so the page states it as the direction that lowers the electrochemical potential (2.2.4) | Acceptable; flagged for the owner's review |
 
 Typography (same day): Unicode super- and subscript characters are converted at build time into <sup>/<sub> in HTML text and at run time into raised or lowered <tspan>s in SVG labels and into <sup>/<sub> in dynamic figure text, so that every script renders in the site font at one size and offset; known inline equations get a math face (.eq).
+
+### Q6. The in-page mathematics panels (2026-09-27)
+
+Each module now ends with "The mathematics of this module". Every equation there is one
+already checked in this record: Module 0 from B2 2.2.1 (eqs. 2.2.1 to 2.2.3), 4.2.3, 1.1.4,
+1.1.5 (eqs. 1.1.12, 1.1.13), 4.2.6 to 4.2.8, 2.3.9 to 2.3.11, 4.1.13 (Nernst-Planck) and
+4.1.11 (Nernst-Einstein); Module 1 from Table C.1, 1.1.2, 2.1.25 and R6 (series/parallel);
+Module 2 from B2 4.2.6 and R36 eqs. 10 and 11 (Bruggeman, alpha = 1.5 and 1.53) with R1
+2.2 conductivities; Module 3 from B2 2.2.4 (eqs. 2.2.6, 2.2.9, properties 2 and 4, 2.2.20,
+2.2.24, 2.2.28), 2.2.5 (eq. 2.2.34), 2.1.9 (eq. 2.1.63), 2.1.3 (eqs. 2.1.25, 2.1.27,
+2.1.28), 1.6.4 and 14.3.2, and R6 eq. 6; Module 4 from B2 1.1.12, R1 eq. 7 and R6 eqs. 2,
+4 and 5. Arithmetic: 0.3^1.5 = 0.164; RT/F at 298.15 K = 25.69 mV; 2.303 RT/F = 59.2 mV.

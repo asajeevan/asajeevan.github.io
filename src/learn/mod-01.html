@@ -1,6 +1,6 @@
 <section class="module" id="m01" data-act="A" data-nav>
   <div class="wrap">
-    <p class="mod-n">Module 1 of 12</p>
+    <p class="mod-n">Module 1</p>
     <h2 class="h2">What a battery does</h2>
     <p class="hook">Why does the lamp light when you close the switch, and why not when it is open?</p>
     <p class="where"><b>Where we are.</b> Module 0 gave you the volt (a joule per coulomb), the field (the push per unit charge), the conductor at rest (one potential throughout) and the two kinds of carrier: electrons in metals, ions in liquids. Now two different metals go into a liquid, and a potential difference appears between them.</p>
@@ -72,8 +72,16 @@
         <p class="recap"><b>You can now explain</b> why a cell has a voltage even when nothing is connected, where inside the cell that voltage sits, why the electrons take the wire and the ions the liquid, and why voltages add in series.</p>
         <p class="bridge">So what is inside the box, part by part, and what does each part do?</p>
         <details class="deeper"><summary>Go deeper: primary and secondary cells</summary><div class="body">
-          <p>A primary battery is assembled in the charged state and used until exhausted. A secondary, or rechargeable, battery can be restored to its charged condition by a current flowing in the opposite direction to the discharge current; since secondary batteries are usually assembled in the discharged state, they must be charged before their first use.{{cite:R1}} To charge, a power supply is connected across the cell and its voltage is adjusted; the interfacial potential differences shift, especially at the electrode|electrolyte boundaries, and current can be driven in either direction.{{cite:B2}} Which reactions can be run backwards, and which cannot, is the subject of module 6.</p>
-          <a class="theory-link" href="#references">The mathematics of this module: theory page, coming in a later phase</a>
+          <p>A primary battery is assembled in the charged state and used until exhausted. A secondary, or rechargeable, battery can be restored to its charged condition by a current flowing in the opposite direction to the discharge current; since secondary batteries are usually assembled in the discharged state, they must be charged before their first use.{{cite:R1}} To charge, a power supply is connected across the cell and its voltage is adjusted; the interfacial potential differences shift, especially at the electrode|electrolyte boundaries, and current can be driven in either direction.{{cite:B2}} Which reactions can be run backwards, and which cannot, is a question for the modules still to come.</p>
+        </div></details>
+        <details class="deeper maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">Zn &#8594; Zn&#178;&#8314; + 2e&#8315;&#8195;&#8195;Cu&#178;&#8314; + 2e&#8315; &#8594; Cu</span><span class="eqnote">the two half-reactions; neither can run alone</span></p>
+          <p class="eqline"><span class="eq">Zn + Cu&#178;&#8314; &#8594; Zn&#178;&#8314; + Cu</span><span class="eqnote">the cell reaction, their sum; n = 2 electrons per zinc atom</span></p>
+          <p class="eqline"><span class="eq">E<sub>cell</sub> = E&#176;(Cu&#178;&#8314;/Cu) &#8722; E&#176;(Zn&#178;&#8314;/Zn) = 0.340 &#8722; (&#8722;0.763) = 1.103 V</span><span class="eqnote">open-circuit voltage at unit activities, from the standard potentials against the hydrogen electrode (figure 1.1)</span></p>
+          <p class="eqline"><span class="eq">E = &#966;<sup>Cu&#8242;</sup> &#8722; &#966;<sup>Cu</sup> = &#931; &#916;&#966;<sub>interfaces</sub></span><span class="eqnote">the voltage between two like leads is the sum of the potential steps met along the path through the cell: the two metal|liquid jumps plus the metal|metal contact potentials; only the sum is measurable (the strip under figure 1.1)</span></p>
+          <p class="eqline"><span class="eq">&#916;G = &#8722;nFE = &#8722;2 &#215; 96 485 &#215; 1.103 = &#8722;213 kJ/mol</span><span class="eqnote">the electrical work a mole of the reaction can do (module 3 derives it)</span></p>
+          <p class="eqline"><span class="eq">V<sub>series</sub> = &#931; V<sub>i</sub>,&#8195;Q<sub>series</sub> = Q</span><span class="eqnote">cells in a chain: potential differences along a path add; the same current threads every cell, so each coulomb passes all of them (figure 1.3)</span></p>
+          <p class="eqline"><span class="eq">V<sub>parallel</sub> = V,&#8195;I = &#931; I<sub>i</sub>,&#8195;Q<sub>parallel</sub> = &#931; Q<sub>i</sub></span><span class="eqnote">cells side by side: one potential difference between the joined ends; the current, and therefore the charge, is shared</span></p>
         </div></details>
         {{sources:R1,B2,R6}}
       </div>

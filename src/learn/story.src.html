@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>How batteries work | Aswadh Shyma Sajeevan</title>
-<meta name="description" content="An illustrated introduction to batteries: from charge and voltage to lithium-ion cells, polymer electrolytes and why cells age. Every statement is checked against a textbook or a peer-reviewed article.">
+<meta name="description" content="An illustrated introduction to batteries for a first-year student: charge, field and voltage; what a cell does; its anatomy; where the voltage comes from; capacity, energy and power. Every statement is checked against a textbook or a peer-reviewed article, and every figure is computed from its source.">
 <meta name="author" content="Aswadh Shyma Sajeevan">
 <meta property="og:title" content="How batteries work">
-<meta property="og:description" content="Follow one lithium ion through a battery. Twelve illustrated modules, every fact cited, every figure computed from its source.">
+<meta property="og:description" content="From charge and voltage to capacity and energy: five illustrated modules on how a battery works, every fact checked against its source, every figure computed from it.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://asajeevan.github.io/batteries/">
 <meta property="og:site_name" content="Aswadh Shyma Sajeevan">
@@ -16,7 +16,7 @@
 <link rel="canonical" href="https://asajeevan.github.io/batteries/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How batteries work">
-<meta name="twitter:description" content="Follow one lithium ion through a battery. Twelve illustrated modules, every fact cited.">
+<meta name="twitter:description" content="From charge and voltage to capacity and energy: five illustrated modules on how a battery works, every fact checked against its source.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="../assets/css/site.css">
 <link rel="stylesheet" href="../assets/css/learn.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"How batteries work","description":"An illustrated, cited introduction to batteries, from the very basics to lithium-ion cells, polymer electrolytes and ageing.","author":{"@type":"Person","name":"Aswadh Shyma Sajeevan","url":"https://asajeevan.github.io/"},"url":"https://asajeevan.github.io/batteries/","inLanguage":"en","educationalLevel":"beginner to undergraduate","learningResourceType":"explainer"}
+{"@context":"https://schema.org","@type":"Article","headline":"How batteries work","description":"An illustrated introduction to batteries: charge, field and voltage; what a cell does; its anatomy; where the voltage comes from; capacity, energy and power. Every statement checked against a textbook or a peer-reviewed article.","author":{"@type":"Person","name":"Aswadh Shyma Sajeevan","url":"https://asajeevan.github.io/"},"url":"https://asajeevan.github.io/batteries/","inLanguage":"en","educationalLevel":"beginner to undergraduate","learningResourceType":"explainer"}
 </script>
 </head>
 <body data-mode="teach">
@@ -38,9 +38,11 @@
     <nav class="nav" id="siteNav" aria-label="Sections">
       <a href="../">Home</a>
       <a href="#start">Start</a>
-      <a href="#actA">Act A: the push</a>
-      <a href="#actB">Act B: follow one ion</a>
-      <a href="#actC">Act C: where it goes wrong</a>
+      <a href="#m00">0 Charge</a>
+      <a href="#m01">1 The cell</a>
+      <a href="#m02">2 Anatomy</a>
+      <a href="#m03">3 Voltage</a>
+      <a href="#m04">4 Energy</a>
       <a href="#references">References</a>
     </nav>
   </div>
@@ -53,9 +55,7 @@
     <rect x="22" y="36" width="48" height="160" rx="8" fill="var(--panel-2, #183840)" stroke="var(--line-2, rgba(234,240,236,.26))"/>
     <rect class="rail-fill-rect" x="26" y="190" width="40" height="0" rx="4" fill="var(--amber, #F0B441)" fill-opacity=".85"/>
     <text class="pct" x="46" y="216" text-anchor="middle">0%</text>
-    <text class="lab" data-act="A" x="6" y="178">A</text>
-    <text class="lab" data-act="B" x="6" y="120">B</text>
-    <text class="lab" data-act="C" x="6" y="62">C</text>
+    <text class="lab" data-act="A" x="2" y="120">read</text>
   </svg>
 </aside>
 
@@ -67,19 +67,19 @@
       <div>
         <p class="kicker" data-reveal>Battery basics, from zero</p>
         <h1 class="h1" data-reveal>How batteries work</h1>
-        <p class="promise" data-reveal>Follow one lithium ion through a cell: where the push comes from, how the ion travels, and why it sometimes gets stuck.</p>
-        <p class="lede" data-reveal>I spent my doctoral years building cells like the ones on this page. This is the explanation I wish I had had at the start: a foundation module on charge and voltage, then twelve short modules, each built around a figure you can play with and told in the order the play raises the questions. Every factual statement was checked against a textbook or a peer-reviewed article, listed at the end; every curve is computed from the equation in its source, and every figure can show you what it is based on. Nothing here is experimental data.</p>
+        <p class="promise" data-reveal>Where the push in a battery comes from, and how much of it there is: from two charges in empty space to the energy in your phone&#8217;s cell.</p>
+        <p class="lede" data-reveal>I spent my doctoral years building cells like the ones on this page. This is the explanation I wish I had had at the start: five modules, from charge and voltage to capacity and energy, each built around a figure you can play with and told in the order the play raises the questions. Further modules, following one ion through a cycle and into the ways cells age, are being written. Every factual statement was checked against a textbook or a peer-reviewed article, listed at the end; every curve is computed from the equation in its source, and every figure can show you what it is based on. Nothing here is experimental data.</p>
         <div class="modes" role="group" aria-label="Choose how to read" data-reveal>
-          <button type="button" data-mode="show" aria-pressed="false">Just show me <small>(about 8 min)</small></button>
-          <button type="button" data-mode="teach" aria-pressed="true">Teach me <small>(about 35 min)</small></button>
+          <button type="button" data-mode="show" aria-pressed="false">Just show me <small>(about 10 min)</small></button>
+          <button type="button" data-mode="teach" aria-pressed="true">Teach me <small>(about 40 min)</small></button>
           <button type="button" data-mode="equations" aria-pressed="false">I want the equations</button>
         </div>
-        <p class="modes-note">&#8220;Just show me&#8221; keeps the questions, the figures and the one-line answers. &#8220;I want the equations&#8221; opens every &#8220;Go deeper&#8221; panel and links each module to its mathematics.</p>
+        <p class="modes-note">&#8220;Just show me&#8221; keeps the questions, the figures and the one-line answers. &#8220;I want the equations&#8221; opens every &#8220;Go deeper&#8221; panel and the mathematics of each module.</p>
         <a class="hint" href="#f0-1">Start with two charges in figure 0.1</a>
       </div>
       <figure class="fig hero-fig-learn" data-reveal>
         <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="herot">
-          <title id="herot">The three acts of the page drawn on a lithium cell: the push, one ion crossing the electrolyte, and the places where it gets stuck.</title>
+          <title id="herot">A lithium cell with the five modules of the page marked on it: charge and voltage, what a cell does, its anatomy, where the voltage comes from, and capacity and energy.</title>
           <rect x="60" y="70" width="14" height="160" fill="var(--muted, #A3B6B1)" opacity=".55"/>
           <rect x="74" y="70" width="96" height="160" fill="var(--amber, #F0B441)" opacity=".28"/><rect x="74" y="70" width="96" height="160" fill="none" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/>
           <rect x="170" y="70" width="76" height="160" fill="var(--cyan, #83DBD0)" fill-opacity=".14"/><rect x="170" y="70" width="76" height="160" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
@@ -88,13 +88,13 @@
           <g fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55"><circle cx="272" cy="100" r="8"/><circle cx="330" cy="120" r="9"/><circle cx="290" cy="160" r="9"/><circle cx="345" cy="190" r="7"/><circle cx="268" cy="212" r="7"/></g>
           <circle class="ion" cx="120" cy="150" r="5"/>
           <path d="M126,150 C160,150 180,120 208,140 C230,156 250,150 262,152" fill="none" stroke="var(--cation, #FFD166)" stroke-width="1.5" stroke-dasharray="3 4"/>
-          <text x="122" y="248" class="lbl" text-anchor="middle">Act A: the push</text>
-          <text x="208" y="248" class="lbl" text-anchor="middle">Act B: one ion</text>
-          <text x="308" y="248" class="lbl" text-anchor="middle">Act C: where it sticks</text>
+          <text x="122" y="248" class="lbl" text-anchor="middle">0, 1: the push</text>
+          <text x="208" y="248" class="lbl" text-anchor="middle">2: the parts</text>
+          <text x="308" y="248" class="lbl" text-anchor="middle">3, 4: voltage, energy</text>
           <text x="60" y="52" class="lbl amber">Your cell: <tspan class="your-cell-name">Graphite | LiCoO2</tspan></text>
           <text x="384" y="270" class="lbl" text-anchor="end">Schematic, not experimental data</text>
         </svg>
-        <figcaption>The story in one cell. Your chosen electrodes from module 3 appear here and travel with you through the page.</figcaption>
+        <figcaption>The page in one cell. The two electrodes you choose in module 3 appear here and travel with you through the page.</figcaption>
       </figure>
     </div>
   </div>
@@ -102,9 +102,9 @@
 
 <!-- ===================== ACT A ===================== -->
 <div class="act-head wrap" id="actA">
-  <p class="act-k">Act A</p>
+  <p class="act-k">Five modules</p>
   <h2>Why does the lamp light?</h2>
-  <p>A foundation module on charge, field, potential and voltage, then four modules on where a cell&#8217;s push comes from and how much of it there is. By the end you will have chosen the two electrodes of your own cell and worked out how much energy it can hold.</p>
+  <p>A foundation module on charge, field, potential and voltage, then four modules on where a cell&#8217;s push comes from and how much of it there is. By the end you will have chosen the two electrodes of your own cell and worked out how much energy it can hold. Each module ends with its mathematics, folded away until you want it.</p>
 </div>
 
 {{include:mod-00.html}}
@@ -114,28 +114,10 @@
 {{include:mod-04.html}}
 
 <div class="wrap"><div class="act-end" data-reveal>
-  <h3>End of Act A</h3>
-  <p>You closed a switch and saw why the lamp lit; you took a cell apart; you chose two electrodes and read their gap; you turned the Faraday constant into a capacity and the capacity into an energy. Your cell, <b class="your-cell-name">Graphite | LiCoO2</b>, now travels with you into Act B, where the amber ion becomes your guide.</p>
+  <h3>Where this leaves you</h3>
+  <p>You started with two charges in empty space and ended with the energy of a cell. In between you saw why a voltage exists before anything is connected, where inside the cell it sits, how the parts are built and why, what sets the voltage of a pair of materials and the ceiling the electrolyte puts on it, and how Faraday&#8217;s constant turns grams into ampere-hours and volts into watt-hours. Your cell, <b class="your-cell-name">Graphite | LiCoO2</b>, is remembered by this page.</p>
+  <p>What comes next is being written: the voltage curve a cell draws as it runs, the lithium ion&#8217;s journey out of one host, across the electrolyte and into the other, the composite electrode it has to find its way into, and the ways in which all of that goes wrong as a cell ages. It will appear here, module by module, each one checked against its sources in the same way.</p>
 </div></div>
-
-<!-- ===================== ACT B ===================== -->
-<div class="act-head wrap" id="actB">
-  <p class="act-k">Act B</p>
-  <h2>Follow one ion</h2>
-  <p>Four modules that follow a single lithium ion through one full cycle: the voltage curve it produces, the host it enters, the electrolyte it crosses, and the composite electrode it has to find its way into.</p>
-</div>
-
-{{include:mod-05.html}}
-
-<section class="module" id="m06" data-act="B">
-  <div class="wrap">
-    <p class="mod-n">Modules 6 to 12</p>
-    <h2 class="h2">Coming next</h2>
-    <div class="coming">
-      <p><b>This page is being built module by module.</b> Module 6 (inside a lithium-ion cell: the rocking chair and the first charge) is next, then the electrolyte, the composite electrode, and Act C on how cells fail and what is being done about it. New modules only cite sources that have been read and verified in full.</p>
-    </div>
-  </div>
-</section>
 
 <!-- ===================== REFERENCES ===================== -->
 <section class="section" id="references">

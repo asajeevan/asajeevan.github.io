@@ -134,7 +134,7 @@
       { text: 'The <b>active particles</b> (amber) are the material that stores the lithium. They are irregular grains, not a solid slab.' },
       { text: 'The <b>carbon network</b> (teal dots) links every particle to the collector: the electron road. Electrons arrive along it from the foil.' },
       { text: 'The <b>pores</b> (cyan, about 30 % of the volume) are filled with electrolyte: the ion road. Our ion comes in from the separator side and reaches the same particle.' },
-      { text: 'The <b>binder</b> (short teal strands) holds the mixture together and bonds it to the foil. A particle can react only where both roads reach it; module 8 returns to what happens where one of them does not.' }
+      { text: 'The <b>binder</b> (short teal strands) holds the mixture together and bonds it to the foil. A particle can react only where both roads reach it; a later module returns to what happens where one of them does not.' }
     ]);
     var loop = anim(fig, tick, { autoplay: true, stepDt: 0.3 });
     bind(fig, loop);

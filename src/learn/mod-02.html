@@ -1,6 +1,6 @@
 <section class="module" id="m02" data-act="A" data-nav>
   <div class="wrap">
-    <p class="mod-n">Module 2 of 12</p>
+    <p class="mod-n">Module 2</p>
     <h2 class="h2">Anatomy of a cell</h2>
     <p class="hook">If you cut a cell open, what would you find, and what does each part do?</p>
     <p class="where"><b>Where we are.</b> Module 1 showed the four jobs in a cell: give electrons, take electrons, carry ions, keep the two electrodes apart. Now the parts that do those jobs in a real cell, and why they have the shapes they have.</p>
@@ -61,7 +61,7 @@
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">An electrode is not a solid block of the active material. It is a coating: particles of active material, a conductive diluent such as carbon powder, and a polymer binder that holds the mixture together and bonds it to the current collector. Typically about 30 % of its volume is pores, and the pores are filled with electrolyte.{{cite:R1}} The porous structure extends the surface area where the reaction can happen and lowers the current density, so the cell works more efficiently.{{cite:R1}} A particle can only react where electrons reach it through the carbon and ions reach it through the electrolyte; module 8 returns to what happens where one of them does not.</p>
+        <p class="explain">An electrode is not a solid block of the active material. It is a coating: particles of active material, a conductive diluent such as carbon powder, and a polymer binder that holds the mixture together and bonds it to the current collector. Typically about 30 % of its volume is pores, and the pores are filled with electrolyte.{{cite:R1}} The porous structure extends the surface area where the reaction can happen and lowers the current density, so the cell works more efficiently.{{cite:R1}} A particle can only react where electrons reach it through the carbon and ions reach it through the electrolyte; a later module returns to what happens where one of them does not.</p>
       </div>
     </div>
 
@@ -82,10 +82,15 @@
         <p class="recap"><b>You can now explain</b> the parts of a cell and their jobs, why the separator must never let the electrodes touch, why cells are built from thin, wide layers, and why an electrode is a porous coating rather than a block.</p>
         <p class="bridge">Two of those parts decide how hard the push is.</p>
         <details class="deeper"><summary>Go deeper: what a research coin cell taught its makers</summary><div class="body">
-          <p>Murray, Hall and Dahn built full coin cells with graphite and a nickel-rich oxide and found that three &#8220;identical&#8221; cells kept 95 %, 90 % and 80 % of their capacity after 100 cycles. Taking them apart showed the cause: the positive and negative discs were slightly misaligned, and lithium had plated on the parts of the positive electrode not covered by the negative one. The spring and spacer had been dropped in at an angle from tweezers; placing them from directly above with a vacuum pen, and using a thicker, more compliant separator, brought the cells to the reproducibility of machine-made pouch cells.{{cite:R21}} Module 9 explains why plated lithium is lost.</p>
-          <a class="theory-link" href="#references">The mathematics of this module: theory page, coming in a later phase</a>
+          <p>Murray, Hall and Dahn built full coin cells with graphite and a nickel-rich oxide and found that three &#8220;identical&#8221; cells kept 95 %, 90 % and 80 % of their capacity after 100 cycles. Taking them apart showed the cause: the positive and negative discs were slightly misaligned, and lithium had plated on the parts of the positive electrode not covered by the negative one. The spring and spacer had been dropped in at an angle from tweezers; placing them from directly above with a vacuum pen, and using a thicker, more compliant separator, brought the cells to the reproducibility of machine-made pouch cells.{{cite:R21}} Why plated lithium is lost for good is a story for a later module.</p>
         </div></details>
-        {{sources:R1,R6,R21,B2}}
+        <details class="deeper maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">R<sub>ion</sub> = l / (&#954;A)</span><span class="eqnote">the ionic resistance of the electrolyte layer between the electrodes: thin (small l) and wide (large A) is the whole design brief of figure 2.2. Winter and Brodd give &#954; of order 1 S/cm for aqueous and 10&#8315;&#178; to 10&#8315;&#179; S/cm for the organic electrolytes of lithium cells.</span></p>
+          <p class="eqline"><span class="eq">&#954;<sub>eff</sub> = &#954; &#949;<sup>&#945;</sup>,&#8195;&#945; &#8776; 1.5</span><span class="eqnote">inside a porous electrode only the pore fraction &#949; (about 0.3, figure 2.3) carries ions, along winding paths; the Bruggeman relation gives the effective conductivity of the electrolyte in the pores. Boz and co-workers quote &#945; = 1.5, and 1.53 measured for LiFePO&#8324; electrodes.</span></p>
+          <p class="eqline"><span class="eq">D<sub>eff</sub> = D &#949;/&#964;,&#8195;&#964; = &#949;<sup>1&#8722;&#945;</sup></span><span class="eqnote">the same correction for diffusion, with &#964; the tortuosity of the pore network</span></p>
+          <p class="mnote">With &#949; = 0.3 and &#945; = 1.5, &#954;<sub>eff</sub> = 0.3<sup>1.5</sup> &#954; = 0.16 &#954;: the electrolyte inside a coating conducts about a sixth as well as the free liquid. The module on composite electrodes, still to come, builds on this.</p>
+        </div></details>
+        {{sources:R1,R6,R21,B2,R36}}
       </div>
     </div>
   </div>

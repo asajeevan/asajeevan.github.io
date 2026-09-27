@@ -9,6 +9,8 @@
 > voltage or an interface, our ion followed by name, 12 px labels checked for overlaps at
 > 360 px by `tools/qa/acta.js`, captions with basis and try-this, reduced-motion frames).
 > Item 10 of the standard, the owner's initials, is open: see `figure-review.md`.
+> Published as a self-contained five-module piece on 2026-09-27, with an in-page
+> mathematics panel per module in place of the theory-page links; module 5 onward to follow.
 > Owner's later requests, done the same day: no inline citation marks (references at the
 > end only, per-figure source in a collapsed toggle), the 25 % rule of thumb removed with
 > figure 4.4, the series/parallel explanation added to module 1, "coin cell" named in
