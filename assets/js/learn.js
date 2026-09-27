@@ -312,7 +312,7 @@
   register('f0-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var rSl = fig.querySelector('.r'), rv = fig.querySelector('.r-val'), sgn = fig.querySelectorAll('button[data-q]');
-    var q1 = 1, q2 = 1, y = 118, xa = 150;
+    var q1 = 1, q2 = 1, y = 118, xa = 150, xmid = 260;
     txt(g, 260, 22, 'two charges in vacuum, r apart', 'strong', 'middle');
     var line = el('line', { y1: y, y2: y, stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, g);
     var rlab = txt(g, 0, y + 30, '', '', 'middle');
@@ -320,13 +320,13 @@
     var fa = el('line', { 'class': 'force-arrow', y1: y, y2: y }, g), fb = el('line', { 'class': 'force-arrow', y1: y, y2: y }, g);
     fa.setAttribute('marker-end', marker(svg, '#F0B441')); fb.setAttribute('marker-end', marker(svg, '#F0B441'));
     var ca = null, cb = null, fLab = txt(g, 0, y - 64, '', 'amber', 'middle'), fLab2 = txt(g, 0, y - 50, '', 'amber', 'middle');
-    var fieldLab = txt(g, 0, y + 58, '', 'field', 'middle');
-    var fieldArr = el('line', { 'class': 'field-arrow', y1: y + 44, y2: y + 44 }, g); fieldArr.setAttribute('marker-end', marker(svg, '#C4B5F7'));
-    badge(g, xa - 34, y - 30, 1); var b2 = badge(g, 0, 0, 2); var b3 = badge(g, 0, 0, 3);
+    var fieldLab = txt(g, 0, y + 60, '', 'field', 'middle');
+    var fieldArr = el('line', { 'class': 'field-arrow', y1: y + 40, y2: y + 40 }, g); fieldArr.setAttribute('marker-end', marker(svg, '#C4B5F7'));
+    var b1 = badge(g, 0, 0, 1), b2 = badge(g, 0, 0, 2), b3 = badge(g, 0, 0, 3);
     txt(g, 260, 218, 'F = q q′ / (4π ε₀ r²),  with  ε₀ = 8.85 × 10⁻¹² C² N⁻¹ m⁻²', '', 'middle');
     function render() {
       var r = +rSl.value; setSvgText(rv, r.toFixed(1) + ' nm');
-      var d = 40 + r * 62, xb = xa + d;
+      var d = 40 + r * 62; xa = xmid - d / 2; var xb = xmid + d / 2; // the pair stays centred on the figure
       line.setAttribute('x1', xa); line.setAttribute('x2', xb);
       rbar.setAttribute('d', 'M' + xa + ',' + (y + 18) + ' v6 M' + xb + ',' + (y + 18) + ' v6 M' + xa + ',' + (y + 21) + ' H' + xb);
       rlab.setAttribute('x', (xa + xb) / 2); setSvgText(rlab, 'r = ' + r.toFixed(1) + ' nm');
@@ -340,12 +340,13 @@
       fa.style.display = fb.style.display = L < 18 && Math.abs(F) < F2 ? '' : '';
       fLab.setAttribute('x', (xa + xb) / 2); setSvgText(fLab, (rep ? 'repel' : 'attract') + ': F = ' + fmt(Math.abs(F) * 1e12, Math.abs(F) * 1e12 < 10 ? 2 : 0) + ' pN on each');
       fLab2.setAttribute('x', (xa + xb) / 2); setSvgText(fLab2, 'same size on both, opposite directions');
-      b2.setAttribute('transform', 'translate(' + (xa + 12) + ',' + (y + 44) + ')');
+      b1.setAttribute('transform', 'translate(' + (xa - 34) + ',' + (y - 30) + ')'); b2.setAttribute('transform', 'translate(' + (xa - 30) + ',' + (y + 34) + ')');
       b3.setAttribute('transform', 'translate(' + (xb + 34) + ',' + (y - 30) + ')');
       // the field of a at b's place: force per unit charge, direction away from a if a is +
       var E = P.fieldOfCharge(q1 * P.e, r * 1e-9);
-      fieldArr.setAttribute('x1', xb); fieldArr.setAttribute('x2', xb + (q1 > 0 ? 1 : -1) * Math.min(90, 26 * Math.sqrt(Math.abs(E) / P.fieldOfCharge(P.e, 2e-9))));
-      fieldLab.setAttribute('x', xb); setSvgText(fieldLab, 'field of q at q′: ' + fmt(Math.abs(E) * 1e-9, 2) + ' V/nm');
+      var eLen = (q1 > 0 ? 1 : -1) * Math.min(90, 26 * Math.sqrt(Math.abs(E) / P.fieldOfCharge(P.e, 2e-9)));
+      fieldArr.setAttribute('x1', xb); fieldArr.setAttribute('x2', xb + eLen);
+      fieldLab.setAttribute('x', Math.max(84, Math.min(436, xb + eLen / 2))); /* centred under the arrow, kept inside the frame */ setSvgText(fieldLab, 'field of q at q′: ' + fmt(Math.abs(E) * 1e-9, 2) + ' V/nm');
       read.innerHTML = 'F = (' + (q1 > 0 ? '+' : '−') + 'e)(' + (q2 > 0 ? '+' : '−') + 'e) / (4π ε₀ r²) with r = ' + r.toFixed(1) + ' nm: <b>' + fmt(Math.abs(F) * 1e12, Math.abs(F) * 1e12 < 10 ? 2 : 1) + ' pN</b>, ' + (rep ? 'pushing the charges apart' : 'pulling them together') + '. Halve r and the force is four times larger.';
     }
     Array.prototype.forEach.call(sgn, function (b) { on(b, 'click', function () {
