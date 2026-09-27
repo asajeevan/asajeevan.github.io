@@ -9,6 +9,10 @@
 > voltage or an interface, our ion followed by name, 12 px labels checked for overlaps at
 > 360 px by `tools/qa/acta.js`, captions with basis and try-this, reduced-motion frames).
 > Item 10 of the standard, the owner's initials, is open: see `figure-review.md`.
+> Owner's later requests, done the same day: no inline citation marks (references at the
+> end only, per-figure source in a collapsed toggle), the 25 % rule of thumb removed with
+> figure 4.4, the series/parallel explanation added to module 1, "coin cell" named in
+> figure 2.1's title, and figure label alignment corrected throughout.
 > Still open from section 4: no introductory physics text was supplied, so Module 0 is
 > cited entirely to Bard, Faulkner and White (sections 2.2.1, 1.1.2, 1.1.4, 1.1.5, 2.3.3,
 > 4.2 and 14.3.1 cover Coulomb's law, field, potential, Gauss's law, conductors, the

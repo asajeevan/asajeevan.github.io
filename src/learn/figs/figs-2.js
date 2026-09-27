@@ -12,16 +12,16 @@
     // top view: a small disc to say "round"
     el('circle', { cx: 56, cy: 60, r: 30, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g); el('circle', { cx: 56, cy: 60, r: 24, fill: 'none', stroke: 'var(--line)' }, g);
     txt(g, 56, 64, '−', 'strong big', 'middle'); txt(g, 56, 106, 'top view: cap (−)', '', 'middle'); txt(g, 56, 120, '20 mm across', '', 'middle');
-    txt(g, cx + 30, 24, 'cross-section, pulled apart (not to scale)', 'strong', 'middle');
+    txt(g, cx + 30, 24, 'a coin cell in cross-section, pulled apart (not to scale)', 'strong', 'middle');
     // layers, from the bottom up; y = resting position, h = thickness, k = explode order
     var layers = [
-      { key: 'can', name: 'Can, aluminium-coated (+ terminal)', y: 216, h: 14, w: W, fill: '#5f7076', desc: 'Stainless-steel can with an aluminium coating on the inside: the container and the positive terminal. The positive electrode sits directly on it (Murray, Hall and Dahn 2019, Figure 1).' },
-      { key: 'pos', name: 'Positive electrode', y: 202, h: 14, w: 200, fill: 'var(--amber-2)', desc: 'A coating of the positive active material (LiCoO₂ in the first commercial cell, NMC622 in Murray, Hall and Dahn’s cells) on an aluminium surface. On discharge it takes the electrons: the electron acceptor (Winter and Brodd 2004, section 2.2).' },
-      { key: 'sep', name: 'Separator, soaked with electrolyte', y: 194, h: 8, w: 230, fill: 'var(--cyan)', desc: 'A porous film (Celgard, two layers, in Figure 1a of Murray, Hall and Dahn) full of electrolyte: permeable to ions, inert, and a physical barrier that prevents electrical shorting (Winter and Brodd 2004, section 1.2). If the electrodes touched, the full stored energy would be released as heat inside the cell (their section 2.2).' },
-      { key: 'neg', name: 'Negative electrode', y: 180, h: 14, w: 200, fill: '#2b3538', desc: 'Graphite coated on copper foil, as in the first commercial lithium-ion cell (Goodenough and Park 2013, Figure 1). On discharge it gives up electrons: the reducing agent (Winter and Brodd 2004, section 2.2).' },
-      { key: 'spacer', name: 'Spacer, stainless steel', y: 168, h: 12, w: 220, fill: '#7d8f94', desc: 'A steel disc that fills the height so that the stack is pressed evenly (Murray, Hall and Dahn 2019, Figure 1).' },
-      { key: 'spring', name: 'Spring, stainless steel', y: 150, h: 18, w: 140, fill: 'none', desc: 'A wave spring that presses the stack together so every layer stays in contact. Murray, Hall and Dahn found that dropping the spring and spacer from an angle misaligned the electrodes and cost up to 20 % of the capacity in 100 cycles; placing them from directly above with a vacuum pen fixed it.' },
-      { key: 'cap', name: 'Cap and gasket (− terminal)', y: 136, h: 14, w: W, fill: '#5f7076', desc: 'Stainless-steel cap, the negative terminal, crimped onto the can with a polymer gasket between them: the gasket seals the cell and keeps the two terminals from touching (Murray, Hall and Dahn 2019, Figure 1).' }
+      { key: 'can', name: 'Can, aluminium-coated (+ terminal)', y: 216, h: 14, w: W, fill: '#5f7076', desc: 'Stainless-steel can with an aluminium coating on the inside: the container and the positive terminal. The positive electrode sits directly on it.' },
+      { key: 'pos', name: 'Positive electrode', y: 202, h: 14, w: 200, fill: 'var(--amber-2)', desc: 'A coating of the positive active material (LiCoO₂ in the first commercial cell, a nickel-rich oxide in today’s research cells) on an aluminium surface. On discharge it takes the electrons: the electron acceptor.' },
+      { key: 'sep', name: 'Separator, soaked with electrolyte', y: 194, h: 8, w: 230, fill: 'var(--cyan)', desc: 'A porous polymer film, two layers of it in this design, full of electrolyte: permeable to ions, inert, and a physical barrier that prevents electrical shorting. If the electrodes touched, the full stored energy would be released as heat inside the cell (their section 2.2).' },
+      { key: 'neg', name: 'Negative electrode', y: 180, h: 14, w: 200, fill: '#2b3538', desc: 'Graphite coated on copper foil, as in the first commercial lithium-ion cell. On discharge it gives up electrons: the reducing agent.' },
+      { key: 'spacer', name: 'Spacer, stainless steel', y: 168, h: 12, w: 220, fill: '#7d8f94', desc: 'A steel disc that fills the height so that the stack is pressed evenly.' },
+      { key: 'spring', name: 'Spring, stainless steel', y: 152, h: 18, w: 140, fill: 'none', desc: 'A wave spring that presses the stack together so every layer stays in contact. Dropping the spring and spacer in from an angle misaligns the electrodes and can cost a fifth of the capacity in 100 cycles; placing them from directly above with a vacuum pen fixes it.' },
+      { key: 'cap', name: 'Cap and gasket (− terminal)', y: 136, h: 14, w: W, fill: '#5f7076', desc: 'Stainless-steel cap, the negative terminal, crimped onto the can with a polymer gasket between them: the gasket seals the cell and keeps the two terminals from touching.' }
     ];
     var groups = {};
     layers.forEach(function (L, i) {
@@ -36,7 +36,7 @@
         if (L.key === 'pos') { for (var q2 = 0; q2 < 12; q2++) el('circle', { cx: lx + 10 + q2 * 17, cy: L.y + 6, r: 1.8, fill: 'var(--cyan)', 'fill-opacity': '.8' }, grp); }
       }
       var shortName = { can: 'can (+)', pos: 'positive electrode', sep: 'separator', neg: 'negative electrode', spacer: 'spacer', spring: 'spring', cap: 'cap (−)' }[L.key];
-      var lab = txt(grp, x1 + 10, L.y + (L.key === 'cap' ? 30 : L.key === 'can' ? 8 : L.h / 2 + 4), shortName, '');
+      var lab = txt(grp, x1 + 10, L.y + (L.key === 'cap' ? 26 : L.key === 'can' ? 8 : L.key === 'spring' ? L.h / 2 + 10 : L.h / 2 + 4), shortName, '');
       groups[L.key] = grp; L.g = grp; L.i = i;
     });
     // the potential strip: cap (−) → negative → separator → positive → can (+)
@@ -144,7 +144,7 @@
   register('f2-4', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), info = fig.querySelector('.part-info'), data = P.data.nominal;
     var xN = 168, xB = 178, sc = 62, rowH = 22, y = 40;
-    txt(g, 20, 22, 'nominal cell voltage, V (Winter and Brodd 2004, Table 2)', 'strong');
+    txt(g, 20, 22, 'nominal cell voltage, V', 'strong');
     [1, 2, 3, 4].forEach(function (v) { var x = xB + v * sc; el('line', { x1: x, y1: 30, x2: x, y2: 284, stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, g); txt(g, x, 298, v + ' V', '', 'middle'); });
     var groups = [['primary (single use)', 'primary'], ['rechargeable', 'rechargeable']];
     var rows = [];

@@ -3,16 +3,20 @@
 
 Source files live in src/learn/ and use these markers:
 
-  {{cite:R1}}            one citation, rendered as a numbered superscript
-  {{cite:R1,R6}}         several citations in one superscript
-  {{sources:R1,R6}}      the "Sources for this module" line
-  {{references}}         the numbered reference list for the whole page
+  {{cite:R1}}            a citation. Not rendered on the page (the owner asked for a
+                         clean text with the references at the end only), but still
+                         validated, and it decides which modules each reference is
+                         listed under.
+  {{cite:R1,R6}}         several citations at once
+  {{sources:R1,R6}}      the module's source list: validated, not rendered
+  {{references}}         the reference list for the whole page, with the modules
+                         each reference supports
   {{include:file.html}}  inline another source file (figures live in their own files)
 
-Numbers are assigned in order of first appearance on the page and are stable
-as long as the order of first appearance does not change. The build fails if a
-cited key is missing from src/learn/references.json or has a status other than
-"verified", which is the citation policy enforced mechanically.
+The build fails if a cited key is missing from src/learn/references.json or has
+a status other than "verified", which is the citation policy enforced
+mechanically. Figure captions' <span class="basis"> notes are wrapped into a
+collapsed <details class="src"> so the source stays one tap away.
 """
 import json, re, sys, pathlib
 
@@ -53,8 +57,17 @@ def build(src_name, out_path):
 
     order = []
     errors = []
+    used_in = {}   # key -> ordered list of module labels
 
-    def number(key):
+    def module_at(pos):
+        # the module section that contains character position pos
+        best = None
+        for m in re.finditer(r'<section class="module" id="m(\d+)"', text):
+            if m.start() <= pos:
+                best = m.group(1)
+        return None if best is None else str(int(best))
+
+    def number(key, pos=None):
         if key not in REFS:
             errors.append('unknown reference key %r' % key)
             return 0
@@ -62,25 +75,38 @@ def build(src_name, out_path):
             errors.append('reference %s is %s, not verified; it may not be cited' % (key, REFS[key]['status']))
         if key not in order:
             order.append(key)
+        if pos is not None:
+            mod = module_at(pos)
+            if mod is not None and mod not in used_in.setdefault(key, []):
+                used_in[key].append(mod)
         return order.index(key) + 1
 
     def cite(m):
-        keys = [k.strip() for k in m.group(1).split(',') if k.strip()]
-        nums = [number(k) for k in keys]
-        links = ','.join('<a href="#ref-%d">%d</a>' % (n, n) for n in nums)
-        return '<sup class="cite">%s</sup>' % links
+        for k in [k.strip() for k in m.group(1).split(',') if k.strip()]:
+            number(k, m.start())
+        return ''
     text = re.sub(r'\{\{cite:([^}]+)\}\}', cite, text)
 
     def sources(m):
-        keys = [k.strip() for k in m.group(1).split(',') if k.strip()]
-        items = []
-        for k in keys:
-            n = number(k)
-            items.append('<a href="#ref-%d">[%d] %s</a>' % (n, n, esc(REFS[k]['short'])))
-        return '<p class="sources"><span>Sources for this module:</span> ' + ' · '.join(items) + '</p>'
-    text = re.sub(r'\{\{sources:([^}]+)\}\}', sources, text)
+        for k in [k.strip() for k in m.group(1).split(',') if k.strip()]:
+            number(k, m.start())
+        return ''
+    text = re.sub(r'\s*\{\{sources:([^}]+)\}\}', sources, text)
 
-    refs_html = '<ol class="refs">' + ''.join(fmt_ref(k, i + 1) for i, k in enumerate(order)) + '</ol>'
+    # figure captions: the basis note becomes a collapsed "Source" toggle
+    text = re.sub(r'<span class="basis">(.*?)</span>',
+                  r'<details class="src"><summary>Source</summary><span class="basis">\1</span></details>',
+                  text, flags=re.S)
+
+    def ref_with_modules(k, n):
+        html = fmt_ref(k, n)
+        mods = used_in.get(k, [])
+        if mods:
+            mods = sorted(mods, key=int)
+            label = 'Module ' + mods[0] if len(mods) == 1 else 'Modules ' + ', '.join(mods)
+            html = html.replace('</li>', '<span class="ref-mods">%s</span></li>' % label)
+        return html
+    refs_html = '<ol class="refs">' + ''.join(ref_with_modules(k, i + 1) for i, k in enumerate(order)) + '</ol>'
     text = text.replace('{{references}}', refs_html)
 
     leftover = re.findall(r'\{\{[^}]*\}\}', text)
