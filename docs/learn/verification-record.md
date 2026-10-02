@@ -986,3 +986,59 @@ All seven are `verified` in `references.json` (bibliographic details and DOIs fr
 page uses B2 §11.2 for the parallel rule), eq. 51 (subscripts paired the wrong way), the Z_O/Z_T label
 note (tanh and coth swapped), the ambiguous "n−1/n" exponent of eqs. 72–74 (not used), "Brag" for Brug
 (not used); R64 eq. 7 (not reproduced).
+
+## V. Module 9 rewritten around the negative electrode (2026-10-03)
+
+At the owner's request ("rewrite module 9 using this"), Module 9 was rebuilt on
+**R70: M. M. Rahman, U. Nisar, A. Abouimrane, I. Belharouak, R. Amin, "Valuation of Anode Materials
+for High-Performance Lithium Batteries: From Graphite to Lithium Metal and Beyond", Electrochemical
+Energy Reviews 8:14 (2025), doi 10.1007/s41918-025-00249-w** (read in full, 27 pages of text plus
+references; bibliographic details from p. 1). Status `verified`. The module now has 11 figures; the
+old 9.1 (plating), 9.2 (breathing), 9.3 (conversion) and 9.5 (sodium) were rebuilt as 9.7, 9.5, 9.6
+and 9.11; the old 9.4 (family on the voltage scale) was replaced by the map of figure 9.1.
+
+| Claim on the page | R70 location | Status |
+|---|---|---|
+| Anode stores and returns lithium; graphite and its stability in carbonates enabled the first Li-ion cell; four classes; up to a factor of two from Li metal | pp. 1–2, sec. 1 | OK |
+| Criteria for a good anode (capacity, low potential, kinetics, cost, stability, stable SEI, environment) | p. 3, sec. 2 | OK |
+| Capacities and potentials: graphite 372 at 0.15 V, hysteresis 10–50 mV, ~10 % first-cycle loss; LTO 175 at ~1.55 V, ~0.2 % volume change; Si 3579, Sn 994, Ge 1624, Sb 660, alloys 20–40 % first-cycle loss; Fe2O3 1007, MnO2 1233 at 1.0–1.5 V; MoS2 670 at 1.1–1.8 V; FeP ~900 at 0.5–1.0 V; Li 3860 at 0 V | Tables 1 and 2, p. 4–5 | OK |
+| TiO2 330 mAh/g at 1.5 V; niobium oxides at ~1–2 V, Nb2O5 ~200, TiNb2O7 ~350, Nb14W3O44 open 3D structure; industrial production | pp. 5–8 | OK |
+| Three mechanisms and general reactions; structure kept vs disintegration; first-cycle SEI loss; hysteresis | p. 3–6, Fig. 2 | OK |
+| Sony 1991 graphite; graphite or graphite/Si with NCM (Ni > 80 %) today; graphite conducts well | p. 5 | OK |
+| SEI forms because graphite works outside the stability window; mosaic model (Li2CO3, Li2O, LiF inner; semi-carbonates, polyolefins outer); ether co-intercalation and exfoliation; cross-talk; even and porous at 25 °C, thick and non-porous above 45 °C; plating in the cold; Table 3's five degradation mechanisms; cracking near grain boundaries | pp. 8–12, Table 3, Figs. 4, 5a–b | OK |
+| Graphite market: natural ~$8000–11 000/t, synthetic ~$20 000/t; China ~75 %; ~1800 kt by 2030 | p. 25, sec. 9 | OK |
+| Fast charging: 80 % in < 15 min goal; plating, electrode degradation, heat; strategies (material, electrode, LiFSI/FEC, N/P ratio, protocol, cooling); Amprius 0–80 % < 6 min; LeydenJar 80 % in 7 min, 1350 Wh/L | pp. 12–15, sec. 5 | OK |
+| LTO: little SEI at ~1.5 V, zero strain, low conductivity, gassing (H2, CO2, CO), mechanism not well understood | p. 5 | OK |
+| Silicon: low cost, ~280 % volume change, pulverization, SEI rupture, delamination, low conductivity; nanostructures; binders and self-healing polymers; 5–10 wt% commercial, > 20 wt% target; market $279.29 M (2023) to $15 bn by 2035 | pp. 6–7, 12, 25; Figs. 4e, 5c–d | OK; see cautions |
+| Conversion: reaction, four drawbacks, ~1 V hysteresis from several solid phases and O/M rearrangement, nano design, insulating Li2O | pp. 7–8, 12; Fig. 5e–f | OK |
+| Li metal: studied before Li-ion; issues list; dendrite models; space-charge mechanism; field at tips and defects; dead Li 2 µm → ~100 µm; whiskers; interface-driven problems; characterization (XPS, soft XAS, cryo-TEM, XRD/PDF identified LiH) | pp. 18–25, Fig. 10 | OK |
+| Anode-free: plating onto the current collector, no excess, more severe losses; Table 4; GO on Cu (98 %, 44 % after 50 vs 89 %, 26.9 % after 20); KNO3 (96.20 vs 85.74 % over 60 cycles); LiDFOB/LiBF4 80 % after 90 cycles, ~50 µm domains; LHCE; fluorinated solvents; 3D Cu (> 97 % over 250 cycles; 89.7 vs 58.2 % after 300 cycles with LFP) | pp. 22–24, Fig. 11 | OK |
+| Li metal long thought too reactive for liquids; LHCE and fluorinated ethers now allow low n/p, high loading | p. 26, sec. 10 | OK |
+| Solid-state: anode classes; graphite/LTO too low capacity; Si volume problem; SSE should have higher shear modulus; Li Young's modulus ~4.9 GPa; dendrites through grain boundaries, not understood; interface problems; interlayers Al2O3, LiNbO3, ZrO2 by ALD; Li–C 381 → 11, Al 950 → 75, ALD Al2O3 1710 → 1 Ω cm²; gel interlayer; DMS forming Li2S/Li2O; Col-Si 92 % vs 50.6 % after 50 cycles, CE ~99.95 % vs 98–99 %; Ag–C > 900 Wh/L, 1000 cycles, CE ~99.8 % | pp. 15–21, Figs. 8–9 | OK |
+| Lithium a critical raw material | p. 26 | OK |
+
+Earlier sources kept: R1 (100–150 cycles in 2004), R2 (oxides two to three times carbon; sulfur at 2.4 V),
+R6 (alloys 0.2–0.8 V; sodium hosts; Na–S), R44 (conversion first-cycle loss ~30 %; fluorides; organic
+electrodes), R45 (Na–S at Ford), R46 (Brandt's R = N(1 − E) worked example), R48 (sodium-ion commercial).
+
+**This page's own working (labelled in the captions):** the energy of the two active materials,
+Q<sub>pos</sub>Q<sub>neg</sub>/(Q<sub>pos</sub> + Q<sub>neg</sub>) × ΔV, against an illustrative positive electrode of 200 mAh/g at 3.8 V;
+the blend capacity; the round-trip efficiency with hysteresis; the lithium-inventory curves; the CE
+of 99.978 % needed for 1000 anode-free cycles; ΔV = R i at an interface; the graphite potential curve and
+the charging pull of figure 9.4 (illustrative, 15 mV per C at 25 °C, 40 kJ/mol); the 5 °C plating threshold
+drawn in figure 9.3. All are in `Physics.m9` with tests (74 of 74 pass).
+
+**Cautions on R70 (not copied to the page):**
+- Silicon capacity: 3579 mAh/g in Tables 1–2, 4200 mAh/g in the text (p. 7). The page uses 3579.
+- Silicon volume change: ~300 % (Table 1, sec. 5.1.2), ~280 % (sec. 2(ii), sec. 4), ~400 % (Fig. 5c label).
+  The page says "about 280 %" and draws 280 %.
+- TiO2 is listed under conversion in Tables 1 and 2 but treated with the titanium oxides as an
+  intercalation host in Fig. 2 and sec. 2; the page groups it with intercalation.
+- MoS2 operating voltage: 1.1–1.2 V in the text, 1.1–1.8 V in Table 1; the page uses the table's range.
+- Graphite electronic conductivity: ~10⁻⁴ S/cm in the text, 10⁻⁴–10⁻² in Table 2 (not quoted).
+- Dead lithium: "after the 42nd cycle" in the text, "22nd cycle" in the Fig. 10 caption; the page says
+  "within a few dozen cycles".
+- The KNO3 full-cell sentence ("around 40 % after 50 cycles when compared to around 40 % after 15 cycles")
+  is quoted only in its half-cell CE values.
+- Fig. 3 (radar charts of cost, cycle life, safety, scalability, readiness) gives no numbers in the text and
+  was not used.

@@ -577,6 +577,63 @@
     };
   })();
 
+  /* ---------- Module 9: negative electrodes (Rahman et al. 2025, R70) ---------- */
+  var m9 = (function () {
+    /* Theoretical capacities (mAh/g) and working potentials (V vs Li/Li+) quoted by R70,
+       Tables 1 and 2 and sec. 2; alloy potentials 0.2-0.8 V after Goodenough and Park (R6). */
+    var ANODES = { // v: the value used in calculations (the middle of the range where a range is given)
+      graphite: { q: 372, v: 0.15, lo: 0.15, hi: 0.15, kind: 'intercalation' },
+      lto: { q: 175, v: 1.55, lo: 1.55, hi: 1.55, kind: 'intercalation' },
+      tnb: { q: 350, v: 1.5, lo: 1, hi: 2, kind: 'intercalation' },
+      si: { q: 3579, v: 0.5, lo: 0.2, hi: 0.8, kind: 'alloy' },
+      sn: { q: 994, v: 0.5, lo: 0.2, hi: 0.8, kind: 'alloy' },
+      ge: { q: 1624, v: 0.5, lo: 0.2, hi: 0.8, kind: 'alloy' },
+      sb: { q: 660, v: 0.5, lo: 0.2, hi: 0.8, kind: 'alloy' },
+      tio2: { q: 330, v: 1.5, lo: 1.5, hi: 1.5, kind: 'intercalation' }, // R70 Fig. 2 and sec. 2 treat titanium oxides as intercalation hosts; its Tables 1 and 2 list TiO2 under conversion
+      fe2o3: { q: 1007, v: 1.25, lo: 1.0, hi: 1.5, kind: 'conversion' },
+      mno2: { q: 1233, v: 1.25, lo: 1.0, hi: 1.5, kind: 'conversion' },
+      mos2: { q: 670, v: 1.45, lo: 1.1, hi: 1.8, kind: 'conversion' },
+      fep: { q: 900, v: 0.75, lo: 0.5, hi: 1.0, kind: 'conversion' },
+      li: { q: 3860, v: 0, lo: 0, hi: 0, kind: 'metal' }
+    };
+    /* Specific energy of the two active materials alone (this page's working): the cell
+       passes the same charge through both, so per gram of the pair Q = Qc Qa / (Qc + Qa),
+       and E = Q (Vc - Va). mAh/g times V gives Wh/kg. */
+    function pairEnergy(Qc, Vc, Qa, Va) { var Q = Qc * Qa / (Qc + Qa); return { Q: Q, V: Vc - Va, E: Q * (Vc - Va) }; }
+    /* Capacity of a graphite/silicon blend with mass fraction w of silicon (simple mixture). */
+    function blendCapacity(w) { return ANODES.graphite.q * (1 - w) + ANODES.si.q * w; }
+    /* Lithium inventory with a reservoir (this page's working, after Brandt's R = N(1 - E), R46):
+       each cycle a fraction (1 - CE) of the cycled lithium is lost; an excess reservoir (in units
+       of the cycled capacity) is drawn on first; once it is empty the capacity falls by CE per cycle.
+       Returns the capacity, relative to the first cycle, after each of n cycles. */
+    function inventory(CE, excess, n) {
+      var res = excess, cap = 1, out = [];
+      for (var k = 0; k < n; k++) {
+        var loss = cap * (1 - CE);
+        if (res >= loss) res -= loss; else { cap -= (loss - res); res = 0; }
+        out.push(Math.max(0, cap));
+      }
+      return out;
+    }
+    /* Round-trip energy efficiency of a full cell set by the anode's voltage hysteresis h
+       (this page's working): discharge at Vc - (Va + h/2), charge at Vc - (Va - h/2). */
+    function hysteresisEfficiency(Vc, Va, h) { return (Vc - Va - h / 2) / (Vc - Va + h / 2); }
+    /* Illustrative graphite open-circuit potential against lithium content x (0..1), with three
+       sloping plateaus near 0.21, 0.12 and 0.085 V, and an illustrative surface polarization
+       eta = c-rate x eta1C x exp(Ea/R (1/T - 1/298.15)). Lithium plates where U(x) - eta < 0. */
+    function graphiteU(x) {
+      x = Math.min(0.999, Math.max(0.001, x));
+      return 0.085 + 0.035 / (1 + Math.exp((x - 0.5) / 0.03)) + 0.09 / (1 + Math.exp((x - 0.2) / 0.03)) + 0.6 * Math.exp(-x / 0.02) - 0.01 * x;
+    }
+    function polarization(crate, T, eta1C, Ea) { return crate * (eta1C || 0.015) * Math.exp((Ea || 40000) / 8.314462618 * (1 / T - 1 / 298.15)); }
+    function platingOnset(crate, T, U) { // lithium content at which the surface first reaches 0 V; 1 if never
+      U = U || graphiteU; var eta = polarization(crate, T);
+      for (var k = 0; k <= 1000; k++) { var x = k / 1000; if (U(x) - eta < 0) return x; }
+      return 1;
+    }
+    return { ANODES: ANODES, pairEnergy: pairEnergy, blendCapacity: blendCapacity, inventory: inventory, hysteresisEfficiency: hysteresisEfficiency, graphiteU: graphiteU, polarization: polarization, platingOnset: platingOnset };
+  })();
+
   function seriesVoltage(V, n) { return V * n; }
   function parallelCapacity(Q, n) { return Q * n; }
 
@@ -663,6 +720,7 @@
     chargePassed: chargePassed, cRateCurrent: cRateCurrent, lfpOcp: lfpOcp, lfpDiffusion: lfpDiffusion, lfpElectrode: lfpElectrode,
     edlcCharge: edlcCharge, edlcCycle: edlcCycle, solidDiffusionRatio: solidDiffusionRatio,
     m11: m11,
+    m9: m9,
     data: data
   };
 });

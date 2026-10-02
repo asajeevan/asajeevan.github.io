@@ -59,6 +59,7 @@ of the changed files at their repository paths.
   - Figure 7.6 is rebuilt as a to-scale molecular close-up.
   - Module text was re-laid out: shorter paragraphs, subheadings, and the lesson first.
   - See verification-record.md, section R13, including the new FLAGs on graphite stacking and spacing and on the LiCoO₂ cell dimensions.
+- **Module 9 rewritten, 2026-10-03 (branch only):** now "Negative electrodes: from graphite to lithium metal", 11 figures, built on R70 (Rahman et al. 2025). Old figures renumbered: 9.1→9.7, 9.2→9.5, 9.3→9.6, 9.5→9.11 (sodium; still holds back to-scale ion sizes until R42 is verified); the old 9.4 was replaced by the map of figure 9.1. Sodium, organic electrodes and the OWN-THESIS aside are kept in the last beat. Physics in `Physics.m9`; claims and cautions in `verification-record.md`, section V.
 - **Module 11 expanded, 2026-10-03 (branch `claude/ecstatic-bohr-ym5qe9` only, not on `main`):**
   - Module 11 now has 18 figures, from a current pulse through GITT (one step, the τ̂ check, Nickol's six recipes, Kang and Chueh's relaxation analysis, a whole run) to impedance (sine and Lissajous, Nyquist and Bode, a commercial cell built element by element, CPE / finite / spherical / porous shapes), measuring well (linearity and harmonics, two versus four terminals, the Kramers–Kronig test) and analysis (non-unique circuits, DRT with λ, ageing check-ups and machine learning).
   - New sources R63–R69, all `verified`; claims and pages in `verification-record.md`, section U.

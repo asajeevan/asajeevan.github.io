@@ -408,3 +408,33 @@ test('Warburg step response 2 sigma sqrt(2t/pi) (this page\'s working) matches a
   const p = { R0: 0, R1: 0, C1: 1, R2: 0, C2: 1, sigma };
   for (const t of [0.5, 3, 40]) close(inv(s => sigma * Math.SQRT2 * Math.pow(s, -1.5), t), M.stepResistance(p, t), 1e-6 * M.stepResistance(p, t) + 1e-9);
 });
+
+/* ---------- Module 9: negative electrodes ---------- */
+const N9 = P.m9;
+test('Anode capacities and potentials as quoted by Rahman et al. 2025 (Tables 1 and 2)', () => {
+  assert.strictEqual(N9.ANODES.graphite.q, 372); assert.strictEqual(N9.ANODES.li.q, 3860); assert.strictEqual(N9.ANODES.si.q, 3579);
+  assert.strictEqual(N9.ANODES.lto.q, 175); close(N9.ANODES.lto.v, 1.55, 1e-12); close(N9.ANODES.graphite.v, 0.15, 1e-12);
+  // lithium metal stores about ten times graphite per gram
+  close(N9.ANODES.li.q / N9.ANODES.graphite.q, 10.4, 0.05);
+});
+test('Pair energy: series charge Qc Qa/(Qc + Qa); lithium metal gains about 1.5 times over graphite against a 200 mAh/g, 3.8 V positive (this page\'s working)', () => {
+  const g = N9.pairEnergy(200, 3.8, 372, 0.15), li = N9.pairEnergy(200, 3.8, 3860, 0);
+  close(g.Q, 130.07, 0.01); close(g.E, 474.8, 0.2); close(li.E / g.E, 1.52, 0.01);
+  // an infinitely large anode capacity can never beat the cathode alone
+  ok(N9.pairEnergy(200, 3.8, 1e9, 0).E < 200 * 3.8 + 1e-6);
+});
+test('Graphite/silicon blends: 5 to 10 wt% silicon lifts 372 to about 530 to 690 mAh/g', () => {
+  close(N9.blendCapacity(0), 372, 1e-9); close(N9.blendCapacity(0.05), 532.4, 0.1); close(N9.blendCapacity(0.1), 692.7, 0.1); close(N9.blendCapacity(1), 3579, 1e-9);
+});
+test('Lithium inventory: with no excess the capacity falls as CE^n; an excess of 1 at CE 99 % lasts 100 cycles (Brandt R = N(1 - E))', () => {
+  close(N9.inventory(0.99, 0, 50)[49], Math.pow(0.99, 50), 1e-12);
+  const a = N9.inventory(0.99, 1, 120); close(a[98], 1, 1e-12); ok(a[101] < 1); ok(a[119] > 0.75);
+});
+test('Hysteresis efficiency: about 1 V of hysteresis costs a third of the round-trip energy against a 3.8 V positive; graphite\'s 30 mV costs under 1 %', () => {
+  close(N9.hysteresisEfficiency(3.8, 1.25, 1), 2.05 / 3.05, 1e-12); ok(N9.hysteresisEfficiency(3.8, 0.15, 0.03) > 0.99);
+});
+test('Illustrative plating model: faster or colder charging plates earlier; LTO at 1.55 V never plates', () => {
+  ok(N9.platingOnset(1, 298.15) === 1); ok(N9.platingOnset(6, 298.15) < 1); ok(N9.platingOnset(2, 263.15) < N9.platingOnset(2, 283.15));
+  ok(N9.graphiteU(0.95) > 0.06 && N9.graphiteU(0.95) < 0.09);
+  ok(N9.platingOnset(6, 263.15, () => 1.55) === 1); // within the figure's range (to 6C, down to −10 °C)
+});

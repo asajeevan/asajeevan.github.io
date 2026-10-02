@@ -483,5 +483,16 @@
     "doi": "10.3390/batteries11060234",
     "status": "verified",
     "short": "Abbas et al. 2025"
+  },
+  "R70": {
+    "authors": "M. M. Rahman, U. Nisar, A. Abouimrane, I. Belharouak, R. Amin",
+    "title": "Valuation of Anode Materials for High-Performance Lithium Batteries: From Graphite to Lithium Metal and Beyond",
+    "journal": "Electrochemical Energy Reviews",
+    "year": 2025,
+    "volume": "8",
+    "pages": "14",
+    "doi": "10.1007/s41918-025-00249-w",
+    "status": "verified",
+    "short": "Rahman et al. 2025"
   }
 }
