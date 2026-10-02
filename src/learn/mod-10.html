@@ -1,0 +1,106 @@
+<section class="module" id="m10" data-act="C" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 10</p>
+    <h2 class="h2">Why batteries age</h2>
+    <p class="hook">Where did the capacity go?</p>
+    <p class="where"><b>Where we are.</b> Module 9 showed materials that fail fast and loudly. A well-made lithium-ion cell fails slowly and quietly: a little capacity gone each week, whether it is used or not. This module names the thieves and shows how each one works.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f10-1" id="f10-1">
+        <span class="fnum">Figure 10.1</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f101t">
+          <title id="f101t">Capacity against cycle number with the loss split into three stacked shaded parts: lithium lost to side reactions, growing as the square root of cycles; active material lost, growing steadily; and capacity hidden by rising resistance, which comes back when the cell is measured at a low rate. A dashed line marks 80 percent, the end of cycle life.</title>
+          <g class="plot"></g>
+        </svg>
+        <div class="controls">
+          <label><input type="checkbox" value="li" checked> <i class="sw" style="background:var(--anion)"></i><span>lithium lost</span></label><label><input type="checkbox" value="am" checked> <i class="sw" style="background:var(--heat)"></i><span>active material lost</span></label><label><input type="checkbox" value="r" checked> <i class="sw" style="background:#C4B5F7"></i><span>hidden by resistance</span></label>
+          <button type="button" class="slow" aria-pressed="false">Measure at a low rate</button>
+        </div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Capacity fade, taken apart into three thieves.
+          <span class="try">Try this: switch off the lithium loss and see how much longer the cell lives; then press Measure at a low rate.</span>
+          <span class="basis">Categories after Goodenough and Park 2013 (reversible loss at high rate; irreversible loss from volume changes, electrode-electrolyte reactions and decomposition; cycle life to 80 %) and Tarascon and Armand 2001 (side reactions at the electrode-electrolyte interface; particles that disintegrate and lose contact). The lithium-loss band follows the square-root law of figure 10.2; the sizes of all three bands and the cycle axis are schematic, not data for any cell.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Capacity is lost in two ways. Some is only hidden: at a high current the cell reaches its cut-off early, and the capacity comes back at a gentler rate. The rest is gone for good, to changes in the volume of the electrodes, to reactions between electrodes and electrolyte, and to decomposition of the electrodes; the cycle life ends when the capacity has faded to 80 % of its initial value.{{cite:R6}} For lithium-ion cells Tarascon and Armand put it plainly: poor lifetimes are rooted mainly in side reactions at the electrode-electrolyte interface.{{cite:R2}}</p>
+        <p class="explain">Sorted by what they take, these causes are the three thieves of figure 10.1. Side reactions lock up lithium that could have carried charge. Cracking, contact loss and dissolution remove active material, the room the lithium needs. And thicker interfaces raise the resistance, so that at a given current the cell runs out of voltage before it runs out of charge.</p>
+        <p class="lesson">A battery rarely dies of one cause; diagnosing it means separating the causes.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f10-2" id="f10-2">
+        <span class="fnum">Figure 10.2</span>
+        <svg viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f102t">
+          <title id="f102t">The SEI on graphite thickening with time, beside a plot of thickness against time for three growth regimes: proportional to the square root of time when diffusion through the layer limits it, proportional to time when the reaction or migration during charging limits it, and not growing when migration during discharge limits it; a bar shows the interfacial resistance rising with the thickness.</title>
+        </svg>
+        <div class="controls"><button type="button" data-b="0.5" aria-pressed="true">b = 1/2 (diffusion)</button><button type="button" data-b="1">b = 1 (reaction)</button><button type="button" data-b="0">b = 0 (discharge)</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="an"></i>SEI</span><span><i style="background:#C4B5F7"></i>interfacial resistance</span></div>
+        <figcaption>The SEI keeps growing, and the exponent tells you why.
+          <span class="try">Try this: both laws start from the same loss after the first month; compare where b = 1/2 and b = 1 end, then imagine the cell stored full and warm.</span>
+          <span class="basis">Growth law L<sub>SEI</sub> &#8733; t<sup>b</sup> and capacity loss &#916;Q &#8733; t<sup>b</sup>, with b = 0.5 (diffusion limitation, the literature standard), b = 1 (reaction limitation, or migration limitation while charging) and b = 0 (migration limitation while discharging), after von Kolzenberg, Latz and Horstmann 2020, eqs. 36 and 37; fastest growth at high state of charge and high charging rate, also theirs. That the SEI adds interfacial impedance and evolves with cycling after Goodenough and Park 2013. Axes and the resistance bar are schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The SEI of module 6 does not stop at the first charge. It keeps growing, more slowly, adding to the interfacial impedance as it evolves.{{cite:R6}} Von Kolzenberg and co-workers show that its thickness follows a power law in time, L &#8733; t<sup>b</sup>, and so does the capacity lost to it: b = 1/2 when the supply through the layer is limited by diffusion, the usual assumption; b = 1 when the reaction itself, or migration during charging, is the bottleneck; b = 0 for migration during discharge. It grows fastest when the cell sits at a high state of charge and is charged fast.{{cite:R37}} Too thick a layer means lost capacity and higher impedance at once.{{cite:R44}}</p>
+        <p class="explain">How much does it matter? In storage, most of the capacity a lithium-ion cell loses goes into the SEI, and in a well-engineered cell more than half of all capacity loss can be traced to its growth.{{cite:R49,R52}} The layer grows while the graphite is being filled, not while it is being emptied,{{cite:R49}} and in a charged cell it keeps growing at rest, more slowly; in the standard models only a fully discharged cell stops feeding it.{{cite:R50}} On silicon the picture changes: the large volume change keeps cracking the SEI, and the growth becomes linear in time.{{cite:R49}}</p>
+        <div class="worked"><b>Worked example.</b> The square-root law, with an illustrative start: suppose the SEI costs 2 % of the capacity in the first month.
+          <span class="line">after 4 months: 2 % &#215; &#8730;4 = <i>4 %</i></span>
+          <span class="line">after 1 year: 2 % &#215; &#8730;12 = <i>6.9 %</i>;  after 4 years: 2 % &#215; &#8730;48 = <i>13.9 %</i></span>
+          The loss slows down, but it never stops. With b = 1 the same start would have cost 24 % in a year.{{cite:R37}}</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f10-3" id="f10-3">
+        <span class="fnum">Figure 10.3</span>
+        <svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f103t">
+          <title id="f103t">Manganese ions leave a LiMn2O4 spinel positive electrode, cross the electrolyte and lodge in the SEI on the graphite negative electrode, which then protects less well.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:#b98cf0"></i>Mn(II)</span><span><i class="an"></i>SEI</span><span><i class="act"></i>spinel</span></div>
+        <figcaption>Manganese on the move: one electrode&#8217;s loss becomes the other&#8217;s problem.
+          <span class="try">Try this: count how many manganese ions it takes before the SEI is marked as working worse; the threshold is a drawing choice, not a number from the source.</span>
+          <span class="basis">Sequence after Goodenough and Park 2013: Mn(II) dissolves from the spinel and poisons the SEI of the negative electrode. Numbers of ions and the moment the layer is marked as poisoned are schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The thieves can work together. In a cell with a spinel LiMn&#8322;O&#8324; positive electrode, manganese dissolves as Mn(II), crosses the electrolyte and poisons the SEI on the negative electrode.{{cite:R6}} The positive electrode loses active material; the negative electrode&#8217;s protection weakens, and with it more lithium is lost. Particles that crack and lose contact, as alloys do (figure 9.2), are the other route to losing active material.{{cite:R2}}</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f10-4" id="f10-4">
+        <span class="fnum">Figure 10.4</span>
+        <svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f104t">
+          <title id="f104t">Two points on a logarithmic shelf-time axis: a lithium-MnO2 primary cell keeps 90 percent of its charge after 8 years, while a nickel-metal hydride cell can lose up to 30 percent in a month.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>On the shelf: self-discharge differs by orders of magnitude between chemistries.
+          <span class="try">Try this: count the decades on the axis between the two dots.</span>
+          <span class="basis">Values after Winter and Brodd 2004, section 2.6: Li-MnO&#8322; primary cells keep 90 % of their capacity after 8 years; Ni-MH can lose up to 30 % per month; self-discharge rises with temperature. Only these two points are drawn, since the source gives no curves.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Cells age on the shelf too. Self-discharge, the slow loss of charge with nothing connected, differs enormously between chemistries: a nickel-metal hydride cell can lose up to 30 % a month, while a lithium-MnO&#8322; primary cell keeps 90 % after eight years. It rises with temperature.{{cite:R1}} Overcharging or overdischarging a cell is another way to age it fast: both drive irreversible reactions that form new compounds and cost capacity.{{cite:R1}}</p>
+        <p class="recap"><b>You can now explain</b> the difference between capacity that is hidden and capacity that is lost, the three thieves and how they cooperate, why the SEI keeps costing lithium and how fast, and why a cell ages on the shelf as well as in use.</p>
+        <p class="bridge">To catch a thief you need a witness.</p>
+        <details class="deeper"><summary>Go deeper: how sure is the square-root law?</summary><div class="body">
+          <p>The square-root law is the usual reading of storage data, and it is what a growth limited by something diffusing through the layer predicts.{{cite:R49,R37}} Which something is still debated: solvent through the pores, electrons through the compact inner layer, or neutral lithium atoms; storage tests at different states of charge favour the last.{{cite:R49}} A recent comparison adds two cautions: few of the &#8730;t fits in the literature are statistically justified, and none of the standard models reproduces how much larger the loss in the first cycle is than in the later ones.{{cite:R50}} The shape of a fade curve alone cannot prove a mechanism.{{cite:R49}}</p>
+        </div></details>
+        <details class="deeper"><summary>Go deeper: paying back the first-charge loss</summary><div class="body">
+          <p>The lithium a new cell locks into its SEI on the first charge is gone before the cell is ever used, and in conversion electrodes the first-cycle loss reaches about 30 %. Shanmukaraj and co-workers describe a remedy proposed by Armand: <b>sacrificial salts</b>, lithium salts with an oxidizable anion mixed into the positive electrode. On the first charge the anion is oxidized and gives up its lithium, which pays for the SEI; what is left of the salt leaves pores behind that help the electrolyte wet the electrode. The salt is chosen by its oxidation potential to suit the cell, and the idea extends to sodium and potassium cells.{{cite:R44}}</p>
+        </div></details>
+        <details class="deeper maths" id="m10-maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">L<sub>SEI</sub> &#8733; t<sup>b</sup>,&#8195;&#916;Q &#8733; t<sup>b</sup>,&#8195;b &#8712; {0, 1/2, 1}</span><span class="eqnote">SEI growth and the capacity it costs; b = 1/2 diffusion-limited, 1 reaction-limited or migration-limited on charge, 0 migration-limited on discharge</span></p>
+          <p class="eqline"><span class="eq">&#916;Q(t<sub>2</sub>) = &#916;Q(t<sub>1</sub>) (t<sub>2</sub>/t<sub>1</sub>)<sup>b</sup></span><span class="eqnote">scaling a measured loss forward in time (worked example)</span></p>
+          <p class="eqline"><span class="eq">Q<sub>low rate</sub> &#8722; Q<sub>high rate</sub> = capacity hidden, not lost</span><span class="eqnote">the reversible part of figure 10.1, recovered by measuring slowly</span></p>
+        </div></details>
+        {{sources:R6,R2,R37,R49,R50,R52,R1,R44}}
+      </div>
+    </div>
+
+  </div>
+</section>

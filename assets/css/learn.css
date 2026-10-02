@@ -264,3 +264,42 @@ html.motion .reveal{opacity:0;transform:translateY(22px)}
   .anim-only{display:none !important}
   .stepbar{display:none !important}
 }
+.controls i.sw{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle;margin:0 4px 0 2px}
+.ptc{stroke:var(--amber);stroke-width:1.2;transition:fill .3s}
+.ptc.on{fill:var(--amber-2);fill-opacity:.95}
+.ptc.dead{fill:var(--panel-2);stroke:var(--line-2);stroke-dasharray:3 3}
+.key i.ec{background:rgba(131,219,208,.22);border:1.5px solid var(--cyan)}
+.key i.dmc{width:16px;height:7px;border-radius:4px;background:rgba(159,227,217,.14);border:1.5px solid #9fe3d9}
+.key i.o{width:7px;height:7px;background:#ff8f7a}
+.key i.co{background:#4f7fdc;border:1px solid #a9c6ff}
+.key i.cc{background:#8d979e;border:1px solid #c3ccd3}
+.lbl.tag{paint-order:stroke;stroke:#10272c;stroke-width:3.5px;stroke-linejoin:round;font-weight:600}
+.text h3.sub{font-family:var(--sans);font-size:1.02rem;font-weight:700;color:var(--amber);letter-spacing:.01em;margin:22px 0 8px}
+.key i.f{background:#7fd37a}
+.key i.p{background:#f0a050}
+/* ---------- reading comfort (2026-10-01) ---------- */
+.beat .text{display:flex;flex-direction:column}
+.beat .text > *{max-width:66ch}
+.beat .text p.explain{font-size:1rem;line-height:1.8;margin:0 0 1.05em;color:var(--text)}
+.beat .text p.explain b{color:#c9f1ea;font-weight:600}
+.beat .text .lesson{order:-1;margin:0 0 22px;font-size:1.18rem;position:relative;padding-top:26px}
+.beat .text .lesson::before{content:"In one line";position:absolute;top:8px;left:16px;font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+.text h3.sub{border-top:1px solid var(--line);padding-top:14px}
+.text h3.sub:first-of-type{border-top:0;padding-top:0}
+.beat .text .worked,.beat .text .aside{margin:6px 0 20px}
+.beat .text .recap{margin-top:14px}
+@media (min-width:821px) and (min-height:880px){.beat .fig{position:sticky;top:84px}}
+/* MathML (equations typeset at build time from LaTeX) */
+math{font-family:"STIX Two Math","Cambria Math","Latin Modern Math","STIX Two Text",Georgia,serif;font-size:1.1em;color:var(--text)}
+.mblock{display:block;overflow-x:auto;overflow-y:hidden;padding:4px 0;margin:2px 0}
+.mblock math{font-size:1.15em}
+.eqline .eq math{font-size:1.12em}
+.worked .line math{font-size:1.05em}
+.worked .line math mn,.worked .line math mi{color:inherit}
+/* equation lines typeset as MathML: one column, each piece on its own line, scroll rather than overflow */
+.eqline:has(math){grid-template-columns:minmax(0,1fr)}
+.eqline .eq:has(math){overflow-x:auto;overflow-y:hidden;white-space:nowrap;line-height:2.1;padding:2px 0}
+.text p math,.worked .line math{max-width:100%}
+.eqline .eq:has(math) math{display:block;margin:4px 0}.eqline .eq:has(math) br{display:none}
+.worked .line{overflow-x:auto;overflow-y:hidden;max-width:100%}
+.worked .line math{font-size:1.05em}

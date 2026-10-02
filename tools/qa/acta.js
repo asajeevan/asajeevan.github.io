@@ -4,21 +4,25 @@
    Run: NODE_PATH=/opt/node22/lib/node_modules node tools/qa/acta.js [outdir] */
 const { chromium } = require('playwright');
 const path = require('path');
+const { useLocalFonts } = require('./fonts');
 const out = process.argv[2] || 'figs';
-const url = 'file:///home/user/asajeevan.github.io/batteries/index.html';
+const url = process.env.LEARN_URL || ('file://' + path.resolve(__dirname, '../../batteries/index.html'));
+const ACTS = (process.env.ACTS || 'A').split('');
 (async () => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   let bad = 0;
   for (const [w, rm] of [[1300, 'no-preference'], [360, 'no-preference'], [1300, 'reduce']]) {
     const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, reducedMotion: rm, deviceScaleFactor: w === 360 ? 2 : 1.25 });
+    await useLocalFonts(ctx);
     const page = await ctx.newPage();
     const errors = [];
     page.on('pageerror', e => errors.push('PAGEERROR ' + e.message));
     page.on('console', m => { if (m.type() === 'error' && !/ERR_CERT|ERR_TUNNEL|net::/.test(m.text())) errors.push(m.text()); });
     await page.goto(url, { waitUntil: 'load' });
     await page.waitForTimeout(1000);
+    await page.evaluate(() => document.fonts && document.fonts.ready);
     await page.evaluate(() => { document.querySelectorAll('.reveal').forEach(e => { e.style.opacity = 1; e.style.transform = 'none'; }); ['.topbar', '.totop', '.rail-cell'].forEach(s => { const e = document.querySelector(s); if (e) e.style.visibility = 'hidden'; }); });
-    const ids = await page.$$eval('.module[data-act="A"] figure[data-fig]', els => els.map(e => e.id));
+    const ids = await page.$$eval('.module figure[data-fig]', (els, acts) => els.filter(e => acts.includes(e.closest('.module').getAttribute('data-act'))).map(e => e.id), ACTS);
     // exercise every step button and the player, then leave each figure on step 1
     const ex = await page.evaluate(async (ids) => {
       const out = {};

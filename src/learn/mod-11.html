@@ -1,0 +1,99 @@
+<section class="module" id="m11" data-act="C" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 11</p>
+    <h2 class="h2">Testing and diagnosis</h2>
+    <p class="hook">How would you find out which thief it was?</p>
+    <p class="where"><b>Where we are.</b> Module 10 named the ways a cell loses capacity. From the outside they all look alike: the cell holds less. This module is about the measurements that tell them apart, which ones leave the cell intact, and what each one actually answers.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-1" id="f11-1">
+        <span class="fnum">Figure 11.1</span>
+        <svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f111t">
+          <title id="f111t">Four panels, one per measurement on the same cell: cycling at constant current, current interruption, impedance spectroscopy and GITT, each with the shape of its result and the question it answers.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>One cell, four measurements, four questions.
+          <span class="try">Try this: for each panel, name the thief of module 10 it would help to catch.</span>
+          <span class="basis">The discharge curve as a source of capacity, rate and temperature effects and state of health, and current interruption, after Winter and Brodd 2004, sections 1.4 and 1.5; impedance after their section 1.5 and Bard, Faulkner and White 2022, chapter 11; GITT after Weppner and Huggins 1977. The small curves are sketches of the shapes in figures 5.3, 5.4, 11.2 and 11.3, not data.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Every measurement answers one question, so the question comes first. Cycling at constant current gives the capacity, the effect of rate and temperature, and the state of health; switching the current off and timing the recovery separates the three polarizations (figure 5.4).{{cite:R1}} Impedance spectroscopy separates resistances by their speed; the galvanostatic intermittent titration technique, GITT, measures how fast lithium diffuses inside the electrode material.{{cite:R1,R38}} Measuring the open-circuit voltage at several temperatures gives the thermodynamics of the reaction itself.{{cite:R1}}</p>
+        <p class="lesson">Every technique answers one question; choosing the question comes first.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f11-2" id="f11-2">
+        <span class="fnum">Figure 11.2</span>
+        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f112t">
+          <title id="f112t">A Nyquist plot computed from an equivalent circuit of an electrolyte resistance in series with a charge-transfer resistance in parallel with a double-layer capacitance, followed by a Warburg element: a high-frequency intercept, a semicircle whose top is marked with its frequency, and a 45 degree line at low frequency. A dot sweeps from high to low frequency while the element that dominates lights up in the circuit.</title>
+        </svg>
+        <div class="controls"><label><span>R<sub>ct</sub></span> <input type="range" class="rct" min="5" max="60" value="20" aria-label="Charge-transfer resistance in ohms"> <b class="rct-val">20 &#937;</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="act"></i>impedance, high to low frequency</span><span><i style="background:var(--cyan)"></i>top of the semicircle</span></div>
+        <figcaption>Impedance, frequency by frequency: a fingerprint of where the resistance sits.
+          <span class="try">Try this: double R<sub>ct</sub> and read the frequency at the top of the semicircle; it halves.</span>
+          <span class="basis">Computed from the Randles circuit, R<sub>u</sub> in series with R<sub>ct</sub> parallel to C<sub>d</sub>, plus the Warburg impedance &#963;&#969;<sup>&#8722;1/2</sup>(1 &#8722; j) (Bard, Faulkner and White 2022, section 11.3.1, eqs. 11.3.27 and 11.4.9 to 11.4.11), with R<sub>u</sub> = 5 &#937;, C<sub>d</sub> = 20 &#956;F and &#963; = 6 &#937;&#8239;s<sup>&#8722;1/2</sup>, illustrative values; the assignment of the three regions after Winter and Brodd 2004, section 1.5 and Figure 7. Winter and Brodd write the relaxation time as &#964; = 1/f<sub>m</sub> = RC; the exact relation is &#969; = 1/(R<sub>ct</sub>C<sub>d</sub>) at the top, f = 1/(2&#960;R<sub>ct</sub>C<sub>d</sub>). Both axes share one scale so the semicircle is round.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Impedance spectroscopy applies a small alternating voltage and records the current at many frequencies, from fast to slow. Each process answers at its own speed, the same three clocks as in figure 5.4, read with an alternating current instead of a switch. The ohmic parts are independent of frequency; charge transfer with its double-layer capacitance draws a semicircle; diffusion draws a 45&#176; line, the Warburg impedance. Real cells show capacitances of farads and resistances of milliohms (the figure uses small laboratory values).{{cite:R1}} The top of the semicircle lies at the angular frequency &#969; = 1/(R<sub>ct</sub>C<sub>d</sub>), and its diameter is the charge-transfer resistance.{{cite:B2}}</p>
+        <p class="explain">That is why impedance is used to follow ageing: a semicircle that grows from one check-up to the next is an interface getting thicker. Recording how a cell&#8217;s resistance evolves during operation is one of the ways its state of health is tracked, and the state of charge is estimated from a combination of impedance and resistance measurements, current pulses, counting the charge in and out, and the open-circuit voltage.{{cite:R48}}</p>
+        <div class="worked"><b>Worked example.</b> Where is the top of the semicircle for R<sub>ct</sub> = 20 &#937; and C<sub>d</sub> = 20 &#956;F?
+          <span class="line">&#969; = 1/(R<sub>ct</sub>C<sub>d</sub>) = 1/(20 &#937; &#215; 20 &#215; 10&#8315;&#8310; F) = <i>2500 rad/s</i></span>
+          <span class="line">f = &#969;/2&#960; = <i>398 Hz</i>;  R<sub>ct</sub> = 40 &#937; gives <i>199 Hz</i></span>
+          Doubling R<sub>ct</sub> doubles the diameter of the semicircle and halves the frequency at its top.{{cite:B2}}</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-3" id="f11-3">
+        <span class="fnum">Figure 11.3</span>
+        <svg viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f113t">
+          <title id="f113t">Cell voltage during GITT: three current pulses each followed by a rest. During a pulse the voltage jumps by the IR drop then rises by the transient change ΔEt; at rest it settles to a new value ΔEs above the previous rest. A readout computes the diffusion coefficient from the Weppner-Huggins equation.</title>
+          <g class="plot"></g>
+        </svg>
+        <div class="controls"><label><span>pulse length &#964;</span> <input type="range" class="tau" min="60" max="600" step="60" value="600" aria-label="Pulse length in seconds"> <b class="tau-val">600 s</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="act"></i>cell voltage</span><span><i style="background:var(--cyan)"></i>current pulses</span><span><i class="heat"></i>&#916;E<sub>t</sub></span><span><i style="background:#C4B5F7"></i>&#916;E<sub>s</sub></span></div>
+        <figcaption>GITT: pulse, rest, repeat; the diffusion coefficient from two voltage changes.
+          <span class="try">Try this: change the pulse length and watch the computed D stay put.</span>
+          <span class="basis">Weppner and Huggins 1977, printed eq. 4: D = (4/&#960;&#964;)(m<sub>B</sub>V<sub>M</sub>/M<sub>B</sub>S)&#178;(&#916;E<sub>s</sub>/&#916;E<sub>t</sub>)&#178;, valid for &#964; &#8810; L&#178;/D, with the IR drop excluded from &#916;E<sub>t</sub>. Computed live with illustrative numbers (10 mg of material, molar volume 30 cm&#179;/mol, molar mass 100 g/mol, 1 cm&#178;, &#916;E<sub>s</sub> = 10 mV and &#916;E<sub>t</sub> = 35 mV at 600 s, &#916;E<sub>s</sub> growing in proportion to &#964; and &#916;E<sub>t</sub> as &#8730;&#964;). The drawn voltage trace is schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">GITT turns the voltage curve into a diffusion measurement. A short current pulse changes the lithium content of the electrode by a known amount; a rest lets it settle. The settled change, &#916;E<sub>s</sub>, is a step along the open-circuit curve; the change during the pulse, &#916;E<sub>t</sub>, without the IR drop, reflects the lithium content at the particle surface running ahead of the interior, because diffusion cannot keep up. Weppner and Huggins turned the two into the chemical diffusion coefficient, valid as long as the pulse is short compared with L&#178;/D, the time lithium needs to diffuse across the sample (for a porous electrode, S is the contact area between active material and electrolyte).{{cite:R38}}</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f11-4" id="f11-4">
+        <span class="fnum">Figure 11.4</span>
+        <svg viewBox="0 0 520 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f114t">
+          <title id="f114t">Three columns of techniques: measured from outside on the intact cell, measured inside while it works, and measured after the cell is opened, each listing the methods the sources name.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>What each technique sees, and what it costs the cell.
+          <span class="try">Try this: pick one thief from module 10 and find the cheapest column that could catch it.</span>
+          <span class="basis">Nondestructive and tear-down methods and accelerating-rate calorimetry after Winter and Brodd 2004, section 1.5; voltage against temperature after their section 1.3; in situ XANES, NMR, M&#246;ssbauer spectroscopy and SEM enabled by plastic lithium-ion cells after Tarascon and Armand 2001; pressure sensing of SEI growth after Fichtner et al. 2022.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Charge-discharge and impedance measurements are nondestructive; the full picture often needs a tear-down, opening the cell and examining its parts with Raman spectroscopy, atomic force microscopy, NMR, electron microscopy and X-ray absorption, while accelerating-rate calorimetry finds the conditions for thermal runaway.{{cite:R1}} Plastic lithium-ion cells opened the way to watching the electrodes while they work, with X-ray absorption, NMR, M&#246;ssbauer spectroscopy and the electron microscope.{{cite:R2}} Sensing is moving towards the cell itself: an external pressure sensor can already follow the SEI growing, through the irreversible swelling it causes, and sensors inside the cell would add where it happens.{{cite:R48}}</p>
+        <p class="explain">The cell itself has to be chosen too. The standard way to test a new positive electrode is a half-cell against lithium metal,{{cite:R6}} but Murray, Hall and Dahn show that half-cells can fail to predict how the same electrode behaves in a full cell, and that small assembly errors, such as a misaligned stack in a coin cell, change the result.{{cite:R21}}</p>
+        <p class="explain">Telling the two electrodes apart inside one cell needs a stable reference electrode placed where it does not disturb the current, which is still hard to build.{{cite:R48}}</p>
+        <p class="recap"><b>You can now explain</b> what question each of four standard measurements answers, how to read a Nyquist plot from left to right, how GITT gets a diffusion coefficient from two voltage changes, and why the cell format and the reference matter.</p>
+        <p class="bridge">And when the cell is truly finished?</p>
+        <details class="deeper maths" id="m11-maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">Z = R<sub>u</sub> + R<sub>ct</sub>/(1 + j&#969;R<sub>ct</sub>C<sub>d</sub>) + &#963;&#969;<sup>&#8722;1/2</sup>(1 &#8722; j)</span><span class="eqnote">the Randles circuit with a Warburg element (figure 11.2); Z = R + jX in general, with X = &#969;L &#8722; 1/(&#969;C)</span></p>
+          <p class="eqline"><span class="eq">&#969;<sub>top</sub> = 1/(R<sub>ct</sub>C<sub>d</sub>),&#8195;f<sub>top</sub> = 1/(2&#960;R<sub>ct</sub>C<sub>d</sub>)</span><span class="eqnote">the top of the semicircle; its centre lies at R<sub>u</sub> + R<sub>ct</sub>/2 and its radius is R<sub>ct</sub>/2</span></p>
+          <p class="eqline"><span class="eq">D = (4/&#960;&#964;)(m<sub>B</sub>V<sub>M</sub>/M<sub>B</sub>S)&#178;(&#916;E<sub>s</sub>/&#916;E<sub>t</sub>)&#178;,&#8195;&#964; &#8810; L&#178;/D</span><span class="eqnote">GITT, from a pulse of length &#964; on an electrode of mass m<sub>B</sub>, molar mass M<sub>B</sub>, molar volume V<sub>M</sub> and area S</span></p>
+          <p class="eqline"><span class="eq">&#916;S = nF&#8239;dE/dT</span><span class="eqnote">the entropy of the reaction from the temperature coefficient of the open-circuit voltage</span></p>
+        </div></details>
+        {{sources:R1,B2,R38,R2,R6,R21,R48}}
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,120 +1,353 @@
 <section class="module" id="m05" data-act="B" data-nav>
   <div class="wrap">
-    <p class="mod-n">Module 5 of 12</p>
+    <p class="mod-n">Module 5</p>
     <h2 class="h2">Charging and discharging</h2>
-    <p class="hook">Why does the voltage sag when you draw current, and where does the lost energy go?</p>
+    <p class="hook">What actually happens when you charge a cell and then use it, why does the voltage sag when current flows, and where does the lost energy go?</p>
+    <p class="where"><b>Where we are.</b> Module 4 counted the charge your cell can hold and turned it into energy, with the cell mostly at rest. Now the current flows. This module starts at the test bench, with how a charge and a discharge are actually done and recorded. Then it follows what current costs (voltage, capacity and heat), why some curves are flat and others slope, what happens inside real electrodes made of many particles, how a curve can be read for signs of ageing, and how many cycles a cell survives. From here on the page follows one lithium ion, our ion, through the cell.</p>
 
     <div class="beat">
       <figure class="fig" data-fig="f5-1" id="f5-1">
         <span class="fnum">Figure 5.1</span>
-        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f51t">
-          <title id="f51t">Charge and discharge curves of voltage against capacity. The charge branch lies above the discharge branch; raising the rate widens the gap and shortens the discharge.</title>
-          <g class="plot"></g>
+        <svg viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f51t">
+          <title id="f51t">A cell wired to a cycler, with a meter showing the current, voltage, charge passed and time. Below, the voltage and the current against time through one full test: a discharge at constant current down to the lower cut-off voltage, a rest, a charge at constant current up to the upper cut-off, a constant-voltage step in which the current falls away to one twentieth of the 1C current, and a final rest. Electrons are drawn moving round the wire and lithium ions through the electrolyte, from the negative to the positive electrode on discharge and back on charge.</title>
         </svg>
-        <div class="controls">
-          <label>Rate <input type="range" class="rate" min="0" max="100" value="41" aria-label="Current in C-rate"> <b class="rate-val">C/2</b></label>
-          <button type="button" data-shape="flat">flat (two-phase)</button><button type="button" data-shape="slope">sloping (single-phase)</button>
-        </div>
+        <div class="controls"><label>Current <input type="range" class="rate" min="0" max="100" value="59" aria-label="Current, as a C-rate"> <b class="rate-val">1C</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i style="background:var(--cyan)"></i>charge</span><span><i style="background:var(--amber)"></i>discharge</span><span><i style="background:var(--heat)"></i>heat, I&#183;&#951;</span></div>
-        <figcaption>The galvanostatic curve simulator. The shape starts from your positive electrode; the rate is yours to set.
-          <span class="try">Try this: slide the rate to 5C and watch the gap widen and the discharge end early; then compare flat and sloping.</span>
-          <span class="basis">V_dis = V_oc &#8722; &#951; and V_ch = V_oc + &#951; after Goodenough and Park 2013, eqs. 1.1 and 1.2, with &#951; split into ohmic, activation and concentration parts after Winter and Brodd 2004, section 1.4. The open-circuit shapes and all parameters are illustrative; this is a schematic, not data.</span>
+        <div class="key"><span><i class="li"></i>lithium ion</span><span><i class="e"></i>electron</span><span><i style="background:var(--heat)"></i>cut-off voltages</span><span><i style="background:var(--cyan);opacity:.4"></i>constant-voltage step</span></div>
+        <figcaption>One full test of your cell, as a cycler runs it.
+          <span class="try">Try this: slide the current from C/10 to 5C and watch the time axis shrink, the discharge stop earlier and the constant-voltage step grow longer.</span>
+          <span class="basis">Galvanostatic cycling, the 1C convention (the current that passes the full nominal charge in one hour) and a constant-current, constant-voltage protocol with a hold at 4.2 V until the current falls to C/20, after Olson, López and Dickinson 2023, section 4.1; Safari and Delacourt 2011 used a similar protocol (a 4.2 V vs Li hold, and a hold on discharge too) ending at C/25. Cut-offs after Winter and Brodd 2004. The cell is the illustrative cell of figure 5.3 with a steeper end of charge added so that the constant-voltage step can finish, on a nominal 2.0 Ah. The rests are drawn short, and the slow return of the voltage after the current stops (figure 5.4) is left out. Schematic, not experimental data.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">A cell has an internal resistance, and the current has to push through it. On discharge the terminal voltage is the open-circuit voltage minus a polarization &#951;; on charge it is the open-circuit voltage plus &#951;, because the charger must overcome the same resistance in the other direction.{{cite:R6}} So the charge curve always lies above the discharge curve, and the gap between them is paid twice per cycle.</p>
-        <p class="explain">The polarization has three parts. Activation polarization comes from the kinetics of the charge-transfer reactions at the two electrode-electrolyte interfaces; ohmic polarization from the resistance of the cell&#8217;s components and their contacts; concentration polarization from the limits of mass transport during operation.{{cite:R1}} All three grow with current, and the third grows fastest near the end of a discharge, which is why a hard-driven cell gives up early.{{cite:R6}}</p>
-        <p class="lesson">The gap between charge and discharge is energy lost as heat; the shrinking width over cycles is ageing.</p>
+        <p class="explain">A <b>discharge</b> is the cell doing work: current flows out through a lamp, a phone or a motor. A <b>charge</b> is the reverse: a charger pushes current back in, in the opposite direction, and restores the cell to its charged condition.{{cite:R1}} On discharge the negative electrode is oxidized and the positive electrode is reduced; charging runs both reactions backwards.{{cite:R1}} In a lithium-ion cell that means lithium ions leave one electrode, cross the electrolyte and enter the other, while their electrons go round through the wire (module 6).</p>
+        <h3 class="sub">The test bench</h3>
+        <p class="explain">Cells are studied, and their capacities measured, on a <b>cycler</b>: an instrument that sets the current and records the voltage at regular intervals (once a second in Olson and co-workers’ tests). Most tests hold the current constant. This is <b>galvanostatic</b> cycling, and its record, the voltage against the charge passed, is the raw material of everything else in this module.{{cite:R60}}</p>
+        <p class="explain">At constant current the charge passed is simply current times time, <m>Q = I\,t</m>. Currents are quoted as <b>C-rates</b>: 1C is the current that passes the cell’s full nominal charge in one hour, so C/20 takes twenty hours. Olson and co-workers, for example, recorded a 210 mAh cell at C/20, that is 10.5 mA.{{cite:R60}}</p>
+        <p class="explain">Each step stops at a <b>cut-off voltage</b>. Overcharging or overdischarging drives unwanted reactions that cost capacity.{{cite:R1}} Charging often ends with a <b>constant-voltage</b> step: the cycler holds the upper cut-off, the current falls away by itself, and the step ends when it reaches a small limit. Olson and co-workers held 4.2 V until the current fell to C/20; Safari and Delacourt until it fell to C/25.{{cite:R60,R59}}</p>
+        <div class="worked"><b>Worked example.</b> A 2.0 Ah cell discharged at 1C for 30 minutes.
+          <span class="line"><m>I = 1\,\mathrm{C} \times 2.0\ \mathrm{Ah} = 2.0\ \mathrm{A}</m></span>
+          <span class="line"><m>Q = I\,t = 2.0\ \mathrm{A} \times 1800\ \mathrm{s} = 3600\ \mathrm{C}</m> = <i>1.0 Ah, half the cell</i></span>
+          At C/20 the same half takes ten hours, at 0.10 A.</div>
+        <p class="lesson">A test is a recipe of currents, limits and rests; the cell answers with its voltage.</p>
       </div>
     </div>
 
     <div class="beat alt">
       <figure class="fig" data-fig="f5-2" id="f5-2">
         <span class="fnum">Figure 5.2</span>
-        <svg viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f52t">
-          <title id="f52t">Voltage recovery after the current is switched off, on a logarithmic time axis: an instant ohmic step, an activation part that relaxes in milliseconds, and a concentration part that relaxes over seconds.</title>
-          <g class="plot"></g>
+        <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f52t">
+          <title id="f52t">A cell with a negative electrode, an electrolyte with a separator and a positive electrode, connected through a lamp or a charger. A strip below shows the potential along the cell: at open circuit two jumps at the electrode boundaries and a flat electrolyte; on discharge both jumps shrink and the electrolyte slopes, so the terminal voltage falls below the open-circuit value; on charge the jumps grow and the slope reverses, so the charger must apply more.</title>
         </svg>
-        <figcaption>What happens when you switch the current off. The three polarizations disappear on three different clocks.
-          <span class="basis">Time scales from Winter and Brodd 2004, section 1.4: ohmic within about 10&#8315;&#8310; s, activation in 10&#8315;&#8308; to 10&#8315;&#178; s, concentration over 10&#8315;&#178; s and longer. Amplitudes illustrative.</span>
+        <div class="controls">
+          <button type="button" data-mode="open" aria-pressed="true">Open circuit</button><button type="button" data-mode="discharge">Discharge</button><button type="button" data-mode="charge">Charge</button>
+          <label>Current <input type="range" class="rate" min="0" max="100" value="59" aria-label="Current, as a C-rate"> <b class="rate-val">1C</b></label>
+        </div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>our ion (Li⁺)</span><span><i class="e"></i>electron</span><span><i class="phi"></i>potential</span></div>
+        <figcaption>Where the voltage goes when current flows. The open-circuit voltage is your cell’s, from the ladder of module 3.
+          <span class="try">Try this: switch between Discharge and Charge and watch the two jumps on the strip shrink, then grow; then slide the current up and watch the slope steepen.</span>
+          <span class="basis">Potential profile with current after Bard, Faulkner and White 2022, section 1.5.1 and Figure 1.5.2; <m>V = V_\mathrm{OC} - \eta</m> on discharge and <m>V_\mathrm{OC} + \eta</m> on charge after Goodenough and Park 2013, eqs. 1.1 and 1.2; the three parts of <m>\eta</m> after Winter and Brodd 2004, section 1.4. The sizes of the parts come from the illustrative cell model of figure 5.3 at half charge and are drawn four times larger than the open-circuit jumps so that they can be seen. How <m>V_\mathrm{OC}</m> splits between the two jumps cannot be measured and is drawn schematically.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">The three parts can be told apart by their clocks. Ohmic polarization appears and disappears instantaneously, within about a microsecond. Activation polarization builds up and decays in about 10&#8315;&#8308; to 10&#8315;&#178; s. Concentration polarization is slow, taking 10&#8315;&#178; s or longer to appear and to fade.{{cite:R1}} Interrupt the current and watch the voltage recover: the step is ohmic, the fast curve is activation, the slow drift is concentration.{{cite:R1}} Module 11 uses the same clocks with an alternating current.</p>
+        <p class="explain">At rest, a cell’s voltage is the sum of the potential jumps at its two electrode-electrolyte boundaries (module 3). Draw a current and two things change. The ions must be driven through the electrolyte, which has a resistance, so the potential now slopes across it, cations running down the slope and anions up it: the ohmic drop, <m>I R</m>.{{cite:B2}} And each boundary has to be pushed off its equilibrium before its reaction keeps pace with the current; that extra push is the electrode’s <b>overpotential</b>.{{cite:B2}}</p>
+        <p class="explain">Goodenough and Park put the whole cell in two lines. On discharge the terminals give the open-circuit voltage minus a polarization <m>\eta</m>; on charge the charger must supply the open-circuit voltage plus it:{{cite:R6}}</p>
+        <md>V_\mathrm{dis} = V_\mathrm{OC} - \eta, \qquad V_\mathrm{ch} = V_\mathrm{OC} + \eta</md>
+        <p class="explain">Winter and Brodd split the polarization into three parts: <b>activation</b>, from the charge-transfer reactions at the interfaces; <b>ohmic</b>, from the resistance of the cell’s components and contacts; and <b>concentration</b>, from the limits of mass transport.{{cite:R1}}</p>
+        <p class="aside"><b>Polarization or overpotential?</b> You will meet both. Winter and Brodd use polarization for the whole cell, <m>\eta = E_\mathrm{OCV} - E_\mathrm{T}</m>, the open-circuit voltage minus the voltage under load; Bard, Faulkner and White use overpotential, <m>\eta = E - E_\mathrm{eq}</m>, for one electrode, with its own sign. This page keeps them apart.{{cite:R1,B2}}</p>
+        <p class="lesson">Current costs voltage: a working cell gives less than its open-circuit voltage, and charging it takes more.</p>
       </div>
     </div>
 
     <div class="beat">
       <figure class="fig" data-fig="f5-3" id="f5-3">
         <span class="fnum">Figure 5.3</span>
-        <svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f53t">
-          <title id="f53t">Two particles being lithiated side by side. In one a sharp front sweeps through and the voltage stays flat; in the other the lithium content rises uniformly and the voltage slopes.</title>
-          <text x="130" y="24" class="lbl strong" text-anchor="middle">two-phase reaction</text>
-          <text x="390" y="24" class="lbl strong" text-anchor="middle">single-phase (solid solution)</text>
-          <circle cx="130" cy="110" r="56" fill="var(--amber-2, #C98D1E)" fill-opacity=".35" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/>
-          <circle class="core" cx="130" cy="110" r="56" fill="var(--amber-2, #C98D1E)"/>
-          <text x="130" y="188" class="lbl" text-anchor="middle">a sharp front sweeps inward</text>
-          <circle class="soln" cx="390" cy="110" r="56" fill="var(--amber-2, #C98D1E)" fill-opacity=".35" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/>
-          <text x="390" y="188" class="lbl" text-anchor="middle">the whole particle darkens together</text>
-          <g class="trace"></g>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f53t">
+          <title id="f53t">Voltage against state of charge for a discharge from full and a charge from empty at the chosen current, with the open-circuit curve dashed between them, the upper and lower cut-off voltages, red areas between each branch and the open-circuit curve for the energy turned into heat, and a panel that enlarges the polarization at a chosen state of charge, split into its ohmic, activation and concentration parts.</title>
+          <g class="plot"></g>
         </svg>
-        <figcaption>Plateau or slope: the Gibbs phase rule at work. Below each particle, its voltage as lithium enters.
-          <span class="basis">After Winter and Brodd 2004, section 2.4 and Figure 16; LiFePO&#8324; as the flat example from Goodenough and Park 2013. Schematic.</span>
+        <div class="controls">
+          <label>Current <input type="range" class="rate" min="0" max="100" value="59" aria-label="Current, as a C-rate"> <b class="rate-val">1C</b></label>
+          <label>Probe at <input type="range" class="probe" min="2" max="98" value="50" aria-label="State of charge to inspect, percent"> <b class="probe-val">50 %</b></label>
+          <button type="button" data-shape="flat">flat (two-phase)</button><button type="button" data-shape="slope">sloping (single-phase)</button>
+        </div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--amber)"></i>discharge</span><span><i style="background:var(--cyan)"></i>charge</span><span><i class="heat"></i>heat, ∫η dq</span><span><i style="background:#C4B5F7"></i>ohmic</span><span><i style="background:var(--amber);border-radius:2px"></i>activation</span><span><i style="background:var(--cyan);border-radius:2px"></i>concentration</span></div>
+        <figcaption>The voltage curve, computed, with the polarization drawn on the plot. The shape follows your cell: flat for LiFePO₄, sloping for the oxides.
+          <span class="try">Try this: put the probe at 90 % and slide the current from C/10 to 5C; watch which part in the right-hand panel grows fastest and where the discharge now stops.</span>
+          <span class="basis"><m>V = V_\mathrm{OC} \mp \eta</m> after Goodenough and Park 2013, eqs. 1.1 and 1.2. The three parts are computed from the cited forms: ohmic <m>I R_\mathrm{b}</m> (Winter and Brodd 2004, eq. 15); activation from the Butler-Volmer equation with <m>\alpha = 0.5</m> (Bard, Faulkner and White 2022, eq. 3.4.11); concentration <m>(RT/F)\ln(C_0/C)</m> (Winter and Brodd eq. 16, with the Faraday constant restored). The open-circuit shapes, <m>R_\mathrm{b}</m> giving a 50 mV ohmic drop at 1C (50 mΩ for a 1 Ah cell, 25 mΩ for 2 Ah), an exchange current equivalent to C/3.3 and a limiting current of 8C that falls to about 1.3C as the electrode being emptied or filled runs out are illustrative, not measured. The discharge starts from a full cell and the charge from an empty one. The cut-offs are illustrative; 4.2 V echoes the upper limit used for LiCoO₂ (Tarascon and Armand 2001). Heat is the area between each branch and the open-circuit curve. Schematic, not experimental data.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">Why are some curves flat and others sloping? Winter and Brodd answer with the Gibbs phase rule. When the reaction converts one solid phase into another, the number of phases equals the number of components, and once pressure and temperature are fixed no degree of freedom is left: the voltage must stay constant, and the curve is a plateau. When lithium dissolves into a single host phase, one degree of freedom remains and the voltage can slope.{{cite:R1}} LiFePO&#8324; is the two-phase case with its flat 3.5 V plateau;{{cite:R6}} the spinel LiMn&#8322;O&#8324; shows steps near 4 V and a drop to 3 V as the lithium changes sites.{{cite:R6}}</p>
-        <p class="explain">Which is better depends on the use: electronics prefer a flat, unchanging voltage, while a sloping curve makes it easy to read how much charge is left.{{cite:R1}}</p>
+        <p class="explain">Record the voltage while the current runs and you get the discharge curve. Winter and Brodd draw its typical shape with the three polarizations marked, and it tells you the capacity, the effect of rate and temperature, and the health of the cell.{{cite:R1}} A LiCoO₂ electrode, for instance, is charged only to about 4.2 V, using about half its lithium, for safety.{{cite:R2}}</p>
+        <p class="explain">Push harder and the curve pays twice. The polarization grows with the current, so the two branches move apart; and the discharge reaches its cut-off sooner, before all the charge is out. That missing capacity is not lost for good: at high current the transfer of ions becomes diffusion-limited, and what the cell could not deliver comes back at a gentler rate.{{cite:R6}}</p>
+        <div class="worked"><b>Worked example.</b> A 2 Ah cell with <m>V_\mathrm{OC}</m> = 3.8 V and an internal resistance of 50 mΩ, run at 1C, that is 2 A, counting only the ohmic part.
+          <span class="line"><m>\eta = I R_\mathrm{b} = 2\ \mathrm{A} \times 0.050\ \text{Ω} = 0.10\ \mathrm{V}</m></span>
+          <span class="line">discharge: <m>3.8 - 0.1 = 3.7\ \mathrm{V}</m>; charge: <m>3.8 + 0.1 = 3.9\ \mathrm{V}</m></span>
+          <span class="line"><m>\dfrac{E_\mathrm{out}}{E_\mathrm{in}} = \dfrac{3.7 \times 2\ \mathrm{Ah}}{3.9 \times 2\ \mathrm{Ah}} = 0.95</m>; <i>the other 5 % leaves as heat</i></span>
+          Double the current and the ohmic part alone doubles: 0.2 V each way, and the share returned falls to 90 %.</div>
+        <p class="lesson">The gap between the charge and discharge branches is energy paid as heat on every cycle, and it widens with current.</p>
       </div>
     </div>
 
     <div class="beat alt">
       <figure class="fig" data-fig="f5-4" id="f5-4">
         <span class="fnum">Figure 5.4</span>
-        <svg viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f54t">
-          <title id="f54t">Capacity retention against cycle number for several Coulombic efficiencies, with the 80 percent end-of-life line and the 300-cycle commercial requirement marked.</title>
+        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f54t">
+          <title id="f54t">Voltage of a discharging cell before and after the current is switched off, on a logarithmic time axis from ten to the minus seven to one hundred seconds: an instant ohmic step, an activation part that relaxes between ten to the minus four and ten to the minus two seconds, and a concentration part that relaxes over seconds.</title>
           <g class="plot"></g>
         </svg>
-        <div class="controls"><label>Coulombic efficiency <input type="range" class="ce" min="0" max="100" value="60" aria-label="Coulombic efficiency"> <b class="ce-val">99.90 %</b></label></div>
+        <div class="controls"><label>Current before switching off <input type="range" class="rate" min="0" max="100" value="59" aria-label="Current before the interruption, as a C-rate"> <b class="rate-val">1C</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <figcaption>Why 99.9 % per cycle is not good enough. The curve assumes every unit of charge lost per cycle is lithium lost for good, an upper-bound idealization.
-          <span class="try">Try this: find the efficiency at which the cell still keeps 80 % after 300 cycles.</span>
-          <span class="basis">Definitions from Goodenough and Park 2013 (Coulombic efficiency, eq. 4; cycle life to 80 %); the 300-cycle criterion from Winter and Brodd 2004, section 2.6. Retention = CE^N is arithmetic, not a model of a real cell.</span>
+        <div class="key"><span><i style="background:#C4B5F7"></i>ohmic</span><span><i style="background:var(--amber)"></i>activation</span><span><i style="background:var(--cyan)"></i>concentration</span></div>
+        <figcaption>Switch the current off and the three polarizations leave on three different clocks.
+          <span class="try">Try this: press Play and watch the time cursor; the curve stays put for a long while after the first jump and then moves twice more.</span>
+          <span class="basis">Time ranges from Winter and Brodd 2004, section 1.4: ohmic polarization appears and vanishes within about 10⁻⁶ s, activation in 10⁻⁴ to 10⁻² s, concentration in 10⁻² s and longer. The sizes of the three parts come from the cell model of figure 5.3 at half charge; the ohmic part is drawn as an instant step, and the other time constants (10⁻³ and 1 s) are illustrative values inside those ranges, and the recovery is drawn as simple exponentials. Schematic, not experimental data.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">Two numbers summarize a cycle. The Coulombic efficiency is the charge returned on discharge divided by the charge put in, as a percentage; the cycle life is the number of cycles until the capacity has faded to 80 % of its initial reversible value.{{cite:R6}} A commercial rechargeable cell must survive at least 300 full cycles while losing under 20 % of its capacity, and most need three to eight hours to charge; fast charging stresses the electrodes and shortens cycle life.{{cite:R1}}</p>
-        <p class="explain">Some capacity loss is only borrowed: what a high rate hides comes back at a low rate. What does not come back, the irreversible loss, comes from electrode volume changes, reactions between electrode and electrolyte, and decomposition of the electrodes.{{cite:R6}} Module 10 names the thieves.</p>
+        <p class="explain">The three parts can be told apart by their clocks. Ohmic polarization appears and disappears almost instantly, within about a microsecond. Activation polarization builds up and decays in about 10⁻⁴ to 10⁻² s. Concentration polarization is slow: 10⁻² s or longer.{{cite:R1}} So switch the current off and time the recovery: the step is ohmic, the fast relaxation activation, the slow drift concentration. Interrupting the current in this way is how the polarizations are separated in practice.{{cite:R1}}</p>
+        <p class="explain">The middle clock is set by the charge-transfer reaction itself. A reaction that runs fast in both directions at equilibrium, one with a large <b>exchange current</b>, needs only a small overpotential to carry a given current, and battery reactions with exchange current densities around 10⁻² A/cm² are favoured.{{cite:R1,B2}} Module 11 meets the same clocks again, read with an alternating current.</p>
+        <p class="lesson">Ohmic, activation, concentration: instant, milliseconds, tens of milliseconds and longer.</p>
       </div>
     </div>
 
     <div class="beat">
       <figure class="fig" data-fig="f5-5" id="f5-5">
         <span class="fnum">Figure 5.5</span>
-        <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f55t">
-          <title id="f55t">Two bars: a small reversible entropic heat whose sign depends on the temperature coefficient of the voltage, and an irreversible heat that grows with current.</title>
-          <g class="plot"></g>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f55t">
+          <title id="f55t">Two views. First, two ideal limits side by side: an ideal battery material whose potential stays at one value while charge is stored, giving a single spike of charge per volt, and an ideal capacitor material whose potential rises in a straight line, giving a flat level of charge per volt. Second, a real supercapacitor charged and then discharged at constant current: an instant jump, a straight ramp, a drop of twice the jump when the current reverses, and a straight ramp down, with two zoomed panels showing the curve bending onto a straight asymptote just after each switch.</title>
         </svg>
-        <div class="controls">
-          <label>Rate <input type="range" class="rate" min="0" max="100" value="41" aria-label="Current in C-rate"> <b class="rate-val">C/2</b></label>
-          <button type="button" data-sign="pos" aria-pressed="true">dE/dT positive (Ni-Cd)</button><button type="button" data-sign="neg">dE/dT negative (lead-acid)</button>
-        </div>
+        <div class="controls"><button type="button" data-view="a" aria-pressed="true">Two ideal limits</button><button type="button" data-view="b" aria-pressed="false">A real supercapacitor</button><label class="i0-wrap">Current <input type="range" class="i0" min="10" max="50" step="5" value="50" aria-label="Current, milliamperes"> <b class="i0-val">50 mA</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <figcaption>Where the heat comes from.
-          <span class="basis">Reversible and irreversible heat after Winter and Brodd 2004, section 1.3; the sign examples are theirs. Magnitudes illustrative, from the simulator&#8217;s polarization.</span>
+        <div class="key"><span><i style="background:var(--amber)"></i>battery limit</span><span><i style="background:var(--cyan)"></i>capacitor</span><span><i style="background:var(--muted)"></i>straight-line asymptote</span></div>
+        <figcaption>Two ways to store charge, and the curves they draw.
+          <span class="try">Try this: in the real supercapacitor, halve the current and check that the whole picture shrinks by half, the ramp included.</span>
+          <span class="basis">Ideal battery and ideal capacitor materials (after Conway) and their potential-charge curves after Olson, López and Dickinson 2023, section 2.1 and Figures 2 and 3; schematic, no numbers. The supercapacitor is Moya’s capacitor C10 (nominal 1 F) with his fitted values in Table 2: <m>R_\mathrm{H}</m> = 0.31 Ω, <m>R_\mathrm{i}</m> = 0.32 Ω, <m>C</m> = 0.94 F, <m>\tau_\mathrm{i}</m> = 0.095 s; the curve is his eq. 12 built from eq. 6, for a 10 s charge. Computed from the published circuit, not his measured points.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">The lost energy becomes heat, of two kinds. A reversible part comes from the entropy change of the reaction and its sign follows the temperature coefficient of the voltage: if dE/dT is positive the cell heats on charge and cools on discharge, as in nickel-cadmium; lead-acid has a negative dE/dT and does the opposite. An irreversible part, Joule heat, comes from the polarization and grows with current; in operation it usually dwarfs the entropic part. The heat is released inside the cell at the electrode surfaces, so high-rate cells must be built to shed it.{{cite:R1}}</p>
-        <p class="recap"><b>You can now explain</b> why the charge curve sits above the discharge curve, what the three polarizations are and how fast each relaxes, why some curves are flat, and why 99.9 % per cycle is not enough.</p>
-        <p class="bridge">To see why the curve has that shape, follow the ion inside.</p>
-        <details class="deeper"><summary>Go deeper: the shape of the polarization curve</summary><div class="body">
-          <p>Near equilibrium the current is proportional to the overpotential, and the ratio defines the charge-transfer resistance, R_ct = RT/(nF&#8239;i&#8320;), where i&#8320; is the exchange current density: a reaction with a large exchange current is more reversible and polarizes less for a given current. Battery reactions with exchange current densities around 10&#8315;&#178; A/cm&#178; at room temperature are favoured.{{cite:B2,R1}} At large overpotentials one branch of the Butler-Volmer equation dominates and the overpotential grows with the logarithm of the current, the Tafel relation, which holds once the back reaction contributes under 1 % of the current, beyond about 118 mV at 25 &#176;C.{{cite:B2}}</p>
-          <a class="theory-link" href="#references">The mathematics of this module: theory page, coming in a later phase</a>
-        </div></details>
-        {{sources:R6,R1,B2}}
+        <p class="explain">Why does a battery’s curve look the way it does? It helps to start from two extremes. Olson, López and Dickinson, following Conway, define an <b>ideal battery material</b> as one that supplies all its capacity through one uniform chemical process at one fixed potential. Its charge per volt, the <b>differential capacity</b> <m>\mathrm{d}q/\mathrm{d}U</m>, is a single spike, and the energy it stores is simply proportional to the charge.{{cite:R60}}</p>
+        <p class="explain">The opposite extreme is an <b>ideal capacitor material</b>: its differential capacity is constant, its specific capacitance <m>C_\mathrm{sp}</m>, so the potential rises in a straight line as charge goes in.{{cite:R60}}</p>
+        <md>\text{battery:}\ \ U = U_\mathrm{eq} \qquad\qquad \text{capacitor:}\ \ U = U_\mathrm{ref} + \frac{q}{C_\mathrm{sp}}</md>
+        <p class="explain">“Ideal” here means a mathematical limit, not the best material for a job. And “capacitor material” covers more than capacitors: double layers, surface reactions, and insertion electrodes that take lithium as a single phase all behave this way to some degree.{{cite:R60}} For any real material, a capacity only means something together with the voltage window it was measured in.{{cite:R60}}</p>
+        <h3 class="sub">A real supercapacitor</h3>
+        <p class="explain">Moya charged and discharged three commercial double-layer capacitors at constant current and read their curves with a small circuit. It has a resistance <m>R_\mathrm{H}</m> in series with the capacitance <m>C</m>, plus an inner branch, a resistance <m>R_\mathrm{i}</m> in parallel with a capacitance <m>C_\mathrm{i}</m>, that he links to the diffusion of ions in the capacitor.{{cite:R61}} For a current <m>I_0</m> switched on at <m>t = 0</m>:{{cite:R61}}</p>
+        <md>v(t) = R_\mathrm{H} I_0 + R_\mathrm{i} I_0\left(1 - e^{-t/\tau_\mathrm{i}}\right) + \frac{I_0\, t}{C}, \qquad \tau_\mathrm{i} = R_\mathrm{i} C_\mathrm{i}</md>
+        <p class="explain">So the voltage jumps by <m>R_\mathrm{H} I_0</m> the moment the current starts, then bends for a fraction of a second before settling to a straight line of slope <m>I_0/C</m>. After about five time constants it runs along that straight asymptote, which starts from <m>(R_\mathrm{H} + R_\mathrm{i}) I_0</m>.{{cite:R61}}</p>
+        <p class="explain">Reverse the current and the voltage drops at once by <m>2R_\mathrm{H} I_0</m>, because the current has changed by twice <m>I_0</m>. The bend that follows is twice as large as at the start, and Moya measured that 2 : 1 ratio on all three capacitors (for the 1 F one at 10 mA, 0.34 mV on charge and 0.69 mV on discharge; his fitted circuit gives larger bends, so only the ratio is compared here). The inner capacitance came out close to two sevenths of the main one.{{cite:R61}}</p>
+        <div class="worked"><b>Worked example.</b> Moya’s 1 F capacitor (Table 2) charged at 50 mA for 10 s.
+          <span class="line">jump: <m>R_\mathrm{H} I_0 = 0.31\ \text{Ω} \times 0.050\ \mathrm{A} = 15.5\ \mathrm{mV}</m></span>
+          <span class="line">ramp: <m>I_0/C = 0.050 / 0.94 = 53\ \mathrm{mV/s}</m></span>
+          <span class="line">after 10 s: <m>(R_\mathrm{H} + R_\mathrm{i}) I_0 + I_0 t_0 / C = 0.032 + 0.532 =</m> <i>0.56 V</i></span>
+          <span class="line">on reversal: <m>2 R_\mathrm{H} I_0 = 31\ \mathrm{mV}</m> down, then a ramp of −53 mV/s</span>
+          An ideal battery material at the same current would not move at all: it stores its charge in a reaction at one fixed potential.</div>
+        <p class="lesson">A battery stores charge at a fixed potential, a capacitor in proportion to its voltage; real electrodes sit between the two.</p>
       </div>
     </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f5-6" id="f5-6">
+        <span class="fnum">Figure 5.6</span>
+        <svg viewBox="0 0 520 348" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f56t">
+          <title id="f56t">Left: twelve particles of a LiFePO4 electrode taking up lithium, each drawn turning from lithium-poor to lithium-rich in turn, and below them the measured open-circuit voltage against lithium content, flat at 3.43 volts between about 0.15 and 0.85 and sloping at both ends. Right: twelve particles of a single-phase material filling evenly, with a schematic sloping voltage. Labels give the Gibbs phase rule count for each.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="act"></i>lithium in a particle</span><span><i class="li"></i>where the electrode is on its curve</span></div>
+        <figcaption>Plateau or slope: the Gibbs phase rule on a measured curve.
+          <span class="try">Try this: press Step until the dot is on the plateau, then count the gold particles; keep stepping and watch the count rise while the voltage stays put.</span>
+          <span class="basis">Phase-rule argument after Winter and Brodd 2004, section 2.4 and Figure 16. The LiFePO₄ curve is the open-circuit fit of Safari and Delacourt 2011, eq. 10, made to the average of the charge and discharge curves at C/100; flat at 3.432 V for lithium contents of about 0.15 to 0.85 (our evaluation of their eq. 10). The 20 mV hysteresis at C/1000 is Dreyer and co-workers’ result as cited by Safari and Delacourt. The particles are schematic: each is drawn changing over as a whole, because how the two phases sit inside one particle is still studied, and Safari and Delacourt note that pictures with a lithium-rich shell round a shrinking core disagree with experiments that show the lithium moving along the phase boundary. The single-phase curve is schematic and carries no numbers.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Why are some curves flat and others sloping? Winter and Brodd answer with the Gibbs phase rule, which counts the freedoms <m>F</m> left to a system of <m>C</m> components in <m>P</m> phases:{{cite:R1}}</p>
+        <md>F = C - P + 2</md>
+        <p class="explain">When the reaction turns one solid phase into another, two phases coexist. With temperature and pressure fixed nothing is left free, so the voltage stays constant: a plateau. When lithium dissolves into a single phase, the composition stays free and the voltage slopes with it.{{cite:R1}}</p>
+        <p class="explain">Olson and co-workers give a neat example. An electrode with the overall composition Li<sub>0.75</sub>M can be one uniform phase of that composition, or half Li<sub>0.5</sub>M and half LiM. In the second case, adding lithium only changes the proportions of two fixed phases; materials that split like this are often called staging materials.{{cite:R60}}</p>
+        <h3 class="sub">LiFePO₄, measured</h3>
+        <p class="explain">LiFePO₄ is the classic two-phase case. Most of its range is a mixture of a lithium-poor and a lithium-rich phase.{{cite:R59}} Safari and Delacourt measured its open-circuit curve as the average of a charge and a discharge at C/100 and fitted it: flat at 3.43 V vs Li over the middle of the range, sloping at both ends, where the material takes lithium as a partial solid solution.{{cite:R59}}</p>
+        <p class="explain">Even this plateau is not perfectly single-valued. Dreyer and co-workers found a gap of about 20 mV between the charge and discharge voltages even at C/1000. That is a true, thermodynamic hysteresis, which they traced to the many particles of the electrode.{{cite:R59}}</p>
+        <p class="explain">The spinel LiMn₂O₄ shows steps near 4 V and a drop to 3 V.{{cite:R6}} Which shape is better depends on the use: electronics prefer a flat, steady voltage, while a sloping curve makes it easy to read how much charge is left.{{cite:R1}}</p>
+        <p class="lesson">Two phases pin the voltage to a plateau; one phase lets it slope.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f5-7" id="f5-7">
+        <span class="fnum">Figure 5.7</span>
+        <svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f57t">
+          <title id="f57t">Computed voltage of a lithium iron phosphate electrode against lithium, against the fraction of its theoretical capacity, for a charge or a discharge at the chosen rate with a slow C/25 run for comparison and the open-circuit curve dashed. Beside it four bars show the lithium content of four groups of particles that differ only in their contact resistance; the best-connected group fills first and the worst last. A third view compares two 1C charges from the same half-charged state reached by different routes.</title>
+        </svg>
+        <div class="controls"><button type="button" data-mode="dis" aria-pressed="true">Discharge</button><button type="button" data-mode="ch" aria-pressed="false">Charge</button><button type="button" data-mode="path" aria-pressed="false">Same 50 %, two histories</button></div>
+        <div class="controls"><span class="ctl-label">Rate</span><button type="button" data-rate="0.04" aria-pressed="false">C/25</button><button type="button" data-rate="0.1" aria-pressed="false">C/10</button><button type="button" data-rate="0.2" aria-pressed="false">C/5</button><button type="button" data-rate="0.5" aria-pressed="false">C/2</button><button type="button" data-rate="1" aria-pressed="true">1C</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--amber)"></i>discharge</span><span><i style="background:var(--cyan)"></i>charge</span><span><i style="background:var(--muted)"></i>C/25, and the open-circuit curve dashed</span><span><i class="act"></i>lithium in each group</span></div>
+        <figcaption>One electrode, many particles: why the plateau tilts with rate, and why the electrode remembers its past.
+          <span class="try">Try this: run a 1C discharge and watch group 4; then press “Same 50 %, two histories” and compare where the two charges end.</span>
+          <span class="basis">Computed on this page with the model and the case-1 parameters of Safari and Delacourt 2011: eqs. 2 to 12 and Table I (four particle groups of radius 36.5 nm, volume shares 25, 62, 8 and 5 %, contact resistances 0.08, 2.88, 7.81 and 36.99 Ω m², electrode 70 µm thick, active volume fraction 0.43 from their 0.428 to 0.435, lithium counter electrode with 1.90 mA/cm² exchange current). 1C here is the current that would pass the theoretical capacity in one hour, 18.4 A/m². Rates stop at 1C because their rate-constant fit (eq. 11) covers C/25 to 1C. Our integration is simpler than theirs (explicit steps on the same equations), and the curves are not their published ones. At 50 % after C/25 it gives a spread of 0.09 in lithium content among the groups, against their 0.097 and 0.089.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Real electrodes are not one particle but billions, and they do not all react together. LiFePO₄ conducts electrons very poorly, about 10⁻⁹ S/cm on its own, and is made usable by coating its particles with carbon and making them small.{{cite:R59}} Each particle then gets its electrons through its contact with the conductive carbon, and some contacts are better than others.{{cite:R59}}</p>
+        <p class="explain">Safari and Delacourt built that into a simple model, a <b>resistive reactant</b>: four groups of identical particles, differing only in their contact resistance. Its parameters were fitted to their cells, and it does not try to describe the two phases inside a particle at all.{{cite:R59}} It reproduced their charge and discharge curves from C/25 to 1C with one set of parameters, the first charge simulation of LiFePO₄ they knew of.{{cite:R59}}</p>
+        <h3 class="sub">Why the plateau tilts</h3>
+        <p class="explain">Their measured curves tilt more steeply in the middle as the rate rises. Since the open-circuit curve there is flat, that means the cell’s resistance grows as the charge or discharge goes on.{{cite:R59}} The model explains why: the particles with the lowest resistance react first, the worse-connected ones later, and the faster the current, the stronger the effect.{{cite:R59}}</p>
+        <p class="explain">They tested the idea directly. Adding one or two extra steel discs inside the coin cell squeezed the electrode harder. The curves sloped less and the cells delivered more, and the fitted contact resistance of the worst group fell by up to 44 %.{{cite:R59}}</p>
+        <p class="explain">LiFePO₄ also gives more on charge than on discharge at the same rate, by 8 % at 3C and 11.5 % at 5C in their cells. The model captures this with a solid diffusion coefficient that is lower when the particle is full of lithium.{{cite:R59}}</p>
+        <h3 class="sub">An electrode with a memory</h3>
+        <p class="explain">Bring the electrode to half charge in two ways, by charging from empty or discharging from full, rest it for two hours, then charge it at 1C. The two charges differ: 3.96 % in delivered capacity in their cells. This is <b>path dependence</b>, and it fades at low rates.{{cite:R59}}</p>
+        <p class="explain">It has two ingredients. The particle groups end up holding different amounts of lithium, and nothing evens them out. Lithium moves between particles only where the open-circuit curve slopes, because only there does a fuller particle sit at a different voltage from an emptier one. On the plateau it barely moves, even after two hours of rest.{{cite:R59}} Near 5 % charge, on the sloping end, the same experiment gave about a fifth of the effect.{{cite:R59}}</p>
+        <p class="lesson">A flat curve hides a crowd of particles reacting in turn; how well each is wired decides the rate, and the past decides the present.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f5-8" id="f5-8">
+        <span class="fnum">Figure 5.8</span>
+        <svg viewBox="0 0 520 312" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f58t">
+          <title id="f58t">A cross-section of a lithium polymer cell: lithium foil, a polymer separator and a composite positive electrode of particles in electrolyte, then a current collector. During discharge the particles nearest the separator fill first and the reaction moves deeper. Below, the salt concentration in the electrolyte rises near the foil and falls towards the back of the electrode. A bar shows how much of the positive material has been used, with a mark where the cut-off voltage is reached for the chosen current and porosity.</title>
+        </svg>
+        <div class="controls"><button type="button" data-case="a" aria-pressed="true">10 A/m², porosity 0.30</button><button type="button" data-case="b" aria-pressed="false">20 A/m², porosity 0.30</button><button type="button" data-case="c" aria-pressed="false">10 A/m², porosity 0.60</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="act"></i>lithium in a particle</span><span><i style="background:transparent;border:2px solid var(--cation)"></i>reacting fastest now</span><span><i style="background:var(--cyan)"></i>salt concentration</span><span><i class="li"></i>lithium ion</span></div>
+        <figcaption>Inside a porous electrode: why fast discharges stop early.
+          <span class="try">Try this: switch from 10 to 20 A/m² and watch the gold fill stay near the separator while the salt at the back runs out.</span>
+          <span class="basis">After Doyle, Fuller and Newman 1993, a Li | PEO-LiCF₃SO₃ | TiS₂ cell at 100 °C: the cut-off at about 30 % of the material at 20 A/m² (Fig. 2), 84 % at 10 A/m² with porosity 0.30 and 97 % with 0.60 (text), and the cut-off near 1.7 V are theirs. The particle filling and the concentration profile are drawn to follow the trends of their Figures 3, 5 and 6 (10 A/m², porosity 0.30); they are schematic, not computed (the sketch does not conserve the total salt), and for the other two settings only the final percentages are from the paper.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">An electrode is not a solid block. It is a <b>composite</b>: particles of active material, often wired together by a conductive additive such as carbon,{{cite:R59}} with the pores between them filled with electrolyte. Doyle, Fuller and Newman modelled a composite of TiS₂ particles, themselves good electronic conductors, mixed with a polymer electrolyte, treating the particles and the electrolyte as two continua laid over each other. Their cell had a lithium foil, the same polymer electrolyte as separator and this TiS₂ positive electrode.{{cite:R62}}</p>
+        <p class="explain">Their computed discharges show the main lesson at once. The faster the current, the less of the material is used before the voltage collapses: at 20 A/m² the voltage drops sharply when only about 30 % of the positive material has reacted.{{cite:R62}}</p>
+        <h3 class="sub">Where the reaction happens</h3>
+        <p class="explain">At first the reaction crowds near the separator. The particles carry electrons about 10⁵ times better than the polymer carries ions, so the short ionic path wins. As the particles at the front fill up, the reaction moves towards the middle of the electrode.{{cite:R62}}</p>
+        <p class="explain">Meanwhile the salt piles up near the lithium foil and is drawn down at the back of the electrode, where it cannot be replaced fast enough. There the conductivity falls and the material is poorly used.{{cite:R62}}</p>
+        <p class="explain">Two dimensionless numbers decide which transport matters, each a ratio of a transport time to the discharge time. For diffusion inside their particles, of 1 µm radius, it was only 0.0001, so solid diffusion hardly mattered: the particles would have had to be as large as the electrode is thick. For the electrolyte it was 0.15 at 10 A/m², and at high currents it is the electrolyte that ends the discharge early.{{cite:R62}}</p>
+        <div class="worked"><b>Worked example.</b> Doyle and co-workers’ solid-diffusion number (their eq. 26), with their Table II at 10 A/m²: particle radius 1.0 µm, solid diffusion coefficient 5.0 × 10⁻¹³ m²/s, porosity 0.3, maximum lithium concentration 29 000 mol/m³, electrode 100 µm thick.
+          <span class="line">the number: <m>S_\mathrm{c} = \dfrac{R_\mathrm{s}^2\, I}{D_\mathrm{s}\, F\, (1 - \varepsilon)\, c_\mathrm{T}\, \delta_\mathrm{c}}</m></span>
+          <span class="line">top: <m>R_\mathrm{s}^2 I = (1.0\times10^{-6})^2 \times 10 = 1.0\times10^{-11}</m></span>
+          <span class="line">bottom: <m>5.0\times10^{-13} \times 96\,485 \times 0.7 \times 29\,000 \times 1.0\times10^{-4}</m></span>
+          <span class="line"><m>\phantom{\text{bottom: }} = 9.8\times10^{-8}</m></span>
+          <span class="line"><m>S_\mathrm{c} = \dfrac{1.0\times10^{-11}}{9.8\times10^{-8}} \approx</m> <i>1.0 × 10⁻⁴, far below 1</i></span>
+          The units cancel, so the number is a pure ratio: diffusion inside a particle takes about a ten-thousandth of the time the discharge takes.</div>
+        <p class="explain">The design lesson follows. Keeping the theoretical capacity fixed, a more open electrode (porosity 0.60 instead of 0.30, and so thicker) raised the material used at 10 A/m² from 84 % to 97 %; 0.60 was their optimum. In general, thinner electrodes use their material better when the electrolyte is the bottleneck, at the cost of harder processing and the extra weight of more, thinner cells.{{cite:R62}} They also suggested a stronger starting salt solution, because the 1 M presumably chosen for its conductivity is far weaker by the time it reaches the depths of the electrode.{{cite:R62}}</p>
+        <p class="lesson">At high current the back of a thick electrode starves of ions, so the cell stops with material unused.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f5-9" id="f5-9">
+        <span class="fnum">Figure 5.9</span>
+        <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f59t">
+          <title id="f59t">Four linked plots of a toy cell. The cell voltage against charge; its slope dV/dQ with the contributions of the positive and negative electrodes; the charge per volt dQ/dV against voltage; and a square plot of the negative electrode's lithium content across against the positive electrode's, inverted, up, on which the cell is a straight line crossing bands where each electrode sits on a plateau. Sliders add lithium loss and loss of positive material, and dashed lines show the fresh cell.</title>
+        </svg>
+        <div class="controls"><label>Lithium lost (LLI) <input type="range" class="lli" min="0" max="20" value="10" aria-label="Loss of lithium inventory, percent"> <b class="lli-val">10 %</b></label><label>Positive material lost <input type="range" class="lam" min="0" max="20" value="0" aria-label="Loss of positive active material, percent"> <b class="lam-val">0 %</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--text)"></i>this cell</span><span><i style="background:var(--muted)"></i>fresh cell, dashed</span><span><i style="background:var(--amber)"></i>positive electrode</span><span><i style="background:var(--cyan)"></i>negative electrode</span></div>
+        <figcaption>Reading a curve by its slopes, and what ageing does to them.
+          <span class="try">Try this: set LLI to 0, then raise it slowly and watch which dV/dQ peaks move and which stay put.</span>
+          <span class="basis">The analysis follows Olson, López and Dickinson 2023: cell voltage as the difference of the electrode potentials, the cell’s dV/dQ as the sum of the electrodes’ contributions, the square plot, and LLI and LAM through their eqs. 48 and 49. The cell is a toy. Each electrode’s lithium content is a sum of smooth steps in its potential, an illustrative choice of ours with the properties they ask of such a function; the plateau potentials (0.12 and 0.21 V; 3.92 and 4.10 V) and the negative-to-positive capacity ratio of 1.15 are invented, not those of a real material. Window 3.0 to 4.2 V. The dV/dQ plot is cut off at the top.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">A voltage curve hides a lot in its gentle bends. Plot its slope instead and the bends become peaks. Two plots are used: the <b>differential voltage</b> <m>\mathrm{d}V/\mathrm{d}Q</m> against charge, and the <b>differential capacity</b> <m>\mathrm{d}Q/\mathrm{d}V</m> against voltage.{{cite:R60}}</p>
+        <p class="explain">Peaks in differential capacity correspond to plateaus, where two phases are in equilibrium. Materials that take lithium as one smooth solid solution show no sharp peaks.{{cite:R60}} Olson and co-workers quote Safari and Delacourt’s study of an aged graphite and LiFePO₄ cell (a different paper from the one behind figures 5.6 and 5.7): “A peak in the [dQ/dV] plot features the equilibrium between different electrochemically-active phases in the electrode whereas a peak in the [dV/dQ] plot locates the transition from one equilibrium to another.”{{cite:R60}}</p>
+        <h3 class="sub">Two electrodes in one curve</h3>
+        <p class="explain">A cell’s voltage is the positive electrode’s potential minus the negative’s, each set by how much lithium that electrode holds:{{cite:R60}}</p>
+        <md>V = U_\mathrm{pos}(x_\mathrm{pos}) - U_\mathrm{neg}(x_\mathrm{neg}), \qquad \frac{\mathrm{d}V}{\mathrm{d}Q} = \frac{\mathrm{d}U_\mathrm{pos}}{\mathrm{d}Q} - \frac{\mathrm{d}U_\mathrm{neg}}{\mathrm{d}Q}</md>
+        <p class="explain">The two electrodes’ slopes simply add, so every dV/dQ peak of the cell can be traced to one electrode.{{cite:R60}} A dQ/dV peak needs the voltage to stand still while charge flows, so both electrodes must be on a plateau at once.{{cite:R60}}</p>
+        <h3 class="sub">The square plot and ageing</h3>
+        <p class="explain">Olson and co-workers draw the state of a cell on a <b>square plot</b>: the negative electrode’s lithium content across, the positive electrode’s (inverted) up. A cell charging from empty to full is a straight line on it.{{cite:R60}} The slope of the line is the ratio of the electrodes’ capacities, and where it meets the left edge measures the lithium the cell has lost for good.{{cite:R60}}</p>
+        <md>1 - x_\mathrm{pos} = a\, x_\mathrm{neg} + b</md>
+        <p class="explain">Ageing comes in two classic kinds. <b>Loss of lithium inventory</b> (LLI) is cyclable lithium used up by side reactions. <b>Loss of active material</b> (LAM) is material that has changed irreversibly, dissolved or come loose from the current collector.{{cite:R60}} LLI moves the line up; LAM tilts it, losing positive material steepens it and losing negative material flattens it. The window between the cut-offs then picks out a shorter piece of line, so the capacity falls.{{cite:R60}}</p>
+        <p class="explain">In their LiCoO₂ and graphite example, lost lithium leaves the graphite peaks where they were on the charge axis but moves the LiCoO₂ peaks to lower charge.{{cite:R60}} The toy cell does the same. Differentiating real data is sensitive to noise: they used slow C/20 data and thinned it 144-fold before differentiating, to reduce the noise.{{cite:R60}}</p>
+        <p class="lesson">Slopes turn a smooth curve into peaks that can be traced to each electrode, and their shifts tell lost lithium from lost material.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f5-10" id="f5-10">
+        <span class="fnum">Figure 5.10</span>
+        <svg viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f510t">
+          <title id="f510t">Capacity kept against cycle number up to 1000 cycles if a fixed fraction of the charge is lost on every cycle, for the chosen Coulombic efficiency and for reference values of 99.5, 99.9 and 99.99 percent, with the 80 percent end-of-life line and the 300-cycle commercial requirement.</title>
+          <g class="plot"></g>
+        </svg>
+        <div class="controls"><label>Coulombic efficiency <input type="range" class="ce" min="0" max="99" step="1" value="90" aria-label="Coulombic efficiency, percent"> <b class="ce-val">99.90 %</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--amber)"></i>your efficiency</span><span><i style="background:var(--muted)"></i>references: 99.5, 99.9, 99.99 %</span></div>
+        <figcaption>Why 99.9 % per cycle is not good enough.
+          <span class="try">Try this: find the lowest efficiency at which the amber line still crosses the 300-cycle line above 80 %.</span>
+          <span class="basis">Coulombic efficiency (eq. 4) and cycle life to 80 % of the initial capacity after Goodenough and Park 2013; the 300-cycle requirement after Winter and Brodd 2004, section 2.6. Retention <m>= \mathrm{CE}^N</m> is arithmetic for the idealized case in which all the charge missing on each cycle is lost for good; it is an idealization, not a model of a real cell.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Two numbers summarize a cell’s life. The <b>Coulombic efficiency</b> is the charge returned on discharge divided by the charge put in on charge, as a percentage; the <b>cycle life</b> is the number of cycles until the capacity has faded to 80 % of its initial value.{{cite:R6}}</p>
+        <md>\mathrm{CE} = 100 \times \frac{Q_\mathrm{dis}}{Q_\mathrm{ch}}\ \%</md>
+        <p class="explain">A commercial rechargeable cell must survive at least 300 full cycles with less than 20 % loss; most need three to eight hours to charge, a quarter of an hour is what users want, and fast charging shortens cycle life.{{cite:R1}}</p>
+        <p class="explain">Not every loss is permanent. Capacity hidden by a high rate comes back at a low one; what does not come back is lost to changes in the electrodes’ volume, to reactions between electrodes and electrolyte, and to decomposition of the electrodes.{{cite:R6}} The first charge of a lithium-ion cell is a special case, a loss paid once (module 6).{{cite:R6}}</p>
+        <div class="worked"><b>Worked example.</b> How good must the Coulombic efficiency be for a cell to keep 80 % of its capacity after 300 cycles? Take the simplest case, in which every bit of charge that does not come back is lost for good.
+          <span class="line">after 1 cycle: <m>\mathrm{CE}</m>; after 2 cycles: <m>\mathrm{CE}\times\mathrm{CE} = \mathrm{CE}^2</m>; after <m>N</m> cycles: <m>\mathrm{CE}^N</m></span>
+          <span class="line">the goal: <m>\mathrm{CE}^{300} = 0.80</m></span>
+          <span class="line">take the 300th root: <m>\mathrm{CE} = 0.80^{1/300} = 0.99926</m>, <i>that is 99.93 %</i></span>
+          <span class="line">the other way round, at 99.9 %: <m>0.999^N = 0.80 \;\Rightarrow\; N = \dfrac{\ln\,0.80}{\ln\,0.999} = \dfrac{-0.223}{-0.001} = 223</m> <i>cycles</i></span>
+          So losing just one coulomb in a thousand on every cycle uses up the 20 % allowance after 223 cycles, well short of 300.</div>
+        <p class="lesson">Lifetime is set by tiny losses repeated hundreds of times.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f5-11" id="f5-11">
+        <span class="fnum">Figure 5.11</span>
+        <svg viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f511t">
+          <title id="f511t">Heat released per ampere-hour of capacity against time through one discharge and one charge: an irreversible part that is always released and grows faster than the current, a reversible entropic part whose sign flips between discharge and charge, and their total.</title>
+          <g class="plot"></g>
+        </svg>
+        <div class="controls">
+          <label>Current <input type="range" class="rate" min="0" max="100" value="59" aria-label="Current, as a C-rate"> <b class="rate-val">1C</b></label>
+          <button type="button" data-sign="1" aria-pressed="true">dE/dT &gt; 0 (like Ni-Cd)</button><button type="button" data-sign="-1">dE/dT &lt; 0 (like lead-acid)</button>
+        </div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="heat"></i>irreversible, I·η</span><span><i style="background:var(--cyan)"></i>reversible, −I·T·dE/dT</span><span><i style="background:var(--text)"></i>total</span></div>
+        <figcaption>Where the heat comes from, through one cycle of your cell.
+          <span class="try">Try this: flip the sign of dE/dT and watch only the cyan line change; then compare C/10 with 5C.</span>
+          <span class="basis">Heat generation after the Bernardi form used by Jindal, Katiyar and Bhattacharya 2022, eq. 1: <m>Q = I(U - V) - I\,T\,\mathrm{d}U/\mathrm{d}T</m>, with <m>I</m> positive on discharge; the first term is irreversible, the second reversible (entropic). Signs and the Ni-Cd and lead-acid examples after Winter and Brodd 2004, section 1.3. The polarization comes from the cell model of figure 5.3; the size of dE/dT, ±0.2 mV/K, is illustrative. Heat per ampere-hour of low-rate capacity, at 25 °C. Schematic, not experimental data.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The lost energy becomes heat, of two kinds. An <b>irreversible</b> part, often loosely called Joule heat, comes from the whole polarization: it is released whichever way the current flows. A <b>reversible</b> part comes from the entropy change of the reaction, and its sign follows the temperature coefficient of the voltage, <m>\mathrm{d}E/\mathrm{d}T</m>. If it is positive the cell heats on charge and cools on discharge, as nickel-cadmium does; lead-acid has a negative coefficient and does the opposite.{{cite:R1}} Bernardi’s energy balance writes the two side by side:{{cite:R40}}</p>
+        <md>\dot{Q} = I\,(U - V) - I\,T\,\frac{\mathrm{d}U}{\mathrm{d}T}</md>
+        <p class="explain">The heat is released inside the cell, at the electrode surfaces, so a cell meant for high currents has to be built to shed it.{{cite:R1}} Because the entropic term changes sign with the current, the heat it takes in on one half of a cycle it gives back on the other; the irreversible term only ever adds up.{{cite:R40}}</p>
+        <p class="recap"><b>You can now explain</b> how a cycler charges and discharges a cell and what a C-rate is, why a working cell gives less than its open-circuit voltage and why charging takes more, what the three polarizations are and how fast each relaxes, how a battery’s curve differs from a capacitor’s, why some curves are flat and others slope, why a flat curve tilts at high rate and can remember its past, why fast discharges leave material unused, how slopes of the curve reveal ageing, why 99.9 % per cycle is not enough, and where the lost energy goes.</p>
+        <p class="bridge">To see why the curve has the shape it has, follow the ion inside.</p>
+        <details class="deeper"><summary>Go deeper: the exchange current, the Butler-Volmer equation and the Tafel line</summary><div class="body">
+          <p>For one electrode, the current and the overpotential <m>\eta = E - E_\mathrm{eq}</m> are linked by the Butler-Volmer equation. Bard, Faulkner and White write it with reduction current positive,{{cite:B2}}</p>
+          <md>i = i_0\left[\exp(-\alpha f \eta) - \exp\big((1 - \alpha) f \eta\big)\right], \qquad f = \frac{F}{RT}</md>
+          <p>with <m>\alpha</m> the transfer coefficient (between 0.3 and 0.7 in most cases) and <m>i_0</m> the exchange current. It holds while the current stays below about 10 % of the limiting current, so that mass transport does not interfere.{{cite:B2}} Near equilibrium the exponentials can be expanded and the current is simply proportional to <m>\eta</m>: the electrode behaves like a resistor, the <b>charge-transfer resistance</b> <m>R_\mathrm{ct} = RT/(F i_0)</m> for a one-electron reaction. A large exchange current means a small <m>R_\mathrm{ct}</m>.{{cite:B2}}</p>
+          <p>Far from equilibrium one exponential wins and <m>\eta</m> grows with the logarithm of the current, the <b>Tafel</b> relation <m>\eta = a + b \log i</m>, which holds once <m>|\eta|</m> exceeds about 118 mV at 25 °C; Winter and Brodd quote the same empirical form.{{cite:B2,R1}} Winter and Brodd write it with oxidation current positive (their printed eq. 13 lost a bracket and a sign); the physics is the same with the roles of <m>\alpha</m> and <m>1 - \alpha</m> swapped.{{cite:B2,R1}}</p>
+          <p>One caution about the heat equation. It takes the open-circuit voltage <m>U</m> from a slow measurement and <m>\mathrm{d}U/\mathrm{d}T</m> from small temperature steps, and Jindal and co-workers found that it estimates heat reasonably during continuous discharge but overestimates it during pulsed discharge, by up to 26 % for a LiFePO₄ cell and 49 % for an NMC cell.{{cite:R40}}</p>
+        </div></details>
+        <details class="deeper maths" id="m05-maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq"><m>Q = \displaystyle\int I\,\mathrm{d}t = I\,t</m><br><m>I_{1\mathrm{C}} = \dfrac{Q_\mathrm{nom}}{1\ \mathrm{h}}</m></span><span class="eqnote">charge passed at constant current, and the 1C current (figure 5.1)</span></p>
+          <p class="eqline"><span class="eq"><m>V_\mathrm{dis} = V_\mathrm{OC} - \eta(q, I_\mathrm{dis})</m><br><m>V_\mathrm{ch} = V_\mathrm{OC} + \eta(q, I_\mathrm{ch})</m></span><span class="eqnote">the terminal voltage on discharge and on charge; <m>\eta</m> depends on the state of charge <m>q</m> and on the current (figures 5.2, 5.3)</span></p>
+          <p class="eqline"><span class="eq"><m>\eta = E_\mathrm{OCV} - E_\mathrm{T} = \eta_\mathrm{ohm} + \eta_\mathrm{act} + \eta_\mathrm{conc}</m></span><span class="eqnote">the cell polarization, the open-circuit voltage minus the voltage under load, in three parts</span></p>
+          <p class="eqline"><span class="eq"><m>\eta_\mathrm{ohm} = I R_\mathrm{b}</m><br><m>V = V_\mathrm{OC} \mp I R_\mathrm{b}</m></span><span class="eqnote">ohmic polarization, with <m>R_\mathrm{b}</m> the internal resistance</span></p>
+          <p class="eqline"><span class="eq"><m>i = i_0\left[e^{-\alpha f \eta} - e^{(1 - \alpha) f \eta}\right], \quad f = \dfrac{F}{RT}</m><br><m>\alpha = \tfrac12:\ \ \eta = -\dfrac{2RT}{F}\,\operatorname{arsinh}\dfrac{i}{2 i_0}</m></span><span class="eqnote">Butler-Volmer for one electrode, reduction current positive, and its inverse for <m>\alpha = 0.5</m>; its magnitude is the activation part used in figure 5.3</span></p>
+          <p class="eqline"><span class="eq"><m>R_\mathrm{ct} = \dfrac{RT}{F i_0}</m><br><m>|\eta| = \dfrac{RT}{\alpha F} \ln\dfrac{i}{i_0}</m></span><span class="eqnote">the charge-transfer resistance near equilibrium, and the Tafel limit (reduction branch; 1 − α for oxidation) for <m>|\eta|</m> above about 118 mV at 25 °C</span></p>
+          <p class="eqline"><span class="eq"><m>\eta_\mathrm{conc} = \dfrac{RT}{nF} \ln\dfrac{C_0}{C}</m></span><span class="eqnote">concentration polarization when the concentration at the electrode falls from <m>C_0</m> to <m>C</m> (Winter and Brodd print it without <m>F</m>; the units need it)</span></p>
+          <p class="eqline"><span class="eq"><m>U = U_\mathrm{eq}</m><br><m>U = U_\mathrm{ref} + \dfrac{q}{C_\mathrm{sp}}</m></span><span class="eqnote">the ideal battery material and the ideal capacitor material (Olson and co-workers; figure 5.5)</span></p>
+          <p class="eqline"><span class="eq"><m>v(t) = R_\mathrm{H} I_0 + R_\mathrm{i} I_0 \left(1 - e^{-t/\tau_\mathrm{i}}\right) + \dfrac{I_0 t}{C}</m><br><m>v_\mathrm{D}(t) = v(t) - 2\,u(t - t_0)\, v(t - t_0)</m></span><span class="eqnote">Moya’s double-layer capacitor charged at <m>I_0</m> (his eq. 6), then discharged at <m>-I_0</m> from <m>t_0</m> (eq. 12, <m>u</m> the unit step); <m>\tau_\mathrm{i} = R_\mathrm{i} C_\mathrm{i}</m>, <m>R_\mathrm{ESR} = R_\mathrm{H} + R_\mathrm{i}</m>, <m>C_\mathrm{i} \approx 2C/7</m> (eq. 33)</span></p>
+          <p class="eqline"><span class="eq"><m>F = C - P + 2</m></span><span class="eqnote">the Gibbs phase rule: two phases of two components at fixed temperature and pressure leave no freedom, so a plateau (figure 5.6)</span></p>
+          <p class="eqline"><span class="eq"><m>\Phi_{1,k} = \Phi_1 - R_{\mathrm{c},k}\, i_k</m><br><m>I = L \sum_k a_k i_k</m><br><m>D_k = \dfrac{1.184\times10^{-18}}{(1 + \bar{y}_k)^{1.6}}\ \mathrm{m^2/s}</m></span><span class="eqnote">Safari and Delacourt’s resistive reactant (their eqs. 7, 8 and 12): each particle group <m>k</m> sees the matrix potential less its contact drop, the groups share the current, and diffusion slows as the particle fills (figure 5.7)</span></p>
+          <p class="eqline"><span class="eq"><m>S_\mathrm{c} = \dfrac{R_\mathrm{s}^2 I}{D_\mathrm{s} F (1 - \varepsilon) c_\mathrm{T} \delta_\mathrm{c}}</m><br><m>S_\mathrm{e} = \dfrac{(\delta_\mathrm{s} + \delta_\mathrm{c})^2 I}{D F (1 - \varepsilon) c_\mathrm{T} \delta_\mathrm{c}}</m></span><span class="eqnote">Doyle, Fuller and Newman’s ratios of the times for diffusion in the solid and transport in the electrolyte to the time of discharge (eqs. 26 and 27; figure 5.8)</span></p>
+          <p class="eqline"><span class="eq"><m>V = U_\mathrm{pos} - U_\mathrm{neg}</m><br><m>\dfrac{\mathrm{d}V}{\mathrm{d}Q} = \dfrac{\mathrm{d}U_\mathrm{pos}}{\mathrm{d}Q} - \dfrac{\mathrm{d}U_\mathrm{neg}}{\mathrm{d}Q}</m><br><m>\dfrac{\mathrm{d}Q}{\mathrm{d}V} = \left(\dfrac{\mathrm{d}V}{\mathrm{d}Q}\right)^{-1}</m></span><span class="eqnote">a cell’s voltage and differential voltage from its two electrodes, and the differential capacity (figure 5.9)</span></p>
+          <p class="eqline"><span class="eq"><m>1 - x_\mathrm{pos} = a\,x_\mathrm{neg} + b</m><br><m>\dfrac{a}{a_0} = \dfrac{1 - \mathrm{LAM_{NE}}}{1 - \mathrm{LAM_{PE}}}</m><br><m>1 - b = \dfrac{1 - \mathrm{LLI}}{1 - \mathrm{LAM_{PE}}}</m></span><span class="eqnote">the charging line on the square plot and how ageing moves it, for a fresh cell with <m>b_0 = 0</m> (Olson and co-workers, eqs. 23, 48 and 49)</span></p>
+          <p class="eqline"><span class="eq"><m>\mathrm{CE} = 100 \times \dfrac{Q_\mathrm{dis}}{Q_\mathrm{ch}}</m><br><m>\text{retention after } N \text{ cycles} = \mathrm{CE}^N\ \text{(idealized)}</m></span><span class="eqnote">Coulombic efficiency per cycle, and the idealized retention of figure 5.10</span></p>
+          <p class="eqline"><span class="eq"><m>\varepsilon_\mathrm{E} = 100 \times \dfrac{\int V_\mathrm{dis}\,\mathrm{d}q}{\int V_\mathrm{ch}\,\mathrm{d}q}</m></span><span class="eqnote">the storage efficiency: the energy back over the energy in</span></p>
+          <p class="eqline"><span class="eq"><m>\dot{Q} = I(U - V) - I\,T\,\dfrac{\mathrm{d}U}{\mathrm{d}T}</m><br><m>\Delta S = nF\,\dfrac{\mathrm{d}E}{\mathrm{d}T}</m></span><span class="eqnote">heat generation, <m>I</m> positive on discharge: the irreversible term and the reversible, entropic term (figure 5.11); the entropy of reaction from the temperature coefficient of the voltage</span></p>
+        </div></details>
+        {{sources:R60,R1,R6,B2,R2,R61,R59,R62,R40}}
+      </div>
+    </div>
+
   </div>
 </section>

@@ -1,0 +1,303 @@
+<section class="module" id="m07" data-act="B" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 7</p>
+    <h2 class="h2">The electrolyte</h2>
+    <p class="hook">How does an ion travel through a liquid, a polymer or a solid?</p>
+    <p class="where"><b>Where we are.</b> Module 6 put our ion in its two hosts. Between them it crosses the electrolyte, the part of the cell that must carry ions and stop electrons. This module starts from nothing: what the liquid in a lithium-ion cell is made of, how its molecules sit around each ion, how an ion moves through it, what the electric field inside it looks like, and how the arrangement changes, layer by layer, as you approach an electrode. Then it compares the liquid with polymers and ceramics, and shows why the anion matters as much as the lithium.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f7-1" id="f7-1">
+        <span class="fnum">Figure 7.1</span>
+        <svg viewBox="0 0 520 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f71t">
+          <title id="f71t">Three views of four species: a turning ball-and-stick model, a computed map of electron density, and a computed map of the electric potential around each one, red where negative and blue where positive. The ball-and-stick view shows one of four species, chosen with buttons: ethylene carbonate, a five-membered ring with a carbonyl oxygen sticking out; dimethyl carbonate, the same carbonate group with a methyl group on each side; the PF6 anion, a phosphorus atom with six fluorine atoms around it; and the lithium ion. A fifth view shows all four side by side at the same scale. A key gives the colour of each element; the carbonyl oxygen is ringed.</title>
+        </svg>
+        <div class="controls"><button type="button" data-view="3d" aria-pressed="true">Atoms and bonds</button><button type="button" data-view="dens" aria-pressed="false">Electron density</button><button type="button" data-view="esp" aria-pressed="false">Charge around it</button></div>
+        <div class="controls"><button type="button" data-mol="ec" aria-pressed="true">EC</button><button type="button" data-mol="dmc" aria-pressed="false">DMC</button><button type="button" data-mol="pf6" aria-pressed="false">PF₆⁻</button><button type="button" data-mol="li" aria-pressed="false">Li⁺</button><button type="button" data-mol="all" aria-pressed="false">All four</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The cast: two solvents, one anion, one lithium ion.
+          <span class="try">Try this: drag the molecule round until the ringed oxygen points straight at you.</span>
+          <span class="basis">EC cyclic and DMC linear carbonates after Ue et al. 2014, section 2.1 and Table 2.1; the PF₆⁻ structure as drawn in Henderson 2014, Fig. 1.3; binding of Li⁺ through the lone pairs of the solvent’s donor atom after Henderson 2014, p. 9. Geometries, electron densities and electric potentials computed for this page with density-functional theory (B3LYP functional, def2-SVP basis set, PySCF; geometries optimized; one isolated molecule in vacuum, no solvent around it). Density maps are slices through each molecule’s plane on a logarithmic scale; potential maps show the potential in that plane outside the 0.001 electron per bohr³ surface (white line), clipped at ±2 V. Atoms in the ball-and-stick view are drawn smaller than their real size so the bonds show.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Everything in this module is made of four kinds of object, so meet them first. A <b>molecule</b> is a group of atoms held together by chemical bonds; the figure draws each atom as a ball and each bond as a stick. The two solvents of a lithium-ion cell are both <b>carbonates</b>, built round a carbon atom bonded to three oxygen atoms. In ethylene carbonate, EC, the carbonate closes into a ring; in dimethyl carbonate, DMC, it stays an open chain: EC is a cyclic carbonate and DMC a linear one.{{cite:R54}}</p>
+        <p class="explain">In both, one oxygen is double-bonded to the carbon and sticks out of the molecule: the <b>carbonyl oxygen</b>. A lithium ion is held by a solvent through the spare pairs of electrons on such a donor atom.{{cite:R53}} The salt brings the other two objects: the lithium ion, Li⁺, a lithium atom that has lost one electron, and the hexafluorophosphate anion, PF₆⁻, six fluorine atoms around a phosphorus atom, carrying one negative charge.{{cite:R53}}</p>
+        <h3 class="sub">Electron clouds and charge</h3>
+        <p class="explain">A molecule is not a set of hard balls. Its electrons form a cloud, densest at the atoms and thinning out over a fraction of a nanometre, and the figure shows that cloud as calculated for this page. The calculation also shows where each molecule is slightly negative and where slightly positive. EC has a negative end, at the carbonyl oxygen, and a positive end, at its CH₂ groups: a strongly polar molecule, with a computed dipole moment of about 5 debye. In DMC the two halves almost cancel, about 0.3 debye. The same contrast shows up in the two liquids’ dielectric constants, 90 for EC against 3.1 for DMC, in the next figure; the simulations quoted below likewise call EC the polar solvent and DMC the less polar one.{{cite:R54,R57}}</p>
+        <p class="lesson">Four objects to recognize: EC, a ring; DMC, a chain; PF₆⁻, a ball of fluorine; and Li⁺, the smallest of all.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f7-2" id="f7-2">
+        <span class="fnum">Figure 7.2</span>
+        <svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f72t">
+          <title id="f72t">Three panels. Left: a beaker holding the recipe, 1 mol of LiPF6 per litre of a 3 to 7 mixture of EC and DMC. Middle: a bar chart of how many molecules there are for each lithium ion, about 4.5 EC, 8.2 DMC, one lithium ion and one PF6 anion. Right: a window a few nanometres across showing those molecules mixed at random; buttons switch to EC alone, a solid, or DMC alone, where the ions stay in pairs.</title>
+        </svg>
+        <div class="controls"><button type="button" data-solv="ec" aria-pressed="false">EC alone</button><button type="button" data-solv="dmc" aria-pressed="false">DMC alone</button><button type="button" data-solv="mix" aria-pressed="true">EC + DMC</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>Li⁺</span><span><i class="an"></i>PF₆⁻</span><span><i class="ec"></i>EC</span><span><i class="dmc"></i>DMC</span><span><i class="o"></i>carbonyl oxygen</span></div>
+        <figcaption>What the liquid is made of, counted molecule by molecule.
+          <span class="try">Try this: switch to DMC alone and watch where the anions go.</span>
+          <span class="basis">Recipe after Ue et al. 2014, section 2.1; densities, molar masses, relative permittivities, viscosities and melting points from their Table 2.1 (EC values at 40 °C); the 3 : 7 ratio is one illustrative choice inside their advice to keep EC below about 30 to 50 % by volume. The counts are computed here from those numbers, neglecting the volume of the salt. Ion pairing in DMC after Borodin 2014, pp. 383 and 384. The window is schematic: positions are random and the glyphs are not to scale.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The recipe</h3>
+        <p class="explain">An electrolyte has one job that defines it: to provide purely ionic conduction between the two electrodes.{{cite:R1}} It is a <b>solution</b>: a salt dissolved in a liquid, the solvent. Most commercial lithium-ion cells use roughly 1 mol of the salt lithium hexafluorophosphate, LiPF₆, per litre of a mixture of carbonate solvents: a cyclic one such as ethylene carbonate (EC) or propylene carbonate (PC), and a linear one such as dimethyl carbonate (DMC), ethyl methyl carbonate (EMC) or diethyl carbonate (DEC).{{cite:R54}}</p>
+        <p class="explain">Water, the obvious solvent, is out: it would be split at the voltage of a lithium cell (module 3).{{cite:B2}} Water-based electrolytes conduct best, about 1 S/cm; the organic liquids reach 10⁻² to 10⁻³ S/cm, because they dissolve salts less well and let the ions pair up.{{cite:R1}}</p>
+        <h3 class="sub">Why two solvents</h3>
+        <p class="explain">Why two solvents? Because each does one job well and the other badly. A good solvent needs a <b>high dielectric constant</b> (relative permittivity), to pull the salt apart into separate ions, and a <b>high fluidity</b>, so that the ions can move.{{cite:R54}} EC has a relative permittivity of 90 but is thick, 1.9 mPa s, and melts at about 36 °C, so on its own it is a solid at room temperature. DMC flows easily, 0.59 mPa s, but its relative permittivity is only 3.1.{{cite:R54}}</p>
+        <p class="explain">Mixed, they stay liquid far lower: a mixture of carbonates has a eutectic, the composition with the lowest melting point, at −8.6 °C for EC with DMC and −64.7 °C for EC with DMC and EMC (the solvents alone, without salt), and blends near the eutectic are preferred to work in the cold. EC is usually kept below 50 % by volume, preferably 30 %, because more of it comes out as a solid at low temperature.{{cite:R54}}</p>
+        <h3 class="sub">A pinch of additives</h3>
+        <p class="explain">Real electrolytes also carry minute amounts of <b>additives</b>, each with a job: some decompose on purpose to build a thin, controlled SEI on the graphite (module 6), others protect the positive electrode or stop overcharge (module 12); no single additive can do everything, and finding the right combination is now central to electrolyte work.{{cite:R55}}</p>
+        <h3 class="sub">Why LiPF₆</h3>
+        <p class="explain">Why LiPF₆? It is used almost exclusively in commercial lithium-ion cells because it has shown the best balance of the properties a salt needs: its solutions are among the most conductive known, it forms a stable surface on the aluminium current collector at high potential, and with carbonate solvents it forms a stable SEI on graphite (module 6). Its weakness is its P–F bond, which is easily broken: the salt reacts readily with water and is not very stable to heat, and hydrofluoric acid, HF, in LiPF₆ electrolytes is one of the principal concerns about using it.{{cite:R53}} It became the standard only when carbon replaced lithium metal and the solvents were optimized for the lithium-ion cells Sony introduced in 1991.{{cite:R53}}</p>
+        <div class="worked"><b>Worked example.</b> Counting the crowd: 1 mol of LiPF₆ dissolved in 1 litre of EC : DMC 3 : 7 by volume (the salt’s own volume neglected).
+          <span class="line">EC: 300 cm³ × 1.32 g/cm³ ÷ 88.1 g/mol = <i>4.5 mol</i></span>
+          <span class="line">DMC: 700 cm³ × 1.06 g/cm³ ÷ 90.1 g/mol = <i>8.2 mol</i></span>
+          <span class="line">so for each Li⁺ and each PF₆⁻: about <i>13 solvent molecules</i></span>
+          <span class="line">each Li⁺ has a cube of liquid about (1 L ÷ 6.02 × 10²³)^1/3 = <i>1.2 nm</i> on a side to itself, on average</span>
+          A lithium ion is never more than a few molecules from the next one, and most of what surrounds it is solvent.{{cite:R54,B2}}</div>
+        <p class="lesson">The liquid in a lithium-ion cell is mostly solvent: a dozen or so carbonate molecules for every lithium ion, two kinds of solvent because neither does both jobs.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f7-3" id="f7-3">
+        <span class="fnum">Figure 7.3</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f73t">
+          <title id="f73t">Two views. First, a table of six lithium salts, LiPF6, LiBF4, LiClO4, LiAsF6, LiTFSI and lithium triflate, with a bar for each one's conductivity at 1 molar and a symbol for how it does on resisting water, stability to heat, protecting the aluminium current collector, safety, and commercial use. Second, bar charts of five carbonate solvents, EC, PC, DMC, EMC and DEC, for a chosen property: permittivity, viscosity, melting point, boiling point, flash point or oxidation limit.</title>
+        </svg>
+        <div class="controls"><button type="button" data-view="s" aria-pressed="true">Salts</button><button type="button" data-view="v" aria-pressed="false">Solvents</button></div>
+        <div class="controls asp-row"><button type="button" data-asp="eps">permittivity</button><button type="button" data-asp="eta">viscosity</button><button type="button" data-asp="mp">melting point</button><button type="button" data-asp="bp">boiling point</button><button type="button" data-asp="fp" aria-pressed="true">flash point</button><button type="button" data-asp="eox">oxidation limit</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--cyan)"></i>good, or a cyclic solvent</span><span><i style="background:var(--amber)"></i>partly, or a linear solvent</span><span><i style="background:var(--heat)"></i>poor</span></div>
+        <figcaption>The ingredients of commercial electrolytes, side by side.
+          <span class="try">Try this: in Salts, tap the aluminium symbol for LiTFSI; then in Solvents, compare the flash points of EC and DMC.</span>
+          <span class="basis">Salts after Henderson 2014, section 1.3 (pp. 7 to 9); conductivities of 1 M solutions in PC:DME (50:50 by volume) at 25 °C from his Table 1.1, and the aluminium repassivation potentials from Table 1.7. The good, partly and poor symbols are this page’s summary of his wording, which the readout quotes for every cell; “not rated” means the passage gives no verdict. Solvents from Ue et al. 2014, Table 2.1: EC permittivity and viscosity at 40 °C; oxidation limits on glassy carbon with tetraalkylammonium salts, not with lithium salts.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Choosing a salt</h3>
+        <p class="explain">A salt for a lithium-ion electrolyte has a list of jobs. It must give a conductive solution, stay stable within the cell’s voltage window and at high temperature, help form a good SEI, protect the aluminium current collector of the positive electrode above about 3.6 V vs Li, and resist water. It should also be cheap and not toxic. Failing any one of these rules a salt out of practical use, and every one of them depends on the rest of the recipe.{{cite:R53}}</p>
+        <p class="explain">Line the candidates up and no salt wins everywhere. LiClO₄ conducts well and is stable, but its anion is a strong oxidant, which makes the salt a potential explosive. LiAsF₆ behaves much like LiPF₆, but reduction could turn its arsenic into highly toxic forms. LiBF₄ resists water and heat better than LiPF₆ but conducts significantly less.{{cite:R53}}</p>
+        <p class="explain">LiTFSI and lithium triflate shrug off water and heat, but in ordinary dilute solutions they corrode the aluminium foil at high potential. In PC:DME the aluminium repassivation potential, above which corrosion pits keep growing, is 3.7 V vs Li with LiTFSI, against above 5 V with LiPF₆.{{cite:R53}} So LiPF₆, with its known weaknesses, keeps its place in the recipe of figure 7.2.{{cite:R53}}</p>
+        <h3 class="sub">Choosing the solvents</h3>
+        <p class="explain">The five carbonates of commercial electrolytes split into two families.{{cite:R54}} The cyclic ones, EC and PC, have relative permittivities of 65 to 90 and flash points above 130 °C, but they are viscous, and EC is a solid below 36 °C. The linear ones, DMC, EMC and DEC, flow two and a half to four times more easily and, apart from DMC, stay liquid far below 0 °C. But their permittivities are only about 3, and they flash at 17 to 25 °C, near room temperature.{{cite:R54}}</p>
+        <p class="explain">All five resist oxidation on glassy carbon to above 6 V vs Li. Henderson warns that a window measured on inert carbon is not a clear guide to stability against real electrode materials.{{cite:R54,R53}}</p>
+        <p class="lesson">Every salt and every solvent fails at something; a commercial electrolyte is the mixture whose weaknesses matter least.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f7-4" id="f7-4">
+        <span class="fnum">Figure 7.4</span>
+        <svg viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f74t">
+          <title id="f74t">Left: a flat sketch of solid LiPF6, lithium ions and PF6 anions alternating in rows. Right: liquid solvent. Again and again, four solvent molecules close in on an exposed lithium ion at the edge of the solid, turn their oxygens to it and carry it away into the liquid; the anion beside it drifts off alone.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>Li⁺</span><span><i class="an"></i>PF₆⁻</span><span><i class="ec"></i>EC</span><span><i class="dmc"></i>DMC</span><span><i class="o"></i>carbonyl oxygen</span></div>
+        <figcaption>Dissolving the salt: the solvent takes the lithium ions one by one.
+          <span class="try">Try this: follow one lithium ion from the edge of the solid until it is out in the liquid.</span>
+          <span class="basis">Dissolution through the solvation of Li⁺ by the lone pairs of the solvent, with the anions in general left unsolvated because aprotic solvents have no acidic protons, after Henderson 2014, p. 9; solvent–anion complexes such as EC with PF₆⁻ (Borodin 2014, p. 376) show that solvent molecules do come close to the anion; the faint, circling neighbours are a drawing device for that weak, short-lived contact, oriented by the computed potential of figure 7.1; attraction of opposite charges, module 0. The solid is a flat sketch, not the crystal structure of LiPF₆, and the sequence is slowed by many orders of magnitude.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">What does it mean for a salt to dissolve? Solid LiPF₆ is made of Li⁺ cations and PF₆⁻ anions, which attract each other because their charges are opposite (module 0). In a carbonate solvent the Li⁺ ions are pulled out of it by the solvent molecules: each solvent molecule has an oxygen atom with spare pairs of electrons (in a carbonate, the <b>carbonyl oxygen</b>), and it binds to the lithium through them. The anions are, in general, left bare, because these solvents have no acidic hydrogen to hold them: in water an anion is held by hydrogen bonds, in a carbonate it is not. The anions can bind to Li⁺ in the same way, so solvent and anion compete for the places around each lithium ion, and that competition decides what is actually present in the liquid.{{cite:R53}}</p>
+        <h3 class="sub">And the anion?</h3>
+        <p class="explain">So does a PF₆⁻ anion get a shell of its own? Not in the way Li⁺ does. Solvent molecules do come close to it, and simulations treat a PF₆⁻ next to an EC molecule as a complex, but nothing binds there the way the oxygens bind to lithium, and the neighbours keep changing. In the figure they are drawn faint, with their slightly positive CH ends (blue in figure 7.1) towards the anion.{{cite:R53,R57}}</p>
+        <p class="lesson">Dissolving is a tug of war for the lithium ion, and in a good solvent the solvent wins.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f7-5" id="f7-5">
+        <span class="fnum">Figure 7.5</span>
+        <svg viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f75t">
+          <title id="f75t">A turning three-dimensional model of a lithium ion surrounded by four solvent molecules at the corners of a tetrahedron, each pointing its carbonyl oxygen at the ion at a distance of 0.204 nanometres, with a PF6 anion outside the shell. Buttons switch to a contact ion pair, where the anion takes one place in the shell, and an aggregate, where one anion is shared by two lithium ions. A side panel compares how long partners stay: an EC molecule about half a nanosecond, an anion 2 to 3 nanoseconds.</title>
+        </svg>
+        <div class="controls"><button type="button" data-pair="ssip" aria-pressed="true">Free ion</button><button type="button" data-pair="cip" aria-pressed="false">Contact pair</button><button type="button" data-pair="agg" aria-pressed="false">Aggregate</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>One lithium ion and its shell, in three dimensions.
+          <span class="try">Try this: drag the shell round until you can see all four molecules, then watch one pull away and come back.</span>
+          <span class="basis">Coordination through the lone pairs of the solvent, bare anions and the competition for the shell after Henderson 2014, pp. 9 to 13; four solvent molecules in a tetrahedron, 4.2 to 4.4 partners in EC : DMC and EC : PC with LiPF₆ from molecular dynamics, 4.5 PC molecules at 2.04 Å from neutron diffraction, the residence times and the names SSIP, CIP and aggregate after Borodin 2014, p. 382; bound through a single fluorine (monodentate) as the simulations find most stable in the liquid, also p. 382. Atom positions other than the Li–O distance are approximate. The exchange is shown slowed by about ten billion times.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The shell</h3>
+        <p class="explain">How many solvent molecules fit round one lithium ion? Few. Simulations find about four solvent molecules bound strongly around a lithium ion, arranged as a tetrahedron, and about 4.2 to 4.4 partners, solvent and anions together, in EC : DMC and EC : PC with LiPF₆; neutron diffraction on LiPF₆ in PC finds 4.5 PC molecules on average, each oxygen 0.204 nm from the lithium.{{cite:R57}}</p>
+        <p class="explain">This group is the ion’s <b>first solvation shell</b>. In the liquid, simulations find EC and DMC in it about equally often, even though an isolated lithium ion in the gas phase prefers EC.{{cite:R57}} The shell is not a fixed object: a given EC molecule stays in it for about half a nanosecond, an anion partner for 2 to 3 ns.{{cite:R57}}</p>
+        <h3 class="sub">Pairs and clusters</h3>
+        <p class="explain">When an anion wins a place, the two ions form a <b>contact ion pair</b>; when solvent stays between them, they are a <b>solvent-separated ion pair</b>; larger clusters are <b>aggregates</b>.{{cite:R57,R53}} The anion matters: the tendency to pair up rises in the order LiAsF₆ and LiPF₆, then LiTFSI, LiClO₄, LiBF₄ and lithium triflate.{{cite:R53}}</p>
+        <p class="explain">The solvent matters too: in simulations of EC : DMC the fraction of free ions rises nearly linearly with the share of EC; and measured with LiTFSI, the conductivity reaches 62 % of what fully independent ions would give in PC, but only 11 % in DMC. Not every cluster is lost to conduction: charged clusters carry current too.{{cite:R57}}</p>
+        <p class="lesson">A lithium ion never travels alone: it carries a shell of about four solvent molecules, and sometimes an anion.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f7-6" id="f7-6">
+        <span class="fnum">Figure 7.6</span>
+        <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f76t">
+          <title id="f76t">Left: a lithium ion in its shell taking a random walk through the solvent, its track drawn behind it; with the field switched on, the walk drifts slowly to the right. Right: two small panels showing the ion carried together with its shell, and the ion handed on from one shell of solvent molecules to another.</title>
+        </svg>
+        <div class="controls"><button type="button" class="fieldbtn" aria-pressed="false">Switch the field on</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>Li⁺ (our ion labelled)</span><span><i class="ec"></i>EC</span><span><i class="dmc"></i>DMC</span><span><i class="field"></i>field</span></div>
+        <figcaption>How an ion moves: a random walk, gently steered.
+          <span class="try">Try this: switch the field on and off and compare the tracks.</span>
+          <span class="basis">Diffusion as random motion and migration in a field after Bard, Faulkner and White 2022, chapter 4 (module 0); the two modes of lithium transport and their roughly equal share in EC : DMC with LiPF₆ after Borodin 2014, p. 384. The walk is a random-number drawing device; the drift is drawn far stronger, relative to the wandering, than it is in a real cell.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Wandering</h3>
+        <p class="explain">Even with no current, nothing in the liquid is still. Every ion is bumped continually by the molecules around it and wanders at random, in every direction alike. On average it goes nowhere; it only spreads out, a distance that grows as the square root of time, (2Dt)<sup>1/2</sup>, where D is its diffusion coefficient. This is <b>diffusion</b>, met inside the electrode particles in module 6.{{cite:B2}}</p>
+        <h3 class="sub">Drifting in a field</h3>
+        <p class="explain">Draw current and a small electric field appears across the liquid. It does not replace the random wandering; it biases it: each step is pushed slightly one way, cations down the potential and anions up it. That steady bias is <b>migration</b>, and the Nernst–Planck equation adds the two together (module 0).{{cite:B2}}</p>
+        <p class="explain">What moves is the ion together with whatever stays bound to it, which is why a bigger moving object, or a thicker liquid, conducts less: u = |z|e/(6πηr).{{cite:B2}} The lithium ion moves in two ways: it carries its first shell along with it, or it is handed on, leaving some solvent molecules behind and gaining others. In EC : DMC with LiPF₆ the two contribute roughly equally; in short ethylene-oxide chains (oligoethers) the ion travels a distance of three to four solvent molecules before its shell is renewed, so there carrying dominates.{{cite:R57}}</p>
+        <p class="aside">A picture to keep: ionic conduction is a crowd crossing a corridor. More people, or people who move more freely, carry more across per second. The picture breaks in two places: the ions also push on each other through the field, and in a polymer the corridor itself has to keep moving for anyone to get through.</p>
+        <div class="worked"><b>Worked example.</b> How strong is the field, and how fast do the ions go? A current density of 1 mA/cm² through a liquid of conductivity κ = 10⁻² S/cm, with 1 mol/L of Li⁺.
+          <span class="line">field in the liquid, from Ohm’s law: E = i/κ = 10⁻³ A/cm² ÷ 10⁻² S/cm = <i>0.1 V/cm</i></span>
+          <span class="line">in the steady state, when all the current is carried by lithium: mean velocity v = i/(Fc) = 10⁻³ ÷ (96 485 × 10⁻³) cm/s ≈ <i>0.1 µm per second</i></span>
+          <span class="line">to cross a 25 µm layer of liquid: <i>about 4 minutes</i></span>
+          The field in the liquid is gentle and each ion drifts slowly; the current is large because there are so many ions, about 6 × 10²⁰ in every cubic centimetre.{{cite:B2,R1}}</div>
+        <p class="lesson">An ion in a liquid wanders at random; a current only nudges the wandering, gently and all the same way.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f7-7" id="f7-7">
+        <span class="fnum">Figure 7.7</span>
+        <svg viewBox="0 0 520 348" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f77t">
+          <title id="f77t">Top: a to-scale close-up, 2.4 nanometres wide, of the electrolyte against a graphite electrode, with ball-and-stick EC, DMC, PF6 and lithium. Buttons set the electrode negative, uncharged or positive: at the negative electrode EC molecules touch the surface with their carbonyl oxygens turned away and a lithium ion in an EC shell sits against the surface; at the positive electrode PF6 anions sit at the surface and EC oxygens point towards it. Bottom: over the first 10 nanometres, the potential and the excess of lithium ions and anions, both fading with distance (stretched so they can be seen). A fourth view shows graphite end on with hydrogen-terminated edges and a lithium ion shedding first DMC and then EC as it enters the gap between two sheets, with the free-energy profile below.</title>
+        </svg>
+        <div class="controls"><button type="button" data-q="neg" aria-pressed="true">Negative</button><button type="button" data-q="zero" aria-pressed="false">Uncharged</button><button type="button" data-q="pos" aria-pressed="false">Positive</button><button type="button" data-q="edge" aria-pressed="false">Getting in</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>lithium</span><span><i class="cc"></i>carbon</span><span><i class="o"></i>oxygen</span><span><i class="f"></i>fluorine</span><span><i class="p"></i>phosphorus</span></div>
+        <figcaption>Layer by layer, from the middle of the liquid to the electrode.
+          <span class="try">Try this: switch from Negative to Positive and watch which way the red oxygens point in the first layer.</span>
+          <span class="basis">Close-up drawn to scale with the computed molecular geometries of figure 7.1. Arrangements after the molecular-dynamics results in Borodin 2014, pp. 389 to 391: for the negative, uncharged and positive views, simulations at the basal face of graphite (EC replacing DMC on charged surfaces, carbonyls repelled at negative and gathered at positive, PF₆⁻ accumulating at positive, Li⁺ adsorbed and EC-solvated at negative); for Getting in, the desolvation model with graphite hydrogens at zero distance, the free-energy minimum of −0.5 kcal/mol about 5 Å out, the steep rise inside 4 Å to 12 to 19 kcal/mol and DMC shed before EC, a preliminary study without an SEI or applied voltage. Individual positions are illustrative, not a simulation snapshot. Lower plot: compact and diffuse layers, their extent and the screening of the electrode charge after Bard, Faulkner and White 2022, sections 1.6 and 2.2 to 2.3; curve shapes schematic; at 1 M the real diffuse layer is thinner than a nanometre (the simple Debye estimate gives about 0.3 nm), so the plot stretches it. Free-energy curve drawn through Borodin’s three numbers; its shape between them is schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The bulk and the diffuse layer</h3>
+        <p class="explain">The electrolyte is not the same all the way across. Far from either electrode, in the <b>bulk</b>, every small volume holds as much positive as negative charge: a separation of charge there would set up a field large enough to erase it at once.{{cite:B2}} The molecules point every way, and with no current the potential is flat. With current, the only field is the gentle ohmic one of the worked example above, about 0.1 V/cm.</p>
+        <p class="explain">A few nanometres from a charged electrode this changes. Ions of the opposite sign crowd towards the surface and solvent molecules turn: together they cancel the electrode’s charge, so its field does not reach the bulk.{{cite:B2}} The excess of ions thins out over the <b>diffuse layer</b>, less than about 10 nm thick above 0.01 M; closest to the surface is the <b>compact layer</b>, one solvent shell thick.{{cite:B2}}</p>
+        <p class="explain">The field inside that thin step can reach 10⁷ V/cm, a hundred million times the field in the bulk of the worked example.{{cite:B2}} This is the electrical double layer of module 3, now seen molecule by molecule.</p>
+        <h3 class="sub">The first molecular layer</h3>
+        <p class="explain">Simulations show what the innermost layer looks like in EC : DMC with LiPF₆. When the electrode is charged, either way, the more polar EC replaces DMC at the surface, an effect confirmed by experiment on LiCoO₂. At a negative electrode the carbonyl groups are pushed away from the surface, and at the most negative potentials lithium ions sit against it, solvated mainly by EC, which fits the observation that EC reduction dominates the SEI formed in these mixtures. At a positive electrode the layer fills with carbonyl groups and PF₆⁻ anions accumulate, where they are expected to take part in oxidation reactions.{{cite:R57}}</p>
+        <h3 class="sub">Getting in</h3>
+        <p class="explain">To enter graphite a lithium ion has to leave its shell. In preliminary simulations of bare graphite, with no SEI, a lithium ion rests about 0.5 nm from the surface, still solvated; closer than about 0.4 nm the free energy climbs steeply as it is forced to shed its solvent, consistent with DMC going first and EC last. The size of that climb agrees with measured activation energies of 16.4 to 17 kcal/mol, about 70 kJ/mol. The two contributions usually discussed for the resistance of this interface are the SEI and this desolvation, and experiments show that at low temperature the interface can resist more than the whole bulk electrolyte.{{cite:R57}}</p>
+        <p class="lesson">Uniform in the middle, ordered in the last nanometre: the electrolyte’s structure, and almost all of its field, change within a few molecules of the electrode.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f7-8" id="f7-8">
+        <span class="fnum">Figure 7.8</span>
+        <svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f78t">
+          <title id="f78t">Three panels. Liquid: a lithium ion moves inside a shell of solvent molecules and sometimes pairs with an anion. Dry polymer: the ion moves only while the chain segments around it move; cooling the polymer freezes both. Ceramic: the ion moves through a rigid framework.</title>
+        </svg>
+        <div class="controls"><button type="button" class="chains" aria-pressed="false">Cool the polymer</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>Li&#8314;</span><span><i class="an"></i>anion</span><span><i class="carb"></i>solvent, polymer chain</span></div>
+        <figcaption>Three ways to carry a lithium ion.
+          <span class="try">Try this: cool the polymer and watch which of the three ions stops.</span>
+          <span class="basis">Liquid: organic electrolytes have a lower solvating power than water and show ion pairing (Winter and Brodd 2004, section 2.2); LiPF&#8326; in carbonates (their Table 2). Dry polymer: Li&#8314; hopping between coordinating sites helped by the segmental motion of the chains (Shanmukaraj et al. 2020; Tarascon and Armand 2001, Figure 3 and text). Ceramic: a garnet, after Goodenough and Park 2013; the hops are a drawing device, not a mechanism from the sources. Schematic, not to scale.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">So far, a liquid. Two other kinds of electrolyte carry lithium differently: a polymer, where there is no solvent at all, and a ceramic, where the ion moves through a solid framework.</p>
+        <p class="explain">A dry polymer such as poly(ethylene oxide), PEO, dissolves a lithium salt with no solvent at all. Wright and co-workers first saw ionic conduction in PEO complexes of sodium and potassium salts, and in 1978 Armand proposed the first dry PEO-lithium electrolyte for lithium batteries, conducting about 10&#8315;&#8308; S/cm at 40 to 60 &#176;C.{{cite:R44}}</p>
+        <p class="explain">The Li&#8314; ion is held by the oxygen atoms of the chain and hops from one coordinating site to the next, helped by the segmental motion of the chain; the motion happens in the amorphous, not the crystalline, regions of the polymer.{{cite:R44,R2}} That is the weakness of the idea: no chain motion, no conduction.</p>
+        <p class="lesson">An electrolyte must carry ions and block electrons; how it carries them decides how fast, and at what temperature.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f7-9" id="f7-9">
+        <span class="fnum">Figure 7.9</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f79t">
+          <title id="f79t">Logarithm of conductivity against temperature for five electrolytes, high temperature on the left: PEO with lithium triflate lowest, PEO with LiTFSI ten times higher, plasticized PEO-LiTFSI ten times higher again, and a gel polymer 2 to 5 times below the organic liquid at the top; a dashed line marks the 80 degrees at which dry-polymer lithium cells run.</title>
+          <g class="plot"></g>
+        </svg>
+        <div class="controls">
+          <label><input type="checkbox" value="liq" checked> <i class="sw" style="background:var(--cyan)"></i><span>organic liquid</span></label><label><input type="checkbox" value="gel" checked> <i class="sw" style="background:#9fe3d9"></i><span>gel polymer</span></label><label><input type="checkbox" value="pla" checked> <i class="sw" style="background:#C4B5F7"></i><span>plasticized PEO-LiTFSI</span></label><label><input type="checkbox" value="tfsi" checked> <i class="sw" style="background:var(--amber)"></i><span>PEO-LiTFSI</span></label><label><input type="checkbox" value="trf" checked> <i class="sw" style="background:var(--heat)"></i><span>PEO-LiCF&#8323;SO&#8323;</span></label>
+        </div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Conductivity against temperature: the gaps are from the source, the heights are not.
+          <span class="try">Try this: switch off everything except the two dry-polymer curves and read the gap between them at 40 &#176;C.</span>
+          <span class="basis">Shape after Tarascon and Armand 2001, Figure 8, schematic. Only the ratios stated in the text of that article are encoded: about one order of magnitude from LiCF&#8323;SO&#8323; to LiTFSI in PEO, about one more with 10 to 25 % plasticizer, and gels 2 to 5 times below the liquid; the 80 &#176;C operating temperature of the dry-polymer lithium cell is theirs too. The curves are illustrative curved forms; absolute values, and the height of the liquid-and-gel pair relative to the polymer group, are not taken from any source.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The polymer route improved by steps. Changing the salt in PEO from lithium triflate, LiCF&#8323;SO&#8323;, to LiTFSI, a salt Armand introduced, gains about an order of magnitude, its bulky anion acting as a plasticizer;{{cite:R44}} adding 10 to 25 % of a plasticizer gains another, and such lightly plasticized polymers still suit a lithium-metal electrode. Gels, 60 to 95 % liquid held in a polymer, come within 2 to 5 times of the liquid&#8217;s conductivity but need a lithium-ion configuration. A dry-polymer lithium cell runs at up to 80 &#176;C.{{cite:R2}}</p>
+        <p class="explain">LiTFSI itself is a good salt, conductive and safe, with one catch: above about 4 V (3.7 V in Henderson’s PC:DME data) it corrodes the aluminium current collector unless a passivating salt is added.{{cite:R2,R53}} Liquid or polymer, a nonaqueous electrolyte is thermodynamically stable over a window of about 3.5 V but is used, kinetically, up to 5.5 V.{{cite:R2}}</p>
+        <p class="explain">The neighbours matter: a single EC molecule is computed to resist oxidation to about 6.9 V vs Li/Li&#8314;; next to a PF&#8326;&#8315; anion, which can take a hydrogen from it as HF, the limit falls, and when the hydrogen passes to a neighbouring EC it falls to about 5 to 5.2 V, almost 2 V lower.{{cite:R51}} In the usual mixture, the cyclic EC dissolves the salt and builds the SEI, while a linear carbonate such as DMC thins the liquid so it conducts better in the cold.{{cite:R51}}</p>
+        <div class="worked"><b>Worked example.</b> What the conductivity costs, for a 25 &#956;m electrolyte layer (an illustrative thickness) of 1 cm&#178;, using R = l/(&#954;A) from module 0.
+          <span class="line">liquid, &#954; = 10&#8315;&#178; S/cm: R = 0.0025 cm &#247; (10&#8315;&#178; S/cm &#215; 1 cm&#178;) = <i>0.25 &#937;</i></span>
+          <span class="line">a solid at &#954; = 10&#8315;&#8308; S/cm: <i>25 &#937;</i>, a hundred times more</span>
+          <span class="line">at 1 mA: ohmic drop 0.25 mV against <i>25 mV</i></span>
+          This is why 10&#8315;&#8308; S/cm is the bar a solid electrolyte has to clear, and why it has to be thin.{{cite:B2,R1,R6}}</div>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f7-10" id="f7-10">
+        <span class="fnum">Figure 7.10</span>
+        <svg viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f710t">
+          <title id="f710t">An electrolyte between an electrode that releases lithium ions and one that takes them in. Under the field cations drift one way and anions the other; a bar shows the share of the current carried by lithium, the transference number; below, the steady-state salt concentration is high where lithium is released and low where it is taken in, and the difference shrinks as the transference number rises.</title>
+        </svg>
+        <div class="controls"><label><span>t&#8330;</span> <input type="range" class="tplus" min="20" max="100" value="30" aria-label="Lithium transference number, times 100"> <b class="tplus-val">0.30</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>Li&#8314; (our ion labelled)</span><span><i class="an"></i>anion</span><span><i class="field"></i>field</span></div>
+        <figcaption>The transference number, and the salt gradient it leaves behind.
+          <span class="try">Try this: slide t&#8330; from 0.3 to 0.6 and watch the gradient shrink by almost half; then all the way to 1.</span>
+          <span class="basis">Transference number as the fraction of the ionic conductivity carried by Li&#8314; (Boz et al. 2021, eqs. 6 and 7; Bard, Faulkner and White 2022, eq. 2.3.11). The steady-state difference &#916;c = (1 &#8722; t&#8330;) i L/(F D) follows from the salt balance of Boz et al., eq. 12, and is computed live with i L/(F D c&#8320;) = 0.8, an illustrative value; the profile is linear in this steady state. Values of t&#8330; near 0.3 and 0.6 are those Tarascon and Armand 2001 give for polymer electrolytes without and with 10 % nanofillers. Schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Both ions move, but only one is wanted. The <b>transference number</b> t&#8330; is the fraction of the ionic conductivity carried by Li&#8314;; in a dilute electrolyte it is the ratio of the lithium diffusion coefficient to the sum of both.{{cite:R36,B2}} (Tarascon and Armand call it the transport number.{{cite:R2}}) In the organic liquid electrolytes of 1994 it was typically below 0.5.{{cite:R46}}</p>
+        <p class="explain">The rest of the current is carried by anions that no electrode can take in, so in a working cell salt builds up at one electrode and runs short at the other, and the steady-state difference grows with (1 &#8722; t&#8330;).{{cite:R36}}</p>
+        <p class="explain">That gradient is the concentration polarization of module 5, seen from the electrolyte. In polymer electrolytes t&#8330; is about 0.3; about 10 % of ceramic nanofillers lifts it to about 0.6, raises the conductivity severalfold at 60 to 80 &#176;C, and gives a stable interface with lithium.{{cite:R2}}</p>
+        <p class="explain">The logical end point is a <b>single-ion conductor</b>, in which the anions are tied to the polymer so that t&#8330; approaches 1 and no salt gradient builds up; one block copolymer of this kind reached t&#8330; above 0.85, though at only 1.3 &#215; 10&#8315;&#8309; S/cm at 60 &#176;C, and conducting 10&#8315;&#8308; S/cm at room temperature remains the challenge.{{cite:R44}}</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f7-11" id="f7-11">
+        <span class="fnum">Figure 7.11</span>
+        <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f711t">
+          <title id="f711t">Left: the four requirements for a solid electrolyte, with the garnet ceramic and the suggestion of ceramic-polymer composites. Right: an electrode particle swelling and shrinking inside a rigid solid electrolyte; when it shrinks back the electrolyte does not follow, a gap opens and the ion path is broken.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="act"></i>electrode particle</span><span><i class="li"></i>ion path in contact</span><span><i class="heat"></i>broken path</span></div>
+        <figcaption>Why solid electrolytes are hard: four requirements, and a contact that has to survive breathing.
+          <span class="try">Try this: press Play and watch for the moment the ion paths turn red.</span>
+          <span class="basis">Requirements, the garnet conductivity and the composite suggestion after Goodenough and Park 2013 (a 2013 assessment); contact loss of inorganic solid electrolytes against electrodes that change volume, also theirs. The size of the volume change and the way the gap opens are schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">A solid separator that blocks dendrites would make a lithium-metal negative electrode possible (module 9), and Goodenough and Park list what a solid electrolyte must do: conduct Li&#8314; at above 10&#8315;&#8308; S/cm, block dendrites without being reduced by lithium, stay chemically stable, and form a robust, flexible thin membrane. The garnet Li&#8327;&#8331;&#8339;La&#8323;Zr&#8322;&#8331;&#8339;Ta&#8339;O&#8321;&#8322; conducts above 10&#8315;&#179; S/cm and is stable against lithium; meeting all four at once, they suggested, points to ceramic-polymer composites. A polymer above 10&#8315;&#8308; S/cm with good electrode contact had, in 2013, yet to be demonstrated.{{cite:R6}}</p>
+        <p class="explain">Even a good solid conductor has to keep touching the electrodes. Electrode particles swell and shrink as lithium goes in and out, and against an inorganic solid electrolyte the contact is lost.{{cite:R6}} In a liquid, the electrolyte simply flows after them.</p>
+        <p class="recap"><b>You can now explain</b> what the liquid in a lithium-ion cell is made of and why it mixes two solvents, what a solvation shell is and how ions pair up, how an ion wanders and drifts and how weak the field in the bulk is, how the liquid changes layer by layer towards an electrode, how a liquid, a polymer and a ceramic each carry a lithium ion, why dry-polymer cells run warm, what the transference number is and why a low one leaves a salt gradient, and why a solid electrolyte needs more than a high conductivity.</p>
+        <p class="bridge">On the far side, the ion has to find a particle.</p>
+        <details class="deeper"><summary>Go deeper: conductivity from the ions themselves</summary><div class="body">
+          <p>The conductivity of an electrolyte is the sum of what each ion contributes: &#954; = F &#931;|z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub>, with u<sub>j</sub> the mobility and C<sub>j</sub> the concentration of ion j. The share carried by one ion is its transference number, t<sub>j</sub> = |z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub> / &#931;|z<sub>k</sub>|u<sub>k</sub>C<sub>k</sub>.{{cite:B2}} For a salt of one cation and one anion this reduces to t&#8330; = |z&#8330;|u&#8330;/(|z&#8330;|u&#8330; + |z&#8331;|u&#8331;), and in the dilute limit to D<sub>Li</sub>/(D<sub>Li</sub> + D&#8331;).{{cite:R36}} Module 0 gave the mobility of a sphere in a viscous liquid, u = |z|e/(6&#960;&#951;r): a bigger ion, or a more viscous liquid, conducts less.{{cite:B2}}</p>
+          <p>How independent are the ions? Measure each ion&#8217;s self-diffusion coefficient, D&#8330; and D&#8331;, and compute the conductivity the ions would give if each moved on its own, &#955;<sub>NE</sub> = e&#178;(n&#8330;D&#8330; + n&#8331;D&#8331;)/(Vk<sub>B</sub>T), for n ions of each kind in a volume V. The measured conductivity divided by it is the <b>ionicity</b>, &#945;<sub>d</sub> = &#955;/&#955;<sub>NE</sub>: 0.62 for LiTFSI in PC and 0.11 in DMC, both at 20 solvent molecules per lithium and 298 K.{{cite:R57}} Why about 1 mol per litre in the first place? Enough salt has to dissolve to provide plenty of charge carriers, and the conductivity is frequently found to peak near 1 M.{{cite:R53}}</p>
+                  <p>Even water can be stretched. Water splits over a window of 1.23 V (module 3), but in &#8220;water-in-salt&#8221; electrolytes, with far more salt than water by weight, the salt crowds the electrode surfaces and its decomposition builds a LiF-rich interphase; with further measures to keep water off the negative electrode, aqueous electrolytes have reached stability windows above 4 V.{{cite:R51}}</p>
+        </div></details>
+        <details class="deeper maths" id="m07-maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">N<sub>solvent</sub>/N<sub>Li</sub> = (1/c) &#931; &#966;<sub>k</sub>&#961;<sub>k</sub>/M<sub>k</sub>,&#8195;d = (1/(cN<sub>A</sub>))<sup>1/3</sup></span><span class="eqnote">solvent molecules per lithium ion, for volume fractions &#966;<sub>k</sub> of solvents of density &#961;<sub>k</sub> (g/L) and molar mass M<sub>k</sub> (g/mol), salt concentration c (mol/L) (salt volume neglected); the mean spacing of the ions (figure 7.2)</span></p>
+          <p class="eqline"><span class="eq">E = i/&#954;,&#8195;v&#772; = i/(Fc)</span><span class="eqnote">the field in the bulk liquid from Ohm&#8217;s law; the mean velocity of the lithium ions once all the current is carried by lithium (worked example of figure 7.6)</span></p>
+          <p class="eqline"><span class="eq">&#954; = F &#931;|z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub>,&#8195;R = l/(&#954;A)</span><span class="eqnote">conductivity from the ions; the resistance of a layer of thickness l and area A (worked example)</span></p>
+          <p class="eqline"><span class="eq">t<sub>j</sub> = |z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub> / &#931;|z<sub>k</sub>|u<sub>k</sub>C<sub>k</sub>,&#8195;t&#8330; = D<sub>Li</sub>/(D<sub>Li</sub> + D&#8331;) (dilute)</span><span class="eqnote">the transference number, and its dilute-solution form</span></p>
+          <p class="eqline"><span class="eq">J<sub>j</sub> = &#8722;D<sub>j</sub> &#8711;C<sub>j</sub> &#8722; (z<sub>j</sub>F/RT) D<sub>j</sub> C<sub>j</sub> &#8711;&#966;,&#8195;i = F &#931; z<sub>j</sub>J<sub>j</sub></span><span class="eqnote">Nernst-Planck, as in module 0: each ion&#8217;s flux by diffusion and by migration in the field; the current density from the fluxes</span></p>
+          <p class="eqline"><span class="eq">&#916;c = (1 &#8722; t&#8330;)&#8239;i&#8239;L / (F&#8239;D)</span><span class="eqnote">the steady-state salt difference across a layer of thickness L at current density i (figure 7.10)</span></p>
+        </div></details>
+        {{sources:R1,R53,R54,R55,R57,R2,R6,R36,R44,R46,R51,B2}}
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -33,7 +33,7 @@
     el('path', { d: 'M113,58 H232 M288,58 H407', fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 1.2 }, g);
     el('circle', { cx: 260, cy: 58, r: 20, fill: 'var(--panel)', stroke: 'var(--line-2)' }, g);
     var vm = txt(g, 260, 62, '1.10 V', 'strong', 'middle'); txt(g, 260, 92, 'voltmeter', '', 'middle');
-    var eLab = txt(g, 340, 12, 'e⁻ through the wire →', 'cyan', 'middle');
+    var eLab = txt(g, 340, 16, 'e⁻ through the wire →', 'cyan', 'middle');
     var fieldW = arrow(g, 380, 40, 340, 40, '#C4B5F7', 1.3, 'field-arrow'); var fieldWl = txt(g, 360, 12 + 40, '', 'field', 'middle');
     // ions: sulfate (grey) migrating left across the separator; Zn2+ born at the zinc; Cu2+ consumed at the copper
     var ions = el('g', {}, g);
@@ -112,7 +112,7 @@
     var yT = 60, yB = 200, xm0 = 40, xb = 260, xs1 = 480;
     el('rect', { x: xm0, y: yT, width: xb - xm0, height: yB - yT, rx: 4, fill: 'var(--metal)', 'fill-opacity': '.35', stroke: 'var(--metal)' }, g);
     el('rect', { x: xb, y: yT, width: xs1 - xb, height: yB - yT, rx: 4, fill: 'var(--cyan)', 'fill-opacity': '.12', stroke: 'var(--cyan)', 'stroke-opacity': '.5' }, g);
-    txt(g, (xm0 + xb) / 2, yT - 14, 'metal electrode', 'strong', 'middle'); txt(g, (xb + xs1) / 2, yT - 14, 'liquid electrolyte', 'strong', 'middle');
+    txt(g, (xm0 + xb) / 2, yT - 17, 'metal electrode', 'strong', 'middle'); txt(g, (xb + xs1) / 2, yT - 17, 'liquid electrolyte', 'strong', 'middle');
     txt(g, (xm0 + xb) / 2, yT - 2, 'ions fixed in a lattice, electrons free', '', 'middle'); txt(g, (xb + xs1) / 2, yT - 2, 'ions free, no free electrons', '', 'middle');
     // lattice of fixed ion cores
     var lat = el('g', {}, g);

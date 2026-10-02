@@ -69,11 +69,11 @@
     var xm = 40, xb = 200, xs = 480, yT = 40, yB = 190, qNow = null; // qNow: fractional charge during the replay
     el('rect', { x: xm, y: yT, width: xb - xm, height: yB - yT, fill: 'var(--metal)', 'fill-opacity': '.3', stroke: 'var(--line-2)' }, g);
     el('rect', { x: xb, y: yT, width: xs - xb, height: yB - yT, fill: 'var(--cyan)', 'fill-opacity': '.1', stroke: 'var(--cyan)', 'stroke-opacity': '.4' }, g);
-    txt(g, (xm + xb) / 2, yT - 12, 'metal', 'strong', 'middle'); txt(g, (xb + xs) / 2, yT - 12, 'electrolyte', 'strong', 'middle');
+    txt(g, (xm + xb) / 2, yT - 12, 'metal', 'strong', 'middle'); txt(g, (xb + xs) / 2 + 90, yT - 12, 'electrolyte', 'strong', 'middle');
     var surf = el('g', {}, g), compact = el('g', {}, g), diffuse = el('g', {}, g), solv = el('g', {}, g);
     // scale brackets
     el('path', { d: 'M196,' + (yB + 6) + ' v6 h8 v-6', fill: 'none', stroke: 'var(--muted)' }, g); txt(g, 198, yB + 26, '< 1 nm: the metal’s charge', '', 'end');
-    el('path', { d: 'M212,' + (yT - 2) + ' v-6 h90 v6', fill: 'none', stroke: 'var(--muted)' }, g); txt(g, 257, yT - 30, 'diffuse layer: < 10 nm above 0.01 M', '', 'middle');
+    el('path', { d: 'M212,' + (yT - 2) + ' v-6 h90 v6', fill: 'none', stroke: 'var(--muted)' }, g); txt(g, 257, yT - 14, 'diffuse layer: < 10 nm above 0.01 M', '', 'middle');
     txt(g, 214, yB + 26, 'compact layer', '', 'start');
     // strip: potential across the interface (B2 Figure 1.6.3b)
     var strip = phiStrip(g, { x: xm, y: 228, w: xs - xm, h: 64 }, [], { vmin: -1.1, vmax: 1.1, label: 'φ', units: '', xlabel: 'position across the interface: metal → compact layer → diffuse layer → bulk' });

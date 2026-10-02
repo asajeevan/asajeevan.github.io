@@ -1,0 +1,147 @@
+<section class="module" id="m06" data-act="B" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 6</p>
+    <h2 class="h2">Inside a lithium-ion cell</h2>
+    <p class="hook">Where does a lithium ion actually sit, and what happens on the very first charge?</p>
+    <p class="where"><b>Where we are.</b> Module 5 watched the voltage curve from outside, at the terminals. Now go inside, with our ion: where it sits in each electrode, how it gets in and out, and the one-off price a new cell pays the first time it is charged.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f6-1" id="f6-1">
+        <span class="fnum">Figure 6.1</span>
+        <svg viewBox="0 0 520 370" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f61t">
+          <title id="f61t">The rocking-chair cell: graphite sheets on copper foil on the left, LiCoO2 layers on aluminium foil on the right, electrolyte between. On discharge lithium ions leave the gaps between the carbon sheets, cross the electrolyte and slip between the oxide layers while electrons go round through a lamp; on charge a charger drives both back. A bar shows that the same lithium only moves from one side to the other.</title>
+        </svg>
+        <div class="controls"><button type="button" data-mode="discharge" aria-pressed="true">Discharge</button><button type="button" data-mode="charge">Charge</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>Li&#8314; (our ion is labelled)</span><span><i class="e"></i>electron</span><span><i class="act"></i>CoO&#8322; layer</span><span><i class="cu"></i>copper foil</span></div>
+        <figcaption>The rocking chair: graphite against LiCoO&#8322;, today&#8217;s form of the carbon | LiCoO&#8322; cell that Sony put on the market in 1991 (Sony&#8217;s first cell used a coke-type carbon).
+          <span class="try">Try this: let it run until the graphite is empty, then press Charge and follow our ion back home.</span>
+          <span class="basis">After Tarascon and Armand 2001, Figure 2b, and Goodenough and Park 2013, Figure 1 (graphite on copper, LiCoO&#8322; on aluminium). Insertion and intercalation as defined by Winter and Brodd 2004, section 2.4. The charger is drawn above the open-circuit voltage as in Winter and Brodd, Figure 11. Twelve ions stand for the movable lithium; numbers of ions, sites and layers are not to scale. Schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Neither electrode of a lithium-ion cell is used up. Both are <b>insertion</b> hosts: solids that conduct ions and electrons and let guest ions in and out by a solid-state redox reaction. Because their structure and shape survive, insertion electrodes are highly reversible; for layered hosts the process is called <b>intercalation</b>.{{cite:R1}}</p>
+        <p class="explain">Replacing the lithium-metal negative electrode with a second insertion host gave the lithium-ion or <b>rocking-chair</b> cell: demonstrated by Murphy and by Scrosati, put on the market by Sony in June 1991 as carbon against LiCoO&#8322;.{{cite:R2}} In the graphite, lithium sits between the carbon sheets, up to one lithium per six carbons, LiC&#8326;.{{cite:R6}}</p>
+        <p class="explain">In LiCoO&#8322; it sits between the oxide layers; only about half of it is taken out on charge, to about 4.2 V, because once more than about 0.55 of it is removed the oxide starts to give off oxygen.{{cite:R2,R6}}</p>
+        <div class="worked"><b>Worked example.</b> How many ions rock in a 3 Ah phone cell on each full discharge?
+          <span class="line">charge = 3 Ah &#215; 3600 s/h = <i>10 800 C</i></span>
+          <span class="line">ions = 10 800 C &#247; 1.602 &#215; 10&#8315;&#185;&#8313; C = <i>6.7 &#215; 10&#178;&#178;</i>, that is 10 800 &#247; 96 485 = <i>0.112 mol</i> of lithium</span>
+          <span class="line">mass of that lithium = 0.112 mol &#215; 6.94 g/mol = <i>0.78 g</i></span>
+          Less than a gram of lithium travels back and forth; the rest of the cell is the hosts, the electrolyte and the packaging that let it do so.{{cite:B2,R2}}</div>
+        <p class="lesson">Nothing is consumed in an ideal lithium-ion cell: the ions only change address.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f6-2" id="f6-2">
+        <span class="fnum">Figure 6.2</span>
+        <svg viewBox="0 0 520 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f62t">
+          <title id="f62t">A ball-and-stick model, drawn to one scale, of seven graphene sheets seen almost edge-on, with buttons for graphite without lithium and for stages 4, 3, 2 (LiC12) and 1 (LiC6): lithium layers fill every fourth, third, second or every gap, entering from the edge. Letters mark the A and B stacking of the sheets; brackets mark empty gaps of 0.335 nanometres and the wider lithium layers. A second view shows LiCoO2: three CoO2 sheets with lithium layers between them and a slider that removes lithium down to about half.</title>
+        </svg>
+        <div class="controls"><button type="button" data-host="g" aria-pressed="true">Graphite</button><button type="button" data-host="l" aria-pressed="false">LiCoO₂</button></div>
+        <div class="controls row-g"><button type="button" data-stage="0" aria-pressed="true">No lithium</button><button type="button" data-stage="4" aria-pressed="false">Stage 4</button><button type="button" data-stage="3" aria-pressed="false">Stage 3</button><button type="button" data-stage="2" aria-pressed="false">Stage 2 · LiC₁₂</button><button type="button" data-stage="1" aria-pressed="false">Stage 1 · LiC₆</button></div>
+        <div class="controls row-l" style="display:none"><label><span>lithium content</span> <input type="range" class="lco" min="50" max="100" value="100" aria-label="Lithium content x in LixCoO2"> <b class="lco-val">x = 1.00</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="li"></i>lithium</span><span><i class="cc"></i>carbon</span><span><i class="co"></i>cobalt</span><span><i class="o"></i>oxygen</span></div>
+        <figcaption>The two hosts, atom by atom: graphite fills by stages; LiCoO₂ gives up half its lithium.
+          <span class="try">Try this: press the stage buttons from Stage 4 to Stage 1 and watch which gaps fill.</span>
+          <span class="basis">Graphite: hexagonal graphene sheets held by van der Waals forces and π–π interactions, ABAB stacking in natural graphite, 0.335 nm between sheets, C–C 0.14 nm, staging from stage 4 to stage 1 (the stage being the number of graphene sheets between lithium layers), LiC₁₂ and LiC₆, full lithium layers as in the Rüdorff–Hofmann picture, lithium entering at the edge planes and about 10 % expansion mostly along the stacking axis, after Nagendra et al. 2026; one lithium per six carbons in LiC₆ after Goodenough and Park 2013. LiCoO₂: lithium between octahedral CoO₂ sheets after Zhang et al. 2020; about half used after Tarascon and Armand 2001. Drawn from the standard crystal structures, each view to scale (LiCoO₂ magnified 1.3 times relative to graphite): lithium over every third carbon ring, the AA stacking and 0.370 nm width of a filled gap, and the LiCoO₂ cell (a = 0.282 nm, 0.468 nm between sheets) are not yet from a source in hand. In the Daumas–Hérold picture the guest forms islands within the layers instead; this figure shows the Rüdorff–Hofmann picture.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Graphite: sheets, and lithium by stages</h3>
+        <p class="explain">Look closer at the two hosts. Graphite is a stack of <b>graphene</b> sheets: carbon atoms joined in hexagonal rings, the sheets held to one another by weak van der Waals forces and π–π interactions, 0.335 nm apart; in natural graphite they are mostly stacked in the order A, B, A, B.{{cite:R58}} The lithium goes into the gaps between the sheets, at most one lithium for every six carbons, LiC₆.{{cite:R6}} The edges of the sheets are the favourable sites for lithium to go in, and it diffuses faster there; the flat faces, the basal planes, are less reactive.{{cite:R58}}</p>
+        <p class="explain">It does not fill all the gaps at once. Lithium fills some gaps and leaves the others empty, forming <b>stages</b>: the stage number is the number of graphene sheets between two lithium layers. As the cell charges, the graphite passes from stage 4 through stage 3 to stage 2, LiC₁₂, and finally stage 1, LiC₆, with lithium in every gap. Stages 2 and 3 are stable phases that affect the equilibrium potential and the diffusion of lithium. Each change of stage is favoured thermodynamically but held back kinetically, the last one, from LiC₁₂ to LiC₆, most of all. Rüdorff and Hofmann pictured each stage as complete lithium layers, as the figure draws them; in the Daumas–Hérold picture the guest forms islands within the layers instead. Full lithiation swells the graphite by about 10 %, mostly by the sheets moving apart, not by the sheets stretching.{{cite:R58}}</p>
+        <h3 class="sub">LiCoO₂: lithium between oxide sheets</h3>
+        <p class="explain">LiCoO₂ is a layered compound too: cobalt surrounded by oxygen in CoO₂ sheets, with the lithium in the layer between two of them. The idea came from sodium, which Hagenmuller and co-workers had put between such sheets in the 1970s; in 1979 and 1980 Goodenough’s group made the lithium compound, at twice the voltage of TiS₂.{{cite:R47}} On charge only about half of its lithium is taken out.{{cite:R2,R6}}</p>
+        <p class="explain">The sheets are what makes this work. Lithium comes and goes; the framework of carbon or of cobalt oxide stays, so the electrodes keep their structure and shape and the reaction can run back and forth many times.{{cite:R1}}</p>
+        <p class="lesson">Two layered solids and one guest: charging moves lithium from between the oxide sheets to between the carbon sheets, and discharging moves it back.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f6-3" id="f6-3">
+        <span class="fnum">Figure 6.3</span>
+        <svg viewBox="0 0 520 346" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f63t">
+          <title id="f63t">The first charge of a lithium-ion cell. On the right the potential of the graphite falls from high on the scale toward 0.2 volts versus lithium, below the 1.1 volt lower edge of the carbonate electrolyte's stability window. On the left, once it is below that edge, electrolyte molecules are reduced at the graphite surface and a layer, the SEI, grows; a bar shows part of the lithium from the positive electrode locked in that layer for good.</title>
+        </svg>
+        <div class="controls"><button type="button" data-cycle="1" aria-pressed="true">First charge</button><button type="button" data-cycle="2">Second charge</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="carb"></i>electrolyte molecule</span><span><i class="an"></i>SEI</span><span><i class="li"></i>our ion</span><span><i class="e"></i>electron</span></div>
+        <figcaption>The first charge, and the layer that costs lithium mostly once and then protects.
+          <span class="try">Try this: watch the white bar on the right; nothing happens at the surface until it crosses the cyan edge.</span>
+          <span class="basis">After Goodenough and Park 2013 (the graphite at about 0.2 V vs Li/Li&#8314; lies outside the carbonate window, whose lower edge is about 1.1 V; the SEI forms on the first charge, consumes lithium from the positive electrode irreversibly and adds interfacial impedance), Winter and Brodd 2004, section 2.4 (the SEI is electronically insulating and passes Li&#8314;) and Tarascon and Armand 2001 (ethylene carbonate forms it on graphite). The starting potential of the empty graphite is not given in the sources and the axis is unnumbered there; the thickness of the layer and the share of lithium it locks up are schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The first charge</h3>
+        <p class="explain">A lithium-ion cell is assembled discharged, with all its lithium in the positive electrode. On the first charge the graphite is driven down to about 0.2 V vs Li/Li&#8314;, below the lower edge of the window in which the carbonate electrolyte is stable (module 3). The electrolyte is reduced at the graphite surface, and its products form a passivating layer, the <b>solid-electrolyte interphase</b> or SEI. Forming it consumes lithium from the positive electrode irreversibly, and the layer adds to the interfacial impedance; it also changes as the cell cycles.{{cite:R6}}</p>
+        <p class="explain">Among the solvents, ethylene carbonate is reduced first, from about 0.8 V vs Li/Li&#8314; (with LiPF&#8326; the anion starts earlier; see Go deeper). Two EC molecules, two lithium ions and two electrons give lithium ethylene dicarbonate (Li&#8322;EDC) and ethylene gas; the layer that forms has a dense inorganic inner part next to the graphite (Li&#8322;CO&#8323;, LiF, Li&#8322;O) and a porous organic outer part.{{cite:R52,R50}}</p>
+        <p class="explain">A crystalline layer only 2 to 3 nm thick would already stop electrons tunnelling through, but on graphite the SEI soon grows past 10 nm and reaches about 50 nm after cycling.{{cite:R52,R49}}</p>
+        <h3 class="sub">Why the layer helps</h3>
+        <p class="explain">What makes the SEI useful is its selectivity: it is electronically insulating, so it stops further reduction, yet it conducts Li&#8314;, so the graphite keeps filling.{{cite:R1}} Of the main solvents, only ethylene carbonate forms a protective layer on graphite, which is why it is in almost every commercial electrolyte; propylene carbonate does not, and in 2001 Tarascon and Armand still called the reason unclear.{{cite:R2}}</p>
+        <p class="explain">The explanation usually given, which goes back to Dahn and co-workers in 1990, is that EC decomposes first and builds an SEI that stops PC from slipping into the graphite together with the lithium;{{cite:R47}} PC holds on to its Li&#8314; more strongly, goes into the graphite with it, and peels the graphite layers apart.{{cite:R52}}</p>
+        <p class="explain">Brandt&#8217;s 1994 review put it simply: the layer forms during the first insertion, and after it intercalation is completely reversible.{{cite:R46}} Module 10 shows that this is only nearly true. An electrode that works inside the window needs no SEI: lithium titanate at 1.5 V forms none, and Zaghib and co-workers reported electrodes of lithium titanate and LiFePO&#8324; that survived 30&#8239;000 cycles at 5C.{{cite:R6}}</p>
+        <h3 class="sub">Steering the SEI on purpose</h3>
+        <p class="explain">Today the SEI is also steered on purpose, with small amounts of additives that decompose first and leave a thin, controlled layer. The best known is vinylene carbonate (VC): reduced at the graphite above 1 V vs Li/Li⁺, it forms a passivation layer, and it suppresses the decomposition of PC.{{cite:R55}}</p>
+        <p class="aside"><b>Why new cells are &#8220;formed&#8221;.</b> Because the SEI decides how the cell will age, a factory does not leave its growth to chance: near the end of making a cell, it is cycled slowly under precisely defined conditions, for up to a day, and let the gas out before the cell is sealed for good.{{cite:R48}} It is expensive, about a third (32 %) of the cost of making a cell, mostly for keeping cells warm while they condition.{{cite:R50}} And the first cycle is where the big loss happens: in one recent laboratory cell the first cycle returned about 82.5 % of the charge put in, the second about 97.5 %.{{cite:R50}}</p>
+        <p class="aside"><b>Not only on graphite.</b> A positive electrode pushed above the upper edge of the window, about 4.3 V, oxidizes the electrolyte instead; LiNi&#8320;.&#8325;Mn&#8321;.&#8325;O&#8324; at about 4.75 V is protected by a passivation layer of its own, which Goodenough and Park also call an SEI.{{cite:R6}}</p>
+        <p class="lesson">The SEI costs most of its lithium on the first charge, and then lets the cell work outside its electrolyte&#8217;s window.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f6-4" id="f6-4">
+        <span class="fnum">Figure 6.4</span>
+        <svg viewBox="0 0 520 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f64t">
+          <title id="f64t">Three blocks drawn in perspective. Layered LiCoO2: solid oxide layers with dashed lithium planes between them; arrows show lithium moving in both directions within a plane and a red cross blocks movement from one plane to the next. Spinel LiMn2O4: a three-dimensional grid of paths, with an ion turning in all directions. Olivine LiFePO4: parallel tubes along one direction, an ion going back and forth in one tube and a red cross between tubes.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Three hosts, three kinds of path for the ion.
+          <span class="try">Try this: follow each ion for a few seconds and note which directions it never takes.</span>
+          <span class="basis">Dimensionality of the lithium paths after Goodenough and Park 2013: two-dimensional in the layered oxides, three-dimensional in the spinel, one-dimensional in olivine LiFePO&#8324;. The blocks are schematic pieces of each structure, not its real polyhedra; the paths show only the dimensionality. Schematic, not to scale.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The host decides how the ion can move once it is inside. In the layered oxides lithium travels within two-dimensional planes; the spinel LiMn&#8322;O&#8324; offers a three-dimensional network; in olivine LiFePO&#8324; the paths are one-dimensional channels.{{cite:R6}}</p>
+        <p class="explain">Inside the solid the ion moves by diffusion, down its concentration gradient, as Fick&#8217;s first law describes; in a time t it typically gets about (2Dt)<sup>1/2</sup> from where it started, where D is its diffusion coefficient.{{cite:B2}} Turned around, emptying a particle of size L takes a time of order L&#178;/2D: halve the particle and it empties four times faster. Module 8 returns to that when the particles shrink to nanometres.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f6-5" id="f6-5">
+        <span class="fnum">Figure 6.5</span>
+        <svg viewBox="0 0 520 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f65t">
+          <title id="f65t">A timeline from 1972 to 1996 with nine events: the Belgirate conference of 1972; lithium against TiS2 in 1976; the rocking-chair proposal in the late 1970s and the first rocking-chair cell soon after; LiCoO2 at 4 volts around 1980; carbon negative electrodes in 1983; the protective film from ethylene carbonate on graphite in 1990; Sony's cell in June 1991 at about 80 Wh/kg; the LiPF6 in EC/DMC electrolyte in 1993; LiFePO4 in 1996.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>From a chemist&#8217;s curiosity to a product, and on to today&#8217;s cell.
+          <span class="try">Try this: step through the nine events and find the one that removed lithium metal from the cell, and the one that made graphite usable.</span>
+          <span class="basis">Events, names, years and values after Zhang et al. 2020 (the history from solid-solution electrodes to today&#8217;s cells), Goodenough 2018, Shanmukaraj et al. 2020 and Brandt 1994, consistent with Goodenough and Park 2013 and Tarascon and Armand 2001. Zhang and co-workers give the 1991 cell as 80 Wh/kg and 200 Wh/L; Brandt&#8217;s 1994 table of carbon | LiCoO&#8322; cells of 1990 to 1993 agrees (64 to 100 Wh/kg). TiS&#8322; at 2.2 V after Goodenough and Park 2013.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The pieces arrived one at a time. In 1972, at a conference at Belgirate, Steele singled out layered dichalcogenides such as TiS&#8322; as positive electrodes and Armand set out what an intercalation electrode needs; in 1976 lithium went reversibly into TiS&#8322; against a lithium-metal electrode.{{cite:R47,R44}} Exxon&#8217;s cell then failed on dendrites that shorted it and ignited the electrolyte.{{cite:R45}} Armand&#8217;s answer in the late 1970s was the rocking chair, and Lazzari and Scrosati built the first one, Li&#8339;WO&#8322; against TiS&#8322;, at about 2 V.{{cite:R47,R44}}</p>
+        <p class="explain">Around 1980 Goodenough&#8217;s group showed that over half the lithium could be taken out of LiCoO&#8322; reversibly, at about 4 V, so that a cell could be built discharged.{{cite:R45,R47}} In 1983 Yoshino found that petroleum coke cycled in a carbonate electrolyte and proposed carbon against LiCoO&#8322;; Sony&#8217;s cell of June 1991 delivered about 80 Wh/kg and 200 Wh/L, more than any other rechargeable of the time.{{cite:R47}}</p>
+        <p class="explain">With the LiPF&#8326; in EC/DMC electrolyte proposed in 1993 and decades of refinement, the same chemistry reached about 250 Wh/kg and 600 Wh/L by 2020.{{cite:R47}} Since its launch the lithium-ion cell has gained a factor of three to four in energy density while its price fell by a factor of 18.{{cite:R48}}</p>
+        <p class="recap"><b>You can now explain</b> where the lithium sits in graphite and in LiCoO&#8322;, why the cell is called a rocking chair, why a new cell loses lithium on its first charge and what it gets in return, how the host shapes the ion&#8217;s path, and how the cell came together between 1972 and 1996.</p>
+        <p class="bridge">The ion had to cross something to get there.</p>
+        <details class="deeper"><summary>Go deeper: why the SEI forms where it does</summary><div class="body">
+          <p>Goodenough and Park draw the electrolyte as having its own window: an energy gap between its lowest unoccupied and highest occupied molecular orbitals. A negative electrode whose electrochemical potential &#956;<sub>A</sub> lies above the lowest unoccupied orbital reduces the electrolyte; a positive electrode whose &#956;<sub>C</sub> lies below the highest occupied orbital oxidizes it, unless a passivating layer blocks the electron transfer. For the carbonate electrolytes the lowest unoccupied orbital sits about 1.1 eV below the lithium level and the practical limit at the top is about 4.3 eV below it, which on the voltage scale of module 3 is the window from about 1.1 to about 4.3 V vs Li/Li&#8314;. Graphite, at about 0.2 V, is outside it, and so works only behind its SEI.{{cite:R6}}</p>
+          <p>The orbital picture is a simplification. Real reduction and oxidation potentials depend on the salt and on the molecules around each one: estimates from isolated molecules can be far off: oxidizing EC next to PF&#8326;&#8315;, with a hydrogen passed to a neighbour, takes almost 2 V less than oxidizing an isolated EC molecule,{{cite:R51}} and in an EC/EMC electrolyte reduction is measured to start at about 1.7 V with LiPF&#8326; but about 0.8 V with LiBF&#8324;.{{cite:R52}} Most solvents and salt anions are thermodynamically unstable where lithium inserts into graphite; the electrolyte survives there only kinetically, behind the insulating interphase it has built.{{cite:R51}}</p>
+                  <p>What a good SEI has to do comes down to four things: block electrons, so that no more electrolyte is reduced; let Li&#8314; through without much hindrance; stay chemically stable, neither reacting with nor dissolving into the electrolyte; and stay mechanically intact while the electrode under it swells and shrinks.{{cite:R52}} Peled introduced the idea of an electronically insulating, ionically conducting interphase in 1979.{{cite:R52}}</p>
+        </div></details>
+        <details class="deeper maths" id="m06-maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">Li<sub>x</sub>C<sub>6</sub>, 0 &#8804; x &#8804; 1;&#8195;Li<sub>1&#8722;y</sub>CoO<sub>2</sub>, y &#8804; 0.5 in practice</span><span class="eqnote">how much lithium each host holds: up to one per six carbons, and about half the lithium of LiCoO&#8322; used in practice</span></p>
+          <p class="eqline"><span class="eq">2 EC + 2 Li<sup>+</sup> + 2 e<sup>&#8722;</sup> &#8594; Li<sub>2</sub>EDC + C<sub>2</sub>H<sub>4</sub>&#8593;</span><span class="eqnote">the main SEI-forming reduction of ethylene carbonate, from about 0.8 V vs Li/Li<sup>+</sup>; the ethylene is among the gases let out during formation</span></p>
+          <p class="eqline"><span class="eq">LiCoO<sub>2</sub> + C<sub>6</sub> &#8652; Li<sub>1&#8722;x</sub>CoO<sub>2</sub> + Li<sub>x</sub>C<sub>6</sub></span><span class="eqnote">the cell reaction, charge to the right: the carbon is made empty because Li<sub>x</sub>C<sub>6</sub> is very reactive, and LiCoO<sub>2</sub> is the only source of lithium</span></p>
+          <p class="eqline"><span class="eq">N = Q/e = nN<sub>A</sub>,&#8195;n = Q/F</span><span class="eqnote">the number of ions, and of moles, that carry a charge Q (worked example)</span></p>
+          <p class="eqline"><span class="eq">J = &#8722;D&#8239;&#8706;C/&#8706;x,&#8195;&#916; = (2Dt)<sup>1/2</sup>,&#8195;t &#8776; L&#178;/2D</span><span class="eqnote">Fick&#8217;s first law; the diffusion length in a time t; and, turned round, the order of magnitude of the time to cross a particle of size L</span></p>
+          <p class="eqline"><span class="eq">eV<sub>OC</sub> = &#956;<sub>A</sub> &#8722; &#956;<sub>C</sub>,&#8195;stable if &#956;<sub>A</sub> &lt; LUMO and &#956;<sub>C</sub> &gt; HOMO</span><span class="eqnote">the open-circuit voltage from the two electrodes&#8217; electrochemical potentials, and the condition for the electrolyte to survive without a passivating layer</span></p>
+        </div></details>
+        {{sources:R1,R2,R6,R58,R47,R45,R46,R44,R48,R52,R50,R49,R51,R55,B2}}
+      </div>
+    </div>
+
+  </div>
+</section>

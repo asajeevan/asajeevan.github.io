@@ -219,3 +219,100 @@ test('lithium metal is the most negative rung: Li+/Li = -3.045 V vs NHE (BFW Tab
   close(s['Li+/Li'], -3.045, 1e-9);
   assert.ok(s['Li+/Li'] < s['Zn2+/Zn'] && s['Zn2+/Zn'] < s['Cu2+/Cu']);
 });
+
+test('Brandt 1994: 99 % lithium cycling efficiency needs a three-fold excess for 300 cycles (eq. 2); 3861/4 = 965 Ah/kg', () => {
+  close(P.lithiumExcess(300, 0.99), 3, 1e-9);
+  close(P.specificCapacity(1, P.data.molarMass.Li) / (3 + 1), 965, 1);
+});
+
+test('LiClO4/PC at 60 % efficiency: R = N(1 - E) is 40 for 100 cycles (Brandt 1994, eq. 2)', () => {
+  close(P.lithiumExcess(100, 0.60), 40, 1e-9);
+});
+
+test('GITT (Weppner and Huggins 1977, eq. 4): scaling checks D ~ 1/tau and D ~ (dEs/dEt)^2', () => {
+  const D1 = P.gittD(100, 0.01, 30, 100, 1, 0.01, 0.05);
+  close(P.gittD(200, 0.01, 30, 100, 1, 0.01, 0.05), D1 / 2, 1e-15);
+  close(P.gittD(100, 0.01, 30, 100, 1, 0.02, 0.05), D1 * 4, 1e-15);
+  close(D1, (4 / (Math.PI * 100)) * Math.pow(0.01 * 30 / (100 * 1), 2) * Math.pow(0.2, 2), 1e-18);
+});
+
+test('SEI square-root law (von Kolzenberg et al. 2020): 2 % after 1 month gives 6.9 % after 12 and 13.9 % after 48', () => {
+  close(P.powerLawScale(2, 1, 12, 0.5), 6.93, 0.01);
+  close(P.powerLawScale(2, 1, 48, 0.5), 13.86, 0.01);
+  close(P.powerLawScale(2, 1, 12, 1), 24, 1e-9);
+});
+
+test('Randles circuit: semicircle peak at f = 1/(2 pi Rct Cd); 20 ohm and 20 uF give 398 Hz (Bard, Faulkner and White 11.4)', () => {
+  close(P.semicirclePeak(20, 20e-6).f, 397.9, 0.1);
+  const z = P.kineticImpedance(5, 20, 20e-6, 1 / (20 * 20e-6));
+  close(z.re, 15, 1e-9); close(z.negIm, 10, 1e-9);
+});
+
+test('Module 7 counting: 1 mol LiPF6 per litre of EC:DMC 3:7 by volume gives about 12.7 solvent molecules per Li+, 4.5 EC and 8.2 DMC (Ue et al. 2014 Table 2.1)', () => {
+  const n = P.solventPerIon([{ phi: 0.3, rho: 1.32, M: 88.1 }, { phi: 0.7, rho: 1.06, M: 90.1 }], 1);
+  close(n, 12.73, 0.01);
+  close(P.solventPerIon([{ phi: 0.3, rho: 1.32, M: 88.1 }], 1), 4.49, 0.01);
+  close(P.solventPerIon([{ phi: 0.7, rho: 1.06, M: 90.1 }], 1), 8.24, 0.01);
+});
+
+test('Module 7 spacing, field and drift: 1 M gives 1.18 nm between Li+; 1 mA/cm2 in 10 mS/cm gives 0.1 V/cm and 0.10 um/s', () => {
+  close(P.meanSpacing(1) * 1e9, 1.184, 0.001);
+  close(P.bulkField(10, 1), 10, 1e-12);                 // 1 mA/cm2 = 10 A/m2; 10 mS/cm = 1 S/m; 10 V/m = 0.1 V/cm
+  close(P.meanIonVelocity(10, 1000) * 1e6, 0.1036, 0.0001); // um/s
+  close(25e-6 / P.meanIonVelocity(10, 1000), 241, 1);     // seconds to cross 25 um
+});
+
+test('Module 5 bench: 2 A for 30 min passes 3600 C = 1 Ah; 1C for a 2.1 Ah cell is 2.1 A; C/20 of 210 mAh is 10.5 mA (Olson et al. 2023)', () => {
+  close(P.chargePassed(2, 1800), 3600, 1e-9);
+  close(P.chargePassed(2, 1800) / 3600, 1, 1e-12);
+  close(P.cRateCurrent(2.1, 1), 2.1, 1e-12);
+  close(P.cRateCurrent(0.210, 1 / 20) * 1000, 10.5, 1e-9);
+});
+
+test('LiFePO4 open-circuit fit (Safari and Delacourt 2011, eq. 10): flat at 3.432 V from y = 0.15 to 0.85, sloping ends', () => {
+  [0.15, 0.3, 0.5, 0.7, 0.85].forEach(y => close(P.lfpOcp(y), 3.432, 0.002));
+  assert.ok(P.lfpOcp(0.02) > 3.7 && P.lfpOcp(0.98) < 3.0);
+  for (let y = 0.01; y < 0.99; y += 0.01) assert.ok(P.lfpOcp(y + 0.01) <= P.lfpOcp(y) + 1e-6);
+});
+
+test('LiFePO4 diffusion coefficient (Safari and Delacourt eq. 12): 1.184e-18 empty, 3.907e-19 m2/s full', () => {
+  close(P.lfpDiffusion(0), 1.184e-18, 1e-21);
+  close(P.lfpDiffusion(1), 3.907e-19, 1e-21);
+});
+
+test('EDLC step response (Moya 2025, eqs. 6, 7, 12, 16): jump RH I0, slope I0/C, reversal drop 2 RH I0', () => {
+  const RH = 0.31, Ri = 0.32, C = 0.94, tau = 0.095, I0 = 0.05, t0 = 10;
+  close(P.edlcCharge(0, I0, RH, Ri, C, tau), RH * I0, 1e-12);
+  close(P.edlcCharge(5, I0, RH, Ri, C, tau) - P.edlcCharge(4, I0, RH, Ri, C, tau), I0 / C, 1e-9);
+  const V0 = P.edlcCycle(t0 - 1e-9, t0, I0, RH, Ri, C, tau);
+  close(V0, (RH + Ri) * I0 + I0 * t0 / C, 1e-6);          // eq. 15 with t0 >> tau
+  close(P.edlcCycle(t0, t0, I0, RH, Ri, C, tau), V0 - 2 * RH * I0, 1e-6); // eq. 16
+  close(2 * C / 7, 0.269, 0.001);                          // eq. 33, Ci = 2C/7 (Table 2 fit: 0.297 F)
+});
+
+test('Porous electrode (Doyle, Fuller and Newman 1993, eq. 26 with Table II): solid diffusion ratio about 1e-4 at 10 A/m2', () => {
+  close(P.solidDiffusionRatio(1e-6, 10, 5e-13, 0.3, 29000, 100e-6), 1.02e-4, 0.01e-4);
+});
+
+test('LiFePO4 resistive-reactant model (Safari and Delacourt 2011): rate, asymmetry, sequential groups and path dependence', () => {
+  const run = (y0, I, o) => P.lfpElectrode({ y0 }).run(I, o);
+  const C = P.lfpElectrode().oneC;
+  close(C, 18.4, 0.05);                                      // 1C on the theoretical capacity, A/m2
+  const slow = run(0.005, -C / 25), fast = run(0.005, -C);
+  const uSlow = slow[slow.length - 1].y, uFast = fast[fast.length - 1].y;
+  assert.ok(uSlow > 0.98 && uFast < uSlow - 0.05);            // less capacity at 1C
+  const chFast = run(0.995, C); assert.ok(0.995 - chFast[chFast.length - 1].y > uFast - 0.005); // charge utilization above discharge
+  const g = fast[Math.floor(fast.length * 0.3)].groups;       // best-connected group fills first
+  assert.ok(g[0].y > g[1].y && g[1].y > g[2].y && g[2].y > g[3].y);
+  // path dependence: half charge at C/25 from empty, or half discharge from full, then 2 h rest
+  const sd = gs => { const m = gs.reduce((s, x) => s + x.y, 0) / 4; return Math.sqrt(gs.reduce((s, x) => s + (x.y - m) ** 2, 0) / 4); };
+  function hist(fromEmpty) {
+    const m = P.lfpElectrode({ y0: fromEmpty ? 0.995 : 0.005 });
+    const a = m.run(fromEmpty ? C / 25 : -C / 25, { yStop: 0.5 }), r = m.run(0, { tmax: 7200, dtmax: 300 }), b = m.run(C);
+    return { sd0: sd(a[a.length - 1].groups), sd1: sd(r[r.length - 1].groups), util: r[r.length - 1].y - b[b.length - 1].y };
+  }
+  const A = hist(true), B = hist(false);
+  close(A.sd0, 0.097, 0.01);                                  // Safari and Delacourt: 0.0973 (case 1)
+  close(A.sd1, A.sd0, 0.002);                                 // no relaxation on the flat plateau
+  assert.ok(A.util < B.util);                                 // coming from empty limits the 1C charge
+});

@@ -1,0 +1,134 @@
+<section class="module" id="m08" data-act="B" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 8</p>
+    <h2 class="h2">Electrodes are composites</h2>
+    <p class="hook">Why is an electrode not just a block of the good stuff?</p>
+    <p class="where"><b>Where we are.</b> Our ion has crossed the electrolyte (module 7) and has to get into a particle of the positive electrode (module 6). Module 2 showed that an electrode is a coating of particles, carbon, binder and pores. This module asks what each of those is for, and what happens when one of them fails.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f8-1" id="f8-1">
+        <span class="fnum">Figure 8.1</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f81t">
+          <title id="f81t">A cross-section of a composite electrode between an aluminium foil and the separator: twenty active particles linked to each other and to the foil by a carbon network, with the pores between them filled with electrolyte. Breaking carbon links or sealing pores leaves particles that electrons or ions can no longer reach; those turn dark, and a counter gives how many particles can still work.</title>
+        </svg>
+        <div class="controls"><button type="button" class="cut-carbon">Break carbon contacts</button><button type="button" class="block-pores">Seal some pores</button><button type="button" class="reset">Reset</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="act"></i>active particle that works</span><span><i style="background:var(--panel-2);border:1px dashed var(--line-2)"></i>dead particle</span><span><i class="carb"></i>carbon network</span><span><i class="pore"></i>electrolyte in the pores</span></div>
+        <figcaption>Two roads to every particle: electrons through the carbon, ions through the pores.
+          <span class="try">Try this: break carbon contacts several times and look for a particle that goes dark while its own links look intact: what counts is an unbroken path all the way to the foil.</span>
+          <span class="basis">Composite of active particles, conductive diluent and binder on a current collector, about 30 % porous, after Winter and Brodd 2004, section 1.6. Which particles can work is computed from the network shown: a particle counts if the carbon links connect it to the foil and its pore is open. The geometry, the number of particles and the links are schematic, not to scale.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Most battery electrodes are porous composites: particles of the active material, a conductive diluent such as carbon or a metal powder, and a polymer binder, coated on a current collector. About 30 % of the coating is pore space, so the surface where the reaction can happen is far larger than the electrode&#8217;s geometric area.{{cite:R1}} A large surface lowers the current density at each point of it, and with it the polarization.{{cite:R1}}</p>
+        <p class="explain">Each ingredient keeps one road open. The carbon carries electrons from the foil to every particle; the electrolyte in the pores carries ions from the separator to every particle; the binder holds the coating together and onto the foil. A particle that one of the two roads cannot reach stores nothing and only adds mass.</p>
+        <p class="aside">A picture to keep: a town where every house needs two roads, one for each of two deliveries that must arrive together, and is only lived in if both reach it. The picture breaks because here the roads also have tolls: the farther a delivery travels through the coating, the more voltage it costs, which is the next figure.</p>
+        <p class="lesson">A particle that the electrons or the ions cannot reach contributes nothing.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f8-2" id="f8-2">
+        <span class="fnum">Figure 8.2</span>
+        <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f82t">
+          <title id="f82t">One electrode from current collector to separator, shaded by where the reaction happens, with a plot of the local reaction rate across its thickness. When the solid conducts much better than the electrolyte, the reaction crowds next to the separator; when the electrolyte conducts better, next to the collector; a thicker electrode makes the crowding stronger.</title>
+          <g class="plot"></g>
+        </svg>
+        <div class="controls">
+          <label><span>solid vs electrolyte conductivity</span> <input type="range" class="ratio" min="0" max="200" value="150" aria-label="Ratio of the matrix conductivity to the effective electrolyte conductivity, logarithmic"> <b class="ratio-val">×10</b></label>
+          <label><span>thickness</span> <input type="range" class="nu" min="2" max="60" value="30" aria-label="Electrode thickness in units of the reaction depth, times ten"> <b class="nu-val">3.0</b></label>
+        </div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Where does the current go inside an electrode?
+          <span class="try">Try this: set the two conductivities equal and the thickness to 0.2; then thicken the electrode and watch the middle go quiet.</span>
+          <span class="basis">The dependence on the two conductivities, exchange current, thickness and porosity after Winter and Brodd 2004, section 1.6 and Figure 9B. The profile is computed from Ohm&#8217;s law in the solid and in the electrolyte with the linearized kinetics of module 5 (R<sub>ct</sub>, Bard, Faulkner and White 2022, eq. 3.4.13): j(&#958;) &#8733; cosh(&#957;&#958;)/&#954; + cosh(&#957;(1 &#8722; &#958;))/&#963;, with &#958; the distance from the collector as a fraction of the thickness and &#957; the thickness in units of the reaction depth; the cosh form and the depth scale are those analysed by Pathak and Bazant 2026. Schematic: no electrode is modelled.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Inside a porous electrode the reaction is not spread evenly. Where it happens depends on the conductivities of the solid matrix and of the electrolyte, the exchange current, diffusion, the thickness of the electrode, its porosity, pore size and tortuosity; and a nonuniform current distribution wastes active material.{{cite:R1}}</p>
+        <p class="explain">The reaction concentrates where the electrons and the ions together have the shortest, cheapest way to meet. In the simplest theory the profile is a hyperbolic cosine with a characteristic depth; Pathak and Bazant find this reaction-limited picture most realistic for thin electrodes, of order 10 &#956;m, and in need of corrections beyond about 100 &#956;m.{{cite:R41}}</p>
+        <p class="explain">The electrolyte inside the pores conducts worse than in bulk, because the ions have less room and a winding path. Boz and co-workers give the usual correction, &#954;<sub>eff</sub> = &#954;&#949;<sup>&#945;</sup>, with &#949; the porosity and &#945; = 1.5 (1.53 for LiFePO&#8324; electrodes).{{cite:R36}} Ionic transport is far slower than electronic transport, which is also why cells use thin electrodes of large area.{{cite:R6}}</p>
+        <div class="worked"><b>Worked example.</b> How well does the electrolyte conduct inside a 30 % porous electrode?
+          <span class="line">&#954;<sub>eff</sub>/&#954; = 0.30<sup>1.5</sup> = <i>0.164</i></span>
+          <span class="line">for a liquid of 10&#8315;&#178; S/cm: &#954;<sub>eff</sub> = <i>1.6 &#215; 10&#8315;&#179; S/cm</i>, about a sixth</span>
+          Every micrometre of coating the ions must cross costs six times the voltage it would in the open electrolyte; another reason the reaction in figure 8.2 crowds toward the separator.{{cite:R36,R1}}</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f8-3" id="f8-3">
+        <span class="fnum">Figure 8.3</span>
+        <svg viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f83t">
+          <title id="f83t">Two particles of a poorly conducting active material. The left one touches carbon at one point and the reacted zone spreads from that point. The right one has either no carbon, and stays dark, or a carbon coating all round, and reacts everywhere at once.</title>
+        </svg>
+        <div class="controls"><button type="button" data-carbon="dot" aria-pressed="true">No carbon</button><button type="button" data-carbon="coat">Carbon coating</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="act"></i>reacted material</span><span><i class="carb"></i>carbon</span></div>
+        <figcaption>A poor conductor needs carbon.
+          <span class="try">Try this: switch the right-hand particle to a carbon coating and compare how long each one takes to light up fully.</span>
+          <span class="basis">Utilization beginning at the contact with the carbon additive and spreading from it, after Winter and Brodd 2004, section 2.4 and Figure 15E (MnO&#8322;); carbon coating of LiFePO&#8324; after Goodenough and Park 2013. The speed of the spreading is schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">An active material that conducts electrons poorly works only where it touches the conductive additive, and the reacted zone spreads outward from that contact; Winter and Brodd show it for MnO&#8322;.{{cite:R1}} LiFePO&#8324; is the modern case: its poor electronic conductivity was overcome by coating the particles with carbon and making them small.{{cite:R6}}</p>
+        <p class="explain">The coating Armand and co-workers introduced is made by decomposing a polymer precursor on the particles, which leaves a uniform layer of carbon;{{cite:R44}} the once dead-end material is now produced in thousands of tonnes a year.{{cite:R44,R47}}</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f8-4" id="f8-4">
+        <span class="fnum">Figure 8.4</span>
+        <svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f84t">
+          <title id="f84t">The same mass of active material as a few large particles and as many small coated particles. A bar shows that the time for an ion to cross a particle falls with the square of its size; a second, schematic bar shows that the small coated powder takes more room.</title>
+        </svg>
+        <div class="controls"><label><span>size of the small particles</span> <input type="range" class="size" min="10" max="100" value="33" aria-label="Size of the small particles relative to the large ones, percent"> <b class="size-val">1/3</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The nanoparticle trade-off: faster particles, emptier litres.
+          <span class="try">Try this: shrink the particles to a tenth and read both bars.</span>
+          <span class="basis">Time to cross a particle from the diffusion length of Bard, Faulkner and White 2022, eq. 4.4.3, t &#8776; L&#178;/2D, computed relative to the large particles. The loss of tap density and the difficulty of coating small particles uniformly after Goodenough and Park 2013; the size of the volume penalty is not given by the sources and the lower bar is schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Small particles bring the ions closer to every atom: the time to cross a particle falls with the square of its size (module 6). But carbon-coated nanoparticles have a lower tap density, so the electrode holds less energy per litre, and coating them evenly gets harder as they shrink.{{cite:R6,B2}} Highly porous aerogel electrodes pay the same price, at a tap density of about 0.2 g/cm&#179;.{{cite:R2}}</p>
+        {{pending:OWN-BINDER}}<p class="aside"><b>From my own work.</b> In the solid-state cells of my doctorate the same polymer served as the binder of the electrode and as the electrolyte: a binder that is not inert glue but part of the ion road, so that the ion road is built into the coating from the start.{{cite:OWN-BINDER}}</p>{{/pending}}
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f8-5" id="f8-5">
+        <span class="fnum">Figure 8.5</span>
+        <svg viewBox="0 0 520 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f85t">
+          <title id="f85t">The eight steps of making a lithium-ion cell: mix a slurry, coat it on foil, dry it, calender it, cut and stack or wind, fill with electrolyte, form the SEI, and test, grouped into electrode making, cell assembly and cell finishing.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>From powder to cell in eight steps.
+          <span class="try">Try this: step through and find the two steps where the pores of figure 8.1 are made and then partly squeezed out.</span>
+          <span class="basis">Process chain, the share of active material, the solvents, drying, calendering, cell formats, formation and quality control after Fichtner et al. 2022, section 5.3. Schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">The composite of this module is made in a few industrial steps. The powders, about 90 % active material by mass with conductive carbon and a polymer binder, are mixed into a slurry, coated on the current-collector foil, dried so that the pores form, and pressed between rollers to an even, denser layer; the electrodes are then cut, stacked or wound with the separator, filled with electrolyte, and cycled for the first time to form the SEI.{{cite:R48}}</p>
+        <p class="explain">Every step leaves its mark on the roads of figure 8.1: where the carbon and binder end up, how open the pores stay, how well the electrolyte wets them.{{cite:R48}}</p>
+        <p class="recap"><b>You can now explain</b> what each ingredient of an electrode coating is for, why a particle without both roads is dead weight, where the reaction happens inside a thick electrode and why, why poorly conducting materials need carbon, and what small particles gain and cost.</p>
+        <p class="bridge">The round trip works. Now let us see how it fails.</p>
+        <details class="deeper"><summary>Go deeper: the porous electrode in one equation</summary><div class="body">
+          <p>Write the current in the solid i<sub>1</sub> and in the electrolyte i<sub>2</sub>; their sum is the cell current, and the electrolyte current grows through the thickness by whatever the reaction converts, di<sub>2</sub>/dx = a&#8239;j, with a the reacting area per volume. Ohm&#8217;s law in each phase, dφ<sub>1</sub>/dx = &#8722;i<sub>1</sub>/&#963; and dφ<sub>2</sub>/dx = &#8722;i<sub>2</sub>/&#954;, and the linearized kinetics of module 5, j = &#951;/R<sub>ct</sub>, with &#951; = &#966;<sub>1</sub> &#8722; &#966;<sub>2</sub> &#8722; U the local overpotential, give d&#178;&#951;/dx&#178; = (&#957;/L)&#178;&#951;, with &#957;&#178; = aL&#178;(1/&#963; + 1/&#954;)/R<sub>ct</sub>, the same balance of current that underlies the porous-electrode equations reviewed by Boz and co-workers.{{cite:B2,R36}} Its solution is the cosh profile of figure 8.2, and 1/&#957; is the reaction depth as a fraction of the thickness. Pathak and Bazant analyse this reaction-limited case and its depth scale in full; when the depth is much larger than the electrode the overpotential is uniform.{{cite:R41}}</p>
+        </div></details>
+        <details class="deeper maths" id="m08-maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">&#954;<sub>eff</sub> = &#954;&#949;<sup>&#945;</sup>,&#8195;D<sub>eff</sub> = D&#949;/&#964;,&#8195;&#964; = &#949;<sup>1&#8722;&#945;</sup>,&#8195;&#945; = 1.5</span><span class="eqnote">the Bruggeman correction for transport in the pores of porosity &#949; and tortuosity &#964; (1.53 for LiFePO&#8324;)</span></p>
+          <p class="eqline"><span class="eq">j(&#958;) &#8733; cosh(&#957;&#958;)/&#954; + cosh(&#957;(1 &#8722; &#958;))/&#963;</span><span class="eqnote">the reaction profile across an electrode with linear kinetics; &#958; from the collector, &#957; the thickness over the reaction depth (figure 8.2)</span></p>
+          <p class="eqline"><span class="eq">&#957;&#178; = aL&#178;(1/&#963; + 1/&#954;)/R<sub>ct</sub></span><span class="eqnote">what sets the reaction depth: reacting area per volume a, thickness L, the two conductivities and the charge-transfer resistance</span></p>
+          <p class="eqline"><span class="eq">t &#8776; L&#178;/2D</span><span class="eqnote">the time to cross a particle of size L (figure 8.4)</span></p>
+        </div></details>
+        {{sources:R1,R6,R36,R41,R2,R48,R44,R47,B2}}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap"><div class="act-end" data-reveal>
+  <h3>Where Act B leaves you</h3>
+  <p>You have followed one ion through a full cycle: the voltage curve its journey draws and what current costs it (module 5), the two hosts it leaves and enters and the layer the first charge builds (module 6), the electrolyte it crosses and the anions that cross the other way (module 7), and the composite it has to find its way into (module 8). Your cell, <b class="your-cell-name">Graphite | LiCoO2</b>, has done all of this.</p>
+  <p>Act C is about how the same journey goes wrong: lithium that plates as metal, hosts that crack, interfaces that keep growing, and what a cell does at the end of its life.</p>
+</div></div>

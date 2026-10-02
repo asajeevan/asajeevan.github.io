@@ -1,0 +1,107 @@
+<section class="module" id="m12" data-act="C" data-nav>
+  <div class="wrap">
+    <p class="mod-n">Module 12</p>
+    <h2 class="h2">Safety, use and end of life</h2>
+    <p class="hook">How do you keep a cell safe, and what happens to it at the end?</p>
+    <p class="where"><b>Where we are.</b> Module 11 showed how to find out what is wrong with a cell. This last module is about the two ends of its working life that matter most to the person holding it: keeping the stored energy from coming out all at once, and what becomes of the materials when the cell is finished.</p>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f12-1" id="f12-1">
+        <span class="fnum">Figure 12.1</span>
+        <svg viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f121t">
+          <title id="f121t">A loop of three steps, heat released, temperature rises, reactions speed up, with a cooling arrow leaving it; beside it a schematic temperature trace that either levels off or runs away depending on how strong the cooling is.</title>
+        </svg>
+        <div class="controls"><label><span>cooling</span> <input type="range" class="cool" min="0" max="100" value="70" aria-label="Strength of the cooling"> <b class="cool-val">strong</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The runaway loop: heat that makes more heat.
+          <span class="try">Try this: slide the cooling down slowly and find where the trace stops levelling off.</span>
+          <span class="basis">Thermal runaway as a self-sustaining, autocatalytic reaction of an electrode with the electrolyte, and heat released at the electrode surfaces, after Winter and Brodd 2004, sections 1.2 and 1.3. The temperature trace is a drawing device with two outcomes, computed from a toy rule, not a model of any cell; it carries no numbers.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">A charged cell holds its energy in two materials kept apart. Let them meet through a short circuit and the whole stored energy comes out as heat.{{cite:R1}} <b>Thermal runaway</b> is the worst case: the reaction of an electrode with the electrolyte becomes self-sustaining and enters an autocatalytic mode, the heat it releases speeding it up. Because the heat is released inside, at the electrode surfaces, cells for high currents must be built to shed it.{{cite:R1}} The SEI plays a part here too: its decomposition promotes thermal runaway.{{cite:R49}}</p>
+        <p class="explain">The history is written in fires. Exxon&#8217;s rechargeable lithium-metal cell of the 1970s grew dendrites across the electrolyte to the positive electrode; the internal short ignited the flammable electrolyte and the programme was abandoned.{{cite:R45}} In 1989 the first lithium-metal rechargeable cell sold for consumer use, Moli Energy&#8217;s Li/MoS&#8322;, was recalled after cells vented with flame in the field: the porous, high-surface lithium deposited by cycling reacts with the electrolyte strongly enough to do that, and cycling makes cells less tolerant of abuse.{{cite:R46}}</p>
+        <p class="lesson">A cell is safe as long as its heat can leave faster than its reactions make it.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f12-2" id="f12-2">
+        <span class="fnum">Figure 12.2</span>
+        <svg viewBox="0 0 520 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f122t">
+          <title id="f122t">Six layers of protection from the outside in: electronics that watch every cell, a pressure switch in the cap, a shutdown separator, a ceramic-coated separator, additives in the electrolyte and the chemistry itself. Choosing a kind of abuse marks which layers act, which help less and which cannot help.</title>
+        </svg>
+        <div class="controls"><button type="button" data-abuse="over" aria-pressed="true">Overcharge</button><button type="button" data-abuse="ext">Short outside</button><button type="button" data-abuse="int">Short inside</button><button type="button" data-abuse="over2">Overdischarge</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Layers of protection, and which one answers which kind of abuse.
+          <span class="try">Try this: choose Short inside and see why prevention matters more than any switch.</span>
+          <span class="basis">Electronic control of each cell&#8217;s voltage, current limiting, the pressure-operated current interrupter, the shutdown separator and its limits, and the copper dissolution on overdischarge after Brandt 1994; electronic protection of LiCoO&#8322; cells after Winter and Brodd 2004, section 2.6; the Al&#8322;O&#8323;-coated separator after Goodenough and Park 2013; overcharge additives after Abe 2014, pp. 186 to 190. Which layers answer which abuse is the page&#8217;s reading of those statements.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Electronics and separators</h3>
+        <p class="explain">Lithium cells have no built-in chemical way of shedding overcharge, unlike nickel-cadmium, and in a battery of cells in series small differences in capacity and self-discharge push individual cells out of balance. So the end of charge and of discharge is controlled by watching the voltage, cell by cell; Sony&#8217;s first lithium-ion batteries carried a circuit that did exactly that and also limited the current.{{cite:R46,R1}}</p>
+        <p class="explain">Inside the cell, a separator that loses its porosity when it gets hot stops the ions in a fault that heats the cell evenly, such as a short outside it, but helps much less against a local internal short.{{cite:R46}} A ceramic Al&#8322;O&#8323; coating on the separator helps keep dendrites from getting through.{{cite:R6}}</p>
+        <h3 class="sub">The electrolyte as a safeguard</h3>
+        <p class="explain">The electrolyte can be a safeguard too. An overcharged cell loses too much lithium from its positive electrode, whose crystal starts to release oxygen and becomes unstable, while lithium metal deposits on the negative electrode; the electrodes then decompose the solvents, and a sudden exothermic reaction follows. Additives in small quantities answer this in three main ways: <b>redox shuttles</b> consume the excess current through a redox process and keep the voltage from rising; aromatic compounds such as biphenyl are believed to <b>polymerize</b> above the maximum operating voltage into an insulating layer on the positive electrode, raising the cell&#8217;s resistance; and compounds such as cyclohexylbenzene decompose and give off <b>hydrogen</b>, so that a pressure-operated current interrupter cuts the charging current. None is free: additives always have side effects, and with biphenyl, cycle life at 40 &#176;C up to 4.3 V got worse the more of it there was.{{cite:R55}}</p>
+        <p class="explain">A nonflammable liquid is a further aim: phosphate esters such as triethyl phosphate have very high flash points, but trimethyl phosphate is unstable against graphite, which led some to judge such electrolytes impractical.{{cite:R55}}</p>
+        <h3 class="sub">Safety built into the chemistry</h3>
+        <p class="explain">The lithium-metal polymer cells that Bollor&#233; has used in electric cars and buses since 2011 are a case of safety built into the chemistry: solid polymer electrolytes, more than 3000 cycles without dendrites.{{cite:R47}}</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f12-3" id="f12-3">
+        <span class="fnum">Figure 12.3</span>
+        <svg viewBox="0 0 520 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f123t">
+          <title id="f123t">A temperature axis from minus 60 to 100 degrees with three bands: consumer cells in use from 0 to 40 degrees, consumer cells in storage from minus 20 to 85, military and automotive cells from minus 50 to 85; notes that cold fast charging risks lithium plating and warmth speeds self-discharge.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The comfort zone.
+          <span class="try">Try this: find the narrowest band, and think where your phone spends its summer.</span>
+          <span class="basis">Ranges after Winter and Brodd 2004, section 2.6 (a 2004 snapshot); self-discharge rising with temperature, theirs too; lithium plating favoured by high current density and low temperature after Fichtner et al. 2022; faster SEI growth at high state of charge and high charging rate after von Kolzenberg, Latz and Horstmann 2020.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Consumer cells are designed to work between about 0 and 40 &#176;C and to be stored between &#8722;20 and 85 &#176;C; military and automotive cells must work from &#8722;50 to 85 &#176;C.{{cite:R1}} Within those limits the sources point the same way. Self-discharge rises with temperature.{{cite:R1}} The SEI grows fastest when the cell sits at a high state of charge and is charged fast.{{cite:R37}} And at high current and low temperature, lithium can plate on the graphite instead of entering it.{{cite:R48}}</p>
+        <p class="aside"><b>What that means in your pocket.</b> Read together, those statements favour keeping a cell cool, not leaving it full for long periods, and not fast-charging it in the cold. This is the page&#8217;s reading of the sources quoted, not a separate rule from any of them.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f12-4" id="f12-4">
+        <span class="fnum">Figure 12.4</span>
+        <svg viewBox="0 0 520 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f124t">
+          <title id="f124t">The recycling routes for lithium-ion batteries: collection of spent cells as hazardous goods, pre-treatment, crushing and sorting, then pyrometallurgy giving a copper-nickel-cobalt alloy with lithium and manganese in the slag, hydrometallurgy giving metal salts, or direct recycling keeping electrode materials whole, all feeding back into new cells.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The recycling routes: three ways back into a new cell.
+          <span class="try">Try this: follow the amber dot and, at each route, note what is recovered and what is lost.</span>
+          <span class="basis">Collection, pre-treatment, pyrometallurgical, hydrometallurgical and direct recycling, with their recovered products, advantages and drawbacks, after Fichtner et al. 2022, section 6. The flow is schematic; real plants combine steps.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <p class="explain">Recycling a lithium-ion battery means recovering above all its cobalt, lithium and nickel, besides aluminium and copper. Two chemical routes dominate: <b>pyrometallurgy</b>, which smelts the cells at about 1000 &#176;C into a copper-nickel-cobalt alloy while lithium and manganese go to the slag, and <b>hydrometallurgy</b>, which dissolves the electrode materials in acid and separates the metals, with higher recovery and lower energy use but more complex processing. <b>Direct recycling</b>, which keeps the electrode materials whole, is still immature.{{cite:R48}}</p>
+        <p class="explain">Why it matters: cobalt is scarce, costly and toxic, which is one reason the positive electrode has moved from LiCoO&#8322; toward materials with less of it.{{cite:R47,R44}} Lead-acid batteries show what a closed loop can look like: Winter and Brodd reported in 2004 that about 98 % of them were recycled in the United States.{{cite:R1}}</p>
+        <p class="explain">For lithium batteries, a 2020 European proposal would raise the collection target for portable batteries from 45 % to 65 % by 2025 and 70 % by 2030, and require all batteries from electric vehicles and stationary storage to be collected and recycled.{{cite:R48}}</p>
+        {{pending:OWN-THESIS}}<p class="aside"><b>From my own work.</b> The organic electrode materials of my doctorate were designed with their end of life in mind: I developed a route that recovers the organic precursor from a cycled electrode material, Mg(Li&#8322;)-p-DHT, and separates the streams containing lithium and magnesium (manuscript in preparation).{{cite:OWN-THESIS}}</p>{{/pending}}
+        <p class="recap"><b>You can now explain</b> what thermal runaway is and what breaks the loop, why lithium cells need electronics as well as chemistry to stay safe, why temperature and state of charge decide how a cell ages, and the three ways its materials can go back into a new cell.</p>
+        <p class="bridge">This is where my own work starts: <a href="../#research">the research behind these pages</a>.</p>
+        <details class="deeper maths" id="m12-maths"><summary>The mathematics of this module</summary><div class="body">
+          <p class="eqline"><span class="eq">E = Q&#8239;&#10216;V&#10217;</span><span class="eqnote">the energy a short circuit can turn into heat: all the charge stored times the average voltage (module 4); a 3 Ah cell at 3.7 V holds 11.1 Wh, that is 40 kJ</span></p>
+          <p class="eqline"><span class="eq">Q&#775; = I(U &#8722; V) &#8722; I&#8239;T&#8239;dU/dT</span><span class="eqnote">the heat a cell makes in normal use (module 5, figure 5.11); in runaway the side reactions add their own heat on top</span></p>
+          <p class="eqline"><span class="eq">L<sub>SEI</sub> &#8733; t<sup>b</sup></span><span class="eqnote">the ageing law of module 10 behind the advice to avoid long periods at full charge</span></p>
+        </div></details>
+        {{sources:R1,R45,R46,R6,R55,R47,R37,R48,R44,R49}}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap"><div class="act-end" data-reveal>
+  <h3>Where the whole page leaves you</h3>
+  <p>Twelve modules ago you started with two charges in empty space. Since then you have seen where a cell&#8217;s voltage comes from and how much energy it holds (Act A), followed one ion through a full cycle (Act B), and watched the same journey go wrong and be put right (Act C). Your cell, <b class="your-cell-name">Graphite | LiCoO&#8322;</b>, has been with you all the way.</p>
+  <p>The open problems at the end of Act C (solid electrolytes, lithium metal, organic electrodes and recycling) are the ones I worked on during my doctorate. If you want to see what that looks like from the inside, <a href="../#research">the research section</a> is the next page.</p>
+  <p class="act-share"><button class="btn js-share" type="button">Share this page</button> <span>Know someone who is starting out with batteries? Send them here.</span></p>
+</div></div>

@@ -157,8 +157,144 @@
   /* Diffusion length as Bard, Faulkner and White define it, eq. 4.4.3: (2 D t)^1/2. */
   function diffusionLength(D, t) { return Math.sqrt(2 * D * t); }
 
+  /* GITT, Weppner and Huggins 1977, printed eq. 4 (valid for tau << L^2/D):
+     D = (4 / (pi tau)) (mB VM / (MB S))^2 (dEs / dEt)^2, with mB and MB the mass and molar
+     mass of the electrode material, VM its molar volume, S the contact area, dEs the change
+     of the steady-state voltage and dEt the transient change during the pulse, IR drop
+     excluded. Any consistent units (cm, s, g, mol give cm^2/s). */
+  function gittD(tau, mB, VM, MB, S, dEs, dEt) { var a = mB * VM / (MB * S); return 4 / (Math.PI * tau) * a * a * (dEs / dEt) * (dEs / dEt); }
+  /* Lithium cycling efficiency and the excess needed, Brandt 1994, eqs. 1 and 2:
+     E = (Qs - Qex/n) / Qs and R = Qex/Qs = N (1 - E). */
+  function lithiumExcess(N, E) { return N * (1 - E); }
+  /* SEI growth law, von Kolzenberg, Latz and Horstmann 2020: L ~ t^b; scaling a known value. */
+  function powerLawScale(L1, t1, t2, b) { return L1 * Math.pow(t2 / t1, b); }
+  /* Module 7, counting the crowd. solventPerIon: moles of solvent per mole of salt when
+     c mol of salt are dissolved per litre of a solvent mixture made of volume fractions
+     phi_k of liquids with density rho_k (g/cm3) and molar mass M_k (g/mol); the salt's own
+     volume is neglected. Densities and molar masses from Ue et al. 2014, Table 2.1. */
+  function solventPerIon(parts, c) { var n = 0; parts.forEach(function (p) { n += p.phi * 1000 * p.rho / p.M; }); return n / c; }
+  /* mean spacing of the ions of one kind at concentration c (mol/L): the edge of the cube each one has to itself, in m */
+  function meanSpacing(c) { return Math.cbrt(1 / (c * 1000 * NA)); }
+  /* the field in the bulk electrolyte at current density i (A/m2) and conductivity kappa (S/m): Ohm's law, E = i/kappa, V/m */
+  function bulkField(i, kappa) { return i / kappa; }
+  /* the mean velocity of the lithium ions once the steady state is reached, when every bit of
+     current is carried by lithium (the anions are blocked at both electrodes): flux i/F over
+     concentration c (mol/m3), m/s */
+  function meanIonVelocity(i, c) { return i / (F * c); }
+
   /* Series and parallel arithmetic, Goodenough and Park: series adds voltage,
      parallel adds capacity. */
+
+  /* ---- Module 5, charge and discharge in detail ---- */
+  /* Charge passed at constant current, Q = I t (A, s -> C); the C-rate current for a
+     capacity Q (Ah): 1C passes the full nominal charge in one hour (Olson et al. 2023, section 4.1). */
+  function chargePassed(I, t) { return I * t; }
+  function cRateCurrent(Qah, c) { return Qah * c; }
+  /* Open-circuit potential of LiyFePO4 vs Li, the fit of Safari and Delacourt 2011, eq. 10, to the
+     average of the C/100 charge and discharge curves; y is the lithium content at the surface. */
+  function lfpOcp(y) {
+    var s = 1 - y;
+    return 3.4323 - 0.8428 * Math.exp(-80.2493 * Math.pow(s, 1.3198)) - 3.247e-6 * Math.exp(20.2645 * Math.pow(s, 3.8003)) + 3.2482e-6 * Math.exp(20.2646 * Math.pow(s, 3.7995));
+  }
+  /* Concentration-dependent solid diffusion coefficient of Safari and Delacourt eq. 12 (m2/s). */
+  function lfpDiffusion(ybar) { return 1.184e-18 / Math.pow(1 + ybar, 1.6); }
+
+  /* The resistive-reactant model of a LiFePO4 electrode against lithium, after Safari and
+     Delacourt 2011 (eqs. 2 to 12 and Table I, case 1). Four groups of identical particles
+     (radius 36.5 nm) differ only in the contact resistance Rc between particle and conductive
+     matrix. Inside each group: the three-parameter polynomial approximation for diffusion
+     (eqs. 2 to 4) with D = D0/(1 + ybar)^1.6 (eq. 12); at the surface Butler-Volmer kinetics with
+     beta = 0.5 (eq. 5) and the rate constant of eq. 11; the particle sees the matrix potential less
+     Rc i (eq. 7); the groups share the total current (eq. 8); the lithium counter electrode follows
+     Butler-Volmer with i0 = 1.90 mA/cm2 (eq. 9). Current I > 0 is charge (delithiation), A per m2
+     of separator. Returns a stepper used by figure 5.7 and the tests. */
+  function lfpElectrode(opts) {
+    opts = opts || {};
+    var Rp = 36.5e-9, cmax = 22806, L = 70e-6, epsT = 0.43, c = 1000, D0 = 1.184e-18, p = 1.6, i0a = 19.0, Tk = 298.15;
+    var f = F / (R * Tk), frac = opts.frac || [0.25, 0.62, 0.08, 0.05], Rc = opts.Rc || [0.08, 2.88, 7.81, 36.99];
+    var aL = frac.map(function (fr) { return 3 * epsT * fr / Rp * L; });
+    var oneC = epsT * L * cmax * F / 3600; // A/m2 for one hour on the theoretical capacity
+    var y0 = opts.y0 === undefined ? 0.005 : opts.y0;
+    var g = frac.map(function () { return { y: y0, q: 0, i: 0, ys: y0 }; });
+    function kc(I) { var a = Math.min(Math.abs(I), 20); return Math.max(1e-15, -4.3e-16 * a * a + 2e-14 * a + 1.1e-14); }
+    function ysOf(k, i) { var d = i * Rp / (F * D0 * cmax), w = Math.pow(1 + g[k].y, p); var y = g[k].y + (8 * g[k].q - d * w) / 35; return Math.min(1 - 1e-7, Math.max(1e-7, y)); }
+    function bvRes(k, i, phi, kk) { // residual i - BV(eta(i))
+      var ys = ysOf(k, i), eta = phi - Rc[k] * i - lfpOcp(ys);
+      return i - F * kk * Math.sqrt(c) * cmax * Math.sqrt((1 - ys) * ys) * (Math.exp(0.5 * f * eta) - Math.exp(-0.5 * f * eta));
+    }
+    function groupCurrent(k, phi, kk, ib, guess) { // the residual rises with i: bracket, then safeguarded secant
+      var lo = -ib, hi = ib, x = Math.max(lo, Math.min(hi, guess || 0)), fx = bvRes(k, x, phi, kk);
+      if (fx > 0) hi = x; else lo = x;
+      var h = Math.max(1e-6, Math.abs(x) * 1e-3), x1 = x + (fx > 0 ? -h : h), f1 = bvRes(k, x1, phi, kk);
+      for (var n = 0; n < 60; n++) {
+        if (f1 > 0) hi = Math.min(hi, x1); else lo = Math.max(lo, x1);
+        var xn = (f1 !== fx) ? x1 - f1 * (x1 - x) / (f1 - fx) : 0.5 * (lo + hi);
+        if (!(xn > lo && xn < hi)) xn = 0.5 * (lo + hi);
+        x = x1; fx = f1; x1 = xn; f1 = bvRes(k, x1, phi, kk);
+        if (Math.abs(x1 - x) < 1e-10 + 1e-9 * Math.abs(x1)) break;
+      }
+      return x1;
+    }
+    var phiLast = null;
+    function solve(I) { // matrix potential phi such that sum(aL i) = I: bracketed secant on phi
+      var kk = kc(I), ib = 240 * (Math.abs(I) + oneC) / aL.reduce(function (s, v) { return s + v; }, 0), cur = [];
+      function tot(phi) { var t = 0; for (var k = 0; k < g.length; k++) { cur[k] = groupCurrent(k, phi, kk, ib, g[k].i); t += aL[k] * cur[k]; } return t - I; }
+      var lo = 2.0, hi = 5.0, x = phiLast === null ? 3.43 : phiLast, fx = tot(x);
+      if (fx > 0) hi = x; else lo = x;
+      var x1 = x + (fx > 0 ? -0.002 : 0.002), f1 = tot(x1);
+      for (var n = 0; n < 60; n++) {
+        if (f1 > 0) hi = Math.min(hi, x1); else lo = Math.max(lo, x1);
+        var xn = (f1 !== fx) ? x1 - f1 * (x1 - x) / (f1 - fx) : 0.5 * (lo + hi);
+        if (!(xn > lo && xn < hi)) xn = 0.5 * (lo + hi);
+        x = x1; fx = f1; x1 = xn; f1 = tot(x1);
+        if (Math.abs(x1 - x) < 1e-9) break;
+      }
+      phiLast = x1;
+      return { phi: x1, cur: cur.slice() };
+    }
+    function state(I) {
+      var s = solve(I);
+      for (var k = 0; k < g.length; k++) { g[k].i = s.cur[k]; g[k].ys = ysOf(k, s.cur[k]); }
+      var V = s.phi + (2 / f) * Math.asinh(I / (2 * i0a)); // Li counter electrode: plating on charge
+      var yb = 0; for (k = 0; k < g.length; k++) yb += frac[k] * g[k].y;
+      return { V: V, phi: s.phi, y: yb, groups: g.map(function (x) { return { y: x.y, ys: x.ys, i: x.i }; }) };
+    }
+    function advance(I, dt) {
+      for (var k = 0; k < g.length; k++) {
+        var d = g[k].i * Rp / (F * D0 * cmax), w = Math.pow(1 + g[k].y, p), dtau = D0 * dt / (Rp * Rp);
+        g[k].q = (g[k].q - 22.5 * d * dtau) / (1 + 30 * dtau / w);
+        g[k].y = Math.min(1, Math.max(0, g[k].y - 3 * d * dtau));
+      }
+    }
+    /* run(I, until): step at current I (A/m2) until V crosses the cut-off (2.5 V on discharge,
+       4.2 V on charge), the time limit tmax (s) is reached, or the mean content reaches yStop. */
+    function run(I, o) {
+      o = o || {}; var out = [], t = 0, s = state(I), tmax = o.tmax || 1e7;
+      out.push({ t: 0, V: s.V, y: s.y, groups: s.groups });
+      for (var n = 0; n < 4000; n++) {
+        var rate = 0; for (var k = 0; k < g.length; k++) rate = Math.max(rate, Math.abs(3 * g[k].i / (F * cmax * Rp)));
+        var dt = Math.min(o.dtmax || 600, (o.dy || 0.004) / Math.max(rate, 1e-9), tmax - t);
+        if (dt <= 0) break;
+        advance(I, dt); t += dt; s = state(I);
+        out.push({ t: t, V: s.V, y: s.y, groups: s.groups });
+        if (I > 0 && s.V >= 4.2) break; if (I < 0 && s.V <= 2.5) break;
+        if (o.yStop !== undefined && (I > 0 ? s.y <= o.yStop : s.y >= o.yStop)) break;
+        if (t >= tmax - 1e-6) break;
+      }
+      return out;
+    }
+    return { oneC: oneC, run: run, state: state, groups: g, frac: frac, Rc: Rc };
+  }
+
+  /* Electric double-layer capacitor under a current step I0 (Moya 2025, eq. 6):
+     v(t) = RH I0 + Ri I0 (1 - exp(-t/tau)) + I0 t / C; and the full cycle, charge for t0 then
+     discharge at -I0 (eq. 12): vD(t) = vC(t) - 2 u(t - t0) vC(t - t0). */
+  function edlcCharge(t, I0, RH, Ri, C, tau) { return t < 0 ? 0 : RH * I0 + Ri * I0 * (1 - Math.exp(-t / tau)) + I0 * t / C; }
+  function edlcCycle(t, t0, I0, RH, Ri, C, tau) { return edlcCharge(t, I0, RH, Ri, C, tau) - (t >= t0 ? 2 * edlcCharge(t - t0, I0, RH, Ri, C, tau) : 0); }
+  /* Doyle, Fuller and Newman 1993, eq. 26: the ratio of the time for diffusion in the solid
+     particles to the time of discharge, Sc = Rs^2 I / (Ds F (1 - eps) cT deltaC). */
+  function solidDiffusionRatio(Rs, I, Ds, eps, cT, dc) { return Rs * Rs * I / (Ds * F * (1 - eps) * cT * dc); }
+
   function seriesVoltage(V, n) { return V * n; }
   function parallelCapacity(Q, n) { return Q * n; }
 
@@ -240,6 +376,10 @@
     energyFromCurve: energyFromCurve, coulombicEfficiency: coulombicEfficiency, storageEfficiency: storageEfficiency,
     kineticImpedance: kineticImpedance, semicirclePeak: semicirclePeak, warburg: warburg, diffusionLength: diffusionLength,
     seriesVoltage: seriesVoltage, parallelCapacity: parallelCapacity,
+    gittD: gittD, lithiumExcess: lithiumExcess, powerLawScale: powerLawScale,
+    solventPerIon: solventPerIon, meanSpacing: meanSpacing, bulkField: bulkField, meanIonVelocity: meanIonVelocity,
+    chargePassed: chargePassed, cRateCurrent: cRateCurrent, lfpOcp: lfpOcp, lfpDiffusion: lfpDiffusion, lfpElectrode: lfpElectrode,
+    edlcCharge: edlcCharge, edlcCycle: edlcCycle, solidDiffusionRatio: solidDiffusionRatio,
     data: data
   };
 });
