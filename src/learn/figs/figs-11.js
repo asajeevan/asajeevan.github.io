@@ -1,146 +1,117 @@
   /* =================================================================
-     Module 11: testing and diagnosis. Impedance computed from the
-     Randles circuit of Bard, Faulkner and White (B2) 11.3 and 11.4 with
-     the assignments of Winter and Brodd 2004 (R1) 1.5; GITT from
-     Weppner and Huggins 1977 (R38) eq. 4; cell formats after Murray,
-     Hall and Dahn 2019 (R21) and Goodenough and Park 2013 (R6); the
-     techniques after R1 1.5, Tarascon and Armand 2001 (R2) and Fichtner
-     et al. 2022 (R48).
+     Module 11: testing and diagnosis. This file holds the helpers shared
+     by figs-11*.js, the overview (11.1), the current pulse (11.2) and
+     what each technique sees (11.18). GITT is in figs-11g.js, impedance
+     basics in figs-11e.js, measuring well in figs-11m.js and analysis in
+     figs-11a.js. All physics is in Physics.m11 (assets/js/physics.js),
+     with the source of each formula stated there.
      ================================================================= */
+  var M11 = P.m11;
+  function e11d(pts) { var d = ''; for (var i = 0; i < pts.length; i++) { if (!isFinite(pts[i][0]) || !isFinite(pts[i][1])) continue; d += (d ? 'L' : 'M') + pts[i][0].toFixed(1) + ',' + pts[i][1].toFixed(1); } return d; }
+  /* axes with tick labels: b = {x0, y0, x1, y1} (y0 is the bottom); o.xt / o.yt = [[value, label]] mapped by o.X / o.Y */
+  function e11axes(g, b, o) {
+    el('line', { x1: b.x0, y1: b.y0, x2: b.x1, y2: b.y0, stroke: 'var(--line-2)' }, g);
+    el('line', { x1: b.x0, y1: b.y0, x2: b.x0, y2: b.y1, stroke: 'var(--line-2)' }, g);
+    (o.xt || []).forEach(function (t) { var x = o.X(t[0]); el('line', { x1: x, x2: x, y1: b.y0, y2: b.y0 + 4, stroke: 'var(--line-2)' }, g); if (t[1] !== '') txt(g, x, b.y0 + 16, t[1], '', 'middle'); });
+    (o.yt || []).forEach(function (t) { var y = o.Y(t[0]); el('line', { x1: b.x0 - 4, x2: b.x0, y1: y, y2: y, stroke: 'var(--line-2)' }, g); if (o.grid) el('line', { x1: b.x0, x2: b.x1, y1: y, y2: y, stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, g); if (t[1] !== '') txt(g, b.x0 - 7, y + 4, t[1], '', 'end'); });
+    if (o.xlab) txt(g, b.x1, b.y0 + (o.xt && o.xt.length ? 32 : 16), o.xlab, '', 'end');
+    if (o.ylab) txt(g, b.x0 + 6, b.y1 - 8, o.ylab, '', 'start');
+  }
+  function e11mOhm(r, d) { return (r * 1000).toFixed(d === undefined ? 1 : d) + ' mΩ'; }
+  function e11Hz(f) {
+    var s = f >= 1e3 ? (f / 1e3).toFixed(f >= 1e4 ? 0 : 1) + ' kHz' : f >= 1 ? f.toFixed(f >= 10 ? 0 : 1) + ' Hz' : (f * 1e3).toFixed(f * 1e3 >= 10 ? 0 : 1) + ' mHz';
+    return s.replace('.0 ', ' ');
+  }
+  /* a signed number with a true minus sign */
+  function e11n(x, d) { var s = Math.abs(x).toFixed(d === undefined ? 1 : d); return (x < 0 && +s !== 0 ? '−' : '') + s; }
+  function e11time(t) {
+    if (t < 1e-3) return (t * 1e6).toFixed(0) + ' µs';
+    if (t < 1) return (t * 1e3).toFixed(t < 0.01 ? 1 : 0) + ' ms';
+    if (t < 120) return t.toFixed(t < 10 ? 1 : 0) + ' s';
+    if (t < 7200) return (t / 60).toFixed(0) + ' min';
+    return (t / 3600).toFixed(t < 36000 ? 1 : 0) + ' h';
+  }
+  function e11log(v, lo, hi, a, b) { return a + (Math.log10(v) - lo) / (hi - lo) * (b - a); }
+  /* a circuit-element box with a label, used by several figures */
+  function e11box(g, x, y, w, lab, cls) { var r = el('rect', { x: x, y: y - 10, width: w, height: 20, rx: 3, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g); txt(g, x + w / 2, y + 4, lab, cls || 'strong', 'middle'); return r; }
+  function e11lit(r, onOff, col) { r.setAttribute('stroke', onOff ? (col || 'var(--amber)') : 'var(--line-2)'); r.setAttribute('stroke-width', onOff ? 2.2 : 1); }
+  /* button group helper: buttons with data-mode inside .controls; calls fn(mode) */
+  function e11modes(fig, fn) {
+    var bs = fig.querySelectorAll('.controls button[data-mode]');
+    Array.prototype.forEach.call(bs, function (bt) { on(bt, 'click', function () { Array.prototype.forEach.call(bs, function (x) { x.setAttribute('aria-pressed', String(x === bt)); }); fn(bt.getAttribute('data-mode')); }); });
+    var cur = Array.prototype.filter.call(bs, function (x) { return x.getAttribute('aria-pressed') === 'true'; })[0] || bs[0];
+    return cur ? cur.getAttribute('data-mode') : null;
+  }
 
-  /* ===== 11.2 Impedance, frequency by frequency ===== */
-  register('f11-2', function (fig) {
-    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), rs = fig.querySelector('.rct'), rv = fig.querySelector('.rct-val');
-    var Ru = 5, Cd = 20e-6, sigma = 6, Rct = 20;
-    var x0 = 60, y0 = 230, sc = 4.2; // px per ohm, same on both axes so the semicircle is round
-    var X = function (re) { return x0 + re * sc; }, Y = function (im) { return y0 - im * sc; };
-    el('line', { x1: x0, y1: y0, x2: 500, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: 40, stroke: 'var(--line-2)' }, g);
-    [0, 20, 40, 60, 80, 100].forEach(function (r) { el('line', { x1: X(r), x2: X(r), y1: y0, y2: y0 + 5, stroke: 'var(--line-2)' }, g); txt(g, X(r), y0 + 18, r, '', 'middle'); });
-    [20, 40].forEach(function (r) { el('line', { x1: x0 - 5, x2: x0, y1: Y(r), y2: Y(r), stroke: 'var(--line-2)' }, g); txt(g, x0 - 8, Y(r) + 4, r, '', 'end'); });
-    txt(g, 500, y0 + 34, 'real part Z′, Ω', '', 'end'); txt(g, x0 + 6, 40, '−Z″, Ω', '', 'start');
-    var path = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), dot = el('circle', { r: 6, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, g);
-    var peak = el('circle', { r: 4, fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.6 }, g), peakT = txt(g, 0, 0, '', 'cyan', 'middle');
-    var fT = txt(g, 498, 58, '', 'strong', 'end');
-    // the equivalent circuit, top right
-    var cx = 318, cy = 176, cg = el('g', {}, g);
-    function box(x, w, lab) { var r = el('rect', { x: x, y: cy - 10, width: w, height: 20, rx: 3, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, cg); var t = txt(cg, x + w / 2, cy + 4, lab, 'strong', 'middle'); return r; }
-    el('line', { x1: cx - 20, x2: cx + 196, y1: cy, y2: cy, stroke: 'var(--muted)' }, cg);
-    var eRu = box(cx - 10, 36, 'R_u'), eRct = box(cx + 50, 40, 'R_ct'), eW = box(cx + 136, 36, 'W');
-    el('path', { d: 'M' + (cx + 40) + ',' + cy + ' V' + (cy + 26) + ' H' + (cx + 100) + ' V' + cy, fill: 'none', stroke: 'var(--muted)' }, cg);
-    var eCd = el('rect', { x: cx + 58, y: cy + 16, width: 24, height: 20, rx: 3, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, cg); txt(cg, cx + 70, cy + 30, 'C_d', 'strong', 'middle');
-    badge(g, X(Ru) - 2, y0 - 22, 1); var b2 = badge(g, 0, 0, 2), b3 = badge(g, 0, 0, 3);
-    var w = 7; // log10 of angular frequency; sweeps from high to low
-    function Z(om) { var k = P.kineticImpedance(Ru, Rct, Cd, om), wb = P.warburg(sigma, om); return { re: k.re + wb.re, im: k.negIm + wb.negIm }; }
-    function render() {
-      Rct = +rs.value; setSvgText(rv, Rct + ' Ω');
-      var d = ''; for (var k = 0; k <= 240; k++) { var lw = 6 - 7.5 * k / 240, z = Z(Math.pow(10, lw)); if (z.re > 112 || z.im > 46) break; d += (k ? 'L' : 'M') + X(z.re).toFixed(1) + ',' + Y(z.im).toFixed(1); }
-      path.setAttribute('d', d);
-      var pk = P.semicirclePeak(Rct, Cd), zp = Z(pk.omega);
-      peak.setAttribute('cx', X(zp.re)); peak.setAttribute('cy', Y(zp.im)); peakT.setAttribute('x', X(zp.re)); peakT.setAttribute('y', Y(zp.im) - 12); setSvgText(peakT, 'top: f = ' + Math.round(pk.f) + ' Hz');
-      b2.setAttribute('transform', 'translate(' + X(Ru + Rct / 2) + ',' + (y0 - 14) + ')');
-      var zw = Z(Math.pow(10, 0)); b3.setAttribute('transform', 'translate(' + (Math.min(480, X(zw.re)) + 18) + ',' + (Y(zw.im) + 6) + ')');
-      place();
-    }
-    function place() {
-      var om = Math.pow(10, w), z = Z(om); dot.setAttribute('cx', Math.min(X(z.re), 500)); dot.setAttribute('cy', Math.max(Y(z.im), 30));
-      var f = om / (2 * Math.PI); setSvgText(fT, 'f = ' + (f >= 1000 ? (f / 1000).toFixed(f >= 10000 ? 0 : 1) + ' kHz' : f >= 1 ? f.toFixed(f >= 10 ? 0 : 1) + ' Hz' : f.toFixed(2) + ' Hz'));
-      var region = om > 20 / (Rct * Cd) ? 'u' : om > 0.4 * sigma * sigma / (Rct * Rct) ? 'ct' : 'w';
-      [eRu, eRct, eCd, eW].forEach(function (e) { e.setAttribute('stroke', 'var(--line-2)'); e.setAttribute('stroke-width', 1); });
-      (region === 'u' ? [eRu] : region === 'ct' ? [eRct, eCd] : [eW]).forEach(function (e) { e.setAttribute('stroke', 'var(--amber)'); e.setAttribute('stroke-width', 2.2); });
-      read.innerHTML = region === 'u' ? 'High frequency: the double-layer capacitance passes the alternating current almost freely, short-circuiting R_ct, so the cell looks like a plain resistance, <b>R_u = ' + Ru + ' Ω</b>: the electrolyte and contacts.'
-        : region === 'ct' ? 'Middle frequencies: the double-layer capacitance and the <b>charge-transfer resistance</b> share the current; together they draw a semicircle of diameter R_ct = ' + Rct + ' Ω, whose top sits at ω = 1/(R_ct C_d).'
-          : 'Low frequency: diffusion can no longer keep up, and the <b>Warburg</b> element draws a straight line at 45°.';
-    }
-    on(rs, 'input', render);
-    steps(fig, [
-      { text: 'Apply a small alternating voltage and measure the current, frequency by frequency. At <b>high frequency</b> (the dot starts on the left) the plot meets the real axis at the ohmic resistance: electrolyte and contacts. It does not depend on frequency.' },
-      { text: 'Lower the frequency and the <b>charge transfer</b> at the interface, in parallel with the double-layer capacitance, draws a <b>semicircle</b>. Its diameter is R_ct; its top lies at ω = 1/(R_ct C_d), that is f = 1/(2π R_ct C_d). Slide R_ct up, as an ageing interface would, and watch it grow.' },
-      { text: 'At the lowest frequencies <b>diffusion</b> takes over and the plot becomes a straight line at 45°, the Warburg impedance.' }
-    ]);
-    render();
-    var loop = anim(fig, function (dt) { if (dt === 0) return; w -= dt * 1.1; if (w < -1.5) w = 6; place(); }, { autoplay: true, stepDt: 0.4 });
-    if (!motion) { w = Math.log10(1 / (Rct * Cd)); place(); }
-    bind(fig, loop);
-  });
-
-  /* ===== 11.1 One cell, four measurements ===== */
+  /* ===== 11.1 One cell, many questions ===== */
   register('f11-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var P4 = [
-      { x: 20, y: 20, t: 'cycling at constant current', q: 'How much charge, at what voltage, for how many cycles?' },
-      { x: 270, y: 20, t: 'current interruption', q: 'How big is each kind of polarization?' },
-      { x: 20, y: 170, t: 'impedance spectroscopy', q: 'Which resistance: electrolyte, interface or diffusion?' },
-      { x: 270, y: 170, t: 'GITT', q: 'How fast does lithium diffuse in the solid?' }
+      { x: 20, y: 20, t: 'cycling at constant current', q: 'How much charge, at what voltage, for how many cycles?', where: 'module 5' },
+      { x: 270, y: 20, t: 'a current pulse', q: 'How big is the resistance, read after how long?', where: 'figure 11.2' },
+      { x: 20, y: 170, t: 'GITT: pulse and rest', q: 'How fast does lithium move inside the solid?', where: 'figures 11.3 to 11.7' },
+      { x: 270, y: 170, t: 'impedance spectroscopy', q: 'Which part resists, and how fast does it answer?', where: 'figures 11.8 to 11.17' }
     ];
     var W = 230, H = 130;
     P4.forEach(function (p, i) {
       el('rect', { x: p.x, y: p.y, width: W, height: H, rx: 6, fill: 'var(--panel-2)', 'fill-opacity': '.5', stroke: 'var(--line-2)' }, g);
       txt(g, p.x + 10, p.y + 18, p.t, 'strong', 'start');
-      var px = p.x + 16, py = p.y + 100, d = '';
-      if (i === 0) { for (var cyc = 0; cyc < 2; cyc++) { var ox = px + cyc * 96; for (var k = 0; k <= 24; k++) { var u = k / 24; d += (cyc + k ? 'L' : 'M') + (ox + u * 48).toFixed(1) + ',' + (py - 62 + 22 * u + 22 * Math.pow(u, 8) + cyc * 3).toFixed(1); } for (k = 0; k <= 24; k++) { u = k / 24; d += 'L' + (ox + 48 + u * 48).toFixed(1) + ',' + (py - 18 - 22 * u - 22 * (1 - Math.pow(1 - u, 8)) + cyc * 3 + 3).toFixed(1); } } }
-      if (i === 1) { d = 'M' + px + ',' + (py - 20) + ' H' + (px + 60) + ' V' + (py - 44); for (k = 0; k <= 40; k++) { var lt = k / 40; d += ' L' + (px + 60 + lt * 130) + ',' + (py - 44 - 22 * (1 - Math.exp(-lt * 5)) - 8 * lt); } }
-      if (i === 2) { for (k = 0; k <= 50; k++) { var a = Math.PI * k / 50; d += (k ? 'L' : 'M') + (px + 70 - 50 * Math.cos(a)) + ',' + (py - 50 * Math.sin(a) * 0.9); } d += ' L' + (px + 170) + ',' + (py - 60); }
-      if (i === 3) { d = 'M' + px + ',' + (py - 30); for (k = 0; k < 3; k++) { var x = px + k * 60; d += ' L' + (x + 8) + ',' + (py - 30 - k * 14) + ' L' + (x + 8) + ',' + (py - 50 - k * 14) + ' L' + (x + 28) + ',' + (py - 56 - k * 14) + ' L' + (x + 28) + ',' + (py - 40 - k * 14) + ' L' + (x + 60) + ',' + (py - 44 - k * 14); } }
+      var px = p.x + 16, py = p.y + 100, d = '', k, j, u;
+      if (i === 0) { for (var cyc = 0; cyc < 2; cyc++) { var ox = px + cyc * 96; for (k = 0; k <= 24; k++) { u = k / 24; d += (cyc + k ? 'L' : 'M') + (ox + u * 48).toFixed(1) + ',' + (py - 62 + 22 * u + 22 * Math.pow(u, 8) + cyc * 3).toFixed(1); } for (k = 0; k <= 24; k++) { u = k / 24; d += 'L' + (ox + 48 + u * 48).toFixed(1) + ',' + (py - 18 - 22 * u - 22 * Math.pow(u, 8) + cyc * 3).toFixed(1); } } }
+      if (i === 1) { d = 'M' + px + ',' + (py - 10) + ' H' + (px + 40) + ' V' + (py - 40); for (k = 0; k <= 40; k++) { var lt = k / 40; d += ' L' + (px + 40 + lt * 150).toFixed(1) + ',' + (py - 40 - 20 * (1 - Math.exp(-lt * 6)) - 14 * Math.sqrt(lt)).toFixed(1); } }
+      if (i === 2) { d = 'M' + px + ',' + (py - 20); for (k = 0; k < 3; k++) { var x = px + k * 62; d += ' L' + (x + 6) + ',' + (py - 20 - k * 12) + ' L' + (x + 6) + ',' + (py - 32 - k * 12); for (j = 1; j <= 6; j++) d += ' L' + (x + 6 + j * 3) + ',' + (py - 32 - k * 12 - 10 * Math.sqrt(j / 6)).toFixed(1); d += ' L' + (x + 24) + ',' + (py - 34 - k * 12); for (j = 1; j <= 10; j++) d += ' L' + (x + 24 + j * 3.6).toFixed(1) + ',' + (py - 32 - (k + 1) * 12 + 12 * Math.exp(-j / 2.5)).toFixed(1); } }
+      if (i === 3) { for (k = 0; k <= 50; k++) { var a = Math.PI * k / 50; d += (k ? 'L' : 'M') + (px + 30 + 34 - 34 * Math.cos(a)).toFixed(1) + ',' + (py - 34 * Math.sin(a) * 0.9).toFixed(1); } d += ' L' + (px + 170) + ',' + (py - 60); }
       el('path', { d: d, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2 }, g);
-      txt(g, p.x + 10, p.y + H - 6, i === 0 ? 'voltage against time, cycle after cycle' : i === 1 ? 'three clocks (figure 5.4)' : i === 2 ? 'Nyquist plot (figure 11.2)' : 'pulse, rest, repeat (figure 11.3)', '', 'start');
+      txt(g, p.x + 10, p.y + H - 6, p.where, '', 'start');
       badge(g, p.x + W - 14, p.y + 14, i + 1);
-      p.qText = p.q;
     });
-    steps(fig, P4.map(function (p) { return { text: '<b>' + p.t.charAt(0).toUpperCase() + p.t.slice(1) + '</b>. ' + p.q, on: function () { read.innerHTML = 'The question this measurement answers: <b>' + p.q + '</b>'; } }; }));
+    steps(fig, P4.map(function (p) { return { text: '<b>' + p.t.charAt(0).toUpperCase() + p.t.slice(1) + '</b>. ' + p.q, on: function () { read.innerHTML = 'The question this measurement answers: <b>' + p.q + '</b> (' + p.where + ')'; } }; }));
   });
 
-  /* ===== 11.3 GITT: pulse, rest, repeat ===== */
-  register('f11-3', function (fig) {
-    var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), read = fig.querySelector('.readout'), ts = fig.querySelector('.tau'), tv = fig.querySelector('.tau-val');
-    var x0 = 62, x1 = 470, y0 = 220, y1 = 40;
-    el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
-    txt(g, x1, y0 + 18, 'time (schematic)', '', 'end'); txt(g, x0 - 6, y1 - 12, 'cell voltage', '', 'start');
-    var curve = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), cur = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.6 }, g);
-    var mEt = el('path', { fill: 'none', stroke: 'var(--heat)', 'stroke-width': 1.6 }, g), mEs = el('path', { fill: 'none', stroke: '#C4B5F7', 'stroke-width': 1.6 }, g), mIR = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1.4, 'stroke-dasharray': '2 2' }, g);
-    var tEt = txt(g, 0, 0, 'ΔE_t', 'heat', 'start'), tEs = txt(g, 0, 0, 'ΔE_s', '', 'start'), tIR = txt(g, 0, 0, 'IR', '', 'end'); tEs.style.fill = '#C4B5F7';
-    txt(g, x0 + 4, y0 - 6, 'current pulses', 'cyan', 'start');
-    badge(g, 0, 0, 1).setAttribute('transform', 'translate(' + (x0 + 120) + ',' + (y0 - 32) + ')'); var b2 = badge(g, 0, 0, 2), b3 = badge(g, 0, 0, 3);
-    function render() {
-      var tau = +ts.value; setSvgText(tv, tau + ' s');
-      // three pulse-rest steps; during a pulse the voltage rises as sqrt(t) (the regime of eq. 4); at rest it relaxes to a new plateau
-      var seg = (x1 - x0) / 3, pw = seg * (tau / 1200) * 0.9 + 18, IR = 10, dEt = 20 * Math.sqrt(tau / 600), dEs = 12 * tau / 600, base = y0 - 40;
-      var d = '', c = '';
-      for (var k = 0; k < 3; k++) {
-        var xs = x0 + k * seg, v0 = base - k * dEs;
-        d += (k ? 'L' : 'M') + xs + ',' + v0 + ' L' + xs + ',' + (v0 - IR);
-        for (var j = 1; j <= 20; j++) d += ' L' + (xs + pw * j / 20).toFixed(1) + ',' + (v0 - IR - dEt * Math.sqrt(j / 20)).toFixed(1);
-        d += ' L' + (xs + pw) + ',' + (v0 - dEt);
-        for (j = 1; j <= 20; j++) { var r = j / 20; d += ' L' + (xs + pw + (seg - pw) * r).toFixed(1) + ',' + (v0 - dEs - (dEt - dEs) * Math.exp(-r * 6)).toFixed(1); }
-        c += 'M' + xs + ',' + (y0 - 14) + ' V' + (y0 - 24) + ' H' + (xs + pw) + ' V' + (y0 - 14) + ' H' + (xs + seg);
-        if (k === 1) {
-          mEt.setAttribute('d', 'M' + (xs + pw + 4) + ',' + (v0 - IR) + ' V' + (v0 - IR - dEt));
-          mIR.setAttribute('d', 'M' + (xs - 4) + ',' + v0 + ' V' + (v0 - IR));
-          mEs.setAttribute('d', 'M' + (xs + seg - 6) + ',' + v0 + ' V' + (v0 - dEs));
-          tEt.setAttribute('x', xs + pw + 8); tEt.setAttribute('y', v0 - IR - dEt / 2 + 4); tIR.setAttribute('x', xs - 8); tIR.setAttribute('y', v0 - IR / 2 + 4); tEs.setAttribute('x', xs + seg - 2); tEs.setAttribute('y', v0 + 14);
-          b2.setAttribute('transform', 'translate(' + (xs + pw + 44) + ',' + (v0 - IR - dEt / 2) + ')'); b3.setAttribute('transform', 'translate(' + (xs + seg - 30) + ',' + (v0 - dEs - 22) + ')');
-        }
-      }
-      curve.setAttribute('d', d); cur.setAttribute('d', c);
-      // D from eq. 4 with illustrative material numbers: mB = 10 mg, VM = 30 cm3/mol, MB = 100 g/mol, S = 1 cm2; dEs = 10 mV, dEt scales as sqrt(tau)
-      var dEsV = 0.010 * tau / 600, dEtV = 0.035 * Math.sqrt(tau / 600), D = P.gittD(tau, 0.010, 30, 100, 1, dEsV, dEtV);
-      read.innerHTML = 'A current pulse of length τ = <b>' + tau + ' s</b>, then rest. During the pulse the voltage jumps by the IR drop and then rises by ΔE<sub>t</sub>; after the rest it settles ΔE<sub>s</sub> above where it started. Weppner and Huggins: D = (4/πτ)(m<sub>B</sub>V<sub>M</sub>/M<sub>B</sub>S)²(ΔE<sub>s</sub>/ΔE<sub>t</sub>)², here ' + sci(D, 1) + ' cm²/s for illustrative numbers. Because ΔE<sub>s</sub> grows in proportion to τ (the charge passed) and ΔE<sub>t</sub> as √τ, the answer does not depend on the pulse length, as long as τ stays short compared with L²/D.';
+  /* ===== 11.2 A current pulse: the resistance depends on when you read it ===== */
+  register('f11-2', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.tread'), sv = fig.querySelector('.tread-val');
+    var p = { R0: 0.020, R1: 0.004, C1: 0.25, R2: 0.010, C2: 2, sigma: 0.002 };
+    var b = { x0: 60, y0: 230, x1: 500, y1: 46 }, lo = -4, hi = 2, rmax = 0.07;
+    var X = function (t) { return e11log(t, lo, hi, b.x0, b.x1); }, Y = function (r) { return b.y0 - r / rmax * (b.y0 - b.y1); };
+    var band = el('g', {}, g);
+    [[1e-4, 2e-4], [2e-4, 0.15], [0.15, 100]].forEach(function (s, i) { el('rect', { x: X(s[0]), y: b.y1, width: X(s[1]) - X(s[0]), height: b.y0 - b.y1, fill: i === 0 ? 'var(--cyan)' : i === 1 ? 'var(--amber)' : '#C4B5F7', 'fill-opacity': '.06' }, band); });
+    e11axes(g, b, { X: X, Y: Y, xt: [[1e-4, '0.1 ms'], [1e-3, '1 ms'], [1e-2, '10 ms'], [0.1, '0.1 s'], [1, '1 s'], [10, '10 s'], [100, '100 s']], yt: [[0, ''], [0.02, '20'], [0.04, '40'], [0.06, '60']], grid: true, xlab: 'time since the current was switched on (log scale)', ylab: 'ΔV/I read off the voltage, mΩ' });
+    var pts = [], k, t;
+    for (k = 0; k <= 200; k++) { t = Math.pow(10, lo + (hi - lo) * k / 200); pts.push([X(t), Y(M11.stepResistance(p, t))]); }
+    el('path', { d: e11d(pts), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g);
+    for (k = 0; k <= 24; k++) { t = Math.pow(10, lo + (hi - lo) * k / 24); var z = M11.voigtWZ(p, 1 / t); el('circle', { cx: X(t), cy: Y(z.re), r: 3, fill: 'var(--cyan)', 'fill-opacity': '.85' }, g); }
+    var cur = el('line', { y1: b.y1, y2: b.y0, stroke: 'var(--text)', 'stroke-dasharray': '4 3' }, g), dot = el('circle', { r: 6, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, g);
+    var tl = txt(g, 0, 0, '', 'strong tag', 'start');
+    badge(g, X(1.4e-4), Y(0.02) - 20, 1); badge(g, X(0.006), Y(0.036) - 24, 2); badge(g, X(14), Y(M11.stepResistance(p, 14)) + 24, 3);
+    var lt = 0, tRead = 1;
+    function place() {
+      var R = M11.stepResistance(p, tRead), z = M11.voigtWZ(p, 1 / tRead), f = 1 / (2 * Math.PI * tRead), x = X(tRead), y = Y(R);
+      cur.setAttribute('x1', x); cur.setAttribute('x2', x); dot.setAttribute('cx', x); dot.setAttribute('cy', y);
+      tl.setAttribute('x', x > b.x1 - 150 ? x - 10 : x + 10); tl.setAttribute('text-anchor', x > b.x1 - 150 ? 'end' : 'start'); tl.setAttribute('y', Math.max(y - 14, b.y1 + 14)); setSvgText(tl, e11mOhm(R) + ' at ' + e11time(tRead));
+      setSvgText(sv, e11time(tRead));
+      var part = tRead < 2e-4 ? 'the instantaneous drop, the <b>ohmic</b> resistance of electrolyte, electrodes and contacts' : tRead < 0.15 ? 'the ohmic part plus the <b>interfaces</b> (SEI and charge transfer) charging their double layers' : 'everything above plus a <b>diffusion</b> part that keeps growing as √t';
+      read.innerHTML = 'Read at t = <b>' + e11time(tRead) + '</b>: ΔV/I = <b>' + e11mOhm(R) + '</b>, ' + part + '. Impedance at the matching frequency f = 1/(2πt) = ' + e11Hz(f) + ' has a real part of ' + e11mOhm(z.re) + ' (cyan dots).';
     }
-    on(ts, 'input', render);
+    on(sl, 'input', function () { lt = +sl.value; tRead = Math.pow(10, lt); place(); });
     steps(fig, [
-      { text: 'GITT, the galvanostatic intermittent titration technique: a short pulse of constant current, then a rest long enough for the voltage to settle, again and again across the whole state of charge.' },
-      { text: 'During the pulse, after the instant IR drop (which is left out), the voltage changes by <b>ΔE<sub>t</sub></b>: the lithium content at the particle surface runs ahead of the interior, because diffusion cannot keep up.' },
-      { text: 'At rest it relaxes to a new equilibrium, <b>ΔE<sub>s</sub></b> from the last one: the step in the open-circuit curve. The ratio of the two, with the pulse length and the electrode’s mass, molar volume and area, gives the diffusion coefficient.' }
+      { text: 'Switch on a constant current I. The voltage jumps at once. That <b>instantaneous drop</b> divided by the current, ΔV/ΔI, is the ohmic resistance: electrolyte, active material, current collectors and contacts. The number you get depends on how fast the instrument samples.' },
+      { text: 'Keep the current on and the voltage keeps moving. The interfaces, the SEI and the charge transfer, each in parallel with its double layer, need their own time to answer (here about 1 ms and 20 ms).' },
+      { text: 'At long times <b>diffusion</b> adds a part that keeps growing as √t. So “the resistance” of a cell depends on when you read it: the values at 10 ms, 1 s and 10 s are different numbers. That is why test standards fix the pulse length.' },
+      { text: 'The cyan dots are the real part of the impedance of the same cell at f = 1/(2πt). They roughly follow the pulse curve: values from a pulse and from a sine agree when the timescales match. Impedance spectroscopy, from figure 11.8 on, measures one frequency at a time.' }
     ]);
-    render();
+    place();
+    var loop = anim(fig, function (dt) { if (dt === 0) return; lt += dt * 0.9; if (lt > hi) lt = lo; tRead = Math.pow(10, lt); sl.value = lt; place(); }, { autoplay: true, stepDt: 0.5 });
+    bind(fig, loop);
   });
 
-  /* ===== 11.4 What each technique sees ===== */
-  register('f11-4', function (fig) {
+  /* ===== 11.18 What each technique sees, and what it costs the cell ===== */
+  register('f11-18', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var cols = [
-      { x: 20, t: 'from outside, cell intact', items: ['charge-discharge curves', 'impedance', 'voltage against temperature', 'pressure and strain'], col: 'var(--cyan)', why: 'Nondestructive: the cell keeps working. Charge-discharge and impedance give capacity, rate behaviour, resistances and state of health; voltage against temperature gives the entropy of the reaction; external pressure sensors can follow the SEI growing.' },
-      { x: 187, t: 'inside, while it works', items: ['XANES (X-ray absorption)', 'NMR', 'Mössbauer', 'SEM, in situ'], col: 'var(--amber)', why: 'In situ: plastic lithium-ion cells made it possible to watch the electrodes with X-ray absorption, NMR, Mössbauer spectroscopy and the electron microscope while the cell runs.' },
-      { x: 354, t: 'after it is opened', items: ['Raman', 'AFM', 'NMR', 'TEM', 'X-ray absorption'], col: 'var(--heat)', why: 'Post-mortem: tear the cell down and look at its parts with Raman, AFM, NMR, TEM and X-ray absorption. The cell is gone, but you see the damage directly.' }
+      { x: 20, t: 'from outside, cell intact', items: ['cycling, dQ/dV', 'current pulses', 'GITT', 'impedance', 'cyclic voltammetry'], col: 'var(--cyan)', why: 'Nondestructive: the cell keeps working, so the same cell can be followed as it ages. Capacity, rate, resistances, diffusion and state of health come from here. Capacity, cyclic voltammetry and differential capacity are also used to check what impedance and a tear-down suggest.' },
+      { x: 187, t: 'inside, while it works', items: ['three-electrode cell', 'in situ X-ray, NMR', 'local impedance', 'pressure sensing'], col: 'var(--amber)', why: 'In situ: a reference electrode separates the two electrodes; plastic cells let X-ray absorption, NMR, Mössbauer spectroscopy and the electron microscope watch the electrodes while the cell runs; local impedance probes one spot with a moving tip; a pressure sensor follows the SEI swelling.' },
+      { x: 354, t: 'after it is opened', items: ['symmetric cells', 'microscopy', 'XPS, Raman', 'X-ray CT (before)'], col: 'var(--heat)', why: 'Post-mortem: discharge the cell, open it in an argon glove box and examine its parts. Electrodes harvested from a commercial cell can be rebuilt into symmetric cells, two identical electrodes, to see which electrode carries which arc. X-ray tomography before opening shows where to cut. A fresh cell treated the same way is the baseline.' }
     ];
     cols.forEach(function (c, i) {
       el('rect', { x: c.x, y: 30, width: 150, height: 190, rx: 6, fill: c.col, 'fill-opacity': '.08', stroke: c.col, 'stroke-opacity': '.6' }, g);

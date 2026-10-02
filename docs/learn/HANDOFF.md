@@ -59,6 +59,11 @@ of the changed files at their repository paths.
   - Figure 7.6 is rebuilt as a to-scale molecular close-up.
   - Module text was re-laid out: shorter paragraphs, subheadings, and the lesson first.
   - See verification-record.md, section R13, including the new FLAGs on graphite stacking and spacing and on the LiCoO₂ cell dimensions.
+- **Module 11 expanded, 2026-10-03 (branch `claude/ecstatic-bohr-ym5qe9` only, not on `main`):**
+  - Module 11 now has 18 figures, from a current pulse through GITT (one step, the τ̂ check, Nickol's six recipes, Kang and Chueh's relaxation analysis, a whole run) to impedance (sine and Lissajous, Nyquist and Bode, a commercial cell built element by element, CPE / finite / spherical / porous shapes), measuring well (linearity and harmonics, two versus four terminals, the Kramers–Kronig test) and analysis (non-unique circuits, DRT with λ, ageing check-ups and machine learning).
+  - New sources R63–R69, all `verified`; claims and pages in `verification-record.md`, section U.
+  - Physics in `Physics.m11` (`assets/js/physics.js`): complex arithmetic, circuit elements, the model cell, Butler–Volmer harmonics, linear KK, NNLS DRT, the GITT film solver and sphere series. Figure code: `figs-11.js` (helpers, 11.1, 11.2, 11.18), `figs-11g.js` (11.3–11.7), `figs-11e.js` (11.8–11.11), `figs-11m.js` (11.12–11.14), `figs-11a.js` (11.15–11.17).
+  - Tests: 68 of 68 pass. QA (ACTS=ABC): no errors, no label overlaps or clips at 360 px.
 - **Next:** owner review of modules 5 to 12 and the figure-review sheet; reader tests (plan section 5c);
   the optional theory page; then merge and publish when the owner says so.
 

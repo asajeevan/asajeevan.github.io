@@ -915,3 +915,74 @@ R62 Doyle, Fuller and Newman 1993, J. Electrochem. Soc. 140, 1526–1533, doi 10
   - the SVG title ids of figures 11.1 and 11.2 were swapped back.
 
 **Records still using old Module 7 numbers.** Sections R10–R12 above refer to figures by their numbers at the time: old 7.3→7.4, 7.4→7.5, 7.5→7.6, 7.6→7.7, 7.7→7.8, 7.8→7.9, 7.9→7.10, 7.10→7.11.
+
+## U. Module 11 expanded: testing and diagnosis from basics to data analysis (2026-10-02/03)
+
+At the owner's request ("expand testing and diagnosis a lot ... from basics ... to advanced data
+analysis"), Module 11 grew from 4 to 18 figures. Seven new sources were read in full; a fact sheet
+with page locations was made for each before writing (kept with the session notes, not in the repo).
+All seven are `verified` in `references.json` (bibliographic details and DOIs from the documents).
+
+| Key | Source | DOI |
+|---|---|---|
+| R63 | Lazanas and Prodromidis, ACS Meas. Sci. Au 2023, 3, 162–193 | 10.1021/acsmeasuresciau.2c00070 |
+| R64 | Meddings et al., J. Power Sources 2020, 480, 228742 | 10.1016/j.jpowsour.2020.228742 |
+| R65 | Bakenhaster and Dewald, J. Appl. Electrochem. 2025, 55, 1657–1681 | 10.1007/s10800-025-02273-6 |
+| R66 | Kang and Chueh, J. Electrochem. Soc. 2021 (GITT reinvented, Part I) | 10.1149/1945-7111/ac3940 |
+| R67 | Kim, Park, Hwang, Yoon, J. Electrochem. Sci. Technol. 2022 | 10.33961/jecst.2021.00836 |
+| R68 | Nickol et al., J. Electrochem. Soc. 2020 | 10.1149/1945-7111/ab9404 |
+| R69 | Abbas et al., Batteries 2025, 11, 234 | 10.3390/batteries11060234 |
+
+**Claims and where they are** (journal pages; R63 journal page = PDF page + 161).
+
+| Claim on the page | Source and location | Status |
+|---|---|---|
+| Pulse: instantaneous drop = ohmic (DCiR), depends on sampling rate and rise time; later drop from charge transfer, then diffusion; values depend on pulse length, amplitude, heating, SOC change; PPC tests in standards; pulse and EIS agree when timescales match | R64 p. 10, §3.1, Fig. 5D | OK |
+| GITT procedure, E₁–E₄, ΔE_s = E₄ − E₁, ΔE_t = E₃ − E₂, equilibrium start, relaxation to new equilibrium | R67 pp. 2–4, Figs. 1–2 | OK |
+| Weppner–Huggins formula; sphere form (r/3)²; IR drop (ohmic + charge transfer) excluded from ΔE_t | R67 eq. 16; R69 eqs. 2–3, p. 8; R68 F19 (p. 3) | OK |
+| Two linear assumptions (small step; √t during the pulse) | R67 §2.2, Fig. 2 | OK |
+| τ̂ = Dτ/L²; below 0.25 planar, one order smaller for spheres and cylinders; most literature reports exceed 0.25 | R66 eq. 5, Fig. 5 (pp. 5–6), recommended procedure (p. 10) | OK |
+| Sphere √t law within 5 % for Dt/r² < 0.0032 | R68 p. 3 | OK as quoted. Our own series gives 5 % at Dt/r² ≈ 0.0027; the test in `tests/physics.test.js` asserts our number. The difference is noted here, not on the page. |
+| D ∝ r²; 5 µm vs 0.25 µm gives a factor of 400 | R68 p. 9, item (i) | OK |
+| P1–P6 definitions; E₁, E₃ read 5 s after switching; factor 3 at 40 °C, more than an order on cooling; τ_dl = R_ct C_dl below 1 s above 0 °C at medium x; P4/P6 more reliable; R_ct change during the pulse throws off P6 most | R68 pp. 4–8 (F61–F72, F74, F100–F101, F121, F125, F130–F131) | OK |
+| Three-electrode cell (Li counter overvoltage mistaken for diffusion at low T); 0.1C agreed with 0.05C | R68 pp. 10–11 | OK |
+| Relaxation variable √(t + τ) − √t (eq. 4); 17 % R_tot fall halves the slope and overestimates D ×4; non-diffusion transients at short times separated; linear region up to ~10τ̂ for τ̂ = 0.02; recommended procedure (large dense single-phase samples, ≥ 3 pulse magnitudes) | R66 pp. 3–5, 7, 10, Figs. 2, 3, 6 | OK |
+| NMC622 relaxation ~7–9 h below 3.8 V; 0.1–0.6 mV/h drift after 9–12 h above 3.8 V; literature rests 40 min to a day or longer | R69 p. 7 (F50, F55–F58) | OK; the paper's abstract says 8–9 h and the text 7–8 h, so the page says "about 7 to 9 h" |
+| Ignoring pore-electrolyte diffusion: GITT value about four times smaller than the TLM value | R69 p. 18 (F147–F148) | OK |
+| QOCV, CCV, η = |CCV − QOCV|, internal resistance η/I | R67 eqs. 17–19, pp. 7–9 | OK |
+| EIS principle, LTI assumption, transfer function; Z, |Z|, φ, Z′, Z″; R, C, L responses | R63 §1, eqs. 24–28, 36–43 (pp. 162–171) | OK |
+| FRA correlates with sine and cosine over whole periods | R63 §9, eqs. 52–53 (p. 173) | OK |
+| 10 µHz–1 MHz; one point at 10 µHz takes 27.8 h; practical lowest 1 mHz, often 10–100 mHz; 60 frequencies 100 kHz–0.1 Hz in 2–3 min | R63 p. 163 | OK |
+| Peak, peak-to-peak, rms; 10 mV peak = 20 mV pp = 7 mV rms; 5–10 mV typical | R63 §16.2 (p. 183) | OK |
+| Nyquist (−Z″ up), its two weaknesses, equal axes; Bode strengths | R63 §7.4 (p. 169) | OK |
+| Arc top at ωτ = 1; two arcs resolved for τ₁ ≫ 100τ₂ | R63 eqs. 2 and 49, §8 (pp. 163, 172) | OK |
+| Commercial cell: inductance from wires/windings; ohmic intercept; mid-frequency arcs from interfaces (≥ 4 processes, merged with two terminals); low-frequency tail from solid diffusion; bands > 1 kHz, 1 Hz–1 kHz, < 1 Hz; mΩ range, < 0.1 Ω, < tens of kHz; ~1 A; vary SOC/T to assign; 1 kHz QA; degradation the most common purpose | R64 pp. 2–3, 6, 12; Fig. 1 | OK |
+| SEI arc at higher frequency than charge transfer | R63 §17.1 (p. 185) | OK |
+| CPE Z = 1/(Y₀(jω)ⁿ); n = 1, 0, 0.5 cases; θ = 90°(1 − n); origin unresolved (roughness, fractal, adsorption) | R63 eqs. 70–71, pp. 177–178 | OK |
+| CPEs fit almost any valid data; no specific physical meaning | R64 §3.2.2 (pp. 12–13) | OK |
+| Transmissive (tanh) and reflective (coth) finite diffusion and their shapes | R63 eqs. 76 and 79, pp. 179–180 | OK; their note swapping the Z_O/Z_T labels was not copied |
+| Sphere Z_d,3D (eq. 6), film coth form (eq. 9), DC limits R_d/3 and R_d/15, sphere turns up earlier, D = r²/(R_d C_d) | R69 eqs. 4, 6, 9, pp. 12–15 | OK |
+| Porous electrode: 45° then an arc; Bisquert TLM (eq. 17) and its DC value (eq. 21) | R63 §14; R64 §3.2.2; R69 eqs. 17, 21 | OK |
+| Butler–Volmer and R_ct = RT/(F i₀); harmonics from curvature | B2 eqs. 3.4.11, 3.4.13, §11.6 | OK |
+| GEIS 0.1–1 A gives a few mV and may be more accurate; THD definition and use; NLEIS (THD ≪ 1), NFRA (large currents); Y3/Y2 rise with plating at −10 °C; no standard method; damage risk | R64 pp. 7–9 (F81, F101–F105); R65 §4.4 | OK |
+| 2T vs 4T, V = i(Z_BAT + Z_WIRE) vs iZ_BAT; cable self-inductance ∝ length, worst for batteries | R63 eqs. 82–83, §15 (pp. 182, 184); R64 §2.2 | OK |
+| Shielding, twisted pairs, same cables for compensation, up to 10 % on re-insertion; rest (4 h adequate in one study; 15 min to 100 h; half the studies silent), internal temperature lag, SOC before T | R64 pp. 6–8 | OK |
+| Linear, causal, stable, finite; KK relations; linear KK test (Boukamp) with fixed τ and fitted R; residuals small and random; well below 1 %; minority of commercial-cell papers; growing with DRT | R63 §7, §16.5 (pp. 167–169, 184); R64 §3.3.1 (p. 15) | OK |
+| CNLS and χ²; non-unique circuits (Fig. 7); start values and weighting change results; physics-based, minimal circuits | R63 §8 (p. 169), T16; R64 pp. 12–13 | OK |
+| DRT relation and τ = 1/(2πf); peaks as processes; regularisation λ, narrow useful range; bad points; usually limited to SEI and charge-transfer arcs; band times from Fig. 12 (read from the figure) | R64 eq. 5, p. 11; R65 eqs. 9–10, pp. 1669–1671, Fig. 12 | OK |
+| Impedance rises with age; check-ups not too frequent; capacity fade vs power fade; individual contributions may correlate better, sudden death; T/SOC/SOH entangled; LFP harder; arc grows faster than the intercept moves (Fig. 4d, read from the figure) | R64 pp. 3, 7, 15 | OK |
+| ML workflow (Fig. 10); GPR; relaxation-time models near 1 % error; few systems; local EIS | R65 pp. 1668–1669, Fig. 10; §4.5 | OK |
+| Reference electrodes not a production solution; non-destructive checks first; discharge, argon, symmetric cells, fresh baseline | R64 p. 18; R48 | OK |
+
+**This page's own working (labelled as such in the captions).**
+- Step response of a Warburg element, 2σ√(2t/π) (from Z_W = σ√2 (jω)^−1/2 and the Laplace transform); checked against a numerical inverse in the tests.
+- The conversion of R₀(R₁C₁)(R₂C₂) into the nested ladder R₀(C_a[R_a(R_bC_b)]) by continued fraction; equal to 10⁻¹⁶ in the tests.
+- The porous-line formula √(R_m z) coth √(R_m/z), which is R69 eq. 17 written with z = R_ct‖C_dl.
+- The exact distribution (Cole–Cole form) of an R‖CPE arc, drawn dashed in figure 11.16.
+- No second harmonic at α = 0.5, from the symmetry of the Butler–Volmer curve (consistent with B2 §11.6: harmonics follow curvature).
+- The Crank–Nicolson film solver and the DRT (non-negative least squares with a ridge penalty); tests compare the solver with Kang and Chueh eq. A.21 and the DRT with two known arcs.
+
+**Printed errors in the sources that were not copied:** R63 eq. 30 (no reciprocal on the left; the
+page uses B2 §11.2 for the parallel rule), eq. 51 (subscripts paired the wrong way), the Z_O/Z_T label
+note (tanh and coth swapped), the ambiguous "n−1/n" exponent of eqs. 72–74 (not used), "Brag" for Brug
+(not used); R64 eq. 7 (not reproduced).

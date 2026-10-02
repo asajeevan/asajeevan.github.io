@@ -406,5 +406,82 @@
     "doi": "10.1149/1.2221597",
     "status": "verified",
     "short": "Doyle, Fuller and Newman 1993"
+  },
+  "R63": {
+    "authors": "A. Ch. Lazanas, M. I. Prodromidis",
+    "title": "Electrochemical Impedance Spectroscopy—A Tutorial",
+    "journal": "ACS Measurement Science Au",
+    "year": 2023,
+    "volume": "3",
+    "pages": "162–193",
+    "doi": "10.1021/acsmeasuresciau.2c00070",
+    "status": "verified",
+    "short": "Lazanas and Prodromidis 2023"
+  },
+  "R64": {
+    "authors": "N. Meddings, M. Heinrich, F. Overney, J.-S. Lee, V. Ruiz, E. Napolitano, S. Seitz, G. Hinds, R. Raccichini, M. Gaberšček, J. Park",
+    "title": "Application of electrochemical impedance spectroscopy to commercial Li-ion cells: A review",
+    "journal": "Journal of Power Sources",
+    "year": 2020,
+    "volume": "480",
+    "pages": "228742",
+    "doi": "10.1016/j.jpowsour.2020.228742",
+    "status": "verified",
+    "short": "Meddings et al. 2020"
+  },
+  "R65": {
+    "authors": "S. T. Bakenhaster, H. D. Dewald",
+    "title": "Electrochemical impedance spectroscopy and battery systems: past work, current research, and future opportunities",
+    "journal": "Journal of Applied Electrochemistry",
+    "year": 2025,
+    "volume": "55",
+    "pages": "1657–1681",
+    "doi": "10.1007/s10800-025-02273-6",
+    "status": "verified",
+    "short": "Bakenhaster and Dewald 2025"
+  },
+  "R66": {
+    "authors": "S. D. Kang, W. C. Chueh",
+    "title": "Galvanostatic Intermittent Titration Technique Reinvented: Part I. A Critical Review",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2021,
+    "volume": "168",
+    "pages": "120504",
+    "doi": "10.1149/1945-7111/ac3940",
+    "status": "verified",
+    "short": "Kang and Chueh 2021"
+  },
+  "R67": {
+    "authors": "J. Kim, S. Park, S. Hwang, W.-S. Yoon",
+    "title": "Principles and Applications of Galvanostatic Intermittent Titration Technique for Lithium-ion Batteries",
+    "journal": "Journal of Electrochemical Science and Technology",
+    "year": 2022,
+    "volume": "13",
+    "pages": "19–31",
+    "doi": "10.33961/jecst.2021.00836",
+    "status": "verified",
+    "short": "Kim et al. 2022"
+  },
+  "R68": {
+    "authors": "A. Nickol, T. Schied, C. Heubner, M. Schneider, A. Michaelis, M. Bobeth, G. Cuniberti",
+    "title": "GITT Analysis of Lithium Insertion Cathodes for Determining the Lithium Diffusion Coefficient at Low Temperature: Challenges and Pitfalls",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2020,
+    "volume": "167",
+    "pages": "090546",
+    "doi": "10.1149/1945-7111/ab9404",
+    "status": "verified",
+    "short": "Nickol et al. 2020"
+  },
+  "R69": {
+    "authors": "I. Abbas, H. T. Tran, T. T. N. Tran, T. L. Pham, E.-C. Shin, C.-W. Park, S.-B. Yu, O. J. Lee, A.-G. Nguyen, D. Jeong, B. H. Ka, H.-H. Cho, J. Lim, N. Shin, M. Gaberšček, S.-M. Hur, C.-J. Park, J. Kim, J.-S. Lee",
+    "title": "GITT Limitations and EIS Insights into Kinetics of NMC622",
+    "journal": "Batteries",
+    "year": 2025,
+    "volume": "11",
+    "pages": "234",
+    "doi": "10.3390/batteries11060234",
+    "status": "verified",
+    "short": "Abbas et al. 2025"
   }
 }

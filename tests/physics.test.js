@@ -316,3 +316,95 @@ test('LiFePO4 resistive-reactant model (Safari and Delacourt 2011): rate, asymme
   close(A.sd1, A.sd0, 0.002);                                 // no relaxation on the flat plateau
   assert.ok(A.util < B.util);                                 // coming from empty limits the 1C charge
 });
+
+/* ---------- Module 11: impedance and GITT ---------- */
+const M = P.m11;
+const ok = (c, msg) => assert.ok(c, msg);
+test('Impedance of the passive elements (Lazanas and Prodromidis eqs 36, 41, 43): R real, C = -j/(wC), L = +j wL', () => {
+  const w = 2 * Math.PI * 50;
+  close(M.zC(1e-3, w).im, -1 / (w * 1e-3), 1e-12); close(M.zL(1e-3, w).im, w * 1e-3, 1e-12); close(M.zR(5).re, 5, 0);
+});
+test('Parallel RC: at the top of the arc w = 1/(RC) and Z = R/2 - jR/2 (Lazanas and Prodromidis eq 49 and text after it)', () => {
+  const R = 1000, C = 1e-6, w = 1 / (R * C), z = M.parallel(M.zR(R), M.zC(C, w));
+  close(z.re, R / 2, 1e-9); close(z.im, -R / 2, 1e-9);
+});
+test('Characteristic frequency 2 pi f tau = 1 (Lazanas and Prodromidis eq 2): 0.51 ms gives 310 Hz and 0.41 s gives 0.4 Hz', () => {
+  close(1 / (2 * Math.PI * 0.51e-3), 312, 3); close(1 / (2 * Math.PI * 0.41), 0.388, 0.002);
+});
+test('Low frequencies are slow (Lazanas and Prodromidis sec. 1): one period at 10 uHz is 1e5 s = 27.8 h; at 1 mHz about 17 min', () => {
+  close(1 / 1e-5 / 3600, 27.8, 0.05); close(1 / 1e-3 / 60, 16.7, 0.05);
+});
+test('Amplitudes (Lazanas and Prodromidis eq 4 and sec. 16.2): 10 mV peak is 20 mV peak-to-peak and 7 mV rms', () => {
+  close(2 * 10, 20, 0); close(10 / Math.SQRT2, 7.07, 0.01);
+});
+test('CPE (Lazanas and Prodromidis eq 70, Table 2): phase is n x 90 degrees, so n = 0.9 gives 81 and n = 0.5 gives 45', () => {
+  [[0.9, 81], [0.8, 72], [0.5, 45], [1, 90]].forEach(([n, ph]) => { const z = M.zQ(1e-3, n, 2 * Math.PI * 7); close(-Math.atan2(z.im, z.re) * 180 / Math.PI, ph, 1e-9); });
+});
+test('Finite diffusion (Lazanas and Prodromidis eqs 76, 79): both tend to the 45-degree Warburg line at high frequency; reflective becomes capacitive, transmissive resistive at low frequency', () => {
+  const zt = M.zFiniteT(1e-2, 1, 2 * Math.PI * 1e4), zr = M.zFiniteR(1e-2, 1, 2 * Math.PI * 1e4);
+  close(-Math.atan2(zt.im, zt.re) * 180 / Math.PI, 45, 0.01); close(-Math.atan2(zr.im, zr.re) * 180 / Math.PI, 45, 0.01);
+  const lt = M.zFiniteT(1e-2, 1, 1e-5), lr = M.zFiniteR(1e-2, 1, 1e-5);
+  close(lt.re, 100, 0.01); ok(-lr.im > 100 * lr.re);
+});
+test('Spherical diffusion impedance (Abbas et al. 2025 eqs 6, 7): DC real part Rd/15, high-frequency limit (1/3) sqrt(Rd/(j w Cd))', () => {
+  close(M.zSphere(0.3, 3000, 1e-8).re, 0.3 / 15, 1e-6);
+  const w = 2 * Math.PI * 100, z = M.zSphere(0.3, 3000, w), lim = 1 / 3 * Math.sqrt(0.3 / (w * 3000));
+  close(z.re, lim / Math.SQRT2, lim * 0.01); close(-z.im, lim / Math.SQRT2, lim * 0.01);
+});
+test('Porous electrode line: 45 degrees at high frequency, sqrt(Rm Rct) coth sqrt(Rm/Rct) at low frequency (Meddings et al. sec. 3.2.2)', () => {
+  const Rm = 2, Rct = 5, Cdl = 1e-3, zh = M.zPorous(Rm, Rct, Cdl, 2 * Math.PI * 1e6), zl = M.zPorous(Rm, Rct, Cdl, 1e-6);
+  close(-Math.atan2(zh.im, zh.re) * 180 / Math.PI, 45, 0.1);
+  close(zl.re, Math.sqrt(Rm * Rct) / Math.tanh(Math.sqrt(Rm / Rct)), 1e-3);
+});
+test('Two different circuits, one spectrum (Lazanas and Prodromidis Fig. 7): the ladder from voigtToLadder matches R0(R1C1)(R2C2) everywhere', () => {
+  const L = M.voigtToLadder(0.01, 0.1, 0.02, 5);
+  [1e-3, 0.1, 1, 10, 1e3, 1e5].forEach(f => { const w = 2 * Math.PI * f; const a = M.add(M.zR(0.02), M.parallel(M.zR(0.01), M.zC(0.1, w)), M.parallel(M.zR(0.02), M.zC(5, w))); const b = M.ladderZ(0.02, L, w); ok(M.abs(M.add(a, M.scale(b, -1))) < 1e-12 * M.abs(a)); });
+});
+test('Butler-Volmer under a sine (BFW eqs 3.4.11, 3.4.13): small amplitude gives R_ct = RT/(F i0); alpha = 0.5 has no second harmonic', () => {
+  const h = M.bvHarmonics(1e-3, 0.5, 0.002); close(h.rApparent / h.rct, 1, 0.001); ok(h.amps[2] < 1e-15); ok(h.thd < 1e-3);
+  const g = M.bvHarmonics(1e-3, 0.3, 0.05); ok(g.amps[2] / g.amps[1] > 0.1);
+});
+test('Linear Kramers-Kronig test (Boukamp; Meddings et al. sec. 3.3.1): a valid spectrum fits to well below 1 %', () => {
+  const fs = M.freqs(1e4, 1e-2, 8), Z = fs.map(f => M.cellZ(null, 2 * Math.PI * f)), k = M.linKK(fs, Z);
+  ok(Math.max.apply(null, k.res.map(r => Math.max(Math.abs(r.re), Math.abs(r.im)))) < 0.01);
+});
+test('DRT (Meddings et al. eq 5): two R||C elements give two peaks at their time constants carrying their resistances', () => {
+  const fs = M.freqs(1e5, 1e-2, 10), Z = fs.map(f => { const w = 2 * Math.PI * f; return M.add(M.zR(0.02), M.parallel(M.zR(0.01), M.zC(1e-3, w)), M.parallel(M.zR(0.02), M.zC(1, w))); });
+  const taus = []; for (let k = 0; k <= 60; k++) taus.push(Math.pow(10, -7 + 9 * k / 60));
+  const d = M.drt(fs, Z, taus, 1e-8), tot = d.x.reduce((a, b) => a + b, 0);
+  close(d.R0, 0.02, 2e-4); close(tot, 0.03, 3e-4);
+  const near = (tau) => d.x.reduce((s, x, k) => s + (Math.abs(Math.log10(taus[k] / tau)) < 0.5 ? x : 0), 0);
+  close(near(1e-5), 0.01, 5e-4); close(near(0.02), 0.02, 5e-4);
+});
+test('GITT slab (Kim et al. eqs 3-8; Kang and Chueh eq A.21): numerical surface change matches the exact series and the 2 sqrt(t/pi) short-time law', () => {
+  const r = M.gittSlab({ tau: 0.05, tEnd: 0.5, N: 161, steps: 4000 }), at = t => r.us[r.t.findIndex(x => x >= t)];
+  close(at(0.01), 2 * Math.sqrt(0.01 / Math.PI), 2e-3); close(at(0.05), M.slabSurface(0.05), 2e-3);
+  const fr = r.frames[r.frames.length - 1]; close(fr.u.reduce((a, b) => a + b, 0) / fr.u.length, 0.05, 1e-3);
+});
+test('Sphere (Nickol et al. eqs 4-5): short-time law within 5 % for small Dt/r^2 (Nickol: below 0.0032; our series reaches 5 % at about 0.0027), long-time 3 tau + 1/5', () => {
+  ok(Math.abs(M.sphereF(0.0025) / (2 * Math.sqrt(0.0025 / Math.PI)) - 1) < 0.05); const r32 = M.sphereF(0.0032) / (2 * Math.sqrt(0.0032 / Math.PI)); ok(r32 > 1.04 && r32 < 1.06); close(M.sphereF(3) - 3 * 3, 0.2, 1e-6);
+});
+test('Nickol et al. numbers: D = 1e-15 m2/s and r = 5 um keep the sqrt(t) law within 5 % only for t < 80 s; sqrt(D tP) > 8 r for r = 0.25 um needs tP > 4000 s; D scales as r^2 (5 vs 0.25 um: 400 times)', () => {
+  close(0.0032 * (5e-6) ** 2 / 1e-15, 80, 0.01); close((8 * 0.25e-6) ** 2 / 1e-15, 4000, 1e-6);
+  close(M.gittDSphere(600, 5e-6, 0.01, 0.03) / M.gittDSphere(600, 0.25e-6, 0.01, 0.03), 400, 1e-9);
+});
+test('Weppner-Huggins for spheres (Abbas et al. eq 3) equals the general form (Kim et al. eq 16) with mB VM/(MB S) = r/3', () => {
+  const r = 2.54e-4, tau = 600, dEs = 0.01, dEt = 0.03;
+  close(M.gittDSphere(tau, r, dEs, dEt), P.gittD(tau, 1, r / 3, 1, 1, dEs, dEt), 1e-25);
+});
+test('Kang and Chueh: tau_hat = D tau / L^2 (eq 5); their relaxation variable sqrt(t + tau) - sqrt(t) (eq 4) starts at sqrt(tau) and falls to 0', () => {
+  close(M.tauHat(1e-15, 600, 2.54e-6), 0.093, 0.001); close(M.kangVariable(0, 600), Math.sqrt(600), 1e-12); ok(M.kangVariable(1e9, 600) < 0.01);
+});
+test('Step response of the series model: instantaneous drop R0, then the arcs, then diffusion (Meddings et al. sec. 3.1)', () => {
+  const p = { R0: 0.02, R1: 0.004, C1: 0.25, R2: 0.01, C2: 2, sigma: 0.002 };
+  close(M.stepResistance(p, 0), 0.02, 1e-12); ok(M.stepResistance(p, 1) > 0.034);
+});
+
+test('Warburg step response 2 sigma sqrt(2t/pi) (this page\'s working) matches a numerical inverse Laplace transform of Z_W(s)/s', () => {
+  // Gaver-Stehfest inversion of F(s) = sigma sqrt(2) s^-3/2, the voltage per unit current step through Z_W = sigma sqrt(2) (j w)^-1/2
+  const sigma = 0.002, N = 14, fact = n => { let f = 1; for (let i = 2; i <= n; i++) f *= i; return f; };
+  const V = []; for (let k = 1; k <= N; k++) { let s = 0; for (let j = Math.floor((k + 1) / 2); j <= Math.min(k, N / 2); j++) s += Math.pow(j, N / 2) * fact(2 * j) / (fact(N / 2 - j) * fact(j) * fact(j - 1) * fact(k - j) * fact(2 * j - k)); V.push((((k + N / 2) % 2) ? -1 : 1) * s); }
+  const inv = (F, t) => { const a = Math.LN2 / t; let s = 0; for (let k = 1; k <= N; k++) s += V[k - 1] * F(k * a); return a * s; };
+  const p = { R0: 0, R1: 0, C1: 1, R2: 0, C2: 1, sigma };
+  for (const t of [0.5, 3, 40]) close(inv(s => sigma * Math.SQRT2 * Math.pow(s, -1.5), t), M.stepResistance(p, t), 1e-6 * M.stepResistance(p, t) + 1e-9);
+});
