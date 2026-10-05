@@ -6351,7 +6351,7 @@
 
   /* ---------- boot ---------- */
   Array.prototype.forEach.call(document.querySelectorAll('[data-fig]'), function (fig) {
-    var id = fig.getAttribute('data-fig'); if (figs[id]) { try { figs[id](fig); } catch (e) { if (window.console) console.error('figure ' + id, e); } }
+    var id = fig.getAttribute('data-fig'); if (figs[id]) { if (window.__qaSeed) window.__qaSeed(id); try { figs[id](fig); } catch (e) { if (window.console) console.error('figure ' + id, e); } }
   });
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
