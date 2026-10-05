@@ -10,6 +10,12 @@
   var pageId = body.getAttribute('data-page') || '';
   var isChapter = /\bkind-(chapter|lab)\b/.test(body.className);
   function $(id) { return document.getElementById(id); }
+  // Opened from the disk (file:) or from a host that does not serve a folder's index.html, a link to
+  // a folder must name the file: rewrite the course's own links once, and build new ones the same way.
+  var DIRIDX = location.protocol === 'file:' || body.hasAttribute('data-dir-index');
+  function fixDir(u) { return DIRIDX && !/^[a-z]+:/i.test(u) ? u.replace(/\/(#|$)/, '/index.html$1') : u; }
+  function link(path) { return fixDir(root + 'batteries/' + path); }
+  if (DIRIDX) each(document.querySelectorAll('a[href]'), function (a) { var h = a.getAttribute('href'); if (h && h.charAt(0) !== '#') a.setAttribute('href', fixDir(h)); });
   function each(list, fn) { Array.prototype.forEach.call(list, fn); }
   function local(key, val) {
     try {
@@ -34,7 +40,7 @@
   if (oldMap && location.hash.length > 1) {
     var h = decodeURIComponent(location.hash.slice(1));
     if (!document.getElementById(h)) {
-      try { var to = JSON.parse(oldMap.textContent)[h]; if (to) { location.replace(root + 'batteries/' + to); return; } } catch (e) { /* ignore */ }
+      try { var to = JSON.parse(oldMap.textContent)[h]; if (to) { location.replace(link(to)); return; } } catch (e) { /* ignore */ }
     }
   }
 
@@ -101,7 +107,7 @@
   }
   var cont = $('continueBtn'), last = local('course.last');
   if (cont && last && last.id) {
-    cont.setAttribute('href', root + 'batteries/' + last.id + '/');
+    cont.setAttribute('href', link(last.id + '/'));
     var k = cont.querySelector('.hub-go-k'), t = cont.querySelector('.hub-go-t');
     if (k) k.textContent = 'Continue';
     if (t) t.textContent = last.label;
@@ -209,7 +215,7 @@
     hits.sort(function (a, b) { return b.s - a.s || a.i - b.i; });
     var html = '', P = INDEX.p;
     hits.slice(0, 40).forEach(function (h) {
-      var e = h.e, p = P[e.k], href = root + 'batteries/' + p[0] + (e.a ? '#' + e.a : '');
+      var e = h.e, p = P[e.k], href = link(p[0] + (e.a ? '#' + e.a : ''));
       var ctx = e.kind === 'c' ? (p[1].indexOf('Lab') === 0 ? 'Lab handbook' : 'Chapter') : p[1] + ' · ' + p[2] + (e.kind === 'p' && e.title ? ' · near ' + e.title : '');
       var title = e.kind === 'p' ? '' : e.title;
       html += '<li class="r-' + e.kind + '"><a href="' + esc(href) + '"><span class="r-k">' + esc(ctx) + '</span>' +

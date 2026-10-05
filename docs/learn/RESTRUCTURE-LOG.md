@@ -28,16 +28,35 @@ Read the plan first; this file records state, decisions and the checklist so wor
 ## Checklist
 - [x] Plan written and decisions settled (2026-10-05)
 - [x] Checkpoint commit 6e49fba (state before the restructure)
-- [ ] Phase 1: baseline capture
-- [ ] Phase 1: course.json manifest
-- [ ] Phase 1: beat parser (50 beat blocks hold 94 figures; report anything it cannot place)
-- [ ] Phase 1: build extended (page template, top bar, previous/next, cross-reference markers, per-page citations,
-      per-page script bundles)
-- [ ] Phase 1: identity build matches baseline
-- [ ] Phase 2: manifest switched to 24 pages; references converted (377); figures renumbered; comparison clean; full gate
-- [ ] Phase 3: hub, contents panel, search, glossary, progress, keyboard, redirects; link check; accessibility
+- [x] Phase 1: baseline capture (/home/claude/baseline in the session; tools/qa/capture.js, compare.py, inventory.py)
+- [x] Phase 1: course.json manifest
+- [x] Phase 1: beat parser (tools/course_parse.py: 13 modules reassemble byte for byte, 93 beats)
+- [x] Phase 1: build extended (tools/build_course.py: page template, previous/next, cross-reference markers,
+      per-page citations, per-page script bundles cut at statement level)
+- [x] Phase 1: identity build matches baseline (commit 10d7bdf)
+- [x] Phase 2: manifest switched to 24 pages; references converted (377); figures renumbered; comparison clean;
+      full gate (commit 88f7beb)
+- [x] Phase 3: hub, contents panel, search, index of terms, read ticks, keyboard, redirects; link check;
+      accessibility (commit 5e29990). Tooltips for terms left out: the index of terms links each term to the
+      sentence that introduces it instead.
 - [ ] Phase 4: openers, bridges, mix-ups, check-yourself; lecture rewrite of chapters 0 to 4; merges (SEI, ageing,
       solid electrolytes); independent checks per part
 - [ ] Phase 5: new content with sources (uses of batteries, cell formats, crystal families, battery care)
 - [ ] Phase 6: reader test with three first-year students; owner initials in figure-review
 - [ ] Phase 7: pull request on the branch, when the owner says so
+
+## Phase 3 record (2026-10-05)
+- New files: src/learn/hub.src.html (course home), tools/course_nav.py (top bar, drawer, outline, search index,
+  reading times, index of terms), assets/js/course.js (drawer, scrollspy, search, keys, back chip, read ticks,
+  continue, old-anchor forwarding), tools/qa/linkcheck.py. assets/js/learn.js (old single-page bundle) removed;
+  `python3 tools/build_learn.py` now builds the course (`--single-page` for the old page).
+- Generated: batteries/index.html (hub), batteries/{terms,figures,equations,references}/, assets/js/course-index.js
+  (search index, about 210 kB, loaded only when the search opens), sitemap.xml.
+- Reading times: main text at 150 words a minute plus a minute a figure, rounded to 5 minutes.
+- Headings: chapter title h1, section headings h2 (the sources keep h3 class="sub"; the build promotes them).
+- Figure changes: 12.4 (x axis label "lithium content, %", tick "100") and L3.3 (note and plot top moved) for
+  label clearance at 360 px; drawings with keyboard parts get role="group" (learn-core boot).
+- Checks: figures identical to phase 2 except those; text inventory identical (840 blocks); gate exit 0 on 28 pages
+  (labels clean, 0 broken citations); axe (wcag2a, wcag2aa, best-practice) clean on 29 pages with the drawer
+  closed and open; 0 broken internal links; 74 tests pass.
+- Prose still says "module" in places (for example "everything else in this module"): to be rewritten in phase 4.

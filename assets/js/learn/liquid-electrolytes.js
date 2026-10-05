@@ -657,7 +657,7 @@
       txt(barE, 459, 240, 'potential', '', 'middle');
     })();
     var b1 = badge(g, 108, 150, 1), b2 = badge(g, 70, 190, 2), oTag = txt(g, 0, 0, 'carbonyl oxygen', 'amber tag ok', 'start'), names4 = el('g', {}, g);
-    var cur = 'ec', view = '3d', IMG = '../assets/img/learn/m7-';
+    var cur = 'ec', view = '3d', IMG = (document.body.getAttribute('data-root') || '../') + 'assets/img/learn/m7-';
     var Q = M7_QC, fm = function (v, d) { return v.toFixed(d === undefined ? 1 : d).replace('-', '−'); };
     var INFO = {
       ec: ['ethylene carbonate (EC)', 'C₃H₄O₃: a ring'],

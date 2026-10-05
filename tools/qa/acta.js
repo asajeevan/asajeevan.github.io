@@ -21,6 +21,7 @@ const SHOTS = process.env.SHOTS !== '0';
     const errors = [];
     page.on('pageerror', e => errors.push('PAGEERROR ' + e.message));
     page.on('console', m => { if (m.type() === 'error' && !/ERR_CERT|ERR_TUNNEL|net::/.test(m.text())) errors.push(m.text()); });
+    page.on('requestfailed', r => { if (r.url().startsWith('file:')) errors.push('MISSING FILE ' + r.url()); });   // a local file the page asks for and does not find
     await page.goto(pageUrl, { waitUntil: 'load' });
     await page.waitForTimeout(1000);
     await page.evaluate(() => document.fonts && document.fonts.ready);
