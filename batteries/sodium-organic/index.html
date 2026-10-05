@@ -26,30 +26,81 @@
 <link rel="stylesheet" href="../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Sodium-ion and organic electrode materials", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/sodium-organic/", "inLanguage": "en"}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="sodium-organic">
+<body data-mode="teach" class="course-page kind-chapter" data-page="sodium-organic" data-root="../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
+<header class="topbar course-bar" id="topbar">
 <div class="wrap">
-<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
-<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-<nav class="nav" id="siteNav" aria-label="Course">
-<a href="../../batteries/">Contents</a>
-<a href="../../batteries/solid-state/" rel="prev">&#8592; Ch. 14</a>
-<a href="../../batteries/degradation/" rel="next">Ch. 16 &#8594;</a>
-<a href="#references">References</a>
-</nav>
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Chapter 15</span> <span class="crumb-t">Sodium and organic</span></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../batteries/solid-state/" title="Previous: Chapter 14 Solid-state cells (←)" aria-label="Previous: Chapter 14 Solid-state cells">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../batteries/degradation/" title="Next: Chapter 16 Degradation (→)" aria-label="Next: Chapter 16 Degradation">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f9-11"><span class="n">15.1</span><span class="t">Sodium is bigger</span></a></li><li class="o-sub"><a href="#s-beyond-lithium"><span class="t">Beyond lithium</span></a></li><li class="o-fig"><a href="#f9-13"><span class="n">15.2</span><span class="t">Organic electrodes: how they store charge, and how high their voltage now goes</span></a></li><li class="o-sub"><a href="#s-organic-electrodes"><span class="t">Organic electrodes</span></a></li><li class="o-sub"><a href="#s-the-p-dht-family"><span class="t">The <i>p</i>-DHT family</span></a></li><li class="o-sub"><a href="#s-beyond-carbonyl-chemistry-conjugated-sulfonamide"><span class="t">Beyond carbonyl chemistry: conjugated sulfonamides and oximates</span></a></li><li class="o-end"><a href="#maths"><span class="t">The mathematics of this chapter</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization"><a href="../../batteries/polarization/"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport"><a href="../../batteries/ion-transport/"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes"><a href="../../batteries/composite-electrodes/"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes"><a href="../../batteries/negative-electrodes/"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic" class="cur"><a href="../../batteries/sodium-organic/" aria-current="page"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing"><a href="../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/gitt"><a href="../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
 
 <main id="top">
 <div id="content">
 <section class="module" id="ch" data-act="IV" data-nav>
 <div class="wrap">
 <p class="mod-n">Chapter 15</p>
-<h2 class="h2">Sodium-ion and organic electrode materials</h2>
+<h1 class="h2">Sodium-ion and organic electrode materials</h1>
 <p class="hook">Can sodium, or molecules made of carbon, hydrogen and oxygen, do lithium&#x27;s job?</p>
 
 <div class="beat">
@@ -67,7 +118,7 @@
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">Beyond lithium</h3>
+<h2 class="sub" id="s-beyond-lithium">Beyond lithium</h2>
 <p class="explain">Every electrode in this module so far has stored lithium. Must it always be lithium? Lithium itself is a critical raw material, so its supply and sustainability matter too.<sup class="cite"><a href="#ref-1">1</a></sup> A sodium-ion cell would rock sodium ions instead of lithium ions, on the principle of <a class="xref" href="../../batteries/insertion-hosts/">chapter 7</a>. But Na<sup>+</sup> is larger than Li<sup>+</sup> and needs a larger interstitial space than many of the hosts that serve lithium offer, so sodium-ion cells need hosts of their own.<sup class="cite"><a href="#ref-2">2</a></sup> The older sodium cells used molten electrodes instead: the sodium-sulfur battery, invented at Ford in 1967 after Kummer and Weber found fast Na<sup>+</sup> conduction in a ceramic above 300 °C, runs at 300 to 350 °C.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-3">3</a></sup> Sodium-ion is the first of the “beyond lithium” chemistries to become commercially viable, so far mainly for stationary storage, where energy density matters less.<sup class="cite"><a href="#ref-4">4</a></sup></p>
 <div class="tbl-wrap"><table class="cmp">
 <caption>Negative electrodes: in use and coming</caption>
@@ -98,13 +149,13 @@
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">Organic electrodes</h3>
+<h2 class="sub" id="s-organic-electrodes">Organic electrodes</h2>
 <p class="explain">Every positive electrode so far stores its charge on a transition metal, which is mined and then processed at high temperature.<sup class="cite"><a href="#ref-7">7</a></sup> Organic electrodes put the redox centre in a molecule or a polymer made of abundant light elements such as carbon, hydrogen, oxygen, nitrogen and sulfur; they can be made by environmentally friendly synthesis, and some could even be extracted from plants.<sup class="cite"><a href="#ref-8">8</a></sup> Their potential can be tuned by molecular design, through the bonds or through space.<sup class="cite"><a href="#ref-8">8</a></sup></p>
 <p class="explain">They are sorted by the charge the molecule takes on (figure <a class="xref" href="#f9-13">15.2</a>). An <b>n-type</b> molecule is reduced, and a cation such as Li<sup>+</sup> balances it; a <b>p-type</b> molecule is oxidized, and an anion from the electrolyte balances it; a <b>bipolar</b> one does both, in different windows of potential.<sup class="cite"><a href="#ref-8">8</a></sup> The p-type materials work at relatively high potential but store the anion, so they suit dual-ion or lithium-free cells rather than the rocking chair; n-type materials work with the lithium ion itself.<sup class="cite"><a href="#ref-7">7</a>,<a href="#ref-8">8</a></sup></p>
 <p class="explain">The redox centre is a functional group: most often a conjugated carbonyl, which becomes an enolate when reduced, but also imines, organosulfur groups, nitroxide radicals and, recently, conjugated sulfonamides and oximates.<sup class="cite"><a href="#ref-7">7</a>,<a href="#ref-8">8</a></sup> Its potential follows the energy of the orbital that gives or takes the electron: groups that draw electron density away from the redox centre lower that orbital and raise the voltage. Most conventional n-type organic materials work below 3 V vs Li.<sup class="cite"><a href="#ref-8">8</a></sup></p>
 <p class="explain">A lithium-ion cell adds a condition. Its graphite arrives empty, so the positive electrode must bring the lithium, as LiCoO<sub>2</sub> does. An n-type organic made in its oxidized form brings none, and needs lithium metal as the negative electrode; the answer is to make it in its reduced, lithiated form.<sup class="cite"><a href="#ref-7">7</a>,<a href="#ref-8">8</a></sup> But a lithiated organic working below about 2.91 V vs Li is thermodynamically prone to oxidation by air, so most cannot even be handled in a dry room.<sup class="cite"><a href="#ref-8">8</a></sup></p>
 <p class="explain">Small molecules also dissolve in the electrolyte, the main route of degradation of organic electrodes; making the material a polymer, building it into a framework, or replacing the liquid with a solid electrolyte are the usual remedies.<sup class="cite"><a href="#ref-8">8</a></sup> And organic electrodes are usually mixed with a large share of conductive carbon, a quarter to 40 % of the electrode by mass in the studies cited here (a third in most of their half-cell tests).<sup class="cite"><a href="#ref-7">7</a>,<a href="#ref-9">9</a></sup></p>
-<h3 class="sub">The <i>p</i>-DHT family</h3>
+<h2 class="sub" id="s-the-p-dht-family">The <i>p</i>-DHT family</h2>
 <p class="explain">One family shows how far molecular design can go. Its parent is 2,5-dihydroxyterephthalic acid, written <i>p</i>-DHT: the <i>p</i>, for <i>para</i>, marks that the two hydroxy groups sit opposite each other on the ring. The fully lithiated salt, dilithium (2,5-dilithium-oxy)-terephthalate or Li<sub>4</sub>-<i>p</i>-DHT, carries two kinds of redox group on one benzene ring: two phenolates (–OLi) that react at about 2.6 V and two carboxylates (–CO<sub>2</sub>Li) that react at about 0.8 V, so the same salt can serve as a positive or a negative electrode. The carboxylates also make it nearly insoluble in carbonate electrolytes.<sup class="cite"><a href="#ref-9">9</a></sup> It can also be derived entirely from renewable resources.<sup class="cite"><a href="#ref-9">9</a></sup></p>
 <p class="explain">Its 2.6 V is too low for a modern cell, and here a subtle change works: two of the four lithium ions are replaced by one magnesium ion. The magnesium stays in place while lithium comes and goes, so it is called a <b>spectator cation</b>.<sup class="cite"><a href="#ref-9">9</a>,<a href="#ref-10">10</a></sup> The salt, magnesium (2,5-dilithium-oxy)-terephthalate or Mg(Li<sub>2</sub>)-<i>p</i>-DHT, has a name that reflects its synthesis: magnesium hydroxide first neutralizes the two carboxylic acid groups of 2,5-dihydroxyterephthalic acid, and two equivalents of lithium hydroxide then neutralize the two phenol groups.<sup class="cite"><a href="#ref-9">9</a></sup> The name might suggest that magnesium sits only at the carboxylates; the crystal structure, published in 2025, shows otherwise. Each Mg<sup>2+</sup> sits in an octahedron of six oxygen atoms, four from phenolates and two from carboxylates. It is chelated by two <i>p</i>-DHT<sup>4−</sup> ions, each through a phenolate oxygen and the neighbouring carboxylate oxygen of that ion, closing two six-membered rings; two more phenolate oxygens complete the octahedron. Each phenolate oxygen, the redox centre, is bonded to one Li<sup>+</sup> and two Mg<sup>2+</sup> (see the structures below).<sup class="cite"><a href="#ref-10">10</a></sup></p>
 <p class="explain">Mg<sup>2+</sup> is small and doubly charged: it has a high <b>ionic potential</b>, its charge divided by its radius. Its bonds to oxygen are therefore more covalent. At the phenolate oxygen, bonded to two Mg<sup>2+</sup>, they draw electron density from that oxygen and through it from the ring; together with its bonds to the carboxylates, they weaken the electron donation (the donor inductive effect) of the –O<sup>−</sup> and –CO<sub>2</sub><sup>−</sup> groups into the ring. The phenolate becomes harder to oxidize, and the potential rises by about 0.8 V, to about 3.4 V, in the range of LiFePO<sub>4</sub>; a calculation from the solved structure and the predicted half-delithiated one gives 3.45 V, in line with the measurement.<sup class="cite"><a href="#ref-9">9</a>,<a href="#ref-10">10</a></sup> Across the barium, lithium, calcium and magnesium salts, measured in the same way, the average potential rises almost linearly with the ionic potential of the spectator cation.<sup class="cite"><a href="#ref-9">9</a></sup></p>
@@ -126,7 +177,7 @@
 </figure>
 </div></details>
 <p class="aside"><b>From my own work.</b> My doctorate took Mg(Li<sub>2</sub>)-<i>p</i>-DHT as its benchmark positive electrode and built it into soft solid-state cells against lithium metal, with a solid polymer electrolyte that limits the dissolution of the organic material; it also developed a route to recover the organic precursor from the cycled electrode material.</p>
-<h3 class="sub">Beyond carbonyl chemistry: conjugated sulfonamides and oximates</h3>
+<h2 class="sub" id="s-beyond-carbonyl-chemistry-conjugated-sulfonamide">Beyond carbonyl chemistry: conjugated sulfonamides and oximates</h2>
 <p class="explain">Most lithiated organic positive electrodes, the <i>p</i>-DHT family included, rest on enolate and carbonyl chemistry.<sup class="cite"><a href="#ref-7">7</a></sup> A newer line uses a different redox-active unit: a <i>p</i>-phenylenediamine core whose two nitrogen atoms each carry an electron-withdrawing group, methanesulfonyl (–SO<sub>2</sub>CH<sub>3</sub>) in the conjugated sulfonamides, trifluoromethanesulfonyl (–SO<sub>2</sub>CF<sub>3</sub>) in the conjugated triflimides and cyano (–C≡N) in the cyanamides. Conjugation spreads the negative charge of the lithiated form over the whole core and its withdrawing groups. On charge the core gives up two electrons in two steps, through a radical anion, to a neutral quinone diimine form: the Wurster-type redox of <i>p</i>-phenylenediamines.<sup class="cite"><a href="#ref-8">8</a></sup> Because its charge is spread out, the anion is less nucleophilic, so the lithiated material resists water and oxygen in ambient air and still reacts reversibly at high potential.<sup class="cite"><a href="#ref-7">7</a>,<a href="#ref-8">8</a></sup></p>
 <p class="explain">Trifluoromethanesulfonyl withdraws electrons more strongly than methanesulfonyl, and the swap raised the potential by 0.5 V: the conjugated triflimides (the authors’ name for the family) work at 3.26 to 3.8 V, the highest reported for n-type organics by 2024, and are stable in moist ambient air. The simplest cyanamide, Li<sub>2</sub>-PDCA, stores more, 320 mAh/g in theory, but its fully charged form dissolves in the electrolyte.<sup class="cite"><a href="#ref-8">8</a></sup> A third class, the conjugated oximates, carries its charge on C=N–O<sup>−</sup> groups; one of them, Li<sub>2</sub>-BQDO, reaches about 350 mAh/g at about 3.0 V, close to 1 kWh/kg at the material level.<sup class="cite"><a href="#ref-7">7</a></sup></p>
 <p class="explain">Cycling stability remains a concern for most organic electrode materials, and it is too early to think of commercializing the newest of them.<sup class="cite"><a href="#ref-7">7</a></sup> But their voltages now reach those of LiFePO<sub>4</sub> and beyond, without cobalt or nickel.<sup class="cite"><a href="#ref-8">8</a>,<a href="#ref-9">9</a></sup></p>
@@ -163,9 +214,16 @@
 <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">M. M. Rahman, U. Nisar, A. Abouimrane, I. Belharouak, R. Amin, "Valuation of Anode Materials for High-Performance Lithium Batteries: From Graphite to Lithium Metal and Beyond", <i>Electrochemical Energy Reviews</i> <b>8</b>, 2025, 14. <a href="https://doi.org/10.1007/s41918-025-00249-w" target="_blank" rel="noopener">doi:10.1007/s41918-025-00249-w</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">J. B. Goodenough, K.-S. Park, "The Li-Ion Rechargeable Battery: A Perspective", <i>Journal of the American Chemical Society</i> <b>135</b>, 2013, 1167-1176. <a href="https://doi.org/10.1021/ja3091438" target="_blank" rel="noopener">doi:10.1021/ja3091438</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">J. B. Goodenough, "How we made the Li-ion rechargeable battery", <i>Nature Electronics</i> <b>1</b>, 2018, 204. <a href="https://doi.org/10.1038/s41928-018-0048-6" target="_blank" rel="noopener">doi:10.1038/s41928-018-0048-6</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">M. Fichtner, K. Edström, E. Ayerbe, M. Berecibar, A. Bhowmik, I. E. Castelli, S. Clark, R. Dominko, M. Erakca, A. A. Franco, A. Grimaud, B. Horstmann, A. Latz, H. Lorrmann, M. Meeus, R. Narayan, F. Pammer, J. Ruhland, H. Stein, T. Vegge, M. Weil, "Rechargeable Batteries of the Future—The State of the Art from a BATTERY 2030+ Perspective", <i>Advanced Energy Materials</i> <b>12</b>, 2022, 2102904. <a href="https://doi.org/10.1002/aenm.202102904" target="_blank" rel="noopener">doi:10.1002/aenm.202102904</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">G. G. Eshetu, H. Zhang, X. Judez, H. Adenusi, M. Armand, S. Passerini, E. Figgemeier, "Production of high-energy Li-ion batteries comprising silicon-containing anodes and insertion-type cathodes", <i>Nature Communications</i> <b>12</b>, 2021, 5459. <a href="https://doi.org/10.1038/s41467-021-25334-8" target="_blank" rel="noopener">doi:10.1038/s41467-021-25334-8</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">J. T. Frith, M. J. Lacey, U. Ulissi, "A non-academic perspective on the future of lithium-based batteries", <i>Nature Communications</i> <b>14</b>, 2023, 420. <a href="https://doi.org/10.1038/s41467-023-35933-2" target="_blank" rel="noopener">doi:10.1038/s41467-023-35933-2</a></span></li><li id="ref-7" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">7</span> <span class="ref-body">J. Wang, P. Apostol, D. Rambabu, X. Guo, X. Liu, K. Robeyns, M. Du, Y. Zhang, S. Pal, R. Markowski, F. Lucaccioni, A. E. Lakraychi, C. Morari, J.-F. Gohy, D. Gupta, A. Vlad, "Revealing the reversible solid-state electrochemistry of lithium-containing conjugated oximates for organic batteries", <i>Science Advances</i> <b>9</b>, 2023, eadg6079. <a href="https://doi.org/10.1126/sciadv.adg6079" target="_blank" rel="noopener">doi:10.1126/sciadv.adg6079</a></span></li><li id="ref-8" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">8</span> <span class="ref-body">X. Guo, P. Apostol, X. Zhou, J. Wang, X. Lin, D. Rambabu, M. Du, S. Er, A. Vlad, "Towards the 4 V-class n-type organic lithium-ion positive electrode materials: the case of conjugated triflimides and cyanamides", <i>Energy &amp; Environmental Science</i> <b>17</b>, 2024, 173–182. <a href="https://doi.org/10.1039/d3ee02897f" target="_blank" rel="noopener">doi:10.1039/d3ee02897f</a></span></li><li id="ref-9" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">9</span> <span class="ref-body">A. Jouhara, N. Dupré, A.-C. Gaillot, D. Guyomard, F. Dolhem, P. Poizot, "Raising the redox potential in carboxyphenolate-based positive organic materials via cation substitution", <i>Nature Communications</i> <b>9</b>, 2018, 4401. <a href="https://doi.org/10.1038/s41467-018-06708-x" target="_blank" rel="noopener">doi:10.1038/s41467-018-06708-x</a></span></li><li id="ref-10" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">10</span> <span class="ref-body">A. Jouhara, E. Quarez, N. Gautier, F. Boucher, E. Janod, N. Dupré, J. Gaubicher, P. Poizot, "Unveiling the Peierls effect during electrochemical delithiation/lithiation process in magnesium (2,5-dilithium-oxy)-terephthalate using combined experimental and computational studies", <i>Energy Storage Materials</i> <b>81</b>, 2025, 104456. <a href="https://doi.org/10.1016/j.ensm.2025.104456" target="_blank" rel="noopener">doi:10.1016/j.ensm.2025.104456</a></span></li><li id="ref-11" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">11</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-12" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">12</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span></li><li id="ref-13" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">13</span> <span class="ref-body">D. Shanmukaraj, P. Ranque, H. Ben Youcef, T. Rojo, P. Poizot, S. Grugeon, S. Laruelle, D. Guyomard, "Review—Towards Efficient Energy Storage Materials: Lithium Intercalation/Organic Electrodes to Polymer Electrolytes—A Road Map (Tribute to Michel Armand)", <i>Journal of The Electrochemical Society</i> <b>167</b>, 2020, 070530. <a href="https://doi.org/10.1149/1945-7111/ab787a" target="_blank" rel="noopener">doi:10.1149/1945-7111/ab787a</a></span></li><li id="ref-14" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">14</span> <span class="ref-body">K. Brandt, "Historical development of secondary lithium batteries", <i>Solid State Ionics</i> <b>69</b>, 1994, 173-183. <a href="https://doi.org/10.1016/0167-2738(94)90408-1" target="_blank" rel="noopener">doi:10.1016/0167-2738(94)90408-1</a></span></li><li id="ref-15" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">15</span> <span class="ref-body">J.-J. Marie, S. Gifford, "Developments in lithium-ion battery cathodes", <i>Faraday Insights, Issue 18 (The Faraday Institution)</i>, 2023, September 2023. <a href="https://www.faraday.ac.uk/wp-content/uploads/2023/09/Faraday_Insights_18_FINAL.pdf" target="_blank" rel="noopener">link</a></span></li><li id="ref-16" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">16</span> <span class="ref-body">A. Manthiram, "A reflection on lithium-ion battery cathode chemistry", <i>Nature Communications</i> <b>11</b>, 2020, 1550. <a href="https://doi.org/10.1038/s41467-020-15355-0" target="_blank" rel="noopener">doi:10.1038/s41467-020-15355-0</a></span></li><li id="ref-17" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">17</span> <span class="ref-body">R. Jung, M. Metzger, F. Maglia, C. Stinner, H. A. Gasteiger, "Oxygen Release and Its Effect on the Cycling Stability of LiNixMnyCozO2 (NMC) Cathode Materials for Li-Ion Batteries", <i>Journal of The Electrochemical Society</i> <b>164</b>, 2017, A1361–A1377. <a href="https://doi.org/10.1149/2.0021707jes" target="_blank" rel="noopener">doi:10.1149/2.0021707jes</a></span></li><li id="ref-18" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">18</span> <span class="ref-body">M. Safari, C. Delacourt, "Mathematical Modeling of Lithium Iron Phosphate Electrode: Galvanostatic Charge/Discharge and Path Dependence", <i>Journal of The Electrochemical Society</i> <b>158</b>, 2011, A63–A73. <a href="https://doi.org/10.1149/1.3515902" target="_blank" rel="noopener">doi:10.1149/1.3515902</a></span></li></ol>
 </div>
 </section>
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
 
 <footer class="footer">
 <div class="wrap">
@@ -180,5 +238,6 @@
 <script src="../../assets/js/site.js"></script>
 <script src="../../assets/js/learn/sodium-organic.js"></script>
 <script src="../../assets/js/share.js"></script>
+<script src="../../assets/js/course.js"></script>
 </body>
 </html>

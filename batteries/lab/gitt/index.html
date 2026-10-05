@@ -26,30 +26,81 @@
 <link rel="stylesheet" href="../../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Pulse methods and the galvanostatic intermittent titration technique (GITT)", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/gitt/", "inLanguage": "en"}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="lab/gitt">
+<body data-mode="teach" class="course-page kind-lab" data-page="lab/gitt" data-root="../../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
+<header class="topbar course-bar" id="topbar">
 <div class="wrap">
-<a class="brand" href="../../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
-<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-<nav class="nav" id="siteNav" aria-label="Course">
-<a href="../../../batteries/">Contents</a>
-<a href="../../../batteries/lab/cell-testing/" rel="prev">&#8592; Lab 1</a>
-<a href="../../../batteries/lab/eis-measurement/" rel="next">Lab 3 &#8594;</a>
-<a href="#references">References</a>
-</nav>
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Lab 2</span> <span class="crumb-t">GITT</span></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../../batteries/lab/cell-testing/" title="Previous: Lab 1 Cell testing (←)" aria-label="Previous: Lab 1 Cell testing">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../../batteries/lab/eis-measurement/" title="Next: Lab 3 EIS: measurement (→)" aria-label="Next: Lab 3 EIS: measurement">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f11-2"><span class="n">L2.1</span><span class="t">The resistance of a cell depends on when you read it</span></a></li><li class="o-sub"><a href="#s-the-simplest-reading-a-current-pulse"><span class="t">The simplest reading: a current pulse</span></a></li><li class="o-fig"><a href="#f11-3"><span class="n">L2.2</span><span class="t">GITT: one pulse, one rest, two voltage changes</span></a></li><li class="o-sub"><a href="#s-gitt-a-diffusion-coefficient-from-a-voltage"><span class="t">GITT: a diffusion coefficient from a voltage</span></a></li><li class="o-fig"><a href="#f11-4"><span class="n">L2.3</span><span class="t">When is a GITT pulse short enough?</span></a></li><li class="o-fig"><a href="#f11-5"><span class="n">L2.4</span><span class="t">Six recipes, one pulse, different answers</span></a></li><li class="o-fig"><a href="#f11-6"><span class="n">L2.5</span><span class="t">Read the rest, not the pulse</span></a></li><li class="o-fig"><a href="#f11-7"><span class="n">L2.6</span><span class="t">A whole GITT run: three results from one experiment</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization"><a href="../../../batteries/polarization/"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport"><a href="../../../batteries/ion-transport/"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes"><a href="../../../batteries/composite-electrodes/"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes"><a href="../../../batteries/negative-electrodes/"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic"><a href="../../../batteries/sodium-organic/"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing"><a href="../../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/gitt" class="cur"><a href="../../../batteries/lab/gitt/" aria-current="page"><span class="n">L2</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
 
 <main id="top">
 <div id="content">
 <section class="module" id="ch" data-act="LAB" data-nav>
 <div class="wrap">
 <p class="mod-n">Lab handbook · Lab 2</p>
-<h2 class="h2">Pulse methods and the galvanostatic intermittent titration technique (GITT)</h2>
+<h1 class="h2">Pulse methods and the galvanostatic intermittent titration technique (GITT)</h1>
 <p class="hook">How do we measure resistance and diffusion?</p>
 
 <div class="beat alt">
@@ -67,7 +118,7 @@
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">The simplest reading: a current pulse</h3>
+<h2 class="sub" id="s-the-simplest-reading-a-current-pulse">The simplest reading: a current pulse</h2>
 <p class="explain">We begin with the simplest question: how much does the cell resist? Let us switch on a constant current and watch the voltage. It jumps at once; the jump divided by the current, <math><mrow><mi>Δ</mi><mi>V</mi><mo>/</mo><mi>Δ</mi><mi>I</mi></mrow></math>, is the <b>ohmic resistance</b> of electrolyte, active material, current collectors and contacts. Industry calls this the DC internal resistance. After the jump the voltage keeps moving, first as the interfaces charge (charge transfer), then, more slowly, as diffusion sets in.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <p class="explain">So the value we get depends on when we read it, and also on how fast the instrument samples, on the size of the current, on heating and on the change of state of charge during the pulse. That is why test standards specify pulse lengths and currents for “pulse power” tests.<sup class="cite"><a href="#ref-1">1</a></sup> A pulse of length <math><mrow><mi>t</mi></mrow></math> probes roughly what an alternating current of frequency <math><mrow><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>t</mi><mo stretchy="false">)</mo></mrow></math> probes: values from the two methods approximately agree when the timescales match.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <div class="worked"><b>Worked example.</b> The cell in the figure, pulsed with 2 A.
@@ -92,7 +143,7 @@ Same cell, same current: more than a factor of two depending on the reading time
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">GITT: a diffusion coefficient from a voltage</h3>
+<h2 class="sub" id="s-gitt-a-diffusion-coefficient-from-a-voltage">GITT: a diffusion coefficient from a voltage</h2>
 <p class="explain">A pulse tells us how much the cell resists, but the slow, diffusive part of its answer is mixed in with everything else. If we keep the pulse short, let the cell rest afterwards and repeat, the voltage curve becomes a diffusion measurement: this is GITT. It starts from equilibrium, with the same lithium content everywhere. A constant current pulse of length <math><mrow><mi>τ</mi></mrow></math> removes (or adds) a known amount of lithium through the surface; a rest follows until the electrode is in equilibrium again; and the pair is repeated across the whole charge.<sup class="cite"><a href="#ref-2">2</a></sup></p>
 <p class="explain">During the pulse, lithium is taken from the surface faster than diffusion can refill it from inside, so the surface composition runs ahead and the voltage climbs: the <b>transient</b> change <math><mrow><mi>Δ</mi><msub><mi>E</mi><mi>t</mi></msub><mo>=</mo><msub><mi>E</mi><mn>3</mn></msub><mo>−</mo><msub><mi>E</mi><mn>2</mn></msub></mrow></math>, measured after the immediate IR jump. After the rest the electrode has settled at a slightly different composition: the <b>steady-state</b> change <math><mrow><mi>Δ</mi><msub><mi>E</mi><mi>s</mi></msub><mo>=</mo><msub><mi>E</mi><mn>4</mn></msub><mo>−</mo><msub><mi>E</mi><mn>1</mn></msub></mrow></math>, a step along the equilibrium curve. The slower the diffusion, the larger <math><mrow><mi>Δ</mi><msub><mi>E</mi><mi>t</mi></msub></mrow></math> compared with <math><mrow><mi>Δ</mi><msub><mi>E</mi><mi>s</mi></msub></mrow></math>. Weppner and Huggins turned the ratio into the chemical diffusion coefficient:<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-3">3</a></sup></p>
 <span class="mblock"><math display="block"><mrow><mi>D</mi><mo>=</mo><mfrac><mrow><mn>4</mn></mrow><mrow><mi>π</mi><mi>τ</mi></mrow></mfrac><msup><mrow><mo stretchy="true" fence="true" form="prefix">(</mo><mfrac><mrow><msub><mi>m</mi><mi>B</mi></msub><msub><mi>V</mi><mi>M</mi></msub></mrow><mrow><msub><mi>M</mi><mi>B</mi></msub><mi>S</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">)</mo></mrow><mn>2</mn></msup><msup><mrow><mo stretchy="true" fence="true" form="prefix">(</mo><mfrac><mrow><mi>Δ</mi><msub><mi>E</mi><mi>s</mi></msub></mrow><mrow><mi>Δ</mi><msub><mi>E</mi><mi>t</mi></msub></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></math></span>
@@ -231,9 +282,16 @@ The check, explained with figure <a class="xref" href="#f11-4">L2.3</a>, says wh
 <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">N. Meddings, M. Heinrich, F. Overney, J.-S. Lee, V. Ruiz, E. Napolitano, S. Seitz, G. Hinds, R. Raccichini, M. Gaberšček, J. Park, "Application of electrochemical impedance spectroscopy to commercial Li-ion cells: A review", <i>Journal of Power Sources</i> <b>480</b>, 2020, 228742. <a href="https://doi.org/10.1016/j.jpowsour.2020.228742" target="_blank" rel="noopener">doi:10.1016/j.jpowsour.2020.228742</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">J. Kim, S. Park, S. Hwang, W.-S. Yoon, "Principles and Applications of Galvanostatic Intermittent Titration Technique for Lithium-ion Batteries", <i>Journal of Electrochemical Science and Technology</i> <b>13</b>, 2022, 19–31. <a href="https://doi.org/10.33961/jecst.2021.00836" target="_blank" rel="noopener">doi:10.33961/jecst.2021.00836</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">W. Weppner, R. A. Huggins, "Electrochemical Investigation of the Chemical Diffusion, Partial Ionic Conductivities, and Other Kinetic Parameters in Li3Sb and Li3Bi", <i>Journal of Solid State Chemistry</i> <b>22</b>, 1977, 297-308. <a href="https://doi.org/10.1016/0022-4596(77)90006-8" target="_blank" rel="noopener">doi:10.1016/0022-4596(77)90006-8</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">I. Abbas, H. T. Tran, T. T. N. Tran, T. L. Pham, E.-C. Shin, C.-W. Park, S.-B. Yu, O. J. Lee, A.-G. Nguyen, D. Jeong, B. H. Ka, H.-H. Cho, J. Lim, N. Shin, M. Gaberšček, S.-M. Hur, C.-J. Park, J. Kim, J.-S. Lee, "GITT Limitations and EIS Insights into Kinetics of NMC622", <i>Batteries</i> <b>11</b>, 2025, 234. <a href="https://doi.org/10.3390/batteries11060234" target="_blank" rel="noopener">doi:10.3390/batteries11060234</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">A. Nickol, T. Schied, C. Heubner, M. Schneider, A. Michaelis, M. Bobeth, G. Cuniberti, "GITT Analysis of Lithium Insertion Cathodes for Determining the Lithium Diffusion Coefficient at Low Temperature: Challenges and Pitfalls", <i>Journal of The Electrochemical Society</i> <b>167</b>, 2020, 090546. <a href="https://doi.org/10.1149/1945-7111/ab9404" target="_blank" rel="noopener">doi:10.1149/1945-7111/ab9404</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">S. D. Kang, W. C. Chueh, "Galvanostatic Intermittent Titration Technique Reinvented: Part I. A Critical Review", <i>Journal of The Electrochemical Society</i> <b>168</b>, 2021, 120504. <a href="https://doi.org/10.1149/1945-7111/ac3940" target="_blank" rel="noopener">doi:10.1149/1945-7111/ac3940</a></span></li></ol>
 </div>
 </section>
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
 
 <footer class="footer">
 <div class="wrap">
@@ -248,5 +306,6 @@ The check, explained with figure <a class="xref" href="#f11-4">L2.3</a>, says wh
 <script src="../../../assets/js/site.js"></script>
 <script src="../../../assets/js/learn/lab-gitt.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/course.js"></script>
 </body>
 </html>

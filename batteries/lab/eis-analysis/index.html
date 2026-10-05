@@ -26,30 +26,81 @@
 <link rel="stylesheet" href="../../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/eis-analysis/", "inLanguage": "en"}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="lab/eis-analysis">
+<body data-mode="teach" class="course-page kind-lab" data-page="lab/eis-analysis" data-root="../../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
+<header class="topbar course-bar" id="topbar">
 <div class="wrap">
-<a class="brand" href="../../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
-<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-<nav class="nav" id="siteNav" aria-label="Course">
-<a href="../../../batteries/">Contents</a>
-<a href="../../../batteries/lab/eis-measurement/" rel="prev">&#8592; Lab 3</a>
-<a href="../../../batteries/lab/post-mortem/" rel="next">Lab 5 &#8594;</a>
-<a href="#references">References</a>
-</nav>
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Lab 4</span> <span class="crumb-t">EIS: analysis</span></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../../batteries/lab/eis-measurement/" title="Previous: Lab 3 EIS: measurement (←)" aria-label="Previous: Lab 3 EIS: measurement">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../../batteries/lab/post-mortem/" title="Next: Lab 5 Post-mortem (→)" aria-label="Next: Lab 5 Post-mortem">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f11-15"><span class="n">L4.1</span><span class="t">Two circuits, one spectrum: a perfect fit proves nothing about the circuit</span></a></li><li class="o-sub"><a href="#s-from-spectrum-to-meaning"><span class="t">From spectrum to meaning</span></a></li><li class="o-fig"><a href="#f11-16"><span class="n">L4.2</span><span class="t">The distribution of relaxation times: overlapping arcs become separate peaks, if the…</span></a></li><li class="o-fig"><a href="#f11-17"><span class="n">L4.3</span><span class="t">Following a cell as it ages, and the data-driven route</span></a></li><li class="o-sub"><a href="#s-following-ageing"><span class="t">Following ageing</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization"><a href="../../../batteries/polarization/"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport"><a href="../../../batteries/ion-transport/"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes"><a href="../../../batteries/composite-electrodes/"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes"><a href="../../../batteries/negative-electrodes/"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic"><a href="../../../batteries/sodium-organic/"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing"><a href="../../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/gitt"><a href="../../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis" class="cur"><a href="../../../batteries/lab/eis-analysis/" aria-current="page"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
 
 <main id="top">
 <div id="content">
 <section class="module" id="ch" data-act="LAB" data-nav>
 <div class="wrap">
 <p class="mod-n">Lab handbook · Lab 4</p>
-<h2 class="h2">Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times</h2>
+<h1 class="h2">Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times</h1>
 <p class="hook">What does a spectrum mean, and what does a good fit not prove?</p>
 
 <div class="beat">
@@ -67,7 +118,7 @@
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">From spectrum to meaning</h3>
+<h2 class="sub" id="s-from-spectrum-to-meaning">From spectrum to meaning</h2>
 <p class="explain">With a valid spectrum in hand, we can ask what it means. The usual analysis fits an <b>equivalent circuit</b> to the spectrum by complex nonlinear least squares and judges the fit by its χ<sup>2</sup>.<sup class="cite"><a href="#ref-1">1</a></sup> The trap is that circuits are not unique: different circuits can give exactly the same impedance at every frequency, and adding elements always improves the fit.<sup class="cite"><a href="#ref-1">1</a></sup> The same model can also return different values depending on the starting guesses and the weighting.<sup class="cite"><a href="#ref-2">2</a></sup></p>
 <p class="explain">So the circuit has to come from the physics of the cell, each element tied to a process, with as few elements as possible.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> Physics-based models go further: the transmission line of figure <a class="xref" href="../../../batteries/lab/eis-measurement/#f11-11">L3.4</a> with spherical diffusion in each grain, or full electrochemical models solved for their impedance.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-3">3</a></sup></p>
 </div>
@@ -110,7 +161,7 @@
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">Following ageing</h3>
+<h2 class="sub" id="s-following-ageing">Following ageing</h2>
 <p class="explain">We now have the tools to do what <a class="xref" href="../../../batteries/degradation/">chapter 16</a> asked of us: follow a cell as it ages. Impedance generally rises as a cell ages, and because the measurement does not harm the cell, it can be repeated through its whole life. Ageing studies run <b>check-ups</b>: the same measurement at fixed conditions every so many cycles, often enough to follow the ageing, rarely enough not to add to it.<sup class="cite"><a href="#ref-2">2</a></sup> Ageing has two visible effects: capacity fade, from losing active material, and power fade, from growing resistance through lost contacts, thickening surface films and delamination.<sup class="cite"><a href="#ref-2">2</a></sup></p>
 <p class="explain">A spectrum is reduced to a few features: fitted resistances, DRT peaks or impedance at chosen frequencies. Individual contributions may follow the state of health, and give early warning of sudden fade, better than the total impedance.<sup class="cite"><a href="#ref-2">2</a></sup> The difficulty is that temperature, state of charge and ageing all move the same spectrum; for some chemistries, LiFePO<sub>4</sub> in particular, estimating the state of charge from impedance is much harder than for NMC.<sup class="cite"><a href="#ref-2">2</a></sup></p>
 <p class="explain"><b>Machine learning</b> is the newest route: train a model on features from many cells, then predict the state of health or charge of a new one. Gaussian process regression is common, and models based on relaxation times have reached errors around 1 %.<sup class="cite"><a href="#ref-4">4</a></sup> Their knowledge ends at their training data, and the studies so far cover few systems and conditions.<sup class="cite"><a href="#ref-4">4</a></sup> <b>Local impedance</b>, measured on one spot of an electrode, is a further step, since a whole-cell spectrum averages over a structure that is not uniform.<sup class="cite"><a href="#ref-4">4</a></sup></p>
@@ -133,9 +184,16 @@
 <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">A. Ch. Lazanas, M. I. Prodromidis, "Electrochemical Impedance Spectroscopy—A Tutorial", <i>ACS Measurement Science Au</i> <b>3</b>, 2023, 162–193. <a href="https://doi.org/10.1021/acsmeasuresciau.2c00070" target="_blank" rel="noopener">doi:10.1021/acsmeasuresciau.2c00070</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">N. Meddings, M. Heinrich, F. Overney, J.-S. Lee, V. Ruiz, E. Napolitano, S. Seitz, G. Hinds, R. Raccichini, M. Gaberšček, J. Park, "Application of electrochemical impedance spectroscopy to commercial Li-ion cells: A review", <i>Journal of Power Sources</i> <b>480</b>, 2020, 228742. <a href="https://doi.org/10.1016/j.jpowsour.2020.228742" target="_blank" rel="noopener">doi:10.1016/j.jpowsour.2020.228742</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">I. Abbas, H. T. Tran, T. T. N. Tran, T. L. Pham, E.-C. Shin, C.-W. Park, S.-B. Yu, O. J. Lee, A.-G. Nguyen, D. Jeong, B. H. Ka, H.-H. Cho, J. Lim, N. Shin, M. Gaberšček, S.-M. Hur, C.-J. Park, J. Kim, J.-S. Lee, "GITT Limitations and EIS Insights into Kinetics of NMC622", <i>Batteries</i> <b>11</b>, 2025, 234. <a href="https://doi.org/10.3390/batteries11060234" target="_blank" rel="noopener">doi:10.3390/batteries11060234</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">S. T. Bakenhaster, H. D. Dewald, "Electrochemical impedance spectroscopy and battery systems: past work, current research, and future opportunities", <i>Journal of Applied Electrochemistry</i> <b>55</b>, 2025, 1657–1681. <a href="https://doi.org/10.1007/s10800-025-02273-6" target="_blank" rel="noopener">doi:10.1007/s10800-025-02273-6</a></span></li></ol>
 </div>
 </section>
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
 
 <footer class="footer">
 <div class="wrap">
@@ -150,5 +208,6 @@
 <script src="../../../assets/js/site.js"></script>
 <script src="../../../assets/js/learn/lab-eis-analysis.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/course.js"></script>
 </body>
 </html>

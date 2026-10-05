@@ -242,6 +242,13 @@ def build_js():
     print('built assets/js/learn.js from core + %d figure files' % len(parts))
 
 if __name__ == '__main__':
-    build_js()
-    for s, o in PAGES.items():
-        build(s, o)
+    # The single page (story.src.html -> batteries/index.html, with assets/js/learn.js) was replaced on
+    # 2026-10-05 by the multi-page course; batteries/index.html is now the course home. This file stays as
+    # the library of marker rules that tools/build_course.py uses, so running it builds the course.
+    if '--single-page' in sys.argv:
+        build_js()
+        for s, o in PAGES.items():
+            build(s, o)
+    else:
+        import build_course
+        build_course.build_course()

@@ -1,0 +1,55 @@
+<section class="learn-hero hub-hero" id="start">
+  <div class="wrap">
+    <div class="hero-row">
+      <div>
+        <p class="kicker" data-reveal>A course in nineteen chapters and a lab handbook</p>
+        <h1 class="h1" data-reveal>How batteries work</h1>
+        <p class="promise" data-reveal>The electrochemistry of lithium-ion cells, from first principles to the laboratory.</p>
+        <p class="lede" data-reveal>I spent my doctoral years building cells like the ones in this course. This is the explanation I wish someone had given me at the start. Part I builds the cell at rest, from two charges in empty space to the energy a cell can hold. Part II sets it to work, Part III looks inside it, Part IV surveys the materials it is made of, and Part V follows the ways cells age, fail and are recycled. The lab handbook then shows how all of this is measured. Every chapter is built around figures you can play with. Every factual statement was checked against a textbook or a peer-reviewed article, listed at the end of the chapter that uses it; every curve is computed from the equation in its source, and every figure can show you what it is based on. Nothing here is experimental data.</p>
+        <div class="hub-actions" data-reveal>
+          <a class="btn hub-go" id="continueBtn" href="{{root}}batteries/electrostatics/"><span class="hub-go-k">Start</span> <span class="hub-go-t">Chapter 0 &#183; Electrostatics</span></a>
+          <a class="hub-map-link" href="#map">See all chapters</a>
+        </div>
+      </div>
+      <figure class="fig hero-fig-learn" data-reveal data-fig="hero" id="hero-fig">
+        <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="herot">
+          <title id="herot">A lithium-ion cell in motion: electrons run through an external wire and light a lamp while a lithium ion leaves the graphite, crosses the electrolyte and enters the positive host; a strip below shows the potential jumping at the two electrodes. The five chapters of Part I are tagged on the parts they explain.</title>
+        </svg>
+        <figcaption>The course in one cell. The numbered tags are the five chapters of Part I: 0 the field in the electrolyte that pushes the ion, 1 the wire and the lamp, 2 the parts of the cell, 3 the voltage between them, 4 the energy the lamp gets. The two electrodes you choose in chapter 3 appear here and travel with you through the course. Schematic, not experimental data.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section hub-map" id="map">
+  <div class="wrap">
+    <h2 class="h2">The chapters</h2>
+    <p class="sub">Read them in order: each chapter uses only what the chapters before it have built. Each card gives the question the chapter answers and an estimate of the reading time at the &#8220;Teach me&#8221; level.</p>
+{{course_map}}
+  </div>
+</section>
+
+<section class="section hub-how" id="how">
+  <div class="wrap">
+    <h2 class="h2">How to read this course</h2>
+    <div class="how-grid">
+      <div class="how-card">
+        <h3>Three reading levels</h3>
+        <p><b>Just show me</b> keeps the questions, the figures and the one-line answers. <b>Teach me</b> adds the full explanation, with the &#8220;Go deeper&#8221; panels and the mathematics folded away until you open them. <b>I want the equations</b> opens every fold. The choice is in the contents panel of every chapter, and the course remembers it.</p>
+        {{modes}}
+      </div>
+      <div class="how-card">
+        <h3>Figures you can play with</h3>
+        <p>Most figures have sliders, buttons or a play control. Move them: each figure is computed from the equation in its source, and its &#8220;Source&#8221; toggle names the figure or equation it is drawn from. In chapter 3 you choose the two electrodes of your own cell; the course remembers them and uses them in the later figures.</p>
+      </div>
+      <div class="how-card">
+        <h3>Finding your way</h3>
+        <p>The <b>Contents</b> button at the top of every page lists the figures and sections of the chapter you are reading and the whole course. <b>Search</b> finds a word in every chapter. On a keyboard, <kbd>t</kbd> opens the contents, <kbd>/</kbd> the search, and <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> move to the previous or next chapter. A link to a figure in another chapter leaves a button to bring you back.</p>
+      </div>
+      <div class="how-card">
+        <h3>For reference</h3>
+        <p>An <a href="{{root}}batteries/terms/">index of terms</a>, each with the sentence that introduces it; the <a href="{{root}}batteries/references/">references</a> of the whole course, with the chapters that rest on each one; the <a href="{{root}}batteries/figures/">list of figures</a>; and the <a href="{{root}}batteries/equations/">equations</a> of every chapter on one page.</p>
+      </div>
+    </div>
+  </div>
+</section>

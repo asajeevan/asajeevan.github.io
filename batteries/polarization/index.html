@@ -26,30 +26,81 @@
 <link rel="stylesheet" href="../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Galvanostatic cycling and polarization: overpotentials, hysteresis and heat generation", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/polarization/", "inLanguage": "en"}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="polarization">
+<body data-mode="teach" class="course-page kind-chapter" data-page="polarization" data-root="../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
+<header class="topbar course-bar" id="topbar">
 <div class="wrap">
-<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
-<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-<nav class="nav" id="siteNav" aria-label="Course">
-<a href="../../batteries/">Contents</a>
-<a href="../../batteries/capacity-energy/" rel="prev">&#8592; Ch. 4</a>
-<a href="../../batteries/voltage-profiles/" rel="next">Ch. 6 &#8594;</a>
-<a href="#references">References</a>
-</nav>
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Chapter 5</span> <span class="crumb-t">Polarization</span></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../batteries/capacity-energy/" title="Previous: Chapter 4 Capacity and energy (←)" aria-label="Previous: Chapter 4 Capacity and energy">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../batteries/voltage-profiles/" title="Next: Chapter 6 Voltage profiles (→)" aria-label="Next: Chapter 6 Voltage profiles">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f5-1"><span class="n">5.1</span><span class="t">One full test of your cell, as a cycler runs it</span></a></li><li class="o-sub"><a href="#s-the-test-bench"><span class="t">The test bench</span></a></li><li class="o-fig"><a href="#f5-2"><span class="n">5.2</span><span class="t">Where the voltage goes when current flows</span></a></li><li class="o-fig"><a href="#f5-3"><span class="n">5.3</span><span class="t">The voltage curve, computed, with the polarization drawn on the plot</span></a></li><li class="o-fig"><a href="#f5-4"><span class="n">5.4</span><span class="t">Switch the current off and the three polarizations leave on three different clocks</span></a></li><li class="o-fig"><a href="#f5-11"><span class="n">5.5</span><span class="t">Where the heat comes from, through one cycle of your cell</span></a></li><li class="o-end"><a href="#maths"><span class="t">The mathematics of this chapter</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization" class="cur"><a href="../../batteries/polarization/" aria-current="page"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport"><a href="../../batteries/ion-transport/"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes"><a href="../../batteries/composite-electrodes/"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes"><a href="../../batteries/negative-electrodes/"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic"><a href="../../batteries/sodium-organic/"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing"><a href="../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/gitt"><a href="../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
 
 <main id="top">
 <div id="content">
 <section class="module" id="ch" data-act="II" data-nav>
 <div class="wrap">
 <p class="mod-n">Chapter 5</p>
-<h2 class="h2">Galvanostatic cycling and polarization: overpotentials, hysteresis and heat generation</h2>
+<h1 class="h2">Galvanostatic cycling and polarization: overpotentials, hysteresis and heat generation</h1>
 <p class="hook">What happens when we charge a cell and use it, and why does it get warm?</p>
 <p class="where"><b>Where we are.</b> In <a class="xref" href="../../batteries/capacity-energy/">chapter 4</a> we counted the charge your cell can hold and turned it into energy, with the cell mostly at rest. Now we let the current flow and ask what that costs. We start at the test bench, with how a charge and a discharge are actually done and recorded. Then we follow what current costs (voltage, capacity and heat), why some curves are flat and others slope, what happens inside real electrodes made of many particles, how a curve can be read for signs of ageing, and how many cycles a cell survives. From here on we follow one lithium ion, our ion, through the cell.</p>
 
@@ -69,7 +120,7 @@
 </figure>
 <div class="text">
 <p class="explain">Let us connect your cell to something that uses it. A <b>discharge</b> is the cell doing work: current flows out through a lamp, a phone or a motor. A <b>charge</b> is the reverse: a charger pushes current back in, in the opposite direction, and restores the cell to its charged condition.<sup class="cite"><a href="#ref-1">1</a></sup> On discharge the negative electrode is oxidized and the positive electrode is reduced; charging runs both reactions backwards.<sup class="cite"><a href="#ref-1">1</a></sup> In a lithium-ion cell that means lithium ions leave one electrode, cross the electrolyte and enter the other, while their electrons go round through the wire (<a class="xref" href="../../batteries/cell-anatomy/">chapter 2</a>).</p>
-<h3 class="sub">The test bench</h3>
+<h2 class="sub" id="s-the-test-bench">The test bench</h2>
 <p class="explain">To watch this happen we put the cell on a test bench. Cells are studied, and their capacities measured, on a <b>cycler</b>: an instrument that sets the current and records the voltage at regular intervals (once a second in one set of tests). Most tests hold the current constant. This is <b>galvanostatic</b> cycling, and its record, the voltage against the charge passed, is the raw material of everything else in this module.<sup class="cite"><a href="#ref-2">2</a></sup></p>
 <p class="explain">At constant current the charge passed is simply current times time, <math><mrow><mi>Q</mi><mo>=</mo><mi>I</mi><mspace width="0.167em" /><mi>t</mi></mrow></math>. Currents are quoted as <b>C-rates</b>: 1C is the current that passes the cell’s full nominal charge in one hour, so C/20 takes twenty hours. In one study, for example, a 210 mAh cell was recorded at C/20, that is at 10.5 mA.<sup class="cite"><a href="#ref-2">2</a></sup></p>
 <p class="explain">A step cannot run for ever. Each step stops at a <b>cut-off voltage</b>. Overcharging or overdischarging drives unwanted reactions that cost capacity.<sup class="cite"><a href="#ref-1">1</a></sup> Charging often ends with a <b>constant-voltage</b> step: the cycler holds the upper cut-off, the current falls away by itself, and the step ends when it reaches a small limit. In two published protocols the cycler held 4.2 V until the current had fallen to C/20 in one and to C/25 in the other.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-3">3</a></sup></p>
@@ -241,9 +292,16 @@ Double the current and the ohmic part alone doubles: 0.2 V each way, and the sha
 <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">J. Z. Olson, C. M. López, E. J. F. Dickinson, "Differential Analysis of Galvanostatic Cycle Data from Li-Ion Batteries: Interpretative Insights and Graphical Heuristics", <i>Chemistry of Materials</i> <b>35</b>, 2023, 1487–1513. <a href="https://doi.org/10.1021/acs.chemmater.2c01976" target="_blank" rel="noopener">doi:10.1021/acs.chemmater.2c01976</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">M. Safari, C. Delacourt, "Mathematical Modeling of Lithium Iron Phosphate Electrode: Galvanostatic Charge/Discharge and Path Dependence", <i>Journal of The Electrochemical Society</i> <b>158</b>, 2011, A63–A73. <a href="https://doi.org/10.1149/1.3515902" target="_blank" rel="noopener">doi:10.1149/1.3515902</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">V. Murray, D. S. Hall, J. R. Dahn, "A Guide to Full Coin Cell Making for Academic Researchers", <i>Journal of The Electrochemical Society</i> <b>166</b>, 2019, A329-A333. <a href="https://doi.org/10.1149/2.1171902jes" target="_blank" rel="noopener">doi:10.1149/2.1171902jes</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">G. G. Eshetu, H. Zhang, X. Judez, H. Adenusi, M. Armand, S. Passerini, E. Figgemeier, "Production of high-energy Li-ion batteries comprising silicon-containing anodes and insertion-type cathodes", <i>Nature Communications</i> <b>12</b>, 2021, 5459. <a href="https://doi.org/10.1038/s41467-021-25334-8" target="_blank" rel="noopener">doi:10.1038/s41467-021-25334-8</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/Book"><span class="ref-n">6</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span></li><li id="ref-7" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">7</span> <span class="ref-body">J. B. Goodenough, K.-S. Park, "The Li-Ion Rechargeable Battery: A Perspective", <i>Journal of the American Chemical Society</i> <b>135</b>, 2013, 1167-1176. <a href="https://doi.org/10.1021/ja3091438" target="_blank" rel="noopener">doi:10.1021/ja3091438</a></span></li><li id="ref-8" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">8</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span></li><li id="ref-9" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">9</span> <span class="ref-body">J.-J. Marie, S. Gifford, "Developments in lithium-ion battery cathodes", <i>Faraday Insights, Issue 18 (The Faraday Institution)</i>, 2023, September 2023. <a href="https://www.faraday.ac.uk/wp-content/uploads/2023/09/Faraday_Insights_18_FINAL.pdf" target="_blank" rel="noopener">link</a></span></li><li id="ref-10" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">10</span> <span class="ref-body">J. T. Frith, M. J. Lacey, U. Ulissi, "A non-academic perspective on the future of lithium-based batteries", <i>Nature Communications</i> <b>14</b>, 2023, 420. <a href="https://doi.org/10.1038/s41467-023-35933-2" target="_blank" rel="noopener">doi:10.1038/s41467-023-35933-2</a></span></li><li id="ref-11" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">11</span> <span class="ref-body">A. Manthiram, "A reflection on lithium-ion battery cathode chemistry", <i>Nature Communications</i> <b>11</b>, 2020, 1550. <a href="https://doi.org/10.1038/s41467-020-15355-0" target="_blank" rel="noopener">doi:10.1038/s41467-020-15355-0</a></span></li><li id="ref-12" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">12</span> <span class="ref-body">P. Jindal, R. Katiyar, J. Bhattacharya, "Evaluation of accuracy for Bernardi equation in estimating heat generation rate for continuous and pulse-discharge protocols in LFP and NMC based Li-ion batteries", <i>Applied Thermal Engineering</i> <b>201</b>, 2022, 117794. <a href="https://doi.org/10.1016/j.applthermaleng.2021.117794" target="_blank" rel="noopener">doi:10.1016/j.applthermaleng.2021.117794</a></span></li><li id="ref-13" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">13</span> <span class="ref-body">A. A. Moya, "A physically consistent electric circuit to interpret the galvanostatic charge-discharge curves of electric double layer capacitors", <i>Journal of Power Sources</i> <b>656</b>, 2025, 238050. <a href="https://doi.org/10.1016/j.jpowsour.2025.238050" target="_blank" rel="noopener">doi:10.1016/j.jpowsour.2025.238050</a></span></li><li id="ref-14" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">14</span> <span class="ref-body">J. Landesfeind, J. Hattendorff, A. Ehrl, W. A. Wall, H. A. Gasteiger, "Tortuosity Determination of Battery Electrodes and Separators by Impedance Spectroscopy", <i>Journal of The Electrochemical Society</i> <b>163</b>, 2016, A1373. <a href="https://doi.org/10.1149/2.1141607jes" target="_blank" rel="noopener">doi:10.1149/2.1141607jes</a></span></li><li id="ref-15" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">15</span> <span class="ref-body">M. Doyle, T. F. Fuller, J. Newman, "Modeling of Galvanostatic Charge and Discharge of the Lithium/Polymer/Insertion Cell", <i>Journal of The Electrochemical Society</i> <b>140</b>, 1993, 1526–1533. <a href="https://doi.org/10.1149/1.2221597" target="_blank" rel="noopener">doi:10.1149/1.2221597</a></span></li><li id="ref-16" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">16</span> <span class="ref-body">M. M. Rahman, U. Nisar, A. Abouimrane, I. Belharouak, R. Amin, "Valuation of Anode Materials for High-Performance Lithium Batteries: From Graphite to Lithium Metal and Beyond", <i>Electrochemical Energy Reviews</i> <b>8</b>, 2025, 14. <a href="https://doi.org/10.1007/s41918-025-00249-w" target="_blank" rel="noopener">doi:10.1007/s41918-025-00249-w</a></span></li></ol>
 </div>
 </section>
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
 
 <footer class="footer">
 <div class="wrap">
@@ -258,5 +316,6 @@ Double the current and the ohmic part alone doubles: 0.2 V each way, and the sha
 <script src="../../assets/js/site.js"></script>
 <script src="../../assets/js/learn/polarization.js"></script>
 <script src="../../assets/js/share.js"></script>
+<script src="../../assets/js/course.js"></script>
 </body>
 </html>

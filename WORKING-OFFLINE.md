@@ -8,14 +8,20 @@ Open `index.html` (home page) or `batteries/index.html` (learning page) directly
 Everything works offline except the visitor counter, which needs the internet.
 
 ## Edit it
-- Module text: `src/learn/mod-00.html` … `mod-12.html`; page frame: `src/learn/story.src.html`
+- Course structure (chapters, parts, order of the figures, titles, questions): `src/learn/course.json`
+- Text: `src/learn/mod-00.html` … `mod-12.html` (the build cuts them into beats and places each beat on its
+  chapter); course home: `src/learn/hub.src.html`; page frame: `src/learn/page.src.html`
+- Cross-references are markers, never typed numbers: `{{fig:f5-3}}` for a figure, `{{ch:polarization}}` or
+  `{{Ch:polarization}}` for a chapter. The build numbers and links them.
 - Figures: `src/learn/figs/figs-*.js`; shared figure code: `src/learn/learn-core.js`
+- Navigation (contents drawer, search, keys, back button, read ticks): `assets/js/course.js`, built parts in
+  `tools/course_nav.py`
 - Calculations: `assets/js/physics.js`; sources: `src/learn/references.json`
-- Do not edit `batteries/index.html` or `assets/js/learn.js` by hand: they are rebuilt.
+- Do not edit anything in `batteries/` or `assets/js/learn/` or `assets/js/course-index.js` by hand: they are rebuilt.
 
 ## Rebuild and check
     pip install latex2mathml
-    python3 tools/build_learn.py          # rebuilds batteries/index.html and assets/js/learn.js
+    python3 tools/build_course.py         # the course home, 24 pages, 3 reference pages, scripts, search index
     node --test tests/physics.test.js     # 74 tests
 
 ## Notes

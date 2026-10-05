@@ -26,30 +26,81 @@
 <link rel="stylesheet" href="../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Ion transport and the electrode–electrolyte interface: diffusion, migration and transference", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/ion-transport/", "inLanguage": "en"}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="ion-transport">
+<body data-mode="teach" class="course-page kind-chapter" data-page="ion-transport" data-root="../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
+<header class="topbar course-bar" id="topbar">
 <div class="wrap">
-<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
-<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-<nav class="nav" id="siteNav" aria-label="Course">
-<a href="../../batteries/">Contents</a>
-<a href="../../batteries/liquid-electrolytes/" rel="prev">&#8592; Ch. 8</a>
-<a href="../../batteries/sei/" rel="next">Ch. 10 &#8594;</a>
-<a href="#references">References</a>
-</nav>
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Chapter 9</span> <span class="crumb-t">Ion transport</span></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../batteries/liquid-electrolytes/" title="Previous: Chapter 8 Liquid electrolytes (←)" aria-label="Previous: Chapter 8 Liquid electrolytes">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../batteries/sei/" title="Next: Chapter 10 The SEI (→)" aria-label="Next: Chapter 10 The SEI">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f7-6"><span class="n">9.1</span><span class="t">How an ion moves: a random walk, gently steered</span></a></li><li class="o-sub"><a href="#s-wandering"><span class="t">Wandering</span></a></li><li class="o-sub"><a href="#s-drifting-in-a-field"><span class="t">Drifting in a field</span></a></li><li class="o-fig"><a href="#f7-10"><span class="n">9.2</span><span class="t">The transference number, and the salt gradient it leaves behind</span></a></li><li class="o-fig"><a href="#f7-7"><span class="n">9.3</span><span class="t">Layer by layer, from the middle of the liquid to the electrode</span></a></li><li class="o-sub"><a href="#s-the-bulk-and-the-diffuse-layer"><span class="t">The bulk and the diffuse layer</span></a></li><li class="o-sub"><a href="#s-the-first-molecular-layer"><span class="t">The first molecular layer</span></a></li><li class="o-sub"><a href="#s-getting-in"><span class="t">Getting in</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization"><a href="../../batteries/polarization/"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport" class="cur"><a href="../../batteries/ion-transport/" aria-current="page"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes"><a href="../../batteries/composite-electrodes/"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes"><a href="../../batteries/negative-electrodes/"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic"><a href="../../batteries/sodium-organic/"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing"><a href="../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/gitt"><a href="../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
 
 <main id="top">
 <div id="content">
 <section class="module" id="ch" data-act="III" data-nav>
 <div class="wrap">
 <p class="mod-n">Chapter 9</p>
-<h2 class="h2">Ion transport and the electrode–electrolyte interface: diffusion, migration and transference</h2>
+<h1 class="h2">Ion transport and the electrode–electrolyte interface: diffusion, migration and transference</h1>
 <p class="hook">How does an ion cross the cell, and what does it meet at the electrode?</p>
 
 <div class="beat alt">
@@ -67,9 +118,9 @@
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">Wandering</h3>
+<h2 class="sub" id="s-wandering">Wandering</h2>
 <p class="explain">So far our ion has sat in its shell; now we set it moving. Even with no current, nothing in the liquid is still. Every ion is bumped continually by the molecules around it and wanders at random, in every direction alike. On average it goes nowhere; it only spreads out, a distance that grows as the square root of time, (2Dt)<sup>1/2</sup>, where D is its diffusion coefficient. This is <b>diffusion</b>, met inside the electrode particles in <a class="xref" href="../../batteries/insertion-hosts/">chapter 7</a>.<sup class="cite"><a href="#ref-1">1</a></sup></p>
-<h3 class="sub">Drifting in a field</h3>
+<h2 class="sub" id="s-drifting-in-a-field">Drifting in a field</h2>
 <p class="explain">Draw current and a small electric field appears across the liquid. It does not replace the random wandering; it biases it: each step is pushed slightly one way, cations down the potential and anions up it. That steady bias is <b>migration</b>, and the Nernst-Planck equation adds the two together (<a class="xref" href="../../batteries/electrostatics/">chapter 0</a>).<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <p class="explain">What moves is the ion together with whatever stays bound to it, which is why a bigger moving object, or a thicker liquid, conducts less: <span class="eq">u = |z|e/(6πηr)</span>.<sup class="cite"><a href="#ref-1">1</a></sup> The lithium ion moves in two ways: it carries its first shell along with it, or it is handed on, leaving some solvent molecules behind and gaining others. In EC : DMC with LiPF<sub>6</sub> the two contribute roughly equally; in short ethylene-oxide chains (oligoethers) the ion travels a distance of three to four solvent molecules before its shell is renewed, so there carrying dominates.<sup class="cite"><a href="#ref-2">2</a></sup></p>
 <p class="aside">A picture to keep: ionic conduction is a crowd crossing a corridor. More people, or people who move more freely, carry more across per second. The picture breaks in two places: the ions also push on each other through the field, and in a polymer the corridor itself has to keep moving for anyone to get through.</p>
@@ -119,13 +170,13 @@ The field in the liquid is gentle and each ion drifts slowly; the current is lar
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">The bulk and the diffuse layer</h3>
+<h2 class="sub" id="s-the-bulk-and-the-diffuse-layer">The bulk and the diffuse layer</h2>
 <p class="explain">We have followed the ion through the middle of the liquid. Now let us walk towards an electrode, because the electrolyte is not the same all the way across. Far from either electrode, in the <b>bulk</b>, every small volume holds as much positive as negative charge: a separation of charge there would set up a field large enough to erase it at once.<sup class="cite"><a href="#ref-1">1</a></sup> The molecules point every way, and with no current the potential is flat. With current, the only field is the gentle ohmic one of the worked example above, about 0.1 V/cm.</p>
 <p class="explain">A few nanometres from a charged electrode this changes. Ions of the opposite sign crowd towards the surface and solvent molecules turn: together they cancel the electrode’s charge, so its field does not reach the bulk.<sup class="cite"><a href="#ref-1">1</a></sup> The excess of ions thins out over the <b>diffuse layer</b>, less than about 10 nm thick above 0.01 M; closest to the surface is the <b>compact layer</b>, one solvent shell thick.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <p class="explain">The field inside that thin step can reach 10<sup>7</sup> V/cm, a hundred million times the field in the bulk of the worked example.<sup class="cite"><a href="#ref-1">1</a></sup> This is the electrical double layer of <a class="xref" href="../../batteries/cell-voltage/">chapter 3</a>, now seen molecule by molecule.</p>
-<h3 class="sub">The first molecular layer</h3>
+<h2 class="sub" id="s-the-first-molecular-layer">The first molecular layer</h2>
 <p class="explain">Closer still, we reach single molecules. Simulations show what the innermost layer looks like in EC : DMC with LiPF<sub>6</sub>. When the electrode is charged, either way, the more polar EC replaces DMC at the surface, an effect confirmed by experiment on LiCoO<sub>2</sub>. At a negative electrode the carbonyl groups are pushed away from the surface, and at the most negative potentials lithium ions sit against it, solvated mainly by EC, which fits the observation that EC reduction dominates the SEI formed in these mixtures. At a positive electrode the layer fills with carbonyl groups and PF<sub>6</sub><sup>−</sup> anions accumulate, where they are expected to take part in oxidation reactions.<sup class="cite"><a href="#ref-2">2</a></sup></p>
-<h3 class="sub">Getting in</h3>
+<h2 class="sub" id="s-getting-in">Getting in</h2>
 <p class="explain">One step remains: our ion must get into the electrode. To enter graphite a lithium ion has to leave its shell. In preliminary simulations of bare graphite, with no SEI, a lithium ion rests about 0.5 nm from the surface, still solvated; closer than about 0.4 nm the free energy climbs steeply as it is forced to shed its solvent, consistent with DMC going first and EC last. The size of that climb agrees with measured activation energies of 16.4 to 17 kcal/mol, about 70 kJ/mol. The two contributions usually discussed for the resistance of this interface are the SEI and this desolvation, and experiments show that at low temperature the interface can resist more than the whole bulk electrolyte.<sup class="cite"><a href="#ref-2">2</a></sup></p>
 <p class="lesson">Uniform in the middle, ordered in the last nanometre: the electrolyte’s structure, and almost all of its field, change within a few molecules of the electrode.</p>        <details class="deeper"><summary>Go deeper: conductivity from the ions themselves</summary><div class="body">
 <p>The conductivity of an electrolyte is the sum of what each ion contributes: &#954; = F &#931;|z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub>, with u<sub>j</sub> the mobility and C<sub>j</sub> the concentration of ion j. The share carried by one ion is its transference number, t<sub>j</sub> = |z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub> / &#931;|z<sub>k</sub>|u<sub>k</sub>C<sub>k</sub>.<sup class="cite"><a href="#ref-1">1</a></sup> For a salt of one cation and one anion this reduces to t<sub>+</sub> = |z<sub>+</sub>|u<sub>+</sub>/(|z<sub>+</sub>|u<sub>+</sub> + |z<sub>−</sub>|u<sub>−</sub>), and in the dilute limit to D<sub>Li</sub>/(D<sub>Li</sub> + D<sub>−</sub>).<sup class="cite"><a href="#ref-4">4</a></sup> <a class="xref" href="../../batteries/electrostatics/">Chapter 0</a> gave the mobility of a sphere in a viscous liquid, u = |z|e/(6&#960;&#951;r): a bigger ion, or a more viscous liquid, conducts less.<sup class="cite"><a href="#ref-1">1</a></sup></p>
@@ -152,9 +203,16 @@ The field in the liquid is gentle and each ion drifts slowly; the current is lar
 <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/Book"><span class="ref-n">1</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">O. Borodin, "Molecular Modeling of Electrolytes", <i>in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York</i>, 2014, 371-401. <a href="https://doi.org/10.1007/978-1-4939-0302-3_8" target="_blank" rel="noopener">doi:10.1007/978-1-4939-0302-3_8</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">B. Boz, T. Dev, A. Salvadori, J. L. Schaefer, "Review: Electrolyte and Electrode Designs for Enhanced Ion Transport Properties to Enable High Performance Lithium Batteries", <i>Journal of The Electrochemical Society</i> <b>168</b>, 2021, 090501. <a href="https://doi.org/10.1149/1945-7111/ac1cc3" target="_blank" rel="noopener">doi:10.1149/1945-7111/ac1cc3</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">K. Brandt, "Historical development of secondary lithium batteries", <i>Solid State Ionics</i> <b>69</b>, 1994, 173-183. <a href="https://doi.org/10.1016/0167-2738(94)90408-1" target="_blank" rel="noopener">doi:10.1016/0167-2738(94)90408-1</a></span></li><li id="ref-7" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">7</span> <span class="ref-body">D. Shanmukaraj, P. Ranque, H. Ben Youcef, T. Rojo, P. Poizot, S. Grugeon, S. Laruelle, D. Guyomard, "Review—Towards Efficient Energy Storage Materials: Lithium Intercalation/Organic Electrodes to Polymer Electrolytes—A Road Map (Tribute to Michel Armand)", <i>Journal of The Electrochemical Society</i> <b>167</b>, 2020, 070530. <a href="https://doi.org/10.1149/1945-7111/ab787a" target="_blank" rel="noopener">doi:10.1149/1945-7111/ab787a</a></span></li><li id="ref-8" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">8</span> <span class="ref-body">W. A. Henderson, "Nonaqueous Electrolytes: Advances in Lithium Salts", <i>in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York</i>, 2014, 1-92. <a href="https://doi.org/10.1007/978-1-4939-0302-3_1" target="_blank" rel="noopener">doi:10.1007/978-1-4939-0302-3_1</a></span></li><li id="ref-9" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">9</span> <span class="ref-body">O. Borodin, X. Ren, J. Vatamanu, A. von Wald Cresce, J. Knap, K. Xu, "Modeling Insight into Battery Electrolyte Electrochemical Stability and Interfacial Structure", <i>Accounts of Chemical Research</i> <b>50</b>, 2017, 2886-2894. <a href="https://doi.org/10.1021/acs.accounts.7b00486" target="_blank" rel="noopener">doi:10.1021/acs.accounts.7b00486</a></span></li></ol>
 </div>
 </section>
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
 
 <footer class="footer">
 <div class="wrap">
@@ -169,5 +227,6 @@ The field in the liquid is gentle and each ion drifts slowly; the current is lar
 <script src="../../assets/js/site.js"></script>
 <script src="../../assets/js/learn/ion-transport.js"></script>
 <script src="../../assets/js/share.js"></script>
+<script src="../../assets/js/course.js"></script>
 </body>
 </html>

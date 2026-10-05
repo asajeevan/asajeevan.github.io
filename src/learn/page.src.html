@@ -26,20 +26,12 @@
 <link rel="stylesheet" href="{{root}}assets/css/learn.css">
 <script type="application/ld+json">{{ldjson}}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="{{page_id}}">
+<body data-mode="teach" class="course-page {{body_class}}" data-page="{{page_id}}" data-root="{{root}}">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
-  <div class="wrap">
-    <a class="brand" href="{{hub}}" aria-label="How batteries work: course home">How batteries work</a>
-    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-    <nav class="nav" id="siteNav" aria-label="Course">
-{{topnav}}
-    </nav>
-  </div>
-  <div class="progress" id="progress"></div>
-</header>
+{{topbar}}
+{{drawer}}
 
 <main id="top">
 <div id="content">
@@ -47,9 +39,10 @@
 </div>
 {{pagenav}}
 {{refsection}}
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+{{search}}
 
 <footer class="footer">
   <div class="wrap">
@@ -64,5 +57,6 @@
 <script src="{{root}}assets/js/site.js"></script>
 <script src="{{root}}{{bundle}}"></script>
 <script src="{{root}}assets/js/share.js"></script>
+<script src="{{root}}assets/js/course.js"></script>
 </body>
 </html>

@@ -152,7 +152,7 @@ def assemble_course():
         if tail_html:
             beats[-1] = insert_tail(beats[-1], tail_html)
         opening = ('<section class="module" id="ch" data-act="%s" data-nav>\n  <div class="wrap">\n'
-                   '    <p class="mod-n">%s</p>\n    <h2 class="h2">%s</h2>\n    <p class="hook">%s</p>\n%s'
+                   '    <p class="mod-n">%s</p>\n    <h1 class="h2">%s</h1>\n    <p class="hook">%s</p>\n%s'
                    % (p['part'], esc(page_number_label(p)), esc(p['title']), esc(p['question']), where.lstrip('\n')))
         content = opening + ''.join(beats) + '\n\n  </div>\n</section>\n'
         # figure numbers from the manifest
@@ -160,7 +160,7 @@ def assemble_course():
             return '%s<span class="fnum">Figure %s</span>' % (m.group(1), number_of[m.group(2)])
         content = re.sub(r'(data-fig="([^"]+)" id="[^"]+">\s*)<span class="fnum">Figure [^<]*</span>', lambda m: '%s<span class="fnum">Figure %s</span>' % (m.group(1), number_of[m.group(2)]), content)
         built[p['id']] = content
-    return built, page_of_fig, number_of
+    return built, page_of_fig, number_of, maths
 
 OLD_NUM = {}   # old figure number -> figure id, from the module sources
 for mid in MODULES:
@@ -196,6 +196,8 @@ def js_plain(t):
     return re.sub(r'\{\{(ch|Ch):([^}]+)\}\}', lambda m: ch_label(m.group(2), m.group(1) == 'Ch'), t)
 
 # ---------------------------------------------------------------- rendering
+import course_nav as NAV
+
 def page_refs(order, used_in):
     return '<ol class="refs">' + ''.join(BL.fmt_ref(k, i + 1) for i, k in enumerate(order)) + '</ol>'
 
@@ -203,66 +205,193 @@ REFSECTION = ('<section class="section page-refs" id="references">\n  <div class
               '    <p class="policy">Numbers in the text refer to this list. <a href="%sbatteries/references/">All references of the course</a>, with the chapters that use each one.</p>\n'
               '    {{references}}\n  </div>\n</section>')
 
-def render_page(pid, content, meta, nav, bundle, out_path):
-    depth = pid.count('/') + 1 if pid else 0
-    root = '../' * (depth + 1)
+def root_of(pid):
+    return '../' * (pid.count('/') + 2) if pid else '../'
+
+def render_page(pid, content, meta, nav, bundle, out_path, current=None, outline=True, post=None):
+    """Fill the template, render the markers, then add the parts built from the rendered page
+    (the drawer's outline). post: {placeholder comment: html} inserted after rendering."""
+    root = root_of(pid)
     text = TEMPLATE
     rep = {
         '{{page_title}}': esc(meta['page_title']), '{{og_title}}': esc(meta['og_title']), '{{description}}': esc(meta['description']),
         '{{url}}': COURSE['base'] + (pid + '/' if pid else ''), '{{ldjson}}': json.dumps(meta['ld'], ensure_ascii=False),
-        '{{page_id}}': pid or 'hub', '{{hub}}': root + 'batteries/', '{{topnav}}': nav['top'], '{{pagenav}}': nav['bottom'],
+        '{{page_id}}': pid or 'hub', '{{body_class}}': meta.get('body_class', ''),
+        '{{topbar}}': nav['topbar'], '{{drawer}}': '<!--@drawer-->', '{{search}}': NAV.SEARCH, '{{pagenav}}': nav['bottom'],
         '{{refsection}}': (REFSECTION % (meta['kind_word'], root)) if meta.get('refs', True) else '',
         '{{bundle}}': bundle,
     }
     for k, v in rep.items():
         text = text.replace(k, v)
-    text = text.replace('{{content}}', resolve_xrefs(content, pid, root))
+    text = text.replace('{{content}}', resolve_xrefs(NAV.add_heading_ids(content), pid, root))
     text = text.replace('{{root}}', root)
     text, order = BL.render(text, refs_fn=page_refs, quiet=True)
+    if not order:   # nothing cited on this page: no reference section
+        text = re.sub(r'<section class="section page-refs" id="references">.*?</section>\n?', '', text, flags=re.S)
+    items = NAV.outline(text) if outline else []
+    text = text.replace('<!--@drawer-->', NAV.drawer(COURSE, pid if current is None else current, root, items))
+    for k, v in (post or {}).items():
+        text = text.replace(k, v)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(text, encoding='utf-8')
     return text, order
 
-def nav_for(pages, i, root):
-    p = pages[i]
-    prev = pages[i - 1] if i > 0 else None
-    nxt = pages[i + 1] if i + 1 < len(pages) else None
-    link = lambda q: root + 'batteries/' + q['id'] + '/'
-    label = lambda q: '%s %s' % ('Ch.' if q['kind'] == 'chapter' else '', q['num'] if q['kind'] == 'chapter' else q['num'])
-    top = ['      <a href="%sbatteries/">Contents</a>' % root]
-    if prev: top.append('      <a href="%s" rel="prev">&#8592; %s</a>' % (link(prev), esc(label(prev).strip())))
-    if nxt: top.append('      <a href="%s" rel="next">%s &#8594;</a>' % (link(nxt), esc(label(nxt).strip())))
-    top.append('      <a href="#references">References</a>')
-    bottom = ['<nav class="pagenav wrap" aria-label="Previous and next">']
-    if prev:
-        bottom.append('  <a class="pn prev" href="%s" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">%s %s</span><span class="pn-q">%s</span></a>'
-                      % (link(prev), esc(prev['num'] if prev['kind'] == 'lab' else 'Chapter ' + prev['num']), esc(prev['menu']), esc(prev['question'])))
-    if nxt:
-        bottom.append('  <a class="pn next" href="%s" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">%s %s</span><span class="pn-q">%s</span></a>'
-                      % (link(nxt), esc(nxt['num'] if nxt['kind'] == 'lab' else 'Chapter ' + nxt['num']), esc(nxt['menu']), esc(nxt['question'])))
-    bottom.append('</nav>')
-    return {'top': '\n'.join(top), 'bottom': '\n'.join(bottom)}
+def seq_entry(q, root):
+    """A page in the reading order, as the top bar and the page foot show it."""
+    if q is None:
+        return None
+    if q['id'] == '':
+        return {'href': NAV.page_href(root, ''), 'label': 'Course home', 'k': 'Course home', 't': COURSE['title'], 'q': COURSE['subtitle']}
+    return {'href': NAV.page_href(root, q['id']), 'label': '%s %s' % (NAV.long_num(q), q['menu']),
+            'k': NAV.long_num(q), 't': q['menu'], 'q': q['question']}
+
+def nav_for(seq, i, root, page=None):
+    """seq: the reading order (hub, chapters, lab pages); i: this page's place in it (None for a reference page)."""
+    p = page if page is not None else seq[i]
+    prev = seq_entry(seq[i - 1], root) if i is not None and i > 0 else None
+    nxt = seq_entry(seq[i + 1], root) if i is not None and i + 1 < len(seq) else None
+    top = NAV.topbar(p, prev, nxt, root)
+    bottom = ''
+    if i is not None:
+        b = ['<nav class="pagenav wrap" aria-label="Previous and next">']
+        for q, cls, k in ((prev, 'prev', '&#8592; Previous'), (nxt, 'next', 'Next &#8594;')):
+            if q:
+                b.append('  <a class="pn %s" href="%s" rel="%s"><span class="pn-k">%s</span><span class="pn-t">%s</span><span class="pn-q">%s</span></a>'
+                         % (cls, q['href'], cls, k, esc(q['label'] if q['label'] != 'Course home' else 'Course home: ' + q['t']), esc(q['q'])))
+        b.append('</nav>')
+        bottom = '\n'.join(b)
+    return {'topbar': top, 'bottom': bottom}
 
 def figs_in(content):
     return re.findall(r'data-fig="([^"]+)"', content)
 
 # ---------------------------------------------------------------- modes
 def build_identity():
-    out = OUT / '_identity'
     pages = [{'id': '_identity/' + m, 'kind': 'chapter', 'num': str(int(m[1:])), 'menu': m, 'question': ''} for m in MODULES]
     contents = {p['id']: MODS[p['id'].split('/')[1]]['source'] for p in pages}
     for num, fid in OLD_NUM.items():   # the old numbering, for a like-for-like comparison
         XREF['number_of'][fid] = num
-        XREF['page_of_fig'][fid] = '_identity/' + next(m for m in MODULES if fid in [b['fig'] for b in MODS[m]['beats']] or fid in sum([b['figs'] for b in MODS[m]['beats']], []))
+        XREF['page_of_fig'][fid] = '_identity/' + next(m for m in MODULES if fid in sum([b['figs'] for b in MODS[m]['beats']], []))
     bundles, sizes = js_bundles({pid: figs_in(c) for pid, c in contents.items()})
     for i, p in enumerate(pages):
         meta = {'page_title': p['id'], 'og_title': p['id'], 'description': p['id'], 'ld': {}, 'kind_word': 'module'}
-        root = '../' * (p['id'].count('/') + 2)
-        text, order = render_page(p['id'], contents[p['id']], meta, nav_for(pages, i, root), bundles[p['id']], OUT / p['id'] / 'index.html')
+        root = root_of(p['id'])
+        text, order = render_page(p['id'], contents[p['id']], meta, nav_for(pages, i, root), bundles[p['id']], OUT / p['id'] / 'index.html', outline=False)
         print('%-16s %7d bytes html, %7d bytes js, %2d refs' % (p['id'], len(text.encode()), sizes[p['id']], len(order)))
 
+def article_ld(headline, url):
+    return {'@context': 'https://schema.org', '@type': 'Article', 'headline': headline, 'isPartOf': {'@type': 'Course', 'name': COURSE['title'], 'url': COURSE['base']},
+            'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'}, 'url': url, 'inLanguage': 'en'}
+
+def old_anchors(page_of_fig):
+    """Where the anchors of the old single page now live: {old id: path below batteries/}."""
+    first = {m: COURSE_PAGE_OF_BEAT[MODS[m]['beats'][0]['fig']] for m in MODULES}
+    out = {}
+    for m in MODULES:
+        out[m] = first[m] + '/'
+        out[m + '-maths'] = COURSE['tails'][m] + '/#maths'
+    out.update({'actA': first['m00'] + '/', 'actB': first['m05'] + '/', 'actC': first['m09'] + '/', 'references': 'references/'})
+    for f, pid in page_of_fig.items():
+        out[f] = pid + '/#' + f
+    return out
+
+COURSE_PAGE_OF_BEAT = {f: p['id'] for p in COURSE['pages'] for f in p['beats']}
+
+def course_map(stats, root):
+    out = []
+    for part in COURSE['parts']:
+        ps = [p for p in COURSE['pages'] if p['part'] == part['id']]
+        k = 'Lab handbook' if part['id'] == 'LAB' else 'Part ' + part['id']
+        t = part['title'].split(': ', 1)[1] if part['id'] == 'LAB' else part['title']
+        out.append('    <div class="hub-part" id="part-%s">\n      <p class="part-k">%s</p>\n      <h3 class="part-t">%s</h3>\n      <ol class="cards">' % (part['id'].lower(), esc(k), esc(t)))
+        for p in ps:
+            mins, nfig = stats[p['id']]
+            out.append('        <li class="card" data-chap="%s"><a href="%s"><span class="c-n">%s</span><span class="c-t">%s</span>'
+                       '<span class="c-full">%s</span><span class="c-q">%s</span><span class="c-m">%d figure%s &#183; about %d min</span></a></li>'
+                       % (p['id'], NAV.page_href(root, p['id']), esc(NAV.long_num(p)), esc(p['menu']), esc(p['title']), esc(p['question']), nfig, '' if nfig == 1 else 's', mins))
+        out.append('      </ol>\n    </div>')
+    return '\n'.join(out)
+
+POLICY = ('<p class="policy"><b>How this course uses its sources.</b> Every factual sentence in the course was checked against one of the textbooks and '
+          'peer-reviewed articles below, all of which I have read in full; each entry says which chapters rest on it, and each figure&#8217;s '
+          '&#8220;Source&#8221; toggle names the figure or equation it is drawn from. Where a source&#8217;s printed equation contains a typographical '
+          'error, the course uses the form that follows from the source&#8217;s own premises. Analogies and my own opinions are marked as such. Numbers '
+          'are quoted with the conditions and the date given in the source. The numbers below are this list&#8217;s own; each chapter numbers its '
+          'citations from 1 in its own reference list.</p>')
+
+def ref_page_content(used_by, root):
+    order = []
+    for p in COURSE['pages']:
+        for k in used_by.get(p['id'], []):
+            if k not in order:
+                order.append(k)
+    lis = []
+    for n, k in enumerate(order, 1):
+        where = [p for p in COURSE['pages'] if k in used_by.get(p['id'], [])]
+        links = ', '.join('<a href="%s">%s</a>' % (NAV.page_href(root, p['id']), esc(NAV.long_num(p) if p['kind'] == 'lab' else p['num'])) for p in where)
+        chs = [p for p in where if p['kind'] == 'chapter']
+        label = ('Chapter ' if len(where) == 1 and chs else 'Chapters ' if chs else '') if where else ''
+        lis.append(BL.fmt_ref(k, n).replace('</li>', '<span class="ref-mods">%s%s</span></li>' % (label, links)))
+    return ('<section class="section ref-page" id="all-references">\n<div class="wrap">\n<p class="mod-n">For reference</p>\n<h1 class="h2">References of the course</h1>\n'
+            + POLICY + '\n<ol class="refs">' + ''.join(lis) + '</ol>\n</div>\n</section>\n'), len(order)
+
+def figures_page_content(rendered, root):
+    out = ['<section class="section ref-page" id="all-figures">\n<div class="wrap">\n<p class="mod-n">For reference</p>\n<h1 class="h2">List of figures</h1>\n'
+           '<p class="sub">Every figure of the course, with the first sentence of its caption. Figures inside folded panels are listed under the figure before them.</p>']
+    for p in COURSE['pages']:
+        items = [it for it in NAV.outline(rendered[p['id']]) if it['kind'] == 'fig']
+        out.append('<h2 class="ref-h" id="lf-%s"><a href="%s">%s &#183; %s</a></h2>\n<ol class="fig-list">' % (p['id'].replace('/', '-'), NAV.page_href(root, p['id']), esc(NAV.long_num(p)), esc(p['menu'])))
+        for it in items:
+            out.append('<li><a href="%s#%s"><span class="n">%s</span><span class="t">%s</span></a></li>' % (NAV.page_href(root, p['id']), it['id'], esc(it['n']), it['label']))
+        out.append('</ol>')
+    out.append('</div>\n</section>\n')
+    return '\n'.join(out)
+
+def terms_page_content(rendered, root):
+    """Every term the course introduces in bold, alphabetically, with the sentence that introduces it
+    (quoted from the chapter, so the index states nothing the chapters do not) and a link to it."""
+    seen = {}
+    for p in COURSE['pages']:
+        for t in NAV.terms_of(rendered[p['id']]):
+            key = t['term'].lower()
+            if key not in seen:
+                seen[key] = dict(t, page=p, also=[])
+            elif p['id'] not in [q['id'] for q in seen[key]['also']] and p['id'] != seen[key]['page']['id']:
+                seen[key]['also'].append(p)
+    def sort_key(k):
+        return re.sub(r'[^a-z0-9 ]', '', k.lower().replace('“', '').replace('”', ''))
+    out = ['<section class="section ref-page" id="all-terms">\n<div class="wrap">\n<p class="mod-n">For reference</p>\n<h1 class="h2">Index of terms</h1>\n'
+           '<p class="sub">Each term the course introduces, with the sentence that introduces it and a link to that place. The sentences are quoted from the chapters.</p>']
+    letters = sorted(set(sort_key(k)[0].upper() for k in seen))
+    out.append('<nav class="az" aria-label="Letters">' + ''.join('<a href="#t-%s">%s</a>' % (L, L) for L in letters) + '</nav>')
+    cur = None
+    for k in sorted(seen, key=sort_key):
+        t = seen[k]; L = sort_key(k)[0].upper()
+        if L != cur:
+            if cur is not None:
+                out.append('</dl>')
+            out.append('<h2 class="ref-h" id="t-%s">%s</h2>\n<dl class="terms">' % (L, L)); cur = L
+        p = t['page']
+        where = '<a href="%s#%s">%s</a>' % (NAV.page_href(root, p['id']), t['anchor'], esc(NAV.long_num(p) + ' · ' + p['menu']))
+        also = ''.join(', <a href="%s">%s</a>' % (NAV.page_href(root, q['id']), esc(NAV.long_num(q))) for q in t['also'])
+        out.append('<dt id="term-%s">%s</dt><dd><span class="t-s">%s</span> <span class="t-w">%s%s</span></dd>' % (NAV.slug(k), t['term_html'], t['sentence'], where, also))
+    out.append('</dl>\n</div>\n</section>\n')
+    return '\n'.join(out), len(seen)
+
+def equations_page_content(maths, root):
+    out = ['<section class="section ref-page" id="all-equations">\n<div class="wrap">\n<p class="mod-n">For reference</p>\n<h1 class="h2">The equations of the course</h1>\n'
+           '<p class="sub">The mathematics panels of every chapter on one page, in course order. Each line names the figure it belongs to and links to it.</p>']
+    for p in COURSE['pages']:
+        if p['id'] not in maths:
+            continue
+        head, lines = maths[p['id']]
+        out.append('<h2 class="ref-h" id="eq-%s"><a href="%s#maths">%s &#183; %s</a></h2>\n<div class="eq-block">%s\n</div>'
+                   % (p['id'].replace('/', '-'), NAV.page_href(root, p['id']), esc(NAV.long_num(p)), esc(p['menu']), ''.join(lines)))
+    out.append('</div>\n</section>\n')
+    return '\n'.join(out)
+
 def build_course():
-    contents, page_of_fig, number_of = assemble_course()
+    contents, page_of_fig, number_of, maths = assemble_course()
     XREF['page_of_fig'], XREF['number_of'] = page_of_fig, number_of
     pages = COURSE['pages']
     import os
@@ -270,19 +399,68 @@ def build_course():
         d = pathlib.Path(os.environ['COURSE_DUMP']); d.mkdir(parents=True, exist_ok=True)
         for pid, c in contents.items():
             (d / (pid.replace('/', '-') + '.html')).write_text(c, encoding='utf-8')
-    bundles, sizes = js_bundles({pid: figs_in(c) for pid, c in contents.items()})
-    total = 0
+    figsets = {pid: figs_in(c) for pid, c in contents.items()}
+    figsets.update({'hub': ['hero'], 'references': [], 'figures': [], 'equations': [], 'terms': []})
+    bundles, sizes = js_bundles(figsets)
+    seq = [{'id': ''}] + pages
+    total, rendered, used_by, stats = 0, {}, {}, {}
     for i, p in enumerate(pages):
-        root = '../' * (p['id'].count('/') + 2)
-        meta = {'page_title': '%s %s | How batteries work' % (('Chapter ' + p['num']) if p['kind'] == 'chapter' else p['num'], p['menu']),
+        root = root_of(p['id'])
+        meta = {'page_title': '%s %s | How batteries work' % (NAV.long_num(p), p['menu']),
                 'og_title': p['title'], 'description': p['question'] + ' ' + p['title'] + '.',
-                'ld': {'@context': 'https://schema.org', '@type': 'Article', 'headline': p['title'], 'isPartOf': {'@type': 'Course', 'name': COURSE['title'], 'url': COURSE['base']},
-                       'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'}, 'url': COURSE['base'] + p['id'] + '/', 'inLanguage': 'en'},
-                'kind_word': 'chapter' if p['kind'] == 'chapter' else 'page'}
-        text, order = render_page(p['id'], contents[p['id']], meta, nav_for(pages, i, root), bundles[p['id']], OUT / p['id'] / 'index.html')
+                'ld': article_ld(p['title'], COURSE['base'] + p['id'] + '/'),
+                'kind_word': 'chapter' if p['kind'] == 'chapter' else 'page', 'body_class': 'kind-' + p['kind']}
+        text, order = render_page(p['id'], contents[p['id']], meta, nav_for(seq, i + 1, root), bundles[p['id']], OUT / p['id'] / 'index.html')
+        rendered[p['id']], used_by[p['id']] = text, order
+        mins, words = NAV.reading_minutes(text)
+        stats[p['id']] = (mins, len(figs_in(contents[p['id']])))
         total += len(text.encode())
-        print('%-26s %7d bytes html, %7d bytes js, %2d refs' % (p['id'], len(text.encode()), sizes[p['id']], len(order)))
-    print('course: %d pages, %d bytes of html' % (len(pages), total))
+        print('%-26s %7d bytes html, %7d bytes js, %2d refs, %5d words, about %d min' % (p['id'], len(text.encode()), sizes[p['id']], len(order), words, mins))
+    # the hub
+    hub = (SRC / 'hub.src.html').read_text(encoding='utf-8')
+    hub = hub.replace('{{course_map}}', course_map(stats, '../')).replace('{{modes}}', NAV.MODES)
+    meta = {'page_title': 'How batteries work: a course on the electrochemistry of lithium-ion cells', 'og_title': COURSE['title'],
+            'description': 'A course in nineteen chapters and a lab handbook: ' + COURSE['subtitle'][0].lower() + COURSE['subtitle'][1:] + '. Every statement checked against its source, every figure computed from it.',
+            'ld': {'@context': 'https://schema.org', '@type': 'Course', 'name': COURSE['title'], 'description': COURSE['subtitle'], 'url': COURSE['base'], 'inLanguage': 'en',
+                   'provider': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'}},
+            'kind_word': 'page', 'refs': False, 'body_class': 'kind-hub'}
+    anchors = '<script type="application/json" id="oldAnchors">%s</script>' % json.dumps(old_anchors(page_of_fig), separators=(',', ':'))
+    text, _ = render_page('', hub + '<!--@anchors-->\n', meta, nav_for(seq, 0, '../', {'id': '', 'kind': 'hub'}), bundles['hub'], OUT / 'index.html',
+                          outline=False, post={'<!--@anchors-->': anchors})
+    total += len(text.encode())
+    print('%-26s %7d bytes html, %7d bytes js' % ('(hub)', len(text.encode()), sizes['hub']))
+    # the reference pages
+    root = '../../'
+    refs_html, nrefs = ref_page_content(used_by, root)
+    terms_html, nterms = terms_page_content(rendered, root)
+    specs = [('references', 'References', refs_html, 'All the references of the course, with the chapters that rest on each one.'),
+             ('terms', 'Index of terms', terms_html, 'Every term the course introduces, with the sentence that introduces it.'),
+             ('figures', 'List of figures', figures_page_content(rendered, root), 'Every figure of the course with the first sentence of its caption.'),
+             ('equations', 'Equations', equations_page_content(maths, root), 'The mathematics of every chapter on one page.')]
+    for pid, title, content, desc in specs:
+        meta = {'page_title': '%s | How batteries work' % title, 'og_title': '%s: How batteries work' % title, 'description': desc,
+                'ld': article_ld(title, COURSE['base'] + pid + '/'), 'kind_word': 'page', 'refs': pid == 'equations', 'body_class': 'kind-ref'}
+        text, order = render_page(pid, content, meta, nav_for(seq, None, root, {'id': pid, 'kind': 'ref', 'crumb': title}), bundles[pid], OUT / pid / 'index.html', outline=False)
+        total += len(text.encode())
+        print('%-26s %7d bytes html%s' % (pid, len(text.encode()), (', %d references' % nrefs) if pid == 'references' else (', %d terms' % nterms) if pid == 'terms' else ''))
+    # the search index
+    idx = {'p': [], 'e': []}
+    for k, p in enumerate(pages):
+        idx['p'].append([p['id'] + '/', NAV.long_num(p), p['menu'], p['title'], p['question']])
+        for e in NAV.index_entries(rendered[p['id']], p['id']):
+            idx['e'].append([k] + e)
+    js = '/* generated by tools/build_course.py: the course search index */\nwindow.COURSE_INDEX=' + json.dumps(idx, ensure_ascii=False, separators=(',', ':')) + ';\n'
+    (ROOT / 'assets' / 'js' / 'course-index.js').write_text(js, encoding='utf-8')
+    print('search index: %d entries, %d bytes' % (len(idx['e']), len(js.encode())))
+    print('course: %d pages + hub + 4 reference pages, %d bytes of html' % (len(pages), total))
+    # the sitemap: the site home, then every page of the course
+    urls = [COURSE['base']] + [COURSE['base'] + p['id'] + '/' for p in pages] + [COURSE['base'] + pid + '/' for pid, _t, _c, _d in specs]
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+          '  <url>\n    <loc>https://asajeevan.github.io/</loc>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>']
+    for k, u in enumerate(urls):
+        sm.append('  <url>\n    <loc>%s</loc>\n    <changefreq>%s</changefreq>\n    <priority>%s</priority>\n  </url>' % (u, 'weekly' if k == 0 else 'monthly', '0.8' if k == 0 else '0.6'))
+    sm.append('</urlset>\n')
+    (ROOT / 'sitemap.xml').write_text('\n'.join(sm), encoding='utf-8')
 
 if __name__ == '__main__':
     if '--identity' in sys.argv:

@@ -26,30 +26,81 @@
 <link rel="stylesheet" href="../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Negative electrode materials: graphite, silicon, lithium metal and anode-free cells", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/negative-electrodes/", "inLanguage": "en"}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="negative-electrodes">
+<body data-mode="teach" class="course-page kind-chapter" data-page="negative-electrodes" data-root="../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
+<header class="topbar course-bar" id="topbar">
 <div class="wrap">
-<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
-<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-<nav class="nav" id="siteNav" aria-label="Course">
-<a href="../../batteries/">Contents</a>
-<a href="../../batteries/composite-electrodes/" rel="prev">&#8592; Ch. 11</a>
-<a href="../../batteries/positive-electrodes/" rel="next">Ch. 13 &#8594;</a>
-<a href="#references">References</a>
-</nav>
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Chapter 12</span> <span class="crumb-t">Negative electrodes</span></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../batteries/composite-electrodes/" title="Previous: Chapter 11 Composite electrodes (←)" aria-label="Previous: Chapter 11 Composite electrodes">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../batteries/positive-electrodes/" title="Next: Chapter 13 Positive electrodes (→)" aria-label="Next: Chapter 13 Positive electrodes">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f9-1"><span class="n">12.1</span><span class="t">The map of negative electrodes, and what extra capacity really buys</span></a></li><li class="o-fig"><a href="#f9-4"><span class="n">12.2</span><span class="t">Fast charging: how close can the negative electrode come to 0 V?</span></a></li><li class="o-sub"><a href="#s-charging-fast"><span class="t">Charging fast</span></a></li><li class="o-fig"><a href="#f9-5"><span class="n">12.3</span><span class="t">Silicon breathes, and its SEI pays for it</span></a></li><li class="o-sub"><a href="#s-silicon-ten-times-the-capacity-four-times-the-vo"><span class="t">Silicon: ten times the capacity, four times the volume</span></a></li><li class="o-fig"><a href="#f9-6"><span class="n">12.4</span><span class="t">Conversion: high capacity, paid for with a volt of hysteresis</span></a></li><li class="o-fig"><a href="#f9-7"><span class="n">12.5</span><span class="t">Lithium metal: dendrites and dead lithium</span></a></li><li class="o-sub"><a href="#s-lithium-metal"><span class="t">Lithium metal</span></a></li><li class="o-fig"><a href="#f9-8"><span class="n">12.6</span><span class="t">How many cycles?</span></a></li><li class="o-fig"><a href="#f9-9"><span class="n">12.7</span><span class="t">Making anode-free cells work: three places to intervene</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization"><a href="../../batteries/polarization/"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport"><a href="../../batteries/ion-transport/"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes"><a href="../../batteries/composite-electrodes/"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes" class="cur"><a href="../../batteries/negative-electrodes/" aria-current="page"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic"><a href="../../batteries/sodium-organic/"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing"><a href="../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/gitt"><a href="../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
 
 <main id="top">
 <div id="content">
 <section class="module" id="ch" data-act="IV" data-nav>
 <div class="wrap">
 <p class="mod-n">Chapter 12</p>
-<h2 class="h2">Negative electrode materials: graphite, silicon, lithium metal and anode-free cells</h2>
+<h1 class="h2">Negative electrode materials: graphite, silicon, lithium metal and anode-free cells</h1>
 <p class="hook">What could replace graphite, and why has it not happened yet?</p>
 <p class="where"><b>Where we are.</b> In <a class="xref" href="../../batteries/composite-electrodes/">chapter 11</a> we built real electrodes out of particles, carbon, binder and pores, and our ion made the round trip through them. The round trip works; now let us push it further. We begin with the negative electrode, the side that holds the lithium when your cell is charged: first graphite, which made the first lithium-ion cell possible, then the materials that might replace it, silicon, conversion materials and lithium metal itself, and the ions that might one day replace lithium. Then we cross to the positive electrode: the oxides in today’s cells, why nickel-rich NMC trades stability for capacity, what comes next, and the organic molecules that do without transition metals. Along the way we answer the question above.</p>
 
@@ -98,7 +149,7 @@ A factor of 1.5, because the positive electrode now limits the cell. The gain fr
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">Charging fast</h3>
+<h2 class="sub" id="s-charging-fast">Charging fast</h2>
 <p class="explain">Plating, which we just met in the cold, is also a risk when we charge quickly. Electric cars, drones, electric aircraft and grid storage all want faster charging; industry aims to reach 80 % of the charge in under 15 minutes without losing cycle life or safety.<sup class="cite"><a href="#ref-1">1</a></sup> On the negative electrode three things go wrong. Lithium can arrive faster than it can enter the graphite and <b>plate</b> as metal, a risk made worse by graphite’s low potential; the particles are stressed and crack; and the heat destabilizes the SEI.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <p class="explain">The remedies run from material to cell: smaller particles and porous structures; thin, porous electrodes of low tortuosity; electrolytes with a LiFSI salt or an FEC additive, which improve the SEI and reduce plating; and, at cell level, the right ratio of negative to positive capacity (the N/P ratio), the charging protocol and cooling.<sup class="cite"><a href="#ref-1">1</a></sup> Silicon-based negative electrodes are being developed for fast charging too: one company reports silicon nanowires charged from 0 to 80 % in under 6 minutes, another columnar silicon grown on copper charged to 80 % in 7 minutes at 1350 Wh/L.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <p class="explain">The other route is to move away from 0 V. <b>Lithium titanate</b>, Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub>, works at about 1.55 V, where little SEI forms, and changes volume by only about 0.2 %, a “zero-strain” material: it is safe, long-lived and fast, but stores only 175 mAh/g, conducts poorly and can give off gas (H<sub>2</sub>, CO<sub>2</sub>, CO) by decomposing the electrolyte on its surface, a mechanism not yet well understood.<sup class="cite"><a href="#ref-1">1</a></sup> <b>Niobium oxides</b> such as Nb<sub>2</sub>O<sub>5</sub>, TiNb<sub>2</sub>O<sub>7</sub> and Nb<sub>14</sub>W<sub>3</sub>O<sub>44</sub> also work at 1 to 2 V, store more (about 200 to 350 mAh/g), change little in volume and charge very fast; they are already being made at industrial scale for high-power cells.<sup class="cite"><a href="#ref-1">1</a></sup></p>
@@ -127,7 +178,7 @@ Less than half the energy, in exchange for a volt and a half of margin against p
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">Silicon: ten times the capacity, four times the volume</h3>
+<h2 class="sub" id="s-silicon-ten-times-the-capacity-four-times-the-vo">Silicon: ten times the capacity, four times the volume</h2>
 <p class="explain">Titanate trades energy for margin. Silicon makes the opposite trade. It stores 3579 mAh/g, close to ten times graphite, at a low potential, and it is cheap. Its problem is volume: it swells by about 280 % when fully lithiated. The particles pulverize, lose contact with each other, and the electrode can come away from its current collector; the SEI breaks on every swelling and forms again on the fresh surface, using up lithium and electrolyte, so the first-cycle efficiency is low and the capacity fades fast. Silicon also conducts electrons poorly.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <p class="explain">Nanoparticles, porous and hollow spheres, nanowires, yolk–shell and pomegranate-like structures all help, though small particles cost volumetric energy. Binders that hold the contact, perhaps self-healing polymers, could be the breakthrough. Today’s best cells already use graphite with <b>5 to 10 wt%</b> silicon; more than 20 % is the industry’s next step, trading energy against cycle life.<sup class="cite"><a href="#ref-1">1</a></sup> The market for silicon negative electrodes, about $279 million in 2023, is projected to reach $15 billion by 2035.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <div class="worked"><b>Worked example.</b> What 280 % does to a particle, and what a little silicon does for a blend.
@@ -176,7 +227,7 @@ The coating, the binder and the SEI on each silicon particle all have to follow 
 </figcaption>
 </figure>
 <div class="text">
-<h3 class="sub">Lithium metal</h3>
+<h2 class="sub" id="s-lithium-metal">Lithium metal</h2>
 <p class="explain">We now reach the far corner of the map. Lithium metal is the most attractive negative electrode of all: 3860 mAh/g, the lowest potential, and nothing in it but active material. It was studied long before graphite, and kept out of commercial cells by <b>dendrites</b>.<sup class="cite"><a href="#ref-1">1</a></sup> In 2004 lithium-metal cells reached about 100 to 150 cycles, against the 300 a commercial cell needed.<sup class="cite"><a href="#ref-5">5</a></sup> Its problems are dendrites, an unstable SEI, low Coulombic efficiency, dead lithium, volume changes and pulverization, and reaction with the electrolyte.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <p class="explain">Why does lithium plate back so unevenly? Several models explain the dendrites. In the space-charge model, when plating outruns ion conduction at high current, the Li<sup>+</sup> concentration near the surface falls to zero and dendritic growth begins. Cracks in the SEI, tips and surface defects concentrate the electric field, and lithium grows fastest there. On stripping, pieces break off the dendrites and lose contact: <b>dead lithium</b>, which in one study thickened from about 2 µm to about 100 µm within a few dozen cycles, lowering the efficiency and raising the impedance. Whiskers that pierce the separator short the cell, with a risk of fire.<sup class="cite"><a href="#ref-1">1</a></sup></p>
 <p class="explain">Most of these problems start at the interface, not in the bulk metal, which is why coatings, artificial SEI layers and new electrolytes are where the work is.<sup class="cite"><a href="#ref-1">1</a></sup> The interface is studied with surface spectroscopy (XPS, soft X-ray absorption), optical and electron microscopy, cryo-electron microscopy, which preserves fragile interphase compounds, and synchrotron X-ray diffraction and pair-distribution analysis, which identified the much-debated LiH in the interphase on lithium metal.<sup class="cite"><a href="#ref-1">1</a></sup></p>
@@ -243,9 +294,16 @@ The efficiency, not the capacity, decides whether lithium metal can be used.<sup
 <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">M. M. Rahman, U. Nisar, A. Abouimrane, I. Belharouak, R. Amin, "Valuation of Anode Materials for High-Performance Lithium Batteries: From Graphite to Lithium Metal and Beyond", <i>Electrochemical Energy Reviews</i> <b>8</b>, 2025, 14. <a href="https://doi.org/10.1007/s41918-025-00249-w" target="_blank" rel="noopener">doi:10.1007/s41918-025-00249-w</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">J.-J. Marie, S. Gifford, "Developments in lithium-ion battery cathodes", <i>Faraday Insights, Issue 18 (The Faraday Institution)</i>, 2023, September 2023. <a href="https://www.faraday.ac.uk/wp-content/uploads/2023/09/Faraday_Insights_18_FINAL.pdf" target="_blank" rel="noopener">link</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">D. Shanmukaraj, P. Ranque, H. Ben Youcef, T. Rojo, P. Poizot, S. Grugeon, S. Laruelle, D. Guyomard, "Review—Towards Efficient Energy Storage Materials: Lithium Intercalation/Organic Electrodes to Polymer Electrolytes—A Road Map (Tribute to Michel Armand)", <i>Journal of The Electrochemical Society</i> <b>167</b>, 2020, 070530. <a href="https://doi.org/10.1149/1945-7111/ab787a" target="_blank" rel="noopener">doi:10.1149/1945-7111/ab787a</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">K. Brandt, "Historical development of secondary lithium batteries", <i>Solid State Ionics</i> <b>69</b>, 1994, 173-183. <a href="https://doi.org/10.1016/0167-2738(94)90408-1" target="_blank" rel="noopener">doi:10.1016/0167-2738(94)90408-1</a></span></li></ol>
 </div>
 </section>
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
 
 <footer class="footer">
 <div class="wrap">
@@ -260,5 +318,6 @@ The efficiency, not the capacity, decides whether lithium metal can be used.<sup
 <script src="../../assets/js/site.js"></script>
 <script src="../../assets/js/learn/negative-electrodes.js"></script>
 <script src="../../assets/js/share.js"></script>
+<script src="../../assets/js/course.js"></script>
 </body>
 </html>

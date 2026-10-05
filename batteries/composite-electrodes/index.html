@@ -26,30 +26,81 @@
 <link rel="stylesheet" href="../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Composite electrodes: percolation, porosity, tortuosity and transport limitations", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/composite-electrodes/", "inLanguage": "en"}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="composite-electrodes">
+<body data-mode="teach" class="course-page kind-chapter" data-page="composite-electrodes" data-root="../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
+<header class="topbar course-bar" id="topbar">
 <div class="wrap">
-<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
-<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-<nav class="nav" id="siteNav" aria-label="Course">
-<a href="../../batteries/">Contents</a>
-<a href="../../batteries/sei/" rel="prev">&#8592; Ch. 10</a>
-<a href="../../batteries/negative-electrodes/" rel="next">Ch. 12 &#8594;</a>
-<a href="#references">References</a>
-</nav>
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Chapter 11</span> <span class="crumb-t">Composite electrodes</span></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../batteries/sei/" title="Previous: Chapter 10 The SEI (←)" aria-label="Previous: Chapter 10 The SEI">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../batteries/negative-electrodes/" title="Next: Chapter 12 Negative electrodes (→)" aria-label="Next: Chapter 12 Negative electrodes">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f8-1"><span class="n">11.1</span><span class="t">Two roads to every particle: electrons through the carbon, ions through the pores</span></a></li><li class="o-fig"><a href="#f8-2"><span class="n">11.2</span><span class="t">Where does the current go inside an electrode?</span></a></li><li class="o-fig"><a href="#f8-3"><span class="n">11.3</span><span class="t">A poor conductor needs carbon</span></a></li><li class="o-fig"><a href="#f8-4"><span class="n">11.4</span><span class="t">The nanoparticle trade-off: faster particles, emptier litres</span></a></li><li class="o-fig"><a href="#f5-8p"><span class="n">11.5</span><span class="t">Porosity and tortuosity: how much room the ions have, and how far round they must go</span></a></li><li class="o-sub"><a href="#s-porosity-how-much-room"><span class="t">Porosity: how much room</span></a></li><li class="o-sub"><a href="#s-tortuosity-how-far-round"><span class="t">Tortuosity: how far round</span></a></li><li class="o-sub"><a href="#s-measuring-it-and-why-it-matters"><span class="t">Measuring it, and why it matters</span></a></li><li class="o-fig"><a href="#f5-8"><span class="n">11.6</span><span class="t">Inside a porous electrode: why fast discharges stop early</span></a></li><li class="o-sub"><a href="#s-where-the-reaction-happens"><span class="t">Where the reaction happens</span></a></li><li class="o-fig"><a href="#f8-5"><span class="n">11.7</span><span class="t">From powder to cell in eight steps</span></a></li><li class="o-end"><a href="#maths"><span class="t">The mathematics of this chapter</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization"><a href="../../batteries/polarization/"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport"><a href="../../batteries/ion-transport/"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes" class="cur"><a href="../../batteries/composite-electrodes/" aria-current="page"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes"><a href="../../batteries/negative-electrodes/"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic"><a href="../../batteries/sodium-organic/"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing"><a href="../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/gitt"><a href="../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
 
 <main id="top">
 <div id="content">
 <section class="module" id="ch" data-act="III" data-nav>
 <div class="wrap">
 <p class="mod-n">Chapter 11</p>
-<h2 class="h2">Composite electrodes: percolation, porosity, tortuosity and transport limitations</h2>
+<h1 class="h2">Composite electrodes: percolation, porosity, tortuosity and transport limitations</h1>
 <p class="hook">Why is an electrode a porous coating of particles, carbon and binder?</p>
 <p class="where"><b>Where we are.</b> In <a class="xref" href="../../batteries/ion-transport/">chapter 9</a> we carried our ion across the electrolyte. On the far side it has to get into a particle of the positive electrode, one of the two hosts of <a class="xref" href="../../batteries/insertion-hosts/">chapter 7</a>. In <a class="xref" href="../../batteries/cell-anatomy/">chapter 2</a> we saw that an electrode is not a solid block of that host but a coating of particles, carbon, binder and pores. In this module we ask what each of those ingredients is for, and what happens when one of them fails.</p>
 
@@ -158,13 +209,13 @@ Every micrometre of coating the ions must cross costs six times the voltage it w
 </figure>
 <div class="text">
 <p class="explain">So far we have followed the electrons to each particle. The ions must reach the particles too, and for that we must look at the space between them. An electrode is not a solid block. It is a <b>composite</b>: particles of active material, often wired together by a conductive additive such as carbon,<sup class="cite"><a href="#ref-9">9</a></sup> held by a binder, with about 30 % of its volume left as pores that the electrolyte fills.<sup class="cite"><a href="#ref-1">1</a></sup> Every ion that reaches a particle has travelled through those pores, and two numbers describe them.</p>
-<h3 class="sub">Porosity: how much room</h3>
+<h2 class="sub" id="s-porosity-how-much-room">Porosity: how much room</h2>
 <p class="explain">The <b>porosity</b> <math><mrow><mi>ε</mi></mrow></math> is the fraction of the electrode’s volume that is pore. It is well defined and easy to find.<sup class="cite"><a href="#ref-10">10</a></sup> We weigh a disc of the coating and measure its thickness. From the masses and densities of the solid ingredients we get the volume the solids fill, and whatever is left of the coating’s volume is pore.<sup class="cite"><a href="#ref-10">10</a></sup></p>
 <p class="explain">Freshly coated electrodes are then pressed, or calendered, to lower their porosity. That packs more energy into each litre and improves the electronic contact through the coating and to the current collector; typical lithium-ion electrodes end at roughly 30 %.<sup class="cite"><a href="#ref-10">10</a></sup></p>
-<h3 class="sub">Tortuosity: how far round</h3>
+<h2 class="sub" id="s-tortuosity-how-far-round">Tortuosity: how far round</h2>
 <p class="explain">The pores do not run straight across. An ion has to wind round the particles, so its path is longer than the coating is thick, and the channels narrow and widen on the way. The <b>tortuosity</b> <math><mrow><mi>τ</mi></mrow></math> collects these effects. In its simplest, geometric sense it is the length of the path divided by the straight distance. The tortuosity that matters for transport, the effective tortuosity, also includes the changing cross-section and the rough surfaces; it is found by measurement, or by simulation on a three-dimensional image of the electrode.<sup class="cite"><a href="#ref-10">10</a></sup></p>
 <p class="explain">Together the two numbers set how well the electrolyte conducts inside the coating, <math><mrow><msub><mi>κ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi></mrow></msub><mo>=</mo><mi>κ</mi><mspace width="0.167em" /><mi>ε</mi><mo>/</mo><mi>τ</mi></mrow></math>. The ratio <math><mrow><msub><mi>N</mi><mtext>M</mtext></msub><mo>=</mo><mi>κ</mi><mo>/</mo><msub><mi>κ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi></mrow></msub><mo>=</mo><mi>τ</mi><mo>/</mo><mi>ε</mi></mrow></math>, the <b>MacMullin number</b>, says how many times worse the filled pores conduct than the free liquid.<sup class="cite"><a href="#ref-10">10</a></sup> Battery models often take the tortuosity from the porosity alone, with the Bruggeman relation <math><mrow><mi>τ</mi><mo>=</mo><msup><mi>ε</mi><mrow><mo>−</mo><mn>0.5</mn></mrow></msup></mrow></math>, which gives <math><mrow><msub><mi>κ</mi><mrow><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">f</mi></mrow></msub><mo>=</mo><mi>κ</mi><mspace width="0.167em" /><msup><mi>ε</mi><mrow><mn>1.5</mn></mrow></msup></mrow></math>.<sup class="cite"><a href="#ref-10">10</a></sup> The modelled cell in the next figure uses exactly this correction, for diffusion as well as for conduction.<sup class="cite"><a href="#ref-11">11</a></sup></p>
-<h3 class="sub">Measuring it, and why it matters</h3>
+<h2 class="sub" id="s-measuring-it-and-why-it-matters">Measuring it, and why it matters</h2>
 <p class="explain">How is <math><mrow><mi>τ</mi></mrow></math> measured? One clean way builds a cell from two identical electrodes and fills it with a salt that cannot react with them or enter the particles, so that no charge crosses into the particles and the ions can only charge the pore walls. The impedance spectrum then follows a transmission line, a ladder of resistances along the pores and capacitances at their walls that we meet again in <a class="xref" href="../../batteries/lab/eis-measurement/">Lab 3</a>. Fitting it gives the ionic resistance <math><mrow><msub><mi>R</mi><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mrow></msub></mrow></math> of the pores, and for the pair of electrodes <math><mrow><mi>τ</mi><mo>=</mo><msub><mi>R</mi><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mrow></msub><mi>A</mi><mi>κ</mi><mi>ε</mi><mo>/</mo><mo stretchy="false">(</mo><mn>2</mn><mi>d</mi><mo stretchy="false">)</mo></mrow></math>, with <math><mrow><mi>A</mi></mrow></math> the area and <math><mrow><mi>d</mi></mrow></math> the thickness of one electrode.<sup class="cite"><a href="#ref-10">10</a></sup></p>
 <p class="explain">Measured this way, real electrodes are worse than the estimate. In one systematic study, every electrode tested had a MacMullin number larger than the Bruggeman relation predicts, by about 1.5 to 3 times in the authors’ summary and by more in some of their fits (figure <a class="xref" href="#f5-8p">11.5</a>). The measured curves fall with porosity at roughly the same power as the estimate, exponents of 1.1 to 1.6 against 1.5, but start three to five times lower.<sup class="cite"><a href="#ref-10">10</a></sup> A graphite electrode of porosity 0.43 gave <math><mrow><mi>τ</mi><mo>=</mo><mn>4.3</mn><mi>±</mi><mn>0.6</mn></mrow></math>, about three times the estimate of 1.5 (the fitted graphite curve in figure <a class="xref" href="#f5-8p">11.5</a>, drawn through electrodes of many porosities, runs a little lower than this single point). Graphite’s plate-like particles lie flat in the coating and hinder the way across: at similar porosities, electrodes of round NMC particles had MacMullin numbers of 10 to 11, against 18 to 19 for graphite. Particle size and the amount of conductive carbon matter too.<sup class="cite"><a href="#ref-10">10</a></sup></p>
 <div class="worked"><b>Worked example.</b> Let us find the porosity of a coating and what it leaves of the electrolyte’s conductivity. Take an illustrative NMC coating 50.0 µm thick with 15.6 mg of solids per cm<sup>2</sup>: 96 % NMC (density 4.7 g/cm<sup>3</sup>), 2 % carbon (2.2 g/cm<sup>3</sup>),<sup class="cite"><a href="#ref-10">10</a></sup> and 2 % binder, for which we assume 1.8 g/cm<sup>3</sup>.
@@ -213,7 +264,7 @@ Even by the estimate the coating keeps only a sixth of the liquid’s conductivi
 <div class="text">
 <p class="explain">Now let us run a discharge through such a coating and look across its whole thickness. One model treats a composite of TiS<sub>2</sub> particles, themselves good electronic conductors, mixed with a polymer electrolyte, as two continua, the particles and the electrolyte, laid over each other. The modelled cell had a lithium foil, the same polymer electrolyte as separator and this TiS<sub>2</sub> positive electrode.<sup class="cite"><a href="#ref-11">11</a></sup></p>
 <p class="explain">The computed discharges show the main lesson at once. The faster the current, the less of the material is used before the voltage collapses: at 20 A/m<sup>2</sup> the voltage drops sharply when only about 30 % of the positive material has reacted.<sup class="cite"><a href="#ref-11">11</a></sup></p>
-<h3 class="sub">Where the reaction happens</h3>
+<h2 class="sub" id="s-where-the-reaction-happens">Where the reaction happens</h2>
 <p class="explain">Why does the material go unused? Let us follow where the reaction happens. At first it crowds near the separator. The particles carry electrons about 10<sup>5</sup> times better than the polymer carries ions, so the short ionic path wins. As the particles at the front fill up, the reaction moves towards the middle of the electrode.<sup class="cite"><a href="#ref-11">11</a></sup></p>
 <p class="explain">Meanwhile the salt piles up near the lithium foil and is drawn down at the back of the electrode, where it cannot be replaced fast enough. There the conductivity falls and the material is poorly used.<sup class="cite"><a href="#ref-11">11</a></sup></p>
 <p class="explain">Two dimensionless numbers decide which transport matters, each a ratio of a transport time to the discharge time. For diffusion inside the modelled particles, of 1 µm radius, it was only 0.0001, so solid diffusion hardly mattered: the particles would have had to be as large as the electrode is thick. For the electrolyte it was 0.15 at 10 A/m<sup>2</sup>, and at high currents it is the electrolyte that ends the discharge early.<sup class="cite"><a href="#ref-11">11</a></sup></p>
@@ -274,9 +325,16 @@ The units cancel, so the number is a pure ratio: diffusion inside a particle tak
 <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">S. Pathak, M. Z. Bazant, "Scaling and Analytical Approximation of Porous Electrode Theory for Reaction-limited Batteries", <i>Journal of The Electrochemical Society</i> <b>173</b>, 2026, 160518. <a href="https://doi.org/10.1149/1945-7111/ae9229" target="_blank" rel="noopener">doi:10.1149/1945-7111/ae9229</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">B. Boz, T. Dev, A. Salvadori, J. L. Schaefer, "Review: Electrolyte and Electrode Designs for Enhanced Ion Transport Properties to Enable High Performance Lithium Batteries", <i>Journal of The Electrochemical Society</i> <b>168</b>, 2021, 090501. <a href="https://doi.org/10.1149/1945-7111/ac1cc3" target="_blank" rel="noopener">doi:10.1149/1945-7111/ac1cc3</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">J. B. Goodenough, K.-S. Park, "The Li-Ion Rechargeable Battery: A Perspective", <i>Journal of the American Chemical Society</i> <b>135</b>, 2013, 1167-1176. <a href="https://doi.org/10.1021/ja3091438" target="_blank" rel="noopener">doi:10.1021/ja3091438</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">D. Shanmukaraj, P. Ranque, H. Ben Youcef, T. Rojo, P. Poizot, S. Grugeon, S. Laruelle, D. Guyomard, "Review—Towards Efficient Energy Storage Materials: Lithium Intercalation/Organic Electrodes to Polymer Electrolytes—A Road Map (Tribute to Michel Armand)", <i>Journal of The Electrochemical Society</i> <b>167</b>, 2020, 070530. <a href="https://doi.org/10.1149/1945-7111/ab787a" target="_blank" rel="noopener">doi:10.1149/1945-7111/ab787a</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">H. Zhang, C. Li, G. G. Eshetu, S. Laruelle, S. Grugeon, K. Zaghib, C. Julien, A. Mauger, D. Guyomard, T. Rojo, N. Gisbert-Trejo, S. Passerini, X. Huang, Z. Zhou, P. Johansson, M. Forsyth, "From Solid-Solution Electrodes and the Rocking-Chair Concept to Today's Batteries", <i>Angewandte Chemie International Edition</i> <b>59</b>, 2020, 534-538. <a href="https://doi.org/10.1002/anie.201913923" target="_blank" rel="noopener">doi:10.1002/anie.201913923</a></span></li><li id="ref-7" itemscope itemtype="https://schema.org/Book"><span class="ref-n">7</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span></li><li id="ref-8" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">8</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span></li><li id="ref-9" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">9</span> <span class="ref-body">M. Safari, C. Delacourt, "Mathematical Modeling of Lithium Iron Phosphate Electrode: Galvanostatic Charge/Discharge and Path Dependence", <i>Journal of The Electrochemical Society</i> <b>158</b>, 2011, A63–A73. <a href="https://doi.org/10.1149/1.3515902" target="_blank" rel="noopener">doi:10.1149/1.3515902</a></span></li><li id="ref-10" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">10</span> <span class="ref-body">J. Landesfeind, J. Hattendorff, A. Ehrl, W. A. Wall, H. A. Gasteiger, "Tortuosity Determination of Battery Electrodes and Separators by Impedance Spectroscopy", <i>Journal of The Electrochemical Society</i> <b>163</b>, 2016, A1373. <a href="https://doi.org/10.1149/2.1141607jes" target="_blank" rel="noopener">doi:10.1149/2.1141607jes</a></span></li><li id="ref-11" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">11</span> <span class="ref-body">M. Doyle, T. F. Fuller, J. Newman, "Modeling of Galvanostatic Charge and Discharge of the Lithium/Polymer/Insertion Cell", <i>Journal of The Electrochemical Society</i> <b>140</b>, 1993, 1526–1533. <a href="https://doi.org/10.1149/1.2221597" target="_blank" rel="noopener">doi:10.1149/1.2221597</a></span></li><li id="ref-12" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">12</span> <span class="ref-body">M. Fichtner, K. Edström, E. Ayerbe, M. Berecibar, A. Bhowmik, I. E. Castelli, S. Clark, R. Dominko, M. Erakca, A. A. Franco, A. Grimaud, B. Horstmann, A. Latz, H. Lorrmann, M. Meeus, R. Narayan, F. Pammer, J. Ruhland, H. Stein, T. Vegge, M. Weil, "Rechargeable Batteries of the Future—The State of the Art from a BATTERY 2030+ Perspective", <i>Advanced Energy Materials</i> <b>12</b>, 2022, 2102904. <a href="https://doi.org/10.1002/aenm.202102904" target="_blank" rel="noopener">doi:10.1002/aenm.202102904</a></span></li></ol>
 </div>
 </section>
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
 
 <footer class="footer">
 <div class="wrap">
@@ -291,5 +349,6 @@ The units cancel, so the number is a pure ratio: diffusion inside a particle tak
 <script src="../../assets/js/site.js"></script>
 <script src="../../assets/js/learn/composite-electrodes.js"></script>
 <script src="../../assets/js/share.js"></script>
+<script src="../../assets/js/course.js"></script>
 </body>
 </html>

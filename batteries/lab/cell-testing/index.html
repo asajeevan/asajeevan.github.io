@@ -26,30 +26,81 @@
 <link rel="stylesheet" href="../../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/cell-testing/", "inLanguage": "en"}</script>
 </head>
-<body data-mode="teach" class="course-page" data-page="lab/cell-testing">
+<body data-mode="teach" class="course-page kind-lab" data-page="lab/cell-testing" data-root="../../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
 <a class="skip" href="#content">Skip to the text</a>
 
-<header class="topbar" id="topbar">
+<header class="topbar course-bar" id="topbar">
 <div class="wrap">
-<a class="brand" href="../../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
-<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
-<nav class="nav" id="siteNav" aria-label="Course">
-<a href="../../../batteries/">Contents</a>
-<a href="../../../batteries/recycling/" rel="prev">&#8592; Ch. 18</a>
-<a href="../../../batteries/lab/gitt/" rel="next">Lab 2 &#8594;</a>
-<a href="#references">References</a>
-</nav>
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Lab 1</span> <span class="crumb-t">Cell testing</span></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../../batteries/recycling/" title="Previous: Chapter 18 Recycling (←)" aria-label="Previous: Chapter 18 Recycling">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../../batteries/lab/gitt/" title="Next: Lab 2 GITT (→)" aria-label="Next: Lab 2 GITT">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f11-1"><span class="n">L1.1</span><span class="t">One cell, four measurements, four questions</span></a></li><li class="o-fig"><a href="#f5-9"><span class="n">L1.2</span><span class="t">Reading a curve by its slopes, and what ageing does to them</span></a></li><li class="o-sub"><a href="#s-two-electrodes-in-one-curve"><span class="t">Two electrodes in one curve</span></a></li><li class="o-sub"><a href="#s-the-square-plot-and-ageing"><span class="t">The square plot and ageing</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization"><a href="../../../batteries/polarization/"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport"><a href="../../../batteries/ion-transport/"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes"><a href="../../../batteries/composite-electrodes/"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes"><a href="../../../batteries/negative-electrodes/"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic"><a href="../../../batteries/sodium-organic/"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing" class="cur"><a href="../../../batteries/lab/cell-testing/" aria-current="page"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/gitt"><a href="../../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
 
 <main id="top">
 <div id="content">
 <section class="module" id="ch" data-act="LAB" data-nav>
 <div class="wrap">
 <p class="mod-n">Lab handbook · Lab 1</p>
-<h2 class="h2">Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis</h2>
+<h1 class="h2">Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis</h1>
 <p class="hook">How is a test cell made, and what does a cycling test tell us?</p>
 <p class="where"><b>Where we are.</b> In <a class="xref" href="../../../batteries/degradation/">chapter 16</a> we named the thieves that take a cell’s capacity. From the outside they all look alike: the cell holds less. How can we see these losses from outside, and tell one from another? In this module we build up the measurements that do it, from a single current pulse to a full impedance spectrum, and we learn to read the results honestly: what each one answers, when its formula holds, and how to analyse the data without fooling ourselves.</p>
 
@@ -89,11 +140,11 @@
 <div class="text">
 <p class="explain">We now know enough to read a real curve. A voltage curve hides a lot in its gentle bends. Plot its slope instead and the bends become peaks. Two plots are used: the <b>differential voltage</b> <math><mrow><mtext>d</mtext><mi>V</mi><mo>/</mo><mtext>d</mtext><mi>Q</mi></mrow></math> against charge, and the <b>differential capacity</b> <math><mrow><mtext>d</mtext><mi>Q</mi><mo>/</mo><mtext>d</mtext><mi>V</mi></mrow></math> against voltage.<sup class="cite"><a href="#ref-5">5</a></sup></p>
 <p class="explain">Peaks in differential capacity correspond to plateaus, where two phases are in equilibrium. Materials that take lithium as one smooth solid solution show no sharp peaks.<sup class="cite"><a href="#ref-5">5</a></sup> Put compactly: “A peak in the [dQ/dV] plot features the equilibrium between different electrochemically-active phases in the electrode whereas a peak in the [dV/dQ] plot locates the transition from one equilibrium to another.”<sup class="cite"><a href="#ref-5">5</a></sup></p>
-<h3 class="sub">Two electrodes in one curve</h3>
+<h2 class="sub" id="s-two-electrodes-in-one-curve">Two electrodes in one curve</h2>
 <p class="explain">Where do the peaks come from? A cell’s voltage is the positive electrode’s potential minus the negative’s, each set by how much lithium that electrode holds:<sup class="cite"><a href="#ref-5">5</a></sup></p>
 <span class="mblock"><math display="block"><mrow><mi>V</mi><mo>=</mo><msub><mi>U</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub><mo stretchy="false">)</mo><mo>−</mo><msub><mi>U</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub><mo stretchy="false">)</mo><mo>,</mo><mspace width="2em" /><mfrac><mrow><mtext>d</mtext><mi>V</mi></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mtext>d</mtext><msub><mi>U</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mtext>d</mtext><msub><mi>U</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac></mrow></math></span>
 <p class="explain">The two electrodes’ slopes simply add, so every dV/dQ peak of the cell can be traced to one electrode.<sup class="cite"><a href="#ref-5">5</a></sup> A dQ/dV peak needs the voltage to stand still while charge flows, so both electrodes must be on a plateau at once.<sup class="cite"><a href="#ref-5">5</a></sup></p>
-<h3 class="sub">The square plot and ageing</h3>
+<h2 class="sub" id="s-the-square-plot-and-ageing">The square plot and ageing</h2>
 <p class="explain">To see both electrodes at once, we draw the state of a cell on a <b>square plot</b>: the negative electrode’s lithium content across, the positive electrode’s (inverted) up. A cell charging from empty to full is a straight line on it.<sup class="cite"><a href="#ref-5">5</a></sup> The slope of the line is the ratio of the electrodes’ capacities, and where it meets the left edge measures the lithium the cell has lost for good.<sup class="cite"><a href="#ref-5">5</a></sup></p>
 <span class="mblock"><math display="block"><mrow><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub><mo>=</mo><mi>a</mi><mspace width="0.167em" /><msub><mi>x</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub><mo>+</mo><mi>b</mi></mrow></math></span>
 <p class="explain">Now let the cell age. Ageing comes in two classic kinds. <b>Loss of lithium inventory</b> (LLI) is cyclable lithium used up by side reactions. <b>Loss of active material</b> (LAM) is material that has changed irreversibly, dissolved or come loose from the current collector.<sup class="cite"><a href="#ref-5">5</a></sup> LLI moves the line up; LAM tilts it, losing positive material steepens it and losing negative material flattens it. The window between the cut-offs then picks out a shorter piece of line, so the capacity falls.<sup class="cite"><a href="#ref-5">5</a></sup></p>
@@ -118,9 +169,16 @@
 <ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">W. Weppner, R. A. Huggins, "Electrochemical Investigation of the Chemical Diffusion, Partial Ionic Conductivities, and Other Kinetic Parameters in Li3Sb and Li3Bi", <i>Journal of Solid State Chemistry</i> <b>22</b>, 1977, 297-308. <a href="https://doi.org/10.1016/0022-4596(77)90006-8" target="_blank" rel="noopener">doi:10.1016/0022-4596(77)90006-8</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">J. Kim, S. Park, S. Hwang, W.-S. Yoon, "Principles and Applications of Galvanostatic Intermittent Titration Technique for Lithium-ion Batteries", <i>Journal of Electrochemical Science and Technology</i> <b>13</b>, 2022, 19–31. <a href="https://doi.org/10.33961/jecst.2021.00836" target="_blank" rel="noopener">doi:10.33961/jecst.2021.00836</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">A. Ch. Lazanas, M. I. Prodromidis, "Electrochemical Impedance Spectroscopy—A Tutorial", <i>ACS Measurement Science Au</i> <b>3</b>, 2023, 162–193. <a href="https://doi.org/10.1021/acsmeasuresciau.2c00070" target="_blank" rel="noopener">doi:10.1021/acsmeasuresciau.2c00070</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">J. Z. Olson, C. M. López, E. J. F. Dickinson, "Differential Analysis of Galvanostatic Cycle Data from Li-Ion Batteries: Interpretative Insights and Graphical Heuristics", <i>Chemistry of Materials</i> <b>35</b>, 2023, 1487–1513. <a href="https://doi.org/10.1021/acs.chemmater.2c01976" target="_blank" rel="noopener">doi:10.1021/acs.chemmater.2c01976</a></span></li></ol>
 </div>
 </section>
-</main>
-
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
 
 <footer class="footer">
 <div class="wrap">
@@ -135,5 +193,6 @@
 <script src="../../../assets/js/site.js"></script>
 <script src="../../../assets/js/learn/lab-cell-testing.js"></script>
 <script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/course.js"></script>
 </body>
 </html>
