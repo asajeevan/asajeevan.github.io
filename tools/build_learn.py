@@ -116,6 +116,14 @@ def build(src_name, out_path):
     def inc(m):
         return (SRC / m.group(1).strip()).read_text(encoding='utf-8')
     text = re.sub(r'\{\{include:([^}]+)\}\}', inc, text)
+    text, order = render(text)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(text, encoding='utf-8')
+    print('built %s (%d bytes, %d references)' % (out_path.relative_to(ROOT), len(text.encode('utf-8')), len(order)))
+
+def render(text, refs_fn=None, quiet=False):
+    """Resolve every marker in an assembled page and return (html, citation order).
+    refs_fn(order, used_in) may supply the reference-list HTML for {{references}}."""
 
     # pending blocks: kept only when every listed key is verified
     held = []
@@ -127,7 +135,7 @@ def build(src_name, out_path):
             return ''
         return m.group(2)
     text = re.sub(r'\{\{pending:([^}]+)\}\}(.*?)\{\{/pending\}\}', pend, text, flags=re.S)
-    if held:
+    if held and not quiet:
         from collections import Counter
         print('held back (source not yet verified): ' + ', '.join('%s x%d' % kv for kv in sorted(Counter(held).items())))
 
@@ -193,7 +201,10 @@ def build(src_name, out_path):
             label = 'Module ' + mods[0] if len(mods) == 1 else 'Modules ' + ', '.join(mods)
             html = html.replace('</li>', '<span class="ref-mods">%s</span></li>' % label)
         return html
-    refs_html = '<ol class="refs">' + ''.join(ref_with_modules(k, i + 1) for i, k in enumerate(order)) + '</ol>'
+    if refs_fn:
+        refs_html = refs_fn(order, used_in)
+    else:
+        refs_html = '<ol class="refs">' + ''.join(ref_with_modules(k, i + 1) for i, k in enumerate(order)) + '</ol>'
     text = text.replace('{{references}}', refs_html)
 
     # mathematics: <m>LaTeX</m> inline and <md>LaTeX</md> on its own line become MathML (latex2mathml),
@@ -220,9 +231,7 @@ def build(src_name, out_path):
             print('ERROR:', e, file=sys.stderr)
         sys.exit(1)
     text = re.sub(r'\n[ \t]+', '\n', text)  # drop source indentation (no <pre> or <textarea> on the page)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(text, encoding='utf-8')
-    print('built %s (%d bytes, %d references)' % (out_path.relative_to(ROOT), len(text.encode('utf-8')), len(order)))
+    return text, order
 
 def build_js():
     core = (SRC / 'learn-core.js').read_text(encoding='utf-8')

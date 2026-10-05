@@ -20,7 +20,8 @@ const mask = s => (s || '').replace(/\s+/g, ' ').replace(/\b(figures?|Figures?|m
     const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, reducedMotion: 'reduce', deviceScaleFactor: 1 });
     await useLocalFonts(ctx);
     // a seeded Math.random, reseeded from the figure id before each figure starts (learn-core calls window.__qaSeed),
-    // so figures with random particles draw the same on any page
+    // so figures with random particles draw the same on any page.
+    // The SVG hash ignores the unused magnesium and sulfur gradients that the 3D renderer adds when figure 9.14's file is on the same page.
     await ctx.addInitScript(() => { let s = 0x9e3779b9; Math.random = () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; window.__qaSeed = id => { let h = 0x9e3779b9; for (let i = 0; i < id.length; i++) h = Math.imul(h ^ id.charCodeAt(i), 0x01000193); s = h; }; });
     for (const url of pages) {
       const page = await ctx.newPage();
@@ -46,9 +47,10 @@ const mask = s => (s || '').replace(/\s+/g, ' ').replace(/\b(figures?|Figures?|m
         if (w === 1300) {
           const t = await fig.evaluate(f => {
             const pick = sel => [...f.querySelectorAll(sel)].map(e => e.textContent).join(' | ');
-            return { readout: pick('.readout'), key: pick('.key'), controls: pick('.controls'), steps: f.querySelectorAll('.stepbar button:not(.ctl)').length };
+            const svg = f.querySelector('svg');
+            return { readout: pick('.readout'), key: pick('.key'), controls: pick('.controls'), steps: f.querySelectorAll('.stepbar button:not(.ctl)').length, svg: svg ? svg.outerHTML : '' };
           });
-          record[id] = { page: path.basename(url), readout: mask(t.readout), key: mask(t.key), controls: mask(t.controls), steps: t.steps };
+          record[id] = { page: url.split('/').slice(-2).join('/'), readout: mask(t.readout), key: mask(t.key), controls: mask(t.controls), steps: t.steps, svg: require('crypto').createHash('sha1').update(mask(t.svg).replace(/u[a-z0-9]{5}-/g, 'uid-').replace(/<radialGradient id="[^"]*-(Mg|S)".*?<\/radialGradient>/g, '')).digest('hex') };
         }
       }
       if (errors.length) (record.__errors = record.__errors || []).push(...errors.map(e => path.basename(url) + ': ' + e));

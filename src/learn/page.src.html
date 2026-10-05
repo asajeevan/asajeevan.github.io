@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{page_title}}</title>
+<meta name="description" content="{{description}}">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="{{og_title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{url}}">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{url}}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{og_title}}">
+<meta name="twitter:description" content="{{description}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="{{root}}assets/css/site.css">
+<link rel="stylesheet" href="{{root}}assets/css/learn.css">
+<script type="application/ld+json">{{ldjson}}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="{{page_id}}">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="brand" href="{{hub}}" aria-label="How batteries work: course home">How batteries work</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="siteNav" aria-label="Course">
+{{topnav}}
+    </nav>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+{{content}}
+</div>
+{{pagenav}}
+{{refsection}}
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="{{root}}">Home</a></p>
+    <p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+  </div>
+</footer>
+
+<script src="{{root}}assets/js/gsap.min.js"></script>
+<script src="{{root}}assets/js/ScrollTrigger.min.js"></script>
+<script src="{{root}}assets/js/physics.js"></script>
+<script src="{{root}}assets/js/site.js"></script>
+<script src="{{root}}{{bundle}}"></script>
+<script src="{{root}}assets/js/share.js"></script>
+</body>
+</html>

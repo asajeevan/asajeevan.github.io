@@ -13,6 +13,7 @@ from PIL import Image, ImageChops
 
 a, b = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
 idmap = {}
+STRICT = '--strict' in sys.argv
 if '--idmap' in sys.argv:
     idmap = json.load(open(sys.argv[sys.argv.index('--idmap') + 1]))
 ra, rb = json.load(open(a / 'figures.json')), json.load(open(b / 'figures.json'))
@@ -21,7 +22,12 @@ for fid in sorted(k for k in ra if k != '__errors'):
     nid = idmap.get(fid, fid)
     if nid not in rb:
         print('MISSING', fid); bad += 1; continue
+    same_dom = ra[fid].get('svg') and ra[fid].get('svg') == rb[nid].get('svg')
+    if not same_dom:
+        print('SVG-DOM', fid); bad += 1
     for w in ('1300', '360'):
+        if same_dom and not STRICT:
+            continue   # identical drawing; pixel differences can only come from sub-pixel placement on the page
         pa, pb = a / w / (fid + '.png'), b / w / (nid + '.png')
         if not pa.exists() and not pb.exists():
             continue
