@@ -301,6 +301,38 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
+  /* figs-2.js */
+  register('f2-4', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), info = fig.querySelector('.part-info'), data = P.data.nominal;
+    var xN = 168, xB = 178, sc = 62, rowH = 22, y = 40;
+    txt(g, 20, 22, 'nominal cell voltage, V', 'strong');
+    [1, 2, 3, 4].forEach(function (v) { var x = xB + v * sc; el('line', { x1: x, y1: 30, x2: x, y2: 284, stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, g); txt(g, x, 298, v + ' V', '', 'middle'); });
+    var groups = [['primary (single use)', 'primary'], ['rechargeable', 'rechargeable']];
+    var rows = [];
+    groups.forEach(function (grp) {
+      txt(g, 20, y + 12, grp[0], grp[1] === 'primary' ? 'cyan' : 'amber'); y += rowH;
+      data.filter(function (d) { return d.kind === grp[1]; }).forEach(function (d) {
+        var r = el('g', { 'class': 'bar', tabindex: '0', role: 'button', 'aria-label': d.name + ', ' + d.V + ' volts' }, g);
+        el('rect', { x: xB, y: y + 3, width: d.V * sc, height: rowH - 8, rx: 3, fill: d.kind === 'primary' ? 'var(--cyan)' : 'var(--amber)', 'fill-opacity': d.kind === 'primary' ? '.6' : '.85' }, r);
+        txt(r, xN, y + 14, d.name, '', 'end'); txt(r, xB + d.V * sc + 6, y + 14, d.V.toFixed(1), 'strong');
+        var aq = /^aq/.test(d.electrolyte);
+        el('circle', { cx: xB + d.V * sc + 34, cy: y + 10, r: 4, fill: aq ? 'var(--cyan)' : 'var(--cation)', 'fill-opacity': aq ? '.5' : '.9' }, r);
+        rows.push({ d: d, g: r, y: y });
+        function show() { info.innerHTML = '<b>' + d.name + ', ' + d.V.toFixed(1) + ' V nominal.</b> Negative electrode: ' + d.anode + '. Positive electrode: ' + d.cathode + '. Electrolyte: ' + d.electrolyte + '.' + (d.name === 'Lithium-ion' ? ' On the ladder of chapter 3 this is graphite at about 0.2 V and LiCoO₂ at about 4.0 V versus lithium; the gap between the rungs is this bar.' : ''); }
+        on(r, 'mouseenter', show); on(r, 'focus', show); on(r, 'click', show);
+        y += rowH;
+      });
+      y += 6;
+    });
+    txt(g, 20, 318, '● cyan dot: water-based electrolyte   ● amber dot: nonaqueous, lithium-based', '');
+    badge(g, 500, 74, 1); badge(g, 500, 212, 2); badge(g, 500, 140, 3);
+    info.innerHTML = 'Hover or tap a bar to see what is inside.';
+    steps(fig, [
+      { text: 'The <b>primary</b> systems: zinc with manganese dioxide in the 1.5 V cells of a torch, zinc-air at 1.2 V, and the lithium cells of cameras at 3.0 V.' },
+      { text: 'The <b>rechargeable</b> systems: lead-acid at 2.0 V, the nickel cells at 1.2 V, and lithium-ion at 4.0 V. Different chemistry, different voltage; the size of the cell changes nothing here.' },
+      { text: 'Look at the dots. Every system with a <b>water-based</b> electrolyte sits at or below 2 V; every system above 2 V uses lithium and a nonaqueous electrolyte. Chapter 3 explains both facts.' }
+    ]);
+  });
   /* figs-3.js */
   register('f3-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), ESl = fig.querySelector('.E'), Ev = fig.querySelector('.E-val');
@@ -342,7 +374,7 @@
     on(ESl, 'input', function () { sweeping = false; render(); });
     steps(fig, [
       { text: 'The pale line is the <b>Fermi level</b>: the energy of the electrons an electrode can give away or take in. Below it the metal’s states are full, above it empty.' },
-      { text: 'Slide the potential. Making the electrode <b>more negative raises</b> its electrons: exactly <b>1 eV per volt</b>, the electron-volt of module 0. The right-hand axis is the same quantity measured as a potential, upside down.' },
+      { text: 'Slide the potential. Making the electrode <b>more negative raises</b> its electrons: exactly <b>1 eV per volt</b>, the electron-volt of chapter 0. The right-hand axis is the same quantity measured as a potential, upside down.' },
       { text: 'Push it high enough and the electrons sit above an <b>empty</b> orbital of a species in the solution: they jump across. A flow of electrons from electrode to solution is a <b>reduction</b> current.' },
       { text: 'Pull it low enough and electrons on a <b>filled</b> orbital in the solution find a lower energy on the metal: they jump the other way, an <b>oxidation</b> current. In between, nothing moves.' }
     ]);
@@ -400,7 +432,7 @@
       render();
     }
     steps(fig, [
-      { text: 'Excess charge on a conductor sits at its <b>surface</b> (module 0). On an electrode it lies in a layer less than a nanometre thick, an excess or deficiency of electrons.' },
+      { text: 'Excess charge on a conductor sits at its <b>surface</b> (chapter 0). On an electrode it lies in a layer less than a nanometre thick, an excess or deficiency of electrons.' },
       { text: 'The liquid answers with an <b>equal and opposite</b> charge: ions of the other sign crowd the surface. Solvated ions stop one solvent molecule out (the compact layer); thermal motion smears the rest into a diffuse layer a few nanometres deep.' },
       { text: 'Two sheets of opposite charge a molecular distance apart: the potential <b>jumps</b> across them. That is where the steps of figure 1.1 live, and the field inside them can reach 10⁷ V/cm.' },
       { text: 'Two sheets of charge a distance apart is a <b>capacitor</b>: q = C·E, with 10 to 40 µF per cm² of electrode. Change the electrode’s potential and a charging current flows for about 10⁻⁸ s, with no chemistry at all.' },
@@ -505,10 +537,10 @@
     }
     cellListeners.push(render); render();
     steps(fig, [
-      { text: 'μ_A and μ_C are the electron energies of the two electrodes: the Fermi levels of figure 3.1, drawn on one axis. Higher means the electron is held less tightly.' },
+      { text: 'μ_A and μ_C are the electron energies of the two electrodes: the Fermi levels of figure 3.2, drawn on one axis. Higher means the electron is held less tightly.' },
       { text: 'The electrolyte is stable only between its <b>lowest empty level</b> and its <b>highest filled level</b> (chemists call them LUMO and HOMO): an electrode above the first reduces it, one below the second oxidizes it.' },
-      { text: 'Press Play. The electron leaves the negative electrode, travels along the wire <b>outside</b> the cell and drops onto the positive electrode; the energy it gives up on the way, e·V_OC, is the lamp of module 1. Our ion crosses the electrolyte inside.' },
-      { text: 'Same numbers as the ladder of figure 3.3, axis turned upside down: a rung at x volts is an electron energy x eV below lithium’s.' }
+      { text: 'Press Play. The electron leaves the negative electrode, travels along the wire <b>outside</b> the cell and drops onto the positive electrode; the energy it gives up on the way, e·V_OC, is the lamp of chapter 1. Our ion crosses the electrolyte inside.' },
+      { text: 'Same numbers as the ladder of figure 3.4, axis turned upside down: a rung at x volts is an electron energy x eV below lithium’s.' }
     ]);
     var loop = anim(fig, function (dt) {
       if (dt === 0) return; t = (t + dt / 3) % 1; var k = smooth(Math.min(1, t / 0.85));

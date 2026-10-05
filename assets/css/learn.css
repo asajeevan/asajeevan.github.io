@@ -318,3 +318,16 @@ table.cmp th,table.cmp td{border-bottom:1px solid var(--line);padding:7px 8px;te
 table.cmp th{font-weight:700;color:var(--amber);white-space:nowrap}
 table.cmp caption{caption-side:top;text-align:left;font-weight:700;font-size:.95rem;padding:0 0 6px;color:var(--text)}
 table.cmp td.num{white-space:nowrap}
+
+/* ---------- course pages (multi-page restructure, 2026-10-05) ---------- */
+.pagenav{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:28px;padding-bottom:12px}
+.pn{display:flex;flex-direction:column;gap:4px;padding:16px 18px;border:1px solid var(--line-2);border-radius:14px;background:var(--panel);color:var(--text);transition:border-color .2s,transform .2s}
+.pn:hover{border-color:var(--amber);transform:translateY(-1px)}
+.pn.next{grid-column:2;text-align:right}
+.pn-k{color:var(--amber);font-size:.8rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+.pn-t{font-weight:600}
+.pn-q{color:var(--muted);font-size:.9rem}
+@media (max-width:640px){.pagenav{grid-template-columns:1fr}.pn.next{grid-column:1}}
+a.xref{color:inherit;border-bottom:1px dotted var(--cyan)}
+a.xref:hover{color:var(--cyan)}
+.page-refs .h2{font-size:clamp(1.4rem,3vw,1.9rem)}

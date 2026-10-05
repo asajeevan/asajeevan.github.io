@@ -3,7 +3,7 @@
     <p class="mod-n">Module 12</p>
     <h2 class="h2">Safety, use and end of life</h2>
     <p class="hook">How do you keep a cell safe, and what happens to it at the end?</p>
-    <p class="where"><b>Where we are.</b> In module 11 we learned to measure a cell and to find out what has gone wrong inside it. Two questions remain, and they matter most to the person holding the cell. What happens when it is abused, so that its stored energy comes out all at once? And what becomes of its materials when it is finished?</p>
+    <p class="where"><b>Where we are.</b> In {{ch:lab/cell-testing}} we learned to measure a cell and to find out what has gone wrong inside it. Two questions remain, and they matter most to the person holding the cell. What happens when it is abused, so that its stored energy comes out all at once? And what becomes of its materials when it is finished?</p>
 
     <div class="beat">
       <figure class="fig" data-fig="f12-1" id="f12-1">
@@ -19,7 +19,7 @@
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">Let us begin with the energy itself. A charged cell holds its energy in two materials kept apart. If they meet through a short circuit, the whole stored energy comes out as heat.{{cite:R1}} The worst case is <b>thermal runaway</b>: the reaction of an electrode with the electrolyte becomes self-sustaining and enters an autocatalytic mode, the heat it releases speeding it up. Because this heat is released inside the cell, at the electrode surfaces, cells meant for high currents must be built to shed it.{{cite:R1}} The SEI we met in module 6 plays a part here too: its decomposition promotes thermal runaway.{{cite:R49}}</p>
+        <p class="explain">Let us begin with the energy itself. A charged cell holds its energy in two materials kept apart. If they meet through a short circuit, the whole stored energy comes out as heat.{{cite:R1}} The worst case is <b>thermal runaway</b>: the reaction of an electrode with the electrolyte becomes self-sustaining and enters an autocatalytic mode, the heat it releases speeding it up. Because this heat is released inside the cell, at the electrode surfaces, cells meant for high currents must be built to shed it.{{cite:R1}} The SEI we met in {{ch:sei}} plays a part here too: its decomposition promotes thermal runaway.{{cite:R49}}</p>
         <p class="explain">The history of the rechargeable lithium cell is written in fires. Exxon&#8217;s rechargeable lithium-metal cell of the 1970s grew dendrites across the electrolyte to the positive electrode; the internal short ignited the flammable electrolyte and the programme was abandoned.{{cite:R45}} In 1989 the first lithium-metal rechargeable cell sold for consumer use, Moli Energy&#8217;s Li/MoS&#8322;, was recalled after cells vented with flame in the field: the porous, high-surface lithium deposited by cycling reacts with the electrolyte strongly enough to do that, and cycling makes cells less tolerant of abuse.{{cite:R46}}</p>
         <p class="lesson">A cell is safe as long as its heat can leave faster than its reactions make it.</p>
       </div>
@@ -88,9 +88,9 @@
         <p class="recap"><b>You can now explain</b> what thermal runaway is and what breaks the loop, why lithium cells need electronics as well as chemistry to stay safe, why temperature and state of charge decide how a cell ages, and the three ways its materials can go back into a new cell.</p>
         <p class="bridge">This is where my own work starts: <a href="../#research">the research behind these pages</a>.</p>
         <details class="deeper maths" id="m12-maths"><summary>The mathematics of this module</summary><div class="body">
-          <p class="eqline"><span class="eq">E = Q&#8239;&#10216;V&#10217;</span><span class="eqnote">the energy a short circuit can turn into heat: all the charge stored times the average voltage (module 4); a 3 Ah cell at 3.7 V holds 11.1 Wh, that is 40 kJ</span></p>
-          <p class="eqline"><span class="eq">Q&#775; = I(U &#8722; V) &#8722; I&#8239;T&#8239;dU/dT</span><span class="eqnote">the heat a cell makes in normal use (module 5, figure 5.12); in runaway the side reactions add their own heat on top</span></p>
-          <p class="eqline"><span class="eq">L<sub>SEI</sub> &#8733; t<sup>b</sup></span><span class="eqnote">the ageing law of module 10 behind the advice to avoid long periods at full charge</span></p>
+          <p class="eqline"><span class="eq">E = Q&#8239;&#10216;V&#10217;</span><span class="eqnote">the energy a short circuit can turn into heat: all the charge stored times the average voltage ({{ch:capacity-energy}}); a 3 Ah cell at 3.7 V holds 11.1 Wh, that is 40 kJ</span></p>
+          <p class="eqline"><span class="eq">Q&#775; = I(U &#8722; V) &#8722; I&#8239;T&#8239;dU/dT</span><span class="eqnote">the heat a cell makes in normal use ({{ch:polarization}}, figure {{fig:f5-11}}); in runaway the side reactions add their own heat on top</span></p>
+          <p class="eqline"><span class="eq">L<sub>SEI</sub> &#8733; t<sup>b</sup></span><span class="eqnote">the ageing law of {{ch:degradation}} behind the advice to avoid long periods at full charge</span></p>
         </div></details>
         {{sources:R1,R45,R46,R6,R55,R47,R37,R48,R44,R49}}
       </div>

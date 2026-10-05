@@ -59,7 +59,7 @@
 </svg>
 <div class="part-info"><span class="readout"></span></div>
 <figcaption>What each technique sees, and what it costs the cell.
-<span class="try">Try this: pick one thief from module 10 and find the cheapest column that could catch it.</span>
+<span class="try">Try this: pick one thief from <a class="xref" href="../../../batteries/degradation/">chapter 16</a> and find the cheapest column that could catch it.</span>
 <details class="src"><summary>Source</summary><span class="basis">Nondestructive and tear-down methods and accelerating-rate calorimetry after Winter and Brodd 2004, section 1.5; in situ XANES, NMR, Mössbauer spectroscopy and SEM enabled by plastic lithium-ion cells after Tarascon and Armand 2001; pressure sensing of SEI growth after Fichtner et al. 2022; reference electrodes, symmetric cells from harvested electrodes, non-destructive checks first, discharge and disassembly in argon, and fresh cells as a baseline, after Meddings et al. 2020, section 3.3; local impedance after Bakenhaster and Dewald 2025, section 4.5.</span></details>
 </figcaption>
 </figure>
@@ -71,7 +71,7 @@
 <p class="recap"><b>You can now explain</b> why a pulse resistance needs its timescale; how GITT turns two voltage changes into a diffusion coefficient, and the four checks that make it trustworthy (pulse length, IR drop, rest, particle size); what impedance is, and how to read Nyquist and Bode plots of a real cell from left to right; why the measurement must be small, steady, four-terminal and Kramers–Kronig valid; why a good circuit fit is not proof; and what DRT, nonlinear impedance and machine learning add.</p>
 <p class="bridge">We can now find out from outside what has gone wrong in a cell, and open it when the outside is not enough. The last module takes up what is left: how to keep the energy a cell stores from coming out all at once, and what becomes of the cell when it is truly finished.</p>
 <details class="deeper maths" id="maths"><summary>The mathematics of this chapter</summary><div class="body">
-
+<p class="eqline"><span class="eq">ΔV/I = R<sub>0</sub> + Σ R<sub>k</sub>(1 − e<sup>−t/R<sub>k</sub>C<sub>k</sub></sup>) + 2σ√(2t/π)</span><span class="eqnote">the pulse resistance of figure <a class="xref" href="../../../batteries/lab/gitt/#f11-2">L2.1</a>: ohmic, R‖C pairs and a Warburg element of coefficient σ</span></p>
 <p class="eqline"><span class="eq">D = (4/πτ)(m<sub>B</sub>V<sub>M</sub>/M<sub>B</sub>S)<sup>2</sup>(ΔE<sub>s</sub>/ΔE<sub>t</sub>)<sup>2</sup>; for spheres the bracket is r/3</span><span class="eqnote">Weppner–Huggins, valid for Dτ/L<sup>2</sup> below 0.25 (flat) or about 0.025 (spheres)</span></p>
 <p class="eqline"><span class="eq">f(τ̂) = 3τ̂ + 1/5 − 2Σ e<sup>−α<sub>n</sub><sup>2</sup>τ̂</sup>/α<sub>n</sub><sup>2</sup>, with α<sub>n</sub> = tan α<sub>n</sub></span><span class="eqnote">surface change of a sphere under constant flux, τ̂ = Dt/r<sup>2</sup>; 2√(τ̂/π) at short times (Nickol et al.)</span></p>
 <p class="eqline"><span class="eq">V − V<sub>eq</sub> ∝ √(t + τ) − √t</span><span class="eqnote">the rest after a pulse of length τ, t the time at rest; its slope gives D (Kang and Chueh)</span></p>

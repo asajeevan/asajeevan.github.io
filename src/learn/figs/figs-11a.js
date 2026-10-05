@@ -83,7 +83,7 @@
     on(sl, 'input', render);
     steps(fig, [
       { text: 'A parallel R‖C pair relaxes with one time constant τ = RC. Any spectrum can be written as a distribution of such pairs, Z = R₀ + R<sub>pol</sub>∫g(τ)/(1 + jωτ) dτ. The distribution of relaxation times, the DRT, recovers g(τ): each process becomes a peak at its own τ, even when the arcs overlap in the Nyquist plot.' },
-      { text: 'Recovering g(τ) from noisy data is unstable, so it needs <b>regularization</b>, a penalty of strength λ on large, spiky solutions. Slide λ down: noise turns into extra peaks. Slide it up: the two real peaks melt into one. Only a narrow range is right, and the number of peaks depends on it. DRT also needs excellent data: test it first (figure 11.14), and leave out the inductive and diffusion parts, which distort it.' }
+      { text: 'Recovering g(τ) from noisy data is unstable, so it needs <b>regularization</b>, a penalty of strength λ on large, spiky solutions. Slide λ down: noise turns into extra peaks. Slide it up: the two real peaks melt into one. Only a narrow range is right, and the number of peaks depends on it. DRT also needs excellent data: test it first (figure {{fig:f11-14}}), and leave out the inductive and diffusion parts, which distort it.' }
     ]);
     render();
   });

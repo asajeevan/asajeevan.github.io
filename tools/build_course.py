@@ -66,13 +66,12 @@ def js_bundles(pages_figs):
             parts.append('  /* ' + f + ' */\n' + '\n'.join('  ' + text[f][units[(f, i)]['start']:units[(f, i)]['end']] for i in idx))
         name = pid.replace('/', '-') + '.js'
         out = core.replace('  /* {{figures}} */', '\n'.join(parts))
-        out = FIGREF_JS(out) if FIGREF_JS else out
+        out = js_plain(out)
         (outdir / name).write_text(out, encoding='utf-8')
         result[pid] = 'assets/js/learn/' + name
         sizes[pid] = len(out.encode('utf-8'))
     return result, sizes
 
-FIGREF_JS = None   # set in course mode: rewrites {{fig:ID}} markers inside figure scripts
 
 # ---------------------------------------------------------------- page parts
 def module_where(mid):
@@ -131,8 +130,9 @@ def assemble_course():
         for fid in p['beats']:
             m, i = BEAT_OF[fid]
             beats.append(MODS[m]['beats'][i]['html'])
-        first_mod, first_idx = BEAT_OF[p['beats'][0]]
-        where = module_where(first_mod) if first_idx == 0 else ''
+        # the "Where we are" paragraph of the first module that starts on this page, if any
+        starts = [BEAT_OF[f][0] for f in p['beats'] if BEAT_OF[f][1] == 0]
+        where = module_where(starts[0]) if starts else ''
         # the closing elements assigned to this page, grouped by kind
         tail = {'recap': [], 'bridge': [], 'deeper': [], 'sources': []}
         for mid in MODULES:
@@ -167,6 +167,34 @@ for mid in MODULES:
     for m in re.finditer(r'data-fig="([^"]+)" id="[^"]+">\s*<span class="fnum">Figure ([\d.]+)</span>', MODS[mid]['source']):
         OLD_NUM[m.group(2)] = m.group(1)
 
+# ---------------------------------------------------------------- cross-references
+XREF = {'page_of_fig': {}, 'number_of': {}}
+def ch_label(slug, cap=False):
+    p = next(q for q in COURSE['pages'] if q['id'] == slug)
+    if p['kind'] == 'lab':
+        return p['num']
+    return ('Chapter ' if cap else 'chapter ') + p['num']
+
+def resolve_xrefs(content, pid, root):
+    """{{fig:ID}} -> figure number, {{ch:slug}} / {{Ch:slug}} -> "chapter N" / "Chapter N"; linked in
+    the text, plain inside drawings."""
+    def href(target_page, anchor=''):
+        if target_page == pid:
+            return '#' + anchor if anchor else '#top'
+        return root + 'batteries/' + target_page + '/' + ('#' + anchor if anchor else '')
+    def plain(t):
+        t = re.sub(r'\{\{fig:([^}]+)\}\}', lambda m: XREF['number_of'][m.group(1)], t)
+        return re.sub(r'\{\{(ch|Ch):([^}]+)\}\}', lambda m: ch_label(m.group(2), m.group(1) == 'Ch'), t)
+    def linked(t):
+        t = re.sub(r'\{\{fig:([^}]+)\}\}', lambda m: '<a class="xref" href="%s">%s</a>' % (href(XREF['page_of_fig'][m.group(1)], m.group(1)), XREF['number_of'][m.group(1)]), t)
+        return re.sub(r'\{\{(ch|Ch):([^}]+)\}\}', lambda m: '<a class="xref" href="%s">%s</a>' % (href(m.group(2)), ch_label(m.group(2), m.group(1) == 'Ch')), t)
+    parts = re.split(r'(<svg\b.*?</svg>)', content, flags=re.S)
+    return ''.join(plain(x) if x.startswith('<svg') else linked(x) for x in parts)
+
+def js_plain(t):
+    t = re.sub(r'\{\{fig:([^}]+)\}\}', lambda m: XREF['number_of'][m.group(1)], t)
+    return re.sub(r'\{\{(ch|Ch):([^}]+)\}\}', lambda m: ch_label(m.group(2), m.group(1) == 'Ch'), t)
+
 # ---------------------------------------------------------------- rendering
 def page_refs(order, used_in):
     return '<ol class="refs">' + ''.join(BL.fmt_ref(k, i + 1) for i, k in enumerate(order)) + '</ol>'
@@ -188,7 +216,7 @@ def render_page(pid, content, meta, nav, bundle, out_path):
     }
     for k, v in rep.items():
         text = text.replace(k, v)
-    text = text.replace('{{content}}', content)
+    text = text.replace('{{content}}', resolve_xrefs(content, pid, root))
     text = text.replace('{{root}}', root)
     text, order = BL.render(text, refs_fn=page_refs, quiet=True)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -223,6 +251,9 @@ def build_identity():
     out = OUT / '_identity'
     pages = [{'id': '_identity/' + m, 'kind': 'chapter', 'num': str(int(m[1:])), 'menu': m, 'question': ''} for m in MODULES]
     contents = {p['id']: MODS[p['id'].split('/')[1]]['source'] for p in pages}
+    for num, fid in OLD_NUM.items():   # the old numbering, for a like-for-like comparison
+        XREF['number_of'][fid] = num
+        XREF['page_of_fig'][fid] = '_identity/' + next(m for m in MODULES if fid in [b['fig'] for b in MODS[m]['beats']] or fid in sum([b['figs'] for b in MODS[m]['beats']], []))
     bundles, sizes = js_bundles({pid: figs_in(c) for pid, c in contents.items()})
     for i, p in enumerate(pages):
         meta = {'page_title': p['id'], 'og_title': p['id'], 'description': p['id'], 'ld': {}, 'kind_word': 'module'}
@@ -231,9 +262,14 @@ def build_identity():
         print('%-16s %7d bytes html, %7d bytes js, %2d refs' % (p['id'], len(text.encode()), sizes[p['id']], len(order)))
 
 def build_course():
-    global FIGREF_JS
     contents, page_of_fig, number_of = assemble_course()
+    XREF['page_of_fig'], XREF['number_of'] = page_of_fig, number_of
     pages = COURSE['pages']
+    import os
+    if os.environ.get('COURSE_DUMP'):
+        d = pathlib.Path(os.environ['COURSE_DUMP']); d.mkdir(parents=True, exist_ok=True)
+        for pid, c in contents.items():
+            (d / (pid.replace('/', '-') + '.html')).write_text(c, encoding='utf-8')
     bundles, sizes = js_bundles({pid: figs_in(c) for pid, c in contents.items()})
     total = 0
     for i, p in enumerate(pages):

@@ -109,7 +109,7 @@
     steps(fig, [
       { text: 'Consumer cells are meant to be <b>used between about 0 and 40 °C</b>.' },
       { text: 'They can be <b>stored between −20 and 85 °C</b>; military and automotive cells must work from −50 to 85 °C.' },
-      { text: 'Why the middle is kind: in the cold, a fast charge can push the graphite into <b>lithium plating</b>; in the heat, self-discharge speeds up. And at any temperature, a cell kept full and charged fast grows its SEI fastest (module 10).' }
+      { text: 'Why the middle is kind: in the cold, a fast charge can push the graphite into <b>lithium plating</b>; in the heat, self-discharge speeds up. And at any temperature, a cell kept full and charged fast grows its SEI fastest ({{ch:degradation}}).' }
     ]);
     read.innerHTML = 'Temperature ranges for cells of around 2004; the two notes give directions only, without numbers.';
   });

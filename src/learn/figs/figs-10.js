@@ -44,8 +44,8 @@
     on(slow, 'click', function () { slow.setAttribute('aria-pressed', String(slow.getAttribute('aria-pressed') !== 'true')); render(); });
     steps(fig, [
       { text: 'Grey: <b>lithium lost</b> to side reactions, above all to the SEI, which keeps growing after the first charge. Each lithium it locks up is one fewer to rock between the electrodes. Drawn following the square-root law of figure 10.2.' },
-      { text: 'Red: <b>active material lost</b>: particles that crack and lose contact, as in figure 9.2, or that dissolve, as in figure 10.3. The lithium may still be there, but there is less room to store it.' },
-      { text: 'Lilac: capacity <b>hidden by resistance</b>. As interfaces thicken and contacts loosen, the voltage under current hits the cut-off sooner (figure 5.3). Measure at a low rate and this part comes back; the other two do not.' }
+      { text: 'Red: <b>active material lost</b>: particles that crack and lose contact, as in figure {{fig:f9-2}}, or that dissolve, as in figure 10.3. The lithium may still be there, but there is less room to store it.' },
+      { text: 'Lilac: capacity <b>hidden by resistance</b>. As interfaces thicken and contacts loosen, the voltage under current hits the cut-off sooner (figure {{fig:f5-3}}). Measure at a low rate and this part comes back; the other two do not.' }
     ]);
     render();
   });
@@ -82,7 +82,7 @@
     }
     Array.prototype.forEach.call(rb, function (x) { on(x, 'click', function () { b = +x.getAttribute('data-b'); render(); }); });
     steps(fig, [
-      { text: 'The SEI that formed on the first charge (module 6) does not stop growing. Its thickness follows a power law, L ∝ t<sup>b</sup>, and the exponent tells us what limits it: <b>b = 1/2</b> when diffusion through the layer is the bottleneck, <b>b = 1</b> when the reaction or migration during charging is, <b>b = 0</b> for migration during discharge.' },
+      { text: 'The SEI that formed on the first charge ({{ch:sei}}) does not stop growing. Its thickness follows a power law, L ∝ t<sup>b</sup>, and the exponent tells us what limits it: <b>b = 1/2</b> when diffusion through the layer is the bottleneck, <b>b = 1</b> when the reaction or migration during charging is, <b>b = 0</b> for migration during discharge.' },
       { text: 'Every bit of new SEI locks up lithium and thickens the layer the ions must cross: the capacity falls, ΔQ ∝ t<sup>b</sup>, and the interfacial resistance rises. The layer grows fastest when the cell sits at a high state of charge or is charged fast.' }
     ]);
     var loop = anim(fig, function (dt) { if (dt === 0) return; t += dt / 6; if (t > 1) t = 0.02; render(); }, { autoplay: true, stepDt: 0.5 });

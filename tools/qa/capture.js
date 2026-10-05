@@ -11,7 +11,7 @@ const path = require('path');
 const { useLocalFonts } = require('./fonts');
 const out = process.argv[2];
 const pages = process.argv.slice(3).map(p => 'file://' + path.resolve(p));
-const mask = s => (s || '').replace(/\s+/g, ' ').replace(/\b(figures?|Figures?|modules?|Modules?|chapters?|Chapters?)\s+\d+(\.\d+)?(\s*(to|and|–)\s*\d+(\.\d+)?)?/g, '$1 #').trim();
+const mask = s => (s || '').replace(/\s+/g, ' ').replace(/\b(figures?|Figures?)\s+L?\d+(\.\d+)?((\s*(,|to|and|or|–)\s*)L?\d+(\.\d+)?)*/g, 'FIG #').replace(/\b(modules?|Modules?|chapters?|Chapters?|Lab)\s+\d+((\s*(,|to|and|–)\s*)\d+)*/g, 'REF #').trim();
 (async () => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const record = {};

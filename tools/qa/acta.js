@@ -7,22 +7,25 @@ const path = require('path');
 const { useLocalFonts } = require('./fonts');
 const out = process.argv[2] || 'figs';
 const url = process.env.LEARN_URL || ('file://' + path.resolve(__dirname, '../../batteries/index.html'));
-const ACTS = (process.env.ACTS || 'A').split('');
+const ACTS = process.env.ACTS === 'ALL' ? ['ALL'] : (process.env.ACTS || 'A').split('');
+const URLS = process.env.LEARN_URLS ? process.env.LEARN_URLS.split(/\s+/).filter(Boolean).map(p => 'file://' + path.resolve(p)) : [url];
+const SHOTS = process.env.SHOTS !== '0';
 (async () => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   let bad = 0;
   for (const [w, rm] of [[1300, 'no-preference'], [360, 'no-preference'], [1300, 'reduce']]) {
     const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, reducedMotion: rm, deviceScaleFactor: w === 360 ? 2 : 1.25 });
     await useLocalFonts(ctx);
+    for (const pageUrl of URLS) {
     const page = await ctx.newPage();
     const errors = [];
     page.on('pageerror', e => errors.push('PAGEERROR ' + e.message));
     page.on('console', m => { if (m.type() === 'error' && !/ERR_CERT|ERR_TUNNEL|net::/.test(m.text())) errors.push(m.text()); });
-    await page.goto(url, { waitUntil: 'load' });
+    await page.goto(pageUrl, { waitUntil: 'load' });
     await page.waitForTimeout(1000);
     await page.evaluate(() => document.fonts && document.fonts.ready);
     await page.evaluate(() => { document.querySelectorAll('details.struct').forEach(d => { d.open = true; }); document.querySelectorAll('.reveal').forEach(e => { e.style.opacity = 1; e.style.transform = 'none'; }); ['.topbar', '.totop', '.rail-cell'].forEach(s => { const e = document.querySelector(s); if (e) e.style.visibility = 'hidden'; }); });
-    const ids = await page.$$eval('.module figure[data-fig]', (els, acts) => els.filter(e => acts.includes(e.closest('.module').getAttribute('data-act'))).map(e => e.id), ACTS);
+    const ids = await page.$$eval('.module figure[data-fig]', (els, acts) => els.filter(e => acts.includes('ALL') || acts.includes(e.closest('.module').getAttribute('data-act'))).map(e => e.id), ACTS);
     // exercise every step button and the player, then leave each figure on step 1
     const ex = await page.evaluate(async (ids) => {
       const out = {};
@@ -40,9 +43,9 @@ const ACTS = (process.env.ACTS || 'A').split('');
       out.refs = document.querySelectorAll('.refs li').length;
       return out;
     }, ids);
-    console.log(w, rm, JSON.stringify(ex));
+    console.log(w, rm, pageUrl.split('/').slice(-2, -1)[0], JSON.stringify(ex));
     if (errors.length) { bad++; console.log('ERRORS', errors); }
-    if (w === 360 || (w === 1300 && rm === 'no-preference')) {
+    if (SHOTS && (w === 360 || (w === 1300 && rm === 'no-preference'))) {
       for (const id of ids) {
         const el = await page.$('#' + id); await el.scrollIntoViewIfNeeded(); await page.waitForTimeout(500);
         await el.screenshot({ path: path.join(out, (w === 360 ? 'm-' : '') + id + '.png') });
@@ -77,6 +80,8 @@ const ACTS = (process.env.ACTS || 'A').split('');
         return probs;
       }, ids);
       if (rep.length) { bad++; console.log('LABEL PROBLEMS at 360 px:\n  ' + rep.join('\n  ')); } else console.log('labels at 360 px: no overlaps, no clipping');
+    }
+    await page.close();
     }
     await ctx.close();
   }

@@ -3,7 +3,7 @@
     <p class="mod-n">Module 11</p>
     <h2 class="h2">Testing and diagnosis</h2>
     <p class="hook">How would you find out which thief it was?</p>
-    <p class="where"><b>Where we are.</b> In module 10 we named the thieves that take a cell’s capacity. From the outside they all look alike: the cell holds less. How can we see these losses from outside, and tell one from another? In this module we build up the measurements that do it, from a single current pulse to a full impedance spectrum, and we learn to read the results honestly: what each one answers, when its formula holds, and how to analyse the data without fooling ourselves.</p>
+    <p class="where"><b>Where we are.</b> In {{ch:degradation}} we named the thieves that take a cell’s capacity. From the outside they all look alike: the cell holds less. How can we see these losses from outside, and tell one from another? In this module we build up the measurements that do it, from a single current pulse to a full impedance spectrum, and we learn to read the results honestly: what each one answers, when its formula holds, and how to analyse the data without fooling ourselves.</p>
 
     <div class="beat">
       <figure class="fig" data-fig="f11-1" id="f11-1">
@@ -13,13 +13,13 @@
         </svg>
         <div class="part-info"><span class="readout"></span></div>
         <figcaption>One cell, four measurements, four questions.
-          <span class="try">Try this: for each panel, name the thief of module 10 it would help to catch.</span>
-          <span class="basis">The discharge curve as a source of capacity, rate and temperature effects and state of health, and current interruption, after Winter and Brodd 2004, sections 1.4 and 1.5; current pulses after Meddings et al. 2020, section 3.1; GITT after Weppner and Huggins 1977 and Kim et al. 2022; impedance after Lazanas and Prodromidis 2023, section 1. The small curves are sketches of the shapes in figures 5.1, 11.2, 11.3 and 11.10, not data.</span>
+          <span class="try">Try this: for each panel, name the thief of {{ch:degradation}} it would help to catch.</span>
+          <span class="basis">The discharge curve as a source of capacity, rate and temperature effects and state of health, and current interruption, after Winter and Brodd 2004, sections 1.4 and 1.5; current pulses after Meddings et al. 2020, section 3.1; GITT after Weppner and Huggins 1977 and Kim et al. 2022; impedance after Lazanas and Prodromidis 2023, section 1. The small curves are sketches of the shapes in figures {{fig:f5-1}}, {{fig:f11-2}}, {{fig:f11-3}} and {{fig:f11-10}}, not data.</span>
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">Let us put your cell back on the test bench of module 5. Every measurement answers one question, so we choose the question first. Cycling at constant current gives the capacity, the effect of rate and temperature, and the state of health; switching the current off and timing the recovery separates the three polarizations (figure 5.4).{{cite:R1}} A short current pulse gives a resistance. The galvanostatic intermittent titration technique, GITT, measures how fast lithium diffuses inside the electrode material.{{cite:R38,R67}} Impedance spectroscopy separates the processes in a cell by their speed.{{cite:R63}}</p>
-        <p class="explain">We take them in that order, from the simplest reading to the analysis behind published diffusion coefficients and impedance spectra. On the way we lean on three tools from module 5: the test bench (figure 5.1), the three clocks of polarization (figure 5.4) and differential capacity (figure 5.10).</p>
+        <p class="explain">Let us put your cell back on the test bench of {{ch:polarization}}. Every measurement answers one question, so we choose the question first. Cycling at constant current gives the capacity, the effect of rate and temperature, and the state of health; switching the current off and timing the recovery separates the three polarizations (figure {{fig:f5-4}}).{{cite:R1}} A short current pulse gives a resistance. The galvanostatic intermittent titration technique, GITT, measures how fast lithium diffuses inside the electrode material.{{cite:R38,R67}} Impedance spectroscopy separates the processes in a cell by their speed.{{cite:R63}}</p>
+        <p class="explain">We take them in that order, from the simplest reading to the analysis behind published diffusion coefficients and impedance spectra. On the way we lean on three tools from {{ch:polarization}}: the test bench (figure {{fig:f5-1}}), the three clocks of polarization (figure {{fig:f5-4}}) and differential capacity (figure {{fig:f5-9}}).</p>
         <p class="lesson">Every technique answers one question; choosing the question comes first.</p>
       </div>
     </div>
@@ -72,7 +72,7 @@
         <div class="worked"><b>Worked example.</b> Particles of radius 5 µm, a 30 min pulse, ΔE<sub>s</sub> = 10 mV and ΔE<sub>t</sub> = 30 mV.
           <span class="line"><m>D = \frac{4}{\pi \times 1800\ \mathrm{s}}\left(\frac{5\ \mu\mathrm{m}}{3}\right)^2\left(\frac{10}{30}\right)^2 = 2.2\times10^{-16}\ \mathrm{m^2/s}</m> = <i>2.2 × 10⁻¹² cm²/s</i></span>
           <span class="line">check: <m>D\tau/r^2 = 2.2\times10^{-16} \times 1800 / (5\times10^{-6})^2 = 0.016</m></span>
-          The check, explained with figure 11.4, says whether the pulse was short enough for the formula; for a sphere, 0.016 just passes.{{cite:R66}}</div>
+          The check, explained with figure {{fig:f11-4}}, says whether the pulse was short enough for the formula; for a sphere, 0.016 just passes.{{cite:R66}}</div>
       </div>
     </div>
 
@@ -147,7 +147,7 @@
       <div class="text">
         <p class="explain">The pulse itself is the weak point, so a more robust route reads diffusion from the <b>rest</b> after the pulse. During the pulse the voltage carries the IR drop on top of the diffusion signal, and if the total resistance drifts, as charge-transfer resistance does when the composition changes, the <m>\sqrt t</m> slope is wrong. In one worked example, a 17 % fall in resistance during the pulse halves the slope and makes <m>D</m> four times too large. During the rest no current flows, so no IR drop can drift.{{cite:R66}}</p>
         <p class="explain">The rest can be solved exactly: plotted against <m>\sqrt{t + \tau} - \sqrt{t}</m>, where <m>t</m> is the time since the current stopped, the voltage is a straight line whose slope gives <m>D</m>, without needing the final equilibrium voltage. Fast processes that are not bulk diffusion, such as a surface layer, appear at the start of the rest and can be left out of the fit; the finite size of the sample bends the curve near the end, so the straight part in between is used, which for a short pulse lasts up to about ten pulse lengths of rest. The recommended procedure: large, dense, single-phase samples; at least three pulses of different size; and the <m>\hat\tau</m> check afterwards.{{cite:R66}}</p>
-        <p class="explain">The rest must also be long enough. In one study an NMC622 electrode needed about 7 to 9 h to relax below 3.8 V, and above 3.8 V the voltage was still drifting by 0.1 to 0.6 mV per hour after 9 to 12 h; published studies use fixed rests from 40 min to a day.{{cite:R69}} The same study showed that ignoring diffusion in the electrolyte inside the pores, as the simple formula does, made its GITT value about four times smaller than a transmission-line analysis of impedance (figure 11.11).{{cite:R69}}</p>
+        <p class="explain">The rest must also be long enough. In one study an NMC622 electrode needed about 7 to 9 h to relax below 3.8 V, and above 3.8 V the voltage was still drifting by 0.1 to 0.6 mV per hour after 9 to 12 h; published studies use fixed rests from 40 min to a day.{{cite:R69}} The same study showed that ignoring diffusion in the electrolyte inside the pores, as the simple formula does, made its GITT value about four times smaller than a transmission-line analysis of impedance (figure {{fig:f11-11}}).{{cite:R69}}</p>
         <p class="lesson">GITT is easy to run and easy to misread: check the pulse length, the reading of the IR drop, the rest and the size.</p>
       </div>
     </div>
@@ -201,7 +201,7 @@
         <div class="key"><span><i class="act"></i>voltage</span><span><i style="background:var(--cyan)"></i>current</span><span><i style="background:var(--text)"></i>Lissajous plot</span></div>
         <figcaption>Impedance: a sine in, a sine out, compared in size and timing.
           <span class="try">Try this: choose R ‖ C and slide the frequency from 1 Hz to 10 kHz; watch the line open into an ellipse and close again.</span>
-          <span class="basis">Sinusoids, phasors, impedance as magnitude and phase, the responses of R, C and L, and Lissajous plots as a live check of linearity and stability, after Lazanas and Prodromidis 2023, sections 2 to 7 (eqs. 3, 24 to 28, 36 to 43) and Fig. 6; amplitude 5 to 10 mV after their section 16.2. Element values (20 Ω, 100 µF, 20 mH) are illustrative laboratory values; a cell’s are milliohms and farads (figure 11.10).</span>
+          <span class="basis">Sinusoids, phasors, impedance as magnitude and phase, the responses of R, C and L, and Lissajous plots as a live check of linearity and stability, after Lazanas and Prodromidis 2023, sections 2 to 7 (eqs. 3, 24 to 28, 36 to 43) and Fig. 6; amplitude 5 to 10 mV after their section 16.2. Element values (20 Ω, 100 µF, 20 mH) are illustrative laboratory values; a cell’s are milliohms and farads (figure {{fig:f11-10}}).</span>
         </figcaption>
       </figure>
       <div class="text">
@@ -283,7 +283,7 @@
         </figcaption>
       </figure>
       <div class="text">
-        <p class="explain">The spectrum of figure 11.10 is idealized; real spectra are never made of perfect semicircles. Arcs are <b>depressed</b>: their centres sit below the axis. The usual fix replaces the capacitor with a <b>constant phase element</b>, <m>Z = 1/(Y_0 (j\omega)^n)</m>: <m>n = 1</m> is a capacitor, <m>n = 0</m> a resistor and <m>n = 0.5</m> a Warburg diffusion line. Surface roughness, fractal geometry and adsorption have all been proposed as its cause, and the question is not settled.{{cite:R63}} A CPE with a free exponent can fit almost any valid data, so its parameters cannot be read as real capacitances.{{cite:R64}}</p>
+        <p class="explain">The spectrum of figure {{fig:f11-10}} is idealized; real spectra are never made of perfect semicircles. Arcs are <b>depressed</b>: their centres sit below the axis. The usual fix replaces the capacitor with a <b>constant phase element</b>, <m>Z = 1/(Y_0 (j\omega)^n)</m>: <m>n = 1</m> is a capacitor, <m>n = 0</m> a resistor and <m>n = 0.5</m> a Warburg diffusion line. Surface roughness, fractal geometry and adsorption have all been proposed as its cause, and the question is not settled.{{cite:R63}} A CPE with a free exponent can fit almost any valid data, so its parameters cannot be read as real capacitances.{{cite:R64}}</p>
         <p class="explain"><b>Diffusion</b> into a layer of finite thickness starts as the 45° Warburg line, then bends. If the far side lets lithium through, the line bends back to the axis in an arc; if it blocks lithium, as the inside of a particle does, the line turns vertical like a capacitor.{{cite:R63}} Particles are closer to spheres than to films: with the same diffusion resistance <m>R_d</m> and capacitance <m>C_d</m>, a sphere turns upward earlier and its tail stands at <m>R_d/15</m> instead of <m>R_d/3</m>, and the diffusion coefficient follows as <m>D = r^2/(R_d C_d)</m>.{{cite:R69}}</p>
         <p class="explain">A <b>porous electrode</b> is a ladder: the electrolyte resistance runs down each pore, and every grain wall has its own interface. The result is a 45° line at high frequency followed by an arc.{{cite:R63,R64}} In the same study, fitted to an NMC622 electrode, such a transmission-line model gave a diffusion coefficient about four times larger than GITT or impedance models that put diffusion in simple series.{{cite:R69}}</p>
       </div>
@@ -390,7 +390,7 @@
       <div class="text">
         <h3 class="sub">From spectrum to meaning</h3>
         <p class="explain">With a valid spectrum in hand, we can ask what it means. The usual analysis fits an <b>equivalent circuit</b> to the spectrum by complex nonlinear least squares and judges the fit by its χ².{{cite:R63}} The trap is that circuits are not unique: different circuits can give exactly the same impedance at every frequency, and adding elements always improves the fit.{{cite:R63}} The same model can also return different values depending on the starting guesses and the weighting.{{cite:R64}}</p>
-        <p class="explain">So the circuit has to come from the physics of the cell, each element tied to a process, with as few elements as possible.{{cite:R63,R64}} Physics-based models go further: the transmission line of figure 11.11 with spherical diffusion in each grain, or full electrochemical models solved for their impedance.{{cite:R64,R69}}</p>
+        <p class="explain">So the circuit has to come from the physics of the cell, each element tied to a process, with as few elements as possible.{{cite:R63,R64}} Physics-based models go further: the transmission line of figure {{fig:f11-11}} with spherical diffusion in each grain, or full electrochemical models solved for their impedance.{{cite:R64,R69}}</p>
       </div>
     </div>
 
@@ -432,7 +432,7 @@
       </figure>
       <div class="text">
         <h3 class="sub">Following ageing</h3>
-        <p class="explain">We now have the tools to do what module 10 asked of us: follow a cell as it ages. Impedance generally rises as a cell ages, and because the measurement does not harm the cell, it can be repeated through its whole life. Ageing studies run <b>check-ups</b>: the same measurement at fixed conditions every so many cycles, often enough to follow the ageing, rarely enough not to add to it.{{cite:R64}} Ageing has two visible effects: capacity fade, from losing active material, and power fade, from growing resistance through lost contacts, thickening surface films and delamination.{{cite:R64}}</p>
+        <p class="explain">We now have the tools to do what {{ch:degradation}} asked of us: follow a cell as it ages. Impedance generally rises as a cell ages, and because the measurement does not harm the cell, it can be repeated through its whole life. Ageing studies run <b>check-ups</b>: the same measurement at fixed conditions every so many cycles, often enough to follow the ageing, rarely enough not to add to it.{{cite:R64}} Ageing has two visible effects: capacity fade, from losing active material, and power fade, from growing resistance through lost contacts, thickening surface films and delamination.{{cite:R64}}</p>
         <p class="explain">A spectrum is reduced to a few features: fitted resistances, DRT peaks or impedance at chosen frequencies. Individual contributions may follow the state of health, and give early warning of sudden fade, better than the total impedance.{{cite:R64}} The difficulty is that temperature, state of charge and ageing all move the same spectrum; for some chemistries, LiFePO₄ in particular, estimating the state of charge from impedance is much harder than for NMC.{{cite:R64}}</p>
         <p class="explain"><b>Machine learning</b> is the newest route: train a model on features from many cells, then predict the state of health or charge of a new one. Gaussian process regression is common, and models based on relaxation times have reached errors around 1 %.{{cite:R65}} Their knowledge ends at their training data, and the studies so far cover few systems and conditions.{{cite:R65}} <b>Local impedance</b>, measured on one spot of an electrode, is a further step, since a whole-cell spectrum averages over a structure that is not uniform.{{cite:R65}}</p>
       </div>
@@ -446,7 +446,7 @@
         </svg>
         <div class="part-info"><span class="readout"></span></div>
         <figcaption>What each technique sees, and what it costs the cell.
-          <span class="try">Try this: pick one thief from module 10 and find the cheapest column that could catch it.</span>
+          <span class="try">Try this: pick one thief from {{ch:degradation}} and find the cheapest column that could catch it.</span>
           <span class="basis">Nondestructive and tear-down methods and accelerating-rate calorimetry after Winter and Brodd 2004, section 1.5; in situ XANES, NMR, Mössbauer spectroscopy and SEM enabled by plastic lithium-ion cells after Tarascon and Armand 2001; pressure sensing of SEI growth after Fichtner et al. 2022; reference electrodes, symmetric cells from harvested electrodes, non-destructive checks first, discharge and disassembly in argon, and fresh cells as a baseline, after Meddings et al. 2020, section 3.3; local impedance after Bakenhaster and Dewald 2025, section 4.5.</span>
         </figcaption>
       </figure>
@@ -458,7 +458,7 @@
         <p class="recap"><b>You can now explain</b> why a pulse resistance needs its timescale; how GITT turns two voltage changes into a diffusion coefficient, and the four checks that make it trustworthy (pulse length, IR drop, rest, particle size); what impedance is, and how to read Nyquist and Bode plots of a real cell from left to right; why the measurement must be small, steady, four-terminal and Kramers–Kronig valid; why a good circuit fit is not proof; and what DRT, nonlinear impedance and machine learning add.</p>
         <p class="bridge">We can now find out from outside what has gone wrong in a cell, and open it when the outside is not enough. The last module takes up what is left: how to keep the energy a cell stores from coming out all at once, and what becomes of the cell when it is truly finished.</p>
         <details class="deeper maths" id="m11-maths"><summary>The mathematics of this module</summary><div class="body">
-          <p class="eqline"><span class="eq">ΔV/I = R₀ + Σ R<sub>k</sub>(1 − e<sup>−t/R<sub>k</sub>C<sub>k</sub></sup>) + 2σ√(2t/π)</span><span class="eqnote">the pulse resistance of figure 11.2: ohmic, R‖C pairs and a Warburg element of coefficient σ</span></p>
+          <p class="eqline"><span class="eq">ΔV/I = R₀ + Σ R<sub>k</sub>(1 − e<sup>−t/R<sub>k</sub>C<sub>k</sub></sup>) + 2σ√(2t/π)</span><span class="eqnote">the pulse resistance of figure {{fig:f11-2}}: ohmic, R‖C pairs and a Warburg element of coefficient σ</span></p>
           <p class="eqline"><span class="eq">D = (4/πτ)(m<sub>B</sub>V<sub>M</sub>/M<sub>B</sub>S)²(ΔE<sub>s</sub>/ΔE<sub>t</sub>)²; for spheres the bracket is r/3</span><span class="eqnote">Weppner–Huggins, valid for Dτ/L² below 0.25 (flat) or about 0.025 (spheres)</span></p>
           <p class="eqline"><span class="eq">f(τ̂) = 3τ̂ + 1/5 − 2Σ e<sup>−α<sub>n</sub>²τ̂</sup>/α<sub>n</sub>², with α<sub>n</sub> = tan α<sub>n</sub></span><span class="eqnote">surface change of a sphere under constant flux, τ̂ = Dt/r²; 2√(τ̂/π) at short times (Nickol et al.)</span></p>
           <p class="eqline"><span class="eq">V − V<sub>eq</sub> ∝ √(t + τ) − √t</span><span class="eqnote">the rest after a pulse of length τ, t the time at rest; its slope gives D (Kang and Chueh)</span></p>

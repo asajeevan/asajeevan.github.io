@@ -275,11 +275,11 @@
         txt(bot, b.x1, b.y1 + 12, 'dashed: D in the model; dots: Weppner–Huggins from each step', '', 'end');
       }
       var days = N * (tp + trest) / 86400;
-      read.innerHTML = N + ' steps of 10 min with ' + (trest / 3600) + ' h rests take <b>' + days.toFixed(1) + ' days</b>. ' + (mode === 'volt' ? 'The end-of-rest voltages trace the quasi-equilibrium curve (dashed); the end-of-pulse voltages sit above it by the overpotential.' : mode === 'eta' ? 'The overpotential η = CCV − QOCV, and the internal resistance η/I, are largest where the charge-transfer resistance is (here at the start of charge).' : (cbR.checked ? 'Even with every pulse inside the recommended range, the step values sit 15 to 25 % below the model: the √t law for spheres is only approximate at these pulse lengths (figure 11.4).' : 'Where D is smallest, a 1 h rest was not enough for the voltage to settle; ΔEₛ comes out too large and so does D.'));
+      read.innerHTML = N + ' steps of 10 min with ' + (trest / 3600) + ' h rests take <b>' + days.toFixed(1) + ' days</b>. ' + (mode === 'volt' ? 'The end-of-rest voltages trace the quasi-equilibrium curve (dashed); the end-of-pulse voltages sit above it by the overpotential.' : mode === 'eta' ? 'The overpotential η = CCV − QOCV, and the internal resistance η/I, are largest where the charge-transfer resistance is (here at the start of charge).' : (cbR.checked ? 'Even with every pulse inside the recommended range, the step values sit 15 to 25 % below the model: the √t law for spheres is only approximate at these pulse lengths (figure {{fig:f11-4}}).' : 'Where D is smallest, a 1 h rest was not enough for the voltage to settle; ΔEₛ comes out too large and so does D.'));
     }
     on(cbR, 'change', render);
     steps(fig, [
-      { text: 'A GITT run repeats the step of figure 11.3 across the whole charge: pulse, rest, pulse, rest. The voltage at the end of each rest is a <b>quasi-open-circuit voltage</b> (QOCV); joined up, they give the equilibrium curve. The voltage at the end of each pulse is the closed-circuit voltage (CCV).' },
+      { text: 'A GITT run repeats the step of figure {{fig:f11-3}} across the whole charge: pulse, rest, pulse, rest. The voltage at the end of each rest is a <b>quasi-open-circuit voltage</b> (QOCV); joined up, they give the equilibrium curve. The voltage at the end of each pulse is the closed-circuit voltage (CCV).' },
       { text: 'Three products from one run: the QOCV curve; the overpotential η = |CCV − QOCV| and the internal resistance η/I at each state of charge; and D at each step. Switch the panel below. Untick “4 h rests” to use 1 h rests and see where the voltage had not yet settled.' }
     ]);
     render();

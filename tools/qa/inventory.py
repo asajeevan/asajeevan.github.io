@@ -13,7 +13,8 @@ import json, re, sys, pathlib, collections, html
 
 SRC = pathlib.Path(__file__).resolve().parents[2] / 'src' / 'learn'
 BLOCK = re.compile(r'<(p|li|h1|h2|h3|figcaption|summary|td|th|span class="(?:try|basis)")\b[^>]*>(.*?)</(?:p|li|h1|h2|h3|figcaption|summary|td|th|span)>', re.S)
-REFNUM = re.compile(r'\b(figures?|Figures?|modules?|Modules?|chapters?|Chapters?|Lab)\s+\d+(?:\.\d+)?(?:\s*(?:to|and|–|-)\s*\d+(?:\.\d+)?)?')
+FIGNUM = re.compile(r'\b(figures?|Figures?)\s+(?:L?\d+\.\d+|\{\{fig:[^}]+\}\})(?:(?:, | and | or | to |–)(?:L?\d+\.\d+|\{\{fig:[^}]+\}\}))*')
+REFNUM = re.compile(r'\{\{[Cc]h:[^}]+\}\}|\b(?:modules?|Modules?|chapters?|Chapters?|Lab)\s+\d+(?:\s*(?:to|and|–|-)\s*\d+)?')
 
 def resolve(path):
     text = pathlib.Path(path).read_text(encoding='utf-8')
@@ -24,7 +25,8 @@ def norm(s):
     s = re.sub(r'\{\{cite:([^}]*)\}\}', lambda m: ' {{cite:%s}} ' % ','.join(sorted(k.strip() for k in m.group(1).split(','))), s)
     s = re.sub(r'<[^>]+>', ' ', s)
     s = html.unescape(s)
-    s = REFNUM.sub(lambda m: m.group(1) + ' #', s)
+    s = FIGNUM.sub('FIG #', s)
+    s = REFNUM.sub('REF #', s)
     s = re.sub(r'\s+', ' ', s).strip()
     s = re.sub(r'\s+([.,;:)])', r'\1', s)
     return s
