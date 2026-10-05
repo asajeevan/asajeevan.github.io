@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lab 1 Cell testing | How batteries work</title>
+<meta name="description" content="How is a test cell made, and what does a cycling test tell us? Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis">
+<meta property="og:description" content="How is a test cell made, and what does a cycling test tell us? Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/lab/cell-testing/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/lab/cell-testing/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis">
+<meta name="twitter:description" content="How is a test cell made, and what does a cycling test tell us? Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../../../assets/css/site.css">
+<link rel="stylesheet" href="../../../assets/css/learn.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/cell-testing/", "inLanguage": "en"}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="lab/cell-testing">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+<div class="wrap">
+<a class="brand" href="../../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="Course">
+<a href="../../../batteries/">Contents</a>
+<a href="../../../batteries/recycling/" rel="prev">&#8592; Ch. 18</a>
+<a href="../../../batteries/lab/gitt/" rel="next">Lab 2 &#8594;</a>
+<a href="#references">References</a>
+</nav>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+<section class="module" id="ch" data-act="LAB" data-nav>
+<div class="wrap">
+<p class="mod-n">Lab handbook · Lab 1</p>
+<h2 class="h2">Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis</h2>
+<p class="hook">How is a test cell made, and what does a cycling test tell us?</p>
+<p class="where"><b>Where we are.</b> In module 10 we named the thieves that take a cell’s capacity. From the outside they all look alike: the cell holds less. How can we see these losses from outside, and tell one from another? In this module we build up the measurements that do it, from a single current pulse to a full impedance spectrum, and we learn to read the results honestly: what each one answers, when its formula holds, and how to analyse the data without fooling ourselves.</p>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-1" id="f11-1">
+<span class="fnum">Figure L1.1</span>
+<svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f111t">
+<title id="f111t">Four panels, one per measurement on the same cell: cycling at constant current, a current pulse, GITT pulses with rests, and impedance spectroscopy, each with the shape of its result, the question it answers and where in this module it is explained.</title>
+</svg>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>One cell, four measurements, four questions.
+<span class="try">Try this: for each panel, name the thief of module 10 it would help to catch.</span>
+<details class="src"><summary>Source</summary><span class="basis">The discharge curve as a source of capacity, rate and temperature effects and state of health, and current interruption, after Winter and Brodd 2004, sections 1.4 and 1.5; current pulses after Meddings et al. 2020, section 3.1; GITT after Weppner and Huggins 1977 and Kim et al. 2022; impedance after Lazanas and Prodromidis 2023, section 1. The small curves are sketches of the shapes in figures 5.1, 11.2, 11.3 and 11.10, not data.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Let us put your cell back on the test bench of module 5. Every measurement answers one question, so we choose the question first. Cycling at constant current gives the capacity, the effect of rate and temperature, and the state of health; switching the current off and timing the recovery separates the three polarizations (figure 5.4).<sup class="cite"><a href="#ref-1">1</a></sup> A short current pulse gives a resistance. The galvanostatic intermittent titration technique, GITT, measures how fast lithium diffuses inside the electrode material.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-3">3</a></sup> Impedance spectroscopy separates the processes in a cell by their speed.<sup class="cite"><a href="#ref-4">4</a></sup></p>
+<p class="explain">We take them in that order, from the simplest reading to the analysis behind published diffusion coefficients and impedance spectra. On the way we lean on three tools from module 5: the test bench (figure 5.1), the three clocks of polarization (figure 5.4) and differential capacity (figure 5.10).</p>
+<p class="lesson">Every technique answers one question; choosing the question comes first.</p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f5-9" id="f5-9">
+<span class="fnum">Figure L1.2</span>
+<svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f59t">
+<title id="f59t">Four linked plots of a toy cell. The cell voltage against charge; its slope dV/dQ with the contributions of the positive and negative electrodes; the charge per volt dQ/dV against voltage; and a square plot of the negative electrode's lithium content across against the positive electrode's, inverted, up, on which the cell is a straight line crossing bands where each electrode sits on a plateau. Sliders add lithium loss and loss of positive material, and dashed lines show the fresh cell.</title>
+</svg>
+<div class="controls"><label>Lithium lost (LLI) <input type="range" class="lli" min="0" max="20" value="10" aria-label="Loss of lithium inventory, percent"> <b class="lli-val">10 %</b></label><label>Positive material lost <input type="range" class="lam" min="0" max="20" value="0" aria-label="Loss of positive active material, percent"> <b class="lam-val">0 %</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i style="background:var(--text)"></i>this cell</span><span><i style="background:var(--muted)"></i>fresh cell, dashed</span><span><i style="background:var(--amber)"></i>positive electrode</span><span><i style="background:var(--cyan)"></i>negative electrode</span></div>
+<figcaption>Reading a curve by its slopes, and what ageing does to them.
+<span class="try">Try this: set LLI to 0, then raise it slowly and watch which dV/dQ peaks move and which stay put.</span>
+<details class="src"><summary>Source</summary><span class="basis">The analysis follows Olson, López and Dickinson 2023: cell voltage as the difference of the electrode potentials, the cell’s dV/dQ as the sum of the electrodes’ contributions, the square plot, and LLI and LAM through their eqs. 48 and 49. The cell is a toy. Each electrode’s lithium content is a sum of smooth steps in its potential, an illustrative choice of ours with the properties they ask of such a function; the plateau potentials (0.12 and 0.21 V; 3.92 and 4.10 V) and the negative-to-positive capacity ratio of 1.15 are invented, not those of a real material. Window 3.0 to 4.2 V. The dV/dQ plot is cut off at the top.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">We now know enough to read a real curve. A voltage curve hides a lot in its gentle bends. Plot its slope instead and the bends become peaks. Two plots are used: the <b>differential voltage</b> <math><mrow><mtext>d</mtext><mi>V</mi><mo>/</mo><mtext>d</mtext><mi>Q</mi></mrow></math> against charge, and the <b>differential capacity</b> <math><mrow><mtext>d</mtext><mi>Q</mi><mo>/</mo><mtext>d</mtext><mi>V</mi></mrow></math> against voltage.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<p class="explain">Peaks in differential capacity correspond to plateaus, where two phases are in equilibrium. Materials that take lithium as one smooth solid solution show no sharp peaks.<sup class="cite"><a href="#ref-5">5</a></sup> Put compactly: “A peak in the [dQ/dV] plot features the equilibrium between different electrochemically-active phases in the electrode whereas a peak in the [dV/dQ] plot locates the transition from one equilibrium to another.”<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<h3 class="sub">Two electrodes in one curve</h3>
+<p class="explain">Where do the peaks come from? A cell’s voltage is the positive electrode’s potential minus the negative’s, each set by how much lithium that electrode holds:<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<span class="mblock"><math display="block"><mrow><mi>V</mi><mo>=</mo><msub><mi>U</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub><mo stretchy="false">)</mo><mo>−</mo><msub><mi>U</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub><mo stretchy="false">(</mo><msub><mi>x</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub><mo stretchy="false">)</mo><mo>,</mo><mspace width="2em" /><mfrac><mrow><mtext>d</mtext><mi>V</mi></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mtext>d</mtext><msub><mi>U</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac><mo>−</mo><mfrac><mrow><mtext>d</mtext><msub><mi>U</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac></mrow></math></span>
+<p class="explain">The two electrodes’ slopes simply add, so every dV/dQ peak of the cell can be traced to one electrode.<sup class="cite"><a href="#ref-5">5</a></sup> A dQ/dV peak needs the voltage to stand still while charge flows, so both electrodes must be on a plateau at once.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<h3 class="sub">The square plot and ageing</h3>
+<p class="explain">To see both electrodes at once, we draw the state of a cell on a <b>square plot</b>: the negative electrode’s lithium content across, the positive electrode’s (inverted) up. A cell charging from empty to full is a straight line on it.<sup class="cite"><a href="#ref-5">5</a></sup> The slope of the line is the ratio of the electrodes’ capacities, and where it meets the left edge measures the lithium the cell has lost for good.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<span class="mblock"><math display="block"><mrow><mn>1</mn><mo>−</mo><msub><mi>x</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub><mo>=</mo><mi>a</mi><mspace width="0.167em" /><msub><mi>x</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub><mo>+</mo><mi>b</mi></mrow></math></span>
+<p class="explain">Now let the cell age. Ageing comes in two classic kinds. <b>Loss of lithium inventory</b> (LLI) is cyclable lithium used up by side reactions. <b>Loss of active material</b> (LAM) is material that has changed irreversibly, dissolved or come loose from the current collector.<sup class="cite"><a href="#ref-5">5</a></sup> LLI moves the line up; LAM tilts it, losing positive material steepens it and losing negative material flattens it. The window between the cut-offs then picks out a shorter piece of line, so the capacity falls.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<p class="explain">In one LiCoO<sub>2</sub> and graphite example, lost lithium leaves the graphite peaks where they were on the charge axis but moves the LiCoO<sub>2</sub> peaks to lower charge.<sup class="cite"><a href="#ref-5">5</a></sup> The toy cell does the same. Differentiating real data is sensitive to noise: in that analysis, slow C/20 data were thinned 144-fold before differentiating, to reduce the noise.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<p class="lesson">Slopes turn a smooth curve into peaks that can be traced to each electrode, and their shifts tell lost lithium from lost material.</p>        <details class="deeper maths" id="maths"><summary>The mathematics of this chapter</summary><div class="body">
+
+<p class="eqline"><span class="eq"><math><mrow><mi>V</mi><mo>=</mo><msub><mi>U</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub><mo>−</mo><msub><mi>U</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub></mrow></math><br><math><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mtext>d</mtext><mi>V</mi></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mtext>d</mtext><msub><mi>U</mi><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow></msub></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac></mstyle><mo>−</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mtext>d</mtext><msub><mi>U</mi><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">g</mi></mrow></msub></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac></mstyle></mrow></math><br><math><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mtext>d</mtext><mi>Q</mi></mrow><mrow><mtext>d</mtext><mi>V</mi></mrow></mfrac></mstyle><mo>=</mo><msup><mrow><mo stretchy="true" fence="true" form="prefix">(</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mtext>d</mtext><mi>V</mi></mrow><mrow><mtext>d</mtext><mi>Q</mi></mrow></mfrac></mstyle><mo stretchy="true" fence="true" form="postfix">)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></math></span><span class="eqnote">a cell’s voltage and differential voltage from its two electrodes, and the differential capacity (figure 5.10)</span></p>
+</div></details>
+
+</div>
+</div>
+
+
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn prev" href="../../../batteries/recycling/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Chapter 18 Recycling</span><span class="pn-q">What happens to a battery when it is finished?</span></a>
+<a class="pn next" href="../../../batteries/lab/gitt/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Lab 2 GITT</span><span class="pn-q">How do we measure resistance and diffusion?</span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this page</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">W. Weppner, R. A. Huggins, "Electrochemical Investigation of the Chemical Diffusion, Partial Ionic Conductivities, and Other Kinetic Parameters in Li3Sb and Li3Bi", <i>Journal of Solid State Chemistry</i> <b>22</b>, 1977, 297-308. <a href="https://doi.org/10.1016/0022-4596(77)90006-8" target="_blank" rel="noopener">doi:10.1016/0022-4596(77)90006-8</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">J. Kim, S. Park, S. Hwang, W.-S. Yoon, "Principles and Applications of Galvanostatic Intermittent Titration Technique for Lithium-ion Batteries", <i>Journal of Electrochemical Science and Technology</i> <b>13</b>, 2022, 19–31. <a href="https://doi.org/10.33961/jecst.2021.00836" target="_blank" rel="noopener">doi:10.33961/jecst.2021.00836</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">A. Ch. Lazanas, M. I. Prodromidis, "Electrochemical Impedance Spectroscopy—A Tutorial", <i>ACS Measurement Science Au</i> <b>3</b>, 2023, 162–193. <a href="https://doi.org/10.1021/acsmeasuresciau.2c00070" target="_blank" rel="noopener">doi:10.1021/acsmeasuresciau.2c00070</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">J. Z. Olson, C. M. López, E. J. F. Dickinson, "Differential Analysis of Galvanostatic Cycle Data from Li-Ion Batteries: Interpretative Insights and Graphical Heuristics", <i>Chemistry of Materials</i> <b>35</b>, 2023, 1487–1513. <a href="https://doi.org/10.1021/acs.chemmater.2c01976" target="_blank" rel="noopener">doi:10.1021/acs.chemmater.2c01976</a></span></li></ol>
+</div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+</div>
+</footer>
+
+<script src="../../../assets/js/gsap.min.js"></script>
+<script src="../../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../../assets/js/physics.js"></script>
+<script src="../../../assets/js/site.js"></script>
+<script src="../../../assets/js/learn/lab-cell-testing.js"></script>
+<script src="../../../assets/js/share.js"></script>
+</body>
+</html>

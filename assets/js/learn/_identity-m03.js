@@ -301,15 +301,7 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
-  /* =================================================================
-     Module 3: where the voltage comes from. Electron energy after Bard,
-     Faulkner and White (B2) 1.1.4 and Figure 1.1.3; the Fermi level and
-     equilibrium after 2.2.5; the double layer after 1.6.2, 1.6.3 and
-     14.3.1; the ladder after Goodenough and Park 2013 (R6) and Tarascon
-     and Armand 2001 (R2); the water window from B2 Table C.1 and 2.1.9.
-     ================================================================= */
-
-  /* ===== 3.1 Potential as electron energy: the Fermi level ===== */
+  /* figs-3.js */
   register('f3-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), ESl = fig.querySelector('.E'), Ev = fig.querySelector('.E-val');
     var y0 = 150, sc = 62; // y of E = 0 (the couple's standard potential); px per volt
@@ -365,8 +357,6 @@
     }, { autoplay: true, stepDt: 0.25, onPlay: function () { sweeping = true; } });
     bind(fig, loop);
   });
-
-  /* ===== 3.2 The interface: the electrical double layer ===== */
   register('f3-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), qSl = fig.querySelector('.q'), qv = fig.querySelector('.q-val'), formBtn = fig.querySelector('.form-btn');
     var xm = 40, xb = 200, xs = 480, yT = 40, yB = 190, qNow = null; // qNow: fractional charge during the replay
@@ -421,8 +411,6 @@
     on(formBtn, 'click', startForming);
     bind(fig, loop);
   });
-
-  /* ===== 3.3 The potential ladder, with the water window in its right place ===== */
   register('f3-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), selN = fig.querySelector('select[data-side=neg]'), selP = fig.querySelector('select[data-side=pos]');
     var read = fig.querySelector('.readout'), flags = fig.querySelector('.flags'), aq = fig.querySelector('input[type=checkbox]'), pHSl = fig.querySelector('.pH'), pHv = fig.querySelector('.pH-val');
@@ -484,8 +472,6 @@
       { text: 'Tick the water window. Water is stable over only 1.23 V, and where that window sits depends on pH: 3.05 to 4.27 V versus lithium in acid, sliding 59 mV lower per pH unit. Every rung below about 3 V is out of reach for a water-based cell.', on: function () { aq.checked = true; renderAq(); } }
     ]);
   });
-
-  /* ===== 3.4 The electron energy picture, with the wire ===== */
   register('f3-4', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var Y = function (V) { return 70 + V * 40; }; // energy axis: potential downward
@@ -534,8 +520,6 @@
     }, { autoplay: true, stepDt: 0.3 });
     bind(fig, loop);
   });
-
-  /* ===== 3.5 Why oxides give 4 V and sulfides about 2.5 V ===== */
   register('f3-5', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg);
     var Y = function (eV) { return 44 + eV * 42; }; // eV below the lithium level, downward
@@ -558,8 +542,6 @@
       { text: 'The carbonate electrolyte’s own filled level sits about 4.3 eV below lithium, just under the oxide band top: the oxide’s 4 V fits inside the window with little to spare, which is why oxide hosts run today’s cells.' }
     ]);
   });
-
-  /* ===== 3.6 From reaction energy to voltage: dG = -nFE ===== */
   register('f3-6', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), n = fig.querySelector('input[data-p=n]'), E = fig.querySelector('input[data-p=E]'), read = fig.querySelector('.readout'), nl = fig.querySelector('.n-val'), El = fig.querySelector('.E-val'), presets = fig.querySelectorAll('button[data-preset]');
     txt(g, 40, 26, 'electrical energy available per mole of reaction, −ΔG = nFE', 'strong');
@@ -588,7 +570,6 @@
       { text: 'The cyan mark is the Daniell cell: n = 2, E = 1.10 V, −ΔG = 213 kJ per mole of zinc. Tap “Daniell cell”, then “your cell”, and compare.' }
     ]);
   });
-
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

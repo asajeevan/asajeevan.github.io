@@ -301,14 +301,7 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
-  /* =================================================================
-     Module 2: anatomy of a cell. Coin-cell stack after Murray, Hall and
-     Dahn 2019 Figure 1; layer jobs from Winter and Brodd 2004 section
-     1.2; collectors after Goodenough and Park 2013 Figure 1; the
-     composite coating after Winter and Brodd section 1.6.
-     ================================================================= */
-
-  /* ===== 2.1 A coin cell in cross-section ===== */
+  /* figs-2.js */
   register('f2-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), info = fig.querySelector('.part-info'), range = fig.querySelector('input[type=range]');
     var cx = 250, W = 270, x0 = cx - W / 2, x1 = cx + W / 2;
@@ -360,8 +353,6 @@
     ]);
     explode(+range.value / 100); pick(layers[3]);
   });
-
-  /* ===== 2.2 The jelly roll: a flat stack wound into a cylinder ===== */
   register('f2-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), wind = fig.querySelector('.wind'), read = fig.querySelector('.readout');
     var cols = ['var(--copper)', '#2b3538', 'var(--cyan)', 'var(--amber-2)', '#cfd6d8'], widths = [3, 8, 4, 8, 3], names = ['copper foil (collector)', 'graphite', 'separator + electrolyte', 'LiCoO₂', 'aluminium foil (collector)'];
@@ -404,8 +395,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; pos += dir * dt * 28; if (pos >= 100) { pos = 100; dir = -1; } if (pos <= 0) { pos = 0; dir = 1; } wind.value = String(Math.round(pos)); render(); }, { autoplay: false, stepDt: 0.5 });
     bind(fig, loop);
   });
-
-  /* ===== 2.3 Inside a composite electrode ===== */
   register('f2-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var x0 = 60, x1 = 460, yTop = 40, yCol = 232;
@@ -443,8 +432,6 @@
     var loop = anim(fig, tick, { autoplay: true, stepDt: 0.3 });
     bind(fig, loop);
   });
-
-  /* ===== 2.4 Nominal voltages of common systems ===== */
   register('f2-4', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), info = fig.querySelector('.part-info'), data = P.data.nominal;
     var xN = 168, xB = 178, sc = 62, rowH = 22, y = 40;
@@ -476,7 +463,6 @@
       { text: 'Look at the dots. Every system with a <b>water-based</b> electrolyte sits at or below 2 V; every system above 2 V uses lithium and a nonaqueous electrolyte. Module 3 explains both facts.' }
     ]);
   });
-
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

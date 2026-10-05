@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>_identity/m00</title>
+<meta name="description" content="_identity/m00">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="_identity/m00">
+<meta property="og:description" content="_identity/m00">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/_identity/m00/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/_identity/m00/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="_identity/m00">
+<meta name="twitter:description" content="_identity/m00">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../../../assets/css/site.css">
+<link rel="stylesheet" href="../../../assets/css/learn.css">
+<script type="application/ld+json">{}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="_identity/m00">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+<div class="wrap">
+<a class="brand" href="../../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="Course">
+<a href="../../../batteries/">Contents</a>
+<a href="../../../batteries/_identity/m01/" rel="next">Ch. 1 &#8594;</a>
+<a href="#references">References</a>
+</nav>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+<section class="module" id="m00" data-act="A" data-nav>
+<div class="wrap">
+<p class="mod-n">Module 0 &#183; the foundation</p>
+<h2 class="h2">Charge, field, potential, voltage</h2>
+<p class="hook">A torch cell says 1.5 V on its side. What is a volt, and what exactly is being pushed?</p>
+<p class="where"><b>Where we are.</b> Before the first cell, four words that every later screen uses: <b>charge</b>, the thing that pushes and is pushed; <b>field</b>, the push per unit charge at a place; <b>potential</b>, the energy per unit charge at a place; <b>voltage</b>, a difference of potential. Each gets one figure, one equation and one number.</p>
+
+<div class="beat">
+<figure class="fig" data-fig="f0-1" id="f0-1">
+<span class="fnum">Figure 0.1</span>
+<svg viewBox="0 0 520 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f01t">
+<title id="f01t">Two point charges a distance r apart, with the force on each drawn as an arrow; the force is the same size on both, falls with the square of r, and reverses when one sign is flipped.</title>
+</svg>
+<div class="controls">
+<label>distance r <input type="range" class="r" min="0.5" max="4" step="0.1" value="1.5" aria-label="Distance between the charges in nanometres"> <b class="r-val">1.5 nm</b></label>
+<button type="button" data-q="a">q: +e (tap to flip)</button>
+<button type="button" data-q="b">q&#8242;: +e (tap to flip)</button>
+</div>
+<div class="key"><span><i class="pos"></i>positive charge</span><span><i class="neg"></i>negative charge</span><span><i class="act"></i>force</span><span><i class="field"></i>field</span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Coulomb&#8217;s law. Two charges of one elementary charge each, in vacuum.
+<span class="try">Try this: set r to 1 nm, read the force, then set 2 nm and check that it is a quarter; then flip one sign.</span>
+<details class="src"><summary>Source</summary><span class="basis">Computed from Coulomb’s law in SI form, <span class="eq">F = qq′/(4πε<sub>0</sub>r<sup>2</sup>)</span>, and ε<sub>0</sub> = 8.85419 × 10<sup>−12</sup> C<sup>2</sup> N<sup>−1</sup> m<sup>−2</sup>, as printed in Bard, Faulkner and White 2022, section 14.3.1 (footnote 6) and 2.2.1; e = 1.602 × 10<sup>−19</sup> C (CODATA). Arrow lengths scale with the square root of the force so that both ends of the slider stay visible.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Everything on this page moves because charges push on one another. Charge comes in two signs, and the names are a convention older than the electron: Benjamin Franklin called an excess of what we now call electronic charge <span class="def">negative</span> and a deficiency of it <span class="def">positive</span>.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Between two charges q and q′ a distance r apart there is a force <span class="eq">F = qq′/(4πε<sub>0</sub>r<sup>2</sup>)</span>, Coulomb’s law, where ε<sub>0</sub> is a measured constant, the permittivity of free space.<sup class="cite"><a href="#ref-1">1</a></sup> Read the formula: the force grows with either charge, falls with the <em>square</em> of the distance, and its sign follows the product of the charges, so like charges push apart and unlike charges pull together.</p>
+<p class="explain">The unit of charge is the coulomb, and one electron carries 1.602 × 10<sup>−19</sup> C of it. Put two electrons one nanometre apart, about the width of three water molecules, and the formula gives 0.23 nN pushing them apart: tiny in newtons, enormous for something that weighs 10<sup>−30</sup> kg.</p>
+<p class="lesson">Charges push on each other with a force that falls as the square of the distance.</p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f0-2" id="f0-2">
+<span class="fnum">Figure 0.2</span>
+<svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f02t">
+<title id="f02t">The electric field around one positive charge drawn as arrows that point outward and shorten with distance, a probe charge whose force is shown, and a graph of the potential against distance with the probe marked on it.</title>
+</svg>
+<div class="controls">
+<label>probe distance r <input type="range" class="r" min="1" max="5" step="0.1" value="2" aria-label="Distance of the probe from the charge in nanometres"> <b class="r-val">2.0 nm</b></label>
+<button type="button" data-probe>probe: +e (tap to flip)</button>
+</div>
+<div class="key"><span><i class="field"></i>field (force per unit charge)</span><span><i class="phi"></i>potential &#966;</span><span><i class="act"></i>force on the probe</span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Field and potential around a single charge. The map on the left and the graph on the right describe the same push in two languages.
+<span class="try">Try this: slide the probe from 1 nm to 4 nm and watch the force arrow shrink four times faster than the potential falls.</span>
+<details class="src"><summary>Source</summary><span class="basis">Field as the force on a unit charge and potential as &#966; = &#8722;&#8747;E&#183;dl from Bard, Faulkner and White 2022, section 2.2.1 (eqs. 2.2.1 and 2.2.2). The 1/r curve is that integral evaluated with Coulomb&#8217;s law for one elementary charge; potential zero taken at infinity.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Take the second charge away and ask what is left at its place. The answer is the <span class="def">electric field</span>: the force that would act on a unit charge put there, a vector with a direction and a strength at every point in space.<sup class="cite"><a href="#ref-1">1</a></sup> Around a positive charge it points outward and falls as 1/r<sup>2</sup>, because that is how the force falls.</p>
+<p class="explain">Now bring a unit positive charge in from very far away, pushing against that field all the way. The work you do is the <span class="def">electric potential</span> &#966; at the point you reach, and it does not depend on the path you took: &#966; = &#8722;&#8747;E&#183;dl.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Only differences of &#966; between two points can be measured; the value at one point is a bookkeeping choice, and the usual choice sets &#966; = 0 infinitely far away.<sup class="cite"><a href="#ref-1">1</a></sup> For a single elementary charge the integral gives <span class="eq">φ = q/(4πε<sub>0</sub>r)</span>, which is 1.44 V one nanometre out and half that at two.</p>
+<p class="explain">The two pictures are one: the field is the slope of the potential. Where &#966; falls steeply the push is strong; where &#966; is flat there is no push at all. That last case is about to matter.</p>
+<p class="lesson">Field is force per unit charge; potential is energy per unit charge; the field is the slope of the potential.</p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f0-3" id="f0-3">
+<span class="fnum">Figure 0.3</span>
+<svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f03t">
+<title id="f03t">Two metal plates held at a potential difference V with a uniform field between them, a test charge that is pushed downhill if positive and uphill if negative, and a strip below showing the potential flat inside each plate and falling in a straight line across the gap.</title>
+</svg>
+<div class="controls">
+<label>V <input type="range" class="V" min="0.5" max="5" step="0.1" value="1.5" aria-label="Potential difference between the plates in volts"> <b class="V-val">1.5 V</b></label>
+<label>gap l <input type="range" class="l" min="1" max="10" step="1" value="2" aria-label="Gap between the plates in millimetres"> <b class="l-val">2 mm</b></label>
+<label>position <input type="range" class="x" min="0" max="100" step="1" value="30" aria-label="Position of the test charge across the gap"></label>
+<button type="button" data-probe>test charge: +e (tap to flip)</button>
+</div>
+<div class="key"><span><i class="field"></i>field</span><span><i class="phi"></i>potential &#966;</span><span><i class="act"></i>force on the test charge</span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Voltage as a potential hill. Two conductors, a gap, and a charge that rolls.
+<span class="try">Try this: flip the test charge to &#8722;e, press Play, and watch it climb toward the higher potential; then double V and watch the field arrows.</span>
+<details class="src"><summary>Source</summary><span class="basis">Conductor at equilibrium (no field inside, one potential, excess charge on the surface) from Bard, Faulkner and White 2022, section 2.2.1; the linear potential and field E = V/l between parallel plates from their eq. 4.2.3; the energy q&#916;&#966; and the electron-volt from section 1.1.4 (footnote 9); <span class="eq">1 V = 1 J/C</span> from section 1.1.2. Field strength computed; the strip is drawn to scale in volts.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">A <span class="def">voltage</span> is a difference of potential between two points, and its unit, the volt, is one joule per coulomb: the energy available to move each coulomb of charge from one point to the other.<sup class="cite"><a href="#ref-1">1</a></sup> Move a charge q across a potential difference &#916;&#966; and its energy changes by q&#916;&#966;.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">For one electron across one volt that change is one <span class="def">electron-volt</span>, and per mole of electrons it is 96.5 kJ, comparable to the energies of chemical bonds and reactions; which is why a few volts are enough to drive chemistry.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Metals are <span class="def">conductors</span>: they contain charges that are free to move. Leave a metal alone and those charges settle until there is no field left inside it, because any field would move them further; so a conductor at rest sits at a single potential throughout, and any excess charge it carries lies on its surface.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">The plates in the figure are two such flat regions of the potential; between them, where there is no conductor, the potential falls in a straight line and the field is simply V divided by the gap.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="aside">A picture to keep: potential is height, field is slope, and a positive charge rolls downhill while a negative one is pushed uphill. The picture breaks in one place: charges also push on each other and rearrange, so the hill is not fixed scenery. Module 3 is about how a cell builds its own hill.</p>
+<div class="worked"><b>Worked example.</b> How much charge does it take to raise a metal by one volt? Bard, Faulkner and White give the answer for a mercury drop of 0.5 mm radius in vacuum: about 5 × 10<sup>−14</sup> C per volt.<sup class="cite"><a href="#ref-1">1</a></sup>
+<span class="line">electrons per volt = 5 × 10<sup>−14</sup> C ÷ 1.602 × 10<sup>−19</sup> C  ≈  <i>3 × 10<sup>5</sup></i></span>
+Three hundred thousand electrons, out of the 10<sup>20</sup> or so in the drop, shift its potential by a full volt. Potentials are set by minute charge imbalances, which is why they are so easy to change and so hard to see.</div>
+<p class="lesson">A volt is a joule per coulomb; a conductor at rest is all at one potential.</p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f0-4" id="f0-4">
+<span class="fnum">Figure 0.4</span>
+<svg viewBox="0 0 520 316" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f04t">
+<title id="f04t">A cell, a switch and a lamp joined by a wire, with electrons drawn moving from the negative terminal through the wire to the positive one, and a strip below showing the potential rising inside the cell and falling along the path, mostly across the lamp; with the switch open the whole drop sits across the switch.</title>
+</svg>
+<div class="controls">
+<label>cell voltage V <input type="range" class="V" min="0.5" max="5" step="0.1" value="1.5" aria-label="Cell voltage in volts"> <b class="V-val">1.5 V</b></label>
+<label>lamp resistance R <input type="range" class="R" min="1" max="30" step="1" value="3" aria-label="Resistance of the lamp in ohms"> <b class="R-val">3 &#937;</b></label>
+<button type="button" class="sw-btn">Open the switch</button>
+</div>
+<div class="key"><span><i class="e"></i>electron</span><span><i class="field"></i>field along the wire</span><span><i class="phi"></i>potential along the path</span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Why a current needs a voltage. The strip unrolls the whole loop, starting and ending at the &#8722; terminal.
+<span class="try">Try this: open the switch and watch where the drop goes; then close it and raise R until the lamp is barely lit.</span>
+<details class="src"><summary>Source</summary><span class="basis">Electrons move through the wire from the more negative electrode to the more positive one (Bard, Faulkner and White 2022, 1.1.1); current as charge per second, <span class="eq">i = dQ/dt</span> (1.1.5); a potential difference is needed to drive current through a resistance (2.2.1, footnote 15) and metals take only a small share because they conduct far better than electrolytes (1.5, footnote 39); Ohm&#8217;s law <span class="eq">E = IR</span> from Winter and Brodd 2004, section 2.2; <span class="eq">P = IV</span> from Goodenough and Park 2013. The split of the drop, 3 % in each wire and the rest in the lamp, is illustrative; I and P are computed.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">A cell keeps its two terminals at a fixed potential difference; module 1 shows how. Join them with a wire and electrons flow through the wire from the more negative terminal to the more positive one.<sup class="cite"><a href="#ref-1">1</a></sup> The amount of charge passing a point each second is the <span class="def">current</span>, <span class="eq">i = dQ/dt</span>, measured in amperes: one ampere is one coulomb per second.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">A wire carrying current is no longer at one potential. Between any two points on it there must be a potential difference to drive the current through the resistance between them.<sup class="cite"><a href="#ref-1">1</a></sup> That is Ohm&#8217;s law, <span class="eq">V = IR</span>: the same current through twice the resistance needs twice the voltage.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">The resistance of a piece of conductor grows with its length and shrinks with its cross-section, R = &#961;l/A, where &#961; is the resistivity of the material.<sup class="cite"><a href="#ref-1">1</a></sup> Metals have a resistance too, but it is so much smaller than that of an electrolyte that on the scale of a cell the drop along the copper is invisible.<sup class="cite"><a href="#ref-1">1</a></sup> In the figure, nearly the whole voltage is spent across the lamp.</p>
+<p class="explain">Energy per coulomb times coulombs per second is energy per second: the <span class="def">power</span> delivered is <span class="eq">P = IV</span>, in watts.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<div class="worked"><b>Worked example.</b> A 1.5 V cell drives a lamp of 3 &#937;.
+<span class="line">I = V / R = 1.5 V / 3 &#937; = <i>0.5 A</i>, that is 0.5 C every second</span>
+<span class="line">electrons per second = 0.5 C ÷ 1.602 × 10<sup>−19</sup> C = <i>3.1 × 10<sup>18</sup></i></span>
+<span class="line">P = I V = 0.5 A &#215; 1.5 V = <i>0.75 W</i></span>
+Each electron gives up 1.5 eV on its way round; three billion billion of them a second add up to three quarters of a watt of light and heat.</div>
+<p class="lesson">Current needs a potential difference to drive it through resistance; the power is current times voltage.</p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f0-5" id="f0-5">
+<span class="fnum">Figure 0.5</span>
+<svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f05t">
+<title id="f05t">A liquid between two electrodes with a field across it; a cation is pushed toward the negative side and an anion toward the positive side, each reaching a steady drift speed when the drag of the liquid balances the electric force; a strip shows the potential sloping across the liquid.</title>
+</svg>
+<div class="controls">
+<label>field <input type="range" class="E" min="0.5" max="2" step="0.5" value="1" aria-label="Field strength, relative"> <b class="E-val">1 (relative)</b></label>
+<label>ion radius <input type="range" class="rad" min="0.5" max="2" step="0.5" value="1" aria-label="Ion radius, relative"> <b class="rad-val">1 (relative)</b></label>
+</div>
+<div class="key"><span><i class="li"></i>our ion (cation)</span><span><i class="an"></i>anion</span><span><i class="act"></i>electric force</span><span><i class="sulf"></i>drag</span><span><i class="field"></i>field</span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>How an ion moves through a liquid. Our ion, the amber cation, will be followed by name through the rest of the page.
+<span class="try">Try this: double the ion radius and watch the drift halve; double the field and watch it double. Step through the launch to see the drag arrow grow until it matches the push.</span>
+<details class="src"><summary>Source</summary><span class="basis">Force |z|eE, Stokes drag 6&#960;&#951;rv, terminal velocity and mobility u = |z|e/(6&#960;&#951;r) from Bard, Faulkner and White 2022, section 2.3.3 and Figure 2.3.4; cations driven down the sloping potential and anions up from their section 1.5.1; conductivity &#954; = F&#931;|z|uC from eq. 2.3.10; electroneutrality from section 2.3.3. Speeds and forces are in relative units: no viscosity or radius is quoted because the sources give none for a battery electrolyte.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">In a liquid the mobile charges are not electrons but <span class="def">ions</span>, atoms or molecules that have lost or gained electrons; free electrons in a solution are so short-lived that they carry no current worth counting.<sup class="cite"><a href="#ref-1">1</a></sup> Put an ion of charge number z in a field E and it feels the force |z|eE. As it speeds up the liquid drags on it, with a drag that grows with speed; when the drag balances the push the ion stops accelerating and drifts at a steady <span class="def">terminal velocity</span>.<sup class="cite"><a href="#ref-1">1</a></sup> The velocity per unit field is the ion&#8217;s <span class="def">mobility</span>, u = |z|e/(6&#960;&#951;r): a smaller ion in a thinner liquid moves faster.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">When current flows through a liquid the potential slopes across it, exactly as it did along the wire, and the slope is the field: cations are driven down the slope and anions up it.<sup class="cite"><a href="#ref-1">1</a></sup> Both carry current, and the liquid&#8217;s <span class="def">conductivity</span> adds up every kind of ion, its charge, its mobility and its concentration: &#954; = F&#931;|z|uC.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">One more rule holds everywhere in the liquid: on any scale you can see, positive and negative charge balance. An imbalance cannot build up, because it would create an enormous field that would move ions until it was gone.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">The constant F in that formula is the <span class="def">Faraday constant</span>, the charge carried by one mole of electrons, 96 485.3 C.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> It is the bridge between the chemist&#8217;s moles and the physicist&#8217;s coulombs, and it returns in module 4 to count how much charge a gram of material can hold.</p>
+<p class="recap"><b>You can now explain</b> what a volt is, why a field makes charges move and which way, why a current needs a potential difference to drive it, and why an ion in a liquid drifts at a steady speed rather than accelerating.</p>
+<p class="bridge">Now put two different metals into a liquid and see where a potential difference comes from.</p>
+<details class="deeper"><summary>Go deeper: Gauss&#8217;s law, and why the charge sits on the surface</summary><div class="body">
+<p>Draw an imaginary closed surface anywhere. Gauss’s law says that the net charge inside it equals ε<sub>0</sub> times the integral of the field over that surface, <span class="eq">q = ε<sub>0</sub>∮E·dS</span>.<sup class="cite"><a href="#ref-1">1</a></sup> Inside a conductor at rest the field is zero everywhere, so the integral over any surface drawn inside the conductor is zero, so the charge inside is zero: whatever excess charge the conductor carries must lie on its boundary.<sup class="cite"><a href="#ref-1">1</a></sup> In an electrolyte the same argument leaves the charge at the boundary too, but thermal motion smears it into a layer that can be tenths of a nanometre to thousands of nanometres thick, the <em>space charge region</em>; in a metal that layer is negligibly thin.<sup class="cite"><a href="#ref-1">1</a></sup> Module 3 uses this to build the double layer at an electrode.</p>
+<p>Bring an electrolyte next to the metal and the coulombic field of the metal’s surface charge is largely cancelled by the polarization of the liquid: the same mercury drop then needs about 10<sup>−6</sup> C, some 6 × 10<sup>12</sup> electrons, for a one-volt change, more than 10<sup>7</sup> times what it needed in vacuum.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+</div></details>
+<details class="deeper maths" id="m00-maths"><summary>The mathematics of this module</summary><div class="body">
+<p class="mnote">Everything below is the equation behind a figure above, in the form Bard, Faulkner and White give it. Quantities: q, q′ charges (C); r distance (m); ε<sub>0</sub> = 8.854 × 10<sup>−12</sup> C<sup>2</sup> N<sup>−1</sup> m<sup>−2</sup>; e = 1.602 × 10<sup>−19</sup> C; F = 96 485.3 C/mol.</p>
+<p class="eqline"><span class="eq">F = qq′ / (4πε<sub>0</sub>r<sup>2</sup>)</span><span class="eqnote">Coulomb&#8217;s law; positive means repulsion (figure 0.1)</span></p>
+<p class="eqline"><span class="eq">E = F / q′ = q / (4πε<sub>0</sub>r<sup>2</sup>)</span><span class="eqnote">the field of a point charge: force per unit charge, pointing away from a positive q</span></p>
+<p class="eqline"><span class="eq">&#966;(r) = &#8722;&#8747;<sub>&#8734;</sub><sup>r</sup> E·dl = q / (4πε<sub>0</sub>r)</span><span class="eqnote">the potential: work per unit charge from infinity, path-independent (figure 0.2)</span></p>
+<p class="eqline"><span class="eq">&#966;(B) &#8722; &#966;(A) = &#8722;&#8747;<sub>A</sub><sup>B</sup> E&#183;dl</span><span class="eqnote">a potential difference is the field integrated along any path; in one dimension, E = &#8722;d&#966;/dx: the field is the slope of the potential</span></p>
+<p class="eqline"><span class="eq">q<sub>enclosed</sub> = ε<sub>0</sub> ∮ E·dS</span><span class="eqnote">Gauss&#8217;s law; with E = 0 inside a conductor at rest, the enclosed charge is zero and the excess charge sits on the surface</span></p>
+<p class="eqline"><span class="eq">E = V / l</span><span class="eqnote">the uniform field between two parallel plates a distance l apart (figure 0.3)</span></p>
+<p class="eqline"><span class="eq">&#916;U = q &#916;&#966;</span><span class="eqnote">energy change of a charge moved across Δφ; for q = e and Δφ = 1 V, ΔU = 1 eV = 1.602 × 10<sup>−19</sup> J</span></p>
+<p class="eqline"><span class="eq">F = N<sub>A</sub> e = 96 485.3 C/mol</span><span class="eqnote">the Faraday constant: one electron-volt per electron is F &#215; 1 V = 96.5 kJ per mole</span></p>
+<p class="eqline"><span class="eq"><span class="eq">i = dQ/dt</span></span><span class="eqnote">current, in amperes = coulombs per second (figure 0.4); at 1 A, 1/e = 6.24 × 10<sup>18</sup> electrons pass each second</span></p>
+<p class="eqline"><span class="eq"><span class="eq">V = IR</span>,&#8195;R = &#961;l/A,&#8195;G = 1/R = &#954;A/l</span><span class="eqnote">Ohm&#8217;s law; resistance grows with length and falls with cross-section; &#961; resistivity, &#954; conductivity</span></p>
+<p class="eqline"><span class="eq"><span class="eq">P = IV</span></span><span class="eqnote">power delivered, in watts</span></p>
+<p class="eqline"><span class="eq">|z|eE = 6&#960;&#951;rv&#8195;&#8658;&#8195;u = |z|e / (6&#960;&#951;r),&#8195;v = uE</span><span class="eqnote">an ion of charge number z in a liquid of viscosity &#951;: the electric force balances the Stokes drag at the terminal velocity v; u is the mobility (figure 0.5)</span></p>
+<p class="eqline"><span class="eq">&#954; = F &#931;<sub>j</sub> |z<sub>j</sub>| u<sub>j</sub> C<sub>j</sub>,&#8195;t<sub>j</sub> = |z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub> / &#931;<sub>k</sub> |z<sub>k</sub>|u<sub>k</sub>C<sub>k</sub></span><span class="eqnote">the conductivity of an electrolyte adds up every ion&#8217;s charge, mobility and concentration; t<sub>j</sub>, the transference number, is the share of the current that ion j carries</span></p>
+<p class="eqline"><span class="eq">J<sub>j</sub> = &#8722;D<sub>j</sub> &#8711;C<sub>j</sub> &#8722; (z<sub>j</sub>F/RT) D<sub>j</sub> C<sub>j</sub> &#8711;&#966;</span><span class="eqnote">the Nernst&#8211;Planck equation: an ion&#8217;s flux has a diffusion part (down the concentration gradient) and a migration part (along the field); with D<sub>j</sub> = u<sub>j</sub>RT/(|z<sub>j</sub>|F) the two pictures agree. The modules on ion transport, still to come, are built on it.</span></p>
+</div></details>
+</div>
+</div>
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn next" href="../../../batteries/_identity/m01/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Chapter 1 m01</span><span class="pn-q"></span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this module</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/Book"><span class="ref-n">1</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">J. B. Goodenough, K.-S. Park, "The Li-Ion Rechargeable Battery: A Perspective", <i>Journal of the American Chemical Society</i> <b>135</b>, 2013, 1167-1176. <a href="https://doi.org/10.1021/ja3091438" target="_blank" rel="noopener">doi:10.1021/ja3091438</a></span></li></ol>
+</div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+</div>
+</footer>
+
+<script src="../../../assets/js/gsap.min.js"></script>
+<script src="../../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../../assets/js/physics.js"></script>
+<script src="../../../assets/js/site.js"></script>
+<script src="../../../assets/js/learn/_identity-m00.js"></script>
+<script src="../../../assets/js/share.js"></script>
+</body>
+</html>

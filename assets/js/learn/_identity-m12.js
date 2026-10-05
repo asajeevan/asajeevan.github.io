@@ -301,16 +301,7 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
-  /* =================================================================
-     Module 12: safety, use and end of life. Thermal runaway as defined
-     by Winter and Brodd 2004 (R1) 1.2 and 1.3; safeguards after Brandt
-     1994 (R46), R1 2.6 and Goodenough and Park 2013 (R6); temperature
-     ranges after R1 2.6, SEI growth after von Kolzenberg et al. 2020
-     (R37), plating after Fichtner et al. 2022 (R48); recycling routes
-     after R48 and R1 2.5.
-     ================================================================= */
-
-  /* ===== 12.1 The runaway loop ===== */
+  /* figs-12.js */
   register('f12-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), cs = fig.querySelector('.cool'), cv = fig.querySelector('.cool-val');
     var cx = 140, cy = 130, R = 78;
@@ -352,8 +343,6 @@
     spin.setAttribute('cx', cx); spin.setAttribute('cy', cy - R);
     bind(fig, loop);
   });
-
-  /* ===== 12.2 Layers of protection ===== */
   register('f12-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), ab = fig.querySelectorAll('button[data-abuse]');
     var layers = [
@@ -395,8 +384,6 @@
     ]);
     render();
   });
-
-  /* ===== 12.3 The comfort zone ===== */
   register('f12-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var x0 = 60, x1 = 490, Tm = -60, TM = 100, X = function (T) { return x0 + (T - Tm) / (TM - Tm) * (x1 - x0); };
@@ -416,8 +403,6 @@
     ]);
     read.innerHTML = 'Temperature ranges for cells of around 2004; the two notes give directions only, without numbers.';
   });
-
-  /* ===== 12.4 The recycling routes ===== */
   register('f12-4', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     function node(x, y, w, t, s, col) { el('rect', { x: x, y: y, width: w, height: 44, rx: 8, fill: 'var(--panel-2)', stroke: col || 'var(--line-2)' }, g); txt(g, x + w / 2, y + 18, t, 'strong', 'middle'); if (s) txt(g, x + w / 2, y + 34, s, '', 'middle'); return { x: x, y: y, w: w }; }
@@ -445,7 +430,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; t += dt / 9; place(); }, { autoplay: true, stepDt: 0.5 });
     place(); bind(fig, loop);
   });
-
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

@@ -301,25 +301,10 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
-  /* =================================================================
-     Modules 4 and 5. A shared, clearly illustrative cell model feeds
-     figure 4.2 and the module 5 figures in figs-5.js. Its open-circuit shapes and parameters are
-     not measurements; the equations it combines are the cited ones.
-     ================================================================= */
-  var RTF = P.R * P.T0 / P.F; // thermal voltage, 25.7 mV at 25 C
-  function rateFromSlider(v) { return 0.1 * Math.pow(50, v / 100); } // 0.1C .. 5C, log scale
+  /* figs-45.js */
+  var RTF = P.R * P.T0 / P.F;
+  function rateFromSlider(v) { return 0.1 * Math.pow(50, v / 100); }
   function fmtRate(c) { if (c < 0.67) return 'C/' + Math.round(1 / c); var r = Math.round(c * 10) / 10; return (Math.abs(r - Math.round(r)) < 1e-9 ? String(Math.round(r)) : r.toFixed(1)) + 'C'; }
-  /* The illustrative cell. x is the fraction of the low-rate capacity delivered
-     (0 = full, 1 = empty); the state of charge is 1 - x. Open-circuit shapes are
-     smooth illustrative functions: a flat two-phase plateau (LiFePO4-like, R6) and a
-     sloping single-phase curve (LiCoO2-like, R6), each with the steep ends every cell
-     shows when one electrode runs out. Polarization combines the cited forms:
-       ohmic          eta = I R_b                         (R6 eq. 1; R1 eq. 15)
-       activation     eta = (2RT/F) asinh(i / 2 i0)       (B2 eq. 3.4.11 with alpha = 0.5)
-       concentration  eta = (RT/F) ln(C0 / C), C/C0 = 1 - i/i_lim (R1 eq. 16, F restored)
-     where the limiting current falls as the electrode that is being emptied runs short
-     of lithium (the end of discharge) or of room for it (the end of charge). R_b, i0 and
-     i_lim are illustrative, chosen so that the picture is legible; nothing is measured. */
   var model = {
     Rb: 0.05, i0: 0.3, lim: 8,
     voc: function (shape, x) {
@@ -377,8 +362,6 @@
   function pathOf(pts, x0, y0, x1, y1, vmin, vmax) {
     return pts.map(function (p, i) { return (i ? 'L' : 'M') + (x0 + p.x * (x1 - x0)).toFixed(1) + ',' + (y0 - (p.V - vmin) / (vmax - vmin) * (y0 - y1)).toFixed(1); }).join(' ');
   }
-
-  /* ===== 4.1 Faraday calculator ===== */
   register('f4-1', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.calc-bars'), sel = fig.querySelector('.mat'), M = fig.querySelector('.M'), n = fig.querySelector('.n'), V = fig.querySelector('.V'), Vv = fig.querySelector('.V-val'), read = fig.querySelector('.readout'), note = fig.querySelector('.note');
     P.data.materials.forEach(function (m) { var o = document.createElement('option'); o.value = m.key; o.textContent = plain(m.name); sel.appendChild(o); });
@@ -417,8 +400,6 @@
     ]);
     cellListeners.push(fromCell); fromCell();
   });
-
-  /* ===== 4.2 Energy is the area under the curve ===== */
   register('f4-2', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), read = fig.querySelector('.readout');
     var x0 = 60, y0 = 250, x1 = 490, y1 = 30, vmin = 2.0, vmax = 4.5;
@@ -451,8 +432,6 @@
       { text: 'The dashed line is the gentle C/10 discharge that sets 100 %. Whatever the rate, energy is the integral of V over the charge, which is the same as the average voltage times the capacity.' }
     ]);
   });
-
-  /* ===== 4.3 The Ragone map (static) ===== */
   register('f4-3', function (fig) {
     var svg = fig.querySelector('svg');
     badge(svg, 190, 60, 1); badge(svg, 440, 200, 2); badge(svg, 372, 112, 3);
@@ -462,8 +441,6 @@
       { text: 'The <b>combustion engine</b> is not an electrochemical device: it beats all three on both axes because its energy is stored in a fuel tank, not in an electrode. No single electrochemical system matches it, which is why the sources suggest combining them.' }
     ]);
   });
-
-
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

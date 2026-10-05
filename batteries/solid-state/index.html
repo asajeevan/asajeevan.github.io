@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 14 Solid-state cells | How batteries work</title>
+<meta name="description" content="Why replace the liquid with a solid, and why is it so hard? Solid electrolytes and solid-state cells: polymer and inorganic ion conductors.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="Solid electrolytes and solid-state cells: polymer and inorganic ion conductors">
+<meta property="og:description" content="Why replace the liquid with a solid, and why is it so hard? Solid electrolytes and solid-state cells: polymer and inorganic ion conductors.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/solid-state/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/solid-state/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Solid electrolytes and solid-state cells: polymer and inorganic ion conductors">
+<meta name="twitter:description" content="Why replace the liquid with a solid, and why is it so hard? Solid electrolytes and solid-state cells: polymer and inorganic ion conductors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/learn.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Solid electrolytes and solid-state cells: polymer and inorganic ion conductors", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/solid-state/", "inLanguage": "en"}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="solid-state">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+<div class="wrap">
+<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="Course">
+<a href="../../batteries/">Contents</a>
+<a href="../../batteries/positive-electrodes/" rel="prev">&#8592; Ch. 13</a>
+<a href="../../batteries/sodium-organic/" rel="next">Ch. 15 &#8594;</a>
+<a href="#references">References</a>
+</nav>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+<section class="module" id="ch" data-act="IV" data-nav>
+<div class="wrap">
+<p class="mod-n">Chapter 14</p>
+<h2 class="h2">Solid electrolytes and solid-state cells: polymer and inorganic ion conductors</h2>
+<p class="hook">Why replace the liquid with a solid, and why is it so hard?</p>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f7-8" id="f7-8">
+<span class="fnum">Figure 14.1</span>
+<svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f78t">
+<title id="f78t">Three panels. Liquid: a lithium ion moves inside a shell of solvent molecules and sometimes pairs with an anion. Dry polymer: the ion moves only while the chain segments around it move; cooling the polymer freezes both. Ceramic: the ion moves through a rigid framework.</title>
+</svg>
+<div class="controls"><button type="button" class="chains" aria-pressed="false">Cool the polymer</button></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="li"></i>Li<sup>+</sup></span><span><i class="an"></i>anion</span><span><i class="carb"></i>solvent, polymer chain</span></div>
+<figcaption>Three ways to carry a lithium ion.
+<span class="try">Try this: cool the polymer and watch which of the three ions stops.</span>
+<details class="src"><summary>Source</summary><span class="basis">Liquid: organic electrolytes have a lower solvating power than water and show ion pairing (Winter and Brodd 2004, section 2.2); LiPF<sub>6</sub> in carbonates (their Table 2). Dry polymer: Li<sup>+</sup> hopping between coordinating sites helped by the segmental motion of the chains (Shanmukaraj et al. 2020; Tarascon and Armand 2001, Figure 3 and text). Ceramic: a garnet, after Goodenough and Park 2013; the hops are a drawing device, not a mechanism from the sources. Schematic, not to scale.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">So far our ion has travelled through a liquid. Two other kinds of electrolyte carry lithium differently: a polymer, where there is no solvent at all, and a ceramic, where the ion moves through a solid framework. Let us take the polymer first.</p>
+<p class="explain">A dry polymer such as poly(ethylene oxide), PEO, dissolves a lithium salt with no solvent at all. Wright and co-workers first saw ionic conduction in PEO complexes of sodium and potassium salts, and in 1978 Armand proposed the first dry PEO-lithium electrolyte for lithium batteries, conducting about 10<sup>−4</sup> S/cm at 40 to 60 °C.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">The Li<sup>+</sup> ion is held by the oxygen atoms of the chain and hops from one coordinating site to the next, helped by the segmental motion of the chain; the motion happens in the amorphous, not the crystalline, regions of the polymer.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> That is the weakness of the idea: no chain motion, no conduction.</p>
+<p class="lesson">An electrolyte must carry ions and block electrons; how it carries them decides how fast, and at what temperature.</p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f7-9" id="f7-9">
+<span class="fnum">Figure 14.2</span>
+<svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f79t">
+<title id="f79t">Logarithm of conductivity against temperature for five electrolytes, high temperature on the left: PEO with lithium triflate lowest, PEO with LiTFSI ten times higher, plasticized PEO-LiTFSI ten times higher again, and a gel polymer 2 to 5 times below the organic liquid at the top; a dashed line marks the 80 degrees at which dry-polymer lithium cells run.</title>
+<g class="plot"></g>
+</svg>
+<div class="controls">
+<label><input type="checkbox" value="liq" checked> <i class="sw" style="background:var(--cyan)"></i><span>organic liquid</span></label><label><input type="checkbox" value="gel" checked> <i class="sw" style="background:#9fe3d9"></i><span>gel polymer</span></label><label><input type="checkbox" value="pla" checked> <i class="sw" style="background:#C4B5F7"></i><span>plasticized PEO-LiTFSI</span></label><label><input type="checkbox" value="tfsi" checked> <i class="sw" style="background:var(--amber)"></i><span>PEO-LiTFSI</span></label><label><input type="checkbox" value="trf" checked> <i class="sw" style="background:var(--heat)"></i><span>PEO-LiCF<sub>3</sub>SO<sub>3</sub></span></label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Conductivity against temperature: the gaps follow the cited ratios, the heights are schematic.
+<span class="try">Try this: switch off everything except the two dry-polymer curves and read the gap between them at 40 &#176;C.</span>
+<details class="src"><summary>Source</summary><span class="basis">Shape after Tarascon and Armand 2001, Figure 8, schematic. Only the ratios stated in the text of that article are encoded: about one order of magnitude from LiCF<sub>3</sub>SO<sub>3</sub> to LiTFSI in PEO, about one more with 10 to 25 % plasticizer, and gels 2 to 5 times below the liquid; the 80 °C operating temperature of the dry-polymer lithium cell is theirs too. The curves are illustrative curved forms; absolute values, and the height of the liquid-and-gel pair relative to the polymer group, are not taken from any source.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">How close can a polymer come to the liquid? The polymer route improved by steps. Changing the salt in PEO from lithium triflate, LiCF<sub>3</sub>SO<sub>3</sub>, to LiTFSI, a salt Armand introduced, gains about an order of magnitude, its bulky anion acting as a plasticizer;<sup class="cite"><a href="#ref-1">1</a></sup> adding 10 to 25 % of a plasticizer gains another, and such lightly plasticized polymers still suit a lithium-metal electrode. Gels, 60 to 95 % liquid held in a polymer, come within 2 to 5 times of the liquid&#8217;s conductivity but need a lithium-ion configuration. A dry-polymer lithium cell runs at up to 80 &#176;C.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">LiTFSI itself is a good salt, conductive and safe, with one catch: above about 4 V (3.7 V in PC:DME, as we saw in figure 7.3) it corrodes the aluminium current collector unless a passivating salt is added.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-3">3</a></sup> Liquid or polymer, a nonaqueous electrolyte is thermodynamically stable over a window of about 3.5 V but is used, kinetically, up to 5.5 V.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">That window depends on more than the solvent alone, because the neighbours matter: a single EC molecule is computed to resist oxidation to about 6.9 V vs Li/Li<sup>+</sup>; next to a PF<sub>6</sub><sup>−</sup> anion, which can take a hydrogen from it as HF, the limit falls, and when the hydrogen passes to a neighbouring EC it falls to about 5 to 5.2 V, almost 2 V lower.<sup class="cite"><a href="#ref-4">4</a></sup> In the usual mixture, the cyclic EC dissolves the salt and builds the SEI, while a linear carbonate such as DMC thins the liquid so it conducts better in the cold.<sup class="cite"><a href="#ref-4">4</a></sup></p>
+<div class="worked"><b>Worked example.</b> Let us see what the conductivity costs, for a 25 μm electrolyte layer (an illustrative thickness) of 1 cm<sup>2</sup>, using R = l/(κA) from module 0.
+<span class="line">liquid, κ = 10<sup>−2</sup> S/cm: R = 0.0025 cm ÷ (10<sup>−2</sup> S/cm × 1 cm<sup>2</sup>) = <i>0.25 &#937;</i></span>
+<span class="line">a solid at κ = 10<sup>−4</sup> S/cm: <i>25 &#937;</i>, a hundred times more</span>
+<span class="line">at 1 mA: ohmic drop 0.25 mV against <i>25 mV</i></span>
+This is why 10<sup>−4</sup> S/cm is the bar a solid electrolyte has to clear, and why it has to be thin.<sup class="cite"><a href="#ref-5">5</a>–<a href="#ref-7">7</a></sup></div>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f7-11" id="f7-11">
+<span class="fnum">Figure 14.3</span>
+<svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f711t">
+<title id="f711t">Left: the four requirements for a solid electrolyte, with the garnet ceramic and the suggestion of ceramic-polymer composites. Right: an electrode particle swelling and shrinking inside a rigid solid electrolyte; when it shrinks back the electrolyte does not follow, a gap opens and the ion path is broken.</title>
+</svg>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>electrode particle</span><span><i class="li"></i>ion path in contact</span><span><i class="heat"></i>broken path</span></div>
+<figcaption>Why solid electrolytes are hard: four requirements, and a contact that has to survive breathing.
+<span class="try">Try this: press Play and watch for the moment the ion paths turn red.</span>
+<details class="src"><summary>Source</summary><span class="basis">Requirements, the garnet conductivity and the composite suggestion after Goodenough and Park 2013 (a 2013 assessment); contact loss of inorganic solid electrolytes against electrodes that change volume, also theirs. The size of the volume change and the way the gap opens are schematic.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">That leaves the ceramic, and the question of why the liquid has not simply been replaced by a solid. A solid separator that blocks dendrites would make a lithium-metal negative electrode possible (module 9). To do so, a solid electrolyte must conduct Li<sup>+</sup> at above 10<sup>−4</sup> S/cm, block dendrites without being reduced by lithium, stay chemically stable, and form a robust, flexible thin membrane. The garnet Li<sub>7−</sub>ₓLa<sub>3</sub>Zr<sub>2−</sub>ₓTaₓO<sub>12</sub> conducts above 10<sup>−3</sup> S/cm and is stable against lithium; a 2013 assessment suggested that meeting all four requirements at once points to ceramic-polymer composites. A polymer above 10<sup>−4</sup> S/cm with good electrode contact had, in 2013, yet to be demonstrated.<sup class="cite"><a href="#ref-7">7</a></sup></p>
+<p class="explain">Even a good solid conductor has to keep touching the electrodes. Electrode particles swell and shrink as lithium goes in and out, and against an inorganic solid electrolyte the contact is lost.<sup class="cite"><a href="#ref-7">7</a></sup> In a liquid, the electrolyte simply flows after them.</p>
+
+</div>
+</div>
+<div class="beat alt">
+<figure class="fig" data-fig="f9-10" id="f9-10">
+<span class="fnum">Figure 14.4</span>
+<svg viewBox="0 0 520 232" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f910t">
+<title id="f910t">Left: lithium against a ceramic electrolyte, touching only at points with voids between, or wetting it through a thin interlayer. Right: bars on a log scale of the interface resistance before and after three interlayers, a lithium-graphite composite, an aluminium layer and atomic-layer-deposited alumina. A slider sets the current density and the readout gives the voltage lost at each interface.</title>
+</svg>
+<div class="controls">
+<button type="button" data-mode="bare" aria-pressed="true">Bare lithium</button><button type="button" data-mode="with" aria-pressed="false">With an interlayer</button>
+<label><span>current density</span> <input type="range" class="icd" min="0.1" max="2" step="0.1" value="1" aria-label="Current density in milliamperes per square centimetre"> <b class="icd-val">1.0 mA/cm<sup>2</sup></b></label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="heat"></i>bare interface</span><span><i style="background:var(--cyan)"></i>with an interlayer</span><span><i class="zn"></i>lithium</span></div>
+<figcaption>Solid-state cells: the trouble is where the lithium meets the ceramic.
+<span class="try">Try this: at 1 mA/cm<sup>2</sup>, read the voltage lost at the bare ALD interface; then add the interlayer.</span>
+<details class="src"><summary>Source</summary><span class="basis">Poor wetting, unstable SEI and dendrites at the lithium/solid-electrolyte interface, and the interface resistances before and after a Li–C composite (381 to 11 Ω cm<sup>2</sup>), an aluminium layer (950 to 75 Ω cm<sup>2</sup>) and ALD Al<sub>2</sub>O<sub>3</sub> (1710 to 1 Ω cm<sup>2</sup>) on garnet, after Rahman et al. 2025, sections 6.1 and 7.1 and Fig. 9. The voltage lost, R × i, is this page’s arithmetic; the contact drawing is schematic.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">Negative electrodes for solid-state cells</h3>
+<p class="explain">So far our lithium metal has faced a liquid. The alternative is to put a solid electrolyte against it, and the main reason for moving to solid electrolytes, which we met in module 7, is to use lithium metal. Graphite and titanate work in solid-state cells but store too little to be worth it; silicon is attractive but its swelling is hard on a rigid electrolyte.<sup class="cite"><a href="#ref-8">8</a></sup> A solid electrolyte should be stiffer than the electrode to hold back dendrites, and lithium is soft; yet dendrites still grow through ceramic electrolytes, probably along their grain boundaries, and this is not yet understood.<sup class="cite"><a href="#ref-8">8</a></sup></p>
+<p class="explain">The lithium/ceramic interface has three problems: poor wetting, an unstable SEI and dendrites. Interlayers of Al<sub>2</sub>O<sub>3</sub>, LiNbO<sub>3</sub> or ZrO<sub>2</sub>, often made by atomic layer deposition, a polymer-gel layer, or an additive such as dimethyl sulfate that forms a stiff Li<sub>2</sub>S/Li<sub>2</sub>O interphase, all improve it.<sup class="cite"><a href="#ref-8">8</a></sup> Two other designs avoid the problem: <b>columnar silicon</b>, whose columns change volume anisotropically and so build up less stress, kept 92 % of its capacity after 50 cycles with a sulfide electrolyte against 50.6 % in a liquid one, at a Coulombic efficiency of about 99.95 %; and Samsung’s <b>silver–carbon</b> layer, which needs no excess lithium and gave a prototype pouch cell of more than 900 Wh/L that lasted 1000 cycles.<sup class="cite"><a href="#ref-8">8</a></sup></p>
+<div class="worked"><b>Worked example.</b> An interface of 1710 Ω cm<sup>2</sup> at a current density of 1 mA/cm<sup>2</sup>:
+<span class="line"><math><mrow><mi>Δ</mi><mi>V</mi><mo>=</mo><mi>R</mi><mspace width="0.167em" /><mi>i</mi><mo>=</mo><mn>1710</mn><mtext> </mtext><mi>Ω</mi><mspace width="0.167em" /><mrow><mi mathvariant="normal">c</mi><msup><mi mathvariant="normal">m</mi><mn>2</mn></msup></mrow><mo>×</mo><mn>0.001</mn><mtext> </mtext><mrow><mi mathvariant="normal">A</mi><mo>/</mo><mi mathvariant="normal">c</mi><msup><mi mathvariant="normal">m</mi><mn>2</mn></msup></mrow><mo>=</mo><mn>1.71</mn><mtext> </mtext><mtext>V</mtext></mrow></math></span>
+<span class="line">with the Al<sub>2</sub>O<sub>3</sub> interlayer, 1 Ω cm<sup>2</sup>: <i>1 mV</i></span>
+Without the interlayer the interface alone would eat most of a lithium-metal cell’s voltage.</div>        <details class="deeper maths" id="maths"><summary>The mathematics of this chapter</summary><div class="body">
+
+<p class="eqline"><span class="eq">ΔV = R<sub>int</sub> i</span><span class="eqnote">voltage lost across an interface of area-specific resistance R<sub>int</sub> at current density i (figure 9.10)</span></p>
+</div></details>
+
+</div>
+</div>
+
+
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn prev" href="../../batteries/positive-electrodes/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Chapter 13 Positive electrodes</span><span class="pn-q">Why are today&#x27;s cells built on NMC or LFP, and what comes next?</span></a>
+<a class="pn next" href="../../batteries/sodium-organic/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Chapter 15 Sodium and organic</span><span class="pn-q">Can sodium, or molecules made of carbon, hydrogen and oxygen, do lithium&#x27;s job?</span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this chapter</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">D. Shanmukaraj, P. Ranque, H. Ben Youcef, T. Rojo, P. Poizot, S. Grugeon, S. Laruelle, D. Guyomard, "Review—Towards Efficient Energy Storage Materials: Lithium Intercalation/Organic Electrodes to Polymer Electrolytes—A Road Map (Tribute to Michel Armand)", <i>Journal of The Electrochemical Society</i> <b>167</b>, 2020, 070530. <a href="https://doi.org/10.1149/1945-7111/ab787a" target="_blank" rel="noopener">doi:10.1149/1945-7111/ab787a</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">W. A. Henderson, "Nonaqueous Electrolytes: Advances in Lithium Salts", <i>in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York</i>, 2014, 1-92. <a href="https://doi.org/10.1007/978-1-4939-0302-3_1" target="_blank" rel="noopener">doi:10.1007/978-1-4939-0302-3_1</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">O. Borodin, X. Ren, J. Vatamanu, A. von Wald Cresce, J. Knap, K. Xu, "Modeling Insight into Battery Electrolyte Electrochemical Stability and Interfacial Structure", <i>Accounts of Chemical Research</i> <b>50</b>, 2017, 2886-2894. <a href="https://doi.org/10.1021/acs.accounts.7b00486" target="_blank" rel="noopener">doi:10.1021/acs.accounts.7b00486</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/Book"><span class="ref-n">5</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-7" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">7</span> <span class="ref-body">J. B. Goodenough, K.-S. Park, "The Li-Ion Rechargeable Battery: A Perspective", <i>Journal of the American Chemical Society</i> <b>135</b>, 2013, 1167-1176. <a href="https://doi.org/10.1021/ja3091438" target="_blank" rel="noopener">doi:10.1021/ja3091438</a></span></li><li id="ref-8" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">8</span> <span class="ref-body">M. M. Rahman, U. Nisar, A. Abouimrane, I. Belharouak, R. Amin, "Valuation of Anode Materials for High-Performance Lithium Batteries: From Graphite to Lithium Metal and Beyond", <i>Electrochemical Energy Reviews</i> <b>8</b>, 2025, 14. <a href="https://doi.org/10.1007/s41918-025-00249-w" target="_blank" rel="noopener">doi:10.1007/s41918-025-00249-w</a></span></li></ol>
+</div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+</div>
+</footer>
+
+<script src="../../assets/js/gsap.min.js"></script>
+<script src="../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../assets/js/physics.js"></script>
+<script src="../../assets/js/site.js"></script>
+<script src="../../assets/js/learn/solid-state.js"></script>
+<script src="../../assets/js/share.js"></script>
+</body>
+</html>

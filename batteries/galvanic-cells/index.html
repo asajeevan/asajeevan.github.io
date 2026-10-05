@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 1 Galvanic cells | How batteries work</title>
+<meta name="description" content="Why does the lamp light when the switch closes, and not while it is open? The galvanic cell: half-reactions, open-circuit voltage and two modes of conduction.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="The galvanic cell: half-reactions, open-circuit voltage and two modes of conduction">
+<meta property="og:description" content="Why does the lamp light when the switch closes, and not while it is open? The galvanic cell: half-reactions, open-circuit voltage and two modes of conduction.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/galvanic-cells/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/galvanic-cells/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The galvanic cell: half-reactions, open-circuit voltage and two modes of conduction">
+<meta name="twitter:description" content="Why does the lamp light when the switch closes, and not while it is open? The galvanic cell: half-reactions, open-circuit voltage and two modes of conduction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/learn.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "The galvanic cell: half-reactions, open-circuit voltage and two modes of conduction", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/galvanic-cells/", "inLanguage": "en"}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="galvanic-cells">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+<div class="wrap">
+<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="Course">
+<a href="../../batteries/">Contents</a>
+<a href="../../batteries/electrostatics/" rel="prev">&#8592; Ch. 0</a>
+<a href="../../batteries/cell-anatomy/" rel="next">Ch. 2 &#8594;</a>
+<a href="#references">References</a>
+</nav>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+<section class="module" id="ch" data-act="I" data-nav>
+<div class="wrap">
+<p class="mod-n">Chapter 1</p>
+<h2 class="h2">The galvanic cell: half-reactions, open-circuit voltage and two modes of conduction</h2>
+<p class="hook">Why does the lamp light when the switch closes, and not while it is open?</p>
+<p class="where"><b>Where we are.</b> Module 0 gave you the volt (a joule per coulomb), the field (the push per unit charge), the conductor at rest (one potential throughout) and the two kinds of carrier: electrons in metals, ions in liquids. Now two different metals go into a liquid, and a potential difference appears between them.</p>
+
+<div class="beat">
+<figure class="fig" data-fig="f1-1" id="f1-1">
+<span class="fnum">Figure 1.1</span>
+<svg viewBox="0 0 520 426" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f11t">
+<title id="f11t">A zinc electrode in zinc sulfate and a copper electrode in copper sulfate, separated by a porous wall, joined outside by a wire with a switch, a lamp and a voltmeter reading 1.10 volts. Closing the switch makes zinc atoms leave as ions, electrons run through the wire to the copper where copper ions plate out, and sulfate drift toward the zinc. A strip below shows the potential jumping at each electrode and flat through the liquid.</title>
+</svg>
+<div class="controls"><button class="sw-btn" type="button">Close the switch</button></div>
+<div class="key"><span><i class="zn"></i>zinc</span><span><i class="cu"></i>copper</span><span><i class="li"></i>cation (Zn<sup>2+</sup>, Cu<sup>2+</sup>)</span><span><i class="an"></i>sulfate</span><span><i class="e"></i>electron</span><span><i class="phi"></i>potential</span><span><i class="field"></i>field</span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>The Daniell cell, the textbook battery. Two metals, two salt solutions, a porous wall, and one wire.
+<span class="try">Try this: close the switch and watch the first zinc atom leave; then open it and notice that the voltmeter still reads 1.10 V.</span>
+<details class="src"><summary>Source</summary><span class="basis">Schematic after Winter and Brodd 2004, Figure 1. Open-circuit voltage 1.10 V computed from the standard potentials in Bard, Faulkner and White 2022, Table C.1 (Cu<sup>2+</sup>/Cu +0.340 V, Zn<sup>2+</sup>/Zn −0.7626 V vs NHE). Potential strip after their Figure 1.1.2 (open circuit) and Figure 1.5.2 (current flowing); the split between the two interfacial jumps is not measurable and is drawn schematically (their section 2.2.3). Ion drift shows direction only; the drop under load is illustrative.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Close the switch. Zinc atoms at the left electrode give up two electrons each and dissolve into the liquid as Zn<sup>2+</sup> ions; at the right electrode Cu<sup>2+</sup> ions take two electrons each and settle as copper metal.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> Each of those is a <span class="def">half-reaction</span>, and neither can happen alone: each must be coupled, through a cell, to a second half-reaction running the other way.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">The electrons cannot cross the liquid, so they take the wire, from the more negative electrode to the more positive, and the lamp lights on the way.<sup class="cite"><a href="#ref-2">2</a></sup> Inside the cell the current is carried by ions: cations drift toward the copper and sulfate toward the zinc, so no charge piles up anywhere.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup></p>
+<p class="explain">Open the switch and everything stops, but nothing is lost. The voltage you measure with nothing else connected is the <span class="def">open-circuit voltage</span>,<sup class="cite"><a href="#ref-1">1</a></sup> and a high-impedance voltmeter can read it without drawing any appreciable current.<sup class="cite"><a href="#ref-2">2</a></sup> For this pair of metals it is 1.10 V: the difference between the standard potentials of the two half-reactions, +0.340 V for copper and &#8722;0.763 V for zinc.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">Where a potential sits inside the cell is the strip under the figure: it jumps at each metal|liquid boundary, in a zone so narrow that a very strong field exists there, and stays flat through the liquid; the voltmeter reads the sum of the jumps along the path from one electrode to the other.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">Module 3 shows how each jump is built: the chemistry moves a minute charge across the boundary, and the field of that separated charge is what the strip shows.</p>
+<p class="explain">That is the whole trick, in Goodenough and Park&#8217;s words: the electrolyte &#8220;conducts the ionic component of the chemical reaction between the anode and the cathode, but it forces the electronic component to traverse an external circuit where it does work&#8221;.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<div class="worked"><b>Worked example.</b> Where does 1.10 V come from, and what does it buy?
+<span class="line">E = E°(Cu<sup>2+</sup>/Cu) − E°(Zn<sup>2+</sup>/Zn) = 0.340 V − (−0.763 V) = <i>1.10 V</i></span>
+<span class="line">energy per electron round the circuit = 1.10 eV; two electrons per zinc atom</span>
+<span class="line">per mole of zinc: 2 &#215; 96 485 C &#215; 1.10 V = <i>213 kJ</i></span>
+Module 3 shows that this 213 kJ is the free energy of the reaction Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu, and module 4 turns the “per mole” into “per gram”.</div>
+<p class="lesson">A battery is a chemical reaction that is only allowed to happen through a wire.</p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f1-2" id="f1-2">
+<span class="fnum">Figure 1.2</span>
+<svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f12t">
+<title id="f12t">A metal electrode beside a liquid electrolyte, sharing a boundary. In the metal only electrons move, through a lattice of fixed positive ion cores; in the liquid only ions move; at the boundary an ion takes an electron and becomes an atom. The same field points the same way in both, pushing electrons one way and cations the other.</title>
+</svg>
+<div class="key"><span><i class="e"></i>electron</span><span><i class="li"></i>cation</span><span><i class="an"></i>anion</span><span><i class="field"></i>field</span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Two roads for charge, joined at the boundary. Why the electrons take the wire and the ions take the liquid.
+<span class="try">Try this: press Step and watch what happens at the boundary each time an ion arrives; nothing crosses without a reaction.</span>
+<details class="src"><summary>Source</summary><span class="basis">After Bard, Faulkner and White 2022, section 1.1.1: charge is transported through an electrode by electrons and through an electrolyte by ions, and at the interface the two modes must be linked through an electrode reaction; free electrons in solution are very short-lived (their footnote 1). Field and force directions from their section 2.2.1 and 1.5.1. Schematic; particle speeds are not to scale.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Why do the electrons choose the wire? Because they have no other road. In a metal, charge is carried by electrons moving through a lattice of fixed ion cores; in an electrolyte it is carried by ions, and the &#8220;free&#8221; electrons a liquid might briefly hold are so short-lived that they contribute nothing to its conductivity.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">At the boundary between the two, charge can pass only if the two kinds of carrier are linked by an <span class="def">electrode reaction</span>: electrons consumed or produced in the metal, ions produced or consumed in the liquid.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">The field does the rest. One field points from the positive side to the negative side; it pushes a positive ion along itself and an electron against itself, so the cations in the liquid and the electrons in the wire go round the circuit in opposite senses and meet again at the electrodes.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">In the wire, the potential difference that drives the electrons through the lamp is the one you met in figure 0.4; in the liquid, the potential slopes gently and drives the ions.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="lesson">Electrons travel in metals, ions travel in liquids, and only a reaction can hand charge from one to the other.</p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f1-3" id="f1-3">
+<span class="fnum">Figure 1.3</span>
+<svg viewBox="0 0 520 216" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f13t">
+<title id="f13t">One cell, three cells in series, or three cells in parallel, with bars for voltage and capacity and a strip showing the potential rising once, three times in a row, or once with three paths side by side.</title>
+</svg>
+<div class="controls"><button type="button" data-arr="single" aria-pressed="true">One cell</button><button type="button" data-arr="series">Three in series</button><button type="button" data-arr="parallel">Three in parallel</button></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Cells and batteries. Voltage adds along a path; charge adds across paths.
+<span class="try">Try this: switch to series and count the steps on the strip; then to parallel and ask yourself which cell a given coulomb came from.</span>
+<details class="src"><summary>Source</summary><span class="basis">Definitions from Winter and Brodd 2004, footnote 1; series adds voltage and parallel adds current and run time from Goodenough and Park 2013. The strip applies the rule that a potential difference along a path is the integral of the field along it (Bard, Faulkner and White 2022, eq. 2.2.2), so differences add. The 1.5 V per cell is illustrative.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Strictly, one of these units is a cell, and several connected together are a battery, although the two words are used loosely.<sup class="cite"><a href="#ref-1">1</a></sup> Connecting cells in series adds their voltages; connecting them in parallel adds their current and their run time.<sup class="cite"><a href="#ref-3">3</a></sup> The strip says why the voltages add: a potential difference between two points is the sum of the rises and drops along any path between them,<sup class="cite"><a href="#ref-2">2</a></sup> so three cells in a chain give three rises of V, and a coulomb that travels the whole chain picks up energy at each one.</p>
+<p class="explain">Why the capacity does not add in series is a matter of counting coulombs. The cells in a chain carry one and the same current: the charge that leaves the first cell has nowhere to go but through the second and the third, so every coulomb drawn from the chain is a coulomb drawn from each cell. When one cell has given up its Q, they all have. In parallel the picture is reversed. All three + terminals are tied together and all three &#8722; terminals are tied together, so the ends of the battery see one potential difference, V, and no more; but the current is shared, each cell supplies a third of it, and together they can deliver three times the charge before they are empty. Series adds the rises along the path; parallel adds the paths.</p>
+<p class="explain">A battery keeps its reacting materials inside, so it is a closed system: storage and conversion happen in the same box. A fuel cell is an open system, fed with fuel and oxidant from outside, so its energy is stored in a tank and converted in the cell. A supercapacitor stores charge in the electrical double layers at its electrode surfaces, without a chemical reaction.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">None of the three turns heat into work, so none is bound by the Carnot limit that caps every heat engine.<sup class="cite"><a href="#ref-1">1</a></sup> Everything on this page happens inside a single cell.</p>
+<p class="recap"><b>You can now explain</b> why a cell has a voltage even when nothing is connected, where inside the cell that voltage sits, why the electrons take the wire and the ions the liquid, and why voltages add in series.</p>
+<p class="bridge">So what is inside the box, part by part, and what does each part do?</p>
+<details class="deeper"><summary>Go deeper: primary and secondary cells</summary><div class="body">
+<p>A primary battery is assembled in the charged state and used until exhausted. A secondary, or rechargeable, battery can be restored to its charged condition by a current flowing in the opposite direction to the discharge current; since secondary batteries are usually assembled in the discharged state, they must be charged before their first use.<sup class="cite"><a href="#ref-1">1</a></sup> To charge, a power supply is connected across the cell and its voltage is adjusted; the interfacial potential differences shift, especially at the electrode|electrolyte boundaries, and current can be driven in either direction.<sup class="cite"><a href="#ref-2">2</a></sup> Which reactions can be run backwards, and which cannot, is a question for the modules still to come.</p>
+</div></details>
+<details class="deeper maths" id="maths"><summary>The mathematics of this chapter</summary><div class="body">
+<p class="eqline"><span class="eq">Zn → Zn<sup>2+</sup> + 2e<sup>−</sup>  Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu</span><span class="eqnote">the two half-reactions; neither can run alone</span></p>
+<p class="eqline"><span class="eq">Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu</span><span class="eqnote">the cell reaction, their sum; n = 2 electrons per zinc atom</span></p>
+<p class="eqline"><span class="eq">E<sub>cell</sub> = E°(Cu<sup>2+</sup>/Cu) − E°(Zn<sup>2+</sup>/Zn) = 0.340 − (−0.763) = 1.103 V</span><span class="eqnote">open-circuit voltage at unit activities, from the standard potentials against the hydrogen electrode (figure 1.1)</span></p>
+<p class="eqline"><span class="eq">E = &#966;<sup>Cu&#8242;</sup> &#8722; &#966;<sup>Cu</sup> = &#931; &#916;&#966;<sub>interfaces</sub></span><span class="eqnote">the voltage between two like leads is the sum of the potential steps met along the path through the cell: the two metal|liquid jumps plus the metal|metal contact potentials; only the sum is measurable (the strip under figure 1.1)</span></p>
+<p class="eqline"><span class="eq">&#916;G = &#8722;nFE = &#8722;2 &#215; 96 485 &#215; 1.103 = &#8722;213 kJ/mol</span><span class="eqnote">the electrical work a mole of the reaction can do (module 3 derives it)</span></p>
+<p class="eqline"><span class="eq">V<sub>series</sub> = &#931; V<sub>i</sub>,&#8195;Q<sub>series</sub> = Q</span><span class="eqnote">cells in a chain: potential differences along a path add; the same current threads every cell, so each coulomb passes all of them (figure 1.3)</span></p>
+<p class="eqline"><span class="eq">V<sub>parallel</sub> = V,&#8195;I = &#931; I<sub>i</sub>,&#8195;Q<sub>parallel</sub> = &#931; Q<sub>i</sub></span><span class="eqnote">cells side by side: one potential difference between the joined ends; the current, and therefore the charge, is shared</span></p>
+</div></details>
+</div>
+</div>
+
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn prev" href="../../batteries/electrostatics/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Chapter 0 Electrostatics</span><span class="pn-q">A torch cell says 1.5 V on its side. What is a volt, and what is being pushed?</span></a>
+<a class="pn next" href="../../batteries/cell-anatomy/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Chapter 2 Cell anatomy</span><span class="pn-q">If we cut open the battery in a phone, what would we find?</span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this chapter</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/Book"><span class="ref-n">2</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">J. B. Goodenough, K.-S. Park, "The Li-Ion Rechargeable Battery: A Perspective", <i>Journal of the American Chemical Society</i> <b>135</b>, 2013, 1167-1176. <a href="https://doi.org/10.1021/ja3091438" target="_blank" rel="noopener">doi:10.1021/ja3091438</a></span></li></ol>
+</div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+</div>
+</footer>
+
+<script src="../../assets/js/gsap.min.js"></script>
+<script src="../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../assets/js/physics.js"></script>
+<script src="../../assets/js/site.js"></script>
+<script src="../../assets/js/learn/galvanic-cells.js"></script>
+<script src="../../assets/js/share.js"></script>
+</body>
+</html>

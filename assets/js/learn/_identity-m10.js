@@ -301,15 +301,7 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
-  /* =================================================================
-     Module 10: why batteries age. Loss categories after Goodenough and
-     Park 2013 (R6) and Tarascon and Armand 2001 (R2); SEI growth regimes
-     after von Kolzenberg, Latz and Horstmann 2020 (R37) eqs. 36 and 37;
-     manganese dissolution after R6; self-discharge after Winter and
-     Brodd 2004 (R1) 2.6. Curves are schematic unless stated.
-     ================================================================= */
-
-  /* ===== 10.1 Capacity fade, taken apart ===== */
+  /* figs-10.js */
   register('f10-1', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), read = fig.querySelector('.readout'), boxes = fig.querySelectorAll('input[type=checkbox]'), slow = fig.querySelector('.slow');
     var x0 = 62, x1 = 470, y0 = 236, y1 = 36, N = 1000;
@@ -352,8 +344,6 @@
     ]);
     render();
   });
-
-  /* ===== 10.2 The SEI keeps growing ===== */
   register('f10-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), rb = fig.querySelectorAll('button[data-b]');
     var x0 = 220, x1 = 480, y0 = 210, y1 = 40, b = 0.5, t = 1;
@@ -391,8 +381,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; t += dt / 6; if (t > 1) t = 0.02; render(); }, { autoplay: true, stepDt: 0.5 });
     render(); bind(fig, loop);
   });
-
-  /* ===== 10.3 Manganese on the move ===== */
   register('f10-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var nx = 40, px = 400, top = 50, bot = 200;
@@ -427,8 +415,6 @@
     if (!motion) { for (var k = 0; k < 6; k++) { spawn(); var m = mns[mns.length - 1]; m.x = nx + 74; m.done = true; n++; m.c.setAttribute('cx', m.x); } spawn(); mns[mns.length - 1].x = 260; mns[mns.length - 1].c.setAttribute('cx', 260); }
     render(); bind(fig, loop);
   });
-
-  /* ===== 10.4 On the shelf: self-discharge ===== */
   register('f10-4', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var x0 = 150, x1 = 470;
@@ -454,7 +440,6 @@
     ]);
     read.innerHTML = 'Two points, not two curves: we have one value for each, and nothing about the shape in between.';
   });
-
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

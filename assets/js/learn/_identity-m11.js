@@ -301,17 +301,9 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
-  /* =================================================================
-     Module 11: testing and diagnosis. This file holds the helpers shared
-     by figs-11*.js, the overview (11.1), the current pulse (11.2) and
-     what each technique sees (11.18). GITT is in figs-11g.js, impedance
-     basics in figs-11e.js, measuring well in figs-11m.js and analysis in
-     figs-11a.js. All physics is in Physics.m11 (assets/js/physics.js),
-     with the source of each formula stated there.
-     ================================================================= */
+  /* figs-11.js */
   var M11 = P.m11;
   function e11d(pts) { var d = ''; for (var i = 0; i < pts.length; i++) { if (!isFinite(pts[i][0]) || !isFinite(pts[i][1])) continue; d += (d ? 'L' : 'M') + pts[i][0].toFixed(1) + ',' + pts[i][1].toFixed(1); } return d; }
-  /* axes with tick labels: b = {x0, y0, x1, y1} (y0 is the bottom); o.xt / o.yt = [[value, label]] mapped by o.X / o.Y */
   function e11axes(g, b, o) {
     el('line', { x1: b.x0, y1: b.y0, x2: b.x1, y2: b.y0, stroke: 'var(--line-2)' }, g);
     el('line', { x1: b.x0, y1: b.y0, x2: b.x0, y2: b.y1, stroke: 'var(--line-2)' }, g);
@@ -325,7 +317,6 @@
     var s = f >= 1e3 ? (f / 1e3).toFixed(f >= 1e4 ? 0 : 1) + ' kHz' : f >= 1 ? f.toFixed(f >= 10 ? 0 : 1) + ' Hz' : (f * 1e3).toFixed(f * 1e3 >= 10 ? 0 : 1) + ' mHz';
     return s.replace('.0 ', ' ');
   }
-  /* a signed number with a true minus sign */
   function e11n(x, d) { var s = Math.abs(x).toFixed(d === undefined ? 1 : d); return (x < 0 && +s !== 0 ? '−' : '') + s; }
   function e11time(t) {
     if (t < 1e-3) return (t * 1e6).toFixed(0) + ' µs';
@@ -335,18 +326,14 @@
     return (t / 3600).toFixed(t < 36000 ? 1 : 0) + ' h';
   }
   function e11log(v, lo, hi, a, b) { return a + (Math.log10(v) - lo) / (hi - lo) * (b - a); }
-  /* a circuit-element box with a label, used by several figures */
   function e11box(g, x, y, w, lab, cls) { var r = el('rect', { x: x, y: y - 10, width: w, height: 20, rx: 3, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g); txt(g, x + w / 2, y + 4, lab, cls || 'strong', 'middle'); return r; }
   function e11lit(r, onOff, col) { r.setAttribute('stroke', onOff ? (col || 'var(--amber)') : 'var(--line-2)'); r.setAttribute('stroke-width', onOff ? 2.2 : 1); }
-  /* button group helper: buttons with data-mode inside .controls; calls fn(mode) */
   function e11modes(fig, fn) {
     var bs = fig.querySelectorAll('.controls button[data-mode]');
     Array.prototype.forEach.call(bs, function (bt) { on(bt, 'click', function () { Array.prototype.forEach.call(bs, function (x) { x.setAttribute('aria-pressed', String(x === bt)); }); fn(bt.getAttribute('data-mode')); }); });
     var cur = Array.prototype.filter.call(bs, function (x) { return x.getAttribute('aria-pressed') === 'true'; })[0] || bs[0];
     return cur ? cur.getAttribute('data-mode') : null;
   }
-
-  /* ===== 11.1 One cell, many questions ===== */
   register('f11-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var P4 = [
@@ -370,8 +357,6 @@
     });
     steps(fig, P4.map(function (p) { return { text: '<b>' + p.t.charAt(0).toUpperCase() + p.t.slice(1) + '</b>. ' + p.q, on: function () { read.innerHTML = 'The question this measurement answers: <b>' + p.q + '</b> (' + p.where + ')'; } }; }));
   });
-
-  /* ===== 11.2 A current pulse: the resistance depends on when you read it ===== */
   register('f11-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.tread'), sv = fig.querySelector('.tread-val');
     var p = { R0: 0.020, R1: 0.004, C1: 0.25, R2: 0.010, C2: 2, sigma: 0.002 };
@@ -407,8 +392,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; lt += dt * 0.9; if (lt > hi) lt = lo; tRead = Math.pow(10, lt); sl.value = lt; place(); }, { autoplay: true, stepDt: 0.5 });
     bind(fig, loop);
   });
-
-  /* ===== 11.18 What each technique sees, and what it costs the cell ===== */
   register('f11-18', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var cols = [
@@ -425,18 +408,7 @@
     txt(g, 260, 244, 'accelerating-rate calorimetry finds where thermal runaway starts (module 12)', '', 'middle');
     steps(fig, cols.map(function (c) { return { text: c.why, on: function () { read.innerHTML = '<b>' + c.t + '</b>: ' + c.items.join(', ') + '.'; } }; }));
   });
-
-  /* =================================================================
-     Module 11, analysis (11.15 to 11.17): two different circuits with
-     the same impedance (Lazanas and Prodromidis 2023, R63, sec. 8 and
-     Fig. 7; Meddings et al. 2020, R64, sec. 3.2.2); the distribution of
-     relaxation times and its regularisation (R64 eq 5 and sec. 3.2.1;
-     Bakenhaster and Dewald 2025, R65, eqs 9 and 10 and sec. 4.3); and
-     ageing check-ups, features and machine learning (R64 secs 1 and
-     3.3.2; R65 sec. 4.2, Fig. 10). Physics in Physics.m11.
-     ================================================================= */
-
-  /* ===== 11.15 The same curve from different circuits ===== */
+  /* figs-11a.js */
   register('f11-15', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.r2v'), sv = fig.querySelector('.r2v-val');
     var R0 = 0.020, R1 = 0.004, C1 = 0.25, C2 = 2, fs = M11.freqs(5000, 0.05, 12);
@@ -470,8 +442,6 @@
     ]);
     render();
   });
-
-  /* ===== 11.16 Distribution of relaxation times ===== */
   register('f11-16', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.lam'), sv = fig.querySelector('.lam-val');
     var fs = M11.freqs(1e4, 0.1, 8), arcs = [{ R: 0.004, Q: 0.25, n: 0.9 }, { R: 0.010, Q: 2, n: 0.85 }];
@@ -515,8 +485,6 @@
     ]);
     render();
   });
-
-  /* ===== 11.17 Following a cell as it ages ===== */
   register('f11-17', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.cyc'), sv = fig.querySelector('.cyc-val');
     var C = M11.CELL, fs = M11.freqs(2000, 0.5, 10);
@@ -556,21 +524,7 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; cyc += dt * 60; if (cyc > 400) cyc = 0; sl.value = cyc; place(); }, { autoplay: true, stepDt: 0.5 });
     bind(fig, loop);
   });
-
-  /* =================================================================
-     Module 11, impedance basics (11.8 to 11.11): a sine in and a sine
-     out, with the Lissajous plot (Lazanas and Prodromidis 2023, R63,
-     secs 2, 6 and 7); Nyquist and Bode plots of the same data and when
-     two arcs are resolved (R63 sec. 7.4 and sec. 8); the spectrum of a
-     commercial cell built element by element (Meddings et al. 2020, R64,
-     Fig. 1 and sec. 3.2.2); and the shapes real cells show: CPE, finite
-     diffusion, spherical diffusion and the porous electrode (R63 secs
-     12 to 14; Abbas et al. 2025, R69, eqs 6, 9 and 17). Physics in
-     Physics.m11.
-     ================================================================= */
-
-  /* equal-scale Nyquist frame: b = {x0, y0, x1, y1}; xr = [lo, hi] in the plotted unit; the
-     y range follows from the same scale (yLo at the bottom). Returns {X, Y, k} */
+  /* figs-11e.js */
   function e11nyq(g, b, xr, yLo, o) {
     o = o || {};
     var k = (b.x1 - b.x0) / (xr[1] - xr[0]), X = function (v) { return b.x0 + (v - xr[0]) * k; }, Y = function (v) { return b.y0 - (v - yLo) * k; };
@@ -579,15 +533,12 @@
     e11axes(g, b, { X: X, Y: Y, xt: o.xt || [], yt: (o.yt || []).filter(function (t) { return t[0] >= yLo && t[0] <= yHi; }), xlab: o.xlab, ylab: o.ylab, grid: o.grid });
     return { X: X, Y: Y, k: k, yHi: yHi };
   }
-  /* path of an impedance list, cut where it leaves the frame (so a capacitive line stops at the top) */
   function e11zpath(zs, F, b, unit) {
     var pts = [];
     for (var i = 0; i < zs.length; i++) { var x = F.X(zs[i].re * unit), y = F.Y(-zs[i].im * unit); if (y < b.y1 - 1 || x > b.x1 + 1 || x < b.x0 - 1 || y > b.y0 + 1) { if (pts.length) break; continue; } pts.push([x, y]); }
     return e11d(pts);
   }
   function e11deg(z) { return Math.atan2(z.im, z.re) * 180 / Math.PI; }
-
-  /* ===== 11.8 A sine in, a sine out ===== */
   register('f11-8', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.fsl'), sv = fig.querySelector('.fsl-val');
     var V0 = 0.010, Rv = 20, Cv = 100e-6, Lv = 20e-3, elm = e11modes(fig, function (m) { elm = m; render(); });
@@ -645,8 +596,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; th += dt * Math.PI; place(); }, { autoplay: true, stepDt: 0.25 });
     bind(fig, loop);
   });
-
-  /* ===== 11.9 One spectrum, two pictures ===== */
   register('f11-9', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.tratio'), sv = fig.querySelector('.tratio-val'), cbS = fig.querySelector('.stretch');
     var R0 = 10, R1 = 20, R2 = 20, tau2 = 1e-4, fs = M11.freqs(1e5, 0.1, 30);
@@ -694,8 +643,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; fi += dt * 30; if (fi >= fs.length) fi = 0; place(); }, { autoplay: true, stepDt: 0.25 });
     bind(fig, loop);
   });
-
-  /* ===== 11.10 A commercial cell, one element at a time ===== */
   register('f11-10', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var C = M11.CELL, fs = M11.freqs(5000, 3e-3, 12), stage = 4;
@@ -740,8 +687,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; fi += dt * 12; if (fi >= fs.length) fi = 0; place(); }, { autoplay: true, stepDt: 0.25 });
     bind(fig, loop);
   });
-
-  /* ===== 11.11 The shapes real cells draw ===== */
   register('f11-11', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sn = fig.querySelector('.nexp'), snv = fig.querySelector('.nexp-val'), sr = fig.querySelector('.rpor'), srv = fig.querySelector('.rpor-val');
     var ws = M11.freqs(1e5, 1e-5, 20).map(function (f) { return 2 * Math.PI * f; }), wsA = M11.freqs(1e9, 1e-9, 12).map(function (f) { return 2 * Math.PI * f; });
@@ -792,19 +737,7 @@
     ]);
     render();
   });
-
-  /* =================================================================
-     Module 11, GITT (11.3 to 11.7). One titration step on a thin film
-     (Kim et al. 2022, R67, eqs 3-16), the two straight-line assumptions
-     and the dimensionless pulse length (Kang and Chueh 2021, R66, eq 5),
-     six ways to compute D from one pulse (Nickol et al. 2020, R68, eqs
-     10-12 and procedures P1-P6), the relaxation analysis on
-     sqrt(t + tau) - sqrt(t) (R66 eq 4), and a whole run with
-     quasi-equilibrium voltages, overpotentials and resistances (R67 eqs
-     17-19; Abbas et al. 2025, R69). Physics in Physics.m11.
-     ================================================================= */
-
-  /* ===== 11.3 One titration step, inside and outside the film ===== */
+  /* figs-11g.js */
   register('f11-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var Lm = 2e-6, D = 1e-15, T = Lm * Lm / D, tau = 600, tEnd = 4800, sim = M11.gittSlab({ tau: tau / T, tEnd: tEnd / T, N: 61, steps: 960, frames: 240 });
@@ -865,8 +798,6 @@
     if (!motion) t = tau; place(t);
     bind(fig, loop);
   });
-
-  /* ===== 11.4 Two straight lines, one number: when the formula holds ===== */
   register('f11-4', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.ptau'), sv = fig.querySelector('.ptau-val');
     var Lm = 2e-6, D = 1e-15, T = Lm * Lm / D, geo = e11modes(fig, function (m) { geo = m; render(); });
@@ -905,8 +836,6 @@
     ]);
     render();
   });
-
-  /* ===== 11.5 Six recipes, one pulse ===== */
   register('f11-5', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.tdl'), sv = fig.querySelector('.tdl-val'), cb = fig.querySelector('.rctfall');
     var rP = 5e-6, D = 1e-15, tp = 1800, Tsc = rP * rP / D, thp = tp / Tsc, dEs = 0.010, Kd = dEs / (3 * thp), etaO = 0.005, etaC = 0.020;
@@ -968,8 +897,6 @@
     ]);
     render();
   });
-
-  /* ===== 11.6 Read the rest, not the pulse ===== */
   register('f11-6', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.that'), sv = fig.querySelector('.that-val'), cR = fig.querySelector('.rfall'), cF = fig.querySelector('.fast');
     var a = { x0: 56, y0: 232, x1: 236, y1: 48 }, r = { x0: 312, y0: 232, x1: 505, y1: 48 };
@@ -1011,8 +938,6 @@
     ]);
     render();
   });
-
-  /* ===== 11.7 A whole run: voltages, overpotentials, resistances and D ===== */
   register('f11-7', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), cbR = fig.querySelector('.longrest');
     var mode = e11modes(fig, function (m) { mode = m; render(); });
@@ -1079,18 +1004,7 @@
     ]);
     render();
   });
-
-  /* =================================================================
-     Module 11, measuring well (11.12 to 11.14): how small the sine must
-     be, from the Butler-Volmer curve and its harmonics (Bard, Faulkner
-     and White 2022, B2, eqs 3.4.11 and 3.4.13 and sec. 11.6; Meddings et
-     al. 2020, R64, sec. 3.1; Bakenhaster and Dewald 2025, R65, sec. 4.4);
-     two terminals against four (Lazanas and Prodromidis 2023, R63, eqs 82
-     and 83 and sec. 15); and the Kramers-Kronig test (R63 secs 7 and
-     16.5; R64 sec. 3.3.1). Physics in Physics.m11.
-     ================================================================= */
-
-  /* ===== 11.12 How small is small? ===== */
+  /* figs-11m.js */
   register('f11-12', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sA = fig.querySelector('.amp'), sAv = fig.querySelector('.amp-val'), sa = fig.querySelector('.alpha'), sav = fig.querySelector('.alpha-val');
     var i0 = 1e-3, f = 96485 / (8.314 * 298.15);
@@ -1133,8 +1047,6 @@
     ]);
     render();
   });
-
-  /* ===== 11.13 Two wires or four ===== */
   register('f11-13', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.cable'), sv = fig.querySelector('.cable-val');
     var C = M11.CELL, rPerM = 0.004, lPerM = 0.2e-6, fs = M11.freqs(10000, 0.5, 20);
@@ -1172,8 +1084,6 @@
     ]);
     render();
   });
-
-  /* ===== 11.14 Is the spectrum valid? The Kramers-Kronig test ===== */
   register('f11-14', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), cb = fig.querySelector('.drift'), sl = fig.querySelector('.noise'), sv = fig.querySelector('.noise-val');
     var C = M11.CELL, fs = M11.freqs(5000, 0.01, 8), tt = 0, ts = fs.map(function (f) { tt += Math.max(2 / f, 1); return tt; }), T = tt;
@@ -1204,7 +1114,6 @@
     ]);
     render();
   });
-
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

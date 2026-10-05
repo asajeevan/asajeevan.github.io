@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 9 Ion transport | How batteries work</title>
+<meta name="description" content="How does an ion cross the cell, and what does it meet at the electrode? Ion transport and the electrode–electrolyte interface: diffusion, migration and transference.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="Ion transport and the electrode–electrolyte interface: diffusion, migration and transference">
+<meta property="og:description" content="How does an ion cross the cell, and what does it meet at the electrode? Ion transport and the electrode–electrolyte interface: diffusion, migration and transference.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/ion-transport/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/ion-transport/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ion transport and the electrode–electrolyte interface: diffusion, migration and transference">
+<meta name="twitter:description" content="How does an ion cross the cell, and what does it meet at the electrode? Ion transport and the electrode–electrolyte interface: diffusion, migration and transference.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/learn.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Ion transport and the electrode–electrolyte interface: diffusion, migration and transference", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/ion-transport/", "inLanguage": "en"}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="ion-transport">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+<div class="wrap">
+<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="Course">
+<a href="../../batteries/">Contents</a>
+<a href="../../batteries/liquid-electrolytes/" rel="prev">&#8592; Ch. 8</a>
+<a href="../../batteries/sei/" rel="next">Ch. 10 &#8594;</a>
+<a href="#references">References</a>
+</nav>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+<section class="module" id="ch" data-act="III" data-nav>
+<div class="wrap">
+<p class="mod-n">Chapter 9</p>
+<h2 class="h2">Ion transport and the electrode–electrolyte interface: diffusion, migration and transference</h2>
+<p class="hook">How does an ion cross the cell, and what does it meet at the electrode?</p>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f7-6" id="f7-6">
+<span class="fnum">Figure 9.1</span>
+<svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f76t">
+<title id="f76t">Left: a lithium ion in its shell taking a random walk through the solvent, its track drawn behind it; with the field switched on, the walk drifts slowly to the right. Right: two small panels showing the ion carried together with its shell, and the ion handed on from one shell of solvent molecules to another.</title>
+</svg>
+<div class="controls"><button type="button" class="fieldbtn" aria-pressed="false">Switch the field on</button></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="li"></i>Li<sup>+</sup> (our ion labelled)</span><span><i class="ec"></i>EC</span><span><i class="dmc"></i>DMC</span><span><i class="field"></i>field</span></div>
+<figcaption>How an ion moves: a random walk, gently steered.
+<span class="try">Try this: switch the field on and off and compare the tracks.</span>
+<details class="src"><summary>Source</summary><span class="basis">Diffusion as random motion and migration in a field after Bard, Faulkner and White 2022, chapter 4 (module 0); the two modes of lithium transport and their roughly equal share in EC : DMC with LiPF<sub>6</sub> after Borodin 2014, p. 384. The walk is a random-number drawing device; the drift is drawn far stronger, relative to the wandering, than it is in a real cell.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">Wandering</h3>
+<p class="explain">So far our ion has sat in its shell; now we set it moving. Even with no current, nothing in the liquid is still. Every ion is bumped continually by the molecules around it and wanders at random, in every direction alike. On average it goes nowhere; it only spreads out, a distance that grows as the square root of time, (2Dt)<sup>1/2</sup>, where D is its diffusion coefficient. This is <b>diffusion</b>, met inside the electrode particles in module 6.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<h3 class="sub">Drifting in a field</h3>
+<p class="explain">Draw current and a small electric field appears across the liquid. It does not replace the random wandering; it biases it: each step is pushed slightly one way, cations down the potential and anions up it. That steady bias is <b>migration</b>, and the Nernst-Planck equation adds the two together (module 0).<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">What moves is the ion together with whatever stays bound to it, which is why a bigger moving object, or a thicker liquid, conducts less: <span class="eq">u = |z|e/(6πηr)</span>.<sup class="cite"><a href="#ref-1">1</a></sup> The lithium ion moves in two ways: it carries its first shell along with it, or it is handed on, leaving some solvent molecules behind and gaining others. In EC : DMC with LiPF<sub>6</sub> the two contribute roughly equally; in short ethylene-oxide chains (oligoethers) the ion travels a distance of three to four solvent molecules before its shell is renewed, so there carrying dominates.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="aside">A picture to keep: ionic conduction is a crowd crossing a corridor. More people, or people who move more freely, carry more across per second. The picture breaks in two places: the ions also push on each other through the field, and in a polymer the corridor itself has to keep moving for anyone to get through.</p>
+<div class="worked"><b>Worked example.</b> Let us put numbers on it: how strong is the field, and how fast do the ions go? A current density of 1 mA/cm<sup>2</sup> through a liquid of conductivity κ = 10<sup>−2</sup> S/cm, with 1 mol/L of Li<sup>+</sup>.
+<span class="line">field in the liquid, from Ohm’s law: E = i/κ = 10<sup>−3</sup> A/cm<sup>2</sup> ÷ 10<sup>−2</sup> S/cm = <i>0.1 V/cm</i></span>
+<span class="line">in the steady state, when all the current is carried by lithium: mean velocity v = i/(Fc) = 10<sup>−3</sup> ÷ (96 485 × 10<sup>−3</sup>) cm/s ≈ <i>0.1 µm per second</i></span>
+<span class="line">to cross a 25 µm layer of liquid: <i>about 4 minutes</i></span>
+The field in the liquid is gentle and each ion drifts slowly; the current is large because there are so many ions, about 6 × 10<sup>20</sup> in every cubic centimetre.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup></div>
+<p class="lesson">An ion in a liquid wanders at random; a current only nudges the wandering, gently and all the same way.</p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f7-10" id="f7-10">
+<span class="fnum">Figure 9.2</span>
+<svg viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f710t">
+<title id="f710t">An electrolyte between an electrode that releases lithium ions and one that takes them in. Under the field cations drift one way and anions the other; a bar shows the share of the current carried by lithium, the transference number; below, the steady-state salt concentration is high where lithium is released and low where it is taken in, and the difference shrinks as the transference number rises.</title>
+</svg>
+<div class="controls"><label><span>t<sub>+</sub></span> <input type="range" class="tplus" min="20" max="100" value="30" aria-label="Lithium transference number, times 100"> <b class="tplus-val">0.30</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="li"></i>Li<sup>+</sup> (our ion labelled)</span><span><i class="an"></i>anion</span><span><i class="field"></i>field</span></div>
+<figcaption>The transference number, and the salt gradient it leaves behind.
+<span class="try">Try this: slide t<sub>+</sub> from 0.3 to 0.6 and watch the gradient shrink by almost half; then all the way to 1.</span>
+<details class="src"><summary>Source</summary><span class="basis">Transference number as the fraction of the ionic conductivity carried by Li<sup>+</sup> (Boz et al. 2021, eqs. 6 and 7; Bard, Faulkner and White 2022, eq. 2.3.11). The steady-state difference Δc = (1 − t<sub>+</sub>) i L/(F D) follows from the salt balance of Boz et al., eq. 12, and is computed live with i L/(F D c<sub>0</sub>) = 0.8, an illustrative value; the profile is linear in this steady state. Values of t<sub>+</sub> near 0.3 and 0.6 are those Tarascon and Armand 2001 give for polymer electrolytes without and with 10 % nanofillers. Schematic.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Conductivity is not the whole story, because both ions move but only one is wanted. The <b>transference number</b> t<sub>+</sub> is the fraction of the ionic conductivity carried by Li<sup>+</sup>; in a dilute electrolyte it is the ratio of the lithium diffusion coefficient to the sum of both.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-4">4</a></sup> (It is also called the transport number.<sup class="cite"><a href="#ref-5">5</a></sup>) In the organic liquid electrolytes of 1994 it was typically below 0.5.<sup class="cite"><a href="#ref-6">6</a></sup></p>
+<p class="explain">The rest of the current is carried by anions that no electrode can take in, so in a working cell salt builds up at one electrode and runs short at the other, and the steady-state difference grows with (1 − t<sub>+</sub>).<sup class="cite"><a href="#ref-4">4</a></sup></p>
+<p class="explain">That gradient is the concentration polarization of module 5, seen from the electrolyte. In polymer electrolytes t<sub>+</sub> is about 0.3; about 10 % of ceramic nanofillers lifts it to about 0.6, raises the conductivity severalfold at 60 to 80 °C, and gives a stable interface with lithium.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<p class="explain">The logical end point is a <b>single-ion conductor</b>, in which the anions are tied to the polymer so that t<sub>+</sub> approaches 1 and no salt gradient builds up; one block copolymer of this kind reached t<sub>+</sub> above 0.85, though at only 1.3 × 10<sup>−5</sup> S/cm at 60 °C, and conducting 10<sup>−4</sup> S/cm at room temperature remains the challenge.<sup class="cite"><a href="#ref-7">7</a></sup></p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f7-7" id="f7-7">
+<span class="fnum">Figure 9.3</span>
+<svg viewBox="0 0 520 348" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f77t">
+<title id="f77t">Top: a to-scale close-up, 2.4 nanometres wide, of the electrolyte against a graphite electrode, with ball-and-stick EC, DMC, PF6 and lithium. Buttons set the electrode negative, uncharged or positive: at the negative electrode EC molecules touch the surface with their carbonyl oxygens turned away and a lithium ion in an EC shell sits against the surface; at the positive electrode PF6 anions sit at the surface and EC oxygens point towards it. Bottom: over the first 10 nanometres, the potential and the excess of lithium ions and anions, both fading with distance (stretched so they can be seen). A fourth view shows graphite end on with hydrogen-terminated edges and a lithium ion shedding first DMC and then EC as it enters the gap between two sheets, with the free-energy profile below.</title>
+</svg>
+<div class="controls"><button type="button" data-q="neg" aria-pressed="true">Negative</button><button type="button" data-q="zero" aria-pressed="false">Uncharged</button><button type="button" data-q="pos" aria-pressed="false">Positive</button><button type="button" data-q="edge" aria-pressed="false">Getting in</button></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="li"></i>lithium</span><span><i class="cc"></i>carbon</span><span><i class="o"></i>oxygen</span><span><i class="f"></i>fluorine</span><span><i class="p"></i>phosphorus</span></div>
+<figcaption>Layer by layer, from the middle of the liquid to the electrode.
+<span class="try">Try this: switch from Negative to Positive and watch which way the red oxygens point in the first layer.</span>
+<details class="src"><summary>Source</summary><span class="basis">Close-up drawn to scale with the computed molecular geometries of figure 7.1. Arrangements after the molecular-dynamics results in Borodin 2014, pp. 389 to 391: for the negative, uncharged and positive views, simulations at the basal face of graphite (EC replacing DMC on charged surfaces, carbonyls repelled at negative and gathered at positive, PF<sub>6</sub><sup>−</sup> accumulating at positive, Li<sup>+</sup> adsorbed and EC-solvated at negative); for Getting in, the desolvation model with graphite hydrogens at zero distance, the free-energy minimum of −0.5 kcal/mol about 5 Å out, the steep rise inside 4 Å to 12 to 19 kcal/mol and DMC shed before EC, a preliminary study without an SEI or applied voltage. Individual positions are illustrative, not a simulation snapshot. Lower plot: compact and diffuse layers, their extent and the screening of the electrode charge after Bard, Faulkner and White 2022, sections 1.6 and 2.2 to 2.3; curve shapes schematic; at 1 M the real diffuse layer is thinner than a nanometre (the simple Debye estimate gives about 0.3 nm), so the plot stretches it. Free-energy curve drawn through Borodin’s three numbers; its shape between them is schematic.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">The bulk and the diffuse layer</h3>
+<p class="explain">We have followed the ion through the middle of the liquid. Now let us walk towards an electrode, because the electrolyte is not the same all the way across. Far from either electrode, in the <b>bulk</b>, every small volume holds as much positive as negative charge: a separation of charge there would set up a field large enough to erase it at once.<sup class="cite"><a href="#ref-1">1</a></sup> The molecules point every way, and with no current the potential is flat. With current, the only field is the gentle ohmic one of the worked example above, about 0.1 V/cm.</p>
+<p class="explain">A few nanometres from a charged electrode this changes. Ions of the opposite sign crowd towards the surface and solvent molecules turn: together they cancel the electrode’s charge, so its field does not reach the bulk.<sup class="cite"><a href="#ref-1">1</a></sup> The excess of ions thins out over the <b>diffuse layer</b>, less than about 10 nm thick above 0.01 M; closest to the surface is the <b>compact layer</b>, one solvent shell thick.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">The field inside that thin step can reach 10<sup>7</sup> V/cm, a hundred million times the field in the bulk of the worked example.<sup class="cite"><a href="#ref-1">1</a></sup> This is the electrical double layer of module 3, now seen molecule by molecule.</p>
+<h3 class="sub">The first molecular layer</h3>
+<p class="explain">Closer still, we reach single molecules. Simulations show what the innermost layer looks like in EC : DMC with LiPF<sub>6</sub>. When the electrode is charged, either way, the more polar EC replaces DMC at the surface, an effect confirmed by experiment on LiCoO<sub>2</sub>. At a negative electrode the carbonyl groups are pushed away from the surface, and at the most negative potentials lithium ions sit against it, solvated mainly by EC, which fits the observation that EC reduction dominates the SEI formed in these mixtures. At a positive electrode the layer fills with carbonyl groups and PF<sub>6</sub><sup>−</sup> anions accumulate, where they are expected to take part in oxidation reactions.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<h3 class="sub">Getting in</h3>
+<p class="explain">One step remains: our ion must get into the electrode. To enter graphite a lithium ion has to leave its shell. In preliminary simulations of bare graphite, with no SEI, a lithium ion rests about 0.5 nm from the surface, still solvated; closer than about 0.4 nm the free energy climbs steeply as it is forced to shed its solvent, consistent with DMC going first and EC last. The size of that climb agrees with measured activation energies of 16.4 to 17 kcal/mol, about 70 kJ/mol. The two contributions usually discussed for the resistance of this interface are the SEI and this desolvation, and experiments show that at low temperature the interface can resist more than the whole bulk electrolyte.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="lesson">Uniform in the middle, ordered in the last nanometre: the electrolyte’s structure, and almost all of its field, change within a few molecules of the electrode.</p>        <details class="deeper"><summary>Go deeper: conductivity from the ions themselves</summary><div class="body">
+<p>The conductivity of an electrolyte is the sum of what each ion contributes: &#954; = F &#931;|z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub>, with u<sub>j</sub> the mobility and C<sub>j</sub> the concentration of ion j. The share carried by one ion is its transference number, t<sub>j</sub> = |z<sub>j</sub>|u<sub>j</sub>C<sub>j</sub> / &#931;|z<sub>k</sub>|u<sub>k</sub>C<sub>k</sub>.<sup class="cite"><a href="#ref-1">1</a></sup> For a salt of one cation and one anion this reduces to t<sub>+</sub> = |z<sub>+</sub>|u<sub>+</sub>/(|z<sub>+</sub>|u<sub>+</sub> + |z<sub>−</sub>|u<sub>−</sub>), and in the dilute limit to D<sub>Li</sub>/(D<sub>Li</sub> + D<sub>−</sub>).<sup class="cite"><a href="#ref-4">4</a></sup> Module 0 gave the mobility of a sphere in a viscous liquid, u = |z|e/(6&#960;&#951;r): a bigger ion, or a more viscous liquid, conducts less.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p>How independent are the ions? Measure each ion’s self-diffusion coefficient, D<sub>+</sub> and D<sub>−</sub>, and compute the conductivity the ions would give if each moved on its own, λ<sub>NE</sub> = e<sup>2</sup>(n<sub>+</sub>D<sub>+</sub> + n<sub>−</sub>D<sub>−</sub>)/(Vk<sub>B</sub>T), for n ions of each kind in a volume V. The measured conductivity divided by it is the <b>ionicity</b>, &#945;<sub>d</sub> = &#955;/&#955;<sub>NE</sub>: 0.62 for LiTFSI in PC and 0.11 in DMC, both at 20 solvent molecules per lithium and 298 K.<sup class="cite"><a href="#ref-2">2</a></sup> Why about 1 mol per litre in the first place? Enough salt has to dissolve to provide plenty of charge carriers, and the conductivity is frequently found to peak near 1 M.<sup class="cite"><a href="#ref-8">8</a></sup></p>
+<p>Even water can be stretched. Water splits over a window of 1.23 V (module 3), but in &#8220;water-in-salt&#8221; electrolytes, with far more salt than water by weight, the salt crowds the electrode surfaces and its decomposition builds a LiF-rich interphase; with further measures to keep water off the negative electrode, aqueous electrolytes have reached stability windows above 4 V.<sup class="cite"><a href="#ref-9">9</a></sup></p>
+</div></details>
+<details class="deeper maths" id="maths"><summary>The mathematics of this chapter</summary><div class="body">
+
+<p class="eqline"><span class="eq">E = i/&#954;,&#8195;v&#772; = i/(Fc)</span><span class="eqnote">the field in the bulk liquid from Ohm&#8217;s law; the mean velocity of the lithium ions once all the current is carried by lithium (worked example of figure 7.6)</span></p>
+<p class="eqline"><span class="eq">Δc = (1 − t<sub>+</sub>) i L / (F D)</span><span class="eqnote">the steady-state salt difference across a layer of thickness L at current density i (figure 7.10)</span></p>
+</div></details>
+
+</div>
+</div>
+
+
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn prev" href="../../batteries/liquid-electrolytes/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Chapter 8 Liquid electrolytes</span><span class="pn-q">What is the liquid inside, and why these molecules?</span></a>
+<a class="pn next" href="../../batteries/sei/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Chapter 10 The SEI</span><span class="pn-q">What is the solid electrolyte interphase, and why does every cell need one?</span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this chapter</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/Book"><span class="ref-n">1</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">O. Borodin, "Molecular Modeling of Electrolytes", <i>in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York</i>, 2014, 371-401. <a href="https://doi.org/10.1007/978-1-4939-0302-3_8" target="_blank" rel="noopener">doi:10.1007/978-1-4939-0302-3_8</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">B. Boz, T. Dev, A. Salvadori, J. L. Schaefer, "Review: Electrolyte and Electrode Designs for Enhanced Ion Transport Properties to Enable High Performance Lithium Batteries", <i>Journal of The Electrochemical Society</i> <b>168</b>, 2021, 090501. <a href="https://doi.org/10.1149/1945-7111/ac1cc3" target="_blank" rel="noopener">doi:10.1149/1945-7111/ac1cc3</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">K. Brandt, "Historical development of secondary lithium batteries", <i>Solid State Ionics</i> <b>69</b>, 1994, 173-183. <a href="https://doi.org/10.1016/0167-2738(94)90408-1" target="_blank" rel="noopener">doi:10.1016/0167-2738(94)90408-1</a></span></li><li id="ref-7" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">7</span> <span class="ref-body">D. Shanmukaraj, P. Ranque, H. Ben Youcef, T. Rojo, P. Poizot, S. Grugeon, S. Laruelle, D. Guyomard, "Review—Towards Efficient Energy Storage Materials: Lithium Intercalation/Organic Electrodes to Polymer Electrolytes—A Road Map (Tribute to Michel Armand)", <i>Journal of The Electrochemical Society</i> <b>167</b>, 2020, 070530. <a href="https://doi.org/10.1149/1945-7111/ab787a" target="_blank" rel="noopener">doi:10.1149/1945-7111/ab787a</a></span></li><li id="ref-8" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">8</span> <span class="ref-body">W. A. Henderson, "Nonaqueous Electrolytes: Advances in Lithium Salts", <i>in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York</i>, 2014, 1-92. <a href="https://doi.org/10.1007/978-1-4939-0302-3_1" target="_blank" rel="noopener">doi:10.1007/978-1-4939-0302-3_1</a></span></li><li id="ref-9" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">9</span> <span class="ref-body">O. Borodin, X. Ren, J. Vatamanu, A. von Wald Cresce, J. Knap, K. Xu, "Modeling Insight into Battery Electrolyte Electrochemical Stability and Interfacial Structure", <i>Accounts of Chemical Research</i> <b>50</b>, 2017, 2886-2894. <a href="https://doi.org/10.1021/acs.accounts.7b00486" target="_blank" rel="noopener">doi:10.1021/acs.accounts.7b00486</a></span></li></ol>
+</div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+</div>
+</footer>
+
+<script src="../../assets/js/gsap.min.js"></script>
+<script src="../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../assets/js/physics.js"></script>
+<script src="../../assets/js/site.js"></script>
+<script src="../../assets/js/learn/ion-transport.js"></script>
+<script src="../../assets/js/share.js"></script>
+</body>
+</html>

@@ -51,8 +51,8 @@ def parse(mid):
 
 def insert_tail(beat_html, tail_html):
     """Put closing elements inside a beat's text, just before the text ends."""
-    assert beat_html.endswith(BEAT_END)
-    return beat_html[:len(beat_html) - len(BEAT_END)] + tail_html + BEAT_END
+    i = beat_html.rindex(BEAT_END)   # a beat that was not last in its module keeps its trailing blank lines after this
+    return beat_html[:i] + tail_html + beat_html[i:]
 
 def reassemble(p):
     beats = [b['html'] for b in p['beats']]

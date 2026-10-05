@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 12 Negative electrodes | How batteries work</title>
+<meta name="description" content="What could replace graphite, and why has it not happened yet? Negative electrode materials: graphite, silicon, lithium metal and anode-free cells.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="Negative electrode materials: graphite, silicon, lithium metal and anode-free cells">
+<meta property="og:description" content="What could replace graphite, and why has it not happened yet? Negative electrode materials: graphite, silicon, lithium metal and anode-free cells.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/negative-electrodes/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/negative-electrodes/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Negative electrode materials: graphite, silicon, lithium metal and anode-free cells">
+<meta name="twitter:description" content="What could replace graphite, and why has it not happened yet? Negative electrode materials: graphite, silicon, lithium metal and anode-free cells.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/learn.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Negative electrode materials: graphite, silicon, lithium metal and anode-free cells", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/negative-electrodes/", "inLanguage": "en"}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="negative-electrodes">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+<div class="wrap">
+<a class="brand" href="../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="Course">
+<a href="../../batteries/">Contents</a>
+<a href="../../batteries/composite-electrodes/" rel="prev">&#8592; Ch. 11</a>
+<a href="../../batteries/positive-electrodes/" rel="next">Ch. 13 &#8594;</a>
+<a href="#references">References</a>
+</nav>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+<section class="module" id="ch" data-act="IV" data-nav>
+<div class="wrap">
+<p class="mod-n">Chapter 12</p>
+<h2 class="h2">Negative electrode materials: graphite, silicon, lithium metal and anode-free cells</h2>
+<p class="hook">What could replace graphite, and why has it not happened yet?</p>
+<p class="where"><b>Where we are.</b> In module 8 we built real electrodes out of particles, carbon, binder and pores, and our ion made the round trip through them. The round trip works; now let us push it further. We begin with the negative electrode, the side that holds the lithium when your cell is charged: first graphite, which made the first lithium-ion cell possible, then the materials that might replace it, silicon, conversion materials and lithium metal itself, and the ions that might one day replace lithium. Then we cross to the positive electrode: the oxides in today’s cells, why nickel-rich NMC trades stability for capacity, what comes next, and the organic molecules that do without transition metals. Along the way we answer the question above.</p>
+
+<div class="beat">
+<figure class="fig" data-fig="f9-1" id="f9-1">
+<span class="fnum">Figure 12.1</span>
+<svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f91t">
+<title id="f91t">A map of negative electrode materials: potential against lithium from 0 to 2 volts against specific capacity on a log scale from 100 to 5000 milliampere-hours per gram, with graphite, titanium and niobium oxides, silicon, tin, germanium, antimony, iron, manganese and molybdenum compounds and lithium metal. Beside it, bars of the specific energy of the chosen material paired with a positive electrode, against graphite.</title>
+</svg>
+<div class="controls">
+<button type="button" data-mode="graphite" aria-pressed="true">Graphite</button><button type="button" data-mode="lto" aria-pressed="false">Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub></button><button type="button" data-mode="si" aria-pressed="false">Silicon</button><button type="button" data-mode="fe2o3" aria-pressed="false">Fe<sub>2</sub>O<sub>3</sub></button><button type="button" data-mode="li" aria-pressed="false">Lithium metal</button>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>intercalation</span><span><i style="background:#C4B5F7"></i>alloy</span><span><i class="cu"></i>conversion</span><span><i class="zn"></i>lithium metal</span></div>
+<figcaption>The map of negative electrodes, and what extra capacity really buys.
+<span class="try">Try this: compare silicon and lithium metal; then try Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub> and see what its voltage costs.</span>
+<details class="src"><summary>Source</summary><span class="basis">Classes, theoretical capacities and working potentials after Rahman et al. 2025, Tables 1 and 2 and section 2 (graphite 372 mAh/g at 0.15 V; Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub> 175 at about 1.55 V; TiNb<sub>2</sub>O<sub>7</sub> about 350 and TiO<sub>2</sub> 330, niobium oxides at about 1 to 2 V and TiO<sub>2</sub> at 1.5 V; Si 3579, Sn 994, Ge 1624, Sb 660; Fe<sub>2</sub>O<sub>3</sub> 1007 and MnO<sub>2</sub> 1233 at 1.0 to 1.5 V; MoS<sub>2</sub> 670 at 1.1 to 1.8 V; FeP about 900 at 0.5 to 1.0 V; lithium 3860 at 0 V). Alloy potentials, 0.2 to 0.8 V, after Goodenough and Park 2013; dots mark the middle of each range. The energy of the pair, (V<sub>pos</sub> − V<sub>neg</sub>) × Q<sub>pos</sub>Q<sub>neg</sub>/(Q<sub>pos</sub> + Q<sub>neg</sub>), counts the two active materials only, against a positive electrode of 200 mAh/g (about what NMC811 gives, Marie and Gifford 2023) at an illustrative 3.8 V: this page’s own working.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Let us start with what the negative electrode has to do. It stores the lithium while the cell is charged and gives it back on discharge. It was the negative electrode that made the first lithium-ion cell possible: graphite held lithium reversibly and stayed stable in carbonate electrolytes, where lithium metal did not.<sup class="cite"><a href="#ref-1">1</a></sup> Graphite’s 372 mAh/g now limits how much energy a cell can hold, and the search for something better has produced four families of material, named for how they store lithium: <b>intercalation</b> hosts, <b>alloys</b>, <b>conversion</b> materials and <b>lithium metal</b>.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">What would a better material have to offer? A good negative electrode needs a high reversible capacity, a low potential, fast kinetics, low cost, stability against the electrolyte, a stable SEI and a light environmental footprint.<sup class="cite"><a href="#ref-1">1</a></sup> On the first two counts lithium metal and silicon stand out; both still face serious problems at the level of the material, the electrode and the cell.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<div class="worked"><b>Worked example.</b> Ten times the capacity, but not ten times the energy. Take a positive electrode like NMC811, which gives about 200 mAh/g,<sup class="cite"><a href="#ref-2">2</a></sup> at an illustrative average of 3.8 V. The same charge passes through both electrodes, so a gram of the pair passes Q = Q<sub>pos</sub>Q<sub>neg</sub>/(Q<sub>pos</sub> + Q<sub>neg</sub>).
+<span class="line">graphite: <math><mrow><mi>Q</mi><mo>=</mo><mfrac><mrow><mn>200</mn><mo>×</mo><mn>372</mn></mrow><mrow><mn>200</mn><mo>+</mo><mn>372</mn></mrow></mfrac><mo>=</mo><mn>130</mn><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">h</mi><mo>/</mo><mi mathvariant="normal">g</mi></mrow></mrow></math>, at 3.8 − 0.15 = 3.65 V: <i>475 Wh/kg</i></span>
+<span class="line">lithium metal: <math><mrow><mi>Q</mi><mo>=</mo><mfrac><mrow><mn>200</mn><mo>×</mo><mn>3860</mn></mrow><mrow><mn>200</mn><mo>+</mo><mn>3860</mn></mrow></mfrac><mo>=</mo><mn>190</mn><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">h</mi><mo>/</mo><mi mathvariant="normal">g</mi></mrow></mrow></math>, at 3.8 V: <i>723 Wh/kg</i></span>
+A factor of 1.5, because the positive electrode now limits the cell. The gain from lithium metal over today’s lithium-ion cells is put at up to a factor of two.<sup class="cite"><a href="#ref-1">1</a></sup></div>
+<p class="lesson">A negative electrode should sit low and store a lot, but past a point the positive electrode sets the limit.</p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f9-4" id="f9-4">
+<span class="fnum">Figure 12.2</span>
+<svg viewBox="0 0 520 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f94t">
+<title id="f94t">The potential of the graphite surface against its state of charge, at rest (dashed) and during charging (solid), with the region below 0 volts shaded where lithium plates. Sliders set the charging rate and temperature. Beside it, bars of the margin above 0 volts for graphite near full charge, a niobium oxide and lithium titanate, with the charging pull drawn as a dashed line.</title>
+</svg>
+<div class="controls">
+<label><span>charging rate</span> <input type="range" class="crate" min="0.5" max="6" step="0.5" value="2" aria-label="Charging rate in C"> <b class="crate-val">2C</b></label>
+<label><span>temperature</span> <input type="range" class="ftemp" min="-10" max="45" step="5" value="25" aria-label="Temperature in degrees Celsius"> <b class="ftemp-val">25 °C</b></label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i style="background:var(--text)"></i>graphite at rest (illustrative)</span><span><i class="act"></i>while charging</span><span><i class="heat"></i>lithium plates below 0 V</span></div>
+<figcaption>Fast charging: how close can the negative electrode come to 0 V?
+<span class="try">Try this: at 25 °C find the rate at which plating starts; then cool the cell to 0 °C and find it again.</span>
+<details class="src"><summary>Source</summary><span class="basis">Plating when lithium is intercalated faster than it is supplied, the low lithiation potential of graphite, more plating in the cold, and titanate and niobium oxides at 1 to 2 V avoiding plating and SEI formation, after Rahman et al. 2025, sections 2(i), 3 and 5. The graphite curve and the pull, 15 mV per C at 25 °C rising with an activation energy of 40 kJ/mol, are this page’s illustrative model, not data; the niobium bar uses the lower end of their 1 to 2 V.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">Charging fast</h3>
+<p class="explain">Plating, which we just met in the cold, is also a risk when we charge quickly. Electric cars, drones, electric aircraft and grid storage all want faster charging; industry aims to reach 80 % of the charge in under 15 minutes without losing cycle life or safety.<sup class="cite"><a href="#ref-1">1</a></sup> On the negative electrode three things go wrong. Lithium can arrive faster than it can enter the graphite and <b>plate</b> as metal, a risk made worse by graphite’s low potential; the particles are stressed and crack; and the heat destabilizes the SEI.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">The remedies run from material to cell: smaller particles and porous structures; thin, porous electrodes of low tortuosity; electrolytes with a LiFSI salt or an FEC additive, which improve the SEI and reduce plating; and, at cell level, the right ratio of negative to positive capacity (the N/P ratio), the charging protocol and cooling.<sup class="cite"><a href="#ref-1">1</a></sup> Silicon-based negative electrodes are being developed for fast charging too: one company reports silicon nanowires charged from 0 to 80 % in under 6 minutes, another columnar silicon grown on copper charged to 80 % in 7 minutes at 1350 Wh/L.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">The other route is to move away from 0 V. <b>Lithium titanate</b>, Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub>, works at about 1.55 V, where little SEI forms, and changes volume by only about 0.2 %, a “zero-strain” material: it is safe, long-lived and fast, but stores only 175 mAh/g, conducts poorly and can give off gas (H<sub>2</sub>, CO<sub>2</sub>, CO) by decomposing the electrolyte on its surface, a mechanism not yet well understood.<sup class="cite"><a href="#ref-1">1</a></sup> <b>Niobium oxides</b> such as Nb<sub>2</sub>O<sub>5</sub>, TiNb<sub>2</sub>O<sub>7</sub> and Nb<sub>14</sub>W<sub>3</sub>O<sub>44</sub> also work at 1 to 2 V, store more (about 200 to 350 mAh/g), change little in volume and charge very fast; they are already being made at industrial scale for high-power cells.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<div class="worked"><b>Worked example.</b> What the safe voltage costs. Keep the same positive electrode, like NMC811, which gives about 200 mAh/g,<sup class="cite"><a href="#ref-2">2</a></sup> at an illustrative average of 3.8 V:
+<span class="line">graphite: 3.65 V × 130 mAh/g = <i>475 Wh/kg</i> of the pair</span>
+<span class="line">Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub>: <math><mrow><mi>Q</mi><mo>=</mo><mfrac><mrow><mn>200</mn><mo>×</mo><mn>175</mn></mrow><mrow><mn>375</mn></mrow></mfrac><mo>=</mo><mn>93</mn><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">h</mi><mo>/</mo><mi mathvariant="normal">g</mi></mrow></mrow></math>, at 3.8 − 1.55 = 2.25 V: <i>210 Wh/kg</i></span>
+Less than half the energy, in exchange for a volt and a half of margin against plating. That is why titanate serves where power and life matter more than range.</div>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f9-5" id="f9-5">
+<span class="fnum">Figure 12.3</span>
+<svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f95t">
+<title id="f95t">Three particles breathing as lithium goes in and out: lithium titanate almost unchanged, graphite about 10 percent larger, silicon nearly four times its volume. Each has an SEI rim; on silicon the rim cracks on every swelling and grows thicker, and the particle cracks, unless it is given room to swell. Below, a bar shows the capacity of a graphite and silicon blend for the chosen silicon fraction.</title>
+</svg>
+<div class="controls">
+<button type="button" class="buffer">Give it room to swell</button>
+<label><span>silicon in the blend</span> <input type="range" class="siw" min="0" max="30" step="1" value="8" aria-label="Silicon content in weight percent"> <b class="siw-val">8 wt%</b></label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>titanate, graphite</span><span><i style="background:#C4B5F7"></i>silicon</span><span><i style="background:#d9c48f"></i>SEI</span><span><i class="carb"></i>room to swell</span></div>
+<figcaption>Silicon breathes, and its SEI pays for it.
+<span class="try">Try this: watch the silicon for three cycles, then give it room to swell; slide the silicon fraction from 5 to 20 wt%.</span>
+<details class="src"><summary>Source</summary><span class="basis">Volume changes (about 0.2 % for Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub>, about 10 % for graphite, about 280 % for silicon), cracking of the SEI and its regrowth, pulverization and delamination, the mitigations, and commercial blends with 5 to 10 wt% silicon, after Rahman et al. 2025, sections 2(ii), 4 and 5 and Figs. 4e and 5c–d; silicon’s 3579 mAh/g from their Table 2. Particle radii follow the cube root of the volume; when the cracks appear is schematic. The blend capacity is a simple mass-weighted mixture: this page’s working.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">Silicon: ten times the capacity, four times the volume</h3>
+<p class="explain">Titanate trades energy for margin. Silicon makes the opposite trade. It stores 3579 mAh/g, close to ten times graphite, at a low potential, and it is cheap. Its problem is volume: it swells by about 280 % when fully lithiated. The particles pulverize, lose contact with each other, and the electrode can come away from its current collector; the SEI breaks on every swelling and forms again on the fresh surface, using up lithium and electrolyte, so the first-cycle efficiency is low and the capacity fades fast. Silicon also conducts electrons poorly.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Nanoparticles, porous and hollow spheres, nanowires, yolk–shell and pomegranate-like structures all help, though small particles cost volumetric energy. Binders that hold the contact, perhaps self-healing polymers, could be the breakthrough. Today’s best cells already use graphite with <b>5 to 10 wt%</b> silicon; more than 20 % is the industry’s next step, trading energy against cycle life.<sup class="cite"><a href="#ref-1">1</a></sup> The market for silicon negative electrodes, about $279 million in 2023, is projected to reach $15 billion by 2035.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<div class="worked"><b>Worked example.</b> What 280 % does to a particle, and what a little silicon does for a blend.
+<span class="line">volume after = 1 + 2.8 = <i>3.8 times</i>; diameter after = 3.8<sup>1/3</sup> = <i>1.56 times</i>: a 100 nm particle grows to about 156 nm and back on every cycle</span>
+<span class="line">8 wt% silicon in graphite: <math><mrow><mn>0.92</mn><mo>×</mo><mn>372</mn><mo>+</mo><mn>0.08</mn><mo>×</mo><mn>3579</mn><mo>=</mo><mn>629</mn><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">A</mi><mi mathvariant="normal">h</mi><mo>/</mo><mi mathvariant="normal">g</mi></mrow></mrow></math>, <i>1.7 times</i> graphite</span>
+The coating, the binder and the SEI on each silicon particle all have to follow that breathing.</div>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f9-6" id="f9-6">
+<span class="fnum">Figure 12.4</span>
+<svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f96t">
+<title id="f96t">A metal oxide particle that turns into metal grains embedded in lithium oxide as lithium goes in and reforms as it comes out; beside it, the voltage for lithium in and lithium out against lithium content, separated by a hysteresis set with a slider, with the area between them shaded and graphite's flat line for scale.</title>
+</svg>
+<div class="controls"><label><span>hysteresis</span> <input type="range" class="hyst" min="0.1" max="1.2" step="0.05" value="1" aria-label="Voltage hysteresis in volts"> <b class="hyst-val">1.00 V</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="cu"></i>metal oxide</span><span><i class="zn"></i>metal grains</span><span><i class="act"></i>lithium in</span><span><i style="background:var(--cyan)"></i>lithium out</span><span><i class="heat"></i>energy lost per cycle</span></div>
+<figcaption>Conversion: high capacity, paid for with a volt of hysteresis.
+<span class="try">Try this: halve the hysteresis and read how much of the energy comes back.</span>
+<details class="src"><summary>Source</summary><span class="basis">The conversion reaction, the capacities of Fe<sub>2</sub>O<sub>3</sub>, MnO<sub>2</sub> and MoS<sub>2</sub>, hysteresis of about 1 V from the interconversion of several solid phases, and the drawbacks, after Rahman et al. 2025, sections 2(iii) and 4, Table 1 and Fig. 5e–f; two to three times the capacity of carbon after Tarascon and Armand 2001. The voltage curves are schematic around 1.25 V; the round-trip efficiency against a 3.8 V positive electrode, (3.8 − V − h/2)/(3.8 − V + h/2), is this page’s estimate.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">The third mechanism goes further still. A <b>conversion</b> electrode is not a host at all. Lithium reduces the compound to metal grains embedded in a lithium compound, for an oxide M<sub>x</sub>O<sub>y</sub> + 2yLi<sup>+</sup> + 2ye<sup>−</sup> ⇌ yLi<sub>2</sub>O + xM, and on the way back the compound forms again. Oxides, sulfides, phosphides and fluorides work this way, with high capacities: about 1000 mAh/g for Fe<sub>2</sub>O<sub>3</sub>, 1230 for MnO<sub>2</sub>, 670 for MoS<sub>2</sub> and 900 for FeP.<sup class="cite"><a href="#ref-1">1</a></sup> Nano-sized transition-metal oxides were shown to store two to three times the capacity of carbon in 2000.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<p class="explain">The drawbacks are four: the particles swell and pulverize; they conduct poorly (the Li<sub>2</sub>O formed is an insulator); the SEI is unstable; and the voltage hysteresis is about 1 V, because several solid phases must form and dissolve and oxygen and metal atoms must rearrange, not just lithium.<sup class="cite"><a href="#ref-1">1</a></sup> On top of that, the first cycle loses about 30 %, and the wasted energy is the main obstacle.<sup class="cite"><a href="#ref-4">4</a></sup> Nano-sized particles shorten the paths and spread the stress, but increase the surface that reacts with the electrolyte.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">The same chemistry also appears on the other side of the cell. Transition-metal fluorides work the same way as positive electrodes, with theoretical capacities of 500 to 1500 mAh/g, and sulfur, at 2.4 V, is also a conversion electrode.<sup class="cite"><a href="#ref-3">3</a>,<a href="#ref-4">4</a></sup></p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f9-7" id="f9-7">
+<span class="fnum">Figure 12.5</span>
+<svg viewBox="0 0 520 282" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f97t">
+<title id="f97t">A lithium-metal electrode cycling against a positive electrode. Each plating leaves the surface rougher; at higher current density the deposit grows as whiskers from its tips; pieces that break off on stripping collect as dead lithium; the deposit grows toward the separator. With a ceramic separator most of the deposit stops, but filaments pass along grain boundaries.</title>
+</svg>
+<div class="controls">
+<label><span>current density</span> <input type="range" class="cd" min="0.5" max="4" step="0.5" value="1" aria-label="Current density in milliamperes per square centimetre"> <b class="cd-val">1.0 mA/cm<sup>2</sup></b></label>
+<button type="button" class="solid-sep">Ceramic separator</button>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="zn"></i>lithium metal; dead lithium (pale)</span><span><i style="background:#d9c48f"></i>SEI</span><span><i class="carb"></i>separator</span></div>
+<figcaption>Lithium metal: dendrites and dead lithium.
+<span class="try">Try this: play ten cycles at 1 mA/cm<sup>2</sup>, then reset the page and play at 4 mA/cm<sup>2</sup>; then switch to the ceramic separator.</span>
+<details class="src"><summary>Source</summary><span class="basis">Dendrites, the space-charge, tip and defect explanations, dead lithium, its thickening from about 2 µm to about 100 µm, SEI on fresh surfaces, short circuits, the Young’s modulus of lithium (about 4.9 GPa) and dendrites through the grain boundaries of ceramic electrolytes, after Rahman et al. 2025, sections 6 and 7.1 and Fig. 10; cycle life in 2004 after Winter and Brodd 2004, section 2.5. The growth follows a random rule weighted toward tips, drawn only as “rough, whisker-like”; the current density scale and cycle counter are not predictions.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">Lithium metal</h3>
+<p class="explain">We now reach the far corner of the map. Lithium metal is the most attractive negative electrode of all: 3860 mAh/g, the lowest potential, and nothing in it but active material. It was studied long before graphite, and kept out of commercial cells by <b>dendrites</b>.<sup class="cite"><a href="#ref-1">1</a></sup> In 2004 lithium-metal cells reached about 100 to 150 cycles, against the 300 a commercial cell needed.<sup class="cite"><a href="#ref-5">5</a></sup> Its problems are dendrites, an unstable SEI, low Coulombic efficiency, dead lithium, volume changes and pulverization, and reaction with the electrolyte.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Why does lithium plate back so unevenly? Several models explain the dendrites. In the space-charge model, when plating outruns ion conduction at high current, the Li<sup>+</sup> concentration near the surface falls to zero and dendritic growth begins. Cracks in the SEI, tips and surface defects concentrate the electric field, and lithium grows fastest there. On stripping, pieces break off the dendrites and lose contact: <b>dead lithium</b>, which in one study thickened from about 2 µm to about 100 µm within a few dozen cycles, lowering the efficiency and raising the impedance. Whiskers that pierce the separator short the cell, with a risk of fire.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Most of these problems start at the interface, not in the bulk metal, which is why coatings, artificial SEI layers and new electrolytes are where the work is.<sup class="cite"><a href="#ref-1">1</a></sup> The interface is studied with surface spectroscopy (XPS, soft X-ray absorption), optical and electron microscopy, cryo-electron microscopy, which preserves fragile interphase compounds, and synchrotron X-ray diffraction and pair-distribution analysis, which identified the much-debated LiH in the interphase on lithium metal.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="lesson">Lithium metal stores the most, but it plates back unevenly, and that, not the chemistry of storage, is what limits it.</p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f9-8" id="f9-8">
+<span class="fnum">Figure 12.6</span>
+<svg viewBox="0 0 520 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f98t">
+<title id="f98t">Capacity against cycle number up to 500 cycles for a lithium-metal cell with no excess lithium (anode-free), one times excess and three times excess, for a Coulombic efficiency set with a slider; a dashed line at 80 percent marks the end of life.</title>
+</svg>
+<div class="controls"><label><span>Coulombic efficiency</span> <input type="range" class="ce" min="98" max="99.95" step="0.05" value="99.5" aria-label="Coulombic efficiency in percent"> <b class="ce-val">99.50 %</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="heat"></i>anode-free</span><span><i class="act"></i>1× excess</span><span><i style="background:var(--cyan)"></i>3× excess</span></div>
+<figcaption>How many cycles? Coulombic efficiency against lithium in reserve.
+<span class="try">Try this: find the efficiency at which the anode-free cell lasts 100 cycles; then the one at which it lasts 500.</span>
+<details class="src"><summary>Source</summary><span class="basis">Anode-free cells plating the positive electrode’s lithium onto the current collector, with no excess to make up for losses, after Rahman et al. 2025, sections 7 and 7.2; the excess needed for N cycles, R = N(1 − E), after Brandt 1994. The curves, capacity unchanged until the excess is spent and then falling by CE per cycle, are this page’s model.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">If every cycle loses a little lithium, how much lithium should the cell carry in reserve? An <b>anode-free</b> cell carries none: it is assembled with no lithium on the negative side at all, only a copper current collector. On the first charge the lithium in the positive electrode is plated onto the copper, and on discharge it goes back. That is the highest energy a lithium-metal cell can reach, and the simplest to make; but with no lithium in reserve, every loss shows directly as lost capacity.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<div class="worked"><b>Worked example.</b> Why early lithium-metal cells carried far more lithium than they used. Define the lithium cycling efficiency E from the charge stripped each cycle and the excess of lithium used up; Brandt’s relation then gives the relative excess needed for N cycles, R = N(1 − E).
+<span class="line">LiClO<sub>4</sub> in propylene carbonate, E ≈ 60 %: for just 100 cycles, R = 100 × 0.40 = an excess of <i>40 times</i> the lithium cycled</span>
+<span class="line">Moli Energy, late 1980s, E &gt; 99 %: about 300 cycles, but only by carrying three times the lithium: R = 300 × 0.01 = an excess of <i>3 times</i></span>
+<span class="line">and for an anode-free cell to keep 80 % for 1000 cycles: <math><mrow><msup><mi>E</mi><mrow><mn>1000</mn></mrow></msup><mo>≥</mo><mn>0.8</mn></mrow></math>, so <math><mrow><mi>E</mi><mo>≥</mo><msup><mn>0.8</mn><mrow><mn>1</mn><mo>/</mo><mn>1000</mn></mrow></msup><mo>=</mo><mn>99.978</mn><mtext> </mtext><mi>%</mi></mrow></math></span>
+The efficiency, not the capacity, decides whether lithium metal can be used.<sup class="cite"><a href="#ref-6">6</a></sup></div>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f9-9" id="f9-9">
+<span class="fnum">Figure 12.7</span>
+<svg viewBox="0 0 520 272" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f99t">
+<title id="f99t">An anode-free cell: a copper current collector, electrolyte, separator and positive electrode, with lithium plating onto the copper and back. Steps show three fixes: a graphene-oxide film on the copper, an additive in the electrolyte and a porous copper collector, each with the results reported.</title>
+</svg>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="cu"></i>copper</span><span><i class="zn"></i>plated lithium</span><span><i style="background:#d9c48f"></i>artificial SEI</span><span><i style="background:#C4B5F7"></i>additive</span><span><i class="li"></i>lithium in the positive electrode</span></div>
+<figcaption>Making anode-free cells work: three places to intervene.
+<span class="try">Try this: step through the four callouts and, for each fix, find the number that shows it worked.</span>
+<details class="src"><summary>Source</summary><span class="basis">Advantages, challenges and strategies (Table 4); graphene oxide on copper (Tadesse et al.), KNO<sub>3</sub> (Sahalie et al.), dual-salt LiDFOB/LiBF<sub>4</sub> (Weber et al.), localized high-concentration electrolytes, fluorinated solvents and a porous copper collector (Yun et al.), with the numbers each reported, after Rahman et al. 2025, sections 7.2 and 7.3 and Fig. 11. Drawn schematically; the reported numbers come from different cells and tests and should not be compared with each other.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">The efficiency, then, is what we must raise, and three kinds of fix are being tried. An <b>artificial SEI</b>, made beforehand on the copper or formed in the cell, guides the lithium to deposit evenly. <b>Electrolyte engineering</b>: additives that build a better SEI, two-salt electrolytes, localized high-concentration electrolytes that mix a dissolving solvent with a diluent that does not dissolve the salt, and fluorinated solvents that are stable against both lithium and nickel-rich positive electrodes. And <b>modified current collectors</b>, such as three-dimensional porous copper that spreads the current and gives the lithium room.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Lithium metal was long thought too reactive to cycle in a liquid electrolyte. The new electrolytes have changed that: they now allow promising cycling with little excess lithium and heavily loaded positive electrodes.<sup class="cite"><a href="#ref-1">1</a></sup></p>        <details class="deeper maths" id="maths"><summary>The mathematics of this chapter</summary><div class="body">
+<p class="eqline"><span class="eq">Q<sub>pair</sub> = Q<sub>pos</sub>Q<sub>neg</sub>/(Q<sub>pos</sub> + Q<sub>neg</sub>),&#8195;E = Q<sub>pair</sub>(V<sub>pos</sub> − V<sub>neg</sub>)</span><span class="eqnote">specific energy of the two active materials (figure 9.1); as Q<sub>neg</sub> → ∞, Q<sub>pair</sub> → Q<sub>pos</sub></span></p>
+<p class="eqline"><span class="eq">Q<sub>blend</sub> = (1 − w) × 372 + w × 3579 mAh/g</span><span class="eqnote">a graphite/silicon blend with a mass fraction w of silicon (figure 9.5)</span></p>
+<p class="eqline"><span class="eq">η<sub>E</sub> ≈ (V<sub>pos</sub> − V<sub>neg</sub> − h/2)/(V<sub>pos</sub> − V<sub>neg</sub> + h/2)</span><span class="eqnote">round-trip energy efficiency with a hysteresis h on the negative electrode (figure 9.6)</span></p>
+<p class="eqline"><span class="eq">C<sub>n</sub> = CE<sup>n</sup> (no excess); R = N(1 − E)</span><span class="eqnote">capacity of an anode-free cell after n cycles, and Brandt’s excess needed for N cycles (figure 9.8)</span></p>
+<p class="eqline"><span class="eq">V<sub>cell</sub> = V<sub>pos</sub> − V<sub>neg</sub> (both vs Li/Li<sup>+</sup>)</span><span class="eqnote">reading a cell voltage off figure 9.1, as on the ladder of module 3</span></p>
+</div></details>
+
+</div>
+</div>
+
+
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn prev" href="../../batteries/composite-electrodes/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Chapter 11 Composite electrodes</span><span class="pn-q">Why is an electrode a porous coating of particles, carbon and binder?</span></a>
+<a class="pn next" href="../../batteries/positive-electrodes/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Chapter 13 Positive electrodes</span><span class="pn-q">Why are today&#x27;s cells built on NMC or LFP, and what comes next?</span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this chapter</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">M. M. Rahman, U. Nisar, A. Abouimrane, I. Belharouak, R. Amin, "Valuation of Anode Materials for High-Performance Lithium Batteries: From Graphite to Lithium Metal and Beyond", <i>Electrochemical Energy Reviews</i> <b>8</b>, 2025, 14. <a href="https://doi.org/10.1007/s41918-025-00249-w" target="_blank" rel="noopener">doi:10.1007/s41918-025-00249-w</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">J.-J. Marie, S. Gifford, "Developments in lithium-ion battery cathodes", <i>Faraday Insights, Issue 18 (The Faraday Institution)</i>, 2023, September 2023. <a href="https://www.faraday.ac.uk/wp-content/uploads/2023/09/Faraday_Insights_18_FINAL.pdf" target="_blank" rel="noopener">link</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">J.-M. Tarascon, M. Armand, "Issues and challenges facing rechargeable lithium batteries", <i>Nature</i> <b>414</b>, 2001, 359-367. <a href="https://doi.org/10.1038/35104644" target="_blank" rel="noopener">doi:10.1038/35104644</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">D. Shanmukaraj, P. Ranque, H. Ben Youcef, T. Rojo, P. Poizot, S. Grugeon, S. Laruelle, D. Guyomard, "Review—Towards Efficient Energy Storage Materials: Lithium Intercalation/Organic Electrodes to Polymer Electrolytes—A Road Map (Tribute to Michel Armand)", <i>Journal of The Electrochemical Society</i> <b>167</b>, 2020, 070530. <a href="https://doi.org/10.1149/1945-7111/ab787a" target="_blank" rel="noopener">doi:10.1149/1945-7111/ab787a</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">M. Winter, R. J. Brodd, "What Are Batteries, Fuel Cells, and Supercapacitors?", <i>Chemical Reviews</i> <b>104</b>, 2004, 4245-4269. <a href="https://doi.org/10.1021/cr020730k" target="_blank" rel="noopener">doi:10.1021/cr020730k</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">K. Brandt, "Historical development of secondary lithium batteries", <i>Solid State Ionics</i> <b>69</b>, 1994, 173-183. <a href="https://doi.org/10.1016/0167-2738(94)90408-1" target="_blank" rel="noopener">doi:10.1016/0167-2738(94)90408-1</a></span></li></ol>
+</div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+</div>
+</footer>
+
+<script src="../../assets/js/gsap.min.js"></script>
+<script src="../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../assets/js/physics.js"></script>
+<script src="../../assets/js/site.js"></script>
+<script src="../../assets/js/learn/negative-electrodes.js"></script>
+<script src="../../assets/js/share.js"></script>
+</body>
+</html>

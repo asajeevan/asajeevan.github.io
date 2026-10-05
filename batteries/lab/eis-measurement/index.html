@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lab 3 EIS: measurement | How batteries work</title>
+<meta name="description" content="How do we record an impedance spectrum we can trust? Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation">
+<meta property="og:description" content="How do we record an impedance spectrum we can trust? Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/lab/eis-measurement/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/lab/eis-measurement/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation">
+<meta name="twitter:description" content="How do we record an impedance spectrum we can trust? Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../../../assets/css/site.css">
+<link rel="stylesheet" href="../../../assets/css/learn.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/eis-measurement/", "inLanguage": "en"}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="lab/eis-measurement">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+<div class="wrap">
+<a class="brand" href="../../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="Course">
+<a href="../../../batteries/">Contents</a>
+<a href="../../../batteries/lab/gitt/" rel="prev">&#8592; Lab 2</a>
+<a href="../../../batteries/lab/eis-analysis/" rel="next">Lab 4 &#8594;</a>
+<a href="#references">References</a>
+</nav>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+<section class="module" id="ch" data-act="LAB" data-nav>
+<div class="wrap">
+<p class="mod-n">Lab handbook · Lab 3</p>
+<h2 class="h2">Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation</h2>
+<p class="hook">How do we record an impedance spectrum we can trust?</p>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-8" id="f11-8">
+<span class="fnum">Figure L3.1</span>
+<svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f118t">
+<title id="f118t">Left: a sinusoidal voltage of 10 millivolts amplitude and the current it drives, over two periods, for a resistor, a capacitor, an inductor or a resistor in parallel with a capacitor. Right: the Lissajous plot of current against voltage, a diagonal line when they are in phase, a circle at 90 degrees, an ellipse in between. A readout gives the magnitude and phase of the impedance.</title>
+</svg>
+<div class="controls">
+<button type="button" data-mode="R" aria-pressed="true">Resistor</button><button type="button" data-mode="C" aria-pressed="false">Capacitor</button><button type="button" data-mode="L" aria-pressed="false">Inductor</button><button type="button" data-mode="RC" aria-pressed="false">R ‖ C</button>
+<label><span>frequency</span> <input type="range" class="fsl" min="0" max="4" step="0.05" value="2" aria-label="Frequency, log10 of hertz"> <b class="fsl-val">100 Hz</b></label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>voltage</span><span><i style="background:var(--cyan)"></i>current</span><span><i style="background:var(--text)"></i>Lissajous plot</span></div>
+<figcaption>Impedance: a sine in, a sine out, compared in size and timing.
+<span class="try">Try this: choose R ‖ C and slide the frequency from 1 Hz to 10 kHz; watch the line open into an ellipse and close again.</span>
+<details class="src"><summary>Source</summary><span class="basis">Sinusoids, phasors, impedance as magnitude and phase, the responses of R, C and L, and Lissajous plots as a live check of linearity and stability, after Lazanas and Prodromidis 2023, sections 2 to 7 (eqs. 3, 24 to 28, 36 to 43) and Fig. 6; amplitude 5 to 10 mV after their section 16.2. Element values (20 Ω, 100 µF, 20 mH) are illustrative laboratory values; a cell’s are milliohms and farads (figure 11.10).</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">Impedance spectroscopy, from the beginning</h3>
+<p class="explain">Pulses and GITT work in time: we push the cell and watch every process answer on its own clock, all mixed in one voltage curve. Impedance spectroscopy works in frequency instead. It disturbs the cell with a small sine, a voltage or a current, and records the sine that answers, at many frequencies one after the other. If the cell behaves linearly and does not change during the measurement, the answer has the same frequency and differs only in size and timing.<sup class="cite"><a href="#ref-1">1</a></sup> The ratio of the two amplitudes is <math><mrow><mo stretchy="false">|</mo><mi>Z</mi><mo stretchy="false">|</mo></mrow></math>; the timing difference is the phase <math><mrow><mi>φ</mi></mrow></math>. Both fit in one complex number:<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<span class="mblock"><math display="block"><mrow><mi>Z</mi><mo>=</mo><mfrac><mrow><msub><mi>V</mi><mn>0</mn></msub></mrow><mrow><msub><mi>I</mi><mn>0</mn></msub></mrow></mfrac><mspace width="0.167em" /><msup><mi>e</mi><mrow><mi>j</mi><mi>φ</mi></mrow></msup><mo>=</mo><msup><mi>Z</mi><mi>′</mi></msup><mo>+</mo><mi>j</mi><msup><mi>Z</mi><mi>″</mi></msup><mo>,</mo><mspace width="2em" /><msup><mi>Z</mi><mi>′</mi></msup><mo>=</mo><mo stretchy="false">|</mo><mi>Z</mi><mo stretchy="false">|</mo><mi>cos</mi><mi>φ</mi><mo>,</mo><mspace width="1em" /><msup><mi>Z</mi><mi>″</mi></msup><mo>=</mo><mo stretchy="false">|</mo><mi>Z</mi><mo stretchy="false">|</mo><mi>sin</mi><mi>φ</mi></mrow></math></span>
+<p class="explain">Each circuit element has its own signature. A resistor: <math><mrow><mi>Z</mi><mo>=</mo><mi>R</mi></mrow></math>, in phase, at every frequency. A capacitor: <math><mrow><mi>Z</mi><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><mi>j</mi><mi>ω</mi><mi>C</mi><mo stretchy="false">)</mo></mrow></math>, with the current leading by 90° and the size falling as frequency rises (<math><mrow><mi>ω</mi><mo>=</mo><mn>2</mn><mi>π</mi><mi>f</mi></mrow></math>). An inductor: <math><mrow><mi>Z</mi><mo>=</mo><mi>j</mi><mi>ω</mi><mi>L</mi></mrow></math>, current lagging, size rising.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> Because the three depend so differently on frequency, sweeping the frequency separates them.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">The instrument is a potentiostat with a frequency response analyser, which correlates the response with a sine and a cosine at the excitation frequency over whole periods to get the two parts of <math><mrow><mi>Z</mi></mrow></math>.<sup class="cite"><a href="#ref-1">1</a></sup> Commercial instruments span about 10 µHz to 1 MHz, but slow points are expensive: a single measurement at 10 µHz takes 27.8 h, so in practice the lowest frequency is about 1 mHz, often 10 to 100 mHz. Sixty frequencies from 100 kHz down to 0.1 Hz take 2 to 3 minutes.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<div class="worked"><b>Worked example.</b> Peak, peak-to-peak or rms? A published amplitude of “10 mV” could mean any of them.<sup class="cite"><a href="#ref-1">1</a></sup>
+<span class="line"><math><mrow><msub><mi>V</mi><mi>p</mi></msub><mo>=</mo><mn>10</mn><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">V</mi></mrow></mrow></math>: peak-to-peak <math><mrow><msub><mi>V</mi><mrow><mi>p</mi><mi>p</mi></mrow></msub><mo>=</mo><mn>2</mn><msub><mi>V</mi><mi>p</mi></msub><mo>=</mo><mn>20</mn><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">V</mi></mrow></mrow></math></span>
+<span class="line">root mean square <math><mrow><msub><mi>V</mi><mrow><mi>r</mi><mi>m</mi><mi>s</mi></mrow></msub><mo>=</mo><msub><mi>V</mi><mi>p</mi></msub><mo>/</mo><msqrt><mrow><mn>2</mn></mrow></msqrt><mo>=</mo><mn>7</mn><mtext> </mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">V</mi></mrow></mrow></math></span>
+A factor of nearly three between the largest and smallest reading of the same signal.</div>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-9" id="f11-9">
+<span class="fnum">Figure L3.2</span>
+<svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f119t">
+<title id="f119t">The impedance of a resistor in series with two resistor-capacitor pairs, shown as a Nyquist plot, minus the imaginary part against the real part on equal scales, and as a Bode plot, magnitude and minus phase against log frequency. A dot sweeps from high to low frequency on both. A slider sets the ratio of the two time constants; at ratios above about 100 two arcs and two phase peaks appear, at equal time constants one.</title>
+</svg>
+<div class="controls">
+<label><span>τ<sub>1</sub>/τ<sub>2</sub></span> <input type="range" class="tratio" min="0" max="3" step="0.05" value="2" aria-label="Ratio of the two time constants, log10"> <b class="tratio-val">100</b></label>
+<label><input type="checkbox" class="stretch"> stretch the vertical axis</label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>impedance; |Z|</span><span><i style="background:var(--cyan)"></i>phase; tops of the arcs</span></div>
+<figcaption>One spectrum, two pictures.
+<span class="try">Try this: lower τ<sub>1</sub>/τ<sub>2</sub> from 1000 to 1 and find where you could no longer tell that there are two processes.</span>
+<details class="src"><summary>Source</summary><span class="basis">Nyquist and Bode plots, their strengths and weaknesses, the −Z″ convention and equal axes, after Lazanas and Prodromidis 2023, section 7.4; the R‖C semicircle with its top at ω = 1/(RC), and two arcs well resolved only for τ<sub>1</sub> ≫ 100τ<sub>2</sub>, after their section 8 (eqs. 48 to 51; eq. 30 as printed lacks the reciprocal on the left, so the parallel rule follows Bard, Faulkner and White 2022, section 11.2). R<sub>0</sub> = 10 Ω, R<sub>1</sub> = R<sub>2</sub> = 20 Ω, τ<sub>2</sub> = 0.1 ms; illustrative.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Once we have <math><mrow><mi>Z</mi></mrow></math> at many frequencies, we need to draw it, and there are two standard ways. The <b>Nyquist plot</b> puts <math><mrow><mo>−</mo><msup><mi>Z</mi><mi>″</mi></msup></mrow></math> upward against <math><mrow><msup><mi>Z</mi><mi>′</mi></msup></mrow></math>, one point per frequency, high frequencies on the left; a resistor in parallel with a capacitor draws a semicircle of diameter <math><mrow><mi>R</mi></mrow></math>. Its weaknesses: the frequency of each point is not shown, and the large low-frequency values set the scale and squash the high-frequency end. The <b>Bode plot</b> shows <math><mrow><mo stretchy="false">|</mo><mi>Z</mi><mo stretchy="false">|</mo></mrow></math> and the phase against the logarithm of frequency, so every point’s frequency can be read and each decade gets equal room.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Each R‖C pair has a time constant <math><mrow><mi>τ</mi><mo>=</mo><mi>R</mi><mi>C</mi></mrow></math>, and its arc peaks where <math><mrow><mi>ω</mi><mi>τ</mi><mo>=</mo><mn>1</mn></mrow></math>, that is at <math><mrow><mi>f</mi><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>τ</mi><mo stretchy="false">)</mo></mrow></math>.<sup class="cite"><a href="#ref-1">1</a></sup> Two pairs give two separate arcs only if their time constants differ by about a factor of 100 or more; closer, the arcs merge, and at equal <math><mrow><mi>τ</mi></mrow></math> a single semicircle remains.<sup class="cite"><a href="#ref-1">1</a></sup> One rule is often broken: the two axes of a Nyquist plot must have the same scale; stretching the vertical one makes depressed arcs look round.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup></p>
+<div class="worked"><b>Worked example.</b> Charge transfer in a commercial cell: R<sub>ct</sub> = 10 mΩ in parallel with a double layer of C<sub>dl</sub> = 2 F.
+<span class="line"><math><mrow><mi>τ</mi><mo>=</mo><msub><mi>R</mi><mrow><mi>c</mi><mi>t</mi></mrow></msub><msub><mi>C</mi><mrow><mi>d</mi><mi>l</mi></mrow></msub><mo>=</mo><mn>0.010</mn><mtext> </mtext><mi>Ω</mi><mo>×</mo><mn>2</mn><mtext> </mtext><mtext>F</mtext><mo>=</mo><mn>0.020</mn><mtext> </mtext><mtext>s</mtext></mrow></math></span>
+<span class="line"><math><mrow><mi>f</mi><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>τ</mi><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mo>×</mo><mn>0.020</mn><mtext> </mtext><mtext>s</mtext><mo stretchy="false">)</mo></mrow></math> = <i>8 Hz</i></span>
+Milliohms times farads still make milliseconds: the arcs of a large cell sit at hertz, as in figure 11.10.</div>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-10" id="f11-10">
+<span class="fnum">Figure L3.3</span>
+<svg viewBox="0 0 520 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1110t">
+<title id="f1110t">The impedance spectrum of an illustrative commercial cell in milliohms, built up element by element from a circuit drawn above it: inductance and ohmic resistance, then an SEI arc, then a charge-transfer arc, then a diffusion tail, with frequencies marked by decade and the kilohertz, hertz and millihertz ranges shaded. A dot sweeps the spectrum from high to low frequency.</title>
+</svg>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>spectrum so far</span><span><i style="background:var(--text);opacity:.4"></i>whole spectrum</span><span><i style="background:var(--cyan)"></i>decades of frequency</span></div>
+<figcaption>A commercial cell’s spectrum, read from left to right.
+<span class="try">Try this: step through the five callouts and name which part of the cell each new piece of the curve comes from.</span>
+<details class="src"><summary>Source</summary><span class="basis">The idealised spectrum of a commercial cell with its three frequency ranges (above 1 kHz, 1 Hz to 1 kHz, below 1 Hz), the assignment of the inductance, ohmic intercept, mid-frequency arcs and diffusion tail, the milliohm scale and the at-least-four overlapping interfacial processes, after Meddings et al. 2020, Fig. 1 and sections 1 and 3.2.2; the SEI arc at higher frequency than charge transfer after Lazanas and Prodromidis 2023, section 17.1. Circuit: L = 0.15 µH, R<sub>0</sub> = 20 mΩ, R<sub>SEI</sub> = 4 mΩ with a CPE (Q = 0.25, n = 0.9), R<sub>ct</sub> = 10 mΩ, C<sub>dl</sub> = 2 F, and spherical diffusion (Abbas et al. 2025, eq. 6) with R<sub>d</sub> = 0.3 Ω and C<sub>d</sub> = 3000 F, in the Randles arrangement; values illustrative, chosen within the ranges these sources describe.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">With these two pictures we can read the spectrum of a real cell, from left to right, high frequency to low. At the top of the range the cables and the wound electrodes act as an <b>inductance</b>, so the spectrum starts below the axis. Where it crosses the axis is the <b>ohmic resistance</b>, the sum of electrolyte, active material, current collectors and contacts. In the middle range come <b>arcs</b> from the interfaces, each a resistance in parallel with a capacitance; at low frequency a <b>tail</b> from lithium diffusing inside the particles.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<p class="explain">A commercial cell has large electrodes and so an impedance in the milliohm range, mostly below 0.1 Ω and at frequencies below a few tens of kilohertz. That makes it hard to measure: a small voltage drives a large current, of the order of an ampere.<sup class="cite"><a href="#ref-3">3</a></sup> And the interpretation is ambiguous: each electrode has its own SEI and its own charge transfer, at least four processes, but with only two terminals arcs of similar time constant merge into one or two.<sup class="cite"><a href="#ref-3">3</a></sup> Changing the state of charge or the temperature, which moves the processes by different amounts, helps tell them apart.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<p class="explain">Manufacturers use a single frequency, typically 1 kHz, to check and match cells on the production line; researchers use full spectra to follow degradation, which is the most common reason impedance is measured on commercial cells.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<p class="lesson">Left to right is fast to slow: wires, ohmic parts, interfaces, diffusion.</p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-11" id="f11-11">
+<span class="fnum">Figure L3.4</span>
+<svg viewBox="0 0 520 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1111t">
+<title id="f1111t">Four small Nyquist plots on equal scales in milliohms. A: a resistor in parallel with a constant phase element, a semicircle depressed below the axis as the exponent n falls. B: diffusion into a film, the endless 45 degree Warburg line, the open-ended version bending back to the axis, and the closed-ended version turning vertical. C: a film and a sphere with the same diffusion resistance and capacitance, turning vertical at one third and one fifteenth of it. D: a porous electrode, a 45 degree line at high frequency then an arc, compared with the plain semicircle.</title>
+</svg>
+<div class="controls">
+<label><span>CPE n</span> <input type="range" class="nexp" min="0.5" max="1" step="0.01" value="0.85" aria-label="Constant phase element exponent"> <b class="nexp-val">0.85</b></label>
+<label><span>pore resistance</span> <input type="range" class="rpor" min="0" max="15" step="1" value="5" aria-label="Pore resistance, milliohms"> <b class="rpor-val">5 mΩ</b></label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>closed end; CPE arc; film</span><span><i style="background:var(--cyan)"></i>open end; porous electrode</span><span><i class="heat"></i>sphere</span><span><i style="background:var(--text)"></i>ideal reference</span></div>
+<figcaption>The shapes real cells draw, and the physics behind each.
+<span class="try">Try this: set n = 0.5 in panel A and compare with the 45° line in panel B; then slide the pore resistance to zero in panel D.</span>
+<details class="src"><summary>Source</summary><span class="basis">CPE, its exponent and the depression angle θ = 90°(1 − n), the debated origin of CPE behaviour, finite diffusion with transmissive (tanh) and reflective (coth) boundaries, and the porous electrode as a transmission line, after Lazanas and Prodromidis 2023, sections 12 to 14 (eqs. 70, 71, 76 and 79; their note on the Z<sub>O</sub>/Z<sub>T</sub> labels swaps tanh and coth, so the equations are followed); CPEs fit almost anything and carry no specific physical meaning, after Meddings et al. 2020, section 3.2.2; film and sphere diffusion impedances, their DC limits R<sub>d</sub>/3 and R<sub>d</sub>/15 and the Bisquert transmission line, after Abbas et al. 2025, eqs. 6, 9, 17 and 21. All values illustrative (10 mΩ resistances, 1 F capacitances, R<sub>d</sub> = 24 mΩ).</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">The spectrum of figure 11.10 is idealized; real spectra are never made of perfect semicircles. Arcs are <b>depressed</b>: their centres sit below the axis. The usual fix replaces the capacitor with a <b>constant phase element</b>, <math><mrow><mi>Z</mi><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msub><mi>Y</mi><mn>0</mn></msub><mo stretchy="false">(</mo><mi>j</mi><mi>ω</mi><msup><mo stretchy="false">)</mo><mi>n</mi></msup><mo stretchy="false">)</mo></mrow></math>: <math><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow></math> is a capacitor, <math><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> a resistor and <math><mrow><mi>n</mi><mo>=</mo><mn>0.5</mn></mrow></math> a Warburg diffusion line. Surface roughness, fractal geometry and adsorption have all been proposed as its cause, and the question is not settled.<sup class="cite"><a href="#ref-1">1</a></sup> A CPE with a free exponent can fit almost any valid data, so its parameters cannot be read as real capacitances.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<p class="explain"><b>Diffusion</b> into a layer of finite thickness starts as the 45° Warburg line, then bends. If the far side lets lithium through, the line bends back to the axis in an arc; if it blocks lithium, as the inside of a particle does, the line turns vertical like a capacitor.<sup class="cite"><a href="#ref-1">1</a></sup> Particles are closer to spheres than to films: with the same diffusion resistance <math><mrow><msub><mi>R</mi><mi>d</mi></msub></mrow></math> and capacitance <math><mrow><msub><mi>C</mi><mi>d</mi></msub></mrow></math>, a sphere turns upward earlier and its tail stands at <math><mrow><msub><mi>R</mi><mi>d</mi></msub><mo>/</mo><mn>15</mn></mrow></math> instead of <math><mrow><msub><mi>R</mi><mi>d</mi></msub><mo>/</mo><mn>3</mn></mrow></math>, and the diffusion coefficient follows as <math><mrow><mi>D</mi><mo>=</mo><msup><mi>r</mi><mn>2</mn></msup><mo>/</mo><mo stretchy="false">(</mo><msub><mi>R</mi><mi>d</mi></msub><msub><mi>C</mi><mi>d</mi></msub><mo stretchy="false">)</mo></mrow></math>.<sup class="cite"><a href="#ref-4">4</a></sup></p>
+<p class="explain">A <b>porous electrode</b> is a ladder: the electrolyte resistance runs down each pore, and every grain wall has its own interface. The result is a 45° line at high frequency followed by an arc.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup> In the same study, fitted to an NMC622 electrode, such a transmission-line model gave a diffusion coefficient about four times larger than GITT or impedance models that put diffusion in simple series.<sup class="cite"><a href="#ref-4">4</a></sup></p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-12" id="f11-12">
+<span class="fnum">Figure L3.5</span>
+<svg viewBox="0 0 520 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1112t">
+<title id="f1112t">Left: the Butler-Volmer current against overpotential from minus to plus 120 millivolts, with its tangent at zero of slope one over the charge-transfer resistance, and the part swept by the sine highlighted. Right top: the current over one period compared with a pure sine. Right bottom: the sizes of the fundamental and the second to fifth harmonics on a log scale.</title>
+</svg>
+<div class="controls">
+<label><span>amplitude</span> <input type="range" class="amp" min="0" max="2" step="0.05" value="0.7" aria-label="Amplitude, log10 of millivolts"> <b class="amp-val">5 mV</b></label>
+<label><span>α</span> <input type="range" class="alpha" min="0.3" max="0.7" step="0.05" value="0.5" aria-label="Transfer coefficient"> <b class="alpha-val">0.50</b></label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>swept part; current</span><span><i style="background:var(--cyan)"></i>tangent; fundamental</span><span><i style="background:var(--text)"></i>Butler–Volmer curve; pure sine</span></div>
+<figcaption>How small is small enough?
+<span class="try">Try this: find the amplitude where the distortion passes 1 %, then set α = 0.4 and watch the second harmonic appear.</span>
+<details class="src"><summary>Source</summary><span class="basis">Butler–Volmer current and R<sub>ct</sub> = RT/(Fi<sub>0</sub>), after Bard, Faulkner and White 2022, eqs. 3.4.11 and 3.4.13; harmonics from the curvature of the i–η relation, after their section 11.6; amplitude 5 to 10 mV and Lissajous checks after Lazanas and Prodromidis 2023, sections 7 and 16.2; total harmonic distortion (defined there in words), NFRA and NLEIS after Meddings et al. 2020, section 3.1, and Bakenhaster and Dewald 2025, section 4.4. Computed for i<sub>0</sub> = 1 mA at 25 °C over one period by discrete Fourier transform; the absence of a second harmonic at α = 0.5 follows from the symmetry of the curve (this page’s working).</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">Measuring well</h3>
+<p class="explain">So far we have trusted the measurement itself. Let us now check it, starting with the size of the sine. Impedance theory assumes a linear system, and an electrode reaction is not one: its current grows exponentially with overpotential. Close to equilibrium the Butler–Volmer curve is nearly straight with slope <math><mrow><mn>1</mn><mo>/</mo><msub><mi>R</mi><mrow><mi>c</mi><mi>t</mi></mrow></msub></mrow></math>, and that straight piece is what impedance measures. A nonlinear response to a pure sine is distorted; it contains signals at <math><mrow><mn>2</mn><mi>f</mi></mrow></math>, <math><mrow><mn>3</mn><mi>f</mi></mrow></math> and higher, because the harmonics reflect the curvature of the curve.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">The amplitude is therefore a compromise: large enough for a clean signal, small enough to stay linear. Under voltage control 5 to 10 mV is usual, and the Lissajous plot shows when it is too large.<sup class="cite"><a href="#ref-1">1</a></sup> Under current control, 0.1 to 1 A on a commercial cell gives a response of a few millivolts and may be more accurate.<sup class="cite"><a href="#ref-3">3</a></sup> The <b>total harmonic distortion</b>, the harmonics’ combined size over the fundamental, checks linearity at every frequency.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<p class="explain">Nonlinear methods turn this round. NLEIS drives the cell moderately harder and reads the harmonics as “higher-order impedance”; NFRA uses large currents to excite them on purpose. In one study the ratio of third to second harmonic rose in cells aged at −10 °C, where lithium had plated, while ordinary spectra looked the same. There is no standard method yet, and large currents can damage the cell.<sup class="cite"><a href="#ref-3">3</a>,<a href="#ref-5">5</a></sup></p>
+<div class="worked"><b>Worked example.</b> How large is R<sub>ct</sub> for an exchange current i<sub>0</sub> = 1 mA at 25 °C?
+<span class="line"><math><mrow><msub><mi>R</mi><mrow><mi>c</mi><mi>t</mi></mrow></msub><mo>=</mo><mfrac><mrow><mi>R</mi><mi>T</mi></mrow><mrow><mi>F</mi><msub><mi>i</mi><mn>0</mn></msub></mrow></mfrac><mo>=</mo><mfrac><mrow><mn>8.314</mn><mo>×</mo><mn>298.15</mn></mrow><mrow><mn>96485</mn><mo>×</mo><mn>0.001</mn></mrow></mfrac><mtext> </mtext><mi>Ω</mi></mrow></math> = <i>25.7 Ω</i></span>
+A 1000 times larger exchange current, as on a large electrode, gives 25.7 mΩ.<sup class="cite"><a href="#ref-2">2</a></sup></div>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-13" id="f11-13">
+<span class="fnum">Figure L3.6</span>
+<svg viewBox="0 0 520 370" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1113t">
+<title id="f1113t">Top: an analyser connected to a cell with two wires that carry the current and sense the voltage, and with four wires, a current pair and a separate sense pair. Bottom: the high-frequency part of the spectrum measured both ways; the two-terminal curve is shifted right by the wire resistance and pulled further below the axis by the wire inductance, more so for longer cables.</title>
+</svg>
+<div class="controls"><label><span>cable length</span> <input type="range" class="cable" min="0.5" max="5" step="0.5" value="1" aria-label="Cable length in metres"> <b class="cable-val">1.0 m</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i style="background:var(--cyan)"></i>4 terminals: the cell</span><span><i class="act"></i>2 terminals: cell + wires</span></div>
+<figcaption>For a cell of milliohms, how it is connected changes the answer.
+<span class="try">Try this: lengthen the cable to 5 m and read how far the two-terminal intercept has moved.</span>
+<details class="src"><summary>Source</summary><span class="basis">Two- and four-terminal measurements of a battery, V = i(Z<sub>BAT</sub> + Z<sub>WIRE</sub>) against V = iZ<sub>BAT</sub>, and cable self-inductance growing with length and worst for low-impedance cells, after Lazanas and Prodromidis 2023, eqs. 82 and 83 and section 15; four terminal-pair definition, shielding, twisted pairs, same cables for compensation, up to 10 % variation of the ohmic value on re-inserting a cell, and the conditions for a steady cell, after Meddings et al. 2020, sections 2.2 and 3.1. Wire values (4 mΩ and 0.2 µH per metre) are illustrative.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">Next come the wires. With two terminals the analyser passes the current and measures the voltage through the same wires, so it measures the cell plus the wires. With four, one pair carries the current and a second pair senses the voltage at the cell’s own terminals; since the sense pair carries almost no current, its wires drop no voltage, and only the cell is measured. For batteries, where the wires are not negligible, four terminals are recommended.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup></p>
+<p class="explain">Cables also bring inductance, proportional to their length and most visible on low-impedance cells: the high-frequency end of the spectrum drops further below the axis.<sup class="cite"><a href="#ref-1">1</a></sup> Short cables, current and sense wires twisted in pairs, a metal box around the cell, the same cables for calibration and measurement, and a fixed holder all help; simply re-inserting a cell in its holder changed the ohmic resistance by up to 10 % in one study.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<p class="explain">The cell must also be steady, and that takes several steps: set the state of charge, then rest until the voltage stops moving (4 h was found adequate in one study; others report 15 min to 100 h, and half of the surveyed studies did not say); let the temperature settle, remembering that the inside of the cell lags the chamber; and set the state of charge before changing the temperature.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-14" id="f11-14">
+<span class="fnum">Figure L3.7</span>
+<svg viewBox="0 0 520 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1114t">
+<title id="f1114t">Top: a measured spectrum as dots with the fit of a linear Kramers-Kronig test circuit as a line. Bottom: the residuals of the real and imaginary parts, in percent of the impedance magnitude, against log frequency, with a band of plus and minus one percent. With a drifting cell the low-frequency residuals form a pattern; with noise they scatter randomly.</title>
+</svg>
+<div class="controls">
+<label><input type="checkbox" class="drift"> cell drifting</label>
+<label><span>noise</span> <input type="range" class="noise" min="0" max="1" step="0.1" value="0" aria-label="Noise, percent of the impedance magnitude"> <b class="noise-val">0.0 %</b></label>
+</div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>data; real residual</span><span><i style="background:var(--cyan)"></i>test fit; imaginary residual</span></div>
+<figcaption>Is the spectrum valid? Test it before you model it.
+<span class="try">Try this: tick “cell drifting” with no noise, then add noise without drift, and compare the two residual patterns.</span>
+<details class="src"><summary>Source</summary><span class="basis">Linearity, causality, stability (stationarity) and finiteness, the Kramers–Kronig relations and the impossibility of using them directly, the linear test with fixed time constants and fitted resistances (Boukamp), residuals that should be small and random, the pseudo-χ<sup>2</sup> and its rule-of-thumb thresholds, after Lazanas and Prodromidis 2023, sections 7 and 16.5, and Meddings et al. 2020, section 3.3.1 (deviation well below 1 %). The test here fits R‖C elements with log-spaced time constants plus a series R, L and C, weighted by 1/|Z|; the “drift” raises R<sub>SEI</sub> and R<sub>ct</sub> by 30 % over the sweep (one period or 1 s per point, 8 points per decade, 5 kHz to 10 mHz). Illustrative.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">With a small sine, a good connection and a steady cell, one test remains before we model anything. A spectrum is worth modelling only if it could have come from a system that was <b>linear</b>, <b>causal</b> (the response comes only from the excitation), <b>stable</b> (unchanged during the sweep) and finite. For such a system the real and imaginary parts are tied together by the Kramers–Kronig relations: one can be computed from the other.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup></p>
+<p class="explain">The relations need every frequency from zero to infinity, which no measurement has, so in practice a test circuit is fitted instead: many R‖C elements with fixed, evenly spread time constants, only their resistances free. Any valid spectrum can be fitted this way; if the fit fails, something is wrong with the data.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup> The residuals should be small and scattered randomly around zero, well below 1 %.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup> The test is used in only a minority of published work on commercial cells, though more often now that DRT, which needs excellent data, has spread.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<details class="deeper lab"><summary>recording an impedance spectrum you can trust</summary><div class="body">
+<ol>
+<li>Set the state of charge, then rest until the voltage stops moving (4 h was adequate in one study) and the temperature has settled; set the state of charge before changing the temperature.<sup class="cite"><a href="#ref-3">3</a></sup></li>
+<li>Connect four terminals, a current pair and a separate sense pair, with short cables twisted in pairs, the cell in a fixed holder inside a metal box, and the same cables for calibration and measurement.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup></li>
+<li>Choose the excitation: under voltage control 5 to 10 mV is usual, and the Lissajous plot shows when it is too large; on a low-impedance commercial cell, current control (0.1 to 1 A) gives a response of a few millivolts. Check the total harmonic distortion.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup></li>
+<li>Choose the frequencies, typically from about 100 kHz down to 10 to 100 mHz; in practice about 1 mHz is the lowest, because slow points are expensive.<sup class="cite"><a href="#ref-1">1</a></sup></li>
+<li>Test the spectrum with Kramers–Kronig before modelling it: the residuals should be small and scattered randomly around zero, well below 1 %.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup></li>
+<li>Fit a circuit whose elements are tied to processes in the cell, with as few as possible; remember that the fit can depend on the starting guesses and the weighting; and plot the Nyquist diagram with equal axes.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup></li>
+</ol>
+<span class="calc">Why the low end costs time: one period at 10 mHz lasts 1/0.01 = 100 s, at 1 mHz 1000 s; a single point at 10 µHz takes 27.8 h, while sixty frequencies from 100 kHz to 0.1 Hz take 2 to 3 minutes.<sup class="cite"><a href="#ref-1">1</a></sup></span>
+</div></details>
+<p class="lesson">Check the measurement before believing the model: rest, temperature, connection, amplitude, then the Kramers–Kronig test.</p>
+</div>
+</div>
+
+
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn prev" href="../../../batteries/lab/gitt/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Lab 2 GITT</span><span class="pn-q">How do we measure resistance and diffusion?</span></a>
+<a class="pn next" href="../../../batteries/lab/eis-analysis/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Lab 4 EIS: analysis</span><span class="pn-q">What does a spectrum mean, and what does a good fit not prove?</span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this page</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">A. Ch. Lazanas, M. I. Prodromidis, "Electrochemical Impedance Spectroscopy—A Tutorial", <i>ACS Measurement Science Au</i> <b>3</b>, 2023, 162–193. <a href="https://doi.org/10.1021/acsmeasuresciau.2c00070" target="_blank" rel="noopener">doi:10.1021/acsmeasuresciau.2c00070</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/Book"><span class="ref-n">2</span> <span class="ref-body">A. J. Bard, L. R. Faulkner, H. S. White, "Electrochemical Methods: Fundamentals and Applications", <i>Wiley, 3rd edition</i>, 2022.</span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">N. Meddings, M. Heinrich, F. Overney, J.-S. Lee, V. Ruiz, E. Napolitano, S. Seitz, G. Hinds, R. Raccichini, M. Gaberšček, J. Park, "Application of electrochemical impedance spectroscopy to commercial Li-ion cells: A review", <i>Journal of Power Sources</i> <b>480</b>, 2020, 228742. <a href="https://doi.org/10.1016/j.jpowsour.2020.228742" target="_blank" rel="noopener">doi:10.1016/j.jpowsour.2020.228742</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">I. Abbas, H. T. Tran, T. T. N. Tran, T. L. Pham, E.-C. Shin, C.-W. Park, S.-B. Yu, O. J. Lee, A.-G. Nguyen, D. Jeong, B. H. Ka, H.-H. Cho, J. Lim, N. Shin, M. Gaberšček, S.-M. Hur, C.-J. Park, J. Kim, J.-S. Lee, "GITT Limitations and EIS Insights into Kinetics of NMC622", <i>Batteries</i> <b>11</b>, 2025, 234. <a href="https://doi.org/10.3390/batteries11060234" target="_blank" rel="noopener">doi:10.3390/batteries11060234</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">S. T. Bakenhaster, H. D. Dewald, "Electrochemical impedance spectroscopy and battery systems: past work, current research, and future opportunities", <i>Journal of Applied Electrochemistry</i> <b>55</b>, 2025, 1657–1681. <a href="https://doi.org/10.1007/s10800-025-02273-6" target="_blank" rel="noopener">doi:10.1007/s10800-025-02273-6</a></span></li></ol>
+</div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+</div>
+</footer>
+
+<script src="../../../assets/js/gsap.min.js"></script>
+<script src="../../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../../assets/js/physics.js"></script>
+<script src="../../../assets/js/site.js"></script>
+<script src="../../../assets/js/learn/lab-eis-measurement.js"></script>
+<script src="../../../assets/js/share.js"></script>
+</body>
+</html>

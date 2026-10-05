@@ -28,11 +28,20 @@ def esc(s):
 
 # ---------------------------------------------------------------- scripts
 def js_bundles(pages_figs):
-    """pages_figs: {page_id: [fig ids]} -> {page_id: bundle path relative to ROOT}"""
+    """pages_figs: {page_id: [fig ids]} -> ({page_id: bundle path relative to ROOT}, {page_id: bytes}).
+    Bundles are cut at the level of top-level statements: the register() call of each figure on
+    the page, every declaration those statements use (followed across files), and in the files
+    so reached any plain expression statements (such as extra colours added to a shared table)."""
     deps = json.loads(subprocess.check_output(['node', str(ROOT / 'tools' / 'js_deps.js')]))
-    defined = {n: f for f, v in deps.items() for n in v['defines']}
-    needs = {f: sorted({defined[u] for u in v['uses'] if u in defined and defined[u] != f}) for f, v in deps.items()}
-    owner = {r: f for f, v in deps.items() for r in v['registers']}
+    text = {f: (SRC / 'figs' / f).read_text(encoding='utf-8') for f in deps}
+    units, defined, roots = {}, {}, {}
+    for f, v in deps.items():
+        for i, st in enumerate(v['statements']):
+            units[(f, i)] = st
+            for n in st['defines']:
+                defined[n] = (f, i)
+            for r in st['registers']:
+                roots[r] = (f, i)
     core = (SRC / 'learn-core.js').read_text(encoding='utf-8')
     outdir = ROOT / 'assets' / 'js' / 'learn'
     outdir.mkdir(parents=True, exist_ok=True)
@@ -40,16 +49,23 @@ def js_bundles(pages_figs):
         old.unlink()
     result, sizes = {}, {}
     for pid, figs in pages_figs.items():
-        files, stack = set(), [owner[f] for f in figs if f in owner]
+        chosen, stack = set(), [roots[f] for f in figs if f in roots]
         while stack:
-            f = stack.pop()
-            if f in files:
+            u = stack.pop()
+            if u in chosen:
                 continue
-            files.add(f)
-            stack.extend(needs[f])
-        body = '\n'.join((SRC / 'figs' / f).read_text(encoding='utf-8') for f in sorted(files))
+            chosen.add(u)
+            stack.extend(defined[n] for n in units[u]['uses'] if n in defined)
+        files = {f for f, i in chosen}
+        for (f, i), st in units.items():
+            if f in files and st['kind'] == 'ExpressionStatement' and not st['registers']:
+                chosen.add((f, i))
+        parts = []
+        for f in sorted(files):
+            idx = sorted(i for g, i in chosen if g == f)
+            parts.append('  /* ' + f + ' */\n' + '\n'.join('  ' + text[f][units[(f, i)]['start']:units[(f, i)]['end']] for i in idx))
         name = pid.replace('/', '-') + '.js'
-        out = core.replace('  /* {{figures}} */', body)
+        out = core.replace('  /* {{figures}} */', '\n'.join(parts))
         out = FIGREF_JS(out) if FIGREF_JS else out
         (outdir / name).write_text(out, encoding='utf-8')
         result[pid] = 'assets/js/learn/' + name

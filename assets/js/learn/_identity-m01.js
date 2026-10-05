@@ -301,13 +301,7 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
-  /* =================================================================
-     Module 1: what a battery does. The Daniell cell after Winter and
-     Brodd 2004 Figure 1, with the potential profile after Bard, Faulkner
-     and White Figures 1.1.2 (open circuit) and 1.5.2 (current flowing).
-     ================================================================= */
-
-  /* ===== 1.1 The Daniell cell, with reaction events and the potential strip ===== */
+  /* figs-1.js */
   register('f1-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), swBtn = fig.querySelector('.sw-btn');
     var E0 = P.data.daniell.E; // 1.103 V
@@ -408,8 +402,6 @@
     render();
     bind(fig, { start: function () { loop.start(); if (closed) eflow.start(); }, stop: function () { loop.stop(); eflow.stop(); } });
   });
-
-  /* ===== 1.2 Two roads: electrons in the metal, ions in the liquid, linked at the boundary ===== */
   register('f1-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var yT = 60, yB = 200, xm0 = 40, xb = 260, xs1 = 480;
@@ -461,8 +453,6 @@
     var loop = anim(fig, tick, { autoplay: true, stepDt: 0.3 });
     bind(fig, loop);
   });
-
-  /* ===== 1.3 Cell versus battery: potentials add along a path, charge adds side by side ===== */
   register('f1-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), btns = fig.querySelectorAll('button[data-arr]'), read = fig.querySelector('.readout');
     var V = 1.5; // one cell, illustrative
@@ -512,7 +502,6 @@
     ]);
     show('single');
   });
-
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

@@ -41,6 +41,18 @@ for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.js')).sort()) {
   walk(ast, n => {
     if (n.type === 'CallExpression' && n.callee.type === 'Identifier' && n.callee.name === 'register' && n.arguments[0] && n.arguments[0].type === 'Literal') registers.push(n.arguments[0].value);
   });
-  out[f] = { defines: [...defines].sort(), uses: [...uses].sort(), registers };
+  // statement level, for finer bundles: each top-level statement with what it defines, uses and registers
+  const off = '(function(){\n'.length;
+  const stmts = body.map(st => {
+    const d = new Set(), u = new Set(), r = [];
+    if (st.type === 'FunctionDeclaration') d.add(st.id.name);
+    if (st.type === 'VariableDeclaration') st.declarations.forEach(x => { if (x.id.type === 'Identifier') d.add(x.id.name); });
+    walk(st, (n, key, parent) => {
+      if (n.type === 'Identifier' && !(parent && parent.type === 'MemberExpression' && key === 'property' && !parent.computed) && !(parent && parent.type === 'Property' && key === 'key' && !parent.computed)) u.add(n.name);
+      if (n.type === 'CallExpression' && n.callee.type === 'Identifier' && n.callee.name === 'register' && n.arguments[0] && n.arguments[0].type === 'Literal') r.push(n.arguments[0].value);
+    });
+    return { start: st.start - off, end: st.end - off, defines: [...d], uses: [...u].filter(x => !d.has(x)), registers: r, kind: st.type };
+  });
+  out[f] = { defines: [...defines].sort(), uses: [...uses].sort(), registers, statements: stmts };
 }
 process.stdout.write(JSON.stringify(out, null, 1));

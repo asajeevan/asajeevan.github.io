@@ -301,25 +301,10 @@
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
 
-  /* =================================================================
-     Modules 4 and 5. A shared, clearly illustrative cell model feeds
-     figure 4.2 and the module 5 figures in figs-5.js. Its open-circuit shapes and parameters are
-     not measurements; the equations it combines are the cited ones.
-     ================================================================= */
-  var RTF = P.R * P.T0 / P.F; // thermal voltage, 25.7 mV at 25 C
-  function rateFromSlider(v) { return 0.1 * Math.pow(50, v / 100); } // 0.1C .. 5C, log scale
+  /* figs-45.js */
+  var RTF = P.R * P.T0 / P.F;
+  function rateFromSlider(v) { return 0.1 * Math.pow(50, v / 100); }
   function fmtRate(c) { if (c < 0.67) return 'C/' + Math.round(1 / c); var r = Math.round(c * 10) / 10; return (Math.abs(r - Math.round(r)) < 1e-9 ? String(Math.round(r)) : r.toFixed(1)) + 'C'; }
-  /* The illustrative cell. x is the fraction of the low-rate capacity delivered
-     (0 = full, 1 = empty); the state of charge is 1 - x. Open-circuit shapes are
-     smooth illustrative functions: a flat two-phase plateau (LiFePO4-like, R6) and a
-     sloping single-phase curve (LiCoO2-like, R6), each with the steep ends every cell
-     shows when one electrode runs out. Polarization combines the cited forms:
-       ohmic          eta = I R_b                         (R6 eq. 1; R1 eq. 15)
-       activation     eta = (2RT/F) asinh(i / 2 i0)       (B2 eq. 3.4.11 with alpha = 0.5)
-       concentration  eta = (RT/F) ln(C0 / C), C/C0 = 1 - i/i_lim (R1 eq. 16, F restored)
-     where the limiting current falls as the electrode that is being emptied runs short
-     of lithium (the end of discharge) or of room for it (the end of charge). R_b, i0 and
-     i_lim are illustrative, chosen so that the picture is legible; nothing is measured. */
   var model = {
     Rb: 0.05, i0: 0.3, lim: 8,
     voc: function (shape, x) {
@@ -363,122 +348,11 @@
     }
   };
   function shapeOfCell() { return cell.pos === 'lfp' ? 'flat' : 'slope'; }
-  function axes(g, x0, y0, x1, y1, vmin, vmax, xlab, ylab) {
-    el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g);
-    el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
-    for (var v = Math.ceil(vmin * 2) / 2; v <= vmax; v += 0.5) {
-      var yy = y0 - (v - vmin) / (vmax - vmin) * (y0 - y1);
-      el('line', { x1: x0, y1: yy, x2: x1, y2: yy, stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, g);
-      var t = el('text', { x: x0 - 6, y: yy + 4, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(t, v.toFixed(1));
-    }
-    var tx = el('text', { x: x1, y: y0 + 18, 'text-anchor': 'end', 'class': 'lbl' }, g); setSvgText(tx, xlab);
-    var ty = el('text', { x: x0 - 34, y: y1 - 8, 'class': 'lbl' }, g); setSvgText(ty, ylab);
-  }
-  function pathOf(pts, x0, y0, x1, y1, vmin, vmax) {
-    return pts.map(function (p, i) { return (i ? 'L' : 'M') + (x0 + p.x * (x1 - x0)).toFixed(1) + ',' + (y0 - (p.V - vmin) / (vmax - vmin) * (y0 - y1)).toFixed(1); }).join(' ');
-  }
-
-  /* ===== 4.1 Faraday calculator ===== */
-  register('f4-1', function (fig) {
-    var svg = fig.querySelector('svg'), g = svg.querySelector('.calc-bars'), sel = fig.querySelector('.mat'), M = fig.querySelector('.M'), n = fig.querySelector('.n'), V = fig.querySelector('.V'), Vv = fig.querySelector('.V-val'), read = fig.querySelector('.readout'), note = fig.querySelector('.note');
-    P.data.materials.forEach(function (m) { var o = document.createElement('option'); o.value = m.key; o.textContent = plain(m.name); sel.appendChild(o); });
-    var o = document.createElement('option'); o.value = 'custom'; setSvgText(o, 'Custom (type M and n)'); sel.appendChild(o);
-    var refs = [{ name: 'graphite', basis: 'per g of C₆', q: P.specificCapacity(1, 6 * 12.011) }, { name: 'LiFePO₄', basis: 'per g of LiFePO₄', q: P.specificCapacity(1, 6.94 + 55.845 + 30.974 + 4 * 15.999) }, { name: 'lithium metal', basis: 'per g of Li', q: P.specificCapacity(1, 6.94) }];
-    var scale = 300 / 4000;
-    badge(svg, 20, 42, 1); badge(svg, 20, 82, 2); badge(svg, 500, 190, 3);
-    function valid() { var mm = +M.value, nn = +n.value; return isFinite(mm) && mm >= 1 && mm <= 1000 && isFinite(nn) && nn >= 0.1 && nn <= 10; }
-    function render() {
-      var mat = null; P.data.materials.forEach(function (m) { if (m.key === sel.value) mat = m; });
-      if (mat) { M.value = mat.M.toFixed(2); n.value = mat.n; }
-      setSvgText(Vv, (+V.value).toFixed(1) + ' V');
-      clear(g);
-      if (!valid()) { read.innerHTML = '<span class="invalid">Enter a molar mass between 1 and 1000 g/mol and an electron count between 0.1 and 10.</span>'; note.innerHTML = ''; return; }
-      var q = P.specificCapacity(+n.value, +M.value), E = q * (+V.value); // mAh/g x V = mWh/g = Wh/kg
-      var rows = [{ name: mat ? mat.name.split(' (')[0] : 'your material', basis: mat ? 'per g of ' + mat.basis.split(' (')[0] : 'per g of it', q: q, me: true }].concat(refs.filter(function (r) { return Math.abs(r.q - q) > 0.5; }));
-      rows.forEach(function (r, i) {
-        var y = 30 + i * 40, w = Math.min(300, r.q * scale);
-        el('rect', { x: 180, y: y, width: w, height: 22, rx: 4, fill: r.me ? 'var(--amber)' : 'var(--cyan)', 'fill-opacity': r.me ? '.95' : '.45' }, g);
-        txt(g, 174, y + 7, r.name, r.me ? 'strong' : '', 'end'); txt(g, 174, y + 24, r.basis, '', 'end');
-        var inside = w > 200;
-        txt(g, inside ? 176 + w : 186 + w, y + 15, Math.round(r.q) + ' mAh/g', 'strong', inside ? 'end' : 'start', inside ? { fill: '#1a1405' } : null);
-      });
-      txt(g, 480, 194, 'theoretical specific capacity, 0 to 4000 mAh/g, each on its own mass basis', '', 'end');
-      read.innerHTML = 'Q = nF/(3.6 M) = ' + (+n.value) + ' × 96 485.3 / (3.6 × ' + (+M.value).toFixed(2) + ') = <b>' + Math.round(q) + ' mAh/g</b>' + (mat ? ' on the ' + mat.basis + ' basis' : '') + '. Against a counter electrode that puts the cell at ' + (+V.value).toFixed(1) + ' V, that is <b>' + Math.round(E) + ' Wh per kilogram of this electrode’s active material</b>, this electrode alone: the other electrode, the electrolyte and the packaging all add mass and none adds energy (see the note under figure 4.3).';
-      note.innerHTML = mat ? (mat.printed ? '<span class="flag ok">reproduces the printed value, ' + mat.printed + ' mAh/g</span> ' : '<span class="flag">computed from Faraday’s law; the sources print no theoretical value for this one</span> ') + '<span class="flag">' + mat.practical + '</span>' : '<span class="flag">custom entry: computed, no printed check</span>';
-    }
-    on(sel, 'change', render);
-    [M, n].forEach(function (i) { on(i, 'input', function () { sel.value = 'custom'; render(); }); });
-    on(V, 'input', render);
-    function fromCell() { var p = rung(cell.pos), nn = rung(cell.neg); V.value = Math.max(0.5, Math.min(5, p.V - nn.V)).toFixed(1); if (cell.pos === 'lfp' || cell.pos === 'lco' || cell.pos === 's') sel.value = cell.pos; render(); }
-    steps(fig, [
-      { text: 'The amber bar is the material you chose: its <b>theoretical capacity</b> from Faraday’s law, Q = nF/(3.6 M), in milliampere-hours per gram.' },
-      { text: 'The cyan bars are three references. Read the small print: each is <b>per gram of a different thing</b> (the carbon host, the lithiated phosphate, the bare metal), so compare with care.' },
-      { text: 'Multiply by the cell voltage and you get watt-hours per kilogram <b>of this electrode’s active material only</b>. Energy belongs to a pair of electrodes; a whole cell delivers far less per kilogram (the note under figure 4.3 says why).' }
-    ]);
-    cellListeners.push(fromCell); fromCell();
-  });
-
-  /* ===== 4.2 Energy is the area under the curve ===== */
-  register('f4-2', function (fig) {
-    var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), read = fig.querySelector('.readout');
-    var x0 = 60, y0 = 250, x1 = 490, y1 = 30, vmin = 2.0, vmax = 4.5;
-    var ax = el('g', {}, g); axes(ax, x0, y0, x1, y1, vmin, vmax, '', 'V');
-    [0, 25, 50, 75, 100].forEach(function (pc) { var xx = x0 + pc / 100 * (x1 - x0); el('line', { x1: xx, y1: y0, x2: xx, y2: y0 + 5, stroke: 'var(--line-2)' }, ax); txt(ax, xx, y0 + 18, pc + ' %', '', 'middle'); });
-    txt(ax, x1, y0 + 34, 'capacity delivered, % of the C/10 value', '', 'end');
-    var area = el('path', { fill: 'var(--amber)', 'fill-opacity': '.22' }, g), line = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2 }, g);
-    var ref = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-opacity': '.45', 'stroke-dasharray': '3 4' }, g);
-    // legend
-    el('line', { x1: x0 + 14, x2: x0 + 40, y1: y1 + 14, y2: y1 + 14, stroke: 'var(--amber)', 'stroke-width': 2 }, g); txt(g, x0 + 46, y1 + 18, 'this rate', '');
-    el('line', { x1: x0 + 120, x2: x0 + 146, y1: y1 + 14, y2: y1 + 14, stroke: 'var(--amber)', 'stroke-opacity': '.45', 'stroke-dasharray': '3 4' }, g); txt(g, x0 + 152, y1 + 18, 'C/10 reference', '');
-    el('rect', { x: x0 + 250, y: y1 + 7, width: 26, height: 14, fill: 'var(--amber)', 'fill-opacity': '.22' }, g); txt(g, x0 + 282, y1 + 18, 'energy = area', '');
-    badge(svg, x0 + 200, y0 - 60, 1); badge(svg, x1 - 30, y0 - 30, 2); badge(svg, 30, y1 + 14, 3);
-    var E0 = null;
-    function render() {
-      var shape = shapeOfCell(), c = rateFromSlider(+rate.value); setSvgText(rv, fmtRate(c));
-      var pts = model.curve(shape, c, false), slow = model.curve(shape, 0.1, false);
-      var d = pathOf(pts, x0, y0, x1, y1, vmin, vmax); line.setAttribute('d', d);
-      area.setAttribute('d', d + ' L' + (x0 + pts[pts.length - 1].x * (x1 - x0)).toFixed(1) + ',' + y0 + ' L' + x0 + ',' + y0 + ' Z');
-      ref.setAttribute('d', pathOf(slow, x0, y0, x1, y1, vmin, vmax));
-      var E = P.energyFromCurve(pts.map(function (p) { return p.x; }), pts.map(function (p) { return p.V; }));
-      E0 = P.energyFromCurve(slow.map(function (p) { return p.x; }), slow.map(function (p) { return p.V; }));
-      var q = pts[pts.length - 1].x, vavg = E / q;
-      read.innerHTML = 'At ' + fmtRate(c) + ': capacity reached <b>' + Math.round(q * 100) + ' %</b> of the C/10 value, average voltage <b>' + vavg.toFixed(2) + ' V</b>, energy (the shaded area) <b>' + Math.round(100 * E / E0) + ' %</b> of the energy at C/10 (dashed). Energy = average voltage × capacity.';
-    }
-    on(rate, 'input', render); cellListeners.push(render); render();
-    steps(fig, [
-      { text: 'The curve is the cell voltage as charge is drawn out, for <b>your cell</b>: flat for LiFePO₄, sloping for the oxides (a later module explains the shapes). The shaded <b>area</b> under it is the energy delivered.' },
-      { text: 'Slide the rate up. The curve drops (voltage lost to resistance and kinetics) and it ends earlier (capacity lost to slow transport): the area shrinks from both sides.' },
-      { text: 'The dashed line is the gentle C/10 discharge that sets 100 %. Whatever the rate, energy is the integral of V over the charge, which is the same as the average voltage times the capacity.' }
-    ]);
-  });
-
-  /* ===== 4.3 The Ragone map (static) ===== */
-  register('f4-3', function (fig) {
-    var svg = fig.querySelector('svg');
-    badge(svg, 190, 60, 1); badge(svg, 440, 200, 2); badge(svg, 372, 112, 3);
-    steps(fig, [
-      { text: '<b>Supercapacitors</b> deliver energy fast but hold little; <b>fuel cells</b> hold much but deliver it slowly. Both axes are logarithmic and carry no numbers because the source figure is itself simplified.' },
-      { text: '<b>Batteries</b> sit between the two and overlap both; a thin-film battery can reach the power of a supercapacitor.' },
-      { text: 'The <b>combustion engine</b> is not an electrochemical device: it beats all three on both axes because its energy is stored in a fuel tank, not in an electrode. No single electrochemical system matches it, which is why the sources suggest combining them.' }
-    ]);
-  });
-
-
-  /* =================================================================
-     Module 5: charging and discharging. Every curve comes from the
-     illustrative cell model in figs-45.js (cited equations, illustrative
-     parameters). Potential profile with current after Bard, Faulkner and
-     White Figure 1.5.2; V = Voc -/+ eta after Goodenough and Park 2013,
-     eqs. 1.1 and 1.2; the three polarizations and their clocks after
-     Winter and Brodd 2004, section 1.4; the phase rule after Winter and
-     Brodd section 2.4; heat after Jindal et al. 2022, eq. 1.
-     ================================================================= */
-  var C5 = { ohm: '#C4B5F7', act: 'var(--amber)', conc: 'var(--cyan)' }; // colours of the three polarizations
+  /* figs-5.js */
+  var C5 = { ohm: '#C4B5F7', act: 'var(--amber)', conc: 'var(--cyan)' };
   function niceStep(span, n) { var raw = span / (n || 5), p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; }
   function cellVoc() { var p = rung(cell.pos), n = rung(cell.neg); return Math.max(0.5, p.V - n.V); }
   function mv(v) { return Math.round(v * 1000) + ' mV'; }
-
-  /* ===== 5.2 Where the voltage goes when current flows ===== */
   register('f5-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), mb = fig.querySelectorAll('button[data-mode]');
     var xn0 = 64, xn1 = 112, xp0 = 408, xp1 = 456, ye0 = 92, ye1 = 222, xsep = 260;
@@ -562,8 +436,6 @@
     cellListeners.push(render); render();
     bind(fig, { start: function () { loop.start(); }, stop: function () { loop.stop(); eflow.stop(); } });
   });
-
-  /* ===== 5.3 The voltage curve, computed, with the polarization on the plot ===== */
   register('f5-3', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), probe = fig.querySelector('.probe'), pv = fig.querySelector('.probe-val'), sbtn = fig.querySelectorAll('button[data-shape]');
     var x0 = 50, x1 = 336, y0 = 256, y1 = 40, shape = shapeOfCell(), userShape = false;
@@ -671,8 +543,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) { placeDot(); return; } play.k = (play.k + dt / 9) % 1; placeDot(); }, { autoplay: true, stepDt: 0.5 });
     bind(fig, loop);
   });
-
-  /* ===== 5.4 Switch the current off: three clocks ===== */
   register('f5-4', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val');
     var xb0 = 62, xb1 = 118, x0 = 130, x1 = 486, y0 = 232, y1 = 44, tmin = -7, tmax = 2;
@@ -725,8 +595,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; tNow += dt * 2.2; if (tNow > tmax + 1.6) tNow = tmin; draw(); }, { autoplay: true, stepDt: 0.5, onPlay: function () { if (tNow >= tmax) tNow = tmin; } });
     bind(fig, loop);
   });
-
-  /* ===== 5.10 Cycle life and Coulombic efficiency ===== */
   register('f5-10', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), ce = fig.querySelector('.ce'), cv = fig.querySelector('.ce-val'), read = fig.querySelector('.readout');
     var x0 = 62, y0 = 228, x1 = 470, y1 = 30, N = 1000;
@@ -761,8 +629,6 @@
     ]);
     render();
   });
-
-  /* ===== 5.11 Heat through one cycle ===== */
   register('f5-11', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), sb = fig.querySelectorAll('button[data-sign]');
     var x0 = 62, x1 = 470, y0 = 224, y1 = 36, sign = 1, dUdT = 0.2e-3; // illustrative magnitude, V/K
@@ -808,17 +674,7 @@
     ]);
     render();
   });
-
-  /* =================================================================
-     Module 5, the detailed charge and discharge figures: the test bench
-     (5.1), battery against capacitor (5.5), the phase rule rebuilt on a
-     measured open-circuit curve (5.6), many LiFePO4 particles (5.7), porosity
-     and tortuosity (5.8), inside a porous electrode (5.9) and reading a curve
-     by its derivatives (5.10).
-     Sources: Olson, López and Dickinson 2023 (R60); Moya 2025 (R61); Safari
-     and Delacourt 2011 (R59); Doyle, Fuller and Newman 1993 (R62); Winter and
-     Brodd 2004 (R1); Landesfeind et al. 2016 (R74). Shared helpers come from figs-45.js and figs-5.js.
-     ================================================================= */
+  /* figs-5n.js */
   function plotAxes(g, b, o) { // b = {x0, y0, x1, y1}; o = {xlab, ylab, yt: [values], yf: fmt, ylo, yhi}
     el('line', { x1: b.x0, y1: b.y0, x2: b.x1, y2: b.y0, stroke: 'var(--line-2)' }, g);
     el('line', { x1: b.x0, y1: b.y0, x2: b.x0, y2: b.y1, stroke: 'var(--line-2)' }, g);
@@ -831,8 +687,6 @@
     if (o.ylab) txt(g, b.x0 + 4, b.y1 - 6, o.ylab, '', 'start');
   }
   function polyD(xs, ys) { var d = ''; for (var i = 0; i < xs.length; i++) d += (i ? 'L' : 'M') + xs[i].toFixed(1) + ',' + ys[i].toFixed(1); return d; }
-
-  /* ===== 5.1 The test bench: constant current, cut-offs, constant voltage ===== */
   register('f5-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val');
     var CAP = 2.0; // Ah, the illustrative cell's low-rate capacity
@@ -950,8 +804,6 @@
     // reduced motion: show the whole protocol at once
     if (!motion) { k = tr.length - 1; place(); }
   });
-
-  /* ===== 5.5 Battery or capacitor: two ideal limits and a real supercapacitor ===== */
   register('f5-5', function (fig) {
     var svg = fig.querySelector('svg'), read = fig.querySelector('.readout'), I0s = fig.querySelector('.i0'), I0v = fig.querySelector('.i0-val'), mb = fig.querySelectorAll('button[data-view]');
     var gA = el('g', {}, svg), gB = el('g', {}, svg);
@@ -1069,8 +921,6 @@
     }, { autoplay: true, stepDt: 0.5 });
     bind(fig, loop);
   });
-
-  /* ===== 5.6 Plateau or slope: the phase rule on a measured curve ===== */
   register('f5-6', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var colX = [20, 270], parts = [[], []], order = [7, 2, 10, 4, 0, 9, 5, 11, 1, 6, 3, 8];
@@ -1125,8 +975,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; y += dt / 9; if (y > 0.995) y = 0.005; place(); }, { autoplay: true, stepDt: 0.6 });
     bind(fig, loop);
   });
-
-  /* ===== 5.7 Many particles: the resistive-reactant LiFePO4 electrode ===== */
   register('f5-7', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), mb = fig.querySelectorAll('button[data-mode]'), rb = fig.querySelectorAll('button[data-rate]');
     var b = { x0: 58, y0: 268, x1: 326, y1: 30 }, vlo = 2.4, vhi = 4.3;
@@ -1240,12 +1088,7 @@
     bind(fig, loop);
     if (!motion) { kk = 100000; place(); }
   });
-
-  /* ===== Shared: a drawn packing of particles at a chosen porosity, and the shortest way through its pores ===== */
   function rng(seed) { var s = seed >>> 0; return function () { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
-  // Particles in a w x h box (origin 0,0). shape 'disk': hexagonal rows of circles of radius r;
-  // 'plate': staggered rows of flat bars 4r long and r thick, lying flat. The gap between particles is
-  // found by bisection so that the solid share of the box area (sampled on a 1 px grid) equals phi.
   function packParticles(w, h, phi, shape, r, seed) {
     function build(gap) {
       var R = rng(seed), list = [], x, y, row, j;
@@ -1279,7 +1122,6 @@
     return m;
   }
   function solidShare(list, w, h) { var m = solidMask(list, w, h), s = 0; for (var i = 0; i < m.length; i++) s += m[i]; return s / m.length; }
-  // Dijkstra on the pore cells (8 neighbours, no corner cutting) from the top row to the bottom row.
   function shortestPore(mask, w, h) {
     var N = w * h, dist = new Float64Array(N), prev = new Int32Array(N), hd = [], hi = [];
     for (var i = 0; i < N; i++) { dist[i] = Infinity; prev[i] = -1; }
@@ -1302,10 +1144,6 @@
     path.reverse(); path.unshift([path[0][0], 0]); path.push([path[path.length - 1][0], h]);
     return { len: dist[end] + 0.5, path: path };
   }
-
-  /* ===== 5.8 Porosity and tortuosity (after Landesfeind et al. 2016, R74) ===== */
-  // Measured fits of the MacMullin number N_M = kappa/kappa_eff against porosity, their Figure 19
-  // (generalized Bruggeman with a prefactor): graphite-1 4.7 eps^-1.1, LFP-lowC 3.1 eps^-1.6, LFP-highC 3.0 eps^-1.2.
   var NM_FITS = [
     { name: 'graphite', f: 4.7, p: 1.1, lo: 0.30, hi: 0.70, col: 'var(--cyan)' },
     { name: 'LiFePO₄, 5 % carbon', f: 3.1, p: 1.6, lo: 0.25, hi: 0.75, col: 'var(--heat)' },
@@ -1367,8 +1205,6 @@
       { text: 'What the ions feel is the conductivity left in the pores, κ<sub>eff</sub>/κ = ε/τ. The dashed curve is the usual estimate, ε<sup>1.5</sup>. The solid curves are fits to impedance measurements on real electrodes; all lie well below it.' }
     ]);
   });
-
-  /* ===== 5.9 Inside a porous electrode (after Doyle, Fuller and Newman 1993; schematic) ===== */
   register('f5-8', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), cb = fig.querySelectorAll('button[data-case]');
     var xf = 40, xsep = 116, ytop = 30, ybot = 136, PXUM = 1.9; // electrode thickness drawn to scale, 1.9 px per µm
@@ -1453,12 +1289,6 @@
     bind(fig, loop);
     if (!motion) { s = 1; place(); flowIons(0); }
   });
-
-  /* ===== 5.10 Reading a curve by its slopes: dV/dQ and dQ/dV (after Olson et al. 2023) ===== */
-  /* A toy cell. Each electrode's lithium content is a sum of smooth steps in its potential,
-     x(U) = sum w / (1 + exp((U - Uj)/xi)), one step per plateau: an illustrative choice of ours
-     with the properties Olson et al. ask of such a function (smooth, strictly monotonic). The
-     plateau potentials are invented, not those of a real material. */
   var TOY = {
     neg: [{ U: 0.21, w: 0.40, xi: 0.010 }, { U: 0.12, w: 0.50, xi: 0.008 }, { U: 0.55, w: 0.10, xi: 0.12 }],
     pos: [{ U: 3.70, w: 0.30, xi: 0.06 }, { U: 3.92, w: 0.30, xi: 0.012 }, { U: 4.10, w: 0.22, xi: 0.015 }, { U: 4.45, w: 0.18, xi: 0.08 }]
@@ -1538,7 +1368,6 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; kq += dt / 10; if (kq > 1) kq = 0; place(); }, { autoplay: true, stepDt: 0.4 });
     bind(fig, loop);
   });
-
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

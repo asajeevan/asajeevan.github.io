@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lab 4 EIS: analysis | How batteries work</title>
+<meta name="description" content="What does a spectrum mean, and what does a good fit not prove? Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times">
+<meta property="og:description" content="What does a spectrum mean, and what does a good fit not prove? Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/lab/eis-analysis/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#0E1F22">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/lab/eis-analysis/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times">
+<meta name="twitter:description" content="What does a spectrum mean, and what does a good fit not prove? Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<link rel="stylesheet" href="../../../assets/css/site.css">
+<link rel="stylesheet" href="../../../assets/css/learn.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/eis-analysis/", "inLanguage": "en"}</script>
+</head>
+<body data-mode="teach" class="course-page" data-page="lab/eis-analysis">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar" id="topbar">
+<div class="wrap">
+<a class="brand" href="../../../batteries/" aria-label="How batteries work: course home">How batteries work</a>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="Course">
+<a href="../../../batteries/">Contents</a>
+<a href="../../../batteries/lab/eis-measurement/" rel="prev">&#8592; Lab 3</a>
+<a href="../../../batteries/lab/post-mortem/" rel="next">Lab 5 &#8594;</a>
+<a href="#references">References</a>
+</nav>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<div id="content">
+<section class="module" id="ch" data-act="LAB" data-nav>
+<div class="wrap">
+<p class="mod-n">Lab handbook · Lab 4</p>
+<h2 class="h2">Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times</h2>
+<p class="hook">What does a spectrum mean, and what does a good fit not prove?</p>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-15" id="f11-15">
+<span class="fnum">Figure L4.1</span>
+<svg viewBox="0 0 520 370" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1115t">
+<title id="f1115t">Two equivalent circuits with their element values: a resistor followed by two resistor-capacitor pairs in series, and a nested ladder of a capacitor in parallel with a resistor followed by a resistor-capacitor pair. Below, their Nyquist plots lie exactly on top of each other: a line for the first and open circles for the second.</title>
+</svg>
+<div class="controls"><label><span>R<sub>2</sub></span> <input type="range" class="r2v" min="2" max="20" step="1" value="10" aria-label="Second resistance in milliohms"> <b class="r2v-val">10 mΩ</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>circuit 1</span><span><i style="background:var(--cyan)"></i>circuit 2</span></div>
+<figcaption>Two circuits, one spectrum: a perfect fit proves nothing about the circuit.
+<span class="try">Try this: change R<sub>2</sub> and watch the ladder’s values change while the two curves stay on top of each other.</span>
+<details class="src"><summary>Source</summary><span class="basis">Mathematically identical circuits, a series chain of R‖C pairs and its nested ladder, after Lazanas and Prodromidis 2023, section 8 and Fig. 7 (they show a three-pair version); the hierarchical ladder for the SEI, non-uniqueness, and minimal, physics-based circuits after Meddings et al. 2020, section 3.2.2. The conversion between the two-pair versions here (matching the admittance as a continued fraction) is this page’s working, checked numerically. R<sub>0</sub> = 20 mΩ, R<sub>1</sub> = 4 mΩ, C<sub>1</sub> = 0.25 F, C<sub>2</sub> = 2 F; illustrative.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">From spectrum to meaning</h3>
+<p class="explain">With a valid spectrum in hand, we can ask what it means. The usual analysis fits an <b>equivalent circuit</b> to the spectrum by complex nonlinear least squares and judges the fit by its χ<sup>2</sup>.<sup class="cite"><a href="#ref-1">1</a></sup> The trap is that circuits are not unique: different circuits can give exactly the same impedance at every frequency, and adding elements always improves the fit.<sup class="cite"><a href="#ref-1">1</a></sup> The same model can also return different values depending on the starting guesses and the weighting.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">So the circuit has to come from the physics of the cell, each element tied to a process, with as few elements as possible.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> Physics-based models go further: the transmission line of figure 11.11 with spherical diffusion in each grain, or full electrochemical models solved for their impedance.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-3">3</a></sup></p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-16" id="f11-16">
+<span class="fnum">Figure L4.2</span>
+<svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1116t">
+<title id="f1116t">Top: a spectrum with two overlapping depressed arcs and slight noise, as dots, with the fit from the distribution of relaxation times as a line. Bottom: the distribution against relaxation time on a log axis from 1 microsecond to 10 seconds, with the exact distribution dashed and peaks labelled; shaded bands mark typical time ranges for bulk conduction, surface layers and charge transfer. A slider sets the regularisation strength.</title>
+</svg>
+<div class="controls"><label><span>λ</span> <input type="range" class="lam" min="-4" max="1" step="0.25" value="-1" aria-label="Regularisation strength, log10"> <b class="lam-val">0.1</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>data; recovered distribution</span><span><i style="background:var(--cyan)"></i>fit</span><span><i style="background:var(--text)"></i>exact distribution</span></div>
+<figcaption>The distribution of relaxation times: overlapping arcs become separate peaks, if the regularization is right.
+<span class="try">Try this: find the range of λ that gives exactly two peaks; then go one step either side.</span>
+<details class="src"><summary>Source</summary><span class="basis">The DRT relation Z = R<sub>0</sub> + R<sub>pol</sub>∫g(τ)/(1 + jωτ)dτ with τ = 1/(2πf), peaks as processes, the need for regularisation and its narrow useful range, sensitivity to bad points, and the restriction to the SEI and charge-transfer arcs, after Meddings et al. 2020, eq. 5 and section 3.2.1, and Bakenhaster and Dewald 2025, eqs. 9 and 10 and section 4.3; time ranges of the bands read from their Fig. 12 (approximate). Here: non-negative least squares with a ridge penalty λ on 61 log-spaced time constants (this page’s method); data from two R‖CPE arcs (4 mΩ, n = 0.9; 10 mΩ, n = 0.85) with 0.2 % noise; the exact distribution of such arcs is the Cole–Cole form (this page’s working).</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<p class="explain">If choosing the circuit is the problem, we can try not to choose one in advance. That is what the <b>distribution of relaxation times</b> (DRT) does. Every R‖C pair relaxes with one time constant, so a spectrum can be written as a sum, in the limit a distribution, of such pairs:<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup></p>
+<span class="mblock"><math display="block"><mrow><mi>Z</mi><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>R</mi><mn>0</mn></msub><mo>+</mo><msub><mi>R</mi><mrow><mi>p</mi><mi>o</mi><mi>l</mi></mrow></msub><msubsup><mo>∫</mo><mn>0</mn><mo>∞</mo></msubsup><mfrac><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo></mrow><mrow><mn>1</mn><mo>+</mo><mi>j</mi><mi>ω</mi><mi>τ</mi></mrow></mfrac><mspace width="0.167em" /><mi>d</mi><mi>τ</mi></mrow></math></span>
+<p class="explain">Recovering <math><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo></mrow></math> turns the spectrum into peaks along the time axis, one per process, even where the arcs overlap in a Nyquist plot. That is why DRT is used on commercial cells: to count the processes and then build a circuit with the right number of elements.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup></p>
+<p class="explain">The catch is that recovering <math><mrow><mi>g</mi></mrow></math> from noisy data is unstable and needs a regularization, a penalty of strength <math><mrow><mi>λ</mi></mrow></math>; only a narrow range of <math><mrow><mi>λ</mi></mrow></math> gives the right answer, and the number of peaks depends on it.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup> Bad data points distort it strongly, so DRT needs a Kramers–Kronig check first, and because the inductive and diffusion parts distort it too, it is usually applied to the SEI and charge-transfer arcs.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-17" id="f11-17">
+<span class="fnum">Figure L4.3</span>
+<svg viewBox="0 0 520 384" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1117t">
+<title id="f1117t">Top left: impedance spectra of one cell at check-ups every 100 cycles up to 400, shifting right with growing arcs. Top right: the fitted ohmic resistance and the sum of SEI and charge-transfer resistances against cycles, and the capacity in percent of new. Bottom: a six-step machine-learning workflow from impedance check-ups to features, a training and test split, training, prediction of state of charge or health, and error checks.</title>
+</svg>
+<div class="controls"><label><span>cycles</span> <input type="range" class="cyc" min="0" max="400" step="10" value="0" aria-label="Number of cycles"> <b class="cyc-val">0</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i class="act"></i>current spectrum; R<sub>SEI</sub> + R<sub>ct</sub></span><span><i style="background:var(--cyan)"></i>R<sub>0</sub></span><span><i class="heat"></i>capacity</span></div>
+<figcaption>Following a cell as it ages, and the data-driven route.
+<span class="try">Try this: play the ageing and compare how fast the interface resistance and the ohmic resistance grow.</span>
+<details class="src"><summary>Source</summary><span class="basis">Impedance rising with age, check-ups that do not stress the cell, the two effects of degradation, and individual contributions that may correlate better with health or sudden death than total impedance, after Meddings et al. 2020, sections 1 and 3.3.2; the arc growing faster than the intercept moves follows the trend of their Fig. 4d (read from the figure). The workflow after Bakenhaster and Dewald 2025, Fig. 10 (from their ref. 81); Gaussian process regression, relaxation-time models near 1 % error and the limits of the training data after their section 4.2. All numbers in the panels are illustrative, not data.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h3 class="sub">Following ageing</h3>
+<p class="explain">We now have the tools to do what module 10 asked of us: follow a cell as it ages. Impedance generally rises as a cell ages, and because the measurement does not harm the cell, it can be repeated through its whole life. Ageing studies run <b>check-ups</b>: the same measurement at fixed conditions every so many cycles, often enough to follow the ageing, rarely enough not to add to it.<sup class="cite"><a href="#ref-2">2</a></sup> Ageing has two visible effects: capacity fade, from losing active material, and power fade, from growing resistance through lost contacts, thickening surface films and delamination.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">A spectrum is reduced to a few features: fitted resistances, DRT peaks or impedance at chosen frequencies. Individual contributions may follow the state of health, and give early warning of sudden fade, better than the total impedance.<sup class="cite"><a href="#ref-2">2</a></sup> The difficulty is that temperature, state of charge and ageing all move the same spectrum; for some chemistries, LiFePO<sub>4</sub> in particular, estimating the state of charge from impedance is much harder than for NMC.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain"><b>Machine learning</b> is the newest route: train a model on features from many cells, then predict the state of health or charge of a new one. Gaussian process regression is common, and models based on relaxation times have reached errors around 1 %.<sup class="cite"><a href="#ref-4">4</a></sup> Their knowledge ends at their training data, and the studies so far cover few systems and conditions.<sup class="cite"><a href="#ref-4">4</a></sup> <b>Local impedance</b>, measured on one spot of an electrode, is a further step, since a whole-cell spectrum averages over a structure that is not uniform.<sup class="cite"><a href="#ref-4">4</a></sup></p>
+</div>
+</div>
+
+
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn prev" href="../../../batteries/lab/eis-measurement/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Lab 3 EIS: measurement</span><span class="pn-q">How do we record an impedance spectrum we can trust?</span></a>
+<a class="pn next" href="../../../batteries/lab/post-mortem/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Lab 5 Post-mortem</span><span class="pn-q">When the outside of a cell is not enough, what then?</span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this page</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">A. Ch. Lazanas, M. I. Prodromidis, "Electrochemical Impedance Spectroscopy—A Tutorial", <i>ACS Measurement Science Au</i> <b>3</b>, 2023, 162–193. <a href="https://doi.org/10.1021/acsmeasuresciau.2c00070" target="_blank" rel="noopener">doi:10.1021/acsmeasuresciau.2c00070</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">N. Meddings, M. Heinrich, F. Overney, J.-S. Lee, V. Ruiz, E. Napolitano, S. Seitz, G. Hinds, R. Raccichini, M. Gaberšček, J. Park, "Application of electrochemical impedance spectroscopy to commercial Li-ion cells: A review", <i>Journal of Power Sources</i> <b>480</b>, 2020, 228742. <a href="https://doi.org/10.1016/j.jpowsour.2020.228742" target="_blank" rel="noopener">doi:10.1016/j.jpowsour.2020.228742</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">I. Abbas, H. T. Tran, T. T. N. Tran, T. L. Pham, E.-C. Shin, C.-W. Park, S.-B. Yu, O. J. Lee, A.-G. Nguyen, D. Jeong, B. H. Ka, H.-H. Cho, J. Lim, N. Shin, M. Gaberšček, S.-M. Hur, C.-J. Park, J. Kim, J.-S. Lee, "GITT Limitations and EIS Insights into Kinetics of NMC622", <i>Batteries</i> <b>11</b>, 2025, 234. <a href="https://doi.org/10.3390/batteries11060234" target="_blank" rel="noopener">doi:10.3390/batteries11060234</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">S. T. Bakenhaster, H. D. Dewald, "Electrochemical impedance spectroscopy and battery systems: past work, current research, and future opportunities", <i>Journal of Applied Electrochemistry</i> <b>55</b>, 2025, 1657–1681. <a href="https://doi.org/10.1007/s10800-025-02273-6" target="_blank" rel="noopener">doi:10.1007/s10800-025-02273-6</a></span></li></ol>
+</div>
+</section>
+</main>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+</div>
+</footer>
+
+<script src="../../../assets/js/gsap.min.js"></script>
+<script src="../../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../../assets/js/physics.js"></script>
+<script src="../../../assets/js/site.js"></script>
+<script src="../../../assets/js/learn/lab-eis-analysis.js"></script>
+<script src="../../../assets/js/share.js"></script>
+</body>
+</html>
