@@ -24,10 +24,11 @@
      in HTML, with the same size and offsets everywhere. */
   var SUPC = '⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻ⁿ', SUPN = '0123456789+−n', SUBC = '₀₁₂₃₄₅₆₇₈₉₊₋', SUBN = '0123456789+−';
   function scriptRuns(str) { // -> [{t: text, s: 0 | 1 (sup) | -1 (sub)}]
-    var out = [], i = 0, n = str.length, buf = '', mode = 0;
-    function flush() { if (buf) out.push({ t: buf, s: mode }); buf = ''; }
+    var out = [], i = 0, n = str.length, buf = '', mode = 0, it = false;
+    function flush() { if (buf) out.push({ t: buf, s: mode, it: it }); buf = ''; }
     while (i < n) {
       var c = str[i], m;
+      if (c === '§') { flush(); it = !it; i++; continue; } // §p§ sets p in italics (locants such as p-, o-)
       if (SUPC.indexOf(c) >= 0) { m = 1; c = SUPN[SUPC.indexOf(c)]; }
       else if (SUBC.indexOf(c) >= 0) { m = -1; c = SUBN[SUBC.indexOf(c)]; }
       else if ((c === '_' || c === '^') && i + 1 < n && i > 0 && !/\s/.test(str[i - 1])) {
@@ -46,12 +47,13 @@
     if (!t || t.namespaceURI !== NS) { if (t) t.textContent = str; return t; } // HTML elements: plain text (the observer typesets them)
     var runs = scriptRuns(str);
     while (t.firstChild) t.removeChild(t.firstChild);
-    if (runs.length === 1 && runs[0].s === 0) { t.textContent = str; return t; }
+    if (runs.length === 1 && runs[0].s === 0 && !runs[0].it) { t.textContent = runs[0].t; return t; }
     var cur = 0; // current baseline offset in base em (negative = raised)
     runs.forEach(function (r) {
       var target = r.s === 1 ? -0.42 : r.s === -1 ? 0.22 : 0, scale = r.s ? 0.72 : 1;
       var span = el('tspan', { dy: ((target - cur) / scale).toFixed(3) + 'em' }, t);
       if (r.s) span.setAttribute('font-size', '72%');
+      if (r.it) span.setAttribute('font-style', 'italic');
       span.textContent = r.t; cur = target;
     });
     return t;
@@ -68,13 +70,13 @@
   /* HTML side: convert the same characters inside a node's text into <sup>/<sub>. */
   function mathifyHtml(str) {
     var runs = scriptRuns(str), o = '';
-    runs.forEach(function (r) { var e = r.t.replace(/&/g, '&amp;').replace(/</g, '&lt;'); o += r.s === 1 ? '<sup>' + e + '</sup>' : r.s === -1 ? '<sub>' + e + '</sub>' : e; });
+    runs.forEach(function (r) { var e = r.t.replace(/&/g, '&amp;').replace(/</g, '&lt;'); if (r.it) e = '<i>' + e + '</i>'; o += r.s === 1 ? '<sup>' + e + '</sup>' : r.s === -1 ? '<sub>' + e + '</sub>' : e; });
     return o;
   }
   function mathifyNode(node) {
     if (node.nodeType === 3) {
       if (!node.parentNode) return;
-      var v = node.nodeValue; if (!/[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻ⁿ₀₁₂₃₄₅₆₇₈₉₊₋]|\S[_^][A-Za-z0-9{]/.test(v)) return;
+      var v = node.nodeValue; if (!/[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻ⁿ₀₁₂₃₄₅₆₇₈₉₊₋§]|\S[_^][A-Za-z0-9{]/.test(v)) return;
       var span = document.createElement('span'); span.className = 'ts'; span.innerHTML = mathifyHtml(v);
       node.parentNode.replaceChild(span, node);
     } else if (node.nodeType === 1 && node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE' && node.tagName !== 'svg' && !node.closest('svg')) {

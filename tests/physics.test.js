@@ -219,3 +219,222 @@ test('lithium metal is the most negative rung: Li+/Li = -3.045 V vs NHE (BFW Tab
   close(s['Li+/Li'], -3.045, 1e-9);
   assert.ok(s['Li+/Li'] < s['Zn2+/Zn'] && s['Zn2+/Zn'] < s['Cu2+/Cu']);
 });
+
+test('Brandt 1994: 99 % lithium cycling efficiency needs a three-fold excess for 300 cycles (eq. 2); 3861/4 = 965 Ah/kg', () => {
+  close(P.lithiumExcess(300, 0.99), 3, 1e-9);
+  close(P.specificCapacity(1, P.data.molarMass.Li) / (3 + 1), 965, 1);
+});
+
+test('LiClO4/PC at 60 % efficiency: R = N(1 - E) is 40 for 100 cycles (Brandt 1994, eq. 2)', () => {
+  close(P.lithiumExcess(100, 0.60), 40, 1e-9);
+});
+
+test('GITT (Weppner and Huggins 1977, eq. 4): scaling checks D ~ 1/tau and D ~ (dEs/dEt)^2', () => {
+  const D1 = P.gittD(100, 0.01, 30, 100, 1, 0.01, 0.05);
+  close(P.gittD(200, 0.01, 30, 100, 1, 0.01, 0.05), D1 / 2, 1e-15);
+  close(P.gittD(100, 0.01, 30, 100, 1, 0.02, 0.05), D1 * 4, 1e-15);
+  close(D1, (4 / (Math.PI * 100)) * Math.pow(0.01 * 30 / (100 * 1), 2) * Math.pow(0.2, 2), 1e-18);
+});
+
+test('SEI square-root law (von Kolzenberg et al. 2020): 2 % after 1 month gives 6.9 % after 12 and 13.9 % after 48', () => {
+  close(P.powerLawScale(2, 1, 12, 0.5), 6.93, 0.01);
+  close(P.powerLawScale(2, 1, 48, 0.5), 13.86, 0.01);
+  close(P.powerLawScale(2, 1, 12, 1), 24, 1e-9);
+});
+
+test('Randles circuit: semicircle peak at f = 1/(2 pi Rct Cd); 20 ohm and 20 uF give 398 Hz (Bard, Faulkner and White 11.4)', () => {
+  close(P.semicirclePeak(20, 20e-6).f, 397.9, 0.1);
+  const z = P.kineticImpedance(5, 20, 20e-6, 1 / (20 * 20e-6));
+  close(z.re, 15, 1e-9); close(z.negIm, 10, 1e-9);
+});
+
+test('Module 7 counting: 1 mol LiPF6 per litre of EC:DMC 3:7 by volume gives about 12.7 solvent molecules per Li+, 4.5 EC and 8.2 DMC (Ue et al. 2014 Table 2.1)', () => {
+  const n = P.solventPerIon([{ phi: 0.3, rho: 1.32, M: 88.1 }, { phi: 0.7, rho: 1.06, M: 90.1 }], 1);
+  close(n, 12.73, 0.01);
+  close(P.solventPerIon([{ phi: 0.3, rho: 1.32, M: 88.1 }], 1), 4.49, 0.01);
+  close(P.solventPerIon([{ phi: 0.7, rho: 1.06, M: 90.1 }], 1), 8.24, 0.01);
+});
+
+test('Module 7 spacing, field and drift: 1 M gives 1.18 nm between Li+; 1 mA/cm2 in 10 mS/cm gives 0.1 V/cm and 0.10 um/s', () => {
+  close(P.meanSpacing(1) * 1e9, 1.184, 0.001);
+  close(P.bulkField(10, 1), 10, 1e-12);                 // 1 mA/cm2 = 10 A/m2; 10 mS/cm = 1 S/m; 10 V/m = 0.1 V/cm
+  close(P.meanIonVelocity(10, 1000) * 1e6, 0.1036, 0.0001); // um/s
+  close(25e-6 / P.meanIonVelocity(10, 1000), 241, 1);     // seconds to cross 25 um
+});
+
+test('Module 5 bench: 2 A for 30 min passes 3600 C = 1 Ah; 1C for a 2.1 Ah cell is 2.1 A; C/20 of 210 mAh is 10.5 mA (Olson et al. 2023)', () => {
+  close(P.chargePassed(2, 1800), 3600, 1e-9);
+  close(P.chargePassed(2, 1800) / 3600, 1, 1e-12);
+  close(P.cRateCurrent(2.1, 1), 2.1, 1e-12);
+  close(P.cRateCurrent(0.210, 1 / 20) * 1000, 10.5, 1e-9);
+});
+
+test('LiFePO4 open-circuit fit (Safari and Delacourt 2011, eq. 10): flat at 3.432 V from y = 0.15 to 0.85, sloping ends', () => {
+  [0.15, 0.3, 0.5, 0.7, 0.85].forEach(y => close(P.lfpOcp(y), 3.432, 0.002));
+  assert.ok(P.lfpOcp(0.02) > 3.7 && P.lfpOcp(0.98) < 3.0);
+  for (let y = 0.01; y < 0.99; y += 0.01) assert.ok(P.lfpOcp(y + 0.01) <= P.lfpOcp(y) + 1e-6);
+});
+
+test('LiFePO4 diffusion coefficient (Safari and Delacourt eq. 12): 1.184e-18 empty, 3.907e-19 m2/s full', () => {
+  close(P.lfpDiffusion(0), 1.184e-18, 1e-21);
+  close(P.lfpDiffusion(1), 3.907e-19, 1e-21);
+});
+
+test('EDLC step response (Moya 2025, eqs. 6, 7, 12, 16): jump RH I0, slope I0/C, reversal drop 2 RH I0', () => {
+  const RH = 0.31, Ri = 0.32, C = 0.94, tau = 0.095, I0 = 0.05, t0 = 10;
+  close(P.edlcCharge(0, I0, RH, Ri, C, tau), RH * I0, 1e-12);
+  close(P.edlcCharge(5, I0, RH, Ri, C, tau) - P.edlcCharge(4, I0, RH, Ri, C, tau), I0 / C, 1e-9);
+  const V0 = P.edlcCycle(t0 - 1e-9, t0, I0, RH, Ri, C, tau);
+  close(V0, (RH + Ri) * I0 + I0 * t0 / C, 1e-6);          // eq. 15 with t0 >> tau
+  close(P.edlcCycle(t0, t0, I0, RH, Ri, C, tau), V0 - 2 * RH * I0, 1e-6); // eq. 16
+  close(2 * C / 7, 0.269, 0.001);                          // eq. 33, Ci = 2C/7 (Table 2 fit: 0.297 F)
+});
+
+test('Porous electrode (Doyle, Fuller and Newman 1993, eq. 26 with Table II): solid diffusion ratio about 1e-4 at 10 A/m2', () => {
+  close(P.solidDiffusionRatio(1e-6, 10, 5e-13, 0.3, 29000, 100e-6), 1.02e-4, 0.01e-4);
+});
+
+test('LiFePO4 resistive-reactant model (Safari and Delacourt 2011): rate, asymmetry, sequential groups and path dependence', () => {
+  const run = (y0, I, o) => P.lfpElectrode({ y0 }).run(I, o);
+  const C = P.lfpElectrode().oneC;
+  close(C, 18.4, 0.05);                                      // 1C on the theoretical capacity, A/m2
+  const slow = run(0.005, -C / 25), fast = run(0.005, -C);
+  const uSlow = slow[slow.length - 1].y, uFast = fast[fast.length - 1].y;
+  assert.ok(uSlow > 0.98 && uFast < uSlow - 0.05);            // less capacity at 1C
+  const chFast = run(0.995, C); assert.ok(0.995 - chFast[chFast.length - 1].y > uFast - 0.005); // charge utilization above discharge
+  const g = fast[Math.floor(fast.length * 0.3)].groups;       // best-connected group fills first
+  assert.ok(g[0].y > g[1].y && g[1].y > g[2].y && g[2].y > g[3].y);
+  // path dependence: half charge at C/25 from empty, or half discharge from full, then 2 h rest
+  const sd = gs => { const m = gs.reduce((s, x) => s + x.y, 0) / 4; return Math.sqrt(gs.reduce((s, x) => s + (x.y - m) ** 2, 0) / 4); };
+  function hist(fromEmpty) {
+    const m = P.lfpElectrode({ y0: fromEmpty ? 0.995 : 0.005 });
+    const a = m.run(fromEmpty ? C / 25 : -C / 25, { yStop: 0.5 }), r = m.run(0, { tmax: 7200, dtmax: 300 }), b = m.run(C);
+    return { sd0: sd(a[a.length - 1].groups), sd1: sd(r[r.length - 1].groups), util: r[r.length - 1].y - b[b.length - 1].y };
+  }
+  const A = hist(true), B = hist(false);
+  close(A.sd0, 0.097, 0.01);                                  // Safari and Delacourt: 0.0973 (case 1)
+  close(A.sd1, A.sd0, 0.002);                                 // no relaxation on the flat plateau
+  assert.ok(A.util < B.util);                                 // coming from empty limits the 1C charge
+});
+
+/* ---------- Module 11: impedance and GITT ---------- */
+const M = P.m11;
+const ok = (c, msg) => assert.ok(c, msg);
+test('Impedance of the passive elements (Lazanas and Prodromidis eqs 36, 41, 43): R real, C = -j/(wC), L = +j wL', () => {
+  const w = 2 * Math.PI * 50;
+  close(M.zC(1e-3, w).im, -1 / (w * 1e-3), 1e-12); close(M.zL(1e-3, w).im, w * 1e-3, 1e-12); close(M.zR(5).re, 5, 0);
+});
+test('Parallel RC: at the top of the arc w = 1/(RC) and Z = R/2 - jR/2 (Lazanas and Prodromidis eq 49 and text after it)', () => {
+  const R = 1000, C = 1e-6, w = 1 / (R * C), z = M.parallel(M.zR(R), M.zC(C, w));
+  close(z.re, R / 2, 1e-9); close(z.im, -R / 2, 1e-9);
+});
+test('Characteristic frequency 2 pi f tau = 1 (Lazanas and Prodromidis eq 2): 0.51 ms gives 310 Hz and 0.41 s gives 0.4 Hz', () => {
+  close(1 / (2 * Math.PI * 0.51e-3), 312, 3); close(1 / (2 * Math.PI * 0.41), 0.388, 0.002);
+});
+test('Low frequencies are slow (Lazanas and Prodromidis sec. 1): one period at 10 uHz is 1e5 s = 27.8 h; at 1 mHz about 17 min', () => {
+  close(1 / 1e-5 / 3600, 27.8, 0.05); close(1 / 1e-3 / 60, 16.7, 0.05);
+});
+test('Amplitudes (Lazanas and Prodromidis eq 4 and sec. 16.2): 10 mV peak is 20 mV peak-to-peak and 7 mV rms', () => {
+  close(2 * 10, 20, 0); close(10 / Math.SQRT2, 7.07, 0.01);
+});
+test('CPE (Lazanas and Prodromidis eq 70, Table 2): phase is n x 90 degrees, so n = 0.9 gives 81 and n = 0.5 gives 45', () => {
+  [[0.9, 81], [0.8, 72], [0.5, 45], [1, 90]].forEach(([n, ph]) => { const z = M.zQ(1e-3, n, 2 * Math.PI * 7); close(-Math.atan2(z.im, z.re) * 180 / Math.PI, ph, 1e-9); });
+});
+test('Finite diffusion (Lazanas and Prodromidis eqs 76, 79): both tend to the 45-degree Warburg line at high frequency; reflective becomes capacitive, transmissive resistive at low frequency', () => {
+  const zt = M.zFiniteT(1e-2, 1, 2 * Math.PI * 1e4), zr = M.zFiniteR(1e-2, 1, 2 * Math.PI * 1e4);
+  close(-Math.atan2(zt.im, zt.re) * 180 / Math.PI, 45, 0.01); close(-Math.atan2(zr.im, zr.re) * 180 / Math.PI, 45, 0.01);
+  const lt = M.zFiniteT(1e-2, 1, 1e-5), lr = M.zFiniteR(1e-2, 1, 1e-5);
+  close(lt.re, 100, 0.01); ok(-lr.im > 100 * lr.re);
+});
+test('Spherical diffusion impedance (Abbas et al. 2025 eqs 6, 7): DC real part Rd/15, high-frequency limit (1/3) sqrt(Rd/(j w Cd))', () => {
+  close(M.zSphere(0.3, 3000, 1e-8).re, 0.3 / 15, 1e-6);
+  const w = 2 * Math.PI * 100, z = M.zSphere(0.3, 3000, w), lim = 1 / 3 * Math.sqrt(0.3 / (w * 3000));
+  close(z.re, lim / Math.SQRT2, lim * 0.01); close(-z.im, lim / Math.SQRT2, lim * 0.01);
+});
+test('Porous electrode line: 45 degrees at high frequency, sqrt(Rm Rct) coth sqrt(Rm/Rct) at low frequency (Meddings et al. sec. 3.2.2)', () => {
+  const Rm = 2, Rct = 5, Cdl = 1e-3, zh = M.zPorous(Rm, Rct, Cdl, 2 * Math.PI * 1e6), zl = M.zPorous(Rm, Rct, Cdl, 1e-6);
+  close(-Math.atan2(zh.im, zh.re) * 180 / Math.PI, 45, 0.1);
+  close(zl.re, Math.sqrt(Rm * Rct) / Math.tanh(Math.sqrt(Rm / Rct)), 1e-3);
+});
+test('Two different circuits, one spectrum (Lazanas and Prodromidis Fig. 7): the ladder from voigtToLadder matches R0(R1C1)(R2C2) everywhere', () => {
+  const L = M.voigtToLadder(0.01, 0.1, 0.02, 5);
+  [1e-3, 0.1, 1, 10, 1e3, 1e5].forEach(f => { const w = 2 * Math.PI * f; const a = M.add(M.zR(0.02), M.parallel(M.zR(0.01), M.zC(0.1, w)), M.parallel(M.zR(0.02), M.zC(5, w))); const b = M.ladderZ(0.02, L, w); ok(M.abs(M.add(a, M.scale(b, -1))) < 1e-12 * M.abs(a)); });
+});
+test('Butler-Volmer under a sine (BFW eqs 3.4.11, 3.4.13): small amplitude gives R_ct = RT/(F i0); alpha = 0.5 has no second harmonic', () => {
+  const h = M.bvHarmonics(1e-3, 0.5, 0.002); close(h.rApparent / h.rct, 1, 0.001); ok(h.amps[2] < 1e-15); ok(h.thd < 1e-3);
+  const g = M.bvHarmonics(1e-3, 0.3, 0.05); ok(g.amps[2] / g.amps[1] > 0.1);
+});
+test('Linear Kramers-Kronig test (Boukamp; Meddings et al. sec. 3.3.1): a valid spectrum fits to well below 1 %', () => {
+  const fs = M.freqs(1e4, 1e-2, 8), Z = fs.map(f => M.cellZ(null, 2 * Math.PI * f)), k = M.linKK(fs, Z);
+  ok(Math.max.apply(null, k.res.map(r => Math.max(Math.abs(r.re), Math.abs(r.im)))) < 0.01);
+});
+test('DRT (Meddings et al. eq 5): two R||C elements give two peaks at their time constants carrying their resistances', () => {
+  const fs = M.freqs(1e5, 1e-2, 10), Z = fs.map(f => { const w = 2 * Math.PI * f; return M.add(M.zR(0.02), M.parallel(M.zR(0.01), M.zC(1e-3, w)), M.parallel(M.zR(0.02), M.zC(1, w))); });
+  const taus = []; for (let k = 0; k <= 60; k++) taus.push(Math.pow(10, -7 + 9 * k / 60));
+  const d = M.drt(fs, Z, taus, 1e-8), tot = d.x.reduce((a, b) => a + b, 0);
+  close(d.R0, 0.02, 2e-4); close(tot, 0.03, 3e-4);
+  const near = (tau) => d.x.reduce((s, x, k) => s + (Math.abs(Math.log10(taus[k] / tau)) < 0.5 ? x : 0), 0);
+  close(near(1e-5), 0.01, 5e-4); close(near(0.02), 0.02, 5e-4);
+});
+test('GITT slab (Kim et al. eqs 3-8; Kang and Chueh eq A.21): numerical surface change matches the exact series and the 2 sqrt(t/pi) short-time law', () => {
+  const r = M.gittSlab({ tau: 0.05, tEnd: 0.5, N: 161, steps: 4000 }), at = t => r.us[r.t.findIndex(x => x >= t)];
+  close(at(0.01), 2 * Math.sqrt(0.01 / Math.PI), 2e-3); close(at(0.05), M.slabSurface(0.05), 2e-3);
+  const fr = r.frames[r.frames.length - 1]; close(fr.u.reduce((a, b) => a + b, 0) / fr.u.length, 0.05, 1e-3);
+});
+test('Sphere (Nickol et al. eqs 4-5): short-time law within 5 % for small Dt/r^2 (Nickol: below 0.0032; our series reaches 5 % at about 0.0027), long-time 3 tau + 1/5', () => {
+  ok(Math.abs(M.sphereF(0.0025) / (2 * Math.sqrt(0.0025 / Math.PI)) - 1) < 0.05); const r32 = M.sphereF(0.0032) / (2 * Math.sqrt(0.0032 / Math.PI)); ok(r32 > 1.04 && r32 < 1.06); close(M.sphereF(3) - 3 * 3, 0.2, 1e-6);
+});
+test('Nickol et al. numbers: D = 1e-15 m2/s and r = 5 um keep the sqrt(t) law within 5 % only for t < 80 s; sqrt(D tP) > 8 r for r = 0.25 um needs tP > 4000 s; D scales as r^2 (5 vs 0.25 um: 400 times)', () => {
+  close(0.0032 * (5e-6) ** 2 / 1e-15, 80, 0.01); close((8 * 0.25e-6) ** 2 / 1e-15, 4000, 1e-6);
+  close(M.gittDSphere(600, 5e-6, 0.01, 0.03) / M.gittDSphere(600, 0.25e-6, 0.01, 0.03), 400, 1e-9);
+});
+test('Weppner-Huggins for spheres (Abbas et al. eq 3) equals the general form (Kim et al. eq 16) with mB VM/(MB S) = r/3', () => {
+  const r = 2.54e-4, tau = 600, dEs = 0.01, dEt = 0.03;
+  close(M.gittDSphere(tau, r, dEs, dEt), P.gittD(tau, 1, r / 3, 1, 1, dEs, dEt), 1e-25);
+});
+test('Kang and Chueh: tau_hat = D tau / L^2 (eq 5); their relaxation variable sqrt(t + tau) - sqrt(t) (eq 4) starts at sqrt(tau) and falls to 0', () => {
+  close(M.tauHat(1e-15, 600, 2.54e-6), 0.093, 0.001); close(M.kangVariable(0, 600), Math.sqrt(600), 1e-12); ok(M.kangVariable(1e9, 600) < 0.01);
+});
+test('Step response of the series model: instantaneous drop R0, then the arcs, then diffusion (Meddings et al. sec. 3.1)', () => {
+  const p = { R0: 0.02, R1: 0.004, C1: 0.25, R2: 0.01, C2: 2, sigma: 0.002 };
+  close(M.stepResistance(p, 0), 0.02, 1e-12); ok(M.stepResistance(p, 1) > 0.034);
+});
+
+test('Warburg step response 2 sigma sqrt(2t/pi) (this page\'s working) matches a numerical inverse Laplace transform of Z_W(s)/s', () => {
+  // Gaver-Stehfest inversion of F(s) = sigma sqrt(2) s^-3/2, the voltage per unit current step through Z_W = sigma sqrt(2) (j w)^-1/2
+  const sigma = 0.002, N = 14, fact = n => { let f = 1; for (let i = 2; i <= n; i++) f *= i; return f; };
+  const V = []; for (let k = 1; k <= N; k++) { let s = 0; for (let j = Math.floor((k + 1) / 2); j <= Math.min(k, N / 2); j++) s += Math.pow(j, N / 2) * fact(2 * j) / (fact(N / 2 - j) * fact(j) * fact(j - 1) * fact(k - j) * fact(2 * j - k)); V.push((((k + N / 2) % 2) ? -1 : 1) * s); }
+  const inv = (F, t) => { const a = Math.LN2 / t; let s = 0; for (let k = 1; k <= N; k++) s += V[k - 1] * F(k * a); return a * s; };
+  const p = { R0: 0, R1: 0, C1: 1, R2: 0, C2: 1, sigma };
+  for (const t of [0.5, 3, 40]) close(inv(s => sigma * Math.SQRT2 * Math.pow(s, -1.5), t), M.stepResistance(p, t), 1e-6 * M.stepResistance(p, t) + 1e-9);
+});
+
+/* ---------- Module 9: negative electrodes ---------- */
+const N9 = P.m9;
+test('Anode capacities and potentials as quoted by Rahman et al. 2025 (Tables 1 and 2)', () => {
+  assert.strictEqual(N9.ANODES.graphite.q, 372); assert.strictEqual(N9.ANODES.li.q, 3860); assert.strictEqual(N9.ANODES.si.q, 3579);
+  assert.strictEqual(N9.ANODES.lto.q, 175); close(N9.ANODES.lto.v, 1.55, 1e-12); close(N9.ANODES.graphite.v, 0.15, 1e-12);
+  // lithium metal stores about ten times graphite per gram
+  close(N9.ANODES.li.q / N9.ANODES.graphite.q, 10.4, 0.05);
+});
+test('Pair energy: series charge Qc Qa/(Qc + Qa); lithium metal gains about 1.5 times over graphite against a 200 mAh/g, 3.8 V positive (this page\'s working)', () => {
+  const g = N9.pairEnergy(200, 3.8, 372, 0.15), li = N9.pairEnergy(200, 3.8, 3860, 0);
+  close(g.Q, 130.07, 0.01); close(g.E, 474.8, 0.2); close(li.E / g.E, 1.52, 0.01);
+  // an infinitely large anode capacity can never beat the cathode alone
+  ok(N9.pairEnergy(200, 3.8, 1e9, 0).E < 200 * 3.8 + 1e-6);
+});
+test('Graphite/silicon blends: 5 to 10 wt% silicon lifts 372 to about 530 to 690 mAh/g', () => {
+  close(N9.blendCapacity(0), 372, 1e-9); close(N9.blendCapacity(0.05), 532.4, 0.1); close(N9.blendCapacity(0.1), 692.7, 0.1); close(N9.blendCapacity(1), 3579, 1e-9);
+});
+test('Lithium inventory: with no excess the capacity falls as CE^n; an excess of 1 at CE 99 % lasts 100 cycles (Brandt R = N(1 - E))', () => {
+  close(N9.inventory(0.99, 0, 50)[49], Math.pow(0.99, 50), 1e-12);
+  const a = N9.inventory(0.99, 1, 120); close(a[98], 1, 1e-12); ok(a[101] < 1); ok(a[119] > 0.75);
+});
+test('Hysteresis efficiency: about 1 V of hysteresis costs a third of the round-trip energy against a 3.8 V positive; graphite\'s 30 mV costs under 1 %', () => {
+  close(N9.hysteresisEfficiency(3.8, 1.25, 1), 2.05 / 3.05, 1e-12); ok(N9.hysteresisEfficiency(3.8, 0.15, 0.03) > 0.99);
+});
+test('Illustrative plating model: faster or colder charging plates earlier; LTO at 1.55 V never plates', () => {
+  ok(N9.platingOnset(1, 298.15) === 1); ok(N9.platingOnset(6, 298.15) < 1); ok(N9.platingOnset(2, 263.15) < N9.platingOnset(2, 283.15));
+  ok(N9.graphiteU(0.95) > 0.06 && N9.graphiteU(0.95) < 0.09);
+  ok(N9.platingOnset(6, 263.15, () => 1.55) === 1); // within the figure's range (to 6C, down to −10 °C)
+});

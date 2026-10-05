@@ -170,5 +170,330 @@
     "doi": "10.1016/j.jpowsour.2010.11.093",
     "status": "crosschecked",
     "short": "Zaghib et al. 2011"
+  },
+  "R44": {
+    "authors": "D. Shanmukaraj, P. Ranque, H. Ben Youcef, T. Rojo, P. Poizot, S. Grugeon, S. Laruelle, D. Guyomard",
+    "title": "Review—Towards Efficient Energy Storage Materials: Lithium Intercalation/Organic Electrodes to Polymer Electrolytes—A Road Map (Tribute to Michel Armand)",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2020, "volume": "167", "pages": "070530",
+    "doi": "10.1149/1945-7111/ab787a",
+    "status": "verified",
+    "short": "Shanmukaraj et al. 2020"
+  },
+  "R45": {
+    "authors": "J. B. Goodenough",
+    "title": "How we made the Li-ion rechargeable battery",
+    "journal": "Nature Electronics",
+    "year": 2018, "volume": "1", "pages": "204",
+    "doi": "10.1038/s41928-018-0048-6",
+    "status": "verified",
+    "short": "Goodenough 2018"
+  },
+  "R46": {
+    "authors": "K. Brandt",
+    "title": "Historical development of secondary lithium batteries",
+    "journal": "Solid State Ionics",
+    "year": 1994, "volume": "69", "pages": "173-183",
+    "doi": "10.1016/0167-2738(94)90408-1",
+    "status": "verified",
+    "short": "Brandt 1994"
+  },
+  "R47": {
+    "authors": "H. Zhang, C. Li, G. G. Eshetu, S. Laruelle, S. Grugeon, K. Zaghib, C. Julien, A. Mauger, D. Guyomard, T. Rojo, N. Gisbert-Trejo, S. Passerini, X. Huang, Z. Zhou, P. Johansson, M. Forsyth",
+    "title": "From Solid-Solution Electrodes and the Rocking-Chair Concept to Today's Batteries",
+    "journal": "Angewandte Chemie International Edition",
+    "year": 2020, "volume": "59", "pages": "534-538",
+    "doi": "10.1002/anie.201913923",
+    "status": "verified",
+    "short": "Zhang et al. 2020"
+  },
+  "R48": {
+    "authors": "M. Fichtner, K. Edström, E. Ayerbe, M. Berecibar, A. Bhowmik, I. E. Castelli, S. Clark, R. Dominko, M. Erakca, A. A. Franco, A. Grimaud, B. Horstmann, A. Latz, H. Lorrmann, M. Meeus, R. Narayan, F. Pammer, J. Ruhland, H. Stein, T. Vegge, M. Weil",
+    "title": "Rechargeable Batteries of the Future—The State of the Art from a BATTERY 2030+ Perspective",
+    "journal": "Advanced Energy Materials",
+    "year": 2022, "volume": "12", "pages": "2102904",
+    "doi": "10.1002/aenm.202102904",
+    "status": "verified",
+    "short": "Fichtner et al. 2022"
+  },
+  "R49": {
+    "authors": "B. Horstmann, F. Single, A. Latz",
+    "title": "Review on multi-scale models of solid-electrolyte interphase formation",
+    "journal": "Current Opinion in Electrochemistry",
+    "year": 2019, "volume": "13", "pages": "61-69",
+    "doi": "10.1016/j.coelec.2018.10.013",
+    "status": "verified",
+    "short": "Horstmann, Single and Latz 2019"
+  },
+  "R50": {
+    "authors": "K. Manmi, M. Tuchel, E. Kendrick, F. Brosa Planella",
+    "title": "A Comparison of Standard SEI Growth Models in the Context of Battery Formation",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2024, "volume": "171", "pages": "100530",
+    "doi": "10.1149/1945-7111/ad8548",
+    "status": "verified",
+    "short": "Manmi et al. 2024"
+  },
+  "R51": {
+    "authors": "O. Borodin, X. Ren, J. Vatamanu, A. von Wald Cresce, J. Knap, K. Xu",
+    "title": "Modeling Insight into Battery Electrolyte Electrochemical Stability and Interfacial Structure",
+    "journal": "Accounts of Chemical Research",
+    "year": 2017, "volume": "50", "pages": "2886-2894",
+    "doi": "10.1021/acs.accounts.7b00486",
+    "status": "verified",
+    "short": "Borodin et al. 2017"
+  },
+  "R52": {
+    "authors": "A. Wang, S. Kadam, H. Li, S. Shi, Y. Qi",
+    "title": "Review on modeling of the anode solid electrolyte interphase (SEI) for lithium-ion batteries",
+    "journal": "npj Computational Materials",
+    "year": 2018, "volume": "4", "pages": "15",
+    "doi": "10.1038/s41524-018-0064-0",
+    "status": "verified",
+    "short": "Wang et al. 2018"
+  },
+  "R53": {
+    "authors": "W. A. Henderson",
+    "title": "Nonaqueous Electrolytes: Advances in Lithium Salts",
+    "journal": "in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York",
+    "year": 2014, "volume": "", "pages": "1-92",
+    "doi": "10.1007/978-1-4939-0302-3_1",
+    "status": "verified",
+    "short": "Henderson 2014"
+  },
+  "R54": {
+    "authors": "M. Ue, Y. Sasaki, Y. Tanaka, M. Morita",
+    "title": "Nonaqueous Electrolytes with Advances in Solvents",
+    "journal": "in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York",
+    "year": 2014, "volume": "", "pages": "93-165",
+    "doi": "10.1007/978-1-4939-0302-3_2",
+    "status": "verified",
+    "short": "Ue et al. 2014"
+  },
+  "R57": {
+    "authors": "O. Borodin",
+    "title": "Molecular Modeling of Electrolytes",
+    "journal": "in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York",
+    "year": 2014, "volume": "", "pages": "371-401",
+    "doi": "10.1007/978-1-4939-0302-3_8",
+    "status": "verified",
+    "short": "Borodin 2014"
+  },
+  "R55": {
+    "authors": "K. Abe",
+    "title": "Nonaqueous Electrolytes and Advances in Additives",
+    "journal": "in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York",
+    "year": 2014, "volume": "", "pages": "167-207",
+    "doi": "10.1007/978-1-4939-0302-3_3",
+    "status": "verified",
+    "short": "Abe 2014"
+  },
+  "R58": {
+    "authors": "K. Nagendra, K. Nikgoftar, A. K. Madikere Raghunatha Reddy, J. Rajpurohit, J. I. G. Dawkins, T. M. Guimaraes Selva, K. Zaghib",
+    "title": "Challenges and Issues in Using Coated and Uncoated Graphitic Anodes in Lithium-Ion Batteries",
+    "journal": "Batteries",
+    "year": 2026, "volume": "12", "pages": "154",
+    "doi": "10.3390/batteries12050154",
+    "status": "verified",
+    "short": "Nagendra et al. 2026"
+  },
+  "R59": {
+    "authors": "M. Safari, C. Delacourt",
+    "title": "Mathematical Modeling of Lithium Iron Phosphate Electrode: Galvanostatic Charge/Discharge and Path Dependence",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2011, "volume": "158", "pages": "A63–A73",
+    "doi": "10.1149/1.3515902",
+    "status": "verified",
+    "short": "Safari and Delacourt 2011"
+  },
+  "R60": {
+    "authors": "J. Z. Olson, C. M. López, E. J. F. Dickinson",
+    "title": "Differential Analysis of Galvanostatic Cycle Data from Li-Ion Batteries: Interpretative Insights and Graphical Heuristics",
+    "journal": "Chemistry of Materials",
+    "year": 2023, "volume": "35", "pages": "1487–1513",
+    "doi": "10.1021/acs.chemmater.2c01976",
+    "status": "verified",
+    "short": "Olson, López and Dickinson 2023"
+  },
+  "R61": {
+    "authors": "A. A. Moya",
+    "title": "A physically consistent electric circuit to interpret the galvanostatic charge-discharge curves of electric double layer capacitors",
+    "journal": "Journal of Power Sources",
+    "year": 2025, "volume": "656", "pages": "238050",
+    "doi": "10.1016/j.jpowsour.2025.238050",
+    "status": "verified",
+    "short": "Moya 2025"
+  },
+  "R62": {
+    "authors": "M. Doyle, T. F. Fuller, J. Newman",
+    "title": "Modeling of Galvanostatic Charge and Discharge of the Lithium/Polymer/Insertion Cell",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 1993, "volume": "140", "pages": "1526–1533",
+    "doi": "10.1149/1.2221597",
+    "status": "verified",
+    "short": "Doyle, Fuller and Newman 1993"
+  },
+  "R63": {
+    "authors": "A. Ch. Lazanas, M. I. Prodromidis",
+    "title": "Electrochemical Impedance Spectroscopy—A Tutorial",
+    "journal": "ACS Measurement Science Au",
+    "year": 2023, "volume": "3", "pages": "162–193",
+    "doi": "10.1021/acsmeasuresciau.2c00070",
+    "status": "verified",
+    "short": "Lazanas and Prodromidis 2023"
+  },
+  "R64": {
+    "authors": "N. Meddings, M. Heinrich, F. Overney, J.-S. Lee, V. Ruiz, E. Napolitano, S. Seitz, G. Hinds, R. Raccichini, M. Gaberšček, J. Park",
+    "title": "Application of electrochemical impedance spectroscopy to commercial Li-ion cells: A review",
+    "journal": "Journal of Power Sources",
+    "year": 2020, "volume": "480", "pages": "228742",
+    "doi": "10.1016/j.jpowsour.2020.228742",
+    "status": "verified",
+    "short": "Meddings et al. 2020"
+  },
+  "R65": {
+    "authors": "S. T. Bakenhaster, H. D. Dewald",
+    "title": "Electrochemical impedance spectroscopy and battery systems: past work, current research, and future opportunities",
+    "journal": "Journal of Applied Electrochemistry",
+    "year": 2025, "volume": "55", "pages": "1657–1681",
+    "doi": "10.1007/s10800-025-02273-6",
+    "status": "verified",
+    "short": "Bakenhaster and Dewald 2025"
+  },
+  "R66": {
+    "authors": "S. D. Kang, W. C. Chueh",
+    "title": "Galvanostatic Intermittent Titration Technique Reinvented: Part I. A Critical Review",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2021, "volume": "168", "pages": "120504",
+    "doi": "10.1149/1945-7111/ac3940",
+    "status": "verified",
+    "short": "Kang and Chueh 2021"
+  },
+  "R67": {
+    "authors": "J. Kim, S. Park, S. Hwang, W.-S. Yoon",
+    "title": "Principles and Applications of Galvanostatic Intermittent Titration Technique for Lithium-ion Batteries",
+    "journal": "Journal of Electrochemical Science and Technology",
+    "year": 2022, "volume": "13", "pages": "19–31",
+    "doi": "10.33961/jecst.2021.00836",
+    "status": "verified",
+    "short": "Kim et al. 2022"
+  },
+  "R68": {
+    "authors": "A. Nickol, T. Schied, C. Heubner, M. Schneider, A. Michaelis, M. Bobeth, G. Cuniberti",
+    "title": "GITT Analysis of Lithium Insertion Cathodes for Determining the Lithium Diffusion Coefficient at Low Temperature: Challenges and Pitfalls",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2020, "volume": "167", "pages": "090546",
+    "doi": "10.1149/1945-7111/ab9404",
+    "status": "verified",
+    "short": "Nickol et al. 2020"
+  },
+  "R69": {
+    "authors": "I. Abbas, H. T. Tran, T. T. N. Tran, T. L. Pham, E.-C. Shin, C.-W. Park, S.-B. Yu, O. J. Lee, A.-G. Nguyen, D. Jeong, B. H. Ka, H.-H. Cho, J. Lim, N. Shin, M. Gaberšček, S.-M. Hur, C.-J. Park, J. Kim, J.-S. Lee",
+    "title": "GITT Limitations and EIS Insights into Kinetics of NMC622",
+    "journal": "Batteries",
+    "year": 2025, "volume": "11", "pages": "234",
+    "doi": "10.3390/batteries11060234",
+    "status": "verified",
+    "short": "Abbas et al. 2025"
+  },
+  "R70": {
+    "authors": "M. M. Rahman, U. Nisar, A. Abouimrane, I. Belharouak, R. Amin",
+    "title": "Valuation of Anode Materials for High-Performance Lithium Batteries: From Graphite to Lithium Metal and Beyond",
+    "journal": "Electrochemical Energy Reviews",
+    "year": 2025, "volume": "8", "pages": "14",
+    "doi": "10.1007/s41918-025-00249-w",
+    "status": "verified",
+    "short": "Rahman et al. 2025"
+  },
+  "R71": {
+    "authors": "J. T. Frith, M. J. Lacey, U. Ulissi",
+    "title": "A non-academic perspective on the future of lithium-based batteries",
+    "journal": "Nature Communications",
+    "year": 2023, "volume": "14", "pages": "420",
+    "doi": "10.1038/s41467-023-35933-2",
+    "status": "verified",
+    "short": "Frith, Lacey and Ulissi 2023"
+  },
+  "R72": {
+    "authors": "A. Manthiram",
+    "title": "A reflection on lithium-ion battery cathode chemistry",
+    "journal": "Nature Communications",
+    "year": 2020, "volume": "11", "pages": "1550",
+    "doi": "10.1038/s41467-020-15355-0",
+    "status": "verified",
+    "short": "Manthiram 2020"
+  },
+  "R73": {
+    "authors": "J.-J. Marie, S. Gifford",
+    "title": "Developments in lithium-ion battery cathodes",
+    "journal": "Faraday Insights, Issue 18 (The Faraday Institution)",
+    "year": 2023,
+    "pages": "September 2023",
+    "url": "https://www.faraday.ac.uk/wp-content/uploads/2023/09/Faraday_Insights_18_FINAL.pdf",
+    "status": "verified",
+    "short": "Marie and Gifford 2023 (Faraday Insights 18)"
+  },
+  "R74": {
+    "authors": "J. Landesfeind, J. Hattendorff, A. Ehrl, W. A. Wall, H. A. Gasteiger",
+    "title": "Tortuosity Determination of Battery Electrodes and Separators by Impedance Spectroscopy",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2016, "volume": "163", "pages": "A1373",
+    "doi": "10.1149/2.1141607jes",
+    "status": "verified",
+    "short": "Landesfeind et al. 2016"
+  },
+  "R75": {
+    "authors": "R. Jung, M. Metzger, F. Maglia, C. Stinner, H. A. Gasteiger",
+    "title": "Oxygen Release and Its Effect on the Cycling Stability of LiNixMnyCozO2 (NMC) Cathode Materials for Li-Ion Batteries",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2017, "volume": "164", "pages": "A1361–A1377",
+    "doi": "10.1149/2.0021707jes",
+    "status": "verified",
+    "short": "Jung et al. 2017"
+  },
+  "R76": {
+    "authors": "G. G. Eshetu, H. Zhang, X. Judez, H. Adenusi, M. Armand, S. Passerini, E. Figgemeier",
+    "title": "Production of high-energy Li-ion batteries comprising silicon-containing anodes and insertion-type cathodes",
+    "journal": "Nature Communications",
+    "year": 2021, "volume": "12", "pages": "5459",
+    "doi": "10.1038/s41467-021-25334-8",
+    "status": "verified",
+    "short": "Eshetu et al. 2021"
+  },
+  "R77": {
+    "authors": "A. Jouhara, N. Dupré, A.-C. Gaillot, D. Guyomard, F. Dolhem, P. Poizot",
+    "title": "Raising the redox potential in carboxyphenolate-based positive organic materials via cation substitution",
+    "journal": "Nature Communications",
+    "year": 2018, "volume": "9", "pages": "4401",
+    "doi": "10.1038/s41467-018-06708-x",
+    "status": "verified",
+    "short": "Jouhara et al. 2018"
+  },
+  "R78": {
+    "authors": "X. Guo, P. Apostol, X. Zhou, J. Wang, X. Lin, D. Rambabu, M. Du, S. Er, A. Vlad",
+    "title": "Towards the 4 V-class n-type organic lithium-ion positive electrode materials: the case of conjugated triflimides and cyanamides",
+    "journal": "Energy & Environmental Science",
+    "year": 2024, "volume": "17", "pages": "173–182",
+    "doi": "10.1039/d3ee02897f",
+    "status": "verified",
+    "short": "Guo et al. 2024"
+  },
+  "R79": {
+    "authors": "J. Wang, P. Apostol, D. Rambabu, X. Guo, X. Liu, K. Robeyns, M. Du, Y. Zhang, S. Pal, R. Markowski, F. Lucaccioni, A. E. Lakraychi, C. Morari, J.-F. Gohy, D. Gupta, A. Vlad",
+    "title": "Revealing the reversible solid-state electrochemistry of lithium-containing conjugated oximates for organic batteries",
+    "journal": "Science Advances",
+    "year": 2023, "volume": "9", "pages": "eadg6079",
+    "doi": "10.1126/sciadv.adg6079",
+    "status": "verified",
+    "short": "Wang et al. 2023"
+  },
+  "R80": {
+    "authors": "A. Jouhara, E. Quarez, N. Gautier, F. Boucher, E. Janod, N. Dupré, J. Gaubicher, P. Poizot",
+    "title": "Unveiling the Peierls effect during electrochemical delithiation/lithiation process in magnesium (2,5-dilithium-oxy)-terephthalate using combined experimental and computational studies",
+    "journal": "Energy Storage Materials",
+    "year": 2025, "volume": "81", "pages": "104456",
+    "doi": "10.1016/j.ensm.2025.104456",
+    "status": "verified",
+    "short": "Jouhara et al. 2025"
   }
 }

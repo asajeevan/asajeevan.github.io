@@ -5,6 +5,89 @@ end of the Act A rework, for whoever continues
 (a new Claude Code session or a human). Read this file first, then
 `issues-and-gaps.md`, then `battery-basics-plan.md` and `verification-record.md`.
 
+## 0a. Update, 2026-10-03 (offline, nothing pushed or published)
+
+- Modules 5 to 12 rewritten as one continuous lecture ("we" voice, each module opening from the last and
+  bridging to the next, no author-by-author narration). Citations are now Nature-style numbered superscript
+  links. New verified sources R71 to R73 (Frith 2023, Manthiram 2020, Faraday Insights 18, 2023) bring the
+  LiCoO2, NMC, LFP and cell-energy values up to date. Details and FLAGs: `verification-record.md`, section W.
+- Later the same day: new figure 5.8 on porosity and tortuosity (R74, Landesfeind et al. 2016), and the
+  porous-electrode figure (now 5.9) redrawn so that porosity and thickness are visible and to scale; figures
+  5.9 to 5.12 renumbered. See `verification-record.md`, section X.
+- 2026-10-04: Module 9 extended to positive electrodes (figure 9.12, NMC grades), organic electrodes (figure 9.13, p-DHT,
+  sulfonamides, triflimides, oximates) and a negative-electrode table; four "In the lab" boxes (porosity and tortuosity, coin
+  cell and cycling, GITT, EIS). New sources R75 to R79 and OWN-THESIS (chapter 1 supplied). Verification record, section Y.
+- 2026-10-04, later: organic section corrected against Jouhara et al. 2025 (R80): Mg²⁺ binds the phenolate oxygens
+  (MgO₆ = 4 phenolate + 2 carboxylate O), not only the carboxylates; italic *p*/*o* locants (`§p§` marker in figure strings);
+  nomenclature audit; "nitrogen-based redox centres" replaced (Wurster-type *p*-phenylenediamine core; oximates). The owner's
+  thesis is no longer cited (owner's instruction); Li₄-p-DHBDS removed for lack of a read source. New figure 9.14 (3D ions and
+  the cation schematic) sits in an optional drop-down. Verification record, section Z.
+- Next: the same rewrite and value update for Act A (modules 0 to 4), including Module 3's ladder and the
+  Module 4 materials data in `assets/js/physics.js`.
+
+## 0. Update, 2026-10-01 (third session, offline, nothing pushed or published)
+
+Written at the end of a session that worked only on a local copy of the repository: no commit was
+pushed, no branch was changed on GitHub and nothing was published. All changes are delivered as a zip
+of the changed files at their repository paths.
+
+- **Done:** Module 5 rewritten to the Act A standard (six figures); Modules 6 to 12 written (Act B:
+  5 to 8, Act C: 9 to 12), with mathematics panels, worked examples, recaps and end-of-act blocks;
+  thirteen modules in three acts. Module 7 was then rebuilt from the ground up at the owner's request
+  (what the liquid is made of, the molecules, dissolving, the solvation shell, how ions move, the field,
+  the layers next to an electrode), and Module 6 gained a three-dimensional view of the two hosts.
+- **New sources (all `verified`):** R44 to R52 (Shanmukaraj 2020; Goodenough 2018; Brandt 1994;
+  Zhang et al. 2020; Fichtner et al. 2022; Horstmann et al. 2019; Manmi et al. 2024; Borodin et al.
+  2017; Wang et al. 2018) and three chapters of Jow, Xu, Borodin, Ue (eds.) 2014: R53 Henderson,
+  R54 Ue et al., R57 Borodin. Each claim is listed with its page in `verification-record.md`, sections R to R11.
+  R57's Crossref record could not be fetched (rate limit): confirm it.
+- **Held back by the build (`{{pending:KEY}}...{{/pending}}`):** OWN-BINDER (module 8) and OWN-THESIS
+  (modules 9 and 12) need the owner's own article details; R42 (Shannon radii, figure 9.5) needs reading.
+  A pending block is printed only when every key it names is `verified`; otherwise the build drops it and
+  says "held back".
+- **Flags for the owner:** every **FLAG** row in `verification-record.md`; the Module 4 figure of
+  120-150 Wh/kg for the 1991 Sony cell (R2) against about 80 Wh/kg in R47 and R46 (not changed).
+- **Tooling:** `tools/qa/acta.js` now takes `ACTS=ABC` and `LEARN_URL`; `QA_FONTS_DIR=<folder with
+  node_modules/@fontsource>` serves the site fonts locally so that overlap checks use the real metrics
+  (`tools/qa/fonts.js`); `tools/qa/shot.js <figId> <out.png> [width]` screenshots one figure.
+  `tools/build_learn.py` strips indentation (page about 278 KB, above the plan's 250 KB target because
+  of the new Module 7 figures).
+- **New figure helpers:** `figs-7m.js` holds a small three-dimensional ball-and-stick renderer
+  (`m3defs`, `m3scene`, `m3place`, `m3drag`, molecule templates `m3EC`, `m3DMC`, `m3PF6`, `m3Li`), used
+  by figures 6.2, 7.1, 7.4; `figs-7a.js` holds the carbonate glyphs (`m7mol`, `m7aim`) used in the 2D
+  Module 7 figures.
+- **Tests:** 42 of 42 pass (`node --test tests/*.test.js`).
+- **Module 5 detail round, 2026-10-02:** Module 5 now has eleven figures.
+  - New figures: 5.1 the test bench (CC, cut-offs, CC–CV); 5.5 battery against capacitor (Olson et al.; Moya's EDLC circuit); 5.6 the phase rule rebuilt on Safari and Delacourt's measured LiFePO₄ curve; 5.7 the resistive-reactant LiFePO₄ electrode, computed live (`Physics.lfpElectrode`); 5.8 inside a porous electrode (Doyle et al., schematic); 5.9 dQ/dV, dV/dQ and the square plot on a toy cell.
+  - The old figures were renumbered: 5.1→5.2, 5.2→5.3, 5.3→5.4, 5.5→5.10, 5.6→5.11. The old 5.4 was replaced, after the errors listed in `verification-record.md` section S.
+  - New sources: R59–R62.
+  - Every equation is typeset as MathML. Write `<m>LaTeX</m>` inline and `<md>LaTeX</md>` for display. The build needs `pip install latex2mathml`, and a single-letter `\mathrm{X}` is turned into `\text{X}` so that it stays upright.
+  - New figure code is in `src/learn/figs/figs-5n.js`.
+  - Tests: 48 of 48 pass.
+- **Owner review and full audit, 2026-10-02 (later):**
+  - Figures 5.3 and 7.7 redrawn for clarity.
+  - Two worked examples rewritten step by step.
+  - New figure 7.3 compares the salts and solvents of commercial electrolytes (R53, R54). The old figures 7.3–7.10 are now 7.4–7.11.
+  - A five-part audit of Modules 5–12 was applied; see `verification-record.md`, section T.
+  - `tools/qa/preview.py out.html` builds a self-contained preview.
+- **Owner review round, 2026-10-01 (later):**
+  - Figure 6.2 now shows graphite staging (stages 4, 3, 2 and 1) and LiCoO₂, with a new source R58 (Nagendra et al. 2026).
+  - Figures 6.4 and 6.5 are redrawn for clarity.
+  - Figure 7.1 adds computed electron density and electric potential maps (PySCF; scripts in `tools/qc/`; images in `assets/img/learn/`). The 3D molecules in 7.1, 7.4 and 7.6 now use the computed geometries.
+  - Figure 7.3 shows PF₆⁻ as only weakly solvated.
+  - Figure 7.5's field switch now visibly drives the ions.
+  - Figure 7.6 is rebuilt as a to-scale molecular close-up.
+  - Module text was re-laid out: shorter paragraphs, subheadings, and the lesson first.
+  - See verification-record.md, section R13, including the new FLAGs on graphite stacking and spacing and on the LiCoO₂ cell dimensions.
+- **Module 9 rewritten, 2026-10-03 (branch only):** now "Negative electrodes: from graphite to lithium metal", 11 figures, built on R70 (Rahman et al. 2025). Old figures renumbered: 9.1→9.7, 9.2→9.5, 9.3→9.6, 9.5→9.11 (sodium; still holds back to-scale ion sizes until R42 is verified); the old 9.4 was replaced by the map of figure 9.1. Sodium, organic electrodes and the OWN-THESIS aside are kept in the last beat. Physics in `Physics.m9`; claims and cautions in `verification-record.md`, section V.
+- **Module 11 expanded, 2026-10-03 (branch `claude/ecstatic-bohr-ym5qe9` only, not on `main`):**
+  - Module 11 now has 18 figures, from a current pulse through GITT (one step, the τ̂ check, Nickol's six recipes, Kang and Chueh's relaxation analysis, a whole run) to impedance (sine and Lissajous, Nyquist and Bode, a commercial cell built element by element, CPE / finite / spherical / porous shapes), measuring well (linearity and harmonics, two versus four terminals, the Kramers–Kronig test) and analysis (non-unique circuits, DRT with λ, ageing check-ups and machine learning).
+  - New sources R63–R69, all `verified`; claims and pages in `verification-record.md`, section U.
+  - Physics in `Physics.m11` (`assets/js/physics.js`): complex arithmetic, circuit elements, the model cell, Butler–Volmer harmonics, linear KK, NNLS DRT, the GITT film solver and sphere series. Figure code: `figs-11.js` (helpers, 11.1, 11.2, 11.18), `figs-11g.js` (11.3–11.7), `figs-11e.js` (11.8–11.11), `figs-11m.js` (11.12–11.14), `figs-11a.js` (11.15–11.17).
+  - Tests: 68 of 68 pass. QA (ACTS=ABC): no errors, no label overlaps or clips at 360 px.
+- **Next:** owner review of modules 5 to 12 and the figure-review sheet; reader tests (plan section 5c);
+  the optional theory page; then merge and publish when the owner says so.
+
 ## 1. Status in one paragraph
 
 The site lives in this repository (asajeevan/asajeevan.github.io, served by GitHub

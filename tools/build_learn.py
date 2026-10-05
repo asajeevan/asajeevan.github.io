@@ -3,15 +3,21 @@
 
 Source files live in src/learn/ and use these markers:
 
-  {{cite:R1}}            a citation. Not rendered on the page (the owner asked for a
-                         clean text with the references at the end only), but still
-                         validated, and it decides which modules each reference is
-                         listed under.
+  {{cite:R1}}            a citation, rendered Nature style: a superscript number linked
+                         to the numbered reference list, numbered in order of first
+                         citation (owner's request, 2026-10-03); consecutive numbers in
+                         one marker collapse to a range (3–5).
   {{cite:R1,R6}}         several citations at once
   {{sources:R1,R6}}      the module's source list: validated, not rendered
   {{references}}         the reference list for the whole page, with the modules
                          each reference supports
   {{include:file.html}}  inline another source file (figures live in their own files)
+  {{pending:R24,R30}}...{{/pending}}
+                         text drafted against a source that has not yet been read in
+                         full. It is kept on the page only when every key listed is
+                         "verified" in references.json; otherwise the whole block is
+                         dropped (and reported), so a draft can wait in the source
+                         without ever reaching the reader.
 
 The build fails if a cited key is missing from src/learn/references.json or has
 a status other than "verified", which is the citation policy enforced
@@ -33,7 +39,7 @@ def esc(s):
 
 def fmt_ref(key, n):
     r = REFS[key]
-    parts = [esc(r['authors']) + ',', '"' + esc(r['title']) + '",', '<i>' + esc(r['journal']) + '</i>']
+    parts = [esc(r['authors']) + ',', '"' + re.sub(r'§([^§]*)§', r'<i>\1</i>', esc(r['title'])) + '",', '<i>' + esc(r['journal']) + '</i>']
     tail = ''
     if r.get('volume'):
         tail += ' <b>' + esc(str(r['volume'])) + '</b>'
@@ -43,6 +49,8 @@ def fmt_ref(key, n):
     doi = ''
     if r.get('doi'):
         doi = ' <a href="https://doi.org/%s" target="_blank" rel="noopener">doi:%s</a>' % (esc(r['doi']), esc(r['doi']))
+    elif r.get('url'):
+        doi = ' <a href="%s" target="_blank" rel="noopener">link</a>' % esc(r['url'])
     return ('<li id="ref-%d" itemscope itemtype="https://schema.org/%s">'
             '<span class="ref-n">%d</span> <span class="ref-body">%s%s.%s</span></li>'
             % (n, 'Book' if key.startswith('B') else 'ScholarlyArticle', n, ' '.join(parts), tail, doi))
@@ -109,6 +117,20 @@ def build(src_name, out_path):
         return (SRC / m.group(1).strip()).read_text(encoding='utf-8')
     text = re.sub(r'\{\{include:([^}]+)\}\}', inc, text)
 
+    # pending blocks: kept only when every listed key is verified
+    held = []
+    def pend(m):
+        keys = [k.strip() for k in m.group(1).split(',') if k.strip()]
+        ok = all(k in REFS and REFS[k]['status'] == 'verified' for k in keys)
+        if not ok:
+            held.append(','.join(keys))
+            return ''
+        return m.group(2)
+    text = re.sub(r'\{\{pending:([^}]+)\}\}(.*?)\{\{/pending\}\}', pend, text, flags=re.S)
+    if held:
+        from collections import Counter
+        print('held back (source not yet verified): ' + ', '.join('%s x%d' % kv for kv in sorted(Counter(held).items())))
+
     order = []
     errors = []
     used_in = {}   # key -> ordered list of module labels
@@ -135,10 +157,21 @@ def build(src_name, out_path):
                 used_in[key].append(mod)
         return order.index(key) + 1
 
-    def cite(m):
-        for k in [k.strip() for k in m.group(1).split(',') if k.strip()]:
-            number(k, m.start())
-        return ''
+    def cite(m):  # Nature style: superscript numbers in order of first citation, linked to the list
+        nums = sorted(set(number(k, m.start()) for k in [k.strip() for k in m.group(1).split(',') if k.strip()]))
+        nums = [n for n in nums if n]
+        if not nums:
+            return ''
+        runs, a = [], nums[0]
+        for i in range(1, len(nums) + 1):
+            if i == len(nums) or nums[i] != nums[i - 1] + 1:
+                runs.append((a, nums[i - 1]));
+                if i < len(nums): a = nums[i]
+        link = lambda n: '<a href="#ref-%d">%d</a>' % (n, n)
+        parts = []
+        for a, b in runs:
+            parts.append(link(a) if a == b else (link(a) + ',' + link(b) if b == a + 1 else link(a) + '\u2013' + link(b)))
+        return '<sup class="cite">%s</sup>' % ','.join(parts)
     text = re.sub(r'\{\{cite:([^}]+)\}\}', cite, text)
 
     def sources(m):
@@ -163,7 +196,21 @@ def build(src_name, out_path):
     refs_html = '<ol class="refs">' + ''.join(ref_with_modules(k, i + 1) for i, k in enumerate(order)) + '</ol>'
     text = text.replace('{{references}}', refs_html)
 
+    # mathematics: <m>LaTeX</m> inline and <md>LaTeX</md> on its own line become MathML (latex2mathml),
+    # kept out of typeset() so that the script conversion does not touch them
+    import latex2mathml.converter as _l2m
+    maths = []
+    def _math(m):
+        disp = m.group(1) == 'md'
+        tex = re.sub(r'\\mathrm\{([A-Za-z])\}', r'\\text{\1}', m.group(2).strip())  # single upright letters
+        ml = _l2m.convert(tex, display='block' if disp else 'inline')
+        ml = re.sub(r'&#x([0-9A-Fa-f]+);', lambda e: chr(int(e.group(1), 16)) if chr(int(e.group(1), 16)) not in '<>&"' else e.group(0), ml)  # plain characters
+        ml = ml.replace(' xmlns="http://www.w3.org/1998/Math/MathML"', '').replace(' display="inline"', '')
+        maths.append(('<span class="mblock">%s</span>' % ml) if disp else ml)
+        return '\x02%d\x02' % (len(maths) - 1)
+    text = re.sub(r'<(md|m)>(.*?)</\1>', _math, text, flags=re.S)
     text = typeset(text)
+    text = re.sub(r'\x02(\d+)\x02', lambda m: maths[int(m.group(1))], text)
 
     leftover = re.findall(r'\{\{[^}]*\}\}', text)
     if leftover:
@@ -172,6 +219,7 @@ def build(src_name, out_path):
         for e in errors:
             print('ERROR:', e, file=sys.stderr)
         sys.exit(1)
+    text = re.sub(r'\n[ \t]+', '\n', text)  # drop source indentation (no <pre> or <textarea> on the page)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(text, encoding='utf-8')
     print('built %s (%d bytes, %d references)' % (out_path.relative_to(ROOT), len(text.encode('utf-8')), len(order)))
