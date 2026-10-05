@@ -156,3 +156,7 @@ or a tap-to-enlarge view.
 - 5 Oct, later: owner asked for precise scientific titles. The plan now has a "Titles and headings" section: naming rules,
   part titles, a full scientific title and a menu label (<= 20 characters) for every chapter, and the section headings of
   each chapter in order; the course map, chapter-by-chapter section and diagram use the new names.
+- 5 Oct, later: execution strategy added to the plan; decisions settled (24 pages = 19 chapters + separate 5-page lab
+  handbook; word addresses; LiCoO2 default; title kept with subtitle; local-only git checkpoints). Local branch
+  claude/ecstatic-bohr-ym5qe9, checkpoint 6e49fba; push disabled locally. State and checklist:
+  docs/learn/RESTRUCTURE-LOG.md. Next: phase 1 (baseline capture, manifest, beat parser, multi-page build).
