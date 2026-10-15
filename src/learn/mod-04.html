@@ -86,6 +86,81 @@
     </div>
 
     <div class="beat">
+      <figure class="fig" data-fig="f4-6" id="f4-6">
+        <span class="fnum">Figure 4.6</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f46t">
+          <title id="f46t">A cell gauge filled to the state of charge, beside a discharge curve of voltage against depth of discharge. The upper and lower cut-off voltages bound the useful range, with overcharge above and over-discharge below; a dashed line marks 80 percent depth of discharge, a deep discharge, and another the nominal voltage. A marker shows where the cell is on the curve; buttons set the C-rate and the readout gives the time to empty.</title>
+        </svg>
+        <div class="controls"><label>State of charge <input type="range" class="soc" min="0" max="100" value="60" aria-label="State of charge"> <b class="soc-val">60 %</b></label>
+          <span class="sw" role="group" aria-label="C-rate"><button type="button" data-c="0.05">C/20</button> <button type="button" data-c="0.2">C/5</button> <button type="button" data-c="1">1C</button> <button type="button" data-c="2">2C</button></span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>State of charge, depth of discharge and the C-rate.
+          <span class="try">Try this: set the state of charge to 20 % and read the depth of discharge; then switch from C/20 to 2C and watch the time left shrink.</span>
+          <span class="basis">Definitions of capacity, the C-rate and its examples, state of charge, depth of discharge, deep discharge, cut-off voltage, overcharge, over-discharge, shelf life and cycle life after Arote 2022, section 1.3.3 and section 1.4.5. The discharge curve is a schematic; the cut-off voltages are illustrative; the nominal voltage drawn is the average of this curve. The cell is a nominal 2.0 Ah.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The words on a datasheet</h3>
+        <p class="explain">A datasheet uses a small vocabulary, and it is worth having it straight. <b>Capacity</b> is the charge a battery stores, in ampere-hours: a 10 Ah cell can supply 10 A for one hour, and since an ampere is a coulomb per second, 1 Ah is 3600 C.{{cite:B3}} The <b>C-rate</b> scales the current to the capacity, relative to a one-hour discharge: at 1C a cell empties in an hour, at 2C in 30 minutes, at C/5 in five hours and at C/20 in twenty. The higher the C-rate, the shorter the discharge; some high-performance cells are charged and discharged above 1C with moderate stress.{{cite:B3}}</p>
+        <p class="explain">The <b>state of charge</b> (SOC) says how much of the capacity is left; the <b>depth of discharge</b> (DOD) says how much has been used, so the two add up to 100 %. A discharge to 80 % DOD is called a deep discharge, and for long cycle life and safety designers keep the depth of discharge small.{{cite:B3}} The <b>cut-off voltages</b> bound the useful range: charging past the upper one is overcharge, which decomposes the electrolyte and releases gas, and discharging below the lower one is over-discharge.{{cite:B3}}</p>
+        <p class="explain">Two words describe time. The <b>cycle life</b> is the number of cycles a battery lasts at a given C-rate; by industry convention it is nearly over when the capacity has fallen to 80 % of its initial value ({{fig:f5-10}}). Because it depends so strongly on the depth of discharge, a cycle life means little unless the DOD is quoted with it; temperature, rate, cut-off voltages and storage conditions matter too.{{cite:B3}} The <b>shelf life</b> is how long a battery can be stored without a load, and self-discharge, the slow loss of charge at open circuit through internal reactions, is what shortens it ({{ch:degradation}}).{{cite:B3}}</p>
+        <div class="worked"><b>Worked example.</b> Electric vehicles may draw a continuous 20 to 400 A, from a single cell or from smaller cells in parallel.{{cite:B3}} Take a 100 Ah cell.
+          <span class="line">at 1C: <i>100 A</i> for one hour</span>
+          <span class="line">rated at 5C for 10 s: 5 &#215; 100 A = <i>500 A</i></span>
+          <span class="line">charge in that burst: 500 A &#215; 10 s = 5000 C = 5000 &#247; 3600 Ah = <i>1.4 Ah</i></span>
+          A burst of 500 A takes only 1.4 % of the cell&#8217;s charge; what limits it is power, the subject of figure {{fig:f4-5}}.</div>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f4-5" id="f4-5">
+        <span class="fnum">Figure 4.5</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f45t">
+          <title id="f45t">Power against current for a cell of 3.6 volts. A dashed straight line is the power the reaction releases, current times voltage; below it, a curve bends over and returns towards zero: the power delivered to the load, P = IV minus I squared R. The wedge between them, shaded red, is the heat in the cell&#8217;s internal resistance. A dot marks the peak of the curve, at a current of V over 2R; sliders set the internal resistance and the current.</title>
+        </svg>
+        <div class="controls"><label>Internal resistance <input type="range" class="rint" min="10" max="200" value="30" aria-label="Internal resistance in milliohms"> <b class="rint-val">30 mΩ</b></label><label>Current <input type="range" class="cur" min="0" max="100" value="20" aria-label="Current in amperes"> <b class="cur-val">20 A</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--accent)"></i>power delivered, IV &#8722; I&#178;R</span><span><i style="background:var(--heat);opacity:.5"></i>heat in the cell, I&#178;R</span></div>
+        <figcaption>Power, and what the internal resistance costs.
+          <span class="try">Try this: find the current at which the cell delivers the most power, then halve the resistance and find it again.</span>
+          <span class="basis">P = IV &#8722; I&#178;R<sub>int</sub>, power density and what sets R<sub>int</sub> after Arote 2022, section 1.4.5; the maximum at I = V/2R follows from setting dP/dI = 0. The voltage of 3.6 V and the range of resistance are illustrative, not a measured cell.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Power: how fast</h3>
+        <p class="explain">Energy says how much work a battery can do; power says how fast it can do it.{{cite:B3}} <b>Power density</b> is the greatest power a battery can deliver per kilogram (W/kg) or per litre (W/L), and it is measured by cycling the battery at different rates.{{cite:B3}} The limit is the cell&#8217;s internal resistance. Of the power that the reaction releases, current times voltage, a part I&#178;R is turned into heat inside the cell, so the power delivered is{{cite:B3}}</p>
+        <md>P = IV - I^2 R_\mathrm{int}</md>
+        <p class="explain">which is simply the current times the terminal voltage, V &#8722; IR, of {{ch:electrostatics}}. To get the most power, the internal resistance must be kept low. It depends on how well the electrolyte conducts lithium ions, how well the electrode materials conduct electrons, and how fast the insertion and extraction reactions run.{{cite:B3}} So power is not only a matter of new materials: optimizing known ones, their conductivity, surface morphology and electrochemical, chemical and structural stability, can raise it too.{{cite:B3}} {{Ch:polarization}} takes R apart into its pieces.</p>
+        <div class="worked"><b>Worked example.</b> The figure&#8217;s cell: V = 3.6 V, R = 30 m&#937;.
+          <span class="line">at 20 A: IR = 20 A &#215; 0.030 &#937; = 0.6 V, so the terminals give <i>3.0 V</i></span>
+          <span class="line">delivered: 20 A &#215; 3.0 V = <i>60 W</i>; heat: I&#178;R = 400 A&#178; &#215; 0.030 &#937; = <i>12 W</i></span>
+          <span class="line">the peak: dP/dI = V &#8722; 2IR = 0, so I = V/2R = <i>60 A</i> and P = V&#178;/4R = <i>108 W</i></span>
+          At its peak the cell turns as much power into heat as it delivers: an efficiency of 50 %.</div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f4-7" id="f4-7">
+        <span class="fnum">Figure 4.7</span>
+        <svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f47t">
+          <title id="f47t">The mass of battery that stores the same energy, drawn as one-kilogram blocks: about 6.7 kilograms of lithium-ion, 10 of nickel-metal hydride and 40 of lead-acid for one kilowatt-hour. Below, nine chips list the advantages of lithium-ion cells (cell voltage, no memory effect, low self-discharge, cycle life, round-trip efficiency) and their drawbacks (protection circuit, battery management cost, sensitivity to heat, ageing on the shelf).</title>
+        </svg>
+        <div class="controls"><span class="sw" role="group" aria-label="Energy to store"><button type="button" data-e="1000">1 kWh</button> <button type="button" data-e="150">150 Wh, 1 kg of lithium-ion</button></span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Why lithium-ion won, and what it costs.
+          <span class="try">Try this: switch to 150 Wh and count the lead-acid blocks; then open the four red chips.</span>
+          <span class="basis">Specific energies of 150, 100 and 25 Wh/kg, the 6 kg comparison, and the advantages and drawbacks after Arote 2022, section 1.5. These are one textbook&#8217;s round figures for typical batteries, not measurements of particular cells. Blocks drawn to scale by mass, in the colour of each chemistry&#8217;s main electrode material.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Why lithium-ion won</h3>
+        <p class="explain">Why did lithium-ion displace the older rechargeable cells? Mostly because of mass. In one textbook&#8217;s round numbers, a typical lithium-ion battery stores 150 Wh/kg, nickel-metal hydride perhaps 100 and lead-acid only 25, so a lead-acid battery must weigh 6 kg to store the energy of 1 kg of lithium-ion; lithium-ion also has roughly twice the energy density of a typical nickel-cadmium battery.{{cite:B3}} Winter and Brodd give lead-acid 30 Wh/kg (figure {{fig:f4-3}}); the point is the ratio, not the last digit.{{cite:R1}}</p>
+        <p class="explain">The rest of the case is a list. A working voltage of about 3.6 V, two to three times that of nickel-cadmium, nickel-metal hydride or lead-acid cells, held steady under load; low self-discharge; no memory effect, so no need to discharge fully before recharging; no regular maintenance, unlike lead-acid; a cycle life ten times that of lead-acid; and a round-trip efficiency of about 95 %.{{cite:B3}} Behind the list is lithium itself: much lighter than the other metals used in batteries, and quick to give up its outer electron.{{cite:B3}}</p>
+        <p class="explain">Every advantage has a price. Lithium-ion cells need a protective circuit and a cover against short circuits; high-power uses need an advanced battery management system, which adds cost; they are sensitive to temperature and can explode when overheated; and they age markedly, losing performance even when unused.{{cite:B3}} {{Ch:safety}} and {{ch:degradation}} take these up.</p>
+      </div>
+    </div>
+
+    <div class="beat">
       <figure class="fig" data-fig="f4-3" id="f4-3">
         <span class="fnum">Figure 4.3</span>
         <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f43t">

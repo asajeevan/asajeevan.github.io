@@ -180,3 +180,29 @@ Read the plan first; this file records state, decisions and the checklist so wor
   to 80 px. Figure 4.4 sliders step in 0.01 V and 0.05 %, so the defaults match the worked example exactly.
 - Checks: alternate views reviewed at 1300 and 360 px; gate exit 0 on 24 pages; axe clean; 29 pages, 0 broken links;
   74 tests.
+
+## More from Arote 2022, chapter 1 (2026-10-15, owner's request: more content and figures from that chapter)
+- Five new figures (numbers as built): 1.6 "A family tree of batteries" (primary and secondary cells with their
+  electrode materials in real colours and nominal voltages from Winter and Brodd's table; lithium-ion sorted by
+  electrolyte and by shape); 2.5 "What each layer can be made of" (exploded cell, tap a layer for its menu of materials
+  and one next-generation option); 4.3 "State of charge, depth of discharge and the C-rate" (gauge, cut-offs, overcharge
+  and over-discharge, deep discharge, time to empty at C/20 to 2C); 4.4 "Power, and what the internal resistance
+  costs" (P = IV - I²R, peak at V/2R); 4.7 "Why lithium-ion won, and what it costs" (mass per kWh, pros and cons).
+  Later figures in chapters 2 and 4 move up.
+- New text: primary and secondary batteries; the materials menu and next-generation directions; datasheet vocabulary
+  (capacity, 3600 C per Ah, C-rate, SOC, DOD, cut-offs, cycle life tied to DOD, shelf life) with an EV worked example;
+  power density and internal resistance with a worked example; why lithium-ion displaced older chemistries and its
+  drawbacks; ΔG = ΔH - TΔS and first-principles voltages (cell-voltage); three causes of practical shortfall
+  (polarization); Co3+/Co4+ and constant electrolyte lithium content (rocking chair); production details (slot die,
+  two-step calendering, slitting, drying, tab welding, sealing, formation); coin and cylindrical names and uses;
+  protection as a consequence of lithium-ion's drawbacks (safety).
+- Corrected or left out from the chapter: ΔH = ΔU + PΔV (the chapter prints a minus) and the sign of the computed
+  voltage; "100 Ah at 1C is 10 A" (it is 100 A, consistent with the chapter's own 500 A at 5C); lithium-ion called a
+  dry cell with a paste electrolyte; lithium "mixing with carbon to generate lithium carbonate"; lithium deposited on
+  the negative electrode during charge; the garbled memory-effect, power-efficiency, constant-current and
+  constant-voltage definitions; "cannot be used in transportable devices"; pouch cells' "low cycle life"; all
+  electrodes "layered"; the duplicate LiMn2O4 entry; the conflicting 1000-1500 cycle figure.
+- Layout: equation split so that it fits a phone; {{cite}} markers are not used inside figure scripts (they do not
+  render there); figure bases name the sources instead.
+- Checks: new figures reviewed at 1300 and 360 px; gate exit 0 on 29 pages; axe clean on the eight touched pages;
+  29 pages, 3270 links, 0 broken; 74 tests.

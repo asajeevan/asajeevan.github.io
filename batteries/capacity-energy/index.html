@@ -62,7 +62,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
 <div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
 <div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
-<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f4-1"><span class="n">4.1</span><span class="t">The Faraday calculator</span></a></li><li class="o-fig"><a href="#f4-2"><span class="n">4.2</span><span class="t">Energy is the area under the discharge curve</span></a></li><li class="o-fig"><a href="#f4-3"><span class="n">4.3</span><span class="t">The Ragone map: energy against power</span></a></li><li class="o-fig"><a href="#f4-4"><span class="n">4.4</span><span class="t">Three efficiencies, drawn as areas</span></a></li><li class="o-sub"><a href="#s-three-efficiencies"><span class="t">Three efficiencies</span></a></li><li class="o-end"><a href="#maths"><span class="t">The mathematics of this chapter</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f4-1"><span class="n">4.1</span><span class="t">The Faraday calculator</span></a></li><li class="o-fig"><a href="#f4-2"><span class="n">4.2</span><span class="t">Energy is the area under the discharge curve</span></a></li><li class="o-fig"><a href="#f4-6"><span class="n">4.3</span><span class="t">State of charge, depth of discharge and the C-rate</span></a></li><li class="o-sub"><a href="#s-the-words-on-a-datasheet"><span class="t">The words on a datasheet</span></a></li><li class="o-fig"><a href="#f4-5"><span class="n">4.4</span><span class="t">Power, and what the internal resistance costs</span></a></li><li class="o-sub"><a href="#s-power-how-fast"><span class="t">Power: how fast</span></a></li><li class="o-fig"><a href="#f4-3"><span class="n">4.5</span><span class="t">The Ragone map: energy against power</span></a></li><li class="o-fig"><a href="#f4-4"><span class="n">4.6</span><span class="t">Three efficiencies, drawn as areas</span></a></li><li class="o-sub"><a href="#s-three-efficiencies"><span class="t">Three efficiencies</span></a></li><li class="o-fig"><a href="#f4-7"><span class="n">4.7</span><span class="t">Why lithium-ion won, and what it costs</span></a></li><li class="o-sub"><a href="#s-why-lithium-ion-won"><span class="t">Why lithium-ion won</span></a></li><li class="o-end"><a href="#maths"><span class="t">The mathematics of this chapter</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
 <nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
 <a class="toc-home" href="../../batteries/">Course home</a>
 <div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
@@ -177,8 +177,62 @@ At that current the curve would sag and the capacity would fall short of 2 Ah; t
 </div>
 
 <div class="beat">
-<figure class="fig" data-fig="f4-3" id="f4-3">
+<figure class="fig" data-fig="f4-6" id="f4-6">
 <span class="fnum">Figure 4.3</span>
+<svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f46t">
+<title id="f46t">A cell gauge filled to the state of charge, beside a discharge curve of voltage against depth of discharge. The upper and lower cut-off voltages bound the useful range, with overcharge above and over-discharge below; a dashed line marks 80 percent depth of discharge, a deep discharge, and another the nominal voltage. A marker shows where the cell is on the curve; buttons set the C-rate and the readout gives the time to empty.</title>
+</svg>
+<div class="controls"><label>State of charge <input type="range" class="soc" min="0" max="100" value="60" aria-label="State of charge"> <b class="soc-val">60 %</b></label>
+<span class="sw" role="group" aria-label="C-rate"><button type="button" data-c="0.05">C/20</button> <button type="button" data-c="0.2">C/5</button> <button type="button" data-c="1">1C</button> <button type="button" data-c="2">2C</button></span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>State of charge, depth of discharge and the C-rate.
+<span class="try">Try this: set the state of charge to 20 % and read the depth of discharge; then switch from C/20 to 2C and watch the time left shrink.</span>
+<details class="src"><summary>Source</summary><span class="basis">Definitions of capacity, the C-rate and its examples, state of charge, depth of discharge, deep discharge, cut-off voltage, overcharge, over-discharge, shelf life and cycle life after Arote 2022, section 1.3.3 and section 1.4.5. The discharge curve is a schematic; the cut-off voltages are illustrative; the nominal voltage drawn is the average of this curve. The cell is a nominal 2.0 Ah.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-the-words-on-a-datasheet">The words on a datasheet</h2>
+<p class="explain">A datasheet uses a small vocabulary, and it is worth having it straight. <b>Capacity</b> is the charge a battery stores, in ampere-hours: a 10 Ah cell can supply 10 A for one hour, and since an ampere is a coulomb per second, 1 Ah is 3600 C.<sup class="cite"><a href="#ref-5">5</a></sup> The <b>C-rate</b> scales the current to the capacity, relative to a one-hour discharge: at 1C a cell empties in an hour, at 2C in 30 minutes, at C/5 in five hours and at C/20 in twenty. The higher the C-rate, the shorter the discharge; some high-performance cells are charged and discharged above 1C with moderate stress.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<p class="explain">The <b>state of charge</b> (SOC) says how much of the capacity is left; the <b>depth of discharge</b> (DOD) says how much has been used, so the two add up to 100 %. A discharge to 80 % DOD is called a deep discharge, and for long cycle life and safety designers keep the depth of discharge small.<sup class="cite"><a href="#ref-5">5</a></sup> The <b>cut-off voltages</b> bound the useful range: charging past the upper one is overcharge, which decomposes the electrolyte and releases gas, and discharging below the lower one is over-discharge.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<p class="explain">Two words describe time. The <b>cycle life</b> is the number of cycles a battery lasts at a given C-rate; by industry convention it is nearly over when the capacity has fallen to 80 % of its initial value (<a class="xref" href="../../batteries/degradation/#f5-10">16.2</a>). Because it depends so strongly on the depth of discharge, a cycle life means little unless the DOD is quoted with it; temperature, rate, cut-off voltages and storage conditions matter too.<sup class="cite"><a href="#ref-5">5</a></sup> The <b>shelf life</b> is how long a battery can be stored without a load, and self-discharge, the slow loss of charge at open circuit through internal reactions, is what shortens it (<a class="xref" href="../../batteries/degradation/">chapter 16</a>).<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<div class="worked"><b>Worked example.</b> Electric vehicles may draw a continuous 20 to 400 A, from a single cell or from smaller cells in parallel.<sup class="cite"><a href="#ref-5">5</a></sup> Take a 100 Ah cell.
+<span class="line">at 1C: <i>100 A</i> for one hour</span>
+<span class="line">rated at 5C for 10 s: 5 &#215; 100 A = <i>500 A</i></span>
+<span class="line">charge in that burst: 500 A &#215; 10 s = 5000 C = 5000 &#247; 3600 Ah = <i>1.4 Ah</i></span>
+A burst of 500 A takes only 1.4 % of the cell&#8217;s charge; what limits it is power, the subject of figure <a class="xref" href="#f4-5">4.4</a>.</div>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f4-5" id="f4-5">
+<span class="fnum">Figure 4.4</span>
+<svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f45t">
+<title id="f45t">Power against current for a cell of 3.6 volts. A dashed straight line is the power the reaction releases, current times voltage; below it, a curve bends over and returns towards zero: the power delivered to the load, <span class="eq">P = IV</span> minus I squared R. The wedge between them, shaded red, is the heat in the cell&#8217;s internal resistance. A dot marks the peak of the curve, at a current of V over 2R; sliders set the internal resistance and the current.</title>
+</svg>
+<div class="controls"><label>Internal resistance <input type="range" class="rint" min="10" max="200" value="30" aria-label="Internal resistance in milliohms"> <b class="rint-val">30 mΩ</b></label><label>Current <input type="range" class="cur" min="0" max="100" value="20" aria-label="Current in amperes"> <b class="cur-val">20 A</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i style="background:var(--accent)"></i>power delivered, IV − I<sup>2</sup>R</span><span><i style="background:var(--heat);opacity:.5"></i>heat in the cell, I<sup>2</sup>R</span></div>
+<figcaption>Power, and what the internal resistance costs.
+<span class="try">Try this: find the current at which the cell delivers the most power, then halve the resistance and find it again.</span>
+<details class="src"><summary>Source</summary><span class="basis"><span class="eq">P = IV</span> − I<sup>2</sup>R<sub>int</sub>, power density and what sets R<sub>int</sub> after Arote 2022, section 1.4.5; the maximum at I = V/2R follows from setting dP/dI = 0. The voltage of 3.6 V and the range of resistance are illustrative, not a measured cell.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-power-how-fast">Power: how fast</h2>
+<p class="explain">Energy says how much work a battery can do; power says how fast it can do it.<sup class="cite"><a href="#ref-5">5</a></sup> <b>Power density</b> is the greatest power a battery can deliver per kilogram (W/kg) or per litre (W/L), and it is measured by cycling the battery at different rates.<sup class="cite"><a href="#ref-5">5</a></sup> The limit is the cell’s internal resistance. Of the power that the reaction releases, current times voltage, a part I<sup>2</sup>R is turned into heat inside the cell, so the power delivered is<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<span class="mblock"><math display="block"><mrow><mi>P</mi><mo>=</mo><mi>I</mi><mi>V</mi><mo>−</mo><msup><mi>I</mi><mn>2</mn></msup><msub><mi>R</mi><mrow><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi></mrow></msub></mrow></math></span>
+<p class="explain">which is simply the current times the terminal voltage, V &#8722; IR, of <a class="xref" href="../../batteries/electrostatics/">chapter 0</a>. To get the most power, the internal resistance must be kept low. It depends on how well the electrolyte conducts lithium ions, how well the electrode materials conduct electrons, and how fast the insertion and extraction reactions run.<sup class="cite"><a href="#ref-5">5</a></sup> So power is not only a matter of new materials: optimizing known ones, their conductivity, surface morphology and electrochemical, chemical and structural stability, can raise it too.<sup class="cite"><a href="#ref-5">5</a></sup> <a class="xref" href="../../batteries/polarization/">Chapter 5</a> takes R apart into its pieces.</p>
+<div class="worked"><b>Worked example.</b> The figure&#8217;s cell: V = 3.6 V, R = 30 m&#937;.
+<span class="line">at 20 A: IR = 20 A &#215; 0.030 &#937; = 0.6 V, so the terminals give <i>3.0 V</i></span>
+<span class="line">delivered: 20 A &#215; 3.0 V = <i>60 W</i>; heat: I<sup>2</sup>R = 400 A<sup>2</sup> × 0.030 Ω = <i>12 W</i></span>
+<span class="line">the peak: dP/dI = V &#8722; 2IR = 0, so I = V/2R = <i>60 A</i> and P = V<sup>2</sup>/4R = <i>108 W</i></span>
+At its peak the cell turns as much power into heat as it delivers: an efficiency of 50 %.</div>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f4-3" id="f4-3">
+<span class="fnum">Figure 4.5</span>
 <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f43t">
 <title id="f43t">A Ragone map: supercapacitors high in power and low in energy, fuel cells high in energy and low in power, batteries in between, and the combustion engine beyond all three because its energy is stored in fuel.</title>
 <line x1="60" y1="250" x2="490" y2="250" stroke="var(--line-2)" marker-end="url(#arr43)"/>
@@ -215,7 +269,7 @@ The rest of the mass was copper, aluminium, separator, electrolyte, can and carb
 </div>
 <div class="beat alt">
 <figure class="fig" data-fig="f4-4" id="f4-4">
-<span class="fnum">Figure 4.4</span>
+<span class="fnum">Figure 4.6</span>
 <svg viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f44t">
 <title id="f44t">Energy drawn as area on a plot of voltage against charge: an outlined rectangle for the charge put in, as wide as the charge and as high as the average charge voltage, and a filled rectangle for the charge taken out at the lower average discharge voltage. The difference, shaded, is the energy lost; sliders set the coulombic efficiency and the two average voltages.</title>
 </svg>
@@ -234,7 +288,28 @@ The rest of the mass was copper, aluminium, separator, electrolyte, can and carb
 <div class="worked"><b>Worked example.</b> The default setting of the figure.
 <span class="line">voltage efficiency = 3.65 V &#247; 3.80 V = <i>96.1 %</i></span>
 <span class="line">energy efficiency = 0.995 &#215; 0.961 = <i>95.6 %</i>; charge factor = 1 &#247; 0.995 = <i>1.005</i></span>
-Almost all of the loss here is voltage, not charge: a cell with a perfect coulombic efficiency would still waste about 4 % of its energy as heat.</div>        <p class="recap"><b>You can now explain</b> where a capacity in mAh/g comes from and which mass it refers to, why energy is an area, what the Ragone plot shows, and why a cell delivers less than its chemistry promises.</p>
+Almost all of the loss here is voltage, not charge: a cell with a perfect coulombic efficiency would still waste about 4 % of its energy as heat.</div>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f4-7" id="f4-7">
+<span class="fnum">Figure 4.7</span>
+<svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f47t">
+<title id="f47t">The mass of battery that stores the same energy, drawn as one-kilogram blocks: about 6.7 kilograms of lithium-ion, 10 of nickel-metal hydride and 40 of lead-acid for one kilowatt-hour. Below, nine chips list the advantages of lithium-ion cells (cell voltage, no memory effect, low self-discharge, cycle life, round-trip efficiency) and their drawbacks (protection circuit, battery management cost, sensitivity to heat, ageing on the shelf).</title>
+</svg>
+<div class="controls"><span class="sw" role="group" aria-label="Energy to store"><button type="button" data-e="1000">1 kWh</button> <button type="button" data-e="150">150 Wh, 1 kg of lithium-ion</button></span></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Why lithium-ion won, and what it costs.
+<span class="try">Try this: switch to 150 Wh and count the lead-acid blocks; then open the four red chips.</span>
+<details class="src"><summary>Source</summary><span class="basis">Specific energies of 150, 100 and 25 Wh/kg, the 6 kg comparison, and the advantages and drawbacks after Arote 2022, section 1.5. These are one textbook&#8217;s round figures for typical batteries, not measurements of particular cells. Blocks drawn to scale by mass, in the colour of each chemistry&#8217;s main electrode material.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-why-lithium-ion-won">Why lithium-ion won</h2>
+<p class="explain">Why did lithium-ion displace the older rechargeable cells? Mostly because of mass. In one textbook&#8217;s round numbers, a typical lithium-ion battery stores 150 Wh/kg, nickel-metal hydride perhaps 100 and lead-acid only 25, so a lead-acid battery must weigh 6 kg to store the energy of 1 kg of lithium-ion; lithium-ion also has roughly twice the energy density of a typical nickel-cadmium battery.<sup class="cite"><a href="#ref-5">5</a></sup> Winter and Brodd give lead-acid 30 Wh/kg (figure <a class="xref" href="#f4-3">4.5</a>); the point is the ratio, not the last digit.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">The rest of the case is a list. A working voltage of about 3.6 V, two to three times that of nickel-cadmium, nickel-metal hydride or lead-acid cells, held steady under load; low self-discharge; no memory effect, so no need to discharge fully before recharging; no regular maintenance, unlike lead-acid; a cycle life ten times that of lead-acid; and a round-trip efficiency of about 95 %.<sup class="cite"><a href="#ref-5">5</a></sup> Behind the list is lithium itself: much lighter than the other metals used in batteries, and quick to give up its outer electron.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<p class="explain">Every advantage has a price. Lithium-ion cells need a protective circuit and a cover against short circuits; high-power uses need an advanced battery management system, which adds cost; they are sensitive to temperature and can explode when overheated; and they age markedly, losing performance even when unused.<sup class="cite"><a href="#ref-5">5</a></sup> <a class="xref" href="../../batteries/safety/">Chapter 17</a> and <a class="xref" href="../../batteries/degradation/">chapter 16</a> take these up.</p>        <p class="recap"><b>You can now explain</b> where a capacity in mAh/g comes from and which mass it refers to, why energy is an area, what the Ragone plot shows, and why a cell delivers less than its chemistry promises.</p>
 <p class="bridge">Now let us watch your cell do it.</p>
 <details class="deeper"><summary>Go deeper: the mass basis, and 372 against 339</summary><div class="body">
 <p>Run Faraday’s law on the lithiated compound LiC<sub>6</sub> (79.0 g/mol) and you get 339 mAh/g; run it on the carbon host C<sub>6</sub> (72.07 g/mol) and you get 372 mAh/g. Both are correct; they answer different questions. The convention in the field is to refer negative-electrode hosts to their delithiated mass and positive-electrode materials to their lithiated mass, which is how each is weighed when the cell is built.<sup class="cite"><a href="#ref-3">3</a>,<a href="#ref-4">4</a></sup> Whenever you compare capacities, check the basis first.</p>
@@ -243,7 +318,7 @@ Almost all of the loss here is voltage, not charge: a cell with a perfect coulom
 <p class="eqline"><span class="eq"><span class="eq">Q = nFN</span>,&#8195;m = ItM / (nF)</span><span class="eqnote">Faraday&#8217;s law: the charge for N moles of reactant that give n electrons each; turned round, the mass transformed by a current I for a time t</span></p>
 <p class="eqline"><span class="eq">Q<sub>spec</sub> = nF / (3.6 M)&#8195;mAh/g</span><span class="eqnote">the theoretical specific capacity of a material of molar mass M (g/mol); 3.6 converts coulombs per gram to milliampere-hours per gram (figure <a class="xref" href="#f4-1">4.1</a>). Graphite as C<sub>6</sub>: 372; LiFePO<sub>4</sub>: 170; lithium metal: 3861.</span></p>
 <p class="eqline"><span class="eq">energy = &#8747;<sub>0</sub><sup>&#916;t</sup> IV dt = &#8747;<sub>0</sub><sup>Q</sup> V(q) dq = &#9001;V&#9002; Q</span><span class="eqnote">the energy delivered is the area under the discharge curve, or the average voltage times the capacity (figure <a class="xref" href="#f4-2">4.2</a>)</span></p>
-<p class="eqline"><span class="eq"><span class="eq">P = IV</span>,&#8195;specific energy = energy / mass,&#8195;specific power = P / mass</span><span class="eqnote">the two axes of the Ragone plot (figure <a class="xref" href="#f4-3">4.3</a>), in Wh/kg and W/kg</span></p>
+<p class="eqline"><span class="eq"><span class="eq">P = IV</span>,&#8195;specific energy = energy / mass,&#8195;specific power = P / mass</span><span class="eqnote">the two axes of the Ragone plot (figure <a class="xref" href="#f4-3">4.5</a>), in Wh/kg and W/kg</span></p>
 <p class="eqline"><span class="eq">&#951;<sub>Coulombic</sub> = 100 &#215; Q<sub>dis</sub> / Q<sub>ch</sub></span><span class="eqnote">the share of the charge put in on charging that comes back on discharge; a later module follows it cycle by cycle</span></p>
 <p class="eqline"><span class="eq">&#951;<sub>energy</sub> = 100 &#215; &#8747;V<sub>dis</sub> dq / &#8747;V<sub>ch</sub> dq</span><span class="eqnote">the share of the energy that comes back; lower than the Coulombic efficiency because the charge branch sits above the discharge branch</span></p>
 </div></details>

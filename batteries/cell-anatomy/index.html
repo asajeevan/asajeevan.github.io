@@ -62,7 +62,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
 <div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
 <div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
-<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f2-1"><span class="n">2.1</span><span class="t">A coin cell, the kind used to test new materials in research laboratories, cut through the…</span></a></li><li class="o-fig"><a href="#f2-2"><span class="n">2.2</span><span class="t">Why cells are built from thin, wide layers, and how the layers fit in a can</span></a></li><li class="o-fig"><a href="#f2-5"><span class="n">2.3</span><span class="t">Four formats, and how their names are read</span></a></li><li class="o-sub"><a href="#s-four-formats"><span class="t">Four formats</span></a></li><li class="o-fig"><a href="#f2-3"><span class="n">2.4</span><span class="t">An electrode is a coating, not a block</span></a></li><li class="o-fig"><a href="#f6-1"><span class="n">2.5</span><span class="t">The rocking chair: graphite against LiCoO2, today’s form of the carbon | LiCoO2 cell that…</span></a></li><li class="o-fig"><a href="#f6-5"><span class="n">2.6</span><span class="t">From a chemist’s curiosity to a product, and on to today’s cell</span></a></li><li class="o-end"><a href="#maths"><span class="t">The mathematics of this chapter</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f2-1"><span class="n">2.1</span><span class="t">A coin cell, the kind used to test new materials in research laboratories, cut through the…</span></a></li><li class="o-fig"><a href="#f2-2"><span class="n">2.2</span><span class="t">Why cells are built from thin, wide layers, and how the layers fit in a can</span></a></li><li class="o-fig"><a href="#f2-5"><span class="n">2.3</span><span class="t">Four formats, and how their names are read</span></a></li><li class="o-sub"><a href="#s-four-formats"><span class="t">Four formats</span></a></li><li class="o-fig"><a href="#f2-3"><span class="n">2.4</span><span class="t">An electrode is a coating, not a block</span></a></li><li class="o-fig"><a href="#f2-7"><span class="n">2.5</span><span class="t">What each layer can be made of</span></a></li><li class="o-sub"><a href="#s-what-each-part-is-made-of"><span class="t">What each part is made of</span></a></li><li class="o-fig"><a href="#f6-1"><span class="n">2.6</span><span class="t">The rocking chair: graphite against LiCoO2, today’s form of the carbon | LiCoO2 cell that…</span></a></li><li class="o-fig"><a href="#f6-5"><span class="n">2.7</span><span class="t">From a chemist’s curiosity to a product, and on to today’s cell</span></a></li><li class="o-end"><a href="#maths"><span class="t">The mathematics of this chapter</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
 <nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
 <a class="toc-home" href="../../batteries/">Course home</a>
 <div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
@@ -184,10 +184,11 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <p class="explain">The same layers come in four common shapes, and some of them are named by their size.<sup class="cite"><a href="#ref-6">6</a></sup> A <b>coin cell</b> is a flat stainless-steel case, wider than it is high, with a gasket, a cap, a spacer plate and a spring holding the layers together; in the laboratory its negative electrode is often lithium foil. Its name, standardized by the IEC, is a code: in CR2025, C stands for a lithium chemistry, R for round, 20 for the diameter in millimetres and 25 for the height in tenths of a millimetre, so 2.5 mm. CR2025 is the most common design at laboratory scale.<sup class="cite"><a href="#ref-6">6</a></sup></p>
 <p class="explain">In a <b>cylindrical cell</b> the electrodes and separator are wound into a spiral inside a cylindrical case, the roll of figure <a class="xref" href="#f2-2">2.2</a>: good cycling stability, but round cells pack less densely. Its five-digit name, such as 18650 or 21700, gives its size. A <b>prismatic cell</b> holds large stacked sheets in a rectangular case of aluminium, steel or semi-hard plastic, usually with a vent, and suits uses where swelling matters; its six digits give the thickness in tenths of a millimetre, then the width and the length in millimetres, so 504050 is 5.0 by 40 by 50 mm. A <b>pouch cell</b> stacks its electrodes in a sealed, soft, flat case: light and cheap to make.<sup class="cite"><a href="#ref-6">6</a></sup></p>
 <p class="explain">Shape matters in use as well. In electric vehicles, vibration and shock speed up the loss of capacity and the rise of resistance, through the loss of active material and of lithium inventory of <a class="xref" href="../../batteries/degradation/">chapter 16</a>; a 2026 review reports cylindrical 18650 cells as particularly susceptible, and pouch and prismatic cells as more tolerant when tightly packed.<sup class="cite"><a href="#ref-7">7</a></sup></p>
+<p class="explain">More names, for reference. A coin cell&#8217;s shape letter can be R for round, F for flat, S for square or P for not round; besides CR2025 there are CR2477, CR1616, CR1620, CR1632, CR2016 and CR2032, and such cells power watches, toys, LED lights, thermometers, heart-rate and glucose monitors, calculators, remote controls and car keys.<sup class="cite"><a href="#ref-6">6</a></sup> Cylindrical cells may carry the letters LIR, for lithium-ion rechargeable; besides the 18650 there are 14500, 14650, 18500, 21700, 26650 and 32650 cells, used in security and communication systems, medical equipment, laptops, e-bikes and power tools.<sup class="cite"><a href="#ref-6">6</a></sup></p>
 </div>
 </div>
 
-<div class="beat">
+<div class="beat alt">
 <figure class="fig" data-fig="f2-3" id="f2-3">
 <span class="fnum">Figure 2.4</span>
 <svg viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f23t">
@@ -207,8 +208,28 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </div>
 
 <div class="beat">
-<figure class="fig" data-fig="f6-1" id="f6-1">
+<figure class="fig" data-fig="f2-7" id="f2-7">
 <span class="fnum">Figure 2.5</span>
+<svg viewBox="0 0 520 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f27t">
+<title id="f27t">The layers of a lithium-ion cell pulled apart: aluminium foil, positive electrode, separator, negative electrode and copper foil, with the electrolyte that fills the pores drawn behind the middle three. Choosing a layer lists the materials it is commonly made of, and one option for the next generation.</title>
+</svg>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>What each layer can be made of.
+<span class="try">Try this: find the layer whose menu holds four salts and five solvents, then the one that a carbide might replace.</span>
+<details class="src"><summary>Source</summary><span class="basis">Components and materials after Arote 2022, sections 1.4.2, 1.8 and 1.9; that list gives LiMn<sub>2</sub>O<sub>4</sub> twice, as spinel manganese oxide and as LMO, and it appears here once. Layer order as in figure <a class="xref" href="#f2-2">2.2</a>. Schematic, not to scale; the layers are drawn in the colours of their materials.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-what-each-part-is-made-of">What each part is made of</h2>
+<p class="explain">We have met the parts of a lithium-ion cell one at a time. Let us put names to the materials. The positive electrode is typically a layered lithium metal oxide such as LiCoO<sub>2</sub>, coated on aluminium foil; the negative electrode is carbon or graphite on copper foil; the electrolyte is a lithium salt in organic solvents; and the separator is a polyethylene or polypropylene membrane.<sup class="cite"><a href="#ref-6">6</a></sup> The positive electrode needs lattice sites that take lithium in and give it back reversibly, and the larger the difference in electrochemical potential between the two electrodes, the higher the energy of the cell.<sup class="cite"><a href="#ref-6">6</a></sup></p>
+<p class="explain">Each part has a menu. Positive electrodes: LiCoO<sub>2</sub>, the spinel LiMn<sub>2</sub>O<sub>4</sub>, LiFePO<sub>4</sub>, the nickel-manganese-cobalt oxides (NMC), LiNi<sub>0.8</sub>Co<sub>0.15</sub>Al<sub>0.05</sub>O<sub>2</sub> (NCA) and layered dichalcogenides. Negative electrodes: graphitic and non-graphitic carbons, silicon-based alloys, tin alloys such as Cu<sub>6</sub>Sn<sub>5</sub>, Ni<sub>3</sub>Sn<sub>2</sub> and Co<sub>3</sub>Sn<sub>2</sub>, and the titanium oxides Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub> and TiO<sub>2</sub>. Electrolytes: LiPF<sub>6</sub>, LiBF<sub>4</sub>, LiClO<sub>4</sub> or LiAsF<sub>6</sub> in a mixture of PC, EC, DMC, DEC and EMC, or, in a lithium polymer cell, a gel based on PEO, PAN, PVDF or PMMA. Separators: microporous polypropylene, non-woven mats, ceramic-based materials and copolymers of vinylidene fluoride. Current collectors: aluminium and copper, as foil, mesh or foam, etched or coated.<sup class="cite"><a href="#ref-6">6</a></sup></p>
+<p class="explain">Which way next? The same textbook names layered lithium-rich positive electrodes, silicon-based negative electrodes, electrolytes that are more stable and conduct ions better, and current collectors based on titanium carbide (MXene), lighter, cheaper and flexible. It adds recycling, both to cut electronic waste and as a second source of materials (<a class="xref" href="../../batteries/recycling/">chapter 18</a>).<sup class="cite"><a href="#ref-6">6</a></sup></p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f6-1" id="f6-1">
+<span class="fnum">Figure 2.6</span>
 <svg viewBox="0 0 520 370" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f61t">
 <title id="f61t">The rocking-chair cell: graphite sheets on copper foil on the left, LiCoO2 layers on aluminium foil on the right, electrolyte between. On discharge lithium ions leave the gaps between the carbon sheets, cross the electrolyte and slip between the oxide layers while electrons go round through a lamp; on charge a charger drives both back. A bar shows that the same lithium only moves from one side to the other.</title>
 </svg>
@@ -229,13 +250,14 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <span class="line">ions = 10 800 C ÷ 1.602 × 10<sup>−19</sup> C = <i>6.7 × 10<sup>22</sup></i>, that is 10 800 &#247; 96 485 = <i>0.112 mol</i> of lithium</span>
 <span class="line">mass of that lithium = 0.112 mol &#215; 6.94 g/mol = <i>0.78 g</i></span>
 Less than a gram of lithium travels back and forth; the rest of the cell is the hosts, the electrolyte and the packaging that let it do so.<sup class="cite"><a href="#ref-4">4</a>,<a href="#ref-5">5</a></sup></div>
+<p class="explain">On charge the cobalt is oxidized, Co<sup>3+</sup> to Co<sup>4+</sup>, as lithium leaves LiCoO<sub>2</sub> for the graphite; on discharge it is reduced again, and the process is fully reversible.<sup class="cite"><a href="#ref-6">6</a></sup> The electrolyte only passes the lithium along: its lithium content stays the same whatever the state of charge, while that of the two electrodes changes.<sup class="cite"><a href="#ref-6">6</a></sup> That is the rocking chair. While current flows the salt is unevenly spread across the cell, as figure <a class="xref" href="../../batteries/ion-transport/#f7-10">9.2</a> shows, but none is gained or lost.</p>
 <p class="lesson">Nothing is consumed in an ideal lithium-ion cell: the ions only change address.</p>
 </div>
 </div>
 
 <div class="beat">
 <figure class="fig" data-fig="f6-5" id="f6-5">
-<span class="fnum">Figure 2.6</span>
+<span class="fnum">Figure 2.7</span>
 <svg viewBox="0 0 520 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f65t">
 <title id="f65t">A timeline from 1972 to 1996 with nine events: the Belgirate conference of 1972; lithium against TiS2 in 1976; the rocking-chair proposal in the late 1970s and the first rocking-chair cell soon after; LiCoO2 at 4 volts around 1980; carbon negative electrodes in 1983; the protective film from ethylene carbonate on graphite in 1990; Sony's cell in June 1991 at about 80 Wh/kg; the LiPF6 in EC/DMC electrolyte in 1993; LiFePO4 in 1996.</title>
 </svg>

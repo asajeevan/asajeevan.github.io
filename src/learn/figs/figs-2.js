@@ -247,3 +247,66 @@
     ]);
     render();
   });
+
+  /* f2-7: the layers of a lithium-ion cell, pulled apart, and what each can be made of */
+  register('f2-7', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    var y0 = 52, h = 196, sel = 'pos', parts = {};
+    var CC = { items: ['foil, mesh or foam,', '+etched or coated'], next: 'next: MXene (titanium carbide)' };
+    var D = {
+      al: { name: 'positive current collector', x: 26, w: 8, mat: 'alu', lab: 'Al foil', row: 0,
+        items: ['aluminium'].concat(CC.items), next: CC.next,
+        t: '<b>Current collectors</b> carry the electrons between the coating and the terminals: aluminium on the positive side, copper on the negative, as foil, mesh or foam, etched or coated. Titanium carbide (MXene) collectors, lighter, cheaper and flexible, are one hope for the next generation.' },
+      pos: { name: 'positive electrode', x: 46, w: 50, mat: 'lco', lab: 'positive', row: 1,
+        items: ['LiCoO₂, lithium cobalt oxide (LCO)', 'LiMn₂O₄, spinel (LMO)', 'LiFePO₄, lithium iron phosphate (LFP)', 'LiNiMnCoO₂ (NMC)', 'LiNi₀.₈Co₀.₁₅Al₀.₀₅O₂ (NCA)', 'layered dichalcogenides'], next: 'next: layered lithium-rich oxides',
+        t: 'The <b>positive electrode</b> is a lithium metal oxide or phosphate coated on aluminium foil; it must have sites that take lithium in and give it back reversibly. The common choices are listed; {{ch:positive-electrodes}} compares them. Layered lithium-rich oxides are one route to more capacity.' },
+      sep: { name: 'separator', x: 108, w: 16, mat: 'separator', lab: 'separator', row: 0,
+        items: ['microporous polypropylene', '+or polyethylene', 'non-woven fabric mats', 'ceramic-based materials', 'PVDF-HFP, PVDF-CTFE, PVDF-TFE'],
+        t: 'The <b>separator</b> keeps the electrodes apart and lets only the working ion through. It is a microporous polypropylene or polyethylene membrane, a non-woven mat or a ceramic-based material; copolymers of vinylidene fluoride, PVDF-HFP, PVDF-CTFE and PVDF-TFE, are also used.' },
+      neg: { name: 'negative electrode', x: 136, w: 50, mat: 'graphite', lab: 'negative', row: 1,
+        items: ['graphitic and non-graphitic carbon', 'silicon-based alloys', 'tin alloys: Cu₆Sn₅, Ni₃Sn₂,', '+Co₃Sn₂ and Sn-Ag', 'titanium oxides: Li₄Ti₅O₁₂, TiO₂'], next: 'next: silicon-based electrodes',
+        t: 'The <b>negative electrode</b> is usually carbon or graphite coated on copper foil. Alloys of silicon and tin and the titanium oxides are the alternatives; {{ch:negative-electrodes}} weighs them. Silicon-based electrodes are one of the hopes for the next generation.' },
+      cu: { name: 'negative current collector', x: 198, w: 8, mat: 'copper', lab: 'Cu foil', row: 0,
+        items: ['copper'].concat(CC.items), next: CC.next,
+        t: '<b>Current collectors</b> carry the electrons between the coating and the terminals: copper on the negative side, aluminium on the positive, as foil, mesh or foam, etched or coated. Titanium carbide (MXene) collectors, lighter, cheaper and flexible, are one hope for the next generation.' },
+      ely: { name: 'electrolyte', lab: 'electrolyte', row: -1,
+        items: ['salt: LiPF₆, LiBF₄, LiClO₄ or LiAsF₆', 'solvents: PC, EC, DMC, DEC, EMC', 'gel: PEO, PAN, PVDF or PMMA'], next: 'next: more stable, more conductive',
+        t: 'The <b>electrolyte</b> fills the pores and the separator: a lithium salt, LiPF₆, LiBF₄, LiClO₄ or LiAsF₆, in a mixture of carbonate solvents, PC, EC, DMC, DEC and EMC. A lithium polymer cell uses a gel instead, with PEO, PAN, PVDF or PMMA. It carries ions and blocks electrons ({{ch:liquid-electrolytes}}).' }
+    };
+    // electrolyte: the liquid that fills the pores, drawn behind the three middle layers
+    var eg = el('g', { tabindex: 0, role: 'button', 'aria-label': 'electrolyte', style: 'cursor:pointer' }, g);
+    parts.ely = el('rect', { x: 40, y: y0 - 14, width: 152, height: h + 28, rx: 8, fill: MV('electrolyte'), stroke: '#9FB3C2', 'stroke-width': 1.4 }, eg);
+    txt(eg, 116, y0 - 22, 'electrolyte', 'strong', 'middle');
+    pressable(eg, function () { sel = 'ely'; place(); });
+    ['al', 'pos', 'sep', 'neg', 'cu'].forEach(function (k) {
+      var d = D[k], grp = el('g', { tabindex: 0, role: 'button', 'aria-label': d.name, style: 'cursor:pointer' }, g);
+      el('rect', { x: d.x, y: y0, width: d.w, height: h, rx: 2, fill: M(d.mat), stroke: 'rgba(16,24,40,.3)', 'stroke-width': .7, filter: 'url(#fx-lift)' }, grp);
+      if (k === 'pos' || k === 'neg') { // a hint of particles in the coating
+        for (var i = 0; i < 9; i++) el('circle', { cx: d.x + 10 + (i % 3) * 15, cy: y0 + 24 + Math.floor(i / 3) * 64 + (i % 2) * 14, r: 5.5, fill: MB(d.mat), opacity: .9 }, grp);
+      }
+      if (k === 'sep') for (var j = 0; j < 14; j++) el('circle', { cx: d.x + 5 + (j % 2) * 6, cy: y0 + 10 + j * 13.5, r: 1.6, fill: MC('electrolyte'), stroke: '#9FB3C2', 'stroke-width': .4 }, grp);
+      parts[k] = el('rect', { x: d.x - 3, y: y0 - 3, width: d.w + 6, height: h + 6, rx: 4, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2, 'stroke-opacity': 0 }, grp);
+      txt(grp, d.x + d.w / 2, y0 + h + (d.row ? 44 : 28), d.lab, '', 'middle');
+      pressable(grp, function () { sel = k; place(); });
+    });
+    txt(g, 30, y0 + h + 62, '+', 'strong big', 'middle'); txt(g, 202, y0 + h + 62, '−', 'strong big', 'middle');
+    el('line', { x1: 238, x2: 238, y1: 26, y2: 314, stroke: 'var(--line-2)' }, g);
+    var panel = el('g', {}, g);
+    function place() {
+      Object.keys(parts).forEach(function (k) {
+        if (k === 'ely') { parts.ely.setAttribute('stroke', sel === 'ely' ? 'var(--accent)' : '#9FB3C2'); parts.ely.setAttribute('stroke-width', sel === 'ely' ? 2.6 : 1.4); }
+        else parts[k].setAttribute('stroke-opacity', k === sel ? 1 : 0);
+      });
+      var d = D[sel], y = 44; clear(panel);
+      txt(panel, 252, y, d.name, 'strong big', 'start'); y += 26;
+      d.items.forEach(function (it) { var c = it.charAt(0) === '+'; if (c) { it = it.slice(1); y -= 5; } else el('circle', { cx: 256, cy: y - 4, r: 2.4, fill: 'var(--accent)' }, panel); txt(panel, 264, y, it, '', 'start'); y += 22; });
+      if (d.next) { y += 6; txt(panel, 252, y, d.next, 'cyan', 'start'); }
+      read.innerHTML = d.t;
+    }
+    badge(g, 22, y0 - 26, 1); badge(g, 222, y0 - 26, 2); badge(g, 224, y0 + h / 2 + 40, 3);
+    steps(fig, [
+      { text: 'The two <b>electrodes</b>: a lithium metal oxide or phosphate on aluminium, carbon on copper. Tap either to see the materials in use.', on: function () { sel = 'pos'; place(); } },
+      { text: 'Between them, the <b>electrolyte</b> and the <b>separator</b>: a salt in carbonate solvents, held in a porous polymer membrane.', on: function () { sel = 'ely'; place(); } },
+      { text: 'The <b>current collectors</b> carry the electrons out. Each list ends with one of the textbook&#8217;s hopes for the next generation.', on: function () { sel = 'cu'; place(); } }
+    ]);
+  });

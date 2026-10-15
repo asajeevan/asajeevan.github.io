@@ -338,7 +338,9 @@
     go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40'],
     silver:      ['#C9CDD2', '#F5F6F7', '#D3D6DA', '#A3A8AE', '#DDE0E3'],
     lead:        ['#6B7178', '#9CA2A8', '#70767D', '#4E535A', '#7E848A'],
-    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31']
+    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31'],
+    mno2:        ['#2F2D2B', '#57534F', '#34312E', '#1E1C1A', '#403D3A'],
+    ag2o:        ['#3A3430', '#635B55', '#3F3834', '#26211E', '#4A433E']
   };
   var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
   function MC(k) { return (MAT[k] || MAT.steel)[0]; }
@@ -473,7 +475,7 @@
         txt(g, inside ? 176 + w : 186 + w, y + 15, Math.round(r.q) + ' mAh/g', 'strong', inside ? 'end' : 'start', inside ? { fill: '#fff' } : null);
       });
       txt(g, 480, 194, 'theoretical specific capacity, 0 to 4000 mAh/g, each on its own mass basis', '', 'end');
-      read.innerHTML = 'Q = nF/(3.6 M) = ' + (+n.value) + ' × 96 485.3 / (3.6 × ' + (+M.value).toFixed(2) + ') = <b>' + Math.round(q) + ' mAh/g</b>' + (mat ? ' on the ' + mat.basis + ' basis' : '') + '. Against a counter electrode that puts the cell at ' + (+V.value).toFixed(1) + ' V, that is <b>' + Math.round(E) + ' Wh per kilogram of this electrode’s active material</b>, this electrode alone: the other electrode, the electrolyte and the packaging all add mass and none adds energy (see the note under figure 4.3).';
+      read.innerHTML = 'Q = nF/(3.6 M) = ' + (+n.value) + ' × 96 485.3 / (3.6 × ' + (+M.value).toFixed(2) + ') = <b>' + Math.round(q) + ' mAh/g</b>' + (mat ? ' on the ' + mat.basis + ' basis' : '') + '. Against a counter electrode that puts the cell at ' + (+V.value).toFixed(1) + ' V, that is <b>' + Math.round(E) + ' Wh per kilogram of this electrode’s active material</b>, this electrode alone: the other electrode, the electrolyte and the packaging all add mass and none adds energy (see the note under figure 4.5).';
       note.innerHTML = mat ? (mat.printed ? '<span class="flag ok">reproduces the printed value, ' + mat.printed + ' mAh/g</span> ' : '<span class="flag">computed from Faraday’s law; the sources print no theoretical value for this one</span> ') + '<span class="flag">' + mat.practical + '</span>' : '<span class="flag">custom entry: computed, no printed check</span>';
     }
     on(sel, 'change', render);
@@ -483,7 +485,7 @@
     steps(fig, [
       { text: 'The blue bar is the material you chose: its <b>theoretical capacity</b> from Faraday’s law, Q = nF/(3.6 M), in milliampere-hours per gram.' },
       { text: 'The green bars are three references. Read the small print: each is <b>per gram of a different thing</b> (the carbon host, the lithiated phosphate, the bare metal), so compare with care.' },
-      { text: 'Multiply by the cell voltage and you get watt-hours per kilogram <b>of this electrode’s active material only</b>. Energy belongs to a pair of electrodes; a whole cell delivers far less per kilogram (the note under figure 4.3 says why).' }
+      { text: 'Multiply by the cell voltage and you get watt-hours per kilogram <b>of this electrode’s active material only</b>. Energy belongs to a pair of electrodes; a whole cell delivers far less per kilogram (the note under figure 4.5 says why).' }
     ]);
     cellListeners.push(fromCell); fromCell();
   });
@@ -571,6 +573,183 @@
       { text: 'The <b>energy efficiency</b> is the ratio of the two areas, so it is the product of the other two. The shaded strips are the energy lost as heat or to side reactions.' }
     ]);
     render();
+  });
+  register('f4-5', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    var sR = fig.querySelector('.rint'), sI = fig.querySelector('.cur'), vR = fig.querySelector('.rint-val'), vI = fig.querySelector('.cur-val');
+    var V = 3.6, Imax = 100, Pmax = 400, x0 = 62, x1 = 392, y0 = 238, y1 = 28;
+    var X = function (i) { return x0 + i / Imax * (x1 - x0); }, Y = function (p) { return y0 - p / Pmax * (y0 - y1); };
+    el('line', { x1: x0, y1: y0, x2: x1 + 10, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1 - 6, stroke: 'var(--line-2)' }, g);
+    [0, 100, 200, 300, 400].forEach(function (p) { el('line', { x1: x0 - 4, x2: x0, y1: Y(p), y2: Y(p), stroke: 'var(--line-2)' }, g); txt(g, x0 - 8, Y(p) + 4, String(p), '', 'end'); });
+    [0, 25, 50, 75, 100].forEach(function (i) { el('line', { x1: X(i), x2: X(i), y1: y0, y2: y0 + 4, stroke: 'var(--line-2)' }, g); txt(g, X(i), y0 + 18, String(i), '', 'middle'); });
+    txt(g, x1 + 10, y0 + 34, 'current, A', '', 'end'); txt(g, x0 - 8, y1 - 12, 'power, W', '', 'start');
+    var heat = el('path', { fill: 'var(--heat)', 'fill-opacity': .35 }, g), use = el('path', { fill: 'var(--accent)', 'fill-opacity': .8 }, g);
+    var lineIV = el('line', { x1: X(0), y1: Y(0), x2: X(Imax), y2: Y(V * Imax), stroke: 'var(--text)', 'stroke-width': 1.4, 'stroke-dasharray': '5 4' }, g);
+    txt(g, X(Imax) - 4, Y(V * Imax) - 8, 'I × V', 'strong', 'end');
+    var curve = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
+    var peak = el('g', {}, g), op = el('g', {}, g);
+    var panel = el('g', {}, g), px = 410;
+    var lab = ['terminal voltage', 'delivered', 'heat in the cell', 'efficiency'], rv = [];
+    lab.forEach(function (l, i) { txt(panel, px, 44 + i * 46, l, '', 'start'); rv.push(txt(panel, px, 62 + i * 46, '', i === 1 ? 'strong big' : (i === 2 ? 'heat' : 'strong'), 'start')); });
+    badge(g, X(12), Y(V * 12) - 30, 1); badge(g, 0, 0, 2); badge(g, 0, 0, 3);
+    var bs = svg.querySelectorAll('.callout');
+    function vals() { return { R: (+sR.value) / 1000, I: +sI.value }; }
+    function render() {
+      var v = vals(), R = v.R, I = v.I, Ip = V / (2 * R), Pp = V * V / (4 * R), Isc = V / R;
+      setSvgText(vR, Math.round(R * 1000) + ' mΩ'); setSvgText(vI, I + ' A');
+      var dU = 'M' + X(0) + ',' + Y(0), dH = '', top = [];
+      for (var k = 0; k <= 200; k++) {
+        var i = Imax * k / 200, p = Math.max(0, V * i - i * i * R);
+        dU += ' L' + X(i).toFixed(1) + ',' + Y(p).toFixed(1); top.push([X(i), Y(p)]);
+      }
+      curve.setAttribute('d', dU.replace('M' + X(0) + ',' + Y(0) + ' L', 'M'));
+      use.setAttribute('d', dU + ' L' + X(Imax) + ',' + Y(0) + ' Z');
+      dH = 'M' + X(0) + ',' + Y(0) + ' L' + X(Imax) + ',' + Y(V * Imax);
+      for (var m = top.length - 1; m >= 0; m--) dH += ' L' + top[m][0].toFixed(1) + ',' + top[m][1].toFixed(1);
+      heat.setAttribute('d', dH + ' Z');
+      clear(peak);
+      if (Ip <= Imax) {
+        el('line', { x1: X(Ip), x2: X(Ip), y1: Y(Pp), y2: y0, stroke: 'var(--accent)', 'stroke-dasharray': '3 3' }, peak);
+        el('circle', { cx: X(Ip), cy: Y(Pp), r: 4.5, fill: 'var(--panel)', stroke: 'var(--accent)', 'stroke-width': 2 }, peak);
+        txt(peak, X(Ip) + (Ip > 70 ? -8 : 8), Y(Pp) - 10, 'peak ' + Math.round(Pp) + ' W', 'amber tag', Ip > 70 ? 'end' : 'start');
+        bs[2].setAttribute('transform', 'translate(' + (X(Ip) + (Ip > 70 ? 16 : -16)) + ',' + Math.max(y1 + 6, Y(Pp) - 4) + ')');
+      } else {
+        txt(peak, x1 - 4, Y(V * Imax * 0.62), 'peak at ' + Math.round(Ip) + ' A, off the axis', 'amber tag', 'end');
+        bs[2].setAttribute('transform', 'translate(' + (x1 - 16) + ',' + (Y(V * Imax * 0.62) + 22) + ')');
+      }
+      var pd = V * I - I * I * R, ph = I * I * R, vt = V - I * R;
+      clear(op);
+      el('line', { x1: X(I), x2: X(I), y1: Y(V * I), y2: y0, stroke: 'var(--text)', 'stroke-width': 1.2 }, op);
+      el('circle', { cx: X(I), cy: Y(Math.max(0, pd)), r: 4, fill: 'var(--accent)', stroke: '#fff', 'stroke-width': 1.2 }, op);
+      bs[1].setAttribute('transform', 'translate(' + (X(I) + (I > 80 ? -14 : 14)) + ',' + (y0 - 18) + ')');
+      setSvgText(rv[0], vt > 0 ? vt.toFixed(2) + ' V' : '0 V');
+      setSvgText(rv[1], Math.max(0, pd).toFixed(0) + ' W'); setSvgText(rv[2], ph.toFixed(0) + ' W');
+      setSvgText(rv[3], vt > 0 ? Math.round(100 * vt / V) + ' %' : '0 %');
+      read.innerHTML = 'At <b>' + I + ' A</b> through <b>' + Math.round(R * 1000) + ' mΩ</b>, the cell releases I × V = ' + (V * I).toFixed(0) + ' W, of which I²R = <b>' + ph.toFixed(0) + ' W</b> heats the cell and <b>' + Math.max(0, pd).toFixed(0) + ' W</b> reaches the load. ' +
+        (Ip <= Imax ? 'The most it can deliver is <b>' + Pp.toFixed(0) + ' W</b>, at ' + Ip.toFixed(0) + ' A, where half the power is heat.' : 'Its peak, ' + Pp.toFixed(0) + ' W at ' + Ip.toFixed(0) + ' A, lies beyond this axis.') + ' A ' + V.toFixed(1) + ' V cell; illustrative values.';
+    }
+    [sR, sI].forEach(function (s) { on(s, 'input', render); });
+    steps(fig, [
+      { text: 'The dashed line is <b>I × V</b>: the power the cell&#8217;s reaction releases grows in step with the current.' },
+      { text: 'The cell&#8217;s own resistance takes <b>I²R</b> of it as heat (the red wedge), so the power that reaches the load, <b>P = IV − I²R</b>, bends over.' },
+      { text: 'The curve peaks at <b>I = V/2R</b>, where it delivers V²/4R and wastes as much as heat. Lower the resistance and the peak moves up and out.' }
+    ]);
+    render();
+  });
+  register('f4-6', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    var sS = fig.querySelector('.soc'), vS = fig.querySelector('.soc-val'), cb = fig.querySelectorAll('button[data-c]');
+    var Q = 2.0, c = 0.2, x0 = 150, x1 = 430, y0 = 236, y1 = 36, vlo = 2.6, vhi = 4.5, Vup = 4.2, Vlow = 3.0;
+    var X = function (q) { return x0 + q * (x1 - x0); }, Y = function (v) { return y0 - (v - vlo) / (vhi - vlo) * (y0 - y1); };
+    function Vq(q) { return 4.18 - 0.62 * q - 0.10 * (1 - Math.exp(-10 * q)) - 0.55 * Math.exp(14 * (q - 1)); }
+    // abuse zones above and below the cut-offs
+    el('rect', { x: x0, y: Y(vhi), width: x1 - x0, height: Y(Vup) - Y(vhi), fill: 'var(--heat)', 'fill-opacity': .12 }, g);
+    el('rect', { x: x0, y: Y(Vlow), width: x1 - x0, height: Y(vlo) - Y(Vlow), fill: 'var(--heat)', 'fill-opacity': .12 }, g);
+    txt(g, x0 + 6, Y(vhi) + 15, 'overcharge', 'heat', 'start'); txt(g, x1 - 6, Y(vlo) - 6, 'over-discharge', 'heat', 'end');
+    [[Vup, 'upper cut-off'], [Vlow, 'lower cut-off']].forEach(function (d) { el('line', { x1: x0, x2: x1, y1: Y(d[0]), y2: Y(d[0]), stroke: 'var(--heat)', 'stroke-width': 1.4 }, g); txt(g, x1 + 6, Y(d[0]) + 4, d[1], 'heat', 'start'); });
+    el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
+    [3, 3.5, 4].forEach(function (v) { el('line', { x1: x0 - 4, x2: x0, y1: Y(v), y2: Y(v), stroke: 'var(--line-2)' }, g); txt(g, x0 - 8, Y(v) + 4, v.toFixed(1) + ' V', '', 'end'); });
+    [0, 20, 40, 60, 80, 100].forEach(function (p) { el('line', { x1: X(p / 100), x2: X(p / 100), y1: y0, y2: y0 + 4, stroke: 'var(--line-2)' }, g); txt(g, X(p / 100), y0 + 17, String(p), '', 'middle'); });
+    txt(g, x1, y0 + 33, 'depth of discharge, % →', '', 'end');
+    // deep discharge
+    el('line', { x1: X(0.8), x2: X(0.8), y1: Y(Vup), y2: y0, stroke: 'var(--muted)', 'stroke-dasharray': '3 4' }, g);
+    txt(g, X(0.8) - 5, Y(3.22), '80 %: a deep', '', 'end'); txt(g, X(0.8) - 5, Y(3.22) + 14, 'discharge', '', 'end');
+    var d = '', sum = 0, N = 200;
+    for (var k = 0; k <= N; k++) { var q = k / N, v = Vq(q); if (v < Vlow) break; d += (k ? ' L' : 'M') + X(q).toFixed(1) + ',' + Y(v).toFixed(1); sum += v; }
+    var qEnd = (k - 1) / N, vNom = sum / k;
+    el('line', { x1: x0, x2: X(qEnd), y1: Y(vNom), y2: Y(vNom), stroke: 'var(--second)', 'stroke-dasharray': '6 4', 'stroke-width': 1.4 }, g);
+    txt(g, x0 + 6, Y(vNom) + 16, 'nominal voltage ' + vNom.toFixed(2) + ' V', 'cyan', 'start');
+    el('path', { d: d, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
+    var mk = el('circle', { r: 5.5, fill: 'var(--accent)', stroke: '#fff', 'stroke-width': 1.5 }, g);
+    // the cell gauge
+    var gx = 34, gw = 62, gy = 46, gh = 186;
+    el('rect', { x: gx + gw * 0.32, y: gy - 8, width: gw * 0.36, height: 9, rx: 2, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': .8 }, g);
+    el('rect', { x: gx, y: gy, width: gw, height: gh, rx: 8, fill: 'var(--panel-2)', stroke: '#8B95A0', 'stroke-width': 1.4 }, g);
+    var fill = el('rect', { x: gx + 5, width: gw - 10, rx: 4, fill: 'var(--accent)', 'fill-opacity': .85 }, g);
+    var empty = el('rect', { x: gx + 5, y: gy + 5, width: gw - 10, rx: 4, fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '3 3' }, g);
+    var tS = txt(g, gx + gw / 2, 0, '', 'strong', 'middle', { style: 'fill:#fff' }), tD = txt(g, gx + gw / 2, 0, '', 'strong', 'middle');
+    txt(g, gx + gw / 2, gy + gh + 22, 'SOC', 'amber', 'middle'); txt(g, gx + gw / 2, gy + gh + 38, 'and DOD', '', 'middle');
+    badge(g, gx + gw + 14, gy + 10, 1); badge(g, x1 - 14, Y(Vup) - 18, 2); badge(g, 0, 0, 3);
+    var b3 = svg.querySelectorAll('.callout')[2];
+    function hm(h) { var hh = Math.floor(h + 1e-9), mm = Math.round((h - hh) * 60); if (mm === 60) { hh++; mm = 0; } return (hh ? hh + ' h ' : '') + mm + ' min'; }
+    function render() {
+      var soc = +sS.value / 100, dod = 1 - soc, used = dod * Q, left = soc * Q, I = c * Q, t = soc / c;
+      setSvgText(vS, Math.round(soc * 100) + ' %');
+      Array.prototype.forEach.call(cb, function (b) { b.setAttribute('aria-pressed', String(Math.abs(+b.getAttribute('data-c') - c) < 1e-9)); });
+      var fh = (gh - 10) * soc; fill.setAttribute('y', gy + 5 + (gh - 10) - fh); fill.setAttribute('height', Math.max(0, fh));
+      empty.setAttribute('height', Math.max(0, (gh - 10) - fh));
+      tS.setAttribute('y', gy + 5 + (gh - 10) - fh / 2 + 5); setSvgText(tS, fh > 24 ? Math.round(soc * 100) + ' %' : '');
+      tD.setAttribute('y', gy + 5 + ((gh - 10) - fh) / 2 + 5); setSvgText(tD, (gh - 10) - fh > 24 ? Math.round(dod * 100) + ' %' : '');
+      var qm = Math.min(dod, qEnd); mk.setAttribute('cx', X(qm)); mk.setAttribute('cy', Y(Vq(qm)));
+      b3.setAttribute('transform', 'translate(' + (X(qm) + (qm > 0.7 ? -18 : 18)) + ',' + (Y(Vq(qm)) - 20) + ')');
+      read.innerHTML = 'State of charge <b>' + Math.round(soc * 100) + ' %</b>, so depth of discharge <b>' + Math.round(dod * 100) + ' %</b>. Of a ' + Q.toFixed(1) + ' Ah cell, ' + used.toFixed(2) + ' Ah (' + Math.round(used * 3600) + ' C) has been used and ' + left.toFixed(2) + ' Ah remains. At <b>' + fmtRate(c) + '</b>, ' + I.toFixed(2) + ' A, a full discharge takes ' + hm(1 / c) + (soc > 0 ? ' and what remains lasts <b>' + hm(t) + '</b>' : '') + ', ignoring the capacity a fast discharge leaves behind (figure 4.2). Schematic curve; illustrative cut-offs.';
+    }
+    on(sS, 'input', render);
+    Array.prototype.forEach.call(cb, function (b) { on(b, 'click', function () { c = +b.getAttribute('data-c'); render(); }); });
+    steps(fig, [
+      { text: 'The <b>state of charge</b> is how much of the capacity is left; the <b>depth of discharge</b> is how much has been used. The two always add up to 100 %.' },
+      { text: 'Between the <b>cut-off voltages</b> the cell is safe to use. Above the upper one it is overcharged and the electrolyte decomposes into gas; below the lower one it is over-discharged.' },
+      { text: 'The <b>C-rate</b> sets the clock: 1C empties the cell in an hour, 2C in 30 minutes, C/5 in 5 hours, C/20 in 20 hours.' }
+    ]);
+    render();
+  });
+  register('f4-7', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), eb = fig.querySelectorAll('button[data-e]');
+    var CH = [
+      { n: 'lithium-ion', wh: 150, mat: 'lco', x: 60 },
+      { n: 'nickel-metal hydride', wh: 100, mat: 'steel', x: 190 },
+      { n: 'lead-acid', wh: 25, mat: 'lead', x: 320 }
+    ];
+    var base = 214, bl = el('g', {}, g), E = 1000;
+    var CHIPS = [
+      { k: 'pro', l: '3.6 V a cell', t: 'A lithium-ion cell works at about <b>3.6 V</b>, almost two to three times the voltage of a nickel-cadmium, nickel-metal hydride or lead-acid cell, and keeps a steady voltage under load until it is nearly discharged.' },
+      { k: 'pro', l: 'no memory effect', t: 'There is <b>no memory effect</b>: a lithium-ion cell need not be fully discharged before it is recharged.' },
+      { k: 'pro', l: 'self-discharge', t: 'Its <b>self-discharge</b> is low: about 5 % in the first four hours after charging, then 1 to 2 % a month, half that of nickel-cadmium (figure 16.5).' },
+      { k: 'pro', l: 'cycle life', t: 'Its <b>cycle life</b> is ten times that of lead-acid: over 2000 cycles it keeps about 80 % of its rated capacity, and it needs none of the regular maintenance of a lead-acid battery.' },
+      { k: 'pro', l: '95 % round trip', t: 'About <b>95 %</b> of the energy put in comes back out, higher than in other batteries (figure 4.6).' },
+      { k: 'con', l: 'protection circuit', t: 'Every lithium-ion cell needs a <b>protection circuit</b>, and a cover to prevent short circuits (chapter 17).' },
+      { k: 'con', l: 'BMS cost', t: 'High-power uses need advanced <b>battery management systems</b>, which raise the overall cost.' },
+      { k: 'con', l: 'heat-sensitive', t: 'It is <b>sensitive to temperature</b> and can explode when overheated (chapter 17).' },
+      { k: 'con', l: 'ages on the shelf', t: 'It <b>ages</b> markedly, and its performance declines even when it is not used for a long time (chapter 16).' }
+    ];
+    var chips = [];
+    CHIPS.forEach(function (c, i) {
+      var row = c.k === 'pro' ? 0 : 1, w = 114, x = 400, y = 38 + i * 27 + row * 30;
+      var grp = el('g', { tabindex: 0, role: 'button', 'aria-label': c.l, style: 'cursor:pointer' }, g);
+      c.box = el('rect', { x: x, y: y, width: w, height: 22, rx: 11, fill: 'var(--panel)', stroke: c.k === 'pro' ? 'var(--second)' : 'var(--heat)', 'stroke-width': 1.4 }, grp);
+      txt(grp, x + w / 2, y + 15, c.l, '', 'middle', { style: 'font-size:11.5px' });
+      pressable(grp, function () { sel = c; place(); });
+      chips.push(c);
+    });
+    txt(g, 400, 28, 'for', 'cyan', 'start'); txt(g, 400, 200, 'against', 'heat', 'start'); el('line', { x1: 388, x2: 388, y1: 16, y2: 300, stroke: 'var(--line-2)' }, g);
+    var sel = null;
+    function blocks() {
+      clear(bl);
+      var unit = E >= 1000 ? 1 : 0.25, s = 14, gap = 2, per = 6;
+      CH.forEach(function (c) {
+        var kg = E / c.wh, nb = kg / unit, full = Math.floor(nb + 1e-9), frac = nb - full, xs = c.x - (per * (s + gap) - gap) / 2;
+        for (var b = 0; b < Math.ceil(nb - 1e-9); b++) {
+          var col = b % per, row = Math.floor(b / per), f = b < full ? 1 : frac;
+          el('rect', { x: xs + col * (s + gap), y: base - (row + 1) * (s + gap) + gap, width: s * f, height: s, rx: 2, fill: M(c.mat), stroke: 'rgba(16,24,40,.35)', 'stroke-width': .6 }, bl);
+        }
+        txt(bl, c.x, base + 20, c.n, 'strong', 'middle');
+        txt(bl, c.x, base + 36, c.wh + ' Wh/kg: ' + (kg < 10 ? kg.toFixed(1) : kg.toFixed(0)) + ' kg', '', 'middle');
+      });
+      txt(bl, 196, 28, E >= 1000 ? 'the mass that stores 1 kWh; one block = 1 kg' : 'the mass that stores 150 Wh; one block = 0.25 kg', 'strong', 'middle');
+    }
+    function place() {
+      Array.prototype.forEach.call(eb, function (b) { b.setAttribute('aria-pressed', String(+b.getAttribute('data-e') === E)); });
+      blocks();
+      chips.forEach(function (c) { c.box.setAttribute('stroke-width', c === sel ? 3 : 1.4); c.box.setAttribute('fill', c === sel ? 'var(--accent-soft)' : 'var(--panel)'); });
+      read.innerHTML = sel ? sel.t : (E >= 1000 ? 'To store one kilowatt-hour takes about <b>6.7 kg</b> of lithium-ion battery, 10 kg of nickel-metal hydride and <b>40 kg</b> of lead-acid, on one textbook&#8217;s round numbers of 150, 100 and 25 Wh/kg.' : 'The energy of <b>1 kg</b> of lithium-ion battery, 150 Wh, takes 1.5 kg of nickel-metal hydride and <b>6 kg</b> of lead-acid.');
+    }
+    Array.prototype.forEach.call(eb, function (b) { on(b, 'click', function () { E = +b.getAttribute('data-e'); sel = null; place(); }); });
+    badge(g, 60, 156, 1); badge(g, 440, 23, 2); badge(g, 470, 195, 3);
+    steps(fig, [
+      { text: 'The same energy in three chemistries, drawn as mass: lithium-ion stores the most per kilogram.', on: function () { sel = null; place(); } },
+      { text: 'What else lithium-ion offers: the five green chips. Tap one.', on: function () { sel = chips[0]; place(); } },
+      { text: 'What it costs: the four red chips. Three of them call for electronics and covers around the cells.', on: function () { sel = chips[5]; place(); } }
+    ]);
   });
 
   /* ---------- typeset the dynamic text of every figure card ---------- */

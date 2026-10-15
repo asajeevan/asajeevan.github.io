@@ -338,7 +338,9 @@
     go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40'],
     silver:      ['#C9CDD2', '#F5F6F7', '#D3D6DA', '#A3A8AE', '#DDE0E3'],
     lead:        ['#6B7178', '#9CA2A8', '#70767D', '#4E535A', '#7E848A'],
-    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31']
+    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31'],
+    mno2:        ['#2F2D2B', '#57534F', '#34312E', '#1E1C1A', '#403D3A'],
+    ag2o:        ['#3A3430', '#635B55', '#3F3834', '#26211E', '#4A433E']
   };
   var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
   function MC(k) { return (MAT[k] || MAT.steel)[0]; }

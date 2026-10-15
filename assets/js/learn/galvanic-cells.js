@@ -338,7 +338,9 @@
     go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40'],
     silver:      ['#C9CDD2', '#F5F6F7', '#D3D6DA', '#A3A8AE', '#DDE0E3'],
     lead:        ['#6B7178', '#9CA2A8', '#70767D', '#4E535A', '#7E848A'],
-    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31']
+    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31'],
+    mno2:        ['#2F2D2B', '#57534F', '#34312E', '#1E1C1A', '#403D3A'],
+    ag2o:        ['#3A3430', '#635B55', '#3F3834', '#26211E', '#4A433E']
   };
   var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
   function MC(k) { return (MAT[k] || MAT.steel)[0]; }
@@ -718,6 +720,89 @@
       { text: '<b>Nickel-cadmium</b> and nickel-iron (1901) were the rechargeable cells of the twentieth century; the <b>lithium-ion</b> cell arrived in 1991. Tap any milestone.' }
     ]);
     place();
+  });
+  register('f1-6', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    var NOM = {}; ((P && P.data && P.data.nominal) || []).forEach(function (d) { NOM[d.name] = d; });
+    function volts(name) { return NOM[name] ? NOM[name].V.toFixed(1) + ' V' : ''; }
+    var nodes = [], sel = null;
+    function node(o) {
+      var grp = el('g', { tabindex: 0, role: 'button', 'aria-label': plain(o.label), style: 'cursor:pointer' }, g);
+      o.box = el('rect', { x: o.x, y: o.y, width: o.w, height: o.h || 26, rx: o.round ? 13 : 6, fill: 'var(--panel)', stroke: o.col, 'stroke-width': 1.4 }, grp);
+      if (o.mats) {
+        el('rect', { x: o.x + 8, y: o.y + 5, width: 6, height: 16, rx: 1.5, fill: MV(o.mats[0]), stroke: 'rgba(16,24,40,.3)', 'stroke-width': .5 }, grp);
+        el('rect', { x: o.x + 16, y: o.y + 5, width: 6, height: 16, rx: 1.5, fill: MV(o.mats[1]), stroke: 'rgba(16,24,40,.3)', 'stroke-width': .5 }, grp);
+      }
+      txt(grp, o.mats ? o.x + 30 : o.x + o.w / 2, o.y + 17, o.label, o.cls || '', o.mats ? 'start' : 'middle');
+      if (o.v) txt(grp, o.x + o.w - 8, o.y + 17, o.v, 'strong', 'end');
+      pressable(grp, function () { sel = o; place(); });
+      nodes.push(o); return o;
+    }
+    function line(pts) { el('polyline', { points: pts.map(function (p) { return p.join(','); }).join(' '), fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 1.4 }, g); }
+    var PRI = 'var(--muted)', SEC = 'var(--accent)', LI = 'var(--second)';
+    // trunk and the two families
+    line([[260, 37], [260, 50], [130, 50], [130, 58]]); line([[260, 50], [392, 50], [392, 58]]);
+    var root = node({ x: 200, y: 10, w: 120, label: 'batteries', cls: 'strong', col: 'var(--text)', round: true,
+      t: 'A battery is built from electrochemical cells, and by what their cells can do, batteries fall into two broad families: <b>primary</b> and <b>secondary</b>. Tap a family or a cell.' });
+    var pri = node({ x: 30, y: 58, w: 200, label: 'primary: single use', cls: 'strong', col: PRI, round: true,
+      t: '<b>Primary batteries</b> are single-use: they store and give energy but cannot be recharged, so they are discarded after use. They power things that need little energy, such as radios, watches, remote controls and toys, and are made to international standards: affordable, safe and low in maintenance.' });
+    var sec = node({ x: 292, y: 58, w: 200, label: 'secondary: rechargeable', cls: 'strong', col: SEC, round: true,
+      t: '<b>Secondary batteries</b> are rechargeable: an external current reverses the reaction that makes the electricity, so they store and supply energy over many cycles. Both wet cells, with a liquid electrolyte, and dry cells, with a paste, can be secondary.' });
+    var P1 = [
+      { label: 'zinc-carbon', n: 'Leclanché (carbon-zinc)', mats: ['zinc', 'mno2'],
+        t: '<b>Zinc-carbon</b>, the Leclanché cell of figure 1.5, is the most common dry cell. A dry cell need not be dry: its electrolyte is a paste, and leakage of that electrolyte is a significant barrier to long storage.' },
+      { label: 'alkaline', n: 'Alkaline', mats: ['zinc', 'mno2'],
+        t: '<b>Alkaline</b> cells use potassium hydroxide as the electrolyte. They store more energy and leak less than zinc-carbon cells; they cost more but perform better in extreme weather.' },
+      { label: 'silver oxide', n: 'Silver-zinc', mats: ['zinc', 'ag2o'],
+        t: '<b>Silver oxide</b> cells pair zinc powder with Ag₂O in aqueous potassium hydroxide.' },
+      { label: 'lithium-MnO₂', n: 'Lithium-MnO2', mats: ['lithium', 'mno2'],
+        t: '<b>Lithium-MnO₂</b> cells pair lithium foil with treated MnO₂ in a nonaqueous electrolyte, which is why they reach twice the voltage of the zinc cells above.' }
+    ];
+    var S1 = [
+      { label: 'lead-acid', n: 'Lead-acid', mats: ['lead', 'pbo2'],
+        t: '<b>Lead-acid</b> is the most common wet cell: electrodes of lead alloy and lead oxide in dilute sulfuric acid.' },
+      { label: 'nickel-cadmium', n: 'Nickel-cadmium', mats: ['zinc', 'carbon'],
+        t: '<b>Nickel-cadmium</b> pairs cadmium with nickel oxyhydroxide, NiOOH, in aqueous potassium hydroxide. Cadmium is toxic, which sent the search elsewhere. (Silvery cadmium is drawn with the zinc colour, black NiOOH with the carbon one.)' },
+      { label: 'nickel-metal hydride', n: 'Nickel-metal hydride', mats: ['steel', 'carbon'],
+        t: '<b>Nickel-metal hydride</b> replaces the cadmium with a metal hydride, against the same NiOOH in potassium hydroxide.' },
+      { label: 'nickel-zinc', n: '', mats: ['zinc', 'carbon'],
+        t: '<b>Nickel-zinc</b> is another of the secondary batteries in common use.' },
+      { label: 'lithium-ion', n: 'Lithium-ion', mats: ['graphite', 'lco'], li: true,
+        t: '<b>Lithium-ion</b>: lithium ions move from the negative electrode through the electrolyte to the positive one on discharge, and back on charge. Its cells are sorted two ways, by electrolyte and by shape, below.' }
+    ];
+    line([[38, 84], [38, 100 + 3 * 34 + 13]]); line([[302, 84], [302, 100 + 4 * 34 + 13]]);
+    P1.forEach(function (d, i) { var y = 100 + i * 34; line([[38, y + 13], [48, y + 13]]); d.node = node({ x: 48, y: y, w: 192, label: d.label, mats: d.mats, v: volts(d.n), col: PRI, t: d.t }); });
+    var liNode;
+    S1.forEach(function (d, i) { var y = 100 + i * 34; line([[302, y + 13], [312, y + 13]]); var o = node({ x: 312, y: y, w: 192, label: d.label, mats: d.mats, v: volts(d.n), col: d.li ? LI : SEC, cls: d.li ? 'strong' : '', t: d.t }); if (d.li) liNode = o; });
+    // the lithium-ion cell, sorted two ways
+    var yL = 100 + 4 * 34 + 26, yG = 284;
+    line([[408, yL], [408, yG - 12], [135, yG - 12], [135, yG]]); line([[408, yG - 12], [385, yG - 12], [385, yG]]);
+    el('rect', { x: 20, y: yG, width: 230, height: 86, rx: 10, fill: 'var(--panel-2)', stroke: LI, 'stroke-dasharray': '4 3' }, g);
+    el('rect', { x: 270, y: yG, width: 230, height: 86, rx: 10, fill: 'var(--panel-2)', stroke: LI, 'stroke-dasharray': '4 3' }, g);
+    txt(g, 135, yG + 18, 'lithium-ion, by electrolyte', 'cyan', 'middle'); txt(g, 385, yG + 18, 'lithium-ion, by shape', 'cyan', 'middle');
+    var E = [
+      { label: 'liquid', t: '<b>Conventional</b> lithium-ion cells use an organic liquid electrolyte, a lithium salt in organic solvents (chapter 8).' },
+      { label: 'gel polymer', t: '<b>Polymer</b> lithium-ion cells use a gel polymer electrolyte.' },
+      { label: 'solid', t: '<b>Solid</b> lithium-ion cells use a solid electrolyte (chapter 14).' }
+    ];
+    var SH = [
+      { label: 'coin', t: '<b>Coin</b> cells, also called button cells: the laboratory&#8217;s format (figure 2.1).' },
+      { label: 'cylindrical', t: '<b>Cylindrical</b> cells: the layers wound in a spiral in a can (figure 2.2).' },
+      { label: 'prismatic', t: '<b>Prismatic</b> cells: stacked sheets in a rigid rectangular case.' },
+      { label: 'pouch', t: '<b>Pouch</b> cells: stacked sheets in a sealed, flexible foil. Figure 2.3 compares the four shapes.' }
+    ];
+    E.forEach(function (d, i) { node({ x: i < 2 ? 32 + i * 106 : 85, y: i < 2 ? yG + 28 : yG + 56, w: 100, h: 24, label: d.label, col: LI, round: true, t: d.t }); });
+    SH.forEach(function (d, i) { node({ x: 282 + (i % 2) * 106, y: yG + 28 + Math.floor(i / 2) * 28, w: 100, h: 24, label: d.label, col: LI, round: true, t: d.t }); });
+    function place() {
+      nodes.forEach(function (o) { var on = o === sel; o.box.setAttribute('stroke-width', on ? 3 : 1.4); o.box.setAttribute('fill', on ? 'var(--accent-soft)' : 'var(--panel)'); });
+      read.innerHTML = sel.t;
+    }
+    badge(g, 16, 71, 1); badge(g, 506, 71, 2); badge(g, 506, yG - 12, 3);
+    steps(fig, [
+      { text: '<b>Primary</b> cells are used once and then discarded; the 1.5 V zinc cells of a torch are primary.', on: function () { sel = pri; place(); } },
+      { text: '<b>Secondary</b> cells are recharged. The voltage beside each cell is its nominal voltage; only the lithium cells pass 2 V.', on: function () { sel = sec; place(); } },
+      { text: 'The <b>lithium-ion</b> cell comes in three electrolytes and four shapes. Tap any box.', on: function () { sel = liNode; place(); } }
+    ]);
   });
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
