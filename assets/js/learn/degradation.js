@@ -303,6 +303,82 @@
     };
   }
 
+  /* ---------- materials: what the parts of a real cell look like ----------
+     Each physical part is drawn in its own colour (copper foil copper, aluminium foil silver,
+     graphite and the oxide powders black-grey, LiFePO4 grey, Li4Ti5O12 white, sulfur yellow,
+     the electrolyte clear, the separator white). Ions, electrons, fields and curves keep the
+     teaching colours, because they have no colour of their own. One hidden <svg> holds the
+     shared gradients: M(key) a sheet lit from the left, MV(key) lit from the top, MB(key) a
+     sphere lit from the upper left, MC(key) the plain colour. */
+  var MAT = {
+    copper:      ['#B87333', '#E8AC7C', '#C47D46', '#8F4F26', '#B46E3A'],
+    alu:         ['#C3C9CF', '#F4F6F8', '#CED4DA', '#A6AEB7', '#D8DDE2'],
+    steel:       ['#AEB6BE', '#EDF0F3', '#BBC2CA', '#8B95A0', '#C6CDD4'],
+    lithium:     ['#C8CDD3', '#F7F8FA', '#D4D9DE', '#AAB1B9', '#DEE2E6'],
+    zinc:        ['#A6B0BA', '#E4E9EE', '#B2BCC6', '#87929E', '#BFC7CF'],
+    graphite:    ['#3A3E44', '#61666E', '#3B3F45', '#232629', '#484D54'],
+    silicon:     ['#58626F', '#8994A2', '#5B6573', '#3B434E', '#68727F'],
+    lco:         ['#2F3339', '#5A6068', '#31363C', '#1C1F23', '#3D424A'],
+    lfp:         ['#4C5156', '#7A8086', '#4F5459', '#33373B', '#5C6167'],
+    lto:         ['#E9E7E1', '#FBFAF7', '#ECEAE4', '#CFCBC1', '#F1EFEA'],
+    tis2:        ['#A98A3E', '#DCC07A', '#AF8F42', '#7C6427', '#B99B50'],
+    sulfur:      ['#E2BC2B', '#F7E27B', '#E5C031', '#B88F12', '#EBCB45'],
+    carbon:      ['#1F2124', '#4A4E54', '#232528', '#111214', '#2C2F33'],
+    binder:      ['#ECEBE6', '#FFFFFF', '#EFEEE9', '#D3D1CA', '#F4F3EF'],
+    separator:   ['#F1F2EE', '#FFFFFF', '#F3F4F0', '#DADCD5', '#F7F7F4'],
+    electrolyte: ['#E6F0F6', '#F7FBFD', '#E8F2F7', '#CFE0EA', '#EEF5F9'],
+    cuso4:       ['#8EBEE6', '#C4DEF3', '#93C2E8', '#5E97C8', '#A6CCEC'],
+    sei:         ['#97773F', '#C9A86A', '#9B7B43', '#6D5428', '#A8884F'],
+    ceramic:     ['#E8E4DA', '#FAF8F3', '#EBE7DE', '#CBC5B6', '#F0EDE6'],
+    polymer:     ['#EEEBE2', '#FDFCF8', '#F0EDE5', '#D6D1C4', '#F4F2EB'],
+    oxide:       ['#7F8A99', '#B7BFCA', '#848F9D', '#5D6774', '#929CA9'],
+    hematite:    ['#7E3527', '#B0604C', '#83392B', '#55221A', '#8F4636'],
+    iron:        ['#5E6368', '#969BA1', '#63686D', '#3F4246', '#71767B'],
+    li2o:        ['#ECEAE5', '#FFFFFF', '#EEECE7', '#D3D0C8', '#F4F3EF'],
+    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40']
+  };
+  var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
+  function MC(k) { return (MAT[k] || MAT.steel)[0]; }
+  function M(k) { return 'url(#m-' + (MAT[k] ? k : 'steel') + ')'; }
+  function MV(k) { return 'url(#mv-' + (MAT[k] ? k : 'steel') + ')'; }
+  function MB(k) { return 'url(#mb-' + (MAT[k] ? k : 'steel') + ')'; }
+  function rungMat(key) { return RUNG_MAT[key] || 'lco'; }
+  /* an upright cylindrical cell (steel can, printed wrap, the + nub on top) at x, y, w wide, h tall */
+  function cellCan(parent, x, y, w, h) {
+    var s = el('g', {}, parent);
+    el('rect', { x: x + w * 0.32, y: y - 5, width: w * 0.36, height: 7, rx: 2, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': 0.8 }, s);
+    el('rect', { x: x, y: y, width: w, height: h, rx: 5, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': 0.8, filter: 'url(#fx-lift)' }, s);
+    el('rect', { x: x, y: y + h * 0.16, width: w, height: h * 0.68, fill: M('lco') }, s);
+    el('rect', { x: x + w * 0.14, y: y + h * 0.16, width: w * 0.1, height: h * 0.68, fill: '#fff', opacity: 0.16 }, s);
+    return s;
+  }
+  /* a glass beaker or tank: liquid inside, a thin glass outline and a highlight */
+  function tank(parent, x, y, w, h, liquid, rx) {
+    var s = el('g', {}, parent);
+    el('rect', { x: x, y: y, width: w, height: h, rx: rx === undefined ? 8 : rx, fill: liquid ? MV(liquid) : 'none', stroke: '#9FB3C2', 'stroke-width': 1.4 }, s);
+    el('rect', { x: x + 6, y: y + 8, width: 3, height: h - 16, rx: 1.5, fill: '#fff', opacity: 0.55 }, s);
+    return s;
+  }
+  (function () {
+    var host = document.createElementNS(NS, 'svg');
+    host.setAttribute('aria-hidden', 'true'); host.setAttribute('focusable', 'false');
+    host.setAttribute('style', 'position:absolute;width:0;height:0;overflow:hidden');
+    var defs = el('defs', {}, host);
+    Object.keys(MAT).forEach(function (k) {
+      var c = MAT[k];
+      [['m-', { x1: 0, y1: 0, x2: 1, y2: 0 }], ['mv-', { x1: 0, y1: 0, x2: 0, y2: 1 }]].forEach(function (d) {
+        var lg = el('linearGradient', Object.assign({ id: d[0] + k }, d[1]), defs);
+        [[0, c[2]], [0.18, c[1]], [0.55, c[2]], [0.85, c[3]], [1, c[4]]].forEach(function (st) { el('stop', { offset: st[0], 'stop-color': st[1] }, lg); });
+      });
+      var rg = el('radialGradient', { id: 'mb-' + k, cx: 0.36, cy: 0.32, r: 0.75, fx: 0.32, fy: 0.26 }, defs);
+      [[0, c[1]], [0.45, c[2]], [1, c[3]]].forEach(function (st) { el('stop', { offset: st[0], 'stop-color': st[1] }, rg); });
+    });
+    // a soft contact shadow for objects that stand on the page
+    var f = el('filter', { id: 'fx-lift', x: '-20%', y: '-20%', width: '140%', height: '150%' }, defs);
+    el('feDropShadow', { dx: 0, dy: 1.2, stdDeviation: 1.4, 'flood-color': '#101828', 'flood-opacity': 0.22 }, f);
+    (document.body || document.documentElement).appendChild(host);
+  })();
+
   /* ---------- figure registry ---------- */
   var figs = {};
   var loops = []; // {fig, loop}
@@ -365,9 +441,9 @@
     var bl = txt(g, x1 - 4, 0, '', 'amber', 'end');
     // cartoon: graphite with a thickening SEI, lithium counter and resistance bar
     var gx = 30, gy = 50;
-    for (var i = 0; i < 7; i++) el('line', { x1: gx, x2: gx + 60, y1: gy + 10 + i * 20, y2: gy + 10 + i * 20, stroke: 'var(--text)', 'stroke-opacity': '.5', 'stroke-width': 2 }, g);
+    for (var i = 0; i < 7; i++) el('line', { x1: gx, x2: gx + 60, y1: gy + 10 + i * 20, y2: gy + 10 + i * 20, stroke: MC('graphite'), 'stroke-width': 2.6, 'stroke-linecap': 'round' }, g);
     txt(g, gx + 30, gy - 10, 'graphite', 'strong', 'middle');
-    var sei = el('rect', { x: gx + 62, y: gy, width: 4, height: 150, fill: 'var(--anion)', 'fill-opacity': '.8' }, g);
+    var sei = el('rect', { x: gx + 62, y: gy, width: 4, height: 150, fill: M('sei') }, g);
     txt(g, gx + 100, gy - 10, 'SEI', '', 'middle');
     var rbar = el('rect', { x: gx, y: 226, width: 0, height: 10, fill: 'var(--field)' }, g); txt(g, gx, 250, 'interfacial resistance', '', 'start');
     badge(g, x0 + 30, y1 + 6, 1); badge(g, gx + 140, gy + 70, 2);
@@ -392,19 +468,18 @@
   register('f10-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var nx = 40, px = 400, top = 50, bot = 200;
-    el('rect', { x: nx, y: top, width: 70, height: bot - top, fill: 'var(--panel-2)' }, g);
-    for (var i = 0; i < 7; i++) el('line', { x1: nx + 4, x2: nx + 66, y1: top + 10 + i * 20, y2: top + 10 + i * 20, stroke: 'var(--text)', 'stroke-opacity': '.5', 'stroke-width': 2 }, g);
-    var sei = el('rect', { x: nx + 70, y: top, width: 8, height: bot - top, fill: 'var(--anion)', 'fill-opacity': '.8' }, g);
-    el('rect', { x: nx + 78, y: top, width: px - nx - 78, height: bot - top, fill: 'var(--second)', 'fill-opacity': '.08' }, g);
-    el('rect', { x: px, y: top, width: 80, height: bot - top, fill: 'var(--accent-strong)', 'fill-opacity': '.55' }, g);
-    txt(g, nx + 35, top - 12, 'graphite', 'strong', 'middle'); txt(g, nx + 74, bot + 18, 'SEI', '', 'middle'); txt(g, 255, top - 12, 'electrolyte', 'cyan', 'middle'); txt(g, px + 40, top - 12, 'LiMn₂O₄ spinel', 'strong', 'middle');
+    el('rect', { x: nx, y: top, width: px - nx, height: bot - top, fill: MV('electrolyte') }, g);
+    for (var i = 0; i < 7; i++) el('line', { x1: nx + 4, x2: nx + 66, y1: top + 10 + i * 20, y2: top + 10 + i * 20, stroke: MC('graphite'), 'stroke-width': 2.6, 'stroke-linecap': 'round' }, g);
+    var sei = el('rect', { x: nx + 70, y: top, width: 8, height: bot - top, fill: M('sei') }, g);
+    el('rect', { x: px, y: top, width: 80, height: bot - top, fill: M('lco'), filter: 'url(#fx-lift)' }, g);
+    txt(g, nx + 35, top - 12, 'graphite', 'strong', 'middle'); txt(g, nx + 74, bot + 18, 'SEI', '', 'middle'); txt(g, 255, top - 12, 'electrolyte', '', 'middle'); txt(g, px + 40, top - 12, 'LiMn₂O₄ spinel', 'strong', 'middle');
     var mns = [], n = 0, t = 0;
     var cnt = txt(g, 255, bot + 18, '', 'amber', 'middle'), q = txt(g, nx + 74, bot + 36, '', 'heat', 'middle');
     badge(g, px + 92, top + 20, 1); badge(g, 255, top + 20, 2); badge(g, nx + 74, top - 30, 3);
     function spawn() { var y = top + 20 + Math.random() * (bot - top - 40); mns.push({ x: px - 4, y: y, c: el('circle', { cx: px - 4, cy: y, r: 4.5, fill: '#b98cf0', stroke: '#fff', 'stroke-width': .8 }, g), done: false }); }
     function render() {
       setSvgText(cnt, n ? n + ' Mn ions have reached the SEI' : 'Mn²⁺ leaves the spinel');
-      sei.setAttribute('fill', n > 3 ? '#8f8aa8' : 'var(--anion)'); setSvgText(q, n > 3 ? 'poisoned: works worse' : '');
+      sei.setAttribute('fill', n > 3 ? '#5A4630' : M('sei')); setSvgText(q, n > 3 ? 'poisoned: works worse' : '');
       read.innerHTML = n > 3 ? 'The manganese has lodged in the SEI on the graphite, and the layer protects the electrode less well: more electrolyte is consumed, more lithium is lost. Damage at one electrode shows up at the other.' : 'Manganese, as Mn(II), dissolves from the spinel positive electrode into the electrolyte and drifts across the cell.';
     }
     function tick(dt) {
@@ -439,7 +514,7 @@
       el('line', { x1: x0, x2: X(r.at), y1: r.y, y2: r.y, stroke: r.col, 'stroke-width': 10, 'stroke-opacity': '.35' }, g);
       el('circle', { cx: X(r.at), cy: r.y, r: 6, fill: r.col }, g);
       txt(g, X(r.at) + (i ? 10 : -10), r.y - 12, r.txt, '', i ? 'start' : 'end');
-      badge(g, x0 - 10 - 136, r.y - 18, i + 1);
+      badge(g, x0 - 128, r.y - 20, i + 1);
     });
     txt(g, x0, 30, 'what each keeps, at the point the source gives', '', 'start');
     steps(fig, [

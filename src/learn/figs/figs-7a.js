@@ -43,8 +43,10 @@
     var EC = { phi: 1, rho: 1.32, M: 88.1 }, DMC = { phi: 1, rho: 1.06, M: 90.1 };
     // panel 1: the recipe
     txt(g, 90, 22, 'the recipe', 'strong', 'middle');
-    el('path', { d: 'M52,44 V196 Q52,210 66,210 H114 Q128,210 128,196 V44', fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 1.6 }, g);
-    var liq = el('rect', { x: 54, y: 92, width: 72, height: 116, rx: 10, fill: 'var(--second)', 'fill-opacity': '.14' }, g);
+    var liq = el('rect', { x: 54, y: 92, width: 72, height: 116, rx: 10, fill: MV('electrolyte') }, g);
+    el('path', { d: 'M52,44 V196 Q52,210 66,210 H114 Q128,210 128,196 V44', fill: 'none', stroke: '#9FB3C2', 'stroke-width': 1.8 }, g);
+    el('path', { d: 'M48,44 H56 M124,44 H132', stroke: '#9FB3C2', 'stroke-width': 1.8, 'stroke-linecap': 'round' }, g);
+    el('rect', { x: 58, y: 54, width: 3, height: 140, rx: 1.5, fill: '#fff', opacity: .7 }, g);
     var r1 = txt(g, 90, 118, '1 mol LiPF₆', 'amber', 'middle'), r2 = txt(g, 90, 136, 'per litre of', '', 'middle'), r3 = txt(g, 90, 154, 'EC : DMC', 'strong', 'middle'), r4 = txt(g, 90, 172, '3 : 7', 'strong', 'middle');
     badge(g, 140, 54, 1);
     // panel 2: count per lithium ion
@@ -59,7 +61,7 @@
     // panel 3: a window a few nanometres across
     var wx = 350, wy = 40, ww = 156, wh = 170;
     txt(g, wx + ww / 2, 22, 'a few nanometres of it', 'strong', 'middle');
-    el('rect', { x: wx, y: wy, width: ww, height: wh, rx: 6, fill: 'var(--second)', 'fill-opacity': '.05', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: wx, y: wy, width: ww, height: wh, rx: 6, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
     var win = el('g', {}, g), cap = txt(g, wx + ww / 2, wy + wh + 18, '', 'amber', 'middle');
     badge(g, wx + ww - 6, wy + wh + 14, 3);
     var mols = [], state = 'mix', t = 0;
@@ -91,7 +93,7 @@
       var vals = [c.ec, c.dmc, 1, 1], max = 16;
       bars.forEach(function (b, i) { var h = vals[i] / max * (bh - 20); b.r.setAttribute('y', by + bh - h); b.r.setAttribute('height', h); b.v.setAttribute('y', by + bh - h - 5); setSvgText(b.v, vals[i] ? (i < 2 ? fmt(vals[i], 1) : '1') : '0'); });
       setSvgText(r3, state === 'ec' ? 'EC alone' : state === 'dmc' ? 'DMC alone' : 'EC : DMC'); setSvgText(r4, state === 'mix' ? '3 : 7' : '');
-      liq.setAttribute('fill-opacity', state === 'ec' ? '.32' : '.14');
+      liq.setAttribute('fill', state === 'ec' ? MV('polymer') : MV('electrolyte'));
       setSvgText(cap, state === 'ec' ? 'solid below about 36 °C' : state === 'dmc' ? 'ions mostly in pairs' : 'more ions apart');
       build();
       read.innerHTML = state === 'ec'
@@ -124,7 +126,7 @@
   register('f7-6', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), fb = fig.querySelector('.fieldbtn');
     var x0 = 18, y0 = 36, w = 316, h = 196;
-    el('rect', { x: x0, y: y0, width: w, height: h, rx: 6, fill: 'var(--second)', 'fill-opacity': '.05', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: x0, y: y0, width: w, height: h, rx: 6, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
     var rnd = m7rng(91), bg = el('g', { opacity: '.45' }, g), bgm = [];
     for (var i = 0; i < 26; i++) { var m = m7mol(bg, i % 3 ? 'dmc' : 'ec', x0 + 12 + rnd() * (w - 24), y0 + 12 + rnd() * (h - 24), rnd() * 6.28); m.fx = m.x; m.fy = m.y; bgm.push(m); }
     var trail = el('polyline', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.4, 'stroke-opacity': '.8' }, g);

@@ -17,14 +17,14 @@
     [-1.5, -1, -0.5, 0, 0.5, 1, 1.5].forEach(function (v) { el('line', { x1: 484, y1: Y(v), x2: 490, y2: Y(v), stroke: 'var(--line-2)' }, g); txt(g, 478, Y(v) + 4, (v > 0 ? '+' : '') + v.toFixed(1) + ' V', '', 'end'); });
     // the metal: filled states up to the Fermi level
     var xm0 = 70, xm1 = 190;
-    el('rect', { x: xm0, y: 30, width: xm1 - xm0, height: 240, fill: 'var(--metal)', 'fill-opacity': '.18', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: xm0, y: 30, width: xm1 - xm0, height: 240, fill: M('steel'), 'fill-opacity': '.5', stroke: '#8B95A0' }, g);
     var filled = el('rect', { x: xm0, y: Y(0), width: xm1 - xm0, height: 270 - Y(0), fill: 'var(--electron)', 'fill-opacity': '.25' }, g);
     var fermi = el('line', { x1: xm0 - 6, x2: xm1 + 6, y1: Y(0), y2: Y(0), stroke: 'var(--electron)', 'stroke-width': 3 }, g);
     var fLab = txt(g, (xm0 + xm1) / 2, Y(0) - 8, 'Fermi level: transferable electrons', 'cyan', 'middle');
     txt(g, (xm0 + xm1) / 2, 22, 'electrode (metal)', 'strong', 'middle'); txt(g, (xm0 + xm1) / 2, 284, 'filled states below, empty above', '', 'middle');
     // the species in solution: a vacant orbital above, an occupied one below (B2 Figure 1.1.3)
     var xs0 = 280, xs1 = 400, vac = -0.6, occ = 0.6;
-    el('rect', { x: xs0 - 20, y: 30, width: xs1 - xs0 + 40, height: 240, fill: 'var(--second)', 'fill-opacity': '.08', stroke: 'var(--second)', 'stroke-opacity': '.4' }, g);
+    el('rect', { x: xs0 - 20, y: 30, width: xs1 - xs0 + 40, height: 240, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
     txt(g, (xs0 + xs1) / 2, 22, 'species A in solution', 'strong', 'middle');
     el('line', { x1: xs0, x2: xs1, y1: Y(vac), y2: Y(vac), stroke: 'var(--second)', 'stroke-width': 2, 'stroke-dasharray': '5 3' }, g); txt(g, (xs0 + xs1) / 2, Y(vac) - 8, 'vacant orbital (empty)', 'cyan', 'middle');
     el('line', { x1: xs0, x2: xs1, y1: Y(occ), y2: Y(occ), stroke: 'var(--second)', 'stroke-width': 2 }, g); txt(g, (xs0 + xs1) / 2, Y(occ) + 18, 'occupied orbital (filled)', 'cyan', 'middle');
@@ -67,8 +67,8 @@
   register('f3-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), qSl = fig.querySelector('.q'), qv = fig.querySelector('.q-val'), formBtn = fig.querySelector('.form-btn');
     var xm = 40, xb = 200, xs = 480, yT = 40, yB = 190, qNow = null; // qNow: fractional charge during the replay
-    el('rect', { x: xm, y: yT, width: xb - xm, height: yB - yT, fill: 'var(--metal)', 'fill-opacity': '.3', stroke: 'var(--line-2)' }, g);
-    el('rect', { x: xb, y: yT, width: xs - xb, height: yB - yT, fill: 'var(--second)', 'fill-opacity': '.1', stroke: 'var(--second)', 'stroke-opacity': '.4' }, g);
+    el('rect', { x: xm, y: yT, width: xb - xm, height: yB - yT, fill: M('steel'), 'fill-opacity': '.75', stroke: '#8B95A0' }, g);
+    el('rect', { x: xb, y: yT, width: xs - xb, height: yB - yT, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
     txt(g, (xm + xb) / 2, yT - 12, 'metal', 'strong', 'middle'); txt(g, (xb + xs) / 2 + 90, yT - 12, 'electrolyte', 'strong', 'middle');
     var surf = el('g', {}, g), compact = el('g', {}, g), diffuse = el('g', {}, g), solv = el('g', {}, g);
     // scale brackets

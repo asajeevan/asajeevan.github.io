@@ -10,13 +10,15 @@
     var E0 = P.data.daniell.E; // 1.103 V
     var bx0 = 60, bx1 = 460, by0 = 104, by1 = 292, sep = 260;
     // beaker with two half-cells
-    el('rect', { x: bx0, y: by0, width: bx1 - bx0, height: by1 - by0, rx: 8, fill: 'var(--second)', 'fill-opacity': '.1', stroke: 'var(--second)', 'stroke-opacity': '.5' }, g);
-    el('line', { x1: sep, y1: by0 + 6, x2: sep, y2: by1 - 6, stroke: 'var(--second)', 'stroke-dasharray': '3 5' }, g);
+    // a glass beaker: colourless zinc sulfate on the left, blue copper sulfate on the right, a porous wall between
+    tank(g, bx0, by0, bx1 - bx0, by1 - by0, 'electrolyte');
+    el('rect', { x: sep, y: by0 + 1, width: bx1 - sep - 1, height: by1 - by0 - 2, rx: 7, fill: MV('cuso4'), opacity: .75 }, g);
+    el('rect', { x: sep - 3, y: by0 + 6, width: 6, height: by1 - by0 - 12, fill: M('ceramic'), stroke: '#C8C1B1', 'stroke-width': .6 }, g);
     txt(g, 193, by0 + 16, 'ZnSO₄ solution', 'cyan', 'middle'); txt(g, 327, by0 + 16, 'CuSO₄ solution', 'cyan', 'middle');
     txt(g, sep, by1 + 16, 'porous separator: ions pass, the liquids do not mix', '', 'middle');
     // electrodes (the zinc thins, the copper thickens, as the cell runs)
-    var zn = el('rect', { x: 100, y: 70, width: 26, height: 200, rx: 2, fill: 'var(--metal)' }, g);
-    var cu = el('rect', { x: 394, y: 70, width: 26, height: 200, rx: 2, fill: 'var(--copper)' }, g);
+    var zn = el('rect', { x: 100, y: 70, width: 26, height: 200, rx: 2, fill: M('zinc'), stroke: '#7E8A96', 'stroke-width': .8 }, g);
+    var cu = el('rect', { x: 394, y: 70, width: 26, height: 200, rx: 2, fill: M('copper'), stroke: '#7A421E', 'stroke-width': .8 }, g);
     txt(g, 113, 262, 'Zn', 'strong', 'middle'); txt(g, 407, 262, 'Cu', 'strong', 'middle');
     txt(g, 88, 66, '−', 'strong big', 'end'); txt(g, 432, 66, '+', 'strong big');
     txt(g, 113, 326, 'Zn → Zn²⁺ + 2e⁻', '', 'middle'); txt(g, 407, 326, 'Cu²⁺ + 2e⁻ → Cu', '', 'middle');
@@ -110,13 +112,13 @@
   register('f1-2', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var yT = 60, yB = 200, xm0 = 40, xb = 260, xs1 = 480;
-    el('rect', { x: xm0, y: yT, width: xb - xm0, height: yB - yT, rx: 4, fill: 'var(--metal)', 'fill-opacity': '.35', stroke: 'var(--metal)' }, g);
-    el('rect', { x: xb, y: yT, width: xs1 - xb, height: yB - yT, rx: 4, fill: 'var(--second)', 'fill-opacity': '.12', stroke: 'var(--second)', 'stroke-opacity': '.5' }, g);
+    el('rect', { x: xm0, y: yT, width: xb - xm0, height: yB - yT, rx: 4, fill: MV('zinc'), opacity: .55, stroke: '#7E8A96' }, g);
+    el('rect', { x: xb, y: yT, width: xs1 - xb, height: yB - yT, rx: 4, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
     txt(g, (xm0 + xb) / 2, yT - 17, 'metal electrode', 'strong', 'middle'); txt(g, (xb + xs1) / 2, yT - 17, 'liquid electrolyte', 'strong', 'middle');
     txt(g, (xm0 + xb) / 2, yT - 2, 'ions fixed in a lattice, electrons free', '', 'middle'); txt(g, (xb + xs1) / 2, yT - 2, 'ions free, no free electrons', '', 'middle');
     // lattice of fixed ion cores
     var lat = el('g', {}, g);
-    for (var r = 0; r < 4; r++) for (var c = 0; c < 7; c++) { var x = xm0 + 22 + c * 32, y = yT + 24 + r * 32; el('circle', { cx: x, cy: y, r: 6, fill: 'var(--panel-2)', stroke: 'var(--muted)' }, lat); txt(lat, x, y + 4, '+', 'strong', 'middle'); }
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 7; c++) { var x = xm0 + 22 + c * 32, y = yT + 24 + r * 32; el('circle', { cx: x, cy: y, r: 6, fill: MB('steel'), stroke: '#7E8A96' }, lat); txt(lat, x, y + 4, '+', 'strong', 'middle'); }
     // mobile electrons in the metal, mobile ions in the liquid
     var es = []; for (var i = 0; i < 10; i++) es.push({ x: xm0 + 10 + Math.random() * (xb - xm0 - 20), y: yT + 10 + Math.random() * (yB - yT - 20), c: el('circle', { r: 3, 'class': 'e-dot' }, g) });
     var cats = []; for (i = 0; i < 6; i++) cats.push({ x: xb + 20 + Math.random() * 190, y: yT + 14 + Math.random() * (yB - yT - 28), c: el('circle', { r: 4, 'class': 'ion' }, g) });
@@ -165,8 +167,7 @@
     var V = 1.5; // one cell, illustrative
     function cellSym(px, py, label) {
       var s = el('g', { transform: 'translate(' + px + ',' + py + ')' }, g);
-      el('rect', { x: 0, y: 0, width: 40, height: 58, rx: 6, fill: 'var(--panel)', stroke: 'var(--line-2)' }, s);
-      el('rect', { x: 7, y: 8, width: 26, height: 16, rx: 2, fill: 'var(--accent-strong)', 'fill-opacity': '.8' }, s); el('rect', { x: 7, y: 34, width: 26, height: 16, rx: 2, fill: 'var(--metal)' }, s);
+      cellCan(s, 2, 2, 36, 54);
       txt(s, 20, -4, '+', 'strong', 'middle'); txt(s, 20, 72, '−', 'strong', 'middle');
       return s;
     }

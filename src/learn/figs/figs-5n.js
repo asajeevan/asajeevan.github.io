@@ -27,15 +27,15 @@
     var CAP = 2.0; // Ah, the illustrative cell's low-rate capacity
     // --- the cell and the cycler ---
     var cx0 = 24, cx1 = 242, cy0 = 64, cy1 = 120, xn = 76, xp = 190, xs = 133;
-    el('rect', { x: cx0, y: cy0, width: xn - cx0, height: cy1 - cy0, rx: 3, fill: 'var(--second)', 'fill-opacity': '.22', stroke: 'var(--second)', 'stroke-opacity': '.6' }, g);
-    el('rect', { x: xn, y: cy0, width: xp - xn, height: cy1 - cy0, fill: 'var(--second)', 'fill-opacity': '.07', stroke: 'var(--line-2)' }, g);
-    el('rect', { x: xp, y: cy0, width: cx1 - xp, height: cy1 - cy0, rx: 3, fill: 'var(--accent)', 'fill-opacity': '.2', stroke: 'var(--accent)', 'stroke-opacity': '.6' }, g);
-    el('line', { x1: xs, y1: cy0 + 3, x2: xs, y2: cy1 - 3, stroke: 'var(--second)', 'stroke-dasharray': '3 4', 'stroke-opacity': '.7' }, g);
+    el('rect', { x: cx0, y: cy0, width: xn - cx0, height: cy1 - cy0, rx: 3, fill: M(rungMat(cell.neg)), stroke: '#2B2E33', 'stroke-opacity': '.4' }, g);
+    el('rect', { x: xn, y: cy0, width: xp - xn, height: cy1 - cy0, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
+    el('rect', { x: xp, y: cy0, width: cx1 - xp, height: cy1 - cy0, rx: 3, fill: M(rungMat(cell.pos)), stroke: '#2B2E33', 'stroke-opacity': '.4' }, g);
+    el('rect', { x: xs - 2.5, y: cy0 + 2, width: 5, height: cy1 - cy0 - 4, fill: M('separator'), stroke: '#C4C8BF', 'stroke-width': .6 }, g);
     txt(g, (cx0 + xn) / 2, cy1 + 15, 'negative', '', 'middle'); txt(g, (xn + xp) / 2, cy1 + 15, 'electrolyte', '', 'middle'); txt(g, (xp + cx1) / 2, cy1 + 15, 'positive', '', 'middle');
-    el('rect', { x: 78, y: 10, width: 110, height: 26, rx: 5, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g);
-    txt(g, 133, 27, 'cycler', 'strong', 'middle');
     var wire = [[50, cy0], [50, 23], [78, 23], [188, 23], [216, 23], [216, cy0]];
     el('path', { d: polyD(wire.map(function (p) { return p[0]; }), wire.map(function (p) { return p[1]; })), fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 2 }, g);
+    el('rect', { x: 78, y: 10, width: 110, height: 26, rx: 5, fill: MV('steel'), stroke: '#8B95A0', filter: 'url(#fx-lift)' }, g);
+    txt(g, 133, 27, 'cycler', 'strong', 'middle');
     txt(g, 38, 50, '−', 'strong big', 'middle'); txt(g, 228, 50, '+', 'strong big', 'middle');
     var segL = [], wl = 0; for (var i = 1; i < wire.length; i++) { var l = Math.hypot(wire[i][0] - wire[i - 1][0], wire[i][1] - wire[i - 1][1]); segL.push(l); wl += l; }
     function along(s) { s = ((s % 1) + 1) % 1 * wl; for (var k = 0; k < segL.length; k++) { if (s <= segL[k]) { var f = s / segL[k]; return [lerp(wire[k][0], wire[k + 1][0], f), lerp(wire[k][1], wire[k + 1][1], f)]; } s -= segL[k]; } return wire[wire.length - 1]; }
@@ -506,10 +506,11 @@
     var defs = el('defs', {}, svg), cp = el('clipPath', { id: 'f58p-clip' }, defs); el('rect', { x: B.x, y: B.y, width: B.w, height: B.h }, cp);
     txt(g, B.x + B.w / 2, B.y - 22, 'a slice through the coating', 'strong', 'middle');
     txt(g, B.x + B.w / 2, B.y - 7, 'separator side', '', 'middle'); txt(g, B.x + B.w / 2, B.y + B.h + 15, 'current collector side', '', 'middle');
-    el('rect', { x: B.x, y: B.y, width: B.w, height: B.h, fill: 'var(--second)', 'fill-opacity': '.20' }, g);
+    el('rect', { x: B.x, y: B.y, width: B.w, height: B.h, fill: MV('electrolyte') }, g);
     var pg = el('g', { 'clip-path': 'url(#f58p-clip)' }, g);
     el('rect', { x: B.x, y: B.y, width: B.w, height: B.h, fill: 'none', stroke: 'var(--line-2)' }, g);
-    var route = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    var routeBg = el('path', { fill: 'none', stroke: '#fff', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    var route = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
     var xd = B.x + B.w + 14;
     el('line', { x1: xd, y1: B.y, x2: xd, y2: B.y + B.h, stroke: 'var(--muted)', 'stroke-dasharray': '4 4' }, g);
     el('line', { x1: xd - 4, y1: B.y, x2: xd + 4, y2: B.y, stroke: 'var(--muted)' }, g); el('line', { x1: xd - 4, y1: B.y + B.h, x2: xd + 4, y2: B.y + B.h, stroke: 'var(--muted)' }, g);
@@ -524,7 +525,7 @@
     txt(g, XP(0.325), P.y1 + 12, 'typical', '', 'middle');
     var eb = []; for (var e = 0.2; e <= 0.711; e += 0.01) eb.push(e);
     el('path', { d: polyD(eb.map(XP), eb.map(function (e) { return YP(Math.pow(e, 1.5)); })), fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1.8, 'stroke-dasharray': '5 4' }, g);
-    txt(g, XP(0.47), YP(0.40), 'estimate, ε^1.5', '', 'end');
+    txt(g, XP(0.47), YP(0.40), 'estimate, ε^{1.5}', '', 'end');
     NM_FITS.forEach(function (c) { var es = []; for (var e = c.lo; e <= c.hi + 1e-9; e += 0.01) es.push(e); el('path', { d: polyD(es.map(XP), es.map(function (e) { return YP(Math.pow(e, c.p) / c.f); })), fill: 'none', stroke: c.col, 'stroke-width': 2.2 }, g); });
     var mk = el('line', { y1: P.y0, y2: P.y1, stroke: 'var(--text)', 'stroke-opacity': '.5' }, g);
     var dots = [{ col: 'var(--muted)' }].concat(NM_FITS).map(function (c) { return el('circle', { r: 4, fill: c.col, stroke: 'var(--bg)', 'stroke-width': 1 }, g); });
@@ -535,12 +536,12 @@
       var key = shape + eps, pk = cache[key] || (cache[key] = (function () { var q = packParticles(B.w, B.h, 1 - eps, shape, 9, shape === 'disk' ? 7 : 11); q.route = shortestPore(q.mask, B.w, B.h); return q; })());
       while (pg.firstChild) pg.removeChild(pg.firstChild);
       pk.list.forEach(function (p) {
-        if (p.k === 'c') el('circle', { cx: B.x + p.x, cy: B.y + p.y, r: p.r, fill: 'var(--accent-strong)', 'fill-opacity': '.55', stroke: 'var(--accent)', 'stroke-width': 1 }, pg);
-        else el('rect', { x: B.x + p.x - p.a, y: B.y + p.y - p.b, width: 2 * p.a, height: 2 * p.b, rx: 2, fill: 'var(--accent-strong)', 'fill-opacity': '.55', stroke: 'var(--accent)', 'stroke-width': 1 }, pg);
+        if (p.k === 'c') el('circle', { cx: B.x + p.x, cy: B.y + p.y, r: p.r, fill: MB('lco'), stroke: '#15181B', 'stroke-width': .6 }, pg);
+        else el('rect', { x: B.x + p.x - p.a, y: B.y + p.y - p.b, width: 2 * p.a, height: 2 * p.b, rx: 2, fill: MB('lco'), stroke: '#15181B', 'stroke-width': .6 }, pg);
       });
       var sol = 0; for (var i = 0; i < pk.mask.length; i++) sol += pk.mask[i]; var drawn = 1 - sol / pk.mask.length;
       var tg = pk.route ? pk.route.len / B.h : NaN;
-      if (pk.route) { var pts = pk.route.path.filter(function (q, i, a) { return i % 3 === 0 || i === a.length - 1; }); route.setAttribute('d', polyD(pts.map(function (q) { return B.x + q[0]; }), pts.map(function (q) { return B.y + q[1]; }))); }
+      if (pk.route) { var pts = pk.route.path.filter(function (q, i, a) { return i % 3 === 0 || i === a.length - 1; }); route.setAttribute('d', polyD(pts.map(function (q) { return B.x + q[0]; }), pts.map(function (q) { return B.y + q[1]; }))); routeBg.setAttribute('d', route.getAttribute('d')); }
       mk.setAttribute('x1', XP(eps)); mk.setAttribute('x2', XP(eps));
       var vals = [Math.pow(eps, 1.5)].concat(NM_FITS.map(function (c) { return eps >= c.lo - 1e-9 && eps <= c.hi + 1e-9 ? Math.pow(eps, c.p) / c.f : NaN; }));
       dots.forEach(function (d, i) { var ok = isFinite(vals[i]) && vals[i] <= 0.6; d.style.display = ok ? '' : 'none'; if (ok) { d.setAttribute('cx', XP(eps)); d.setAttribute('cy', YP(vals[i])); } });
@@ -551,8 +552,8 @@
     Array.prototype.forEach.call(sb, function (b) { on(b, 'click', function () { shape = b.getAttribute('data-shape'); Array.prototype.forEach.call(sb, function (x) { x.setAttribute('aria-pressed', String(x === b)); }); draw(); }); });
     draw();
     steps(fig, [
-      { text: 'A slice through a coating: particles (blue) and the pores between them, filled with electrolyte (blue). The <b>porosity</b> ε is the share of the coating’s volume that is pore. Here it is drawn as the share of the slice’s area.' },
-      { text: 'An ion cannot cross in a straight line, the dashed distance d. The black line is the shortest way through the pores of this sketch. Its length divided by d is a geometric <b>tortuosity</b>. Switch to flat plates, lying as graphite flakes do, and watch the way round grow.', on: function () { } },
+      { text: 'A slice through a coating: particles (dark grey) and the pores between them, filled with electrolyte (blue). The <b>porosity</b> ε is the share of the coating’s volume that is pore. Here it is drawn as the share of the slice’s area.' },
+      { text: 'An ion cannot cross in a straight line, the dashed distance d. The blue line is the shortest way through the pores of this sketch. Its length divided by d is a geometric <b>tortuosity</b>. Switch to flat plates, lying as graphite flakes do, and watch the way round grow.', on: function () { } },
       { text: 'What the ions feel is the conductivity left in the pores, κ<sub>eff</sub>/κ = ε/τ. The dashed curve is the usual estimate, ε<sup>1.5</sup>. The solid curves are fits to impedance measurements on real electrodes; all lie well below it.' }
     ]);
   });
@@ -561,8 +562,8 @@
   register('f5-8', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), cb = fig.querySelectorAll('button[data-case]');
     var xf = 40, xsep = 116, ytop = 30, ybot = 136, PXUM = 1.9; // electrode thickness drawn to scale, 1.9 px per µm
-    el('rect', { x: 16, y: ytop, width: xf - 16, height: ybot - ytop, rx: 2, fill: 'var(--metal)' }, g);
-    el('rect', { x: xf, y: ytop, width: xsep - xf, height: ybot - ytop, fill: 'var(--second)', 'fill-opacity': '.10', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: 16, y: ytop, width: xf - 16, height: ybot - ytop, rx: 2, fill: M('lithium'), stroke: '#9AA3AD', 'stroke-width': .6 }, g);
+    el('rect', { x: xf, y: ytop, width: xsep - xf, height: ybot - ytop, fill: M('separator'), stroke: '#C4C8BF' }, g);
     txt(g, 28, 20, 'Li foil', '', 'middle'); txt(g, 78, 20, 'separator', '', 'middle');
     var defs = el('defs', {}, svg), cp = el('clipPath', { id: 'f58-clip' }, defs), cpr = el('rect', { x: xsep, y: ytop, height: ybot - ytop }, cp);
     var cg = el('g', {}, g), pg = el('g', { 'clip-path': 'url(#f58-clip)' }, g), og = el('g', {}, g);
@@ -590,9 +591,9 @@
       if (built === key) return; built = key;
       cpr.setAttribute('width', Lpx);
       while (cg.firstChild) cg.removeChild(cg.firstChild); while (pg.firstChild) pg.removeChild(pg.firstChild); while (og.firstChild) og.removeChild(og.firstChild); while (b2.firstChild) b2.removeChild(b2.firstChild);
-      el('rect', { x: xsep, y: ytop, width: Lpx, height: ybot - ytop, fill: 'var(--second)', 'fill-opacity': '.20' }, cg);
+      el('rect', { x: xsep, y: ytop, width: Lpx, height: ybot - ytop, fill: MV('electrolyte') }, cg);
       el('rect', { x: xsep, y: ytop, width: Lpx, height: ybot - ytop, fill: 'none', stroke: 'var(--line-2)' }, og);
-      el('rect', { x: xc, y: ytop, width: 14, height: ybot - ytop, rx: 2, fill: 'var(--metal)' }, og);
+      el('rect', { x: xc, y: ytop, width: 14, height: ybot - ytop, rx: 2, fill: M('alu'), stroke: '#9CA4AD', 'stroke-width': .6 }, og);
       txt(og, xsep + Lpx / 2, 20, 'positive electrode', 'strong', 'middle'); txt(og, xc + 7, 20, 'collector', '', 'middle');
       var yd = ybot + 10; el('line', { x1: xsep, y1: yd, x2: xc, y2: yd, stroke: 'var(--muted)' }, og);
       el('line', { x1: xsep, y1: yd - 4, x2: xsep, y2: yd + 4, stroke: 'var(--muted)' }, og); el('line', { x1: xc, y1: yd - 4, x2: xc, y2: yd + 4, stroke: 'var(--muted)' }, og);

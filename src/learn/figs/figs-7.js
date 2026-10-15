@@ -13,7 +13,7 @@
     var W = 150, top = 46, h = 170, xs = [20, 185, 350];
     var names = [['liquid', 'organic carbonate + LiPF₆'], ['dry polymer', 'PEO + lithium salt'], ['ceramic', 'garnet']];
     xs.forEach(function (x, i) {
-      el('rect', { x: x, y: top, width: W, height: h, rx: 6, fill: i === 0 ? 'var(--second)' : i === 1 ? 'var(--second-strong)' : 'var(--metal)', 'fill-opacity': i === 2 ? '.18' : '.1', stroke: 'var(--line-2)' }, g);
+      el('rect', { x: x, y: top, width: W, height: h, rx: 6, fill: i === 0 ? MV('electrolyte') : i === 1 ? MV('polymer') : MV('ceramic'), stroke: i === 0 ? '#9FB3C2' : '#C9C3B4', 'stroke-width': 1.2, filter: i ? 'url(#fx-lift)' : null }, g);
       txt(g, x + W / 2, top - 22, names[i][0], 'strong', 'middle'); txt(g, x + W / 2, top - 8, names[i][1], '', 'middle');
       badge(g, x + W - 2, top + h + 16, i + 1);
     });
@@ -25,12 +25,12 @@
     var pairT = txt(g, xs[0] + W / 2, top + h + 16, '', 'amber', 'middle');
     // polymer: wavy chains with coordinating sites; Li+ hops between sites as segments move
     var chains = [];
-    for (i = 0; i < 4; i++) chains.push({ y: top + 30 + i * 38, p: el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2, 'stroke-opacity': '.8' }, g), ph: Math.random() * 6 });
+    for (i = 0; i < 4; i++) chains.push({ y: top + 30 + i * 38, p: el('path', { fill: 'none', stroke: '#8A826F', 'stroke-width': 2.2, 'stroke-linecap': 'round' }, g), ph: Math.random() * 6 });
     var an2 = []; for (i = 0; i < 3; i++) an2.push({ x: xs[1] + 30 + i * 45, y: top + 49 + (i % 2) * 76, c: el('circle', { cx: xs[1] + 30 + i * 45, cy: top + 49 + (i % 2) * 76, r: 4, 'class': 'ion an' }, g) });
     var li2 = el('circle', { r: 5, 'class': 'ion' }, g), p2 = { chain: 1, k: 0.3, tgt: 2, hop: 0 };
     // ceramic: rigid lattice with vacant Li sites
     var lat = [];
-    for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) { var lx = xs[2] + 22 + c * 36, ly = top + 26 + r * 40; el('rect', { x: lx - 7, y: ly - 7, width: 14, height: 14, transform: 'rotate(45 ' + lx + ' ' + ly + ')', fill: 'var(--metal)', 'fill-opacity': '.7' }, g); lat.push({ x: lx + 18, y: ly + 20 }); }
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) { var lx = xs[2] + 22 + c * 36, ly = top + 26 + r * 40; el('rect', { x: lx - 7, y: ly - 7, width: 14, height: 14, transform: 'rotate(45 ' + lx + ' ' + ly + ')', fill: MB('oxide'), stroke: '#5D6774', 'stroke-width': .6 }, g); lat.push({ x: lx + 18, y: ly + 20 }); }
     lat = lat.filter(function (p) { return p.x < xs[2] + W - 6 && p.y < top + h - 6; });
     lat.forEach(function (p) { el('circle', { cx: p.x, cy: p.y, r: 3, fill: 'none', stroke: 'var(--accent)', 'stroke-opacity': '.5', 'stroke-dasharray': '1.5 1.5' }, g); });
     var li3 = el('circle', { r: 5, 'class': 'ion' }, g), p3 = { i: 0, j: 1, k: 0 };
@@ -128,8 +128,8 @@
   register('f7-10', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), ts = fig.querySelector('.tplus'), tv = fig.querySelector('.tplus-val');
     var xL = 70, xR = 450, y0 = 60, y1 = 170;
-    el('rect', { x: xL - 22, y: y0 - 6, width: 22, height: y1 - y0 + 12, fill: 'var(--metal)' }, g); el('rect', { x: xR, y: y0 - 6, width: 22, height: y1 - y0 + 12, fill: 'var(--accent-strong)' }, g);
-    el('rect', { x: xL, y: y0, width: xR - xL, height: y1 - y0, fill: 'var(--second)', 'fill-opacity': '.08' }, g);
+    el('rect', { x: xL, y: y0, width: xR - xL, height: y1 - y0, fill: MV('electrolyte') }, g);
+    el('rect', { x: xL - 22, y: y0 - 6, width: 22, height: y1 - y0 + 12, rx: 2, fill: M('graphite'), filter: 'url(#fx-lift)' }, g); el('rect', { x: xR, y: y0 - 6, width: 22, height: y1 - y0 + 12, rx: 2, fill: M('lco'), filter: 'url(#fx-lift)' }, g);
     txt(g, xL - 11, y1 + 26, 'Li⁺ released', '', 'middle'); txt(g, xR + 11, y1 + 26, 'Li⁺ taken in', '', 'middle');
     arrow(g, 220, y0 - 16, 300, y0 - 16, 'var(--field)', 1.4); txt(g, 260, y0 - 24, 'field in the electrolyte', 'field', 'middle');
     txt(g, 260, y1 + 26, 'electrolyte: Li⁺ and its anion', 'cyan', 'middle');
@@ -192,14 +192,14 @@
     badge(g, 272, 58, 1); badge(g, 272, 190, 2);
     // right: a particle breathing against a rigid solid electrolyte
     var cx = 390, cy = 120, R0 = 46;
-    el('rect', { x: 290, y: 30, width: 200, height: 180, rx: 6, fill: 'var(--metal)', 'fill-opacity': '.25', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: 290, y: 30, width: 200, height: 180, rx: 6, fill: MV('ceramic'), stroke: '#C9C3B4', 'stroke-width': 1.2, filter: 'url(#fx-lift)' }, g);
     txt(g, 390, 24, 'rigid solid electrolyte', 'strong', 'middle');
-    var hole = el('circle', { cx: cx, cy: cy, r: R0 + 4, fill: 'var(--bg-2)', stroke: 'var(--line-2)' }, g);
-    var part = el('circle', { cx: cx, cy: cy, r: R0, fill: 'var(--accent-strong)', 'fill-opacity': '.85' }, g);
+    var hole = el('circle', { cx: cx, cy: cy, r: R0 + 4, fill: '#FFFFFF', stroke: '#B9B2A2' }, g);
+    var part = el('circle', { cx: cx, cy: cy, r: R0, fill: MB('lco') }, g);
     txt(g, cx, cy + 4, 'electrode particle', 'strong tag', 'middle');
     var gapT = txt(g, 390, 232, '', 'heat', 'middle'), stage = txt(g, 390, 250, '', '', 'middle');
     var path = el('g', {}, g);
-    badge(g, 300, 222, 3);
+    badge(g, 298, 248, 3);
     var t = 0, cyc = 0, holeR = R0 + 4;
     function draw() {
       var s = Math.sin(t * 1.2), r = R0 + 4 * s; // swells on one half-cycle, shrinks on the other

@@ -169,7 +169,7 @@ So losing just one coulomb in a thousand on every cycle uses up the 20 % allowan
 </svg>
 <div class="controls"><button type="button" data-b="0.5" aria-pressed="true">b = 1/2 (diffusion)</button><button type="button" data-b="1">b = 1 (reaction)</button><button type="button" data-b="0">b = 0 (discharge)</button></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="an"></i>SEI</span><span><i style="background:var(--field)"></i>interfacial resistance</span></div>
+<div class="key"><span><i class="m-graphite"></i>graphite</span><span><i class="m-sei"></i>SEI</span><span><i style="background:var(--field)"></i>interfacial resistance</span></div>
 <figcaption>The SEI keeps growing, and the exponent tells you why.
 <span class="try">Try this: both laws start from the same loss after the first month; compare where b = 1/2 and b = 1 end, then imagine the cell stored full and warm.</span>
 <details class="src"><summary>Source</summary><span class="basis">Growth law L<sub>SEI</sub> &#8733; t<sup>b</sup> and capacity loss &#916;Q &#8733; t<sup>b</sup>, with b = 0.5 (diffusion limitation, the literature standard), b = 1 (reaction limitation, or migration limitation while charging) and b = 0 (migration limitation while discharging), after von Kolzenberg, Latz and Horstmann 2020, eqs. 36 and 37; fastest growth at high state of charge and high charging rate, also theirs. That the SEI adds interfacial impedance and evolves with cycling after Goodenough and Park 2013. Axes and the resistance bar are schematic.</span></details>
@@ -192,7 +192,7 @@ The loss slows down, but it never stops. With b = 1 the same start would have co
 <title id="f103t">Manganese ions leave a LiMn2O4 spinel positive electrode, cross the electrolyte and lodge in the SEI on the graphite negative electrode, which then protects less well.</title>
 </svg>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i style="background:#b98cf0"></i>Mn(II)</span><span><i class="an"></i>SEI</span><span><i class="act"></i>spinel</span></div>
+<div class="key"><span><i style="background:#b98cf0"></i>Mn(II)</span><span><i class="m-sei"></i>SEI (darker once poisoned)</span><span><i class="m-lco"></i>spinel</span><span><i class="m-electrolyte"></i>electrolyte</span></div>
 <figcaption>Manganese on the move: one electrode&#8217;s loss becomes the other&#8217;s problem.
 <span class="try">Try this: count how many manganese ions it takes before the SEI is marked as working worse; the threshold is a drawing choice, not a value from the cited work.</span>
 <details class="src"><summary>Source</summary><span class="basis">Sequence after Goodenough and Park 2013: Mn(II) dissolves from the spinel and poisons the SEI of the negative electrode. Numbers of ions and the moment the layer is marked as poisoned are schematic.</span></details>

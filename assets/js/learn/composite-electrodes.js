@@ -303,6 +303,82 @@
     };
   }
 
+  /* ---------- materials: what the parts of a real cell look like ----------
+     Each physical part is drawn in its own colour (copper foil copper, aluminium foil silver,
+     graphite and the oxide powders black-grey, LiFePO4 grey, Li4Ti5O12 white, sulfur yellow,
+     the electrolyte clear, the separator white). Ions, electrons, fields and curves keep the
+     teaching colours, because they have no colour of their own. One hidden <svg> holds the
+     shared gradients: M(key) a sheet lit from the left, MV(key) lit from the top, MB(key) a
+     sphere lit from the upper left, MC(key) the plain colour. */
+  var MAT = {
+    copper:      ['#B87333', '#E8AC7C', '#C47D46', '#8F4F26', '#B46E3A'],
+    alu:         ['#C3C9CF', '#F4F6F8', '#CED4DA', '#A6AEB7', '#D8DDE2'],
+    steel:       ['#AEB6BE', '#EDF0F3', '#BBC2CA', '#8B95A0', '#C6CDD4'],
+    lithium:     ['#C8CDD3', '#F7F8FA', '#D4D9DE', '#AAB1B9', '#DEE2E6'],
+    zinc:        ['#A6B0BA', '#E4E9EE', '#B2BCC6', '#87929E', '#BFC7CF'],
+    graphite:    ['#3A3E44', '#61666E', '#3B3F45', '#232629', '#484D54'],
+    silicon:     ['#58626F', '#8994A2', '#5B6573', '#3B434E', '#68727F'],
+    lco:         ['#2F3339', '#5A6068', '#31363C', '#1C1F23', '#3D424A'],
+    lfp:         ['#4C5156', '#7A8086', '#4F5459', '#33373B', '#5C6167'],
+    lto:         ['#E9E7E1', '#FBFAF7', '#ECEAE4', '#CFCBC1', '#F1EFEA'],
+    tis2:        ['#A98A3E', '#DCC07A', '#AF8F42', '#7C6427', '#B99B50'],
+    sulfur:      ['#E2BC2B', '#F7E27B', '#E5C031', '#B88F12', '#EBCB45'],
+    carbon:      ['#1F2124', '#4A4E54', '#232528', '#111214', '#2C2F33'],
+    binder:      ['#ECEBE6', '#FFFFFF', '#EFEEE9', '#D3D1CA', '#F4F3EF'],
+    separator:   ['#F1F2EE', '#FFFFFF', '#F3F4F0', '#DADCD5', '#F7F7F4'],
+    electrolyte: ['#E6F0F6', '#F7FBFD', '#E8F2F7', '#CFE0EA', '#EEF5F9'],
+    cuso4:       ['#8EBEE6', '#C4DEF3', '#93C2E8', '#5E97C8', '#A6CCEC'],
+    sei:         ['#97773F', '#C9A86A', '#9B7B43', '#6D5428', '#A8884F'],
+    ceramic:     ['#E8E4DA', '#FAF8F3', '#EBE7DE', '#CBC5B6', '#F0EDE6'],
+    polymer:     ['#EEEBE2', '#FDFCF8', '#F0EDE5', '#D6D1C4', '#F4F2EB'],
+    oxide:       ['#7F8A99', '#B7BFCA', '#848F9D', '#5D6774', '#929CA9'],
+    hematite:    ['#7E3527', '#B0604C', '#83392B', '#55221A', '#8F4636'],
+    iron:        ['#5E6368', '#969BA1', '#63686D', '#3F4246', '#71767B'],
+    li2o:        ['#ECEAE5', '#FFFFFF', '#EEECE7', '#D3D0C8', '#F4F3EF'],
+    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40']
+  };
+  var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
+  function MC(k) { return (MAT[k] || MAT.steel)[0]; }
+  function M(k) { return 'url(#m-' + (MAT[k] ? k : 'steel') + ')'; }
+  function MV(k) { return 'url(#mv-' + (MAT[k] ? k : 'steel') + ')'; }
+  function MB(k) { return 'url(#mb-' + (MAT[k] ? k : 'steel') + ')'; }
+  function rungMat(key) { return RUNG_MAT[key] || 'lco'; }
+  /* an upright cylindrical cell (steel can, printed wrap, the + nub on top) at x, y, w wide, h tall */
+  function cellCan(parent, x, y, w, h) {
+    var s = el('g', {}, parent);
+    el('rect', { x: x + w * 0.32, y: y - 5, width: w * 0.36, height: 7, rx: 2, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': 0.8 }, s);
+    el('rect', { x: x, y: y, width: w, height: h, rx: 5, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': 0.8, filter: 'url(#fx-lift)' }, s);
+    el('rect', { x: x, y: y + h * 0.16, width: w, height: h * 0.68, fill: M('lco') }, s);
+    el('rect', { x: x + w * 0.14, y: y + h * 0.16, width: w * 0.1, height: h * 0.68, fill: '#fff', opacity: 0.16 }, s);
+    return s;
+  }
+  /* a glass beaker or tank: liquid inside, a thin glass outline and a highlight */
+  function tank(parent, x, y, w, h, liquid, rx) {
+    var s = el('g', {}, parent);
+    el('rect', { x: x, y: y, width: w, height: h, rx: rx === undefined ? 8 : rx, fill: liquid ? MV(liquid) : 'none', stroke: '#9FB3C2', 'stroke-width': 1.4 }, s);
+    el('rect', { x: x + 6, y: y + 8, width: 3, height: h - 16, rx: 1.5, fill: '#fff', opacity: 0.55 }, s);
+    return s;
+  }
+  (function () {
+    var host = document.createElementNS(NS, 'svg');
+    host.setAttribute('aria-hidden', 'true'); host.setAttribute('focusable', 'false');
+    host.setAttribute('style', 'position:absolute;width:0;height:0;overflow:hidden');
+    var defs = el('defs', {}, host);
+    Object.keys(MAT).forEach(function (k) {
+      var c = MAT[k];
+      [['m-', { x1: 0, y1: 0, x2: 1, y2: 0 }], ['mv-', { x1: 0, y1: 0, x2: 0, y2: 1 }]].forEach(function (d) {
+        var lg = el('linearGradient', Object.assign({ id: d[0] + k }, d[1]), defs);
+        [[0, c[2]], [0.18, c[1]], [0.55, c[2]], [0.85, c[3]], [1, c[4]]].forEach(function (st) { el('stop', { offset: st[0], 'stop-color': st[1] }, lg); });
+      });
+      var rg = el('radialGradient', { id: 'mb-' + k, cx: 0.36, cy: 0.32, r: 0.75, fx: 0.32, fy: 0.26 }, defs);
+      [[0, c[1]], [0.45, c[2]], [1, c[3]]].forEach(function (st) { el('stop', { offset: st[0], 'stop-color': st[1] }, rg); });
+    });
+    // a soft contact shadow for objects that stand on the page
+    var f = el('filter', { id: 'fx-lift', x: '-20%', y: '-20%', width: '140%', height: '150%' }, defs);
+    el('feDropShadow', { dx: 0, dy: 1.2, stdDeviation: 1.4, 'flood-color': '#101828', 'flood-opacity': 0.22 }, f);
+    (document.body || document.documentElement).appendChild(host);
+  })();
+
   /* ---------- figure registry ---------- */
   var figs = {};
   var loops = []; // {fig, loop}
@@ -389,10 +465,11 @@
     var defs = el('defs', {}, svg), cp = el('clipPath', { id: 'f58p-clip' }, defs); el('rect', { x: B.x, y: B.y, width: B.w, height: B.h }, cp);
     txt(g, B.x + B.w / 2, B.y - 22, 'a slice through the coating', 'strong', 'middle');
     txt(g, B.x + B.w / 2, B.y - 7, 'separator side', '', 'middle'); txt(g, B.x + B.w / 2, B.y + B.h + 15, 'current collector side', '', 'middle');
-    el('rect', { x: B.x, y: B.y, width: B.w, height: B.h, fill: 'var(--second)', 'fill-opacity': '.20' }, g);
+    el('rect', { x: B.x, y: B.y, width: B.w, height: B.h, fill: MV('electrolyte') }, g);
     var pg = el('g', { 'clip-path': 'url(#f58p-clip)' }, g);
     el('rect', { x: B.x, y: B.y, width: B.w, height: B.h, fill: 'none', stroke: 'var(--line-2)' }, g);
-    var route = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    var routeBg = el('path', { fill: 'none', stroke: '#fff', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
+    var route = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, g);
     var xd = B.x + B.w + 14;
     el('line', { x1: xd, y1: B.y, x2: xd, y2: B.y + B.h, stroke: 'var(--muted)', 'stroke-dasharray': '4 4' }, g);
     el('line', { x1: xd - 4, y1: B.y, x2: xd + 4, y2: B.y, stroke: 'var(--muted)' }, g); el('line', { x1: xd - 4, y1: B.y + B.h, x2: xd + 4, y2: B.y + B.h, stroke: 'var(--muted)' }, g);
@@ -407,7 +484,7 @@
     txt(g, XP(0.325), P.y1 + 12, 'typical', '', 'middle');
     var eb = []; for (var e = 0.2; e <= 0.711; e += 0.01) eb.push(e);
     el('path', { d: polyD(eb.map(XP), eb.map(function (e) { return YP(Math.pow(e, 1.5)); })), fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1.8, 'stroke-dasharray': '5 4' }, g);
-    txt(g, XP(0.47), YP(0.40), 'estimate, ε^1.5', '', 'end');
+    txt(g, XP(0.47), YP(0.40), 'estimate, ε^{1.5}', '', 'end');
     NM_FITS.forEach(function (c) { var es = []; for (var e = c.lo; e <= c.hi + 1e-9; e += 0.01) es.push(e); el('path', { d: polyD(es.map(XP), es.map(function (e) { return YP(Math.pow(e, c.p) / c.f); })), fill: 'none', stroke: c.col, 'stroke-width': 2.2 }, g); });
     var mk = el('line', { y1: P.y0, y2: P.y1, stroke: 'var(--text)', 'stroke-opacity': '.5' }, g);
     var dots = [{ col: 'var(--muted)' }].concat(NM_FITS).map(function (c) { return el('circle', { r: 4, fill: c.col, stroke: 'var(--bg)', 'stroke-width': 1 }, g); });
@@ -418,12 +495,12 @@
       var key = shape + eps, pk = cache[key] || (cache[key] = (function () { var q = packParticles(B.w, B.h, 1 - eps, shape, 9, shape === 'disk' ? 7 : 11); q.route = shortestPore(q.mask, B.w, B.h); return q; })());
       while (pg.firstChild) pg.removeChild(pg.firstChild);
       pk.list.forEach(function (p) {
-        if (p.k === 'c') el('circle', { cx: B.x + p.x, cy: B.y + p.y, r: p.r, fill: 'var(--accent-strong)', 'fill-opacity': '.55', stroke: 'var(--accent)', 'stroke-width': 1 }, pg);
-        else el('rect', { x: B.x + p.x - p.a, y: B.y + p.y - p.b, width: 2 * p.a, height: 2 * p.b, rx: 2, fill: 'var(--accent-strong)', 'fill-opacity': '.55', stroke: 'var(--accent)', 'stroke-width': 1 }, pg);
+        if (p.k === 'c') el('circle', { cx: B.x + p.x, cy: B.y + p.y, r: p.r, fill: MB('lco'), stroke: '#15181B', 'stroke-width': .6 }, pg);
+        else el('rect', { x: B.x + p.x - p.a, y: B.y + p.y - p.b, width: 2 * p.a, height: 2 * p.b, rx: 2, fill: MB('lco'), stroke: '#15181B', 'stroke-width': .6 }, pg);
       });
       var sol = 0; for (var i = 0; i < pk.mask.length; i++) sol += pk.mask[i]; var drawn = 1 - sol / pk.mask.length;
       var tg = pk.route ? pk.route.len / B.h : NaN;
-      if (pk.route) { var pts = pk.route.path.filter(function (q, i, a) { return i % 3 === 0 || i === a.length - 1; }); route.setAttribute('d', polyD(pts.map(function (q) { return B.x + q[0]; }), pts.map(function (q) { return B.y + q[1]; }))); }
+      if (pk.route) { var pts = pk.route.path.filter(function (q, i, a) { return i % 3 === 0 || i === a.length - 1; }); route.setAttribute('d', polyD(pts.map(function (q) { return B.x + q[0]; }), pts.map(function (q) { return B.y + q[1]; }))); routeBg.setAttribute('d', route.getAttribute('d')); }
       mk.setAttribute('x1', XP(eps)); mk.setAttribute('x2', XP(eps));
       var vals = [Math.pow(eps, 1.5)].concat(NM_FITS.map(function (c) { return eps >= c.lo - 1e-9 && eps <= c.hi + 1e-9 ? Math.pow(eps, c.p) / c.f : NaN; }));
       dots.forEach(function (d, i) { var ok = isFinite(vals[i]) && vals[i] <= 0.6; d.style.display = ok ? '' : 'none'; if (ok) { d.setAttribute('cx', XP(eps)); d.setAttribute('cy', YP(vals[i])); } });
@@ -434,16 +511,16 @@
     Array.prototype.forEach.call(sb, function (b) { on(b, 'click', function () { shape = b.getAttribute('data-shape'); Array.prototype.forEach.call(sb, function (x) { x.setAttribute('aria-pressed', String(x === b)); }); draw(); }); });
     draw();
     steps(fig, [
-      { text: 'A slice through a coating: particles (blue) and the pores between them, filled with electrolyte (blue). The <b>porosity</b> ε is the share of the coating’s volume that is pore. Here it is drawn as the share of the slice’s area.' },
-      { text: 'An ion cannot cross in a straight line, the dashed distance d. The black line is the shortest way through the pores of this sketch. Its length divided by d is a geometric <b>tortuosity</b>. Switch to flat plates, lying as graphite flakes do, and watch the way round grow.', on: function () { } },
+      { text: 'A slice through a coating: particles (dark grey) and the pores between them, filled with electrolyte (blue). The <b>porosity</b> ε is the share of the coating’s volume that is pore. Here it is drawn as the share of the slice’s area.' },
+      { text: 'An ion cannot cross in a straight line, the dashed distance d. The blue line is the shortest way through the pores of this sketch. Its length divided by d is a geometric <b>tortuosity</b>. Switch to flat plates, lying as graphite flakes do, and watch the way round grow.', on: function () { } },
       { text: 'What the ions feel is the conductivity left in the pores, κ<sub>eff</sub>/κ = ε/τ. The dashed curve is the usual estimate, ε<sup>1.5</sup>. The solid curves are fits to impedance measurements on real electrodes; all lie well below it.' }
     ]);
   });
   register('f5-8', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), cb = fig.querySelectorAll('button[data-case]');
     var xf = 40, xsep = 116, ytop = 30, ybot = 136, PXUM = 1.9; // electrode thickness drawn to scale, 1.9 px per µm
-    el('rect', { x: 16, y: ytop, width: xf - 16, height: ybot - ytop, rx: 2, fill: 'var(--metal)' }, g);
-    el('rect', { x: xf, y: ytop, width: xsep - xf, height: ybot - ytop, fill: 'var(--second)', 'fill-opacity': '.10', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: 16, y: ytop, width: xf - 16, height: ybot - ytop, rx: 2, fill: M('lithium'), stroke: '#9AA3AD', 'stroke-width': .6 }, g);
+    el('rect', { x: xf, y: ytop, width: xsep - xf, height: ybot - ytop, fill: M('separator'), stroke: '#C4C8BF' }, g);
     txt(g, 28, 20, 'Li foil', '', 'middle'); txt(g, 78, 20, 'separator', '', 'middle');
     var defs = el('defs', {}, svg), cp = el('clipPath', { id: 'f58-clip' }, defs), cpr = el('rect', { x: xsep, y: ytop, height: ybot - ytop }, cp);
     var cg = el('g', {}, g), pg = el('g', { 'clip-path': 'url(#f58-clip)' }, g), og = el('g', {}, g);
@@ -471,9 +548,9 @@
       if (built === key) return; built = key;
       cpr.setAttribute('width', Lpx);
       while (cg.firstChild) cg.removeChild(cg.firstChild); while (pg.firstChild) pg.removeChild(pg.firstChild); while (og.firstChild) og.removeChild(og.firstChild); while (b2.firstChild) b2.removeChild(b2.firstChild);
-      el('rect', { x: xsep, y: ytop, width: Lpx, height: ybot - ytop, fill: 'var(--second)', 'fill-opacity': '.20' }, cg);
+      el('rect', { x: xsep, y: ytop, width: Lpx, height: ybot - ytop, fill: MV('electrolyte') }, cg);
       el('rect', { x: xsep, y: ytop, width: Lpx, height: ybot - ytop, fill: 'none', stroke: 'var(--line-2)' }, og);
-      el('rect', { x: xc, y: ytop, width: 14, height: ybot - ytop, rx: 2, fill: 'var(--metal)' }, og);
+      el('rect', { x: xc, y: ytop, width: 14, height: ybot - ytop, rx: 2, fill: M('alu'), stroke: '#9CA4AD', 'stroke-width': .6 }, og);
       txt(og, xsep + Lpx / 2, 20, 'positive electrode', 'strong', 'middle'); txt(og, xc + 7, 20, 'collector', '', 'middle');
       var yd = ybot + 10; el('line', { x1: xsep, y1: yd, x2: xc, y2: yd, stroke: 'var(--muted)' }, og);
       el('line', { x1: xsep, y1: yd - 4, x2: xsep, y2: yd + 4, stroke: 'var(--muted)' }, og); el('line', { x1: xc, y1: yd - 4, x2: xc, y2: yd + 4, stroke: 'var(--muted)' }, og);
@@ -527,9 +604,9 @@
   register('f8-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), bC = fig.querySelector('.cut-carbon'), bP = fig.querySelector('.block-pores'), bR = fig.querySelector('.reset');
     var xc = 40, xs = 470, top = 40, bot = 250, cols = 5, rows = 4;
-    el('rect', { x: xc - 14, y: top - 6, width: 14, height: bot - top + 12, fill: 'var(--metal)' }, g); txt(g, xc - 7, bot + 24, 'Al foil', 'strong', 'middle');
-    el('rect', { x: xs, y: top - 6, width: 26, height: bot - top + 12, fill: 'var(--second)', 'fill-opacity': '.25', stroke: 'var(--second)', 'stroke-opacity': '.5' }, g); txt(g, xs + 13, bot + 24, 'separator', 'cyan', 'middle');
-    var pore = el('rect', { x: xc, y: top - 6, width: xs - xc, height: bot - top + 12, fill: 'var(--second)', 'fill-opacity': '.12' }, g);
+    var pore = el('rect', { x: xc, y: top - 6, width: xs - xc, height: bot - top + 12, fill: MV('electrolyte') }, g);
+    el('rect', { x: xc - 14, y: top - 6, width: 14, height: bot - top + 12, fill: M('alu'), stroke: '#A6AEB7', 'stroke-width': .6, filter: 'url(#fx-lift)' }, g); txt(g, xc - 7, bot + 24, 'Al foil', 'strong', 'middle');
+    el('rect', { x: xs, y: top - 6, width: 26, height: bot - top + 12, fill: M('separator'), stroke: '#C4C8BF' }, g); txt(g, xs + 13, bot + 24, 'separator', '', 'middle');
     txt(g, (xc + xs) / 2, top - 16, 'one coating, about 30 % of it pores filled with electrolyte', '', 'middle');
     var P = [], dx = (xs - xc - 40) / (cols - 1), dy = (bot - top - 40) / (rows - 1);
     for (var c = 0; c < cols; c++) for (var r = 0; r < rows; r++) P.push({ c: c, r: r, x: xc + 22 + c * dx + (r % 2 ? 10 : -6), y: top + 20 + r * dy + (c % 2 ? 6 : -4), R: 15 + ((c * 7 + r * 3) % 5) });
@@ -537,9 +614,9 @@
     var links = [];
     P.forEach(function (a, i) { P.forEach(function (b, j) { if (j > i && Math.abs(a.c - b.c) + Math.abs(a.r - b.r) === 1) links.push({ a: i, b: j }); }); if (a.c === 0) links.push({ a: i, b: -1 }); });
     var lg = el('g', {}, g);
-    links.forEach(function (L) { var a = P[L.a], bx = L.b < 0 ? xc : P[L.b].x, by = L.b < 0 ? a.y : P[L.b].y; L.e = el('line', { x1: a.x, y1: a.y, x2: bx, y2: by, stroke: 'var(--second)', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-opacity': '.9' }, lg); L.on = true; });
+    links.forEach(function (L) { var a = P[L.a], bx = L.b < 0 ? xc : P[L.b].x, by = L.b < 0 ? a.y : P[L.b].y; L.e = el('line', { x1: a.x, y1: a.y, x2: bx, y2: by, stroke: MC('carbon'), 'stroke-width': 4.4, 'stroke-linecap': 'round', 'stroke-dasharray': '0.1 5.2', 'stroke-opacity': '.9' }, lg); L.c = el('line', { x1: a.x, y1: a.y, x2: bx, y2: by, stroke: MC('carbon'), 'stroke-width': 1.4, 'stroke-opacity': '.55' }, lg); L.on = true; });
     // ion access: each particle has a pore route to the separator unless blocked
-    P.forEach(function (p) { p.wet = true; p.e = el('circle', { cx: p.x, cy: p.y, r: p.R, 'class': 'ptc' }, g); p.mk = el('text', { x: p.x, y: p.y + 4, 'text-anchor': 'middle', 'class': 'lbl strong' }, g); });
+    P.forEach(function (p) { p.wet = true; p.e = el('circle', { cx: p.x, cy: p.y, r: p.R, 'class': 'ptc mat' }, g); p.mk = el('text', { x: p.x, y: p.y + 4, 'text-anchor': 'middle', 'class': 'lbl strong' }, g); });
     var info = txt(g, (xc + xs) / 2, bot + 24, '', 'amber', 'middle');
     badge(g, xc - 7, top - 18, 1); badge(g, xs + 13, top - 18, 2); badge(g, (xc + xs) / 2 + 150, bot + 18, 3);
     function solve() {
@@ -548,7 +625,7 @@
       links.forEach(function (L) { if (L.on && L.b < 0) { reach[L.a] = true; q.push(L.a); } });
       while (q.length) { var i = q.shift(); links.forEach(function (L) { if (!L.on || L.b < 0) return; var j = L.a === i ? L.b : L.b === i ? L.a : -1; if (j >= 0 && !reach[j]) { reach[j] = true; q.push(j); } }); }
       var n = 0;
-      P.forEach(function (p, i) { p.ok = reach[i] && p.wet; if (p.ok) n++; p.e.setAttribute('class', 'ptc ' + (p.ok ? 'on' : 'dead')); setSvgText(p.mk, p.ok ? '' : (!reach[i] && !p.wet ? 'e⁻, Li⁺' : !reach[i] ? 'no e⁻' : 'no Li⁺')); });
+      P.forEach(function (p, i) { p.ok = reach[i] && p.wet; if (p.ok) n++; p.e.setAttribute('class', 'ptc mat ' + (p.ok ? 'on' : 'dead')); setSvgText(p.mk, p.ok ? '' : (!reach[i] && !p.wet ? 'e⁻, Li⁺' : !reach[i] ? 'no e⁻' : 'no Li⁺')); });
       return n;
     }
     function render() {
@@ -558,13 +635,13 @@
     }
     var rng = 7;
     function rand() { rng = (rng * 9301 + 49297) % 233280; return rng / 233280; }
-    on(bC, 'click', function () { var live = links.filter(function (L) { return L.on; }); for (var k = 0; k < 4 && live.length; k++) { var L = live.splice((rand() * live.length) | 0, 1)[0]; L.on = false; L.e.setAttribute('stroke-opacity', '.12'); L.e.setAttribute('stroke-dasharray', '2 4'); } render(); });
+    on(bC, 'click', function () { var live = links.filter(function (L) { return L.on; }); for (var k = 0; k < 4 && live.length; k++) { var L = live.splice((rand() * live.length) | 0, 1)[0]; L.on = false; L.e.setAttribute('stroke-opacity', '.18'); L.c.style.display = 'none'; } render(); });
     on(bP, 'click', function () { var wet = P.filter(function (p) { return p.wet; }); for (var k = 0; k < 2 && wet.length; k++) { var p = wet.splice((rand() * wet.length) | 0, 1)[0]; p.wet = false; } render(); });
-    on(bR, 'click', function () { links.forEach(function (L) { L.on = true; L.e.setAttribute('stroke-opacity', '.9'); L.e.removeAttribute('stroke-dasharray'); }); P.forEach(function (p) { p.wet = true; }); render(); });
+    on(bR, 'click', function () { links.forEach(function (L) { L.on = true; L.e.setAttribute('stroke-opacity', '.9'); L.c.style.display = ''; }); P.forEach(function (p) { p.wet = true; }); render(); });
     steps(fig, [
-      { text: 'The <b>electron road</b>: a network of conductive carbon (green) touching every particle and running back to the aluminium foil. Press <b>Break carbon contacts</b> a few times.' },
+      { text: 'The <b>electron road</b>: a network of conductive carbon (black beads) touching every particle and running back to the aluminium foil. Press <b>Break carbon contacts</b> a few times.' },
       { text: 'The <b>ion road</b>: the pores between particles are filled with electrolyte that connects to the separator. Press <b>Seal some pores</b>: a particle walled off by binder gets no ions.' },
-      { text: 'A particle stores lithium only where <b>both roads arrive</b>. Every dark particle is mass and volume that the cell carries for nothing. The count is computed from the network you have left.' }
+      { text: 'A particle stores lithium only where <b>both roads arrive</b>. Every pale, dashed particle is mass and volume that the cell carries for nothing. The count is computed from the network you have left.' }
     ]);
     render();
   });
@@ -573,10 +650,11 @@
     var x0 = 70, x1 = 460, y0 = 270, y1 = 130;
     // the electrode strip, shaded by the local reaction rate
     var cells = [], N = 40, sy = 46, sh = 50;
-    el('rect', { x: x0 - 16, y: sy - 4, width: 14, height: sh + 8, fill: 'var(--metal)' }, g); txt(g, x0 - 9, sy - 10, 'collector', '', 'middle');
-    el('rect', { x: x1 + 2, y: sy - 4, width: 14, height: sh + 8, fill: 'var(--second)', 'fill-opacity': '.3' }, g); txt(g, x1 + 9, sy - 10, 'separator', 'cyan', 'middle');
-    for (var i = 0; i < N; i++) cells.push(el('rect', { x: x0 + i * (x1 - x0) / N, y: sy, width: (x1 - x0) / N + 0.5, height: sh, fill: 'var(--accent)' }, g));
-    txt(g, (x0 + x1) / 2, sy + sh + 16, 'brighter = more of the reaction happens there', '', 'middle');
+    el('rect', { x: x0, y: sy, width: x1 - x0, height: sh, fill: M('lco') }, g);
+    el('rect', { x: x0 - 16, y: sy - 4, width: 14, height: sh + 8, fill: M('alu'), stroke: '#A6AEB7', 'stroke-width': .6 }, g); txt(g, x0 - 9, sy - 10, 'collector', '', 'middle');
+    el('rect', { x: x1 + 2, y: sy - 4, width: 14, height: sh + 8, fill: M('separator'), stroke: '#C4C8BF' }, g); txt(g, x1 + 9, sy - 10, 'separator', '', 'middle');
+    for (var i = 0; i < N; i++) cells.push(el('rect', { x: x0 + i * (x1 - x0) / N, y: sy, width: (x1 - x0) / N + 0.5, height: sh, fill: '#5B8CFF' }, g));
+    txt(g, (x0 + x1) / 2, sy + sh + 16, 'brighter blue = more of the reaction happens there', '', 'middle');
     // the profile plot
     el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
     txt(g, x0, y0 + 16, 'collector', '', 'middle'); txt(g, x1, y0 + 16, 'separator', '', 'middle'); txt(g, (x0 + x1) / 2, y0 + 16, 'position across the electrode', '', 'middle');
@@ -613,14 +691,14 @@
     var defs = svg.querySelector('defs') || el('defs', {}, svg);
     parts.forEach(function (p, i) {
       var id = 'f83c' + i + Math.random().toString(36).slice(2, 6), cp = el('clipPath', { id: id }, defs); el('circle', { cx: p.x, cy: cy, r: R }, cp);
-      el('circle', { cx: p.x, cy: cy, r: R, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g);
-      p.lit = el('circle', { cx: i === 0 ? p.x - R : p.x, cy: cy, r: 0, fill: 'var(--accent)', 'fill-opacity': '.85', 'clip-path': 'url(#' + id + ')' }, g);
+      el('circle', { cx: p.x, cy: cy, r: R, fill: MB('lfp'), stroke: '#33373B', filter: 'url(#fx-lift)' }, g);
+      p.lit = el('circle', { cx: i === 0 ? p.x - R : p.x, cy: cy, r: 0, fill: '#3D6BFF', 'fill-opacity': '.8', 'clip-path': 'url(#' + id + ')' }, g);
     });
     // left: one carbon particle touching at the left edge
-    el('circle', { cx: 130 - R - 12, cy: cy, r: 14, fill: 'var(--second)' }, g); txt(g, 130 - R - 12, cy + 34, 'carbon', 'cyan', 'middle');
+    el('circle', { cx: 130 - R - 12, cy: cy, r: 14, fill: MB('carbon') }, g); txt(g, 130 - R + 2, cy + 36, 'carbon', '', 'end');
     // right: a carbon coating or nothing
-    var coat = el('circle', { cx: 390, cy: cy, r: R + 4, fill: 'none', stroke: 'var(--second)', 'stroke-width': 6 }, g);
-    var tR = txt(g, 390, cy + R + 28, '', 'cyan', 'middle'), tL = txt(g, 130, cy + R + 28, 'carbon at one point', 'cyan', 'middle');
+    var coat = el('circle', { cx: 390, cy: cy, r: R + 4, fill: 'none', stroke: MC('carbon'), 'stroke-width': 6 }, g);
+    var tR = txt(g, 390, cy + R + 28, '', '', 'middle'), tL = txt(g, 130, cy + R + 28, 'carbon at one point', '', 'middle');
     var pct = [txt(g, 130, cy + 4, '', 'strong tag', 'middle'), txt(g, 390, cy + 4, '', 'strong tag', 'middle')];
     badge(g, 130 - R - 12, cy - 26, 1); badge(g, 390 + R + 18, cy - R + 4, 2);
     function render() {
@@ -629,7 +707,7 @@
       var rL = 2 * R * k, rR = mode === 'coat' ? R * k : 0;
       parts[0].lit.setAttribute('r', rL); parts[1].lit.setAttribute('r', mode === 'coat' ? R : 0);
       if (mode === 'coat') { parts[1].lit.setAttribute('r', R); parts[1].lit.setAttribute('fill-opacity', String(0.15 + 0.7 * Math.min(1, 2 * k))); }
-      setSvgText(pct[0], k > 0.02 ? 'reacting' : ''); setSvgText(pct[1], mode === 'coat' ? (k > 0.02 ? 'reacting everywhere' : '') : 'dark');
+      setSvgText(pct[0], k > 0.02 ? 'reacting' : ''); setSvgText(pct[1], mode === 'coat' ? (k > 0.02 ? 'reacting everywhere' : '') : 'no reaction');
       read.innerHTML = 'Left: the active material conducts electrons poorly, so it reacts first where it touches the carbon and the reacted zone spreads inward from there. Right: ' + (mode === 'coat' ? 'with a carbon coating every point of the surface is a contact, so the whole particle reacts at once.' : 'with no carbon contact at all, nothing happens: no electrons, no reaction.');
     }
     Array.prototype.forEach.call(mb, function (b) { on(b, 'click', function () { mode = b.getAttribute('data-carbon'); k = 0; render(); }); });
@@ -649,7 +727,7 @@
     txt(g, bx + bw / 2, by - 12, 'large particles', 'strong', 'middle'); var t2 = txt(g, gx + bw / 2, by - 12, '', 'strong', 'middle');
     var gL = el('g', {}, g), gS = el('g', {}, g);
     // large: 4 particles of radius 32 packed in the left box
-    [[90, 95], [180, 95], [90, 170], [180, 170]].forEach(function (p) { el('circle', { cx: p[0], cy: p[1], r: 34, fill: 'var(--accent-strong)', 'fill-opacity': '.85' }, gL); });
+    [[90, 95], [180, 95], [90, 170], [180, 170]].forEach(function (p) { el('circle', { cx: p[0], cy: p[1], r: 34, fill: MB('lfp'), filter: 'url(#fx-lift)' }, gL); });
     // bars: volume needed (tap density) and time to empty a particle (L^2/2D)
     var barY = 250, bt = [txt(g, 40, barY - 6, 'time for an ion to cross a particle, t ∝ L²', '', 'start'), txt(g, 40, barY + 42, 'volume the same mass of powder takes up', '', 'start')];
     var b1 = el('rect', { x: 40, y: barY, width: 0, height: 12, fill: 'var(--second)' }, g), b2 = el('rect', { x: 40, y: barY + 48, width: 0, height: 12, fill: 'var(--accent)' }, g);
@@ -667,7 +745,7 @@
       var boxH = bh * (0.55 + 0.45 * Math.min(1, (1 - f) * 1.2));
       el('rect', { x: gx + 6, y: by + bh - boxH + 6, width: bw - 12, height: boxH - 12, rx: 4, fill: 'var(--panel-2)' }, gS);
       var rr = Math.max(3, r), step = 2 * rr + 3 + 2 * Math.max(1, 3 * f), top0 = by + bh - boxH + 6 + rr + 2;
-      for (var yy = by + bh - 8 - rr; yy >= top0 - 0.1; yy -= step) for (var xx = gx + 10 + rr; xx <= gx + bw - 10 - rr; xx += step) el('circle', { cx: xx, cy: yy, r: rr, fill: 'var(--accent-strong)', 'fill-opacity': '.85', stroke: 'var(--second)', 'stroke-width': Math.max(1, 3 * f) }, gS);
+      for (var yy = by + bh - 8 - rr; yy >= top0 - 0.1; yy -= step) for (var xx = gx + 10 + rr; xx <= gx + bw - 10 - rr; xx += step) el('circle', { cx: xx, cy: yy, r: rr, fill: MB('lfp'), stroke: MC('carbon'), 'stroke-width': Math.max(1, 3 * f) }, gS);
       var tRel = f * f, vRel = (boxH / bh) / 0.55;
       b1.setAttribute('width', 300 * tRel); b2.setAttribute('width', Math.min(300, 300 * vRel / 2));
       setSvgText(v1, f >= 0.999 ? '1 (reference)' : '÷' + kts); setSvgText(v2, 'more: lower tap density');

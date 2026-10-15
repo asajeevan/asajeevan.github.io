@@ -17,11 +17,12 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), mb = fig.querySelectorAll('button[data-mode]');
     var xn0 = 64, xn1 = 112, xp0 = 408, xp1 = 456, ye0 = 92, ye1 = 222, xsep = 260;
     // the cell: negative electrode | electrolyte with separator | positive electrode
-    el('rect', { x: xn1, y: ye0, width: xp0 - xn1, height: ye1 - ye0, fill: 'var(--second)', 'fill-opacity': '.1', stroke: 'var(--second)', 'stroke-opacity': '.45' }, g);
-    el('line', { x1: xsep, y1: ye0 + 4, x2: xsep, y2: ye1 - 4, stroke: 'var(--second)', 'stroke-dasharray': '3 5' }, g);
-    el('rect', { x: xn0, y: ye0 - 10, width: xn1 - xn0, height: ye1 - ye0 + 20, rx: 3, fill: 'var(--metal)', 'fill-opacity': '.55' }, g);
-    el('rect', { x: xp0, y: ye0 - 10, width: xp1 - xp0, height: ye1 - ye0 + 20, rx: 3, fill: 'var(--accent-strong)', 'fill-opacity': '.6' }, g);
-    for (var k = 0; k < 5; k++) { el('line', { x1: xn0 + 6, x2: xn1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: 'var(--text)', 'stroke-opacity': '.35' }, g); el('line', { x1: xp0 + 6, x2: xp1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: 'var(--text)', 'stroke-opacity': '.35' }, g); }
+    el('rect', { x: xn1, y: ye0, width: xp0 - xn1, height: ye1 - ye0, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
+    el('rect', { x: xsep - 3, y: ye0 + 2, width: 6, height: ye1 - ye0 - 4, fill: M('separator'), stroke: '#C4C8BF', 'stroke-width': .6 }, g);
+    // the electrodes of your cell, in the colour of their material
+    el('rect', { x: xn0, y: ye0 - 10, width: xn1 - xn0, height: ye1 - ye0 + 20, rx: 3, fill: M(rungMat(cell.neg)), stroke: '#2B2E33', 'stroke-opacity': '.4' }, g);
+    el('rect', { x: xp0, y: ye0 - 10, width: xp1 - xp0, height: ye1 - ye0 + 20, rx: 3, fill: M(rungMat(cell.pos)), stroke: '#2B2E33', 'stroke-opacity': '.4' }, g);
+    for (var k = 0; k < 5; k++) { el('line', { x1: xn0 + 6, x2: xn1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: '#9AA0A8', 'stroke-opacity': '.6' }, g); el('line', { x1: xp0 + 6, x2: xp1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: 'var(--text)', 'stroke-opacity': '.35' }, g); }
     txt(g, (xn0 + xn1) / 2, ye1 + 26, 'negative', 'strong', 'middle'); txt(g, (xp0 + xp1) / 2, ye1 + 26, 'positive', 'strong', 'middle');
     txt(g, xsep, ye1 + 26, 'electrolyte and separator', 'cyan', 'middle');
     // the external circuit: lamp for discharge, charger for charge

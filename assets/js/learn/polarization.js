@@ -303,6 +303,82 @@
     };
   }
 
+  /* ---------- materials: what the parts of a real cell look like ----------
+     Each physical part is drawn in its own colour (copper foil copper, aluminium foil silver,
+     graphite and the oxide powders black-grey, LiFePO4 grey, Li4Ti5O12 white, sulfur yellow,
+     the electrolyte clear, the separator white). Ions, electrons, fields and curves keep the
+     teaching colours, because they have no colour of their own. One hidden <svg> holds the
+     shared gradients: M(key) a sheet lit from the left, MV(key) lit from the top, MB(key) a
+     sphere lit from the upper left, MC(key) the plain colour. */
+  var MAT = {
+    copper:      ['#B87333', '#E8AC7C', '#C47D46', '#8F4F26', '#B46E3A'],
+    alu:         ['#C3C9CF', '#F4F6F8', '#CED4DA', '#A6AEB7', '#D8DDE2'],
+    steel:       ['#AEB6BE', '#EDF0F3', '#BBC2CA', '#8B95A0', '#C6CDD4'],
+    lithium:     ['#C8CDD3', '#F7F8FA', '#D4D9DE', '#AAB1B9', '#DEE2E6'],
+    zinc:        ['#A6B0BA', '#E4E9EE', '#B2BCC6', '#87929E', '#BFC7CF'],
+    graphite:    ['#3A3E44', '#61666E', '#3B3F45', '#232629', '#484D54'],
+    silicon:     ['#58626F', '#8994A2', '#5B6573', '#3B434E', '#68727F'],
+    lco:         ['#2F3339', '#5A6068', '#31363C', '#1C1F23', '#3D424A'],
+    lfp:         ['#4C5156', '#7A8086', '#4F5459', '#33373B', '#5C6167'],
+    lto:         ['#E9E7E1', '#FBFAF7', '#ECEAE4', '#CFCBC1', '#F1EFEA'],
+    tis2:        ['#A98A3E', '#DCC07A', '#AF8F42', '#7C6427', '#B99B50'],
+    sulfur:      ['#E2BC2B', '#F7E27B', '#E5C031', '#B88F12', '#EBCB45'],
+    carbon:      ['#1F2124', '#4A4E54', '#232528', '#111214', '#2C2F33'],
+    binder:      ['#ECEBE6', '#FFFFFF', '#EFEEE9', '#D3D1CA', '#F4F3EF'],
+    separator:   ['#F1F2EE', '#FFFFFF', '#F3F4F0', '#DADCD5', '#F7F7F4'],
+    electrolyte: ['#E6F0F6', '#F7FBFD', '#E8F2F7', '#CFE0EA', '#EEF5F9'],
+    cuso4:       ['#8EBEE6', '#C4DEF3', '#93C2E8', '#5E97C8', '#A6CCEC'],
+    sei:         ['#97773F', '#C9A86A', '#9B7B43', '#6D5428', '#A8884F'],
+    ceramic:     ['#E8E4DA', '#FAF8F3', '#EBE7DE', '#CBC5B6', '#F0EDE6'],
+    polymer:     ['#EEEBE2', '#FDFCF8', '#F0EDE5', '#D6D1C4', '#F4F2EB'],
+    oxide:       ['#7F8A99', '#B7BFCA', '#848F9D', '#5D6774', '#929CA9'],
+    hematite:    ['#7E3527', '#B0604C', '#83392B', '#55221A', '#8F4636'],
+    iron:        ['#5E6368', '#969BA1', '#63686D', '#3F4246', '#71767B'],
+    li2o:        ['#ECEAE5', '#FFFFFF', '#EEECE7', '#D3D0C8', '#F4F3EF'],
+    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40']
+  };
+  var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
+  function MC(k) { return (MAT[k] || MAT.steel)[0]; }
+  function M(k) { return 'url(#m-' + (MAT[k] ? k : 'steel') + ')'; }
+  function MV(k) { return 'url(#mv-' + (MAT[k] ? k : 'steel') + ')'; }
+  function MB(k) { return 'url(#mb-' + (MAT[k] ? k : 'steel') + ')'; }
+  function rungMat(key) { return RUNG_MAT[key] || 'lco'; }
+  /* an upright cylindrical cell (steel can, printed wrap, the + nub on top) at x, y, w wide, h tall */
+  function cellCan(parent, x, y, w, h) {
+    var s = el('g', {}, parent);
+    el('rect', { x: x + w * 0.32, y: y - 5, width: w * 0.36, height: 7, rx: 2, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': 0.8 }, s);
+    el('rect', { x: x, y: y, width: w, height: h, rx: 5, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': 0.8, filter: 'url(#fx-lift)' }, s);
+    el('rect', { x: x, y: y + h * 0.16, width: w, height: h * 0.68, fill: M('lco') }, s);
+    el('rect', { x: x + w * 0.14, y: y + h * 0.16, width: w * 0.1, height: h * 0.68, fill: '#fff', opacity: 0.16 }, s);
+    return s;
+  }
+  /* a glass beaker or tank: liquid inside, a thin glass outline and a highlight */
+  function tank(parent, x, y, w, h, liquid, rx) {
+    var s = el('g', {}, parent);
+    el('rect', { x: x, y: y, width: w, height: h, rx: rx === undefined ? 8 : rx, fill: liquid ? MV(liquid) : 'none', stroke: '#9FB3C2', 'stroke-width': 1.4 }, s);
+    el('rect', { x: x + 6, y: y + 8, width: 3, height: h - 16, rx: 1.5, fill: '#fff', opacity: 0.55 }, s);
+    return s;
+  }
+  (function () {
+    var host = document.createElementNS(NS, 'svg');
+    host.setAttribute('aria-hidden', 'true'); host.setAttribute('focusable', 'false');
+    host.setAttribute('style', 'position:absolute;width:0;height:0;overflow:hidden');
+    var defs = el('defs', {}, host);
+    Object.keys(MAT).forEach(function (k) {
+      var c = MAT[k];
+      [['m-', { x1: 0, y1: 0, x2: 1, y2: 0 }], ['mv-', { x1: 0, y1: 0, x2: 0, y2: 1 }]].forEach(function (d) {
+        var lg = el('linearGradient', Object.assign({ id: d[0] + k }, d[1]), defs);
+        [[0, c[2]], [0.18, c[1]], [0.55, c[2]], [0.85, c[3]], [1, c[4]]].forEach(function (st) { el('stop', { offset: st[0], 'stop-color': st[1] }, lg); });
+      });
+      var rg = el('radialGradient', { id: 'mb-' + k, cx: 0.36, cy: 0.32, r: 0.75, fx: 0.32, fy: 0.26 }, defs);
+      [[0, c[1]], [0.45, c[2]], [1, c[3]]].forEach(function (st) { el('stop', { offset: st[0], 'stop-color': st[1] }, rg); });
+    });
+    // a soft contact shadow for objects that stand on the page
+    var f = el('filter', { id: 'fx-lift', x: '-20%', y: '-20%', width: '140%', height: '150%' }, defs);
+    el('feDropShadow', { dx: 0, dy: 1.2, stdDeviation: 1.4, 'flood-color': '#101828', 'flood-opacity': 0.22 }, f);
+    (document.body || document.documentElement).appendChild(host);
+  })();
+
   /* ---------- figure registry ---------- */
   var figs = {};
   var loops = []; // {fig, loop}
@@ -365,11 +441,12 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), mb = fig.querySelectorAll('button[data-mode]');
     var xn0 = 64, xn1 = 112, xp0 = 408, xp1 = 456, ye0 = 92, ye1 = 222, xsep = 260;
     // the cell: negative electrode | electrolyte with separator | positive electrode
-    el('rect', { x: xn1, y: ye0, width: xp0 - xn1, height: ye1 - ye0, fill: 'var(--second)', 'fill-opacity': '.1', stroke: 'var(--second)', 'stroke-opacity': '.45' }, g);
-    el('line', { x1: xsep, y1: ye0 + 4, x2: xsep, y2: ye1 - 4, stroke: 'var(--second)', 'stroke-dasharray': '3 5' }, g);
-    el('rect', { x: xn0, y: ye0 - 10, width: xn1 - xn0, height: ye1 - ye0 + 20, rx: 3, fill: 'var(--metal)', 'fill-opacity': '.55' }, g);
-    el('rect', { x: xp0, y: ye0 - 10, width: xp1 - xp0, height: ye1 - ye0 + 20, rx: 3, fill: 'var(--accent-strong)', 'fill-opacity': '.6' }, g);
-    for (var k = 0; k < 5; k++) { el('line', { x1: xn0 + 6, x2: xn1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: 'var(--text)', 'stroke-opacity': '.35' }, g); el('line', { x1: xp0 + 6, x2: xp1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: 'var(--text)', 'stroke-opacity': '.35' }, g); }
+    el('rect', { x: xn1, y: ye0, width: xp0 - xn1, height: ye1 - ye0, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
+    el('rect', { x: xsep - 3, y: ye0 + 2, width: 6, height: ye1 - ye0 - 4, fill: M('separator'), stroke: '#C4C8BF', 'stroke-width': .6 }, g);
+    // the electrodes of your cell, in the colour of their material
+    el('rect', { x: xn0, y: ye0 - 10, width: xn1 - xn0, height: ye1 - ye0 + 20, rx: 3, fill: M(rungMat(cell.neg)), stroke: '#2B2E33', 'stroke-opacity': '.4' }, g);
+    el('rect', { x: xp0, y: ye0 - 10, width: xp1 - xp0, height: ye1 - ye0 + 20, rx: 3, fill: M(rungMat(cell.pos)), stroke: '#2B2E33', 'stroke-opacity': '.4' }, g);
+    for (var k = 0; k < 5; k++) { el('line', { x1: xn0 + 6, x2: xn1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: '#9AA0A8', 'stroke-opacity': '.6' }, g); el('line', { x1: xp0 + 6, x2: xp1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: 'var(--text)', 'stroke-opacity': '.35' }, g); }
     txt(g, (xn0 + xn1) / 2, ye1 + 26, 'negative', 'strong', 'middle'); txt(g, (xp0 + xp1) / 2, ye1 + 26, 'positive', 'strong', 'middle');
     txt(g, xsep, ye1 + 26, 'electrolyte and separator', 'cyan', 'middle');
     // the external circuit: lamp for discharge, charger for charge
@@ -666,15 +743,15 @@
     var CAP = 2.0; // Ah, the illustrative cell's low-rate capacity
     // --- the cell and the cycler ---
     var cx0 = 24, cx1 = 242, cy0 = 64, cy1 = 120, xn = 76, xp = 190, xs = 133;
-    el('rect', { x: cx0, y: cy0, width: xn - cx0, height: cy1 - cy0, rx: 3, fill: 'var(--second)', 'fill-opacity': '.22', stroke: 'var(--second)', 'stroke-opacity': '.6' }, g);
-    el('rect', { x: xn, y: cy0, width: xp - xn, height: cy1 - cy0, fill: 'var(--second)', 'fill-opacity': '.07', stroke: 'var(--line-2)' }, g);
-    el('rect', { x: xp, y: cy0, width: cx1 - xp, height: cy1 - cy0, rx: 3, fill: 'var(--accent)', 'fill-opacity': '.2', stroke: 'var(--accent)', 'stroke-opacity': '.6' }, g);
-    el('line', { x1: xs, y1: cy0 + 3, x2: xs, y2: cy1 - 3, stroke: 'var(--second)', 'stroke-dasharray': '3 4', 'stroke-opacity': '.7' }, g);
+    el('rect', { x: cx0, y: cy0, width: xn - cx0, height: cy1 - cy0, rx: 3, fill: M(rungMat(cell.neg)), stroke: '#2B2E33', 'stroke-opacity': '.4' }, g);
+    el('rect', { x: xn, y: cy0, width: xp - xn, height: cy1 - cy0, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
+    el('rect', { x: xp, y: cy0, width: cx1 - xp, height: cy1 - cy0, rx: 3, fill: M(rungMat(cell.pos)), stroke: '#2B2E33', 'stroke-opacity': '.4' }, g);
+    el('rect', { x: xs - 2.5, y: cy0 + 2, width: 5, height: cy1 - cy0 - 4, fill: M('separator'), stroke: '#C4C8BF', 'stroke-width': .6 }, g);
     txt(g, (cx0 + xn) / 2, cy1 + 15, 'negative', '', 'middle'); txt(g, (xn + xp) / 2, cy1 + 15, 'electrolyte', '', 'middle'); txt(g, (xp + cx1) / 2, cy1 + 15, 'positive', '', 'middle');
-    el('rect', { x: 78, y: 10, width: 110, height: 26, rx: 5, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g);
-    txt(g, 133, 27, 'cycler', 'strong', 'middle');
     var wire = [[50, cy0], [50, 23], [78, 23], [188, 23], [216, 23], [216, cy0]];
     el('path', { d: polyD(wire.map(function (p) { return p[0]; }), wire.map(function (p) { return p[1]; })), fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 2 }, g);
+    el('rect', { x: 78, y: 10, width: 110, height: 26, rx: 5, fill: MV('steel'), stroke: '#8B95A0', filter: 'url(#fx-lift)' }, g);
+    txt(g, 133, 27, 'cycler', 'strong', 'middle');
     txt(g, 38, 50, '−', 'strong big', 'middle'); txt(g, 228, 50, '+', 'strong big', 'middle');
     var segL = [], wl = 0; for (var i = 1; i < wire.length; i++) { var l = Math.hypot(wire[i][0] - wire[i - 1][0], wire[i][1] - wire[i - 1][1]); segL.push(l); wl += l; }
     function along(s) { s = ((s % 1) + 1) % 1 * wl; for (var k = 0; k < segL.length; k++) { if (s <= segL[k]) { var f = s / segL[k]; return [lerp(wire[k][0], wire[k + 1][0], f), lerp(wire[k][1], wire[k + 1][1], f)]; } s -= segL[k]; } return wire[wire.length - 1]; }

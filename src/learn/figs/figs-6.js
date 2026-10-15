@@ -12,16 +12,16 @@
     var gx0 = 62, gx1 = 168, px0 = 352, px1 = 458, y0 = 96, y1 = 246, xsep = 260, nL = 6;
     var gap = (y1 - y0) / nL;
     // current collectors
-    el('rect', { x: gx0 - 12, y: y0 - 6, width: 10, height: y1 - y0 + 12, fill: 'var(--copper)' }, g); txt(g, gx0 - 7, y1 + 20, 'Cu', 'strong', 'middle');
-    el('rect', { x: px1 + 2, y: y0 - 6, width: 10, height: y1 - y0 + 12, fill: 'var(--metal)' }, g); txt(g, px1 + 7, y1 + 20, 'Al', 'strong', 'middle');
+    el('rect', { x: gx0 - 12, y: y0 - 6, width: 10, height: y1 - y0 + 12, fill: M('copper') }, g); txt(g, gx0 - 7, y1 + 20, 'Cu', 'strong', 'middle');
+    el('rect', { x: px1 + 2, y: y0 - 6, width: 10, height: y1 - y0 + 12, fill: M('alu') }, g); txt(g, px1 + 7, y1 + 20, 'Al', 'strong', 'middle');
     // electrolyte
-    el('rect', { x: gx1, y: y0 - 6, width: px0 - gx1, height: y1 - y0 + 12, fill: 'var(--second)', 'fill-opacity': '.1' }, g);
+    el('rect', { x: gx1, y: y0 - 6, width: px0 - gx1, height: y1 - y0 + 12, fill: MV('electrolyte') }, g);
     el('line', { x1: xsep, y1: y0, x2: xsep, y2: y1, stroke: 'var(--second)', 'stroke-dasharray': '3 5' }, g);
     // graphite: graphene sheets; LiCoO2: CoO2 slabs drawn as rows of octahedra (squares)
     for (var i = 0; i <= nL; i++) {
       var y = y0 + i * gap;
-      el('line', { x1: gx0, x2: gx1, y1: y, y2: y, stroke: 'var(--text)', 'stroke-opacity': '.55', 'stroke-width': 2 }, g);
-      for (var k = 0; k < 7; k++) el('rect', { x: px0 + 4 + k * 15, y: y - 4, width: 8, height: 8, transform: 'rotate(45 ' + (px0 + 8 + k * 15) + ' ' + y + ')', fill: 'var(--accent-strong)', 'fill-opacity': '.65' }, g);
+      el('line', { x1: gx0, x2: gx1, y1: y, y2: y, stroke: MC('graphite'), 'stroke-opacity': '.9', 'stroke-width': 2.4 }, g);
+      for (var k = 0; k < 7; k++) el('rect', { x: px0 + 4 + k * 15, y: y - 4, width: 8, height: 8, transform: 'rotate(45 ' + (px0 + 8 + k * 15) + ' ' + y + ')', fill: MB('oxide'), stroke: '#5D6774', 'stroke-width': .6 }, g);
     }
     txt(g, (gx0 + gx1) / 2, y0 - 16, 'graphite', 'strong', 'middle'); txt(g, (px0 + px1) / 2, y0 - 16, 'LiCoO₂', 'strong', 'middle');
     txt(g, (gx0 + gx1) / 2, y1 + 20, 'sheets of carbon', '', 'middle'); txt(g, (px0 + px1) / 2, y1 + 20, 'CoO₂ layers', '', 'middle');
@@ -97,11 +97,11 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), cyc = fig.querySelectorAll('button[data-cycle]');
     // left: close-up of the graphite surface; right: the potential of the graphite on the lithium scale
     var gx0 = 40, gx1 = 120, ex1 = 300, y0 = 50, y1 = 250;
-    for (var i = 0; i < 9; i++) el('line', { x1: gx0, x2: gx1, y1: y0 + 10 + i * 22, y2: y0 + 10 + i * 22, stroke: 'var(--text)', 'stroke-opacity': '.5', 'stroke-width': 2 }, g);
+    for (var i = 0; i < 9; i++) el('line', { x1: gx0, x2: gx1, y1: y0 + 10 + i * 22, y2: y0 + 10 + i * 22, stroke: MC('graphite'), 'stroke-opacity': '.9', 'stroke-width': 2.4 }, g);
     txt(g, (gx0 + gx1) / 2, y0 - 14, 'graphite', 'strong', 'middle');
-    el('rect', { x: gx1, y: y0, width: ex1 - gx1, height: y1 - y0, fill: 'var(--second)', 'fill-opacity': '.08' }, g);
+    el('rect', { x: gx1, y: y0, width: ex1 - gx1, height: y1 - y0, fill: MV('electrolyte') }, g);
     txt(g, (gx1 + ex1) / 2 + 20, y0 - 14, 'electrolyte', 'cyan', 'middle');
-    var sei = el('rect', { x: gx1, y: y0, width: 0, height: y1 - y0, fill: 'var(--anion)', 'fill-opacity': '.7' }, g);
+    var sei = el('rect', { x: gx1, y: y0, width: 0, height: y1 - y0, fill: M('sei') }, g);
     var seiT = txt(g, gx1 + 4, y1 + 18, '', 'strong', 'start');
     var mols = []; for (i = 0; i < 9; i++) mols.push({ x: gx1 + 40 + Math.random() * 130, y: y0 + 14 + Math.random() * (y1 - y0 - 28), e: el('ellipse', { rx: 7, ry: 4, fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.4 }, g), state: 'free' });
     var our = ourIon(g, ex1 - 20, 150, 5, 'our ion', true);
@@ -190,7 +190,7 @@
     var frame = { fill: 'none', stroke: 'var(--line-2)', 'stroke-dasharray': '3 3' };
     // 1. layered: oxide slabs (solid) and lithium planes (dashed blue) between them
     var gA = el('g', {}, g), oA = O[0];
-    [0, 0.5, 1].forEach(function (y) { plane(gA, oA, y, { fill: 'var(--accent-strong)', 'fill-opacity': '.28', stroke: 'var(--accent-strong)' }); });
+    [0, 0.5, 1].forEach(function (y) { plane(gA, oA, y, { fill: MC('oxide'), 'fill-opacity': '.45', stroke: '#5D6774' }); });
     [0.25, 0.75].forEach(function (y) { plane(gA, oA, y, { fill: 'var(--cation)', 'fill-opacity': '.08', stroke: 'var(--cation)', 'stroke-dasharray': '4 3' }); });
     var a1 = P(oA, 0.15, 0.25, 0.5), a2 = P(oA, 0.85, 0.25, 0.5), a3 = P(oA, 0.5, 0.25, 0.15), a4 = P(oA, 0.5, 0.25, 0.85);
     arrow(gA, a1.x, a1.y, a2.x, a2.y, 'var(--cation)', 1.6); arrow(gA, a2.x, a2.y, a1.x, a1.y, 'var(--cation)', 1.6);
@@ -203,10 +203,10 @@
       seg(gB, oB, [u, 0, v], [u, 1, v], { stroke: 'var(--cation)', 'stroke-opacity': '.55', 'stroke-width': 1.6 });
       seg(gB, oB, [u, v, 0], [u, v, 1], { stroke: 'var(--cation)', 'stroke-opacity': '.55', 'stroke-width': 1.6 });
     }); });
-    [0, 0.5, 1].forEach(function (u) { [0, 0.5, 1].forEach(function (v) { [0, 0.5, 1].forEach(function (w) { var q = P(oB, u, v, w); el('circle', { cx: q.x, cy: q.y, r: 3.2, fill: 'var(--accent-strong)', 'fill-opacity': '.8' }, gB); }); }); });
+    [0, 0.5, 1].forEach(function (u) { [0, 0.5, 1].forEach(function (v) { [0, 0.5, 1].forEach(function (w) { var q = P(oB, u, v, w); el('circle', { cx: q.x, cy: q.y, r: 3.4, fill: MB('oxide'), stroke: '#5D6774', 'stroke-width': .5 }, gB); }); }); });
     // 3. olivine: parallel channels along x only
     var gC = el('g', {}, g), oC = O[2];
-    [0.2, 0.5, 0.8].forEach(function (y) { [0.2, 0.5, 0.8].forEach(function (z) { var p = P(oC, 0, y, z), q = P(oC, 1, y, z); el('line', { x1: p.x, y1: p.y, x2: q.x, y2: q.y, stroke: 'var(--accent-strong)', 'stroke-opacity': '.35', 'stroke-width': 11, 'stroke-linecap': 'round' }, gC); el('line', { x1: p.x, y1: p.y, x2: q.x, y2: q.y, stroke: 'var(--cation)', 'stroke-opacity': '.6', 'stroke-width': 1.4, 'stroke-dasharray': '4 3' }, gC); }); });
+    [0.2, 0.5, 0.8].forEach(function (y) { [0.2, 0.5, 0.8].forEach(function (z) { var p = P(oC, 0, y, z), q = P(oC, 1, y, z); el('line', { x1: p.x, y1: p.y, x2: q.x, y2: q.y, stroke: MC('oxide'), 'stroke-opacity': '.5', 'stroke-width': 11, 'stroke-linecap': 'round' }, gC); el('line', { x1: p.x, y1: p.y, x2: q.x, y2: q.y, stroke: 'var(--cation)', 'stroke-opacity': '.6', 'stroke-width': 1.4, 'stroke-dasharray': '4 3' }, gC); }); });
     var w1 = P(oC, 0.62, 0.5, 0.5), w2 = P(oC, 0.62, 0.8, 0.5); el('line', { x1: w1.x, y1: w1.y, x2: w2.x, y2: w2.y, stroke: 'var(--heat)', 'stroke-dasharray': '3 3' }, gC); cross(gC, (w1.x + w2.x) / 2, (w1.y + w2.y) / 2);
     [oA, oB, oC].forEach(function (o, i) { [[0, 0, 0], [1, 0, 0], [1, 0, 1], [0, 0, 1]].forEach(function (b) { seg([gA, gB, gC][i], o, b, [b[0], 1, b[2]], frame); }); });
     // the moving ions

@@ -64,9 +64,9 @@
     var bl = txt(g, x1 - 4, 0, '', 'amber', 'end');
     // cartoon: graphite with a thickening SEI, lithium counter and resistance bar
     var gx = 30, gy = 50;
-    for (var i = 0; i < 7; i++) el('line', { x1: gx, x2: gx + 60, y1: gy + 10 + i * 20, y2: gy + 10 + i * 20, stroke: 'var(--text)', 'stroke-opacity': '.5', 'stroke-width': 2 }, g);
+    for (var i = 0; i < 7; i++) el('line', { x1: gx, x2: gx + 60, y1: gy + 10 + i * 20, y2: gy + 10 + i * 20, stroke: MC('graphite'), 'stroke-width': 2.6, 'stroke-linecap': 'round' }, g);
     txt(g, gx + 30, gy - 10, 'graphite', 'strong', 'middle');
-    var sei = el('rect', { x: gx + 62, y: gy, width: 4, height: 150, fill: 'var(--anion)', 'fill-opacity': '.8' }, g);
+    var sei = el('rect', { x: gx + 62, y: gy, width: 4, height: 150, fill: M('sei') }, g);
     txt(g, gx + 100, gy - 10, 'SEI', '', 'middle');
     var rbar = el('rect', { x: gx, y: 226, width: 0, height: 10, fill: 'var(--field)' }, g); txt(g, gx, 250, 'interfacial resistance', '', 'start');
     badge(g, x0 + 30, y1 + 6, 1); badge(g, gx + 140, gy + 70, 2);
@@ -93,19 +93,18 @@
   register('f10-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var nx = 40, px = 400, top = 50, bot = 200;
-    el('rect', { x: nx, y: top, width: 70, height: bot - top, fill: 'var(--panel-2)' }, g);
-    for (var i = 0; i < 7; i++) el('line', { x1: nx + 4, x2: nx + 66, y1: top + 10 + i * 20, y2: top + 10 + i * 20, stroke: 'var(--text)', 'stroke-opacity': '.5', 'stroke-width': 2 }, g);
-    var sei = el('rect', { x: nx + 70, y: top, width: 8, height: bot - top, fill: 'var(--anion)', 'fill-opacity': '.8' }, g);
-    el('rect', { x: nx + 78, y: top, width: px - nx - 78, height: bot - top, fill: 'var(--second)', 'fill-opacity': '.08' }, g);
-    el('rect', { x: px, y: top, width: 80, height: bot - top, fill: 'var(--accent-strong)', 'fill-opacity': '.55' }, g);
-    txt(g, nx + 35, top - 12, 'graphite', 'strong', 'middle'); txt(g, nx + 74, bot + 18, 'SEI', '', 'middle'); txt(g, 255, top - 12, 'electrolyte', 'cyan', 'middle'); txt(g, px + 40, top - 12, 'LiMn₂O₄ spinel', 'strong', 'middle');
+    el('rect', { x: nx, y: top, width: px - nx, height: bot - top, fill: MV('electrolyte') }, g);
+    for (var i = 0; i < 7; i++) el('line', { x1: nx + 4, x2: nx + 66, y1: top + 10 + i * 20, y2: top + 10 + i * 20, stroke: MC('graphite'), 'stroke-width': 2.6, 'stroke-linecap': 'round' }, g);
+    var sei = el('rect', { x: nx + 70, y: top, width: 8, height: bot - top, fill: M('sei') }, g);
+    el('rect', { x: px, y: top, width: 80, height: bot - top, fill: M('lco'), filter: 'url(#fx-lift)' }, g);
+    txt(g, nx + 35, top - 12, 'graphite', 'strong', 'middle'); txt(g, nx + 74, bot + 18, 'SEI', '', 'middle'); txt(g, 255, top - 12, 'electrolyte', '', 'middle'); txt(g, px + 40, top - 12, 'LiMn₂O₄ spinel', 'strong', 'middle');
     var mns = [], n = 0, t = 0;
     var cnt = txt(g, 255, bot + 18, '', 'amber', 'middle'), q = txt(g, nx + 74, bot + 36, '', 'heat', 'middle');
     badge(g, px + 92, top + 20, 1); badge(g, 255, top + 20, 2); badge(g, nx + 74, top - 30, 3);
     function spawn() { var y = top + 20 + Math.random() * (bot - top - 40); mns.push({ x: px - 4, y: y, c: el('circle', { cx: px - 4, cy: y, r: 4.5, fill: '#b98cf0', stroke: '#fff', 'stroke-width': .8 }, g), done: false }); }
     function render() {
       setSvgText(cnt, n ? n + ' Mn ions have reached the SEI' : 'Mn²⁺ leaves the spinel');
-      sei.setAttribute('fill', n > 3 ? '#8f8aa8' : 'var(--anion)'); setSvgText(q, n > 3 ? 'poisoned: works worse' : '');
+      sei.setAttribute('fill', n > 3 ? '#5A4630' : M('sei')); setSvgText(q, n > 3 ? 'poisoned: works worse' : '');
       read.innerHTML = n > 3 ? 'The manganese has lodged in the SEI on the graphite, and the layer protects the electrode less well: more electrolyte is consumed, more lithium is lost. Damage at one electrode shows up at the other.' : 'Manganese, as Mn(II), dissolves from the spinel positive electrode into the electrolyte and drifts across the cell.';
     }
     function tick(dt) {
@@ -142,7 +141,7 @@
       el('line', { x1: x0, x2: X(r.at), y1: r.y, y2: r.y, stroke: r.col, 'stroke-width': 10, 'stroke-opacity': '.35' }, g);
       el('circle', { cx: X(r.at), cy: r.y, r: 6, fill: r.col }, g);
       txt(g, X(r.at) + (i ? 10 : -10), r.y - 12, r.txt, '', i ? 'start' : 'end');
-      badge(g, x0 - 10 - 136, r.y - 18, i + 1);
+      badge(g, x0 - 128, r.y - 20, i + 1);
     });
     txt(g, x0, 30, 'what each keeps, at the point the source gives', '', 'start');
     steps(fig, [

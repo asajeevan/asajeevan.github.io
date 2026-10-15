@@ -588,3 +588,35 @@ html:not(.fx) .circuit-fill { transform: none; opacity: .5; }
 .toc-part li.cur > a, .toc-home.cur { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
 .toc-part li.cur > a .n { color: var(--accent); }
 @media (max-width: 560px) { .kicker { font-size: .7rem; letter-spacing: .04em; align-items: flex-start; } .kicker::before { margin-top: .6em; flex: 0 0 auto; } }
+/* labels that ride on drawn materials keep a white halo */
+.our-ion-t { paint-order: stroke; stroke: #fff; stroke-width: 3px; stroke-linejoin: round; }
+/* material swatches for figure keys (same colours as the figure gradients in learn-core.js) */
+.key i.m-copper{background:radial-gradient(circle at 35% 30%,#E8AC7C,#C47D46 55%,#8F4F26);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-alu{background:radial-gradient(circle at 35% 30%,#F4F6F8,#CED4DA 55%,#A6AEB7);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-steel{background:radial-gradient(circle at 35% 30%,#EDF0F3,#BBC2CA 55%,#8B95A0);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-lithium{background:radial-gradient(circle at 35% 30%,#F7F8FA,#D4D9DE 55%,#AAB1B9);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-zinc{background:radial-gradient(circle at 35% 30%,#E4E9EE,#B2BCC6 55%,#87929E);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-graphite{background:radial-gradient(circle at 35% 30%,#61666E,#3B3F45 55%,#232629);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-silicon{background:radial-gradient(circle at 35% 30%,#8994A2,#5B6573 55%,#3B434E);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-lco{background:radial-gradient(circle at 35% 30%,#5A6068,#31363C 55%,#1C1F23);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-lfp{background:radial-gradient(circle at 35% 30%,#7A8086,#4F5459 55%,#33373B);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-lto{background:radial-gradient(circle at 35% 30%,#FBFAF7,#ECEAE4 55%,#CFCBC1);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-tis2{background:radial-gradient(circle at 35% 30%,#DCC07A,#AF8F42 55%,#7C6427);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-sulfur{background:radial-gradient(circle at 35% 30%,#F7E27B,#E5C031 55%,#B88F12);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-carbon{background:radial-gradient(circle at 35% 30%,#4A4E54,#232528 55%,#111214);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-binder{background:radial-gradient(circle at 35% 30%,#FFFFFF,#EFEEE9 55%,#D3D1CA);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-separator{background:radial-gradient(circle at 35% 30%,#FFFFFF,#F3F4F0 55%,#DADCD5);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-electrolyte{background:radial-gradient(circle at 35% 30%,#F7FBFD,#E8F2F7 55%,#CFE0EA);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-cuso4{background:radial-gradient(circle at 35% 30%,#C4DEF3,#93C2E8 55%,#5E97C8);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-sei{background:radial-gradient(circle at 35% 30%,#C9A86A,#9B7B43 55%,#6D5428);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-ceramic{background:radial-gradient(circle at 35% 30%,#FAF8F3,#EBE7DE 55%,#CBC5B6);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-polymer{background:radial-gradient(circle at 35% 30%,#FDFCF8,#F0EDE5 55%,#D6D1C4);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-oxide{background:radial-gradient(circle at 35% 30%,#B7BFCA,#848F9D 55%,#5D6774);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-hematite{background:radial-gradient(circle at 35% 30%,#B0604C,#83392B 55%,#55221A);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-iron{background:radial-gradient(circle at 35% 30%,#969BA1,#63686D 55%,#3F4246);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-li2o{background:radial-gradient(circle at 35% 30%,#FFFFFF,#EEECE7 55%,#D3D0C8);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+.key i.m-go{background:radial-gradient(circle at 35% 30%,#76675A,#4E4135 55%,#2F261E);box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)}
+
+/* composite particles drawn in their own colour (module 8) */
+.ptc.mat.on{fill:url(#mb-lco);fill-opacity:1;stroke:#1C1F23;stroke-width:1}
+.ptc.mat.dead{fill:#F4F5F7;stroke:#9AA0A8;stroke-dasharray:3 3}

@@ -60,7 +60,7 @@
         </svg>
         <div class="controls"><label><span>temperature</span> <input type="range" class="temp" min="-20" max="60" step="5" value="25" aria-label="Temperature in degrees Celsius"> <b class="temp-val">25 °C</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i style="background:#b8c9b3"></i>inorganic SEI</span><span><i style="background:#C7A44E"></i>organic SEI</span><span><i class="zn"></i>plated lithium</span><span><i class="cu"></i>metal ions from the positive side</span></div>
+        <div class="key"><span><i style="background:#E2DDD0;box-shadow:inset 0 0 0 1px rgba(16,24,40,.18)"></i>inorganic SEI</span><span><i class="m-sei"></i>organic SEI</span><span><i class="m-graphite"></i>graphite</span><span><i class="m-lithium"></i>plated lithium</span><span><i class="cu"></i>metal ions from the positive side</span></div>
         <figcaption>Graphite’s skin: the SEI, and the ways a graphite electrode ages.
           <span class="try">Try this: step through the three callouts, then slide the temperature from 25 °C to 55 °C and down to −10 °C.</span>
           <span class="basis">The SEI and its mosaic model (inorganic Li₂CO₃, Li₂O and LiF near the graphite, semi-carbonates and polyolefins further out), exfoliation by co-intercalated solvent in ethers, cross-talk from transition-metal ions, an even and porous SEI at 25 °C against a thick, non-porous one above 45 °C, and lithium plating in the cold, after Rahman et al. 2025, section 3, Table 3 and Figs. 4 and 5b. Layer thicknesses are schematic; the 5 °C threshold for plating is the figure’s, not the source’s.</span>
@@ -115,7 +115,7 @@
           <label><span>silicon in the blend</span> <input type="range" class="siw" min="0" max="30" step="1" value="8" aria-label="Silicon content in weight percent"> <b class="siw-val">8 wt%</b></label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>titanate, graphite</span><span><i style="background:var(--field)"></i>silicon</span><span><i style="background:#C7A44E"></i>SEI</span><span><i class="carb"></i>room to swell</span></div>
+        <div class="key"><span><i class="m-lto"></i>titanate</span><span><i class="m-graphite"></i>graphite</span><span><i class="m-silicon"></i>silicon</span><span><i class="m-sei"></i>SEI</span><span><i class="m-carbon"></i>carbon framework: room to swell</span></div>
         <figcaption>Silicon breathes, and its SEI pays for it.
           <span class="try">Try this: watch the silicon for three cycles, then give it room to swell; slide the silicon fraction from 5 to 20 wt%.</span>
           <span class="basis">Volume changes (about 0.2 % for Li₄Ti₅O₁₂, about 10 % for graphite, about 280 % for silicon), cracking of the SEI and its regrowth, pulverization and delamination, the mitigations, and commercial blends with 5 to 10 wt% silicon, after Rahman et al. 2025, sections 2(ii), 4 and 5 and Figs. 4e and 5c–d; silicon’s 3579 mAh/g from their Table 2. Particle radii follow the cube root of the volume; when the cracks appear is schematic. The blend capacity is a simple mass-weighted mixture: this page’s working.</span>
@@ -140,7 +140,7 @@
         </svg>
         <div class="controls"><label><span>hysteresis</span> <input type="range" class="hyst" min="0.1" max="1.2" step="0.05" value="1" aria-label="Voltage hysteresis in volts"> <b class="hyst-val">1.00 V</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="cu"></i>metal oxide</span><span><i class="zn"></i>metal grains</span><span><i class="act"></i>lithium in</span><span><i style="background:var(--second)"></i>lithium out</span><span><i class="heat"></i>energy lost per cycle</span></div>
+        <div class="key"><span><i class="m-hematite"></i>metal oxide (Fe₂O₃)</span><span><i class="m-iron"></i>metal grains</span><span><i class="m-li2o"></i>Li₂O</span><span><i class="act"></i>lithium in</span><span><i style="background:var(--second)"></i>lithium out</span><span><i class="heat"></i>energy lost per cycle</span></div>
         <figcaption>Conversion: high capacity, paid for with a volt of hysteresis.
           <span class="try">Try this: halve the hysteresis and read how much of the energy comes back.</span>
           <span class="basis">The conversion reaction, the capacities of Fe₂O₃, MnO₂ and MoS₂, hysteresis of about 1 V from the interconversion of several solid phases, and the drawbacks, after Rahman et al. 2025, sections 2(iii) and 4, Table 1 and Fig. 5e–f; two to three times the capacity of carbon after Tarascon and Armand 2001. The voltage curves are schematic around 1.25 V; the round-trip efficiency against a 3.8 V positive electrode, (3.8 − V − h/2)/(3.8 − V + h/2), is this page’s estimate.</span>
@@ -164,7 +164,7 @@
           <button type="button" class="solid-sep">Ceramic separator</button>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="zn"></i>lithium metal; dead lithium (pale)</span><span><i style="background:#C7A44E"></i>SEI</span><span><i class="carb"></i>separator</span></div>
+        <div class="key"><span><i class="m-lithium"></i>lithium metal</span><span><i style="background:#6E757D;opacity:.7"></i>dead lithium</span><span><i class="m-sei"></i>SEI</span><span><i class="m-separator"></i>separator</span><span><i class="m-ceramic"></i>ceramic separator</span><span><i class="m-lco"></i>positive electrode</span></div>
         <figcaption>Lithium metal: dendrites and dead lithium.
           <span class="try">Try this: play ten cycles at 1 mA/cm², then reset the page and play at 4 mA/cm²; then switch to the ceramic separator.</span>
           <span class="basis">Dendrites, the space-charge, tip and defect explanations, dead lithium, its thickening from about 2 µm to about 100 µm, SEI on fresh surfaces, short circuits, the Young’s modulus of lithium (about 4.9 GPa) and dendrites through the grain boundaries of ceramic electrolytes, after Rahman et al. 2025, sections 6 and 7.1 and Fig. 10; cycle life in 2004 after Winter and Brodd 2004, section 2.5. The growth follows a random rule weighted toward tips, drawn only as “rough, whisker-like”; the current density scale and cycle counter are not predictions.</span>
@@ -210,7 +210,7 @@
           <title id="f99t">An anode-free cell: a copper current collector, electrolyte, separator and positive electrode, with lithium plating onto the copper and back. Steps show three fixes: a graphene-oxide film on the copper, an additive in the electrolyte and a porous copper collector, each with the results reported.</title>
         </svg>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="cu"></i>copper</span><span><i class="zn"></i>plated lithium</span><span><i style="background:#C7A44E"></i>artificial SEI</span><span><i style="background:var(--field)"></i>additive</span><span><i class="li"></i>lithium in the positive electrode</span></div>
+        <div class="key"><span><i class="m-copper"></i>copper</span><span><i class="m-lithium"></i>plated lithium</span><span><i class="m-go"></i>artificial SEI (graphene oxide)</span><span><i style="background:var(--field)"></i>additive</span><span><i class="li"></i>lithium in the positive electrode</span></div>
         <figcaption>Making anode-free cells work: three places to intervene.
           <span class="try">Try this: step through the four callouts and, for each fix, find the number that shows it worked.</span>
           <span class="basis">Advantages, challenges and strategies (Table 4); graphene oxide on copper (Tadesse et al.), KNO₃ (Sahalie et al.), dual-salt LiDFOB/LiBF₄ (Weber et al.), localized high-concentration electrolytes, fluorinated solvents and a porous copper collector (Yun et al.), with the numbers each reported, after Rahman et al. 2025, sections 7.2 and 7.3 and Fig. 11. Drawn schematically; the reported numbers come from different cells and tests and should not be compared with each other.</span>
@@ -233,7 +233,7 @@
           <label><span>current density</span> <input type="range" class="icd" min="0.1" max="2" step="0.1" value="1" aria-label="Current density in milliamperes per square centimetre"> <b class="icd-val">1.0 mA/cm²</b></label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="heat"></i>bare interface</span><span><i style="background:var(--second)"></i>with an interlayer</span><span><i class="zn"></i>lithium</span></div>
+        <div class="key"><span><i class="heat"></i>bare interface</span><span><i style="background:var(--second)"></i>with an interlayer</span><span><i class="m-lithium"></i>lithium</span><span><i class="m-ceramic"></i>ceramic</span></div>
         <figcaption>Solid-state cells: the trouble is where the lithium meets the ceramic.
           <span class="try">Try this: at 1 mA/cm², read the voltage lost at the bare ALD interface; then add the interlayer.</span>
           <span class="basis">Poor wetting, unstable SEI and dendrites at the lithium/solid-electrolyte interface, and the interface resistances before and after a Li–C composite (381 to 11 Ω cm²), an aluminium layer (950 to 75 Ω cm²) and ALD Al₂O₃ (1710 to 1 Ω cm²) on garnet, after Rahman et al. 2025, sections 6.1 and 7.1 and Fig. 9. The voltage lost, R × i, is this page’s arithmetic; the contact drawing is schematic.</span>

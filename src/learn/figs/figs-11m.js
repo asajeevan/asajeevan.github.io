@@ -57,8 +57,9 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.cable'), sv = fig.querySelector('.cable-val');
     var C = M11.CELL, rPerM = 0.004, lPerM = 0.2e-6, fs = M11.freqs(10000, 0.5, 20);
     // the two set-ups
-    function cell(x, y) { el('rect', { x: x, y: y, width: 40, height: 56, rx: 4, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g); txt(g, x + 20, y + 33, 'cell', 'strong', 'middle'); }
-    function meter(x, y, lab) { el('rect', { x: x, y: y, width: 70, height: 56, rx: 4, fill: 'none', stroke: 'var(--line-2)' }, g); txt(g, x + 35, y + 22, 'analyzer', 'strong', 'middle'); txt(g, x + 35, y + 40, lab, '', 'middle'); }
+    function cell(x, y) { cellCan(g, x + 4, y, 32, 56); txt(g, x + 20, y + 33, 'cell', 'strong tag', 'middle'); }
+    function meterBox(x, y) { el('rect', { x: x - 8, y: y, width: 78, height: 56, rx: 4, fill: MV('steel'), stroke: '#8B95A0', filter: 'url(#fx-lift)' }, g); el('rect', { x: x - 4, y: y + 5, width: 70, height: 44, rx: 2, fill: '#FBFCFD', stroke: '#C9CED6', 'stroke-width': .6 }, g); }
+    function meter(x, y, lab) { meterBox(x, y); txt(g, x + 31, y + 22, 'analyzer', 'strong', 'middle'); txt(g, x + 31, y + 40, lab, '', 'middle'); }
     meter(20, 40, '2 terminals'); cell(200, 40);
     el('path', { d: 'M90,54 H200 M90,82 H200', stroke: 'var(--accent)', 'stroke-width': 2, fill: 'none' }, g);
     txt(g, 145, 34, 'current and voltage share the wires', '', 'middle');

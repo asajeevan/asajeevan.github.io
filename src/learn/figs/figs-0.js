@@ -122,8 +122,8 @@
     var VSl = fig.querySelector('.V'), Vv = fig.querySelector('.V-val'), lSl = fig.querySelector('.l'), lv = fig.querySelector('.l-val'), xSl = fig.querySelector('.x'), sgnBtn = fig.querySelector('button[data-probe]');
     var xL = 130, xR = 390, yT = 44, yB = 178, qp = 1, xf = 0.3, V = 1.5, l = 2;
     // plates: conductors, each at one potential
-    el('rect', { x: xL - 12, y: yT, width: 12, height: yB - yT, rx: 2, fill: 'var(--accent-strong)' }, g);
-    el('rect', { x: xR, y: yT, width: 12, height: yB - yT, rx: 2, fill: '#4b6a72' }, g);
+    el('rect', { x: xL - 12, y: yT, width: 12, height: yB - yT, rx: 2, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': .8, filter: 'url(#fx-lift)' }, g);
+    el('rect', { x: xR, y: yT, width: 12, height: yB - yT, rx: 2, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': .8, filter: 'url(#fx-lift)' }, g);
     var pL = txt(g, xL - 6, yT - 10, '', 'amber', 'middle'), pR = txt(g, xR + 6, yT - 10, '0 V', 'cyan', 'middle');
     txt(g, xL - 6, yB + 16, 'plate at φ = V', 'amber', 'middle'); txt(g, xR + 6, yB + 16, 'plate at φ = 0', 'cyan', 'middle');
     txt(g, 60, 110, 'metal:', 'strong', 'middle'); txt(g, 60, 124, 'one', '', 'middle'); txt(g, 60, 138, 'potential', '', 'middle');
@@ -178,9 +178,7 @@
     var closed = true, V = 1.5, R = 3;
     // the loop: cell at left, wire along the top through a switch, resistor (lamp) at right, wire back along the bottom
     var cx = 70, ct = 70, cb = 150; // cell box
-    el('rect', { x: cx - 24, y: ct, width: 48, height: cb - ct, rx: 6, fill: 'var(--panel)', stroke: 'var(--line-2)' }, g);
-    el('rect', { x: cx - 16, y: ct + 10, width: 32, height: 26, rx: 2, fill: 'var(--accent-strong)', 'fill-opacity': '.8' }, g);
-    el('rect', { x: cx - 16, y: cb - 36, width: 32, height: 26, rx: 2, fill: 'var(--metal)' }, g);
+    cellCan(g, cx - 22, ct, 44, cb - ct);   // a cylindrical cell standing upright
     txt(g, cx - 13, ct - 6, '+', 'strong big', 'middle'); txt(g, cx - 13, cb + 18, '−', 'strong big', 'middle');
     txt(g, cx - 30, 114, 'cell', '', 'end');
     var pathD = 'M' + cx + ',' + ct + ' V40 H200 M240,40 H410 V80 M410,140 V180 H' + cx + ' V' + cb;
@@ -239,9 +237,9 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var ESl = fig.querySelector('.E'), Ev = fig.querySelector('.E-val'), rSl = fig.querySelector('.rad'), rv = fig.querySelector('.rad-val');
     var xL = 90, xR = 430, yT = 40, yB = 170;
-    el('rect', { x: xL, y: yT, width: xR - xL, height: yB - yT, rx: 6, fill: 'var(--second)', 'fill-opacity': '.1', stroke: 'var(--second)', 'stroke-opacity': '.5' }, g);
-    el('rect', { x: xL - 12, y: yT, width: 12, height: yB - yT, rx: 2, fill: 'var(--accent-strong)', 'fill-opacity': '.8' }, g);
-    el('rect', { x: xR, y: yT, width: 12, height: yB - yT, rx: 2, fill: '#4b6a72' }, g);
+    el('rect', { x: xL, y: yT, width: xR - xL, height: yB - yT, rx: 6, fill: MV('electrolyte'), stroke: '#B7CCDA' }, g);
+    el('rect', { x: xL - 12, y: yT, width: 12, height: yB - yT, rx: 2, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': .8 }, g);
+    el('rect', { x: xR, y: yT, width: 12, height: yB - yT, rx: 2, fill: M('steel'), stroke: '#8B95A0', 'stroke-width': .8 }, g);
     txt(g, xL - 6, yT - 10, '+', 'strong big', 'middle'); txt(g, xR + 6, yT - 10, '−', 'strong big', 'middle');
     txt(g, 260, 24, 'liquid electrolyte between two electrodes', 'strong', 'middle');
     var farr = el('g', {}, g);
@@ -293,15 +291,16 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg);
     var yT = 70, yB = 210, xN0 = 92, xN1 = 170, xP0 = 300, xP1 = 400;
     // collectors, negative host (layered), electrolyte, positive host (particles)
-    el('rect', { x: xN0 - 12, y: yT, width: 12, height: yB - yT, fill: 'var(--copper)', 'fill-opacity': '.9' }, g);
-    el('rect', { x: xP1, y: yT, width: 12, height: yB - yT, fill: '#B4BDC6' }, g);
-    el('rect', { x: xN0, y: yT, width: xN1 - xN0, height: yB - yT, fill: '#E3E7EC' }, g);
-    for (var i = 0; i < 9; i++) el('line', { x1: xN0 + 6, x2: xN1 - 6, y1: yT + 12 + i * 15.5, y2: yT + 12 + i * 15.5, stroke: '#7C8796', 'stroke-opacity': '.8' }, g);
-    el('rect', { x: xN1, y: yT, width: xP0 - xN1, height: yB - yT, fill: 'var(--second)', 'fill-opacity': '.12' }, g);
+    el('rect', { x: xN0 - 12, y: yT, width: 12, height: yB - yT, fill: M('copper') }, g);
+    el('rect', { x: xP1, y: yT, width: 12, height: yB - yT, fill: M('alu') }, g);
+    el('rect', { x: xN0, y: yT, width: xN1 - xN0, height: yB - yT, fill: M('graphite') }, g);
+    for (var i = 0; i < 9; i++) el('line', { x1: xN0 + 4, x2: xN1 - 4, y1: yT + 12 + i * 15.5, y2: yT + 12 + i * 15.5, stroke: '#8A9098', 'stroke-width': 1.2, 'stroke-opacity': '.85' }, g);
+    el('rect', { x: xN1, y: yT, width: xP0 - xN1, height: yB - yT, fill: MV('electrolyte') }, g);
     el('line', { x1: (xN1 + xP0) / 2, x2: (xN1 + xP0) / 2, y1: yT + 4, y2: yB - 4, stroke: 'var(--second)', 'stroke-dasharray': '3 5', 'stroke-opacity': '.7' }, g);
-    el('rect', { x: xP0, y: yT, width: xP1 - xP0, height: yB - yT, fill: 'var(--accent-strong)', 'fill-opacity': '.18' }, g);
+    el('rect', { x: xP0, y: yT, width: xP1 - xP0, height: yB - yT, fill: '#E4E7EA' }, g);
+    for (var cb2 = 0; cb2 < 40; cb2++) el('circle', { cx: xP0 + 6 + (cb2 * 37) % 92, cy: yT + 6 + (cb2 * 53) % 128, r: 1.6, fill: MC('carbon'), 'fill-opacity': '.75' }, g);   // carbon black between the particles
     var parts = [[326, 96, 14], [368, 108, 16], [334, 150, 17], [380, 160, 13], [322, 192, 12], [366, 196, 15]];
-    parts.forEach(function (c) { el('circle', { cx: c[0], cy: c[1], r: c[2], fill: 'var(--accent-strong)', 'fill-opacity': '.9', stroke: 'var(--accent)', 'stroke-opacity': '.6' }, g); });
+    parts.forEach(function (c) { el('circle', { cx: c[0], cy: c[1], r: c[2], fill: MB('lco') }, g); });
     var target = el('circle', { cx: parts[2][0], cy: parts[2][1], r: parts[2][2] + 3, fill: 'none', stroke: 'var(--cation)', 'stroke-opacity': '0' }, g);
     // faint field arrows in the electrolyte (module 0)
     for (var k = 0; k < 3; k++) { var yy = yT + 34 + k * 44; arrow(g, xN1 + 14, yy, xN1 + 44, yy, 'var(--field)', 1.1, 'field-arrow').setAttribute('opacity', '.55'); arrow(g, xP0 - 44, yy, xP0 - 14, yy, 'var(--field)', 1.1, 'field-arrow').setAttribute('opacity', '.55'); }

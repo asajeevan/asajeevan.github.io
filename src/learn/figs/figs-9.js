@@ -91,18 +91,18 @@
       var old = gs.querySelector('.scn'); if (old) gs.removeChild(old);
       var sc = el('g', { 'class': 'scn' }, gs), cx = 135, cy = 140;
       if (mode === 'intercalation') {
-        for (var j = 0; j < 6; j++) { var y = 82 + j * 22; el('line', { x1: 60, x2: 210, y1: y, y2: y, stroke: 'var(--text)', 'stroke-opacity': '.55', 'stroke-width': 3 }, sc); }
+        for (var j = 0; j < 6; j++) { var y = 82 + j * 22; el('line', { x1: 60, x2: 210, y1: y, y2: y, stroke: MC('graphite'), 'stroke-width': 3, 'stroke-linecap': 'round' }, sc); }
         var n = Math.round(s * 20); for (var i = 0; i < n; i++) { var jj = i % 5, ii = Math.floor(i / 5); el('circle', { cx: 78 + ii * 34 + (jj % 2) * 12, cy: 93 + jj * 22, r: 4.5, 'class': 'ion' }, sc); }
         txt(sc, 135, 222, 'the layers stay; volume up about 10 %', '', 'middle');
       } else if (mode === 'alloy') {
         var r = 34 * Math.pow(1 + 2.8 * s, 1 / 3); el('circle', { cx: cx, cy: cy, r: 34, fill: 'none', stroke: 'var(--line-2)', 'stroke-dasharray': '3 3' }, sc);
-        el('circle', { cx: cx, cy: cy, r: r, fill: 'var(--field)', 'fill-opacity': '.55', stroke: 'var(--field)' }, sc);
+        el('circle', { cx: cx, cy: cy, r: r, fill: MB('silicon'), stroke: '#3B434E', filter: 'url(#fx-lift)' }, sc);
         if (s > 0.85) el('path', { d: 'M' + (cx - r * 0.7) + ',' + (cy - r * 0.2) + ' L' + cx + ',' + (cy + 4) + ' L' + (cx + r * 0.6) + ',' + (cy - r * 0.5) + ' M' + cx + ',' + (cy + 4) + ' L' + (cx + 6) + ',' + (cy + r * 0.85), fill: 'none', stroke: 'var(--bg)', 'stroke-width': 2.4 }, sc);
         txt(sc, 135, 222, 'volume × ' + (1 + 2.8 * s).toFixed(1) + ' (dashed: before)', '', 'middle');
       } else {
-        el('circle', { cx: cx, cy: cy, r: 50, fill: 'var(--copper)', 'fill-opacity': String(0.8 * (1 - s)) }, sc);
-        el('circle', { cx: cx, cy: cy, r: 50, fill: 'var(--panel-2)', 'fill-opacity': String(s), stroke: 'var(--line-2)' }, sc);
-        for (var q = 0; q < 22; q++) { var a = q * 2.4, rr = 50 * Math.sqrt((q + 0.5) / 22) * 0.88; el('circle', { cx: cx + Math.cos(a) * rr, cy: cy + Math.sin(a) * rr, r: 4.5, fill: 'var(--metal)', 'fill-opacity': String(s) }, sc); }
+        el('circle', { cx: cx, cy: cy, r: 50, fill: MB('li2o'), stroke: '#C9C5BB' }, sc);
+        el('circle', { cx: cx, cy: cy, r: 50, fill: MB('hematite'), 'fill-opacity': String(1 - s) }, sc);
+        for (var q = 0; q < 22; q++) { var a = q * 2.4, rr = 50 * Math.sqrt((q + 0.5) / 22) * 0.88; el('circle', { cx: cx + Math.cos(a) * rr, cy: cy + Math.sin(a) * rr, r: 4.5, fill: MB('iron'), 'fill-opacity': String(s) }, sc); }
         txt(sc, 135, 222, s > 0.5 ? 'Fe grains in Li₂O' : 'Fe₂O₃ particle', '', 'middle');
       }
     }
@@ -127,7 +127,7 @@
   register('f9-3', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.temp'), sv = fig.querySelector('.temp-val');
     var gx0 = 30, gx1 = 170, top = 50, bot = 240;
-    for (var j = 0; j < 8; j++) el('line', { x1: gx0, x2: gx1, y1: top + 12 + j * 24, y2: top + 12 + j * 24, stroke: 'var(--text)', 'stroke-opacity': '.5', 'stroke-width': 3 }, g);
+    for (var j = 0; j < 8; j++) el('line', { x1: gx0, x2: gx1, y1: top + 12 + j * 24, y2: top + 12 + j * 24, stroke: MC('graphite'), 'stroke-width': 3, 'stroke-linecap': 'round' }, g);
     txt(g, (gx0 + gx1) / 2, top - 10, 'graphite', 'strong', 'middle'); txt(g, 420, top - 10, 'electrolyte', 'strong', 'middle');
     var sei = el('g', {}, g), extra = el('g', {}, g), ann = el('g', {}, g);
     badge(g, gx0 + 14, bot + 18, 1); badge(g, 300, bot + 18, 2); badge(g, 470, bot + 18, 3);
@@ -137,11 +137,11 @@
       var hot = T > 45, cold = T < 5, w = hot ? 64 : 34;
       clear(sei); clear(extra); clear(ann);
       var xi = gx1, xo = gx1 + w * 0.45, xe = gx1 + w;
-      for (var k = 0; k < 9; k++) { var y = top + k * 21; el('rect', { x: xi, y: y, width: xo - xi, height: 20, fill: ['#9fb7c3', '#b8c9b3', '#c7b9d8'][k % 3], 'fill-opacity': '.75', stroke: 'var(--bg)' }, sei); el('rect', { x: xo, y: y + (k % 2) * 6, width: xe - xo - (hot ? 0 : (k % 3) * 4), height: 20, fill: '#C7A44E', 'fill-opacity': hot ? '.8' : '.45', stroke: 'var(--bg)' }, sei); }
+      for (var k = 0; k < 9; k++) { var y = top + k * 21; el('rect', { x: xi, y: y, width: xo - xi, height: 20, fill: ['#E2DDD0', '#D3CDBD', '#ECE8DF'][k % 3], stroke: '#fff' }, sei); el('rect', { x: xo, y: y + (k % 2) * 6, width: xe - xo - (hot ? 0 : (k % 3) * 4), height: 20, fill: MC('sei'), 'fill-opacity': hot ? '.95' : '.6', stroke: '#fff' }, sei); }
       if (!hot) for (var p = 0; p < 6; p++) el('circle', { cx: xo + 6 + (p % 2) * 8, cy: top + 20 + p * 30, r: 3, fill: 'var(--bg)' }, sei);
       txt(ann, xe + 10, top + 16, 'inner: Li₂CO₃, Li₂O, LiF', '', 'start'); txt(ann, xe + 10, top + 34, 'outer: semi-carbonates, polyolefins', '', 'start');
       txt(ann, xe + 10, top + 58, hot ? 'hot: thick and dense' : cold ? 'cold: lithium plates' : 'about 25 °C: even and porous', hot || cold ? 'heat' : 'cyan', 'start');
-      if (cold) { var d = 'M' + xe + ',' + (top + 90); for (var q = 0; q <= 10; q++) d += ' L' + (xe + 8 + (q % 2 ? 18 : 4)) + ',' + (top + 90 + q * 9); d += ' L' + xe + ',' + (top + 180) + ' Z'; el('path', { d: d, fill: 'var(--metal)' }, extra); txt(ann, xe + 34, top + 176, 'plated lithium', 'heat', 'start'); }
+      if (cold) { var d = 'M' + xe + ',' + (top + 90); for (var q = 0; q <= 10; q++) d += ' L' + (xe + 8 + (q % 2 ? 18 : 4)) + ',' + (top + 90 + q * 9); d += ' L' + xe + ',' + (top + 180) + ' Z'; el('path', { d: d, fill: M('lithium'), stroke: '#9AA3AD', 'stroke-width': .8 }, extra); txt(ann, xe + 34, top + 176, 'plated lithium', 'heat', 'start'); }
       if (stage === 1) { el('path', { d: 'M' + (gx1 - 30) + ',' + (top + 60) + ' l12,-10 l14,0', fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2.4 }, extra); txt(ann, gx1 - 34, top + 84, 'solvent pushed in', 'heat', 'end'); txt(ann, gx1 - 34, top + 100, 'layers split', 'heat', 'end'); }
       if (stage === 2) { for (var m = 0; m < 4; m++) el('circle', { cx: xe + 70 + m * 30, cy: top + 84 + (m % 2) * 18, r: 5, fill: 'var(--copper)' }, extra); arrow(extra, xe + 66, top + 90, xe + 6, top + 90, '#c9773b', 1.6); txt(ann, xe + 70, top + 132, 'metal ions from the positive side', '', 'start'); }
       var dom = hot ? 'SEI growth: lithium and electrolyte are consumed and the resistance rises' : cold ? 'lithium plating: lithium is deposited as metal instead of going into the graphite' : 'a stable SEI: decomposition has slowed down';
@@ -199,13 +199,13 @@
     mats.forEach(function (m, i) {
       txt(g, m.x, 24, m.name, 'strong', 'middle'); txt(g, m.x, 214, m.note + ' in volume', 'amber', 'middle');
       el('circle', { cx: m.x, cy: cy, r: r0, fill: 'none', stroke: 'var(--line-2)', 'stroke-dasharray': '3 3' }, g);
-      m.sei = el('circle', { cx: m.x, cy: cy, r: r0 + 3, fill: 'none', stroke: '#C7A44E', 'stroke-width': 3 }, g);
-      m.p = el('circle', { cx: m.x, cy: cy, r: r0, fill: m.si ? 'var(--field)' : 'var(--accent-strong)', 'fill-opacity': '.85' }, g);
+      m.sei = el('circle', { cx: m.x, cy: cy, r: r0 + 3, fill: 'none', stroke: MC('sei'), 'stroke-width': 3 }, g);
+      m.p = el('circle', { cx: m.x, cy: cy, r: r0, fill: MB(['lto', 'graphite', 'silicon'][i]), stroke: i ? 'none' : '#C9C5BB' }, g);
       m.cr = el('path', { fill: 'none', stroke: 'var(--bg)', 'stroke-width': 2.4 }, g);
       badge(g, m.x + 50, 34, i + 1);
     });
-    var shell = el('circle', { cx: 400, cy: cy, r: r0 * 1.56 + 10, fill: 'var(--second)', 'fill-opacity': '0', stroke: 'var(--second)', 'stroke-width': 3, 'stroke-opacity': '0' }, g);
-    txt(g, 260, 236, 'dashed: the particle before lithium goes in; gold rim: its SEI', '', 'middle');
+    var shell = el('circle', { cx: 400, cy: cy, r: r0 * 1.56 + 10, fill: MC('carbon'), 'fill-opacity': '0', stroke: MC('carbon'), 'stroke-width': 3, 'stroke-dasharray': '1 4', 'stroke-linecap': 'round', 'stroke-opacity': '0' }, g);
+    txt(g, 260, 236, 'dashed: the particle before lithium goes in; brown rim: its SEI', '', 'middle');
     var blend = el('g', {}, g);
     function render() {
       var s = 0.5 - 0.5 * Math.cos(ph * 2 * Math.PI), w = +sw.value / 100; setSvgText(swv, Math.round(w * 100) + ' wt%');
@@ -240,9 +240,9 @@
   register('f9-6', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.hyst'), sv = fig.querySelector('.hyst-val');
     var cx = 100, cy = 120, R = 62, ph = 0.25;
-    var big = el('circle', { cx: cx, cy: cy, r: R, fill: 'var(--copper)', 'fill-opacity': '.8' }, g);
-    var mat = el('circle', { cx: cx, cy: cy, r: R, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g);
-    var nps = []; for (var i = 0; i < 24; i++) { var a = i * 2.4, rr = R * Math.sqrt((i + 0.5) / 24) * 0.88; nps.push(el('circle', { cx: cx + Math.cos(a) * rr, cy: cy + Math.sin(a) * rr, r: 4.5, fill: 'var(--metal)' }, g)); }
+    var mat = el('circle', { cx: cx, cy: cy, r: R, fill: MB('li2o'), stroke: '#C9C5BB' }, g);
+    var big = el('circle', { cx: cx, cy: cy, r: R, fill: MB('hematite') }, g);
+    var nps = []; for (var i = 0; i < 24; i++) { var a = i * 2.4, rr = R * Math.sqrt((i + 0.5) / 24) * 0.88; nps.push(el('circle', { cx: cx + Math.cos(a) * rr, cy: cy + Math.sin(a) * rr, r: 4.5, fill: MB('iron') }, g)); }
     var lbl = txt(g, cx, cy + R + 22, '', 'strong', 'middle');
     var b = { x0: 250, y0: 226, x1: 505, y1: 40 }, X = function (u) { return b.x0 + u * (b.x1 - b.x0); }, Y = function (v) { return b.y0 - v / 3 * (b.y0 - b.y1); };
     e11axes(g, b, { X: X, Y: Y, xt: [[0, '0'], [0.5, '50'], [1, '100']], yt: [[0, '0'], [1, '1'], [2, '2'], [3, '3']], grid: true, xlab: 'lithium content, %', ylab: 'V vs Li/Li⁺' });
@@ -262,7 +262,7 @@
     }
     function place() {
       var s = 0.5 - 0.5 * Math.cos(ph * 2 * Math.PI), going = ph < 0.5;
-      big.setAttribute('fill-opacity', String(0.8 * (1 - s))); mat.setAttribute('fill-opacity', String(s)); nps.forEach(function (n) { n.setAttribute('fill-opacity', String(s)); });
+      big.setAttribute('fill-opacity', String(1 - s)); nps.forEach(function (n) { n.setAttribute('fill-opacity', String(s)); });
       setSvgText(lbl, s > 0.5 ? 'metal grains in Li₂O' : 'metal oxide particle');
       dot.setAttribute('cx', X(s)); dot.setAttribute('cy', Y(going ? vin(s) : vout(s)));
       var eff = M9.hysteresisEfficiency(3.8, Va, h), effG = M9.hysteresisEfficiency(3.8, 0.15, 0.03);
@@ -284,12 +284,13 @@
   register('f9-7', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.cd'), sv = fig.querySelector('.cd-val'), sepB = fig.querySelector('.solid-sep');
     var x0 = 70, top = 40, bot = 240, sepX = 320, NP = 46, rough = [], dead = [];
-    el('rect', { x: 20, y: top, width: x0 - 20, height: bot - top, fill: 'var(--metal)' }, g);
+    el('rect', { x: x0, y: top, width: sepX - x0, height: bot - top, fill: MV('electrolyte') }, g);
+    el('rect', { x: 20, y: top, width: x0 - 20, height: bot - top, fill: M('lithium'), stroke: '#9AA3AD', 'stroke-width': .8 }, g);
     txt(g, 45, top - 10, 'lithium', 'strong', 'middle'); txt(g, (x0 + sepX) / 2, top - 10, 'electrolyte', 'strong', 'middle');
-    var sep = el('rect', { x: sepX, y: top, width: 14, height: bot - top, fill: 'var(--second)', 'fill-opacity': '.3' }, g);
-    var gb = el('g', {}, g), sepT = txt(g, sepX + 7, bot + 16, 'separator', 'cyan', 'middle');
-    el('rect', { x: sepX + 14, y: top, width: 160, height: bot - top, fill: 'var(--panel-2)', 'fill-opacity': '.6' }, g); txt(g, sepX + 94, top - 10, 'positive electrode', 'strong', 'middle');
-    var dep = el('path', { fill: 'var(--metal)', 'fill-opacity': '.9' }, g), deadG = el('g', {}, g), seiP = el('path', { fill: 'none', stroke: '#C7A44E', 'stroke-width': 2 }, g);
+    var sep = el('rect', { x: sepX, y: top, width: 14, height: bot - top, fill: M('separator'), stroke: '#C4C8BF', 'stroke-width': .8 }, g);
+    var gb = el('g', {}, g), sepT = txt(g, sepX + 7, bot + 16, 'separator', '', 'middle');
+    el('rect', { x: sepX + 14, y: top, width: 160, height: bot - top, fill: M('lco') }, g); txt(g, sepX + 94, top - 10, 'positive electrode', 'strong', 'middle');
+    var dep = el('path', { fill: M('lithium'), stroke: '#9AA3AD', 'stroke-width': .7 }, g), deadG = el('g', {}, g), seiP = el('path', { fill: 'none', stroke: MC('sei'), 'stroke-width': 2 }, g);
     var cT = txt(g, x0 + 4, bot + 34, '', 'amber', 'start'), stopT = txt(g, sepX - 10, top + 16, '', 'heat', 'end');
     badge(g, x0 + 14, top + 14, 1); badge(g, x0 + 14, bot - 14, 2); badge(g, sepX - 12, bot - 14, 3);
     for (var j = 0; j <= NP; j++) rough.push(2);
@@ -301,9 +302,9 @@
       var level = ph < 0.5 ? ph * 2 : 2 - ph * 2, d = 'M' + x0 + ',' + top, s = '';
       for (var j = 0; j <= NP; j++) { var y = top + (bot - top) * j / NP, w = Math.min(lim(j), (4 + rough[j]) * Math.max(0.25, level)); d += ' L' + (x0 + w).toFixed(1) + ',' + y.toFixed(1); s += (j ? ' L' : 'M') + (x0 + w + 2).toFixed(1) + ',' + y.toFixed(1); }
       dep.setAttribute('d', d + ' L' + x0 + ',' + bot + ' Z'); seiP.setAttribute('d', s);
-      clear(deadG); dead.forEach(function (q) { el('circle', { cx: q.x, cy: q.y, r: q.r, fill: 'var(--metal)', 'fill-opacity': '.45', stroke: 'var(--line-2)' }, deadG); });
+      clear(deadG); dead.forEach(function (q) { el('circle', { cx: q.x, cy: q.y, r: q.r, fill: '#6E757D', 'fill-opacity': '.55', stroke: MC('sei'), 'stroke-width': 1 }, deadG); });
       clear(gb); if (solid) for (var k = 7; k <= NP; k += 15) { var yy = top + (bot - top) * k / NP; el('line', { x1: sepX, x2: sepX + 14, y1: yy, y2: yy + 4, stroke: 'var(--bg)', 'stroke-width': 2 }, gb); }
-      sep.setAttribute('fill', solid ? 'var(--text)' : 'var(--second)'); sep.setAttribute('fill-opacity', solid ? '.35' : '.3'); setSvgText(sepT, solid ? 'ceramic' : 'separator');
+      sep.setAttribute('fill', solid ? M('ceramic') : M('separator')); sep.setAttribute('stroke', solid ? '#B9B2A2' : '#C4C8BF'); setSvgText(sepT, solid ? 'ceramic' : 'separator');
       var maxR = 0, through = false; rough.forEach(function (r, j) { maxR = Math.max(maxR, r + 4); if (4 + r > sepX - x0 - 1 && lim(j) > sepX - x0) through = true; });
       var touch = !solid ? maxR > sepX - x0 - 2 : through;
       setSvgText(cT, 'cycles: ' + cyc + '; dead lithium pieces: ' + dead.length);
@@ -367,11 +368,12 @@
   register('f9-9', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var top = 50, bot = 220, cu0 = 40, cu1 = 62, sep0 = 300, sep1 = 312;
-    el('rect', { x: cu0, y: top, width: cu1 - cu0, height: bot - top, fill: 'var(--copper)' }, g); txt(g, (cu0 + cu1) / 2, top - 10, 'Cu', 'strong', 'middle');
-    el('rect', { x: sep0, y: top, width: sep1 - sep0, height: bot - top, fill: 'var(--second)', 'fill-opacity': '.3' }, g);
-    el('rect', { x: sep1, y: top, width: 170, height: bot - top, fill: 'var(--panel-2)', 'fill-opacity': '.7' }, g); txt(g, sep1 + 85, top - 10, 'positive electrode', 'strong', 'middle'); txt(g, 180, top - 10, 'electrolyte', 'strong', 'middle');
+    el('rect', { x: cu1, y: top, width: sep0 - cu1, height: bot - top, fill: MV('electrolyte') }, g);
+    el('rect', { x: cu0, y: top, width: cu1 - cu0, height: bot - top, fill: M('copper'), filter: 'url(#fx-lift)' }, g); txt(g, (cu0 + cu1) / 2, top - 10, 'Cu', 'strong', 'middle');
+    el('rect', { x: sep0, y: top, width: sep1 - sep0, height: bot - top, fill: M('separator'), stroke: '#C4C8BF', 'stroke-width': .8 }, g);
+    el('rect', { x: sep1, y: top, width: 170, height: bot - top, fill: M('lco') }, g); txt(g, sep1 + 85, top - 10, 'positive electrode', 'strong', 'middle'); txt(g, 180, top - 10, 'electrolyte', 'strong', 'middle');
     for (var i = 0; i < 10; i++) el('circle', { cx: sep1 + 20 + (i % 5) * 32, cy: top + 40 + Math.floor(i / 5) * 70, r: 5, 'class': 'ion' }, g);
-    var layer = el('g', {}, g), plated = el('path', { fill: 'var(--metal)' }, g);
+    var layer = el('g', {}, g), plated = el('path', { fill: M('lithium'), stroke: '#9AA3AD', 'stroke-width': .7 }, g);
     badge(g, cu1 + 18, bot + 18, 1); badge(g, 120, bot + 18, 2); badge(g, 200, bot + 18, 3); badge(g, 280, bot + 18, 4);
     var stage = 0, ph = 0;
     var S = [
@@ -385,9 +387,9 @@
       var lv = 0.5 - 0.5 * Math.cos(ph * 2 * Math.PI), d = 'M' + cu1 + ',' + top;
       for (var j = 0; j <= 30; j++) { var y = top + (bot - top) * j / 30, w = lv * (stage >= 1 ? 14 : 8 + ((j * 7) % 11) * 1.6); d += ' L' + (cu1 + (stage === 3 ? 10 : 0) + w).toFixed(1) + ',' + y.toFixed(1); }
       plated.setAttribute('d', d + ' L' + cu1 + ',' + bot + ' Z');
-      if (stage === 1) el('rect', { x: cu1, y: top, width: 4, height: bot - top, fill: '#C7A44E' }, layer);
+      if (stage === 1) el('rect', { x: cu1, y: top, width: 4, height: bot - top, fill: MC('go') }, layer);
       if (stage === 2) for (var k = 0; k < 8; k++) el('circle', { cx: 110 + (k % 4) * 45, cy: top + 30 + Math.floor(k / 4) * 90, r: 4, fill: 'var(--field)' }, layer);
-      if (stage === 3) for (var m = 0; m < 9; m++) el('rect', { x: cu1, y: top + 6 + m * 19, width: 10, height: 8, fill: 'var(--copper)' }, layer);
+      if (stage === 3) for (var m = 0; m < 9; m++) el('rect', { x: cu1, y: top + 6 + m * 19, width: 10, height: 8, fill: M('copper') }, layer);
       txt(layer, 180, bot + 40, ['bare copper', 'graphene-oxide film on the copper', 'an additive in the electrolyte', 'porous copper'][stage], 'amber', 'middle');
       read.innerHTML = S[stage].r;
     }
@@ -402,8 +404,8 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sl = fig.querySelector('.icd'), sv = fig.querySelector('.icd-val');
     var mode = e11modes(fig, function (m) { mode = m; render(); });
     var top = 50, bot = 200, xi = 120;
-    el('rect', { x: 30, y: top, width: xi - 30, height: bot - top, fill: 'var(--metal)' }, g); txt(g, 75, top - 10, 'lithium', 'strong', 'middle');
-    el('rect', { x: xi + 6, y: top, width: 90, height: bot - top, fill: 'var(--text)', 'fill-opacity': '.25' }, g); txt(g, xi + 51, top - 10, 'ceramic', 'strong', 'middle');
+    el('rect', { x: 30, y: top, width: xi - 30, height: bot - top, fill: M('lithium'), stroke: '#9AA3AD', 'stroke-width': .8 }, g); txt(g, 75, top - 10, 'lithium', 'strong', 'middle');
+    el('rect', { x: xi + 6, y: top, width: 90, height: bot - top, fill: M('ceramic'), stroke: '#B9B2A2', 'stroke-width': .8 }, g); txt(g, xi + 51, top - 10, 'ceramic', 'strong', 'middle');
     var gap = el('g', {}, g), inter = el('rect', { x: xi, y: top, width: 6, height: bot - top, fill: 'var(--second)' }, g), capT = txt(g, 123, bot + 20, '', '', 'middle');
     var b = { x0: 290, y0: 200, x1: 505, y1: 40 }, Y = function (r) { return e11log(Math.max(r, 0.5), -0.3, 3.9, b.y0, b.y1); };
     e11axes(g, b, { X: function (x) { return x; }, Y: Y, yt: [[1, '1'], [10, '10'], [100, '100'], [1000, '1000']], grid: true, ylab: 'interface resistance, Ω cm² (log)' });

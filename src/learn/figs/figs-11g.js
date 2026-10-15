@@ -17,9 +17,9 @@
     function E(i) { var t = sim.t[i] * T; return E1 + (t < tau ? IR : 0) + k * sim.us[i]; }
     // film panel
     var fx0 = 58, fx1 = 210, fy0 = 64, fy1 = 236, c0y = 92, sc = 150;
-    el('rect', { x: 20, y: fy0, width: fx0 - 20, height: fy1 - fy0, fill: 'var(--second)', 'fill-opacity': '.08' }, g);
+    el('rect', { x: 20, y: fy0, width: fx0 - 20, height: fy1 - fy0, fill: MV('electrolyte') }, g);
     el('rect', { x: fx0, y: fy0, width: fx1 - fx0, height: fy1 - fy0, rx: 2, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g);
-    el('rect', { x: fx1, y: fy0, width: 12, height: fy1 - fy0, fill: 'var(--metal, #8a9aa0)', 'fill-opacity': '.7' }, g);
+    el('rect', { x: fx1, y: fy0, width: 12, height: fy1 - fy0, fill: M('alu'), stroke: '#A6AEB7', 'stroke-width': .6 }, g);
     txt(g, 39, fy0 - 8, 'electrolyte', '', 'middle'); txt(g, (fx0 + fx1) / 2, fy0 - 28, 'active film, 2 µm', 'strong', 'middle'); txt(g, (fx0 + fx1) / 2, fy0 - 8, 'lithium content', '', 'middle');
     txt(g, fx0 + 2, fy1 + 16, 'surface', '', 'start'); txt(g, fx1 + 12, fy1 + 16, 'back, no flux', '', 'end');
     el('line', { x1: fx0, x2: fx1, y1: c0y, y2: c0y, stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, g);

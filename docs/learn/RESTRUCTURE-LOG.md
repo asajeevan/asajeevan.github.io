@@ -90,3 +90,24 @@ Read the plan first; this file records state, decisions and the checklist so wor
   clear of the wire; figure keys at full opacity for contrast.
 - Checks: all 94 figures reviewed on contact sheets; gate exit 0 on 29 pages with the new fonts; axe (incl. colour
   contrast) clean on 29 course pages and the home page; 0 broken links; 74 tests.
+
+## Realistic colours in the figures (2026-10-15, owner's request: realistic colours for all figures, better graphics)
+- Rule: every physical part is drawn in the colour it has in a real cell; ions, electrons, fields, curves, plots and
+  state overlays (lithium content, reacting zone, selected part) keep the teaching colours, since they have no colour
+  of their own.
+- Material library in learn-core.js: MAT holds 25 materials (copper, aluminium, steel, lithium, zinc, graphite,
+  silicon, LiCoO2-type oxide powder, LiFePO4, Li4Ti5O12, TiS2, sulfur, carbon black, binder, separator, electrolyte,
+  CuSO4 solution, SEI, ceramic, polymer, framework oxide, Fe2O3, iron, Li2O, graphene oxide). One hidden SVG holds the
+  shared gradients: M (sheet lit from the left), MV (lit from the top), MB (shaded sphere), MC (plain colour), and a
+  soft contact shadow (#fx-lift). Helpers: rungMat (electrode of a ladder rung), cellCan (cylindrical cell: steel can,
+  wrap, + nub), tank (glass vessel with a highlight).
+- Applied in figures 0.3 to 0.5 and the hero, 1.1 to 1.3, 2.1 to 2.3, 3.1, 3.2, 5.1, 5.2, 5.8p, 5.8, 6.1, 6.3, 6.4,
+  7.2, 7.6, 7.8, 7.10, 7.11, 8.1 to 8.4, 9.2, 9.3, 9.5 to 9.7, 9.9, 9.10, 10.2, 10.3, L2.2 (film), L3.6 (cell and
+  analyzer). Molecules keep CPK colours; crystal frameworks are neutral grey.
+- Figure keys use material swatches (.key i.m-<material>, radial gradients generated from MAT); colour words in steps,
+  captions and titles updated (green dots -> pale blue dots, gold rim -> brown rim, dark particle -> pale dashed
+  particle, and so on).
+- Fixes found on the way: cycler box of 5.1 drawn above its wire; exponent in 5.8p typeset (ε^1.5); carbon label of
+  8.3 clear of the particle; badges of 7.11 and 10.4 no longer overlap or clip; analyzer label of L3.6 fits its box.
+- Checks: all figures reviewed on contact sheets; gate exit 0 on 29 pages; axe clean (reduced motion) on 29 course
+  pages and the home page; 0 broken links; 74 tests.
