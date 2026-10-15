@@ -218,3 +218,11 @@ Read the plan first; this file records state, decisions and the checklist so wor
   rows of cores); electrons bunched in threes; random start positions replaced by fixed ones, so the figure looks the
   same on every load. With reduced motion the figure shows one reaction in place.
 - Checks: motion on and off at 1300 and 360 px; gate exit 0; axe clean; 74 tests.
+
+## Figure 15.2 ions (2026-10-16, owner's request: make the ions more realistic)
+- The ions are now shaded space-filling spheres in the CPK (Jmol) colours that molecular models use for Li, Na, K
+  and Ca, with a highlight, a darker rim, a soft halo and a contact shadow, all on one baseline in a full-width strip,
+  drawn to scale at 30 px per ångström (was 20) with a 1 Å scale bar. A dashed ring inside Na⁺, K⁺ and Ca²⁺ shows the
+  size of Li⁺. Bars and potential rungs use a deeper tone of the same colours. The basis line says that the shading
+  and halo are drawing style only. viewBox 520 × 386 (was 268).
+- Checks: 1300 and 360 px; gate exit 0; axe clean; 0 broken links.
