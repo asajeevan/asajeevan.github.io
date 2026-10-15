@@ -111,3 +111,15 @@ Read the plan first; this file records state, decisions and the checklist so wor
   8.3 clear of the particle; badges of 7.11 and 10.4 no longer overlap or clip; analyzer label of L3.6 fits its box.
 - Checks: all figures reviewed on contact sheets; gate exit 0 on 29 pages; axe clean (reduced motion) on 29 course
   pages and the home page; 0 broken links; 74 tests.
+
+## Realistic colours on the home page (2026-10-15, owner's request)
+- index.html gets one hidden SVG with the shared material gradients (same palette as the course: copper, aluminium,
+  lithium, steel, polymer electrolyte, composite electrode, organic particle, carbon black) and the contact shadow.
+- Hero cell: copper and aluminium collectors, silver lithium, off-white polymer electrolyte with its chains, a black
+  composite electrode (carbon black) with pale organic particles; key updated. Binder figure: polymer electrolyte
+  beside a black composite. In situ figure: pale particles with black carbon black, Ketjenblack drawn as black beaded
+  chains. Clamp: steel plates, lithium, polymer electrolyte, electrode, relabelled. Recovery: a dark electrode
+  fragment, stream labels moved inside their boxes. Map: blue sea, sand land, haloed labels.
+- Plots and the development chain keep the site colours. The organic particles use a neutral pale tone, not a
+  measured colour of the material.
+- Checks: axe clean on the home page; 0 broken links.

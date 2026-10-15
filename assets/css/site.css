@@ -177,7 +177,7 @@ html.motion .ion-static{display:none}
 }
 .pub-link{font-size:.9rem;color:var(--muted)}
 .scene-fig{padding:16px;position:sticky;top:96px}
-.scene .ion{fill:var(--accent)}
+.scene .ion{fill:var(--accent);stroke:#fff;stroke-width:1.2}
 .bar-val{font-family:var(--display);font-size:20px;fill:var(--text)}
 .draw{stroke-dasharray:400;stroke-dashoffset:400}
 .nyq{transform-origin:50px 150px}
@@ -241,12 +241,13 @@ html.motion .ion-static{display:none}
 .tl .org{font-family:var(--display);color:var(--muted);font-size:1.02rem}
 .tl p{color:var(--muted);font-size:.94rem;margin-top:8px;max-width:68ch}
 .map-fig{position:sticky;top:96px;padding:12px}
-#map .land{fill:#EEF1F5;stroke:#C9D0D9;stroke-width:.8;stroke-linejoin:round}
+#map .land{fill:#EFEADC;stroke:#B9C8D3;stroke-width:.8;stroke-linejoin:round}
+#map .graticule{stroke:#C4D6E3}
 #map .arc{fill:none;stroke:var(--accent);stroke-width:1.5;stroke-dasharray:400;stroke-dashoffset:400}
 #map .pin circle{fill:var(--second)}
 #map .pin.collab circle{fill:var(--bg);stroke:var(--second);stroke-width:2}
 #map .arc.collab{stroke-dasharray:4 4;stroke-dashoffset:400}
-#map .pin text{font-family:var(--sans);font-size:11px;fill:var(--text)}
+#map .pin text{font-family:var(--sans);font-size:11px;fill:var(--text);paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
 @media (max-width:820px){.map-fig{position:static}}
 
 /* ---------- publications ---------- */
