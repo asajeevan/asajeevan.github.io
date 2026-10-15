@@ -19,35 +19,68 @@
   register('f9-1', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var A = M9.ANODES, POS = { q: 200, v: 3.8 };
-    var b = { x0: 60, y0: 262, x1: 330, y1: 40 }, X = function (q) { return e11log(q, 2, Math.log10(5000), b.x0, b.x1); }, Y = function (v) { return b.y0 - v / 2 * (b.y0 - b.y1); };
+    var LO = 2, HI = Math.log10(5000);
+    // the map, full width: capacity across (log), potential against lithium up
+    var b = { x0: 60, y0: 340, x1: 500, y1: 140 }, X = function (q) { return e11log(q, LO, HI, b.x0, b.x1); }, Y = function (v) { return b.y0 - v / 2 * (b.y0 - b.y1); };
+    // a family is shown by colour and by the shape of its marker
+    function marker(p, x, y, kind, r) {
+      var c = K9[kind], a = { fill: c, stroke: 'var(--bg)', 'stroke-width': 1.2 };
+      if (kind === 'alloy') return el('path', Object.assign({ d: 'M' + x + ',' + (y - r - 1) + ' l' + (r + 1) + ',' + (r + 1) + ' l' + (-r - 1) + ',' + (r + 1) + ' l' + (-r - 1) + ',' + (-r - 1) + ' z' }, a), p);
+      if (kind === 'conversion') return el('rect', Object.assign({ x: x - r + 0.5, y: y - r + 0.5, width: 2 * r - 1, height: 2 * r - 1, rx: 1 }, a), p);
+      if (kind === 'metal') return el('circle', Object.assign({ cx: x, cy: y, r: r + 0.5, fill: MB('lithium'), stroke: '#8B95A0' }), p);
+      return el('circle', Object.assign({ cx: x, cy: y, r: r }, a), p);
+    }
+    // ---------- top strip: theoretical capacities by class, from a 2026 review ----------
+    txt(g, 16, 16, 'theoretical capacity by class, as a 2026 review lists it', 'strong', 'start');
+    var CL = [['nanostructured carbons', 372, 1750, 'intercalation', 'up to 1750'], ['metal oxides', 375, 1170, 'conversion', '375–1170'], ['metal nitrides', 400, 1300, 'conversion', '400–1300'], ['metal sulfides', 447, 1230, 'conversion', '447–1230'], ['metal phosphides', 700, 1800, 'conversion', '700–1800']];
+    CL.forEach(function (c, i) {
+      var y = 32 + i * 14, x1 = X(c[1]), x2 = X(c[2]);
+      el('rect', { x: x1, y: y - 5, width: x2 - x1, height: 9, rx: 4.5, fill: K9[c[3]], 'fill-opacity': c[3] === 'intercalation' ? .55 : .5 }, g);
+      txt(g, x1 - 6, y + 3.5, c[0], '', 'end', { style: 'font-size:11px' }); txt(g, x2 + 5, y + 3.5, c[4], '', 'start', { style: 'font-size:11px;fill:var(--muted)' });
+    });
+    var EL = [['Sn', 960, -1, -1], ['In', 1012, 1, 1], ['Ge', 1384, 1, -1], ['P', 2596, 1, 1], ['Si', 4200, -1, -1]], ye = 110; // [name, mAh/g, side, above (-1) or below (1)]
+    txt(g, X(372) - 6, ye + 3.5, 'elements that alloy', '', 'end', { style: 'font-size:11px' });
+    el('line', { x1: X(372), x2: b.x1, y1: ye, y2: ye, stroke: 'var(--line)', 'stroke-dasharray': '2 4' }, g);
+    EL.forEach(function (e) { var x = X(e[1]); marker(g, x, ye, 'alloy', 4); txt(g, x + e[2] * 6, e[3] < 0 ? ye - 6 : ye + 15, e[0] + ' ' + e[1], '', e[2] > 0 ? 'start' : 'end', { style: 'font-size:11px' }); });
+    // ---------- the map ----------
     el('rect', { x: b.x0, y: Y(0.8), width: b.x1 - b.x0, height: Y(0) - Y(0.8), fill: 'var(--second)', 'fill-opacity': '.05' }, g);
-    e11axes(g, b, { X: X, Y: Y, xt: [[100, '100'], [300, '300'], [1000, '1000'], [3000, '3000']], yt: [[0, ''], [0.5, '0.5'], [1, '1.0'], [1.5, '1.5'], [2, '2.0']], grid: true, xlab: 'capacity, mAh/g (log)', ylab: 'V vs Li/Li⁺' });
-    txt(g, b.x1 - 4, Y(0.8) - 6, 'low and right: best', 'cyan', 'end');
+    e11axes(g, b, { X: X, Y: Y, xt: [[100, '100'], [300, '300'], [1000, '1000'], [3000, '3000']], yt: [[0, ''], [0.5, '0.5'], [1, '1.0'], [1.5, '1.5'], [2, '2.0']], grid: true, xlab: 'capacity, mAh/g (log)', ylab: 'potential, V vs Li⁺/Li' });
+    txt(g, b.x1 - 6, Y(0.95), 'low and to the right: best', 'cyan', 'end');
     var names = { graphite: 'graphite', lto: 'Li₄Ti₅O₁₂', tnb: 'TiNb₂O₇', si: 'Si', sn: 'Sn', ge: 'Ge', sb: 'Sb', tio2: 'TiO₂', fe2o3: 'Fe₂O₃', mno2: 'MnO₂', mos2: 'MoS₂', fep: 'FeP', li: 'Li metal' };
-    var lab = { graphite: [8, 4, 'start'], lto: [0, -10, 'middle'], tnb: [0, -62, 'middle'], tio2: [-8, 18, 'end'], si: [-8, -16, 'end'], sn: [0, 46, 'middle'], ge: [8, 30, 'start'], sb: [-8, 0, 'end'], fe2o3: [-8, 4, 'end'], mno2: [8, -8, 'start'], mos2: [0, -45, 'middle'], fep: [8, 4, 'start'], li: [-8, -8, 'end'] };
-    var dots = {};
+    // label positions: [x offset, potential at which to write, anchor]
+    var lab = { graphite: [9, 0.15, 'start'], lto: [0, 1.68, 'middle'], tnb: [7, 1.9, 'start'], tio2: [-8, 1.5, 'end'], si: [-9, 0.5, 'end'], sn: [8, 0.32, 'start'], ge: [8, 0.5, 'start'],
+      sb: [-8, 0.5, 'end'], fe2o3: [0, 1.6, 'middle'], mno2: [8, 1.25, 'start'], mos2: [-7, 1.72, 'end'], fep: [-8, 0.75, 'end'], li: [-9, 0.09, 'end'] };
+    var dots = {}, LAB = { graphite: 'lithium', lto: 'lto', si: 'silicon', fe2o3: 'hematite' };
     Object.keys(A).forEach(function (k) {
       var a = A[k], x = X(a.q), col = K9[a.kind];
-      if (a.hi > a.lo) el('line', { x1: x, x2: x, y1: Y(a.lo), y2: Y(a.hi), stroke: col, 'stroke-width': 7, 'stroke-opacity': '.45', 'stroke-linecap': 'round' }, g);
-      dots[k] = el('circle', { cx: x, cy: Y(a.v), r: 4.5, fill: col, stroke: 'var(--bg)', 'stroke-width': 1 }, g);
-      var L = lab[k]; txt(g, x + L[0], Y(a.v) + L[1], names[k], '', L[2]);
+      if (a.hi > a.lo) el('line', { x1: x, x2: x, y1: Y(a.lo), y2: Y(a.hi), stroke: col, 'stroke-width': 5, 'stroke-opacity': '.4', 'stroke-linecap': 'round' }, g);
+      dots[k] = marker(g, x, Y(a.v), a.kind, 4.5);
+      var L = lab[k]; txt(g, x + L[0], Y(L[1]) + 4, names[k], '', L[2], { style: 'paint-order:stroke;stroke:var(--panel);stroke-width:3px;stroke-linejoin:round' });
     });
-    var e = { x0: 380, y0: 262, x1: 505, y1: 40 }, YE = function (w) { return e.y0 - w / 800 * (e.y0 - e.y1); };
-    e11axes(g, e, { X: function (x) { return x; }, Y: YE, yt: [[0, '0'], [200, '200'], [400, '400'], [600, '600'], [800, '800']], grid: true, ylab: 'Wh/kg of the pair' });
-    var bars = [0, 1].map(function (i) { var x = e.x0 + 14 + i * 56; return { r: el('rect', { x: x, width: 40, fill: i ? 'var(--second)' : 'var(--accent)', 'fill-opacity': '.85' }, g), v: txt(g, x + 20, 0, '', 'strong', 'middle'), n: txt(g, x + 20, e.y0 + 16, '', '', 'middle') }; });
-    var ring = el('circle', { r: 9, fill: 'none', stroke: 'var(--text)', 'stroke-width': 2 }, g);
-    badge(g, b.x0 + 24, b.y1 + 14, 1); badge(g, X(1600), Y(1.95), 2); badge(g, e.x1 - 8, e.y1 + 8, 3);
+    var ring = el('circle', { r: 10, fill: 'none', stroke: 'var(--text)', 'stroke-width': 2 }, g);
+    // ---------- bottom strip: the energy of the pair ----------
+    var ex0 = 140, ex1 = 400, EY = [404, 424], EW = function (w) { return ex0 + w / 800 * (ex1 - ex0); };
+    txt(g, 16, 388, 'Wh/kg of the two active materials, against a 200 mAh/g, 3.8 V positive electrode', 'strong', 'start');
+    [0, 200, 400, 600, 800].forEach(function (w) { el('line', { x1: EW(w), x2: EW(w), y1: 396, y2: 436, stroke: 'var(--line)', 'stroke-dasharray': w ? '2 4' : '' }, g); txt(g, EW(w), 450, String(w), '', 'middle', { style: 'font-size:11px' }); });
+    var bars = EY.map(function (y, i) { return { r: el('rect', { x: ex0, y: y - 7, height: 14, rx: 3, fill: i ? K9.alloy : K9.intercalation, 'fill-opacity': .85 }, g), v: txt(g, 0, y + 4, '', 'strong', 'start'), n: txt(g, ex0 - 8, y + 4, '', '', 'end') }; });
+    badge(g, b.x0 + 16, b.y1 + 14, 1); badge(g, 506, 38, 2); badge(g, 24, 414, 3);
     var cur = e11modes(fig, function (m) { cur = m; render(); });
     function render() {
-      var a = A[cur], g0 = M9.pairEnergy(POS.q, POS.v, A.graphite.q, A.graphite.v), p = M9.pairEnergy(POS.q, POS.v, a.q, a.v);
-      ring.setAttribute('cx', dots[cur].getAttribute('cx')); ring.setAttribute('cy', dots[cur].getAttribute('cy'));
-      [g0, p].forEach(function (q, i) { var y = YE(q.E); bars[i].r.setAttribute('y', y); bars[i].r.setAttribute('height', e.y0 - y); bars[i].v.setAttribute('y', y - 6); setSvgText(bars[i].v, Math.round(q.E) + ''); setSvgText(bars[i].n, i ? names[cur] : 'graphite'); });
-      bars[1].r.setAttribute('fill', K9[a.kind]);
-      read.innerHTML = '<b>' + names[cur] + '</b> (' + a.kind + '): ' + a.q + ' mAh/g at ' + (a.hi > a.lo ? a.lo + ' to ' + a.hi : a.v) + ' V. Paired with a positive electrode like NMC811, which gives about 200 mAh/g, at an illustrative average of 3.8 V, the two active materials store <b>' + Math.round(p.E) + ' Wh/kg</b>, ' + (p.E / g0.E).toFixed(2) + ' × graphite’s ' + Math.round(g0.E) + '. That is ' + (a.q / A.graphite.q).toFixed(1) + ' × the capacity of graphite, but each gram of the pair still passes only ' + Math.round(p.Q) + ' mAh, at a cell voltage of ' + p.V.toFixed(2) + ' V.';
+      var a = A[cur], g0 = M9.pairEnergy(POS.q, POS.v, A.graphite.q, A.graphite.v), p = M9.pairEnergy(POS.q, POS.v, a.q, a.v), d = dots[cur], bb = d.getBBox();
+      ring.setAttribute('cx', bb.x + bb.width / 2); ring.setAttribute('cy', bb.y + bb.height / 2);
+      [g0, p].forEach(function (q, i) {
+        var w = EW(q.E) - ex0, hide = i === 1 && cur === 'graphite';
+        bars[i].r.setAttribute('width', hide ? 0 : w); bars[i].v.setAttribute('x', ex0 + w + 6);
+        setSvgText(bars[i].v, hide ? '' : Math.round(q.E) + (i ? ', ×' + (p.E / g0.E).toFixed(2) : ''));
+        setSvgText(bars[i].n, i ? (hide ? 'choose a material' : names[cur]) : 'graphite');
+      });
+      bars[1].r.setAttribute('fill', a.kind === 'metal' ? '#9AA3AD' : K9[a.kind]);
+      var extra = { si: ' A 2026 review lists silicon at 4200 mAh/g; the map uses 3579.', ge: '', fe2o3: ' The same review puts metal oxides as a class at 375 to 1170 mAh/g.' }[cur] || '';
+      read.innerHTML = '<b>' + names[cur] + '</b> (' + a.kind + '): ' + a.q + ' mAh/g at ' + (a.hi > a.lo ? a.lo + ' to ' + a.hi : a.v) + ' V.' + extra + ' Paired with a positive electrode like NMC811, which gives about 200 mAh/g, at an illustrative average of 3.8 V, the two active materials store <b>' + Math.round(p.E) + ' Wh/kg</b>, ' + (p.E / g0.E).toFixed(2) + ' × graphite’s ' + Math.round(g0.E) + '. That is ' + (a.q / A.graphite.q).toFixed(1) + ' × the capacity of graphite, but each gram of the pair still passes only ' + Math.round(p.Q) + ' mAh, at a cell voltage of ' + p.V.toFixed(2) + ' V.';
     }
     steps(fig, [
       { text: 'Every negative electrode sits somewhere on this map: across, how much charge a gram stores; up, its potential against lithium metal. A good negative electrode is <b>low</b>, so that the cell voltage stays large, and <b>to the right</b>, so that it stores a lot.' },
-      { text: 'Four families: <b>intercalation</b> hosts (graphite, titanium and niobium oxides), <b>alloys</b> (silicon, tin, germanium, antimony), <b>conversion</b> materials (oxides, sulfides, phosphides) and <b>lithium metal</b> itself. Bars show where a range of working voltage is quoted.' },
+      { text: 'Four families, told apart by colour and shape: <b>intercalation</b> hosts (circles: graphite, titanium and niobium oxides), <b>alloys</b> (diamonds: silicon, tin, germanium, antimony), <b>conversion</b> materials (squares: oxides, sulfides, phosphides) and <b>lithium metal</b>. Bars show where a range of working voltage is quoted. The strip above gives a 2026 review&#8217;s theoretical capacities by class, and for more alloying elements, phosphorus and indium among them.' },
       { text: 'More capacity is not more energy one for one: the same charge passes through both electrodes, so the positive electrode sets a ceiling. Choose lithium metal, ten times graphite’s capacity: the pair gains about half again. Choose Li₄Ti₅O₁₂: 1.4 V of cell voltage is given away.' }
     ]);
     render();

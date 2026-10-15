@@ -276,3 +276,18 @@ Read the plan first; this file records state, decisions and the checklist so wor
 - Home page description shortened to 145 characters.
 - Checks: every JSON-LD block parses; no markup in any <head>; sitemap is valid XML; gate exit 0 on the hub and two
   chapters; axe clean; 0 broken links; 74 tests.
+
+## Figure 12.1 negative-electrode map (2026-10-16, owner's request: improve the figure)
+- The map now runs the full width (it shared the width with the energy bars, and the labels collided: TiNb₂O₇ on the
+  axis title, the badge on Li₄Ti₅O₁₂, "low and right" on the conversion bars, Li metal far from its dot). Labels are
+  placed by hand, each next to its marker, with a halo. The families differ by shape as well as colour: circles for
+  intercalation, diamonds for alloys, squares for conversion, a metallic disc for lithium metal.
+- New strip at the top, on the same capacity axis: theoretical capacities by class from Faruque et al. 2026, Table 6
+  (nanostructured carbons up to 1750; metal oxides, nitrides, sulfides, phosphides as ranges) and alloying elements
+  (Sn 960, In 1012, Ge 1384, P 2596, Si 4200 mAh/g). The basis and the readout note where these differ from the
+  map's values for Si, Ge and Sn.
+- The energy of the pair is now a pair of horizontal bars at the bottom, with the ratio to graphite; in graphite mode
+  the second bar is empty instead of repeating graphite.
+- New paragraph with the review's class capacities, Li₄Ti₅O₁₂'s lack of expansion and its high potential, and carbon
+  nanotube composites above 1000 mAh/g.
+- viewBox 520 × 458. Checks: 1300 and 360 px, all modes; gate exit 0; axe clean; 0 broken links; 74 tests.
