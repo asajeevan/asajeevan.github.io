@@ -9,7 +9,7 @@
 <meta property="og:title" content="Aswadh Shyma Sajeevan | Battery Electrochemist">
 <meta property="og:description" content="From redox-active materials and composite electrodes to solid polymer electrolyte cells and electrochemical diagnosis.">
 <meta property="og:type" content="profile">
-<meta name="theme-color" content="#0E1F22">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://asajeevan.github.io/">
 <meta property="og:url" content="https://asajeevan.github.io/">
@@ -23,8 +23,8 @@
 <meta name="msvalidate.01" content="PASTE_CODE_HERE"> -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%237FD1C7'/><rect x='20' y='9' width='6' height='14' fill='%233C6F5F'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
 <script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
 <link rel="stylesheet" href="assets/css/site.css">
 <script type="application/ld+json">
@@ -93,34 +93,34 @@
       <svg id="cellSvg" viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="carbonDots" width="9" height="9" patternUnits="userSpaceOnUse">
-            <circle cx="2.5" cy="2.5" r="1.1" fill="var(--cyan, #83DBD0)" opacity=".45"/>
-            <circle cx="7" cy="7" r="0.8" fill="var(--cyan, #83DBD0)" opacity=".3"/>
+            <circle cx="2.5" cy="2.5" r="1.1" fill="var(--second)" opacity=".45"/>
+            <circle cx="7" cy="7" r="0.8" fill="var(--second)" opacity=".3"/>
           </pattern>
           <linearGradient id="spe" x1="0" x2="1">
-            <stop offset="0" stop-color="var(--cyan, #83DBD0)" stop-opacity=".22"/>
-            <stop offset="1" stop-color="var(--cyan, #83DBD0)" stop-opacity=".1"/>
+            <stop offset="0" stop-color="var(--second)" stop-opacity=".22"/>
+            <stop offset="1" stop-color="var(--second)" stop-opacity=".1"/>
           </linearGradient>
           <clipPath id="memClip"><rect x="170" y="60" width="200" height="200"/></clipPath>
           <filter id="ionGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <marker id="arrLi" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#FFD166"/></marker>
+          <marker id="arrLi" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
         </defs>
 
         <!-- current collectors -->
         <g class="layer" data-layer="cc-neg"><rect x="60" y="60" width="14" height="200" fill="var(--muted, #A3B6B1)" opacity=".55"/></g>
         <!-- lithium metal negative electrode -->
-        <g class="layer" data-layer="li"><rect x="74" y="60" width="96" height="200" fill="var(--amber, #F0B441)" opacity=".28"/><rect x="74" y="60" width="96" height="200" fill="none" stroke="var(--amber, #F0B441)" stroke-opacity=".6"/></g>
+        <g class="layer" data-layer="li"><rect x="74" y="60" width="96" height="200" fill="var(--accent)" opacity=".28"/><rect x="74" y="60" width="96" height="200" fill="none" stroke="var(--accent)" stroke-opacity=".6"/></g>
         <!-- solid polymer electrolyte membrane: amorphous polymer chains carrying Li+ -->
         <g class="layer" data-layer="spe"><rect x="170" y="60" width="76" height="200" fill="url(#spe)"/>
-          <g fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".28" stroke-width="1.2">
+          <g fill="none" stroke="var(--second)" stroke-opacity=".28" stroke-width="1.2">
             <path d="M184,66 q14,24 0,48 q-14,24 0,48 q14,24 0,48 q-14,24 0,48"/><path d="M208,72 q-16,23 0,46 q16,23 0,46 q-16,23 0,46 q16,23 0,46"/><path d="M232,64 q14,25 0,50 q-14,25 0,50 q14,25 0,50 q-14,25 0,50"/>
           </g>
-          <rect x="170" y="60" width="76" height="200" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
+          <rect x="170" y="60" width="76" height="200" fill="none" stroke="var(--second)" stroke-opacity=".7"/>
         </g>
         <!-- composite positive electrode: active material + conductive carbon in the same polymer as binder -->
-        <g class="layer" data-layer="pos"><rect x="246" y="60" width="124" height="200" fill="var(--green, #2F6A5C)" opacity=".3"/>
-          <g fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".16" stroke-width="1.2"><path d="M290,66 q-14,24 0,48 q14,24 0,48 q-14,24 0,48 q14,24 0,48"/><path d="M338,70 q14,23 0,46 q-14,23 0,46 q14,23 0,46 q-14,23 0,46"/></g>
+        <g class="layer" data-layer="pos"><rect x="246" y="60" width="124" height="200" fill="var(--green)" opacity=".3"/>
+          <g fill="none" stroke="var(--second)" stroke-opacity=".16" stroke-width="1.2"><path d="M290,66 q-14,24 0,48 q14,24 0,48 q-14,24 0,48 q14,24 0,48"/><path d="M338,70 q14,23 0,46 q-14,23 0,46 q14,23 0,46 q-14,23 0,46"/></g>
           <rect x="246" y="60" width="124" height="200" fill="url(#carbonDots)"/>
-          <g class="active-material" fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55" stroke-width="1" stroke-linejoin="round">
+          <g class="active-material" fill="var(--accent-strong)" fill-opacity=".9" stroke="var(--accent)" stroke-opacity=".55" stroke-width="1" stroke-linejoin="round">
             <polygon points="275.2,93.0 274.7,97.1 269.0,99.8 262.6,96.2 260.7,92.9 262.1,87.0 267.0,84.3 274.3,87.2" data-cx="268" data-cy="92"/>
             <polygon points="318.8,80.9 318.1,84.8 314.3,87.1 309.4,85.2 306.5,82.8 306.7,77.5 308.7,73.9 312.9,73.3 315.8,75.9" data-cx="312" data-cy="80"/>
             <polygon points="360.6,104.0 356.7,111.0 349.2,111.6 345.4,107.8 345.7,100.3 349.6,95.8 356.9,97.2" data-cx="352" data-cy="104"/>
@@ -132,7 +132,7 @@
             <polygon points="330.8,241.2 327.3,245.2 322.0,250.0 316.4,245.7 312.7,241.0 316.4,233.6 322.5,231.4 328.4,232.4" data-cx="322" data-cy="240"/>
             <polygon points="356.8,219.5 355.8,222.9 351.2,225.3 348.8,222.9 347.8,220.2 348.9,216.3 352.4,215.6 355.4,216.0" data-cx="352" data-cy="220"/>
           </g>
-          <rect x="246" y="60" width="124" height="200" fill="none" stroke="var(--green, #2F6A5C)"/>
+          <rect x="246" y="60" width="124" height="200" fill="none" stroke="var(--green)"/>
         </g>
         <g class="layer" data-layer="cc-pos"><rect x="370" y="60" width="14" height="200" fill="var(--muted, #A3B6B1)" opacity=".55"/></g>
 
@@ -159,50 +159,50 @@
         <!-- key -->
         <g class="cell-key" font-family="IBM Plex Sans, sans-serif" font-size="10" fill="var(--muted, #A3B6B1)">
           <circle class="ion-key" cx="416" cy="76.5" r="3" filter="url(#ionGlow)"/><text x="428" y="80">Li⁺ ion</text>
-          <polygon points="411.5,95 415,91.5 419.5,92.5 421.5,96.5 419,101 414,101.5 411,98.5" fill="var(--amber-2, #C98D1E)" fill-opacity=".9" stroke="var(--amber, #F0B441)" stroke-opacity=".55" stroke-linejoin="round"/><text x="428" y="100">Active material</text>
-          <g fill="var(--cyan, #83DBD0)"><circle cx="412.5" cy="118" r="1.2" opacity=".6"/><circle cx="417" cy="114.5" r="1" opacity=".45"/><circle cx="419.5" cy="119.5" r="1.1" opacity=".55"/><circle cx="414.5" cy="122.5" r=".9" opacity=".4"/></g><text x="428" y="120">Conductive carbon</text>
-          <path d="M409,138 q4,-5 8,0 t8,0" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".6" stroke-width="1.2"/><text x="428" y="140">Polymer chains</text>
-          <line x1="409" y1="167" x2="422" y2="167" stroke="#FFD166" stroke-opacity=".85" stroke-width="1.2" marker-end="url(#arrLi)"/><text x="428" y="170">Li⁺ on discharge</text>
+          <polygon points="411.5,95 415,91.5 419.5,92.5 421.5,96.5 419,101 414,101.5 411,98.5" fill="var(--accent-strong)" fill-opacity=".9" stroke="var(--accent)" stroke-opacity=".55" stroke-linejoin="round"/><text x="428" y="100">Active material</text>
+          <g fill="var(--second)"><circle cx="412.5" cy="118" r="1.2" opacity=".6"/><circle cx="417" cy="114.5" r="1" opacity=".45"/><circle cx="419.5" cy="119.5" r="1.1" opacity=".55"/><circle cx="414.5" cy="122.5" r=".9" opacity=".4"/></g><text x="428" y="120">Conductive carbon</text>
+          <path d="M409,138 q4,-5 8,0 t8,0" fill="none" stroke="var(--second)" stroke-opacity=".6" stroke-width="1.2"/><text x="428" y="140">Polymer chains</text>
+          <line x1="409" y1="167" x2="422" y2="167" stroke="var(--accent)" stroke-opacity=".85" stroke-width="1.2" marker-end="url(#arrLi)"/><text x="428" y="170">Li⁺ on discharge</text>
         </g>
       </svg>
 
       <svg class="trace" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" aria-label="Schematic charge and discharge profile of a lithiated organic positive electrode: potential against capacity, charge branch above, discharge branch below, a lithium-ion marker travelling round the loop">
         <defs>
-          <linearGradient id="gC" x1="0" x2="1"><stop offset="0" stop-color="#5FC9BC"/><stop offset="1" stop-color="#B8F2EA"/></linearGradient>
-          <linearGradient id="gD" x1="1" x2="0"><stop offset="0" stop-color="#F7C65C"/><stop offset="1" stop-color="#D8942A"/></linearGradient>
-          <linearGradient id="gH" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#83DBD0" stop-opacity=".22"/><stop offset="1" stop-color="#F0B441" stop-opacity=".16"/></linearGradient>
+          <linearGradient id="gC" x1="0" x2="1"><stop offset="0" stop-color="#0B7A5E"/><stop offset="1" stop-color="#3BA88A"/></linearGradient>
+          <linearGradient id="gD" x1="1" x2="0"><stop offset="0" stop-color="#5C7CF0"/><stop offset="1" stop-color="#1F48D6"/></linearGradient>
+          <linearGradient id="gH" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--second)" stop-opacity=".22"/><stop offset="1" stop-color="var(--accent)" stop-opacity=".16"/></linearGradient>
           <filter id="glow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
           <filter id="dotglow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3"/></filter>
-          <marker id="arrC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9FE8DE"/></marker>
-          <marker id="arrD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#F0B441"/></marker>
+          <marker id="arrC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3BA88A"/></marker>
+          <marker id="arrD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
           <path id="loop" d="M46,96 C60,60 78,42 110,36 C190,26 340,24 420,22 C450,21 470,16 484,8 C476,24 456,34 420,38 C340,42 190,44 110,52 C80,56 62,72 46,100 Z"/>
         </defs>
         <!-- grid -->
-        <g stroke="var(--line, rgba(234,240,236,.18))" stroke-dasharray="2 5">
+        <g stroke="var(--line, #D5DAE1)" stroke-dasharray="2 5">
           <line x1="46" y1="30" x2="500" y2="30"/><line x1="46" y1="56" x2="500" y2="56"/><line x1="46" y1="82" x2="500" y2="82"/>
           <line x1="160" y1="10" x2="160" y2="104"/><line x1="274" y1="10" x2="274" y2="104"/><line x1="388" y1="10" x2="388" y2="104"/>
         </g>
-        <line x1="46" y1="10" x2="46" y2="104" stroke="var(--line-2, rgba(234,240,236,.3))"/>
-        <line x1="46" y1="104" x2="500" y2="104" stroke="var(--line-2, rgba(234,240,236,.3))"/>
+        <line x1="46" y1="10" x2="46" y2="104" stroke="var(--line-2)"/>
+        <line x1="46" y1="104" x2="500" y2="104" stroke="var(--line-2)"/>
         <text x="8" y="14" class="lbl">E / V vs Li⁺/Li</text>
         <text x="44" y="118" class="lbl">0</text>
         <text x="500" y="118" class="lbl" text-anchor="end">Capacity</text>
         <!-- hysteresis area between the branches -->
         <use class="hyst" href="#loop" fill="url(#gH)"/>
         <!-- soft glow copies -->
-        <path class="tr charge" d="M46,96 C60,60 78,42 110,36 C190,26 340,24 420,22 C450,21 470,16 484,8" fill="none" stroke="#83DBD0" stroke-opacity=".45" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
-        <path class="tr discharge" d="M484,8 C476,24 456,34 420,38 C340,42 190,44 110,52 C80,56 62,72 46,100" fill="none" stroke="#F0B441" stroke-opacity=".4" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
+        <path class="tr charge" d="M46,96 C60,60 78,42 110,36 C190,26 340,24 420,22 C450,21 470,16 484,8" fill="none" stroke="var(--second)" stroke-opacity=".45" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
+        <path class="tr discharge" d="M484,8 C476,24 456,34 420,38 C340,42 190,44 110,52 C80,56 62,72 46,100" fill="none" stroke="var(--accent)" stroke-opacity=".4" stroke-width="5" stroke-linecap="round" filter="url(#glow)"/>
         <!-- crisp branches -->
         <path class="tr charge" d="M46,96 C60,60 78,42 110,36 C190,26 340,24 420,22 C450,21 470,16 484,8" fill="none" stroke="url(#gC)" stroke-width="2.2" stroke-linecap="round"/>
         <path class="tr discharge" d="M484,8 C476,24 456,34 420,38 C340,42 190,44 110,52 C80,56 62,72 46,100" fill="none" stroke="url(#gD)" stroke-width="2.2" stroke-linecap="round"/>
         <!-- direction arrows -->
-        <g class="arrows"><path d="M300,25 L302,25" stroke="#9FE8DE" stroke-width="2" marker-end="url(#arrC)"/><path d="M262,44 L260,44" stroke="#F0B441" stroke-width="2" marker-end="url(#arrD)"/></g>
-        <text class="arrows" x="200" y="18" fill="#B8F2EA" font-family="Manrope, sans-serif" font-size="11">charge</text>
-        <text class="arrows" x="200" y="64" fill="#F7C65C" font-family="Manrope, sans-serif" font-size="11">discharge</text>
+        <g class="arrows"><path d="M300,25 L302,25" stroke="#3BA88A" stroke-width="2" marker-end="url(#arrC)"/><path d="M262,44 L260,44" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrD)"/></g>
+        <text class="arrows" x="200" y="18" fill="var(--second)" font-family="IBM Plex Sans, sans-serif" font-size="11">charge</text>
+        <text class="arrows" x="200" y="64" fill="var(--accent)" font-family="IBM Plex Sans, sans-serif" font-size="11">discharge</text>
         <!-- travelling lithium-ion marker: round the loop, charge then discharge -->
         <g class="soc">
-          <circle r="7" fill="#F0B441" opacity=".45" filter="url(#dotglow)"><animateMotion dur="9s" begin="2.6s" repeatCount="indefinite" calcMode="linear"><mpath href="#loop"/></animateMotion></circle>
-          <circle r="3.2" fill="#FFF3D0"><animateMotion dur="9s" begin="2.6s" repeatCount="indefinite" calcMode="linear"><mpath href="#loop"/></animateMotion></circle>
+          <circle r="7" fill="var(--accent)" opacity=".45" filter="url(#dotglow)"><animateMotion dur="9s" begin="2.6s" repeatCount="indefinite" calcMode="linear"><mpath href="#loop"/></animateMotion></circle>
+          <circle r="3.2" fill="var(--accent)"><animateMotion dur="9s" begin="2.6s" repeatCount="indefinite" calcMode="linear"><mpath href="#loop"/></animateMotion></circle>
         </g>
       </svg>
     </figure>
@@ -231,8 +231,8 @@
       </div>
       <figure class="chain-fig">
         <svg id="chain" viewBox="0 0 260 420" xmlns="http://www.w3.org/2000/svg" aria-label="The battery-development chain: active material, composite electrode, polymer electrolyte, cell testing, diagnosis and recovery">
-          <line class="chain-line" x1="30" y1="40" x2="30" y2="380" stroke="var(--line, rgba(234,240,236,.18))" stroke-width="2"/>
-          <line class="chain-line-fill" x1="30" y1="40" x2="30" y2="380" stroke="var(--amber, #F0B441)" stroke-width="2"/>
+          <line class="chain-line" x1="30" y1="40" x2="30" y2="380" stroke="var(--line, #D5DAE1)" stroke-width="2"/>
+          <line class="chain-line-fill" x1="30" y1="40" x2="30" y2="380" stroke="var(--accent)" stroke-width="2"/>
           <g class="node" transform="translate(30,40)"><circle r="9"/><text x="26" y="5">Active material</text></g>
           <g class="node" transform="translate(30,108)"><circle r="9"/><text x="26" y="5">Composite electrode</text></g>
           <g class="node" transform="translate(30,176)"><circle r="9"/><text x="26" y="5">Polymer electrolyte</text></g>
@@ -271,9 +271,9 @@
           </defs>
           <!-- left panel -->
           <g class="panel">
-            <rect x="10" y="40" width="110" height="220" fill="var(--cyan, #83DBD0)" opacity=".14"/>
-            <rect x="120" y="40" width="130" height="220" fill="var(--green, #2F6A5C)" opacity=".28"/>
-            <line x1="120" y1="40" x2="120" y2="260" stroke="var(--amber, #F0B441)" stroke-width="3" stroke-dasharray="4 4"/>
+            <rect x="10" y="40" width="110" height="220" fill="var(--second)" opacity=".14"/>
+            <rect x="120" y="40" width="130" height="220" fill="var(--green)" opacity=".28"/>
+            <line x1="120" y1="40" x2="120" y2="260" stroke="var(--accent)" stroke-width="3" stroke-dasharray="4 4"/>
             <g fill="var(--muted, #A3B6B1)" opacity=".9">
               <circle cx="150" cy="90" r="9"/><circle cx="205" cy="120" r="9"/><circle cx="165" cy="175" r="9"/><circle cx="215" cy="215" r="9"/>
             </g>
@@ -284,9 +284,9 @@
           </g>
           <!-- right panel -->
           <g class="panel">
-            <rect x="270" y="40" width="110" height="220" fill="var(--cyan, #83DBD0)" opacity=".14"/>
-            <rect x="380" y="40" width="130" height="220" fill="var(--cyan, #83DBD0)" opacity=".10"/>
-            <rect x="380" y="40" width="130" height="220" fill="var(--green, #2F6A5C)" opacity=".18"/>
+            <rect x="270" y="40" width="110" height="220" fill="var(--second)" opacity=".14"/>
+            <rect x="380" y="40" width="130" height="220" fill="var(--second)" opacity=".10"/>
+            <rect x="380" y="40" width="130" height="220" fill="var(--green)" opacity=".18"/>
             <g fill="var(--muted, #A3B6B1)" opacity=".9">
               <circle cx="410" cy="90" r="9"/><circle cx="465" cy="120" r="9"/><circle cx="425" cy="175" r="9"/><circle cx="475" cy="215" r="9"/>
             </g>
@@ -319,32 +319,32 @@
           <!-- left: mechanically mixed -->
           <g class="panel">
             <text x="120" y="24" class="lbl" text-anchor="middle">Mechanically mixed</text>
-            <rect x="20" y="36" width="200" height="150" rx="4" fill="var(--panel2, #183840)"/>
-            <g fill="var(--amber, #F0B441)" opacity=".9">
+            <rect x="20" y="36" width="200" height="150" rx="4" fill="var(--panel-2)"/>
+            <g fill="var(--accent)" opacity=".9">
               <circle cx="70" cy="90" r="22"/><circle cx="150" cy="80" r="18"/><circle cx="110" cy="145" r="20"/><circle cx="185" cy="140" r="14"/>
             </g>
-            <g fill="var(--cyan, #83DBD0)" opacity=".8">
+            <g fill="var(--second)" opacity=".8">
               <circle cx="40" cy="60" r="3"/><circle cx="112" cy="58" r="3"/><circle cx="196" cy="60" r="3"/><circle cx="52" cy="160" r="3"/><circle cx="160" cy="170" r="3"/><circle cx="206" cy="100" r="3"/><circle cx="130" cy="112" r="3"/><circle cx="90" cy="175" r="3"/>
             </g>
           </g>
           <!-- right: in situ on carbon -->
           <g class="panel">
             <text x="400" y="24" class="lbl" text-anchor="middle">In situ on Ketjenblack</text>
-            <rect x="300" y="36" width="200" height="150" rx="4" fill="var(--panel2, #183840)"/>
-            <path d="M310,60 C350,90 330,140 380,150 S450,80 490,110 M320,150 C360,120 400,170 440,150 S470,60 495,70 M330,45 C360,80 420,60 450,100" fill="none" stroke="var(--cyan, #83DBD0)" stroke-opacity=".6" stroke-width="1.5"/>
-            <g class="insitu" fill="var(--amber, #F0B441)" opacity=".95">
+            <rect x="300" y="36" width="200" height="150" rx="4" fill="var(--panel-2)"/>
+            <path d="M310,60 C350,90 330,140 380,150 S450,80 490,110 M320,150 C360,120 400,170 440,150 S470,60 495,70 M330,45 C360,80 420,60 450,100" fill="none" stroke="var(--second)" stroke-opacity=".6" stroke-width="1.5"/>
+            <g class="insitu" fill="var(--accent)" opacity=".95">
               <circle cx="320" cy="68" r="4"/><circle cx="345" cy="88" r="4"/><circle cx="335" cy="130" r="4"/><circle cx="380" cy="150" r="4"/><circle cx="410" cy="120" r="4"/><circle cx="440" cy="95" r="4"/><circle cx="470" cy="92" r="4"/><circle cx="490" cy="110" r="4"/><circle cx="360" cy="140" r="4"/><circle cx="420" cy="158" r="4"/><circle cx="455" cy="130" r="4"/><circle cx="480" cy="75" r="4"/><circle cx="395" cy="66" r="4"/><circle cx="430" cy="78" r="4"/><circle cx="350" cy="55" r="4"/>
             </g>
           </g>
           <!-- capacity bars -->
           <g class="bars" transform="translate(0,200)">
-            <line x1="40" y1="100" x2="500" y2="100" stroke="var(--line, rgba(234,240,236,.18))"/>
+            <line x1="40" y1="100" x2="500" y2="100" stroke="var(--line, #D5DAE1)"/>
             <text x="40" y="118" class="lbl">Delivered capacity, mAh g⁻¹</text>
             <rect class="bar bar-a" x="120" y="100" width="80" height="0" fill="var(--muted, #A3B6B1)"/>
             <text class="bar-val" id="barA" x="160" y="92" text-anchor="middle">56</text>
-            <rect class="bar bar-b" x="360" y="100" width="80" height="0" fill="var(--amber, #F0B441)"/>
+            <rect class="bar bar-b" x="360" y="100" width="80" height="0" fill="var(--accent)"/>
             <text class="bar-val" id="barB" x="400" y="92" text-anchor="middle">188.2</text>
-            <line x1="120" y1="10" x2="440" y2="10" stroke="var(--cyan, #83DBD0)" stroke-dasharray="3 4" opacity=".8"/>
+            <line x1="120" y1="10" x2="440" y2="10" stroke="var(--second)" stroke-dasharray="3 4" opacity=".8"/>
             <text x="216" y="6" class="lbl">two-electron limit</text>
           </g>
         </svg>
@@ -369,25 +369,25 @@
           <!-- VFT plot -->
           <g transform="translate(0,0)">
             <text x="20" y="22" class="lbl">Ionic conductivity vs 1000/T (schematic)</text>
-            <line x1="40" y1="40" x2="40" y2="150" stroke="var(--line, rgba(234,240,236,.18))"/>
-            <line x1="40" y1="150" x2="240" y2="150" stroke="var(--line, rgba(234,240,236,.18))"/>
+            <line x1="40" y1="40" x2="40" y2="150" stroke="var(--line, #D5DAE1)"/>
+            <line x1="40" y1="150" x2="240" y2="150" stroke="var(--line, #D5DAE1)"/>
             <text x="12" y="46" class="lbl">log σ</text>
             <text x="200" y="166" class="lbl">1000/T</text>
-            <path class="draw vft" d="M48,60 C100,70 150,95 190,120 C210,133 225,142 234,148" fill="none" stroke="var(--cyan, #83DBD0)" stroke-width="2"/>
-            <g class="vft-pts" fill="var(--amber, #F0B441)">
+            <path class="draw vft" d="M48,60 C100,70 150,95 190,120 C210,133 225,142 234,148" fill="none" stroke="var(--second)" stroke-width="2"/>
+            <g class="vft-pts" fill="var(--accent)">
               <circle cx="60" cy="63" r="3"/><circle cx="90" cy="70" r="3"/><circle cx="120" cy="80" r="3"/><circle cx="150" cy="94" r="3"/><circle cx="180" cy="113" r="3"/><circle cx="210" cy="133" r="3"/><circle cx="230" cy="146" r="3"/>
             </g>
           </g>
           <!-- Nyquist -->
           <g transform="translate(270,0)">
             <text x="20" y="22" class="lbl">Impedance vs contact (schematic)</text>
-            <line x1="40" y1="150" x2="240" y2="150" stroke="var(--line, rgba(234,240,236,.18))"/>
-            <line x1="40" y1="40" x2="40" y2="150" stroke="var(--line, rgba(234,240,236,.18))"/>
+            <line x1="40" y1="150" x2="240" y2="150" stroke="var(--line, #D5DAE1)"/>
+            <line x1="40" y1="40" x2="40" y2="150" stroke="var(--line, #D5DAE1)"/>
             <text x="12" y="46" class="lbl">-Z''</text>
             <text x="222" y="166" class="lbl">Z'</text>
             <path class="nyq nyq-1" d="M50,150 A90,90 0 0 1 230,150" fill="none" stroke="var(--muted, #A3B6B1)" stroke-width="1.5" opacity=".5"/>
             <path class="nyq nyq-2" d="M50,150 A60,60 0 0 1 170,150" fill="none" stroke="var(--muted, #A3B6B1)" stroke-width="1.5" opacity=".7"/>
-            <path class="nyq nyq-3" d="M50,150 A30,30 0 0 1 110,150" fill="none" stroke="var(--amber, #F0B441)" stroke-width="2.2"/>
+            <path class="nyq nyq-3" d="M50,150 A30,30 0 0 1 110,150" fill="none" stroke="var(--accent)" stroke-width="2.2"/>
             <text x="150" y="124" class="lbl">poor contact</text>
             <text x="52" y="166" class="lbl">pressed</text>
           </g>
@@ -395,12 +395,12 @@
           <g transform="translate(0,190)">
             <text x="20" y="18" class="lbl">Clamp-assisted contact</text>
             <rect x="200" y="40" width="120" height="14" fill="var(--muted, #A3B6B1)" opacity=".6"/>
-            <rect class="clamp-top" x="200" y="26" width="120" height="14" fill="var(--amber, #F0B441)" opacity=".5"/>
-            <rect x="200" y="54" width="120" height="30" fill="var(--cyan, #83DBD0)" opacity=".25"/>
-            <rect x="200" y="84" width="120" height="14" fill="var(--green, #2F6A5C)" opacity=".5"/>
+            <rect class="clamp-top" x="200" y="26" width="120" height="14" fill="var(--accent)" opacity=".5"/>
+            <rect x="200" y="54" width="120" height="30" fill="var(--second)" opacity=".25"/>
+            <rect x="200" y="84" width="120" height="14" fill="var(--green)" opacity=".5"/>
             <rect x="200" y="98" width="120" height="14" fill="var(--muted, #A3B6B1)" opacity=".6"/>
-            <path class="arrow arrow-down" d="M260,2 L260,22 M253,15 L260,22 L267,15" fill="none" stroke="var(--amber, #F0B441)" stroke-width="2"/>
-            <path class="arrow arrow-up" d="M260,134 L260,114 M253,121 L260,114 L267,121" fill="none" stroke="var(--amber, #F0B441)" stroke-width="2"/>
+            <path class="arrow arrow-down" d="M260,2 L260,22 M253,15 L260,22 L267,15" fill="none" stroke="var(--accent)" stroke-width="2"/>
+            <path class="arrow arrow-up" d="M260,134 L260,114 M253,121 L260,114 L267,121" fill="none" stroke="var(--accent)" stroke-width="2"/>
             <text x="330" y="66" class="lbl">membrane</text>
             <text x="330" y="94" class="lbl">electrode</text>
             <text x="330" y="36" class="lbl">Li metal</text>
@@ -422,24 +422,24 @@
       </div>
       <figure class="scene-fig card">
         <svg id="recoverySvg" viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" aria-label="A cycled electrode separating into an organic precursor stream, a lithium-containing stream and a metal-containing stream">
-          <rect x="30" y="100" width="130" height="100" rx="6" fill="var(--panel2, #183840)"/>
+          <rect x="30" y="100" width="130" height="100" rx="6" fill="var(--panel-2)"/>
           <text x="95" y="90" class="lbl" text-anchor="middle">Cycled electrode</text>
           <g id="recov-particles">
-            <circle class="rp org" cx="60" cy="130" r="6" fill="var(--cyan, #83DBD0)"/>
-            <circle class="rp org" cx="100" cy="170" r="6" fill="var(--cyan, #83DBD0)"/>
-            <circle class="rp org" cx="130" cy="125" r="6" fill="var(--cyan, #83DBD0)"/>
-            <circle class="rp li" cx="75" cy="155" r="5" fill="var(--amber, #F0B441)"/>
-            <circle class="rp li" cx="120" cy="150" r="5" fill="var(--amber, #F0B441)"/>
-            <circle class="rp li" cx="90" cy="120" r="5" fill="var(--amber, #F0B441)"/>
+            <circle class="rp org" cx="60" cy="130" r="6" fill="var(--second)"/>
+            <circle class="rp org" cx="100" cy="170" r="6" fill="var(--second)"/>
+            <circle class="rp org" cx="130" cy="125" r="6" fill="var(--second)"/>
+            <circle class="rp li" cx="75" cy="155" r="5" fill="var(--accent)"/>
+            <circle class="rp li" cx="120" cy="150" r="5" fill="var(--accent)"/>
+            <circle class="rp li" cx="90" cy="120" r="5" fill="var(--accent)"/>
             <circle class="rp me" cx="55" cy="180" r="5" fill="var(--muted, #A3B6B1)"/>
             <circle class="rp me" cx="140" cy="180" r="5" fill="var(--muted, #A3B6B1)"/>
             <circle class="rp me" cx="110" cy="135" r="5" fill="var(--muted, #A3B6B1)"/>
           </g>
-          <path d="M160,150 C230,150 230,60 300,60" fill="none" stroke="var(--line, rgba(234,240,236,.18))" stroke-width="1.5"/>
-          <path d="M160,150 L300,150" fill="none" stroke="var(--line, rgba(234,240,236,.18))" stroke-width="1.5"/>
-          <path d="M160,150 C230,150 230,240 300,240" fill="none" stroke="var(--line, rgba(234,240,236,.18))" stroke-width="1.5"/>
-          <rect x="300" y="40" width="190" height="40" rx="4" fill="var(--cyan, #83DBD0)" opacity=".12"/>
-          <rect x="300" y="130" width="190" height="40" rx="4" fill="var(--amber, #F0B441)" opacity=".12"/>
+          <path d="M160,150 C230,150 230,60 300,60" fill="none" stroke="var(--line, #D5DAE1)" stroke-width="1.5"/>
+          <path d="M160,150 L300,150" fill="none" stroke="var(--line, #D5DAE1)" stroke-width="1.5"/>
+          <path d="M160,150 C230,150 230,240 300,240" fill="none" stroke="var(--line, #D5DAE1)" stroke-width="1.5"/>
+          <rect x="300" y="40" width="190" height="40" rx="4" fill="var(--second)" opacity=".12"/>
+          <rect x="300" y="130" width="190" height="40" rx="4" fill="var(--accent)" opacity=".12"/>
           <rect x="300" y="220" width="190" height="40" rx="4" fill="var(--muted, #A3B6B1)" opacity=".12"/>
           <text x="378" y="65" class="lbl">Organic precursor</text>
           <text x="378" y="155" class="lbl">Li-containing stream</text>
@@ -486,7 +486,7 @@
           <g clip-path="url(#mapClip)">
             <!-- coastlines: Natural Earth 1:110m land, equirectangular, simplified -->
             <path class="land" fill-rule="evenodd" d="M282.5,236.1 279.9,236.9 278.5,234.0 277.9,228.7 279.3,222.7 281.4,224.7 282.8,227.3 284.3,231.2 283.8,235.0 282.5,236.1ZM141.2,127.0 139.1,128.6 136.3,131.1 134.8,130.6 134.1,129.1 135.6,129.0 138.4,128.1 141.2,127.0ZM108.2,126.9 109.9,128.1 112.2,127.9 114.5,128.2 116.1,128.4 111.3,129.8 107.6,128.5 108.2,126.9ZM83.4,117.5 82.3,120.5 82.8,121.6 82.1,123.5 79.8,122.1 78.3,121.7 74.0,119.8 74.5,117.9 78.0,118.3 81.1,117.9 83.4,117.5ZM64.3,106.5 66.1,109.1 65.7,114.0 64.3,113.8 63.1,115.0 61.9,114.1 61.8,109.6 61.1,107.5 62.8,107.7 64.3,106.5ZM65.3,103.0 64.3,105.9 63.0,105.1 62.3,102.7 62.9,101.3 64.8,99.9 65.3,103.0ZM15.8,65.6 10.4,67.8 6.1,67.3 8.6,63.4 7.0,59.6 11.1,56.7 13.4,55.0 16.0,54.9 19.2,57.1 17.6,59.7 18.1,62.3 15.8,65.6ZM74.8,53.2 73.0,56.2 69.8,54.2 69.4,52.6 73.9,51.4 74.8,53.2ZM27.3,42.1 24.0,46.1 27.1,45.5 30.4,45.6 29.6,48.6 26.9,51.9 30.1,52.1 33.0,56.9 35.1,57.5 36.9,61.7 37.8,63.2 41.5,63.9 41.1,66.2 39.6,67.3 40.8,69.2 38.0,71.2 34.0,71.1 28.8,72.1 27.4,71.4 25.4,73.2 22.6,72.7 20.5,74.1 18.9,73.4 23.3,69.5 26.0,68.7 21.3,68.1 20.4,66.6 23.6,65.5 21.9,63.5 22.5,61.1 27.0,61.4 27.4,59.3 25.4,56.9 21.7,56.3 21.0,55.3 22.1,53.6 21.1,52.6 19.4,54.3 19.3,50.8 17.7,48.9 18.8,45.1 21.2,42.1 23.6,42.4 27.3,42.1ZM320.0,0.0 320.0,187.6 320.0,185.9 318.5,185.5 316.3,182.5 315.5,180.6 315.3,178.7 314.7,176.9 313.4,174.8 310.7,174.6 310.9,176.1 310.0,178.2 308.7,177.5 307.4,177.7 306.2,177.4 305.8,178.7 303.7,178.7 300.0,179.5 300.2,182.2 298.5,184.4 294.2,186.9 290.8,191.3 288.5,193.6 285.5,196.0 285.5,197.7 284.0,198.7 281.2,200.0 279.8,200.2 278.9,203.0 279.5,207.8 279.7,210.9 278.4,214.4 278.4,220.7 276.8,220.9 275.5,223.7 276.4,224.9 273.6,225.9 272.6,228.5 271.4,229.5 268.5,226.1 267.1,220.9 265.9,217.2 264.9,215.4 263.3,211.9 262.5,207.2 262.0,204.9 259.2,199.8 258.0,192.7 257.1,187.9 257.1,183.4 256.5,180.0 252.1,182.2 250.0,181.8 246.0,177.3 247.5,175.9 246.6,174.5 243.0,171.3 240.8,170.4 239.9,167.7 237.5,164.9 232.0,165.6 227.0,165.7 222.8,166.2 217.1,165.1 213.8,164.2 210.3,163.8 209.0,159.2 207.6,158.6 205.3,159.2 202.2,161.0 198.5,159.8 195.4,157.0 192.5,155.9 190.5,152.4 188.3,147.5 186.6,148.1 184.7,146.8 183.6,148.3 181.8,148.1 182.4,149.7 183.1,153.4 184.3,156.5 185.8,157.4 186.3,158.7 188.4,160.2 188.6,161.8 188.3,163.0 188.6,164.3 189.5,165.3 189.9,166.5 190.2,164.7 191.0,162.8 192.7,163.5 192.8,165.7 192.1,167.9 192.7,169.3 195.7,169.5 198.2,169.6 200.1,169.7 202.1,167.2 204.4,164.9 206.3,162.6 207.2,161.3 207.3,163.2 207.3,166.8 208.7,169.3 210.4,170.6 212.6,171.1 214.4,171.8 215.7,173.9 216.6,175.2 217.6,176.5 216.5,178.7 214.8,180.9 213.6,183.4 212.3,183.2 211.1,186.0 211.5,188.4 209.8,188.9 207.9,190.3 207.7,192.1 205.1,192.8 203.9,193.8 203.9,195.3 202.4,196.3 200.8,195.9 198.7,197.2 197.3,197.4 195.1,198.4 194.6,200.0 194.5,201.3 191.5,202.9 186.6,204.6 183.9,207.2 182.6,207.4 179.9,208.7 178.0,209.4 175.4,209.6 174.0,210.8 172.7,212.0 171.2,211.9 168.2,212.2 167.4,210.1 167.5,208.1 166.4,204.2 165.5,202.7 165.8,200.8 166.0,198.5 165.6,196.9 164.7,195.8 164.5,194.3 162.9,193.0 161.3,189.9 160.5,186.9 158.4,184.4 157.0,183.7 155.0,180.2 154.6,177.6 154.8,175.5 153.0,171.4 151.6,169.9 150.0,169.1 149.0,167.0 148.3,164.3 147.4,163.4 146.2,160.7 144.4,157.7 142.8,155.2 141.3,155.2 141.8,153.2 141.9,151.9 142.3,150.4 141.4,151.3 140.7,154.1 139.9,156.1 138.2,155.5 136.8,153.9 134.6,148.6 135.6,152.8 137.4,156.5 139.7,162.3 140.9,164.3 141.8,166.4 144.5,170.5 144.0,173.5 147.6,176.8 149.1,181.2 148.9,185.7 150.0,190.1 151.1,191.0 152.8,192.4 154.5,196.7 155.4,200.1 157.0,201.9 161.2,205.4 162.9,207.5 164.5,209.6 165.5,210.9 166.9,212.0 167.7,213.2 167.6,214.7 165.8,215.6 167.1,216.6 168.7,218.8 170.1,220.4 171.6,220.4 174.4,219.4 177.7,219.0 180.4,217.8 181.9,217.6 183.0,216.9 184.7,216.8 187.1,216.2 188.7,215.8 190.1,214.5 191.4,215.5 191.1,217.7 191.1,219.6 190.4,221.0 189.6,225.0 188.1,229.1 186.3,233.8 183.7,239.2 181.1,243.4 177.5,248.4 174.5,251.4 169.9,255.1 167.1,257.9 163.8,262.4 163.1,264.4 160.3,266.7 159.5,268.2 158.0,271.1 157.0,272.6 156.4,275.1 155.2,276.3 153.8,280.9 154.0,283.0 155.9,284.3 155.2,287.5 155.1,290.4 155.9,292.0 75.7,292.0 76.5,290.7 75.6,287.1 74.9,284.6 73.4,282.3 73.3,280.4 72.5,277.6 70.0,273.7 66.9,270.0 64.9,266.9 63.0,263.1 63.1,261.9 63.8,260.7 64.5,258.0 65.1,255.3 65.6,250.5 66.1,247.6 64.9,245.2 63.5,244.6 62.9,242.9 62.1,241.3 59.0,242.7 56.7,243.3 54.2,243.2 52.6,240.9 51.6,238.2 49.5,235.8 47.2,235.8 44.5,235.8 42.0,236.3 39.6,237.1 34.8,239.2 33.1,240.5 30.4,241.6 27.7,240.5 26.3,240.6 24.2,239.8 22.3,239.9 18.7,240.5 16.6,241.6 13.6,242.9 12.2,242.9 9.1,241.1 6.3,238.3 3.7,236.3 1.7,233.9 0.0,233.0 -0.0,155.0 3.3,152.3 4.9,151.3 7.4,148.2 6.6,143.6 7.8,140.5 8.2,138.5 10.1,136.0 13.2,134.3 15.4,132.8 17.4,129.0 18.4,126.7 20.6,126.7 22.5,128.3 25.3,128.0 28.5,128.8 29.8,128.9 32.7,126.9 36.0,126.2 37.9,124.7 40.8,123.6 46.0,122.9 51.0,122.6 52.5,123.1 55.3,121.7 58.6,121.7 59.8,122.5 61.9,122.3 65.2,120.8 67.3,121.2 67.2,123.1 69.8,121.8 68.5,124.3 68.5,126.0 69.5,126.9 69.1,130.1 67.1,132.0 67.7,134.0 69.3,134.1 70.0,135.8 71.2,136.4 74.8,137.7 76.0,137.3 78.6,138.0 82.6,139.6 84.0,142.9 86.7,143.6 91.0,145.2 94.2,147.0 95.7,146.1 97.1,144.4 96.4,141.5 97.4,139.7 99.6,138.0 101.7,137.5 105.8,138.2 106.8,139.9 108.9,140.5 111.9,141.0 112.6,142.2 116.7,142.1 119.6,143.1 122.6,144.2 124.0,144.8 126.3,143.6 127.6,142.5 130.3,142.2 132.4,142.7 133.2,144.5 133.9,143.3 136.4,144.2 138.7,144.4 140.2,143.5 141.1,142.3 141.7,140.3 142.3,137.5 143.9,133.5 145.4,130.9 145.2,128.0 145.9,126.5 144.8,124.8 146.0,123.4 144.1,123.7 141.6,122.9 139.5,125.0 134.9,125.4 132.4,123.4 129.2,123.3 128.5,124.8 126.4,125.3 123.5,123.3 120.1,123.4 118.4,119.7 116.1,117.6 117.6,114.8 115.7,113.0 119.1,109.4 123.7,109.3 125.0,106.5 130.8,107.0 134.4,104.6 137.9,103.5 143.0,103.5 148.2,106.1 152.6,107.5 156.1,106.9 158.7,107.2 162.3,105.3 162.8,103.7 162.0,101.2 160.3,99.8 158.6,99.4 157.5,98.3 153.6,95.2 150.1,93.8 147.5,91.6 149.7,91.0 152.2,87.9 150.6,86.4 155.0,84.9 152.2,84.7 149.8,85.0 147.8,86.2 144.9,86.4 142.3,87.8 142.5,90.1 144.0,91.0 147.1,90.8 146.5,92.1 143.2,92.7 139.1,94.9 137.4,94.1 138.0,92.4 134.7,91.3 138.2,89.3 137.3,88.5 132.6,87.6 132.4,86.2 129.6,86.6 128.4,88.7 126.1,91.4 124.7,93.2 122.9,97.3 121.4,98.8 120.2,101.5 121.2,103.6 121.6,105.0 124.2,106.2 120.1,107.3 118.8,108.4 116.3,110.4 115.3,108.7 113.5,107.8 111.9,107.5 108.2,108.5 110.3,110.5 108.8,111.1 107.1,111.1 105.5,109.2 105.6,112.3 107.1,114.0 106.0,114.8 107.7,116.5 109.2,117.6 109.2,119.7 106.4,118.7 107.3,120.6 105.4,121.0 106.5,124.2 104.5,124.3 102.0,122.7 100.9,119.7 100.4,117.3 99.2,115.6 97.6,113.4 96.9,112.1 95.2,110.1 94.9,108.3 95.2,105.8 95.6,104.6 94.4,103.8 93.6,102.6 92.3,101.8 89.4,100.5 87.7,99.1 84.9,98.0 82.4,95.3 81.6,93.5 81.5,92.2 79.6,91.6 78.7,93.2 77.8,92.0 77.8,90.7 76.2,89.8 73.7,91.1 73.9,92.9 74.5,95.9 77.4,97.7 78.9,100.8 82.3,103.8 84.6,103.7 84.5,105.3 87.2,106.6 89.5,107.8 92.1,109.7 91.8,111.7 90.1,110.0 87.5,109.4 86.2,111.8 88.4,113.1 88.1,115.1 86.8,115.3 85.2,118.5 83.9,118.7 84.5,115.6 84.0,112.7 83.1,110.8 81.8,110.4 80.9,108.8 79.0,108.1 77.7,106.6 75.4,106.4 73.1,104.7 70.3,102.3 68.2,100.2 67.3,96.5 65.8,96.1 63.3,94.8 61.9,95.3 60.2,97.1 58.9,97.3 56.2,99.4 50.2,98.4 45.8,99.6 45.4,101.8 45.6,104.0 42.7,106.5 38.8,107.2 38.6,108.5 36.7,110.5 35.5,113.6 36.7,115.7 35.0,117.3 34.3,119.7 32.0,120.5 29.9,123.3 26.0,123.4 23.1,123.3 21.2,124.6 20.1,126.0 18.6,125.7 17.5,124.4 16.6,122.3 13.8,121.7 12.6,122.7 11.0,122.2 9.4,122.6 9.9,119.7 9.6,117.4 8.2,117.1 7.5,115.7 7.7,113.2 8.9,111.9 9.2,110.4 9.8,108.2 9.7,106.6 9.1,105.3 9.0,104.0 9.1,101.4 7.9,99.8 12.2,97.1 15.9,97.8 20.0,97.8 23.2,98.4 25.7,98.2 30.6,98.3 32.2,96.1 32.8,88.7 29.6,84.9 27.4,83.0 22.8,81.6 22.5,78.9 26.4,78.1 31.5,79.0 30.5,74.8 33.4,76.4 40.4,73.5 41.3,70.5 44.0,69.8 46.4,69.0 48.0,68.0 50.6,62.6 54.8,61.0 57.3,61.1 60.4,60.1 63.0,59.1 62.4,57.7 62.2,55.6 61.0,53.6 60.9,49.8 62.3,47.7 64.9,47.5 66.0,46.4 68.4,45.4 68.3,47.3 67.4,48.5 69.4,50.1 68.7,51.5 65.6,53.8 66.4,55.6 66.5,57.0 69.6,57.9 69.5,59.2 72.6,58.5 74.3,57.5 77.7,58.9 79.2,60.1 81.2,59.0 86.0,57.3 89.8,56.0 92.8,56.7 96.0,57.6 96.6,56.0 100.8,54.8 100.2,51.7 100.3,48.9 101.8,46.6 104.6,45.3 107.0,48.1 109.5,48.0 110.1,45.2 110.4,43.0 109.3,43.4 107.4,42.1 107.1,40.0 110.9,39.0 114.8,38.4 118.0,39.1 121.2,38.9 124.6,36.9 121.4,35.1 115.9,35.4 110.6,36.8 105.7,37.6 103.9,35.5 101.0,34.3 101.7,30.7 100.2,27.4 101.6,25.2 104.4,22.9 111.3,18.9 113.3,18.1 113.0,16.5 108.8,14.8 103.6,15.8 100.7,18.4 101.1,20.7 96.3,23.6 90.5,26.8 88.3,32.0 90.4,34.6 93.3,36.7 90.5,40.9 87.4,41.7 86.2,47.9 84.5,51.4 80.8,51.1 79.1,54.0 75.6,54.2 74.6,50.7 72.1,46.5 69.8,41.2 67.8,39.0 61.8,43.2 57.7,44.1 53.5,42.2 52.5,38.2 51.5,29.7 54.3,27.3 62.3,24.2 68.3,20.4 73.8,15.2 81.1,8.1 86.2,5.3 94.5,0.7 97.3,0.0 128.3,0.0 130.6,1.6 133.8,0.3 138.7,2.6 147.0,3.5 158.5,7.6 160.8,9.4 161.0,11.9 157.7,13.8 152.7,14.8 139.2,12.0 136.9,12.5 141.9,15.2 142.3,20.7 146.2,21.8 148.6,22.8 148.9,21.0 147.1,19.3 149.0,18.0 156.4,20.3 158.9,19.4 156.9,16.7 163.9,13.0 166.7,13.3 169.6,14.5 171.3,12.0 168.8,9.8 170.3,7.6 168.1,5.3 176.5,6.5 178.3,8.5 174.4,9.0 174.5,11.1 176.8,12.3 181.5,11.5 182.3,9.2 188.6,7.4 199.2,4.2 201.5,4.4 198.5,6.7 202.2,7.0 204.4,5.8 210.1,5.7 214.6,4.1 218.0,6.4 221.5,3.9 218.3,1.8 219.9,0.6 228.8,1.7 233.0,2.8 244.0,7.1 246.0,5.1 243.0,3.2 239.2,2.0 240.2,0.3 256.8,0.0 256.3,3.6 259.6,5.9 258.3,8.4 252.4,13.6 255.9,14.2 257.1,12.8 260.4,11.9 261.2,10.0 263.8,8.3 262.1,6.2 263.5,3.7 260.2,3.4 259.4,1.4 260.3,0.0ZM185.2,106.3 186.8,108.9 188.2,109.1 189.1,110.1 186.6,110.3 186.1,113.2 185.6,114.5 184.4,115.4 184.5,117.2 185.5,119.9 188.4,120.7 190.5,122.6 194.8,123.2 199.5,122.2 199.2,118.7 199.7,114.9 197.3,113.6 198.1,111.1 196.1,110.9 196.7,107.8 199.6,108.7 202.3,107.5 200.1,105.3 199.2,103.1 196.8,104.1 196.4,106.8 195.5,104.4 196.1,102.0 195.5,100.7 192.0,99.4 190.6,96.1 188.9,95.1 188.8,93.9 191.8,94.3 191.9,91.6 194.5,91.0 197.1,91.5 197.7,87.9 197.1,85.6 194.1,85.8 191.5,84.9 188.0,86.5 185.2,87.3 183.8,89.5 180.9,90.1 177.9,93.9 180.6,97.5 180.3,99.9 183.6,104.3 185.2,106.3Z"/>
-            <g class="graticule" stroke="var(--line, rgba(234,240,236,.18))" stroke-width="1">
+            <g class="graticule" stroke="var(--line, #D5DAE1)" stroke-width="1">
               <line x1="0" y1="37" x2="320" y2="37"/><line x1="0" y1="111" x2="320" y2="111"/><line x1="0" y1="185" x2="320" y2="185"/><line x1="0" y1="259" x2="320" y2="259"/>
               <line x1="36.4" y1="0" x2="36.4" y2="292"/><line x1="97" y1="0" x2="97" y2="292"/><line x1="157.6" y1="0" x2="157.6" y2="292"/><line x1="218.2" y1="0" x2="218.2" y2="292"/><line x1="278.8" y1="0" x2="278.8" y2="292"/>
             </g>
@@ -761,9 +761,10 @@
   </div>
 </section>
 
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">↑</a>
 </main>
 
-<a class="totop" id="toTop" href="#top" aria-label="Back to top">↑</a>
+
 
 <dialog class="lightbox" id="lightbox" aria-label="Enlarged image">
   <figure><img id="lbImg" src="" alt=""><figcaption id="lbCap"></figcaption><button type="button" id="lbClose" aria-label="Close">×</button></figure>

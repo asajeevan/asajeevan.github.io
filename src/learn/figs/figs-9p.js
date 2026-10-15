@@ -34,11 +34,11 @@
     { m: 'NMC622', v: 4.2, a: 155.4, b: 147.3, ret: 95 }, { m: 'NMC622', v: 4.4, a: 177.8, b: 166.8, ret: 94 }, { m: 'NMC622', v: 4.6, a: 203.1, b: 79.9, ret: 39 },
     { m: 'NMC811', v: 4.0, a: 131.9, b: 118.1, ret: 90 }, { m: 'NMC811', v: 4.1, a: 149.3, b: 114.4, ret: 77 }, { m: 'NMC811', v: 4.2, a: 172.5, b: 114.7, ret: 66 }
   ];
-  var NMC_COL = { NMC111: 'var(--cyan)', NMC622: 'var(--amber)', NMC811: 'var(--heat)' };
+  var NMC_COL = { NMC111: 'var(--second)', NMC622: 'var(--accent)', NMC811: 'var(--heat)' };
   function ratingSymbol(g, x, y, r, rad) {
     rad = rad || 8;
-    if (r === 2) el('circle', { cx: x, cy: y, r: rad, fill: 'var(--cyan)' }, g);
-    else if (r === 1) { el('circle', { cx: x, cy: y, r: rad, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6 }, g); el('path', { d: 'M' + x + ',' + (y - rad) + ' A' + rad + ',' + rad + ' 0 0 0 ' + x + ',' + (y + rad) + ' Z', fill: 'var(--amber)' }, g); }
+    if (r === 2) el('circle', { cx: x, cy: y, r: rad, fill: 'var(--second)' }, g);
+    else if (r === 1) { el('circle', { cx: x, cy: y, r: rad, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6 }, g); el('path', { d: 'M' + x + ',' + (y - rad) + ' A' + rad + ',' + rad + ' 0 0 0 ' + x + ',' + (y + rad) + ' Z', fill: 'var(--accent)' }, g); }
     else if (r === 0) { var d = rad * 0.56; el('circle', { cx: x, cy: y, r: rad, fill: 'none', stroke: 'var(--heat)', 'stroke-width': 1.8 }, g); el('path', { d: 'M' + (x - d) + ',' + (y - d) + ' L' + (x + d) + ',' + (y + d) + ' M' + (x + d) + ',' + (y - d) + ' L' + (x - d) + ',' + (y + d), stroke: 'var(--heat)', 'stroke-width': 1.8 }, g); }
     else el('line', { x1: x - 5, x2: x + 5, y1: y, y2: y, stroke: 'var(--muted)', 'stroke-width': 1.6 }, g);
   }
@@ -55,12 +55,12 @@
     var rows = [];
     POS.forEach(function (p, i) {
       var y = ry0 + i * rh, row = el('g', { tabindex: 0, role: 'button', 'aria-label': p.n + ', ' + p.f, style: 'cursor:pointer' }, gC);
-      var bg = el('rect', { x: 8, y: y - rh / 2 + 1, width: 504, height: rh - 2, rx: 6, fill: i % 2 ? 'transparent' : 'rgba(234,240,236,.035)', stroke: 'var(--amber)', 'stroke-opacity': 0, 'stroke-width': 1.5 }, row);
+      var bg = el('rect', { x: 8, y: y - rh / 2 + 1, width: 504, height: rh - 2, rx: 6, fill: i % 2 ? 'transparent' : 'rgba(20,23,28,.03)', stroke: 'var(--accent)', 'stroke-opacity': 0, 'stroke-width': 1.5 }, row);
       txt(row, rx, y + 4, p.n, 'strong', 'start');
       if (p.q) {
         var w = qw * p.q / 300;
-        if (p.qk === 't') el('rect', { x: cQ, y: y - 6, width: w, height: 12, rx: 3, fill: 'none', stroke: 'var(--cyan)', 'stroke-dasharray': '3 2' }, row);
-        else el('rect', { x: cQ, y: y - 6, width: w, height: 12, rx: 3, fill: 'var(--cyan)', 'fill-opacity': '.7' }, row);
+        if (p.qk === 't') el('rect', { x: cQ, y: y - 6, width: w, height: 12, rx: 3, fill: 'none', stroke: 'var(--second)', 'stroke-dasharray': '3 2' }, row);
+        else el('rect', { x: cQ, y: y - 6, width: w, height: 12, rx: 3, fill: 'var(--second)', 'fill-opacity': '.7' }, row);
         txt(row, cQ + w + 5, y + 4, p.ql, '', 'start');
       } else txt(row, cQ, y + 4, 'not given', '', 'start', { style: 'fill:var(--muted)' });
       POS_ASP.forEach(function (a, j) { ratingSymbol(row, c0 + j * cw, y, p.r[a], 7); });
@@ -142,13 +142,13 @@
     P.forEach(function (p) {
       var g = el('g', {}, gM); parts[p.k] = g;
       txt(g, p.x, 22, p.h, 'strong', 'middle');
-      el('rect', { x: p.x - 34, y: 92, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--amber)' }, g);
+      el('rect', { x: p.x - 34, y: 92, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--accent)' }, g);
       txt(g, p.x, 115, 'R', 'strong', 'middle');
-      if (p.k !== 'p') { el('rect', { x: p.x - 34, y: 152, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--cyan)' }, g); txt(g, p.x, 175, 'R⁻ Li⁺', 'cyan', 'middle'); el('line', { x1: p.x, y1: 130, x2: p.x, y2: 148, stroke: 'var(--cyan)', 'stroke-width': 1.6, 'marker-end': 'url(#f913-arc)' }, g); }
+      if (p.k !== 'p') { el('rect', { x: p.x - 34, y: 152, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--second)' }, g); txt(g, p.x, 175, 'R⁻ Li⁺', 'cyan', 'middle'); el('line', { x1: p.x, y1: 130, x2: p.x, y2: 148, stroke: 'var(--second)', 'stroke-width': 1.6, 'marker-end': 'url(#f913-arc)' }, g); }
       if (p.k !== 'n') { el('rect', { x: p.x - 34, y: 34, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--heat)' }, g); txt(g, p.x, 57, 'R⁺ A⁻', 'heat', 'middle'); el('line', { x1: p.x, y1: 90, x2: p.x, y2: 74, stroke: 'var(--heat)', 'stroke-width': 1.6, 'marker-end': 'url(#f913-arh)' }, g); }
       txt(g, p.x, 214, p.s1, '', 'middle'); txt(g, p.x, 230, p.s2, '', 'middle');
     });
-    var defs = el('defs', {}, svg); [['f913-arc', 'var(--cyan)'], ['f913-arh', 'var(--heat)']].forEach(function (m) { var mk = el('marker', { id: m[0], viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' }, defs); el('path', { d: 'M0,0 L10,5 L0,10 z', fill: m[1] }, mk); });
+    var defs = el('defs', {}, svg); [['f913-arc', 'var(--second)'], ['f913-arh', 'var(--heat)']].forEach(function (m) { var mk = el('marker', { id: m[0], viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' }, defs); el('path', { d: 'M0,0 L10,5 L0,10 z', fill: m[1] }, mk); });
     txt(gM, 260, 272, 'neutral form in the middle; R = the redox-active molecule or polymer', '', 'middle', { style: 'fill:var(--muted)' });
     badge(gM, 90 - 50, 110, 1); badge(gM, 260 - 50, 52, 2); badge(gM, 430 - 50, 110, 3);
     // ---------- the voltage ladder ----------
@@ -166,7 +166,7 @@
     ORG.forEach(function (o) {
       var x = CX[o.col], y = YV(o.v), g = el('g', { tabindex: 0, role: 'button', 'aria-label': o.n.replace(/§/g, '') + ', ' + o.v.toFixed(2) + ' volts', style: 'cursor:pointer' }, gL);
       el('circle', { cx: x, cy: y, r: 9, fill: 'transparent' }, g);
-      var c = el('circle', { cx: x, cy: y, r: 5, fill: o.v >= 2.91 ? 'var(--cyan)' : 'var(--amber)', stroke: 'var(--bg)', 'stroke-width': 1 }, g);
+      var c = el('circle', { cx: x, cy: y, r: 5, fill: o.v >= 2.91 ? 'var(--second)' : 'var(--accent)', stroke: 'var(--bg)', 'stroke-width': 1 }, g);
       var ring = el('circle', { cx: x, cy: y, r: 9, fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.5, 'stroke-opacity': 0 }, g);
       txt(g, x + 10, y + (o.dy || 4), o.n, '', 'start');
       dots.push({ o: o, ring: ring });

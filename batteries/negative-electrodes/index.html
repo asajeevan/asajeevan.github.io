@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://asajeevan.github.io/batteries/negative-electrodes/">
 <meta property="og:site_name" content="Aswadh Shyma Sajeevan">
-<meta name="theme-color" content="#0E1F22">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://asajeevan.github.io/batteries/negative-electrodes/">
 <meta name="twitter:card" content="summary">
@@ -19,8 +19,8 @@
 <meta name="twitter:description" content="What could replace graphite, and why has it not happened yet? Negative electrode materials: graphite, silicon, lithium metal and anode-free cells.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
 <script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
 /* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
 window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
@@ -117,7 +117,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <button type="button" data-mode="graphite" aria-pressed="true">Graphite</button><button type="button" data-mode="lto" aria-pressed="false">Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub></button><button type="button" data-mode="si" aria-pressed="false">Silicon</button><button type="button" data-mode="fe2o3" aria-pressed="false">Fe<sub>2</sub>O<sub>3</sub></button><button type="button" data-mode="li" aria-pressed="false">Lithium metal</button>
 </div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="act"></i>intercalation</span><span><i style="background:#C4B5F7"></i>alloy</span><span><i class="cu"></i>conversion</span><span><i class="zn"></i>lithium metal</span></div>
+<div class="key"><span><i class="act"></i>intercalation</span><span><i style="background:var(--field)"></i>alloy</span><span><i class="cu"></i>conversion</span><span><i class="zn"></i>lithium metal</span></div>
 <figcaption>The map of negative electrodes, and what extra capacity really buys.
 <span class="try">Try this: compare silicon and lithium metal; then try Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub> and see what its voltage costs.</span>
 <details class="src"><summary>Source</summary><span class="basis">Classes, theoretical capacities and working potentials after Rahman et al. 2025, Tables 1 and 2 and section 2 (graphite 372 mAh/g at 0.15 V; Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub> 175 at about 1.55 V; TiNb<sub>2</sub>O<sub>7</sub> about 350 and TiO<sub>2</sub> 330, niobium oxides at about 1 to 2 V and TiO<sub>2</sub> at 1.5 V; Si 3579, Sn 994, Ge 1624, Sb 660; Fe<sub>2</sub>O<sub>3</sub> 1007 and MnO<sub>2</sub> 1233 at 1.0 to 1.5 V; MoS<sub>2</sub> 670 at 1.1 to 1.8 V; FeP about 900 at 0.5 to 1.0 V; lithium 3860 at 0 V). Alloy potentials, 0.2 to 0.8 V, after Goodenough and Park 2013; dots mark the middle of each range. The energy of the pair, (V<sub>pos</sub> − V<sub>neg</sub>) × Q<sub>pos</sub>Q<sub>neg</sub>/(Q<sub>pos</sub> + Q<sub>neg</sub>), counts the two active materials only, against a positive electrode of 200 mAh/g (about what NMC811 gives, Marie and Gifford 2023) at an illustrative 3.8 V: this page’s own working.</span></details>
@@ -174,7 +174,7 @@ Less than half the energy, in exchange for a volt and a half of margin against p
 <label><span>silicon in the blend</span> <input type="range" class="siw" min="0" max="30" step="1" value="8" aria-label="Silicon content in weight percent"> <b class="siw-val">8 wt%</b></label>
 </div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="act"></i>titanate, graphite</span><span><i style="background:#C4B5F7"></i>silicon</span><span><i style="background:#d9c48f"></i>SEI</span><span><i class="carb"></i>room to swell</span></div>
+<div class="key"><span><i class="act"></i>titanate, graphite</span><span><i style="background:var(--field)"></i>silicon</span><span><i style="background:#C7A44E"></i>SEI</span><span><i class="carb"></i>room to swell</span></div>
 <figcaption>Silicon breathes, and its SEI pays for it.
 <span class="try">Try this: watch the silicon for three cycles, then give it room to swell; slide the silicon fraction from 5 to 20 wt%.</span>
 <details class="src"><summary>Source</summary><span class="basis">Volume changes (about 0.2 % for Li<sub>4</sub>Ti<sub>5</sub>O<sub>12</sub>, about 10 % for graphite, about 280 % for silicon), cracking of the SEI and its regrowth, pulverization and delamination, the mitigations, and commercial blends with 5 to 10 wt% silicon, after Rahman et al. 2025, sections 2(ii), 4 and 5 and Figs. 4e and 5c–d; silicon’s 3579 mAh/g from their Table 2. Particle radii follow the cube root of the volume; when the cracks appear is schematic. The blend capacity is a simple mass-weighted mixture: this page’s working.</span></details>
@@ -199,7 +199,7 @@ The coating, the binder and the SEI on each silicon particle all have to follow 
 </svg>
 <div class="controls"><label><span>hysteresis</span> <input type="range" class="hyst" min="0.1" max="1.2" step="0.05" value="1" aria-label="Voltage hysteresis in volts"> <b class="hyst-val">1.00 V</b></label></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="cu"></i>metal oxide</span><span><i class="zn"></i>metal grains</span><span><i class="act"></i>lithium in</span><span><i style="background:var(--cyan)"></i>lithium out</span><span><i class="heat"></i>energy lost per cycle</span></div>
+<div class="key"><span><i class="cu"></i>metal oxide</span><span><i class="zn"></i>metal grains</span><span><i class="act"></i>lithium in</span><span><i style="background:var(--second)"></i>lithium out</span><span><i class="heat"></i>energy lost per cycle</span></div>
 <figcaption>Conversion: high capacity, paid for with a volt of hysteresis.
 <span class="try">Try this: halve the hysteresis and read how much of the energy comes back.</span>
 <details class="src"><summary>Source</summary><span class="basis">The conversion reaction, the capacities of Fe<sub>2</sub>O<sub>3</sub>, MnO<sub>2</sub> and MoS<sub>2</sub>, hysteresis of about 1 V from the interconversion of several solid phases, and the drawbacks, after Rahman et al. 2025, sections 2(iii) and 4, Table 1 and Fig. 5e–f; two to three times the capacity of carbon after Tarascon and Armand 2001. The voltage curves are schematic around 1.25 V; the round-trip efficiency against a 3.8 V positive electrode, (3.8 − V − h/2)/(3.8 − V + h/2), is this page’s estimate.</span></details>
@@ -223,7 +223,7 @@ The coating, the binder and the SEI on each silicon particle all have to follow 
 <button type="button" class="solid-sep">Ceramic separator</button>
 </div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="zn"></i>lithium metal; dead lithium (pale)</span><span><i style="background:#d9c48f"></i>SEI</span><span><i class="carb"></i>separator</span></div>
+<div class="key"><span><i class="zn"></i>lithium metal; dead lithium (pale)</span><span><i style="background:#C7A44E"></i>SEI</span><span><i class="carb"></i>separator</span></div>
 <figcaption>Lithium metal: dendrites and dead lithium.
 <span class="try">Try this: play ten cycles at 1 mA/cm<sup>2</sup>, then reset the page and play at 4 mA/cm<sup>2</sup>; then switch to the ceramic separator.</span>
 <details class="src"><summary>Source</summary><span class="basis">Dendrites, the space-charge, tip and defect explanations, dead lithium, its thickening from about 2 µm to about 100 µm, SEI on fresh surfaces, short circuits, the Young’s modulus of lithium (about 4.9 GPa) and dendrites through the grain boundaries of ceramic electrolytes, after Rahman et al. 2025, sections 6 and 7.1 and Fig. 10; cycle life in 2004 after Winter and Brodd 2004, section 2.5. The growth follows a random rule weighted toward tips, drawn only as “rough, whisker-like”; the current density scale and cycle counter are not predictions.</span></details>
@@ -246,7 +246,7 @@ The coating, the binder and the SEI on each silicon particle all have to follow 
 </svg>
 <div class="controls"><label><span>Coulombic efficiency</span> <input type="range" class="ce" min="98" max="99.95" step="0.05" value="99.5" aria-label="Coulombic efficiency in percent"> <b class="ce-val">99.50 %</b></label></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="heat"></i>anode-free</span><span><i class="act"></i>1× excess</span><span><i style="background:var(--cyan)"></i>3× excess</span></div>
+<div class="key"><span><i class="heat"></i>anode-free</span><span><i class="act"></i>1× excess</span><span><i style="background:var(--second)"></i>3× excess</span></div>
 <figcaption>How many cycles? Coulombic efficiency against lithium in reserve.
 <span class="try">Try this: find the efficiency at which the anode-free cell lasts 100 cycles; then the one at which it lasts 500.</span>
 <details class="src"><summary>Source</summary><span class="basis">Anode-free cells plating the positive electrode’s lithium onto the current collector, with no excess to make up for losses, after Rahman et al. 2025, sections 7 and 7.2; the excess needed for N cycles, R = N(1 − E), after Brandt 1994. The curves, capacity unchanged until the excess is spent and then falling by CE per cycle, are this page’s model.</span></details>
@@ -269,7 +269,7 @@ The efficiency, not the capacity, decides whether lithium metal can be used.<sup
 <title id="f99t">An anode-free cell: a copper current collector, electrolyte, separator and positive electrode, with lithium plating onto the copper and back. Steps show three fixes: a graphene-oxide film on the copper, an additive in the electrolyte and a porous copper collector, each with the results reported.</title>
 </svg>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="cu"></i>copper</span><span><i class="zn"></i>plated lithium</span><span><i style="background:#d9c48f"></i>artificial SEI</span><span><i style="background:#C4B5F7"></i>additive</span><span><i class="li"></i>lithium in the positive electrode</span></div>
+<div class="key"><span><i class="cu"></i>copper</span><span><i class="zn"></i>plated lithium</span><span><i style="background:#C7A44E"></i>artificial SEI</span><span><i style="background:var(--field)"></i>additive</span><span><i class="li"></i>lithium in the positive electrode</span></div>
 <figcaption>Making anode-free cells work: three places to intervene.
 <span class="try">Try this: step through the four callouts and, for each fix, find the number that shows it worked.</span>
 <details class="src"><summary>Source</summary><span class="basis">Advantages, challenges and strategies (Table 4); graphene oxide on copper (Tadesse et al.), KNO<sub>3</sub> (Sahalie et al.), dual-salt LiDFOB/LiBF<sub>4</sub> (Weber et al.), localized high-concentration electrolytes, fluorinated solvents and a porous copper collector (Yun et al.), with the numbers each reported, after Rahman et al. 2025, sections 7.2 and 7.3 and Fig. 11. Drawn schematically; the reported numbers come from different cells and tests and should not be compared with each other.</span></details>

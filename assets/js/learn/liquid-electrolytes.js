@@ -201,7 +201,7 @@
   function phiStrip(g, box, pts, opts) {
     opts = opts || {};
     var vmin = opts.vmin === undefined ? 0 : opts.vmin, vmax = opts.vmax === undefined ? 1 : opts.vmax;
-    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(234,240,236,.04)', stroke: 'var(--line)' }, g);
+    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(20,23,28,.025)', stroke: 'var(--line)' }, g);
     var Y = function (v) { return box.y + box.h - (v - vmin) / (vmax - vmin) * box.h; }, X = function (f) { return box.x + f * box.w; };
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
@@ -241,7 +241,7 @@
   var NOTES = {
     show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
     teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
-    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in cyan.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
+    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in green.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
   };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
@@ -312,11 +312,11 @@
   /* figs-5.js */
   function niceStep(span, n) { var raw = span / (n || 5), p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; }
   /* figs-7a.js */
-  var M7_O = '#ff8f7a', M7_DMC = '#9fe3d9';
+  var M7_O = '#ff8f7a', M7_DMC = '#3BA88A';
   function m7mol(g, type, x, y, ang, sc) {
     sc = sc || 1.2; var grp = el('g', {}, g);
     if (type === 'ec') {
-      el('circle', { r: 5.5, fill: 'var(--cyan)', 'fill-opacity': '.22', stroke: 'var(--cyan)', 'stroke-width': 1.3 }, grp);
+      el('circle', { r: 5.5, fill: 'var(--second)', 'fill-opacity': '.22', stroke: 'var(--second)', 'stroke-width': 1.3 }, grp);
       el('circle', { cx: 8, cy: 0, r: 2.3, fill: M7_O }, grp);
     } else {
       el('rect', { x: -8, y: -3.2, width: 16, height: 6.4, rx: 3.2, fill: M7_DMC, 'fill-opacity': '.14', stroke: M7_DMC, 'stroke-width': 1.2 }, grp);
@@ -341,14 +341,14 @@
     // panel 1: the recipe
     txt(g, 90, 22, 'the recipe', 'strong', 'middle');
     el('path', { d: 'M52,44 V196 Q52,210 66,210 H114 Q128,210 128,196 V44', fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 1.6 }, g);
-    var liq = el('rect', { x: 54, y: 92, width: 72, height: 116, rx: 10, fill: 'var(--cyan)', 'fill-opacity': '.14' }, g);
+    var liq = el('rect', { x: 54, y: 92, width: 72, height: 116, rx: 10, fill: 'var(--second)', 'fill-opacity': '.14' }, g);
     var r1 = txt(g, 90, 118, '1 mol LiPF₆', 'amber', 'middle'), r2 = txt(g, 90, 136, 'per litre of', '', 'middle'), r3 = txt(g, 90, 154, 'EC : DMC', 'strong', 'middle'), r4 = txt(g, 90, 172, '3 : 7', 'strong', 'middle');
     badge(g, 140, 54, 1);
     // panel 2: count per lithium ion
     var bx = 196, bw = 130, by = 40, bh = 170;
     txt(g, bx + bw / 2 + 4, 22, 'molecules per Li⁺', 'strong', 'middle');
     el('line', { x1: bx, y1: by + bh, x2: bx + bw, y2: by + bh, stroke: 'var(--line-2)' }, g);
-    var bars = [['EC', 'var(--cyan)'], ['DMC', M7_DMC], ['Li⁺', 'var(--cation)'], ['PF₆⁻', 'var(--anion)']].map(function (b, i) {
+    var bars = [['EC', 'var(--second)'], ['DMC', M7_DMC], ['Li⁺', 'var(--cation)'], ['PF₆⁻', 'var(--anion)']].map(function (b, i) {
       var x = bx + 8 + i * 31;
       return { r: el('rect', { x: x, width: 22, y: by + bh, height: 0, fill: b[1], 'fill-opacity': '.75' }, g), v: txt(g, x + 11, by + bh - 4, '', 'strong', 'middle'), l: txt(g, x + 11, by + bh + 16, b[0], '', 'middle'), x: x };
     });
@@ -356,7 +356,7 @@
     // panel 3: a window a few nanometres across
     var wx = 350, wy = 40, ww = 156, wh = 170;
     txt(g, wx + ww / 2, 22, 'a few nanometres of it', 'strong', 'middle');
-    el('rect', { x: wx, y: wy, width: ww, height: wh, rx: 6, fill: 'var(--cyan)', 'fill-opacity': '.05', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: wx, y: wy, width: ww, height: wh, rx: 6, fill: 'var(--second)', 'fill-opacity': '.05', stroke: 'var(--line-2)' }, g);
     var win = el('g', {}, g), cap = txt(g, wx + ww / 2, wy + wh + 18, '', 'amber', 'middle');
     badge(g, wx + ww - 6, wy + wh + 14, 3);
     var mols = [], state = 'mix', t = 0;
@@ -459,16 +459,16 @@
     var cells = [];
     SALTS.forEach(function (s, i) {
       var y = ry0 + i * rh;
-      if (i % 2 === 0) el('rect', { x: 10, y: y - rh / 2, width: 500, height: rh, rx: 6, fill: 'rgba(234,240,236,.035)' }, gS);
+      if (i % 2 === 0) el('rect', { x: 10, y: y - rh / 2, width: 500, height: rh, rx: 6, fill: 'rgba(20,23,28,.03)' }, gS);
       txt(gS, rx, y + 5, s.n, s.n === 'LiPF₆' ? 'amber strong' : 'strong', 'start');
-      el('rect', { x: cK, y: y - 6, width: 60 * s.k / 16, height: 12, rx: 3, fill: 'var(--cyan)', 'fill-opacity': '.7' }, gS);
+      el('rect', { x: cK, y: y - 6, width: 60 * s.k / 16, height: 12, rx: 3, fill: 'var(--second)', 'fill-opacity': '.7' }, gS);
       txt(gS, cK + 60 * s.k / 16 + 5, y + 4, s.k.toFixed(1), '', 'start');
       SALT_ASPECTS.forEach(function (a, j) {
         var x = c0 + j * cw, r = s.r[a], c = el('g', { tabindex: 0, role: 'button', 'aria-label': s.n + ', ' + SALT_HEAD[a].join(' '), style: 'cursor:pointer' }, gS);
         el('circle', { cx: x, cy: y, r: 14, fill: 'transparent' }, c);
-        var ring = el('circle', { cx: x, cy: y, r: 13, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2, 'stroke-opacity': 0 }, c);
-        if (r === 2) el('circle', { cx: x, cy: y, r: 8, fill: 'var(--cyan)' }, c);
-        else if (r === 1) { el('circle', { cx: x, cy: y, r: 8, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6 }, c); el('path', { d: 'M' + x + ',' + (y - 8) + ' A8,8 0 0 0 ' + x + ',' + (y + 8) + ' Z', fill: 'var(--amber)' }, c); }
+        var ring = el('circle', { cx: x, cy: y, r: 13, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-opacity': 0 }, c);
+        if (r === 2) el('circle', { cx: x, cy: y, r: 8, fill: 'var(--second)' }, c);
+        else if (r === 1) { el('circle', { cx: x, cy: y, r: 8, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6 }, c); el('path', { d: 'M' + x + ',' + (y - 8) + ' A8,8 0 0 0 ' + x + ',' + (y + 8) + ' Z', fill: 'var(--accent)' }, c); }
         else if (r === 0) { el('circle', { cx: x, cy: y, r: 8, fill: 'none', stroke: 'var(--heat)', 'stroke-width': 1.8 }, c); el('path', { d: 'M' + (x - 4.5) + ',' + (y - 4.5) + ' L' + (x + 4.5) + ',' + (y + 4.5) + ' M' + (x + 4.5) + ',' + (y - 4.5) + ' L' + (x - 4.5) + ',' + (y + 4.5), stroke: 'var(--heat)', 'stroke-width': 1.8 }, c); }
         else el('line', { x1: x - 5, x2: x + 5, y1: y, y2: y, stroke: 'var(--muted)', 'stroke-width': 1.6 }, c);
         cells.push({ s: s, a: a, ring: ring });
@@ -479,8 +479,8 @@
     var ly = ry0 + SALTS.length * rh + 8;
     [[2, 'good'], [1, 'partly'], [0, 'poor'], [-1, 'not rated']].forEach(function (L, j) {
       var x = 30 + j * 118, y = ly;
-      if (L[0] === 2) el('circle', { cx: x, cy: y, r: 7, fill: 'var(--cyan)' }, gS);
-      else if (L[0] === 1) { el('circle', { cx: x, cy: y, r: 7, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6 }, gS); el('path', { d: 'M' + x + ',' + (y - 7) + ' A7,7 0 0 0 ' + x + ',' + (y + 7) + ' Z', fill: 'var(--amber)' }, gS); }
+      if (L[0] === 2) el('circle', { cx: x, cy: y, r: 7, fill: 'var(--second)' }, gS);
+      else if (L[0] === 1) { el('circle', { cx: x, cy: y, r: 7, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6 }, gS); el('path', { d: 'M' + x + ',' + (y - 7) + ' A7,7 0 0 0 ' + x + ',' + (y + 7) + ' Z', fill: 'var(--accent)' }, gS); }
       else if (L[0] === 0) { el('circle', { cx: x, cy: y, r: 7, fill: 'none', stroke: 'var(--heat)', 'stroke-width': 1.8 }, gS); el('path', { d: 'M' + (x - 4) + ',' + (y - 4) + ' L' + (x + 4) + ',' + (y + 4) + ' M' + (x + 4) + ',' + (y - 4) + ' L' + (x - 4) + ',' + (y + 4), stroke: 'var(--heat)', 'stroke-width': 1.8 }, gS); }
       else el('line', { x1: x - 5, x2: x + 5, y1: y, y2: y, stroke: 'var(--muted)', 'stroke-width': 1.6 }, gS);
       txt(gS, x + 12, y + 4, L[1], '', 'start');
@@ -497,7 +497,7 @@
     SOLV.forEach(function (s, i) {
       var y = by0 + i * (bh + 14);
       txt(gV, 20, y + bh / 2 + 5, s.n, 'strong', 'start'); txt(gV, 58, y + bh / 2 + 5, s.cyc ? 'cyclic' : 'linear', s.cyc ? 'cyan' : 'amber', 'start');
-      bars.push({ s: s, r: el('rect', { y: y, height: bh, rx: 4, fill: s.cyc ? 'var(--cyan)' : 'var(--amber)', 'fill-opacity': '.75' }, gV), t: txt(gV, 0, y + bh / 2 + 5, '', 'strong', 'start') });
+      bars.push({ s: s, r: el('rect', { y: y, height: bh, rx: 4, fill: s.cyc ? 'var(--second)' : 'var(--accent)', 'fill-opacity': '.75' }, gV), t: txt(gV, 0, y + bh / 2 + 5, '', 'strong', 'start') });
     });
     badge(gV, 494, by0 + 10, 3);
     function placeV() {
@@ -530,7 +530,7 @@
     st = steps(fig, [
       { text: 'Six lithium salts that have been used in electrolytes, and how each scores on the requirements a salt must meet. Failing any one of them rules a salt out of practical use. The bars give the conductivity of each at 1 M: LiPF₆ leads.', on: function () { setView('s'); sel = { s: SALTS[0], a: 'water' }; placeS(); } },
       { text: 'No salt scores well everywhere. LiPF₆ leads on conductivity, protects the aluminium and forms a good SEI, and loses on water and heat. The others each fail somewhere else: LiClO₄ can explode, LiAsF₆ can turn toxic, LiTFSI and the triflate eat the aluminium foil.', on: function () { setView('s'); sel = { s: SALTS[4], a: 'Al' }; placeS(); } },
-      { text: 'Now the solvents. Pick an aspect: the cyclic carbonates (cyan) dissolve salts and are hard to ignite but are thick or solid; the linear ones (gold) flow easily and, except DMC, stay liquid in the cold, but flash near room temperature. A commercial electrolyte mixes the two.', on: function () { setView('v'); } }
+      { text: 'Now the solvents. Pick an aspect: the cyclic carbonates (green) dissolve salts and are hard to ignite but are thick or solid; the linear ones (blue) flow easily and, except DMC, stay liquid in the cold, but flash near room temperature. A commercial electrolyte mixes the two.', on: function () { setView('v'); } }
     ]);
   });
   /* figs-7m.js */
@@ -588,12 +588,12 @@
       m.atoms.forEach(function (a, i) {
         var node = el('circle', { fill: 'url(#' + pfx + '-' + a.e + ')', stroke: 'rgba(0,0,0,.35)', 'stroke-width': .6 }, g);
         var it = { kind: 'a', e: a.e, p: a.p.slice(), node: node, mol: mol, hl: Array.isArray(opts.hl) ? opts.hl.indexOf(i) >= 0 : opts.hl === i };
-        if (it.hl) { it.ring = el('circle', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6, 'stroke-dasharray': '3 2' }, g); }
+        if (it.hl) { it.ring = el('circle', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6, 'stroke-dasharray': '3 2' }, g); }
         mol.atoms.push(it); S.items.push(it);
       });
       m.bonds.forEach(function (b) {
         var node = el('g', {}, g), n = b[2] || 1, lines = [];
-        for (var k = 0; k < n; k++) lines.push(el('line', { stroke: '#d9e2e6', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-opacity': '.85' }, node));
+        for (var k = 0; k < n; k++) lines.push(el('line', { stroke: '#7A8690', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-opacity': '.85' }, node));
         var it = { kind: 'b', a: mol.atoms[b[0]], b: mol.atoms[b[1]], node: node, lines: lines, mol: mol };
         mol.bonds.push(it); S.items.push(it);
       });
@@ -762,7 +762,7 @@
     txt(g, x0 + sp * 1.5, 34, 'solid LiPF₆', 'strong', 'middle'); txt(g, 360, 34, 'solution', 'strong', 'middle');
     el('line', { x1: 168, y1: 44, x2: 168, y2: 222, stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, g);
     var lat = el('g', {}, g), sol = el('g', { opacity: '.42' }, g), out = el('g', {}, g);
-    function anionGlyph(gp, x, y) { var grp = el('g', { transform: 'translate(' + x + ',' + y + ')' }, gp); el('circle', { r: 7.5, 'class': 'ion an' }, grp); [0, 1, 2, 3].forEach(function (k) { el('circle', { cx: Math.cos(k * Math.PI / 2 + 0.6) * 7.5, cy: Math.sin(k * Math.PI / 2 + 0.6) * 7.5, r: 2.2, fill: '#8be08b' }, grp); }); return grp; }
+    function anionGlyph(gp, x, y) { var grp = el('g', { transform: 'translate(' + x + ',' + y + ')' }, gp); el('circle', { r: 7.5, 'class': 'ion an' }, grp); [0, 1, 2, 3].forEach(function (k) { el('circle', { cx: Math.cos(k * Math.PI / 2 + 0.6) * 7.5, cy: Math.sin(k * Math.PI / 2 + 0.6) * 7.5, r: 2.2, fill: '#2E9E5B' }, grp); }); return grp; }
     for (var j = 0; j < ny; j++) for (var i = 0; i < nx; i++) {
       var li = (i + j) % 2 === 0, x = x0 + i * sp, y = y0 + j * sp;
       cells.push({ li: li, x: x, y: y, node: li ? el('circle', { cx: x, cy: y, r: 5, 'class': 'ion' }, lat) : anionGlyph(lat, x, y), gone: false });
@@ -809,7 +809,7 @@
       if (job.fa && k <= 1) { job.fa.x = lerp(job.fa.x, 200 + ((done * 97) % 280), dt * 0.9); job.fa.y = lerp(job.fa.y, 60 + ((done * 53) % 150), dt * 0.9); job.fa.set(job.fa.x, job.fa.y); tagAn.style.display = ''; tagAn.setAttribute('x', Math.max(50, job.fa.x).toFixed(1)); tagAn.setAttribute('y', (job.fa.y + 22).toFixed(1)); }
       if (k >= 1) {
         // the solvated ion becomes one object wandering in the solution
-        var grp = el('g', {}, out); el('circle', { r: 27, fill: 'var(--cyan)', 'fill-opacity': '.07', stroke: 'var(--amber)', 'stroke-opacity': '.6', 'stroke-dasharray': '3 3' }, grp); var ion = m7li(grp, 0, 0, 5); job.sh.forEach(function (m) { m.g.parentNode.removeChild(m.g); });
+        var grp = el('g', {}, out); el('circle', { r: 27, fill: 'var(--second)', 'fill-opacity': '.07', stroke: 'var(--accent)', 'stroke-opacity': '.6', 'stroke-dasharray': '3 3' }, grp); var ion = m7li(grp, 0, 0, 5); job.sh.forEach(function (m) { m.g.parentNode.removeChild(m.g); });
         [0, 1, 2, 3].forEach(function (q) { var mm = m7mol(grp, q % 2 ? 'dmc' : 'ec', 0, 0, 0); m7aim(mm, 0, 0, [-2.4, -0.75, 0.75, 2.4][q], 13); });
         if (job.ion) job.ion.c.parentNode.removeChild(job.ion.c);
         var f = { g: grp, x: p.x, y: p.y, set: function (x, y) { grp.setAttribute('transform', 'translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ')'); } }; f.set(p.x, p.y); free.push(f);
@@ -842,7 +842,7 @@
     var Xn = function (ns) { return px + 8 + ns / 3 * (pw - 16); };
     el('line', { x1: Xn(0), y1: 196, x2: Xn(3), y2: 196, stroke: 'var(--line-2)' }, g);
     [0, 1, 2, 3].forEach(function (n) { el('line', { x1: Xn(n), y1: 196, x2: Xn(n), y2: 200, stroke: 'var(--line-2)' }, g); txt(g, Xn(n), 212, n + ' ns', '', 'middle'); });
-    el('rect', { x: Xn(0), y: 140, width: Xn(0.5) - Xn(0), height: 14, fill: 'var(--cyan)', 'fill-opacity': '.7' }, g); txt(g, Xn(0.5) + 4, 151, 'EC: about 0.5', 'cyan', 'start');
+    el('rect', { x: Xn(0), y: 140, width: Xn(0.5) - Xn(0), height: 14, fill: 'var(--second)', 'fill-opacity': '.7' }, g); txt(g, Xn(0.5) + 4, 151, 'EC: about 0.5', 'cyan', 'start');
     el('rect', { x: Xn(0), y: 166, width: Xn(2) - Xn(0), height: 14, fill: 'var(--anion)', 'fill-opacity': '.8' }, g); el('rect', { x: Xn(2), y: 166, width: Xn(3) - Xn(2), height: 14, fill: 'var(--anion)', 'fill-opacity': '.3', stroke: 'var(--anion)', 'stroke-dasharray': '2 2' }, g);
     txt(g, Xn(0) + 4, 177, 'anion: 2 to 3', 'strong', 'start');
     badge(g, px + pw - 2, 226, 4);
@@ -880,7 +880,7 @@
     function draw() {
       S.draw(V); while (tags.firstChild) tags.removeChild(tags.firstChild);
       var lis = S.mols.filter(function (m) { return m.atoms.length === 1; }).map(function (m) { return m.atoms[0]; });
-      S.items.forEach(function (it) { if (!it.hl || it.mol.fade < 0.6) return; var best = null, bd = 1e9; lis.forEach(function (l) { var d = Math.hypot(l.sx - it.sx, l.sy - it.sy); if (d < bd) { bd = d; best = l; } }); if (best) el('line', { x1: best.sx, y1: best.sy, x2: it.sx, y2: it.sy, stroke: 'var(--amber)', 'stroke-width': 1.6, 'stroke-dasharray': '3 2', 'stroke-opacity': '.9' }, tags); });
+      S.items.forEach(function (it) { if (!it.hl || it.mol.fade < 0.6) return; var best = null, bd = 1e9; lis.forEach(function (l) { var d = Math.hypot(l.sx - it.sx, l.sy - it.sy); if (d < bd) { bd = d; best = l; } }); if (best) el('line', { x1: best.sx, y1: best.sy, x2: it.sx, y2: it.sy, stroke: 'var(--accent)', 'stroke-width': 1.6, 'stroke-dasharray': '3 2', 'stroke-opacity': '.9' }, tags); });
       S.mols.forEach(function (m) {
         var n = m.atoms.length, x = 0, y = 0; m.atoms.forEach(function (a) { x += a.sx / n; y += a.sy / n; });
         var lab = n === 1 ? 'Li⁺' : n === 7 ? 'PF₆⁻' : n === 10 ? 'EC' : 'DMC';
@@ -903,7 +903,7 @@
     Array.prototype.forEach.call(btns, function (b) { on(b, 'click', function () { mode = b.getAttribute('data-pair'); build(); }); });
     m3drag(svg, V, draw);
     steps(fig, [
-      { text: 'Each Li⁺ (amber, centre) gathers solvent molecules that turn their <b>carbonyl oxygen</b> (ringed) towards it. About <b>four</b> of them make its first shell, at the corners of a tetrahedron: turn it and look.' },
+      { text: 'Each Li⁺ (gold, centre) gathers solvent molecules that turn their <b>carbonyl oxygen</b> (ringed) towards it. About <b>four</b> of them make its first shell, at the corners of a tetrahedron: turn it and look.' },
       { text: 'The shell is tight: in propylene carbonate, neutron diffraction puts the oxygen <b>0.204 nm</b> from the lithium, with 4.5 molecules on average. That distance is drawn to scale; the other atom positions are approximate.' },
       { text: 'The anion competes for the same places. Free ion, contact pair or aggregate: try the three buttons. LiPF₆, with LiAsF₆, pairs up least of the common salts, which is one reason it conducts so well.' },
       { text: 'Nothing stays for long. A given EC molecule stays in the shell for about <b>half a nanosecond</b>, an anion partner for 2 to 3 ns; watch one molecule pull away and come back, slowed about ten billion times.' }
@@ -923,7 +923,7 @@
 
   /* ---------- background: slow ions and electrons behind the page ---------- */
   (function background() {
-    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var cv = document.getElementById('learnBg'); if (!cv || getComputedStyle(cv).display === 'none') return;
     var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
     if (!motion || coarse || small) { cv.style.display = 'none'; return; }
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
@@ -944,7 +944,7 @@
         var p = ps[i]; p.x += p.v * dt * boost; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
         var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
-        var c = p.ion ? '255,209,102' : '131,219,208';
+        var c = p.ion ? '31,72,214' : '242,169,0';
         g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 4, 0, 6.283); ctx.fill();
         ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.4) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();

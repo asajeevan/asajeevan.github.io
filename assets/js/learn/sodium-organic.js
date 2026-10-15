@@ -201,7 +201,7 @@
   function phiStrip(g, box, pts, opts) {
     opts = opts || {};
     var vmin = opts.vmin === undefined ? 0 : opts.vmin, vmax = opts.vmax === undefined ? 1 : opts.vmax;
-    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(234,240,236,.04)', stroke: 'var(--line)' }, g);
+    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(20,23,28,.025)', stroke: 'var(--line)' }, g);
     var Y = function (v) { return box.y + box.h - (v - vmin) / (vmax - vmin) * box.h; }, X = function (f) { return box.x + f * box.w; };
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
@@ -241,7 +241,7 @@
   var NOTES = {
     show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
     teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
-    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in cyan.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
+    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in green.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
   };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
@@ -331,12 +331,12 @@
       m.atoms.forEach(function (a, i) {
         var node = el('circle', { fill: 'url(#' + pfx + '-' + a.e + ')', stroke: 'rgba(0,0,0,.35)', 'stroke-width': .6 }, g);
         var it = { kind: 'a', e: a.e, p: a.p.slice(), node: node, mol: mol, hl: Array.isArray(opts.hl) ? opts.hl.indexOf(i) >= 0 : opts.hl === i };
-        if (it.hl) { it.ring = el('circle', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6, 'stroke-dasharray': '3 2' }, g); }
+        if (it.hl) { it.ring = el('circle', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6, 'stroke-dasharray': '3 2' }, g); }
         mol.atoms.push(it); S.items.push(it);
       });
       m.bonds.forEach(function (b) {
         var node = el('g', {}, g), n = b[2] || 1, lines = [];
-        for (var k = 0; k < n; k++) lines.push(el('line', { stroke: '#d9e2e6', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-opacity': '.85' }, node));
+        for (var k = 0; k < n; k++) lines.push(el('line', { stroke: '#7A8690', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-opacity': '.85' }, node));
         var it = { kind: 'b', a: mol.atoms[b[0]], b: mol.atoms[b[1]], node: node, lines: lines, mol: mol };
         mol.bonds.push(it); S.items.push(it);
       });
@@ -430,13 +430,13 @@
     P.forEach(function (p) {
       var g = el('g', {}, gM); parts[p.k] = g;
       txt(g, p.x, 22, p.h, 'strong', 'middle');
-      el('rect', { x: p.x - 34, y: 92, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--amber)' }, g);
+      el('rect', { x: p.x - 34, y: 92, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--accent)' }, g);
       txt(g, p.x, 115, 'R', 'strong', 'middle');
-      if (p.k !== 'p') { el('rect', { x: p.x - 34, y: 152, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--cyan)' }, g); txt(g, p.x, 175, 'R⁻ Li⁺', 'cyan', 'middle'); el('line', { x1: p.x, y1: 130, x2: p.x, y2: 148, stroke: 'var(--cyan)', 'stroke-width': 1.6, 'marker-end': 'url(#f913-arc)' }, g); }
+      if (p.k !== 'p') { el('rect', { x: p.x - 34, y: 152, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--second)' }, g); txt(g, p.x, 175, 'R⁻ Li⁺', 'cyan', 'middle'); el('line', { x1: p.x, y1: 130, x2: p.x, y2: 148, stroke: 'var(--second)', 'stroke-width': 1.6, 'marker-end': 'url(#f913-arc)' }, g); }
       if (p.k !== 'n') { el('rect', { x: p.x - 34, y: 34, width: 68, height: 36, rx: 10, fill: 'var(--panel-2)', stroke: 'var(--heat)' }, g); txt(g, p.x, 57, 'R⁺ A⁻', 'heat', 'middle'); el('line', { x1: p.x, y1: 90, x2: p.x, y2: 74, stroke: 'var(--heat)', 'stroke-width': 1.6, 'marker-end': 'url(#f913-arh)' }, g); }
       txt(g, p.x, 214, p.s1, '', 'middle'); txt(g, p.x, 230, p.s2, '', 'middle');
     });
-    var defs = el('defs', {}, svg); [['f913-arc', 'var(--cyan)'], ['f913-arh', 'var(--heat)']].forEach(function (m) { var mk = el('marker', { id: m[0], viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' }, defs); el('path', { d: 'M0,0 L10,5 L0,10 z', fill: m[1] }, mk); });
+    var defs = el('defs', {}, svg); [['f913-arc', 'var(--second)'], ['f913-arh', 'var(--heat)']].forEach(function (m) { var mk = el('marker', { id: m[0], viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' }, defs); el('path', { d: 'M0,0 L10,5 L0,10 z', fill: m[1] }, mk); });
     txt(gM, 260, 272, 'neutral form in the middle; R = the redox-active molecule or polymer', '', 'middle', { style: 'fill:var(--muted)' });
     badge(gM, 90 - 50, 110, 1); badge(gM, 260 - 50, 52, 2); badge(gM, 430 - 50, 110, 3);
     // ---------- the voltage ladder ----------
@@ -454,7 +454,7 @@
     ORG.forEach(function (o) {
       var x = CX[o.col], y = YV(o.v), g = el('g', { tabindex: 0, role: 'button', 'aria-label': o.n.replace(/§/g, '') + ', ' + o.v.toFixed(2) + ' volts', style: 'cursor:pointer' }, gL);
       el('circle', { cx: x, cy: y, r: 9, fill: 'transparent' }, g);
-      var c = el('circle', { cx: x, cy: y, r: 5, fill: o.v >= 2.91 ? 'var(--cyan)' : 'var(--amber)', stroke: 'var(--bg)', 'stroke-width': 1 }, g);
+      var c = el('circle', { cx: x, cy: y, r: 5, fill: o.v >= 2.91 ? 'var(--second)' : 'var(--accent)', stroke: 'var(--bg)', 'stroke-width': 1 }, g);
       var ring = el('circle', { cx: x, cy: y, r: 9, fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.5, 'stroke-opacity': 0 }, g);
       txt(g, x + 10, y + (o.dy || 4), o.n, '', 'start');
       dots.push({ o: o, ring: ring });
@@ -553,11 +553,11 @@
         mets.push({ e: 'Li', x: P[io][0] + (ox * 0.5 - oy * 0.86 * side) * 1.9 * s, y: P[io][1] + (oy * 0.5 + ox * 0.86 * side) * 1.9 * s, to: [io], stub: true });
         mets.push({ e: 'Mg', x: P[io][0] + ox * 1.6 * s + nx * 0.2 * s, y: P[io][1] + oy * 1.6 * s + ny * 0.2 * s, to: [io], stub: true, far: true });
       });
-      t.tpl.bonds.forEach(function (b) { el('line', { x1: P2(b[0])[0], y1: P2(b[0])[1], x2: P2(b[1])[0], y2: P2(b[1])[1], stroke: '#d9e2e6', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-opacity': '.85' }, flat); });
+      t.tpl.bonds.forEach(function (b) { el('line', { x1: P2(b[0])[0], y1: P2(b[0])[1], x2: P2(b[1])[0], y2: P2(b[1])[1], stroke: '#7A8690', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-opacity': '.85' }, flat); });
       mets.forEach(function (m) { m.to.forEach(function (j) { el('line', { x1: m.x, y1: m.y, x2: P[j][0], y2: P[j][1], stroke: m.e === 'Mg' ? '#3e9e45' : '#d39b10', 'stroke-width': 1.6, 'stroke-dasharray': '3 3' }, flat); }); });
       A.forEach(function (a, i) {
         el('circle', { cx: P[i][0], cy: P[i][1], r: M3_R[a.e] * s, fill: 'url(#' + pfx + '-' + a.e + ')', stroke: 'rgba(0,0,0,.35)', 'stroke-width': .6 }, flat);
-        if (t.phen.indexOf(i) >= 0) el('circle', { cx: P[i][0], cy: P[i][1], r: M3_R.O * s + 4, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6, 'stroke-dasharray': '3 2' }, flat);
+        if (t.phen.indexOf(i) >= 0) el('circle', { cx: P[i][0], cy: P[i][1], r: M3_R.O * s + 4, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6, 'stroke-dasharray': '3 2' }, flat);
       });
       mets.forEach(function (m) {
         el('circle', { cx: m.x, cy: m.y, r: (m.e === 'Mg' ? 0.5 : 0.45) * s * (m.stub ? 0.8 : 1), fill: 'url(#' + pfx + '-' + m.e + ')', stroke: 'rgba(0,0,0,.35)', 'stroke-width': .6, 'fill-opacity': m.stub ? 0.75 : 1 }, flat);
@@ -610,7 +610,7 @@
 
   /* ---------- background: slow ions and electrons behind the page ---------- */
   (function background() {
-    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var cv = document.getElementById('learnBg'); if (!cv || getComputedStyle(cv).display === 'none') return;
     var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
     if (!motion || coarse || small) { cv.style.display = 'none'; return; }
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
@@ -631,7 +631,7 @@
         var p = ps[i]; p.x += p.v * dt * boost; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
         var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
-        var c = p.ion ? '255,209,102' : '131,219,208';
+        var c = p.ion ? '31,72,214' : '242,169,0';
         g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 4, 0, 6.283); ctx.fill();
         ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.4) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();

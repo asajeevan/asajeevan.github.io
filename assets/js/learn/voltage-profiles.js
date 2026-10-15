@@ -201,7 +201,7 @@
   function phiStrip(g, box, pts, opts) {
     opts = opts || {};
     var vmin = opts.vmin === undefined ? 0 : opts.vmin, vmax = opts.vmax === undefined ? 1 : opts.vmax;
-    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(234,240,236,.04)', stroke: 'var(--line)' }, g);
+    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(20,23,28,.025)', stroke: 'var(--line)' }, g);
     var Y = function (v) { return box.y + box.h - (v - vmin) / (vmax - vmin) * box.h; }, X = function (f) { return box.x + f * box.w; };
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
@@ -241,7 +241,7 @@
   var NOTES = {
     show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
     teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
-    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in cyan.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
+    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in green.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
   };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
@@ -338,21 +338,21 @@
       plotAxes(gA, bb, { xlab: 'potential U →', ylab: 'dq/dU' });
       var Y = function (u) { return bt.y0 - u * (bt.y0 - bt.y1); }, Xq = function (q) { return bt.x0 + 8 + q * (bt.x1 - bt.x0 - 24); }, Xu = function (u) { return bb.x0 + u * (bb.x1 - bb.x0); };
       if (j === 0) {
-        el('path', { d: 'M' + Xq(0) + ',' + Y(uEq) + ' L' + Xq(1) + ',' + Y(uEq), stroke: 'var(--amber)', 'stroke-width': 2.4, fill: 'none' }, gA);
+        el('path', { d: 'M' + Xq(0) + ',' + Y(uEq) + ' L' + Xq(1) + ',' + Y(uEq), stroke: 'var(--accent)', 'stroke-width': 2.4, fill: 'none' }, gA);
         txt(gA, Xq(0.5), Y(uEq) - 8, 'U = U_eq, all the way', 'amber', 'middle');
-        el('line', { x1: Xu(uEq), x2: Xu(uEq), y1: bb.y0, y2: bb.y1 + 10, stroke: 'var(--amber)', 'stroke-width': 3 }, gA);
-        el('path', { d: 'M' + (Xu(uEq) - 5) + ',' + (bb.y1 + 12) + ' L' + Xu(uEq) + ',' + (bb.y1 + 2) + ' L' + (Xu(uEq) + 5) + ',' + (bb.y1 + 12) + ' Z', fill: 'var(--amber)' }, gA);
+        el('line', { x1: Xu(uEq), x2: Xu(uEq), y1: bb.y0, y2: bb.y1 + 10, stroke: 'var(--accent)', 'stroke-width': 3 }, gA);
+        el('path', { d: 'M' + (Xu(uEq) - 5) + ',' + (bb.y1 + 12) + ' L' + Xu(uEq) + ',' + (bb.y1 + 2) + ' L' + (Xu(uEq) + 5) + ',' + (bb.y1 + 12) + ' Z', fill: 'var(--accent)' }, gA);
         txt(gA, Xu(uEq) + 9, bb.y1 + 26, 'one spike:', '', 'start'); txt(gA, Xu(uEq) + 9, bb.y1 + 44, 'all of q_sat', '', 'start'); txt(gA, Xu(uEq) + 9, bb.y1 + 62, 'at U_eq', '', 'start');
         badge(gA, cl.x0 + 16, top.y1 + 14, 1);
       } else {
-        el('path', { d: 'M' + Xq(0) + ',' + Y(uLo) + ' L' + Xq(1) + ',' + Y(uHi), stroke: 'var(--cyan)', 'stroke-width': 2.4, fill: 'none' }, gA);
+        el('path', { d: 'M' + Xq(0) + ',' + Y(uLo) + ' L' + Xq(1) + ',' + Y(uHi), stroke: 'var(--second)', 'stroke-width': 2.4, fill: 'none' }, gA);
         txt(gA, Xq(0.62), Y(lerp(uLo, uHi, 0.62)) + 18, 'slope 1/C_sp', 'cyan', 'start');
-        el('line', { x1: Xu(uLo), x2: Xu(uHi), y1: bb.y0 - 44, y2: bb.y0 - 44, stroke: 'var(--cyan)', 'stroke-width': 2.4 }, gA);
+        el('line', { x1: Xu(uLo), x2: Xu(uHi), y1: bb.y0 - 44, y2: bb.y0 - 44, stroke: 'var(--second)', 'stroke-width': 2.4 }, gA);
         [uLo, uHi].forEach(function (u, m) { el('line', { x1: Xu(u), x2: Xu(u), y1: bb.y0, y2: bb.y1 + 14, stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, gA); txt(gA, Xu(u), bb.y1 + 10, m ? 'U_EOC' : 'U_EOD', '', 'middle'); });
         txt(gA, Xu(0.5), bb.y0 - 50, 'level: C_sp', 'cyan', 'middle');
         badge(gA, cl.x0 + 16, top.y1 + 14, 2); badge(gA, cl.x1 - 16, bot.y0 - 20, 3);
       }
-      var dot = el('circle', { r: 5, 'class': 'ion' }, gA), fill = el('rect', { y: j ? bb.y0 - 44 : bb.y0, height: j ? 44 : 0, width: 0, x: Xu(uLo), fill: j ? 'var(--cyan)' : 'var(--amber)', 'fill-opacity': '.3' }, gA);
+      var dot = el('circle', { r: 5, 'class': 'ion' }, gA), fill = el('rect', { y: j ? bb.y0 - 44 : bb.y0, height: j ? 44 : 0, width: 0, x: Xu(uLo), fill: j ? 'var(--second)' : 'var(--accent)', 'fill-opacity': '.3' }, gA);
       dyn.push({ j: j, dot: dot, fill: fill, Xq: Xq, Y: Y, Xu: Xu, bb: bb });
     });
     var qs = 0.35;
@@ -371,15 +371,15 @@
     var Xt = function (t) { return bm.x0 + t / tMax * (bm.x1 - bm.x0); }, Yv = function (v) { return bm.y0 - v / vMax * (bm.y0 - bm.y1); };
     plotAxes(gB, bm, { yt: [0, 0.2, 0.4, 0.6], ylo: 0, yhi: vMax, yf: function (v) { return v.toFixed(1); }, ylab: 'voltage, V' }); txt(gB, bm.x1, bm.y0 + 30, 'time, s', '', 'end');
     [0, 5, 10, 15].forEach(function (t) { txt(gB, Xt(t), bm.y0 + 15, String(t), '', 'middle'); });
-    var asym = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '4 4' }, gB), curve = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2.2 }, gB);
+    var asym = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '4 4' }, gB), curve = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2.2 }, gB);
     var mk = el('circle', { r: 4.5, 'class': 'ion' }, gB);
     var ins = [{ x0: 390, y0: 136, x1: 505, y1: 46, ta: 0, tb: 0.6, name: 'start' }, { x0: 390, y0: 262, x1: 505, y1: 172, ta: t0 - 0.05, tb: t0 + 0.55, name: 'reversal' }];
     ins.forEach(function (b) {
-      el('rect', { x: b.x0, y: b.y1, width: b.x1 - b.x0, height: b.y0 - b.y1, fill: 'rgba(234,240,236,.03)', stroke: 'var(--line)' }, gB);
+      el('rect', { x: b.x0, y: b.y1, width: b.x1 - b.x0, height: b.y0 - b.y1, fill: 'rgba(20,23,28,.03)', stroke: 'var(--line)' }, gB);
       txt(gB, b.x0, b.y1 - 6, 'zoom: ' + b.name, '', 'start');
-      b.asym = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '4 4' }, gB); b.curve = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2 }, gB);
+      b.asym = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '4 4' }, gB); b.curve = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2 }, gB);
       b.lab = txt(gB, b.x1 - 4, b.name === 'start' ? b.y0 - 6 : b.y1 + 14, '', 'cyan', 'end');
-      b.bracket = el('line', { stroke: 'var(--amber)', 'stroke-width': 1.6 }, gB);
+      b.bracket = el('line', { stroke: 'var(--accent)', 'stroke-width': 1.6 }, gB);
     });
     var lj = txt(gB, 0, 0, '', 'amber tag', 'start'), ls = txt(gB, 0, 0, '', 'cyan tag', 'start'), ld = txt(gB, 0, 0, '', 'amber tag', 'start');
     badge(gB, Xt(17), Yv(0.5), 4); badge(gB, 376, 60, 5);
@@ -448,8 +448,8 @@
     colX.forEach(function (x0, j) {
       for (var i = 0; i < 12; i++) {
         var cx = x0 + 43 + (i % 4) * 49, cy = 40 + Math.floor(i / 4) * 33;
-        el('circle', { cx: cx, cy: cy, r: 13, fill: 'var(--panel-2)', stroke: 'var(--amber)', 'stroke-opacity': '.55' }, g);
-        parts[j].push(el('circle', { cx: cx, cy: cy, r: 13, fill: 'var(--amber-2)', 'fill-opacity': '0' }, g));
+        el('circle', { cx: cx, cy: cy, r: 13, fill: 'var(--panel-2)', stroke: 'var(--accent)', 'stroke-opacity': '.55' }, g);
+        parts[j].push(el('circle', { cx: cx, cy: cy, r: 13, fill: 'var(--accent-strong)', 'fill-opacity': '0' }, g));
       }
     });
     badge(g, 30, 40, 1); badge(g, 506, 40, 4);
@@ -460,10 +460,10 @@
     var XL = function (y) { return bL.x0 + y * (bL.x1 - bL.x0); }, YL = function (v) { return bL.y0 - (v - vlo) / (vhi - vlo) * (bL.y0 - bL.y1); };
     var XR = function (y) { return bR.x0 + y * (bR.x1 - bR.x0); }, sl = function (y) { return 0.86 - 0.62 * y + 0.10 * Math.exp(-y / 0.04) - 0.12 * Math.exp(-(1 - y) / 0.04); }, YR = function (y) { return bR.y0 - Math.max(0.02, Math.min(1, sl(y))) * (bR.y0 - bR.y1); };
     var ys = []; for (var i = 0; i <= 400; i++) ys.push(0.002 + 0.996 * i / 400);
-    el('line', { x1: bL.x0, x2: bL.x1, y1: YL(3.4323), y2: YL(3.4323), stroke: 'var(--amber)', 'stroke-opacity': '.45', 'stroke-dasharray': '2 3' }, g);
-    el('path', { d: polyD(ys.map(XL), ys.map(function (y) { return YL(Math.max(vlo, Math.min(vhi, P.lfpOcp(y)))); })), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.2 }, g);
+    el('line', { x1: bL.x0, x2: bL.x1, y1: YL(3.4323), y2: YL(3.4323), stroke: 'var(--accent)', 'stroke-opacity': '.45', 'stroke-dasharray': '2 3' }, g);
+    el('path', { d: polyD(ys.map(XL), ys.map(function (y) { return YL(Math.max(vlo, Math.min(vhi, P.lfpOcp(y)))); })), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2 }, g);
     txt(g, XL(0.5), YL(3.4323) - 8, '3.43 V, flat', 'amber tag', 'middle');
-    el('path', { d: polyD(ys.map(XR), ys.map(YR)), fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2.2 }, g);
+    el('path', { d: polyD(ys.map(XR), ys.map(YR)), fill: 'none', stroke: 'var(--second)', 'stroke-width': 2.2 }, g);
     txt(g, XR(0.5), YR(0.5) - 12, 'keeps changing', 'cyan tag', 'start');
     badge(g, XL(0.08), YL(4.25), 2); badge(g, XL(0.84), YL(3.88), 3);
     var dL = el('circle', { r: 5, 'class': 'ion' }, g), dR = el('circle', { r: 5, 'class': 'ion' }, g);
@@ -503,7 +503,7 @@
     [0, 0.25, 0.5, 0.75, 1].forEach(function (q) { txt(g, X(q), b.y0 + 15, Math.round(q * 100) + ' %', '', 'middle'); });
     var xl = txt(g, b.x1, b.y0 + 30, '', '', 'end');
     var ocp = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '3 4' }, g), ref = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1.6, 'stroke-opacity': '.7' }, g);
-    var pA = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.2 }, g), pB = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2.2 }, g);
+    var pA = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2 }, g), pB = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2.2 }, g);
     var dA = el('circle', { r: 4.5, 'class': 'ion' }, g), dB = el('circle', { r: 4.5, 'class': 'ion' }, g);
     var lA = txt(g, 0, 0, '', 'amber tag', 'start'), lB = txt(g, 0, 0, '', 'cyan tag', 'start'), lR = txt(g, 0, 0, '', 'tag', 'start');
     // the particle groups
@@ -511,7 +511,7 @@
     var head = txt(g, 430, 22, '', 'strong', 'middle'), sub1 = txt(g, 430, 40, '', '', 'middle');
     for (var k = 0; k < 8; k++) {
       var r0 = el('rect', { y: by1, height: by0 - by1, rx: 3, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, gb);
-      var r1 = el('rect', { rx: 3, fill: 'var(--amber-2)' }, gb);
+      var r1 = el('rect', { rx: 3, fill: 'var(--accent-strong)' }, gb);
       var t1 = txt(gb, 0, by1 - 7, '', 'strong', 'middle'), t2 = txt(gb, 0, by0 + 16, '', '', 'middle'), t3 = txt(gb, 0, by0 + 31, '', '', 'middle');
       bars.push({ r0: r0, r1: r1, t1: t1, t2: t2, t3: t3 });
     }
@@ -559,9 +559,9 @@
       else ocp.style.display = 'none';
       var A = data.A.pts, Bp = path ? data.B.pts : null;
       pA.setAttribute('d', polyD(A.map(function (p) { return X(p.q); }), A.map(function (p) { return Y(p.V); })));
-      pA.setAttribute('stroke', path ? 'var(--cyan)' : ch ? 'var(--cyan)' : 'var(--amber)');
+      pA.setAttribute('stroke', path ? 'var(--second)' : ch ? 'var(--second)' : 'var(--accent)');
       pB.style.display = path ? '' : 'none'; dB.style.display = path ? '' : 'none'; lB.style.display = path ? '' : 'none';
-      if (path) pB.setAttribute('d', polyD(Bp.map(function (p) { return X(p.q); }), Bp.map(function (p) { return Y(p.V); }))), pB.setAttribute('stroke', 'var(--amber)');
+      if (path) pB.setAttribute('d', polyD(Bp.map(function (p) { return X(p.q); }), Bp.map(function (p) { return Y(p.V); }))), pB.setAttribute('stroke', 'var(--accent)');
       ref.style.display = path ? 'none' : ''; lR.style.display = path ? 'none' : '';
       if (!path) { var s = data.slow; ref.setAttribute('d', polyD(s.map(function (p) { return X(p.q); }), s.map(function (p) { return Y(p.V); }))); }
       var eA = A[A.length - 1];
@@ -619,7 +619,7 @@
 
   /* ---------- background: slow ions and electrons behind the page ---------- */
   (function background() {
-    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var cv = document.getElementById('learnBg'); if (!cv || getComputedStyle(cv).display === 'none') return;
     var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
     if (!motion || coarse || small) { cv.style.display = 'none'; return; }
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
@@ -640,7 +640,7 @@
         var p = ps[i]; p.x += p.v * dt * boost; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
         var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
-        var c = p.ion ? '255,209,102' : '131,219,208';
+        var c = p.ion ? '31,72,214' : '242,169,0';
         g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 4, 0, 6.283); ctx.fill();
         ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.4) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();

@@ -201,7 +201,7 @@
   function phiStrip(g, box, pts, opts) {
     opts = opts || {};
     var vmin = opts.vmin === undefined ? 0 : opts.vmin, vmax = opts.vmax === undefined ? 1 : opts.vmax;
-    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(234,240,236,.04)', stroke: 'var(--line)' }, g);
+    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(20,23,28,.025)', stroke: 'var(--line)' }, g);
     var Y = function (v) { return box.y + box.h - (v - vmin) / (vmax - vmin) * box.h; }, X = function (f) { return box.x + f * box.w; };
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
@@ -241,7 +241,7 @@
   var NOTES = {
     show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
     teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
-    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in cyan.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
+    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in green.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
   };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
@@ -315,8 +315,8 @@
     var E0 = P.data.daniell.E; // 1.103 V
     var bx0 = 60, bx1 = 460, by0 = 104, by1 = 292, sep = 260;
     // beaker with two half-cells
-    el('rect', { x: bx0, y: by0, width: bx1 - bx0, height: by1 - by0, rx: 8, fill: 'var(--cyan)', 'fill-opacity': '.1', stroke: 'var(--cyan)', 'stroke-opacity': '.5' }, g);
-    el('line', { x1: sep, y1: by0 + 6, x2: sep, y2: by1 - 6, stroke: 'var(--cyan)', 'stroke-dasharray': '3 5' }, g);
+    el('rect', { x: bx0, y: by0, width: bx1 - bx0, height: by1 - by0, rx: 8, fill: 'var(--second)', 'fill-opacity': '.1', stroke: 'var(--second)', 'stroke-opacity': '.5' }, g);
+    el('line', { x1: sep, y1: by0 + 6, x2: sep, y2: by1 - 6, stroke: 'var(--second)', 'stroke-dasharray': '3 5' }, g);
     txt(g, 193, by0 + 16, 'ZnSO₄ solution', 'cyan', 'middle'); txt(g, 327, by0 + 16, 'CuSO₄ solution', 'cyan', 'middle');
     txt(g, sep, by1 + 16, 'porous separator: ions pass, the liquids do not mix', '', 'middle');
     // electrodes (the zinc thins, the copper thickens, as the cell runs)
@@ -339,7 +339,7 @@
     el('circle', { cx: 260, cy: 58, r: 20, fill: 'var(--panel)', stroke: 'var(--line-2)' }, g);
     var vm = txt(g, 260, 62, '1.10 V', 'strong', 'middle'); txt(g, 260, 92, 'voltmeter', '', 'middle');
     var eLab = txt(g, 340, 16, 'e⁻ through the wire →', 'cyan', 'middle');
-    var fieldW = arrow(g, 380, 40, 340, 40, '#C4B5F7', 1.3, 'field-arrow'); var fieldWl = txt(g, 360, 12 + 40, '', 'field', 'middle');
+    var fieldW = arrow(g, 380, 40, 340, 40, 'var(--field)', 1.3, 'field-arrow'); var fieldWl = txt(g, 360, 12 + 40, '', 'field', 'middle');
     // ions: sulfate (grey) migrating left across the separator; Zn2+ born at the zinc; Cu2+ consumed at the copper
     var ions = el('g', {}, g);
     var sulf = []; for (var i = 0; i < 7; i++) sulf.push({ x: 150 + Math.random() * 260, y: 130 + Math.random() * 140, c: el('circle', { r: 3.4, 'class': 'ion an' }, ions) });
@@ -347,7 +347,7 @@
     var zn2 = [];
     var lab = { s: txt(g, 193, 190, 'SO₄²⁻', '', 'middle'), c: txt(g, 327, 150, 'Cu²⁺', 'amber', 'middle'), z: txt(g, 193, 150, 'Zn²⁺', 'amber', 'middle') };
     var our = ourIon(g, 140, 200, 5, 'our ion'); our.g.style.display = 'none';
-    var fieldS = arrow(g, 190, 280, 240, 280, '#C4B5F7', 1.3, 'field-arrow'); var fieldSl = txt(g, 215, 296 - 20, '', 'field', 'middle');
+    var fieldS = arrow(g, 190, 280, 240, 280, 'var(--field)', 1.3, 'field-arrow'); var fieldSl = txt(g, 215, 296 - 20, '', 'field', 'middle');
     // events at the electrodes
     var evZ = el('g', { 'class': 'event' }, g), evC = el('g', { 'class': 'event' }, g);
     var eflow = flow(svg, el('path', { d: 'M113,70 V26 H407 V70', fill: 'none', stroke: 'none' }, g), { n: 12, cls: 'e-dot', r: 3, speed: 60, parent: g });
@@ -377,12 +377,12 @@
     }
     function spawnZn() { // a zinc atom leaves as Zn2+; two electrons go up the wire
       var y = 130 + Math.random() * 130; var c = el('circle', { r: 3.4, 'class': 'ion' }, ions); zn2.push({ x: 128, y: y, c: c, age: 0 });
-      clear(evZ); var f = el('circle', { cx: 126, cy: y, r: 9, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.5 }, evZ); txt(evZ, 96, y + 4, '2e⁻ ↑', 'cyan', 'end');
+      clear(evZ); var f = el('circle', { cx: 126, cy: y, r: 9, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.5 }, evZ); txt(evZ, 96, y + 4, '2e⁻ ↑', 'cyan', 'end');
       ranZn++; if (ranZn === 2) { our.g.style.display = ''; zn2[zn2.length - 1].our = true; }
     }
     function consumeCu() { // a Cu2+ near the copper takes two electrons and joins the metal
       var best = null; cu2.forEach(function (p) { if (!best || p.x > best.x) best = p; }); if (!best) return;
-      clear(evC); el('circle', { cx: 392, cy: best.y, r: 9, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.5 }, evC); txt(evC, 424, best.y + 4, '← 2e⁻', 'cyan');
+      clear(evC); el('circle', { cx: 392, cy: best.y, r: 9, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.5 }, evC); txt(evC, 424, best.y + 4, '← 2e⁻', 'cyan');
       best.x = 300 + Math.random() * 40; best.y = 130 + Math.random() * 140; ranCu++;
     }
     function tick(dt) {
@@ -400,7 +400,7 @@
     sulf.forEach(function (p) { p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', p.y); }); cu2.forEach(function (p) { p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', p.y); });
     pressable(sw, function () { closed = !closed; render(); }); on(swBtn, 'click', function () { closed = !closed; render(); });
     steps(fig, [
-      { text: 'At the zinc, an atom gives up two electrons and leaves the metal as a <b>Zn²⁺</b> ion (amber ring flashes as it happens). The zinc slowly gets thinner. Close the switch to start.', on: function () { } },
+      { text: 'At the zinc, an atom gives up two electrons and leaves the metal as a <b>Zn²⁺</b> ion (blue ring flashes as it happens). The zinc slowly gets thinner. Close the switch to start.', on: function () { } },
       { text: 'At the copper, a <b>Cu²⁺</b> ion from the solution takes two electrons and becomes a copper atom on the surface. The copper slowly gets thicker.' },
       { text: 'Inside the liquid the current is carried by ions: <b>sulfate</b> drifts toward the zinc and the cations toward the copper, through the porous separator. The field in the liquid is the gentle slope on the strip. Our ion is a Zn²⁺ born at the zinc.' },
       { text: 'The strip: the potential <b>jumps</b> at each metal|liquid boundary and is flat through the liquid at open circuit. The voltmeter reads the sum of the jumps, <b>1.10 V</b>. Only the sum can be measured; the split drawn between the two jumps is schematic.' },
@@ -414,7 +414,7 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     var yT = 60, yB = 200, xm0 = 40, xb = 260, xs1 = 480;
     el('rect', { x: xm0, y: yT, width: xb - xm0, height: yB - yT, rx: 4, fill: 'var(--metal)', 'fill-opacity': '.35', stroke: 'var(--metal)' }, g);
-    el('rect', { x: xb, y: yT, width: xs1 - xb, height: yB - yT, rx: 4, fill: 'var(--cyan)', 'fill-opacity': '.12', stroke: 'var(--cyan)', 'stroke-opacity': '.5' }, g);
+    el('rect', { x: xb, y: yT, width: xs1 - xb, height: yB - yT, rx: 4, fill: 'var(--second)', 'fill-opacity': '.12', stroke: 'var(--second)', 'stroke-opacity': '.5' }, g);
     txt(g, (xm0 + xb) / 2, yT - 17, 'metal electrode', 'strong', 'middle'); txt(g, (xb + xs1) / 2, yT - 17, 'liquid electrolyte', 'strong', 'middle');
     txt(g, (xm0 + xb) / 2, yT - 2, 'ions fixed in a lattice, electrons free', '', 'middle'); txt(g, (xb + xs1) / 2, yT - 2, 'ions free, no free electrons', '', 'middle');
     // lattice of fixed ion cores
@@ -427,11 +427,11 @@
     var our = ourIon(g, 0, 0, 4, 'our ion'); cats[0].our = true;
     // field arrows, same direction in both phases (from + to −); here + is on the right
     var fa = el('g', {}, g);
-    arrow(fa, 150, yB + 22, 90, yB + 22, '#C4B5F7', 1.4, 'field-arrow'); txt(g, 120, yB + 40, 'field: force on a + charge', 'field', 'middle');
-    arrow(fa, 400, yB + 22, 340, yB + 22, '#C4B5F7', 1.4, 'field-arrow'); txt(g, 370, yB + 40, 'same field, same direction', 'field', 'middle');
+    arrow(fa, 150, yB + 22, 90, yB + 22, 'var(--field)', 1.4, 'field-arrow'); txt(g, 120, yB + 40, 'field: force on a + charge', 'field', 'middle');
+    arrow(fa, 400, yB + 22, 340, yB + 22, 'var(--field)', 1.4, 'field-arrow'); txt(g, 370, yB + 40, 'same field, same direction', 'field', 'middle');
     txt(g, 120, yB + 56, 'electrons pushed the other way →', 'cyan', 'middle'); txt(g, 370, yB + 56, '← cations along it, anions against it', 'amber', 'middle');
     // the boundary: reaction event
-    el('line', { x1: xb, y1: yT, x2: xb, y2: yB, stroke: 'var(--amber)', 'stroke-width': 2 }, g);
+    el('line', { x1: xb, y1: yT, x2: xb, y2: yB, stroke: 'var(--accent)', 'stroke-width': 2 }, g);
     var ev = el('g', { 'class': 'event' }, g);
     txt(g, xb, 24, 'boundary: a reaction hands the charge over', 'amber', 'middle');
     badge(g, 26, yB - 10, 1); badge(g, 494, yB - 10, 2); badge(g, xb, yB + 22, 3); badge(g, 30, yB + 22, 4);
@@ -447,7 +447,7 @@
       es.forEach(function (p) { p.x += 28 * dt; p.y += Math.sin(t * 4 + p.x) * 8 * dt; if (p.x > xb - 8) { p.x = xm0 + 8; } });
       cats.forEach(function (p) { p.x -= 16 * dt; p.y += Math.sin(t * 2 + p.x) * 6 * dt; if (p.x < xb + 10) { p.x = xs1 - 12; } });
       ans.forEach(function (p) { p.x += 12 * dt; if (p.x > xs1 - 10) p.x = xb + 12; });
-      if (evT > 2.2) { evT = 0; clear(ev); var y = yT + 30 + Math.random() * (yB - yT - 60); el('circle', { cx: xb, cy: y, r: 10, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.6 }, ev); txt(ev, xb + 16, y + 4, 'cation + e⁻ → atom', 'amber'); ev.style.opacity = '1'; }
+      if (evT > 2.2) { evT = 0; clear(ev); var y = yT + 30 + Math.random() * (yB - yT - 60); el('circle', { cx: xb, cy: y, r: 10, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6 }, ev); txt(ev, xb + 16, y + 4, 'cation + e⁻ → atom', 'amber'); ev.style.opacity = '1'; }
       if (evT > 1.2) ev.style.opacity = '0';
       place();
     }
@@ -467,7 +467,7 @@
     function cellSym(px, py, label) {
       var s = el('g', { transform: 'translate(' + px + ',' + py + ')' }, g);
       el('rect', { x: 0, y: 0, width: 40, height: 58, rx: 6, fill: 'var(--panel)', stroke: 'var(--line-2)' }, s);
-      el('rect', { x: 7, y: 8, width: 26, height: 16, rx: 2, fill: 'var(--amber-2)', 'fill-opacity': '.8' }, s); el('rect', { x: 7, y: 34, width: 26, height: 16, rx: 2, fill: 'var(--metal)' }, s);
+      el('rect', { x: 7, y: 8, width: 26, height: 16, rx: 2, fill: 'var(--accent-strong)', 'fill-opacity': '.8' }, s); el('rect', { x: 7, y: 34, width: 26, height: 16, rx: 2, fill: 'var(--metal)' }, s);
       txt(s, 20, -4, '+', 'strong', 'middle'); txt(s, 20, 72, '−', 'strong', 'middle');
       return s;
     }
@@ -481,11 +481,11 @@
     txt(arr.parallel, 140, 150, 'side by side: + with +, − with −', '', 'middle');
     // bars
     txt(g, 300, 30, 'voltage between the ends', 'strong');
-    el('rect', { x: 300, y: 38, width: 150, height: 16, rx: 3, fill: 'var(--cyan)', 'fill-opacity': '.25' }, g);
-    var vbar = el('rect', { x: 300, y: 38, width: 50, height: 16, rx: 3, fill: 'var(--cyan)' }, g); var vlab = txt(g, 456, 51, '', 'strong');
+    el('rect', { x: 300, y: 38, width: 150, height: 16, rx: 3, fill: 'var(--second)', 'fill-opacity': '.25' }, g);
+    var vbar = el('rect', { x: 300, y: 38, width: 50, height: 16, rx: 3, fill: 'var(--second)' }, g); var vlab = txt(g, 456, 51, '', 'strong');
     txt(g, 300, 86, 'charge stored (capacity)', 'strong');
-    el('rect', { x: 300, y: 94, width: 150, height: 16, rx: 3, fill: 'var(--amber)', 'fill-opacity': '.25' }, g);
-    var qbar = el('rect', { x: 300, y: 94, width: 50, height: 16, rx: 3, fill: 'var(--amber)' }, g); var qlab = txt(g, 456, 107, '', 'strong');
+    el('rect', { x: 300, y: 94, width: 150, height: 16, rx: 3, fill: 'var(--accent)', 'fill-opacity': '.25' }, g);
+    var qbar = el('rect', { x: 300, y: 94, width: 50, height: 16, rx: 3, fill: 'var(--accent)' }, g); var qlab = txt(g, 456, 107, '', 'strong');
     // the potential along the path from the − end to the + end
     var strip = phiStrip(g, { x: 300, y: 138, w: 190, h: 60 }, [], { vmin: 0, vmax: 5, label: 'φ', units: '0', xlabel: 'along the path, − end → + end' });
     badge(g, 30, 40, 1); badge(g, 502, 46, 2); badge(g, 502, 102, 3);
@@ -521,7 +521,7 @@
 
   /* ---------- background: slow ions and electrons behind the page ---------- */
   (function background() {
-    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var cv = document.getElementById('learnBg'); if (!cv || getComputedStyle(cv).display === 'none') return;
     var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
     if (!motion || coarse || small) { cv.style.display = 'none'; return; }
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
@@ -542,7 +542,7 @@
         var p = ps[i]; p.x += p.v * dt * boost; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
         var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
-        var c = p.ion ? '255,209,102' : '131,219,208';
+        var c = p.ion ? '31,72,214' : '242,169,0';
         g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 4, 0, 6.283); ctx.fill();
         ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.4) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();

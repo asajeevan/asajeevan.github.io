@@ -28,11 +28,11 @@
       <figure class="fig" data-fig="f11-2" id="f11-2">
         <span class="fnum">Figure 11.2</span>
         <svg viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f112t">
-          <title id="f112t">The apparent resistance, voltage change divided by current, read at different times after a constant current is switched on, on a logarithmic time axis from 0.1 ms to 100 s. It starts at the ohmic value, rises as the interfaces charge between about 1 ms and 0.1 s, and keeps rising as the square root of time from diffusion. Cyan dots give the real part of the impedance at the matching frequency. A marker shows the value at the chosen reading time.</title>
+          <title id="f112t">The apparent resistance, voltage change divided by current, read at different times after a constant current is switched on, on a logarithmic time axis from 0.1 ms to 100 s. It starts at the ohmic value, rises as the interfaces charge between about 1 ms and 0.1 s, and keeps rising as the square root of time from diffusion. Green dots give the real part of the impedance at the matching frequency. A marker shows the value at the chosen reading time.</title>
         </svg>
         <div class="controls"><label><span>read at</span> <input type="range" class="tread" min="-4" max="2" step="0.05" value="0" aria-label="Reading time, log10 of seconds"> <b class="tread-val">1.0 s</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>ΔV/I after a current step</span><span><i style="background:var(--cyan)"></i>real part of Z at f = 1/(2πt)</span></div>
+        <div class="key"><span><i class="act"></i>ΔV/I after a current step</span><span><i style="background:var(--second)"></i>real part of Z at f = 1/(2πt)</span></div>
         <figcaption>The resistance of a cell depends on when you read it.
           <span class="try">Try this: read the resistance at 10 ms and at 10 s; one is more than half as large again as the other.</span>
           <span class="basis">Instantaneous drop as the ohmic resistance, later drops from charge transfer and diffusion, dependence on sampling rate and pulse length, and agreement with impedance when timescales match, after Meddings et al. 2020, section 3.1 and Fig. 5D. Computed for an illustrative cell: R₀ = 20 mΩ, two R‖C pairs (4 mΩ with 0.25 F, 10 mΩ with 2 F) and a Warburg element with σ = 2 mΩ s<sup>−1/2</sup>. The step response of the Warburg part, 2σ√(2t/π), is this page’s own working from its impedance; the rest is the standard response of R‖C pairs.</span>
@@ -57,7 +57,7 @@
           <title id="f113t">One GITT step on a 2 micrometre film. Left: the lithium content across the film, flat at first, depleted near the surface during a 10 minute current pulse, then flattening again during the rest. Right: the cell voltage and the current against time over 80 minutes, with the four voltages E1 to E4 and the two voltage changes, the transient change during the pulse and the steady-state change after the rest.</title>
         </svg>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>lithium content and cell voltage</span><span><i style="background:var(--cyan)"></i>current pulse</span><span><i class="heat"></i>ΔE<sub>t</sub></span><span><i style="background:#C4B5F7"></i>ΔE<sub>s</sub></span><span><i class="li"></i>our ion</span></div>
+        <div class="key"><span><i class="act"></i>lithium content and cell voltage</span><span><i style="background:var(--second)"></i>current pulse</span><span><i class="heat"></i>ΔE<sub>t</sub></span><span><i style="background:var(--field)"></i>ΔE<sub>s</sub></span><span><i class="li"></i>our ion</span></div>
         <figcaption>GITT: one pulse, one rest, two voltage changes.
           <span class="try">Try this: pause just before the current switches off and look at the profile: the surface is far ahead of the back of the film.</span>
           <span class="basis">Procedure, E₁ to E₄, ΔE<sub>s</sub> = E₄ − E₁ and ΔE<sub>t</sub> = E₃ − E₂, after Kim et al. 2022, section 2 and Figs. 1 and 2; the formula after Weppner and Huggins 1977 as given by Kim et al., eq. 16. The film (L = 2 µm, D = 10⁻¹¹ cm²/s, a 10 min pulse) is solved numerically from the diffusion equation with a constant flux at the surface and none at the back (Kim et al., eqs. 3 to 6; Crank–Nicolson, this page’s method). The IR step (15 mV) and the voltage scale are illustrative.</span>
@@ -87,7 +87,7 @@
           <label><span>pulse</span> <input type="range" class="ptau" min="1" max="120" step="1" value="10" aria-label="Pulse length in minutes"> <b class="ptau-val">10 min</b></label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>diffusion part of the voltage</span><span><i style="background:var(--text)"></i>ideal √t line</span><span><i style="background:var(--cyan)"></i>film</span><span><i class="heat"></i>sphere</span></div>
+        <div class="key"><span><i class="act"></i>diffusion part of the voltage</span><span><i style="background:var(--text)"></i>ideal √t line</span><span><i style="background:var(--second)"></i>film</span><span><i class="heat"></i>sphere</span></div>
         <figcaption>When is a GITT pulse short enough?
           <span class="try">Try this: switch to the sphere and lengthen the pulse until the formula is 20 % low; read Dτ/L² there.</span>
           <span class="basis">The two linear assumptions after Kim et al. 2022, section 2.2 and Fig. 2; the dimensionless pulse <m>\hat\tau = D\tau/L^2</m>, the recommended limits (below 0.25 for planar samples, one order of magnitude smaller for spheres and cylinders) and the observation that most published GITT studies exceed 0.25, after Kang and Chueh 2021, eq. 5, Fig. 5 and their recommended procedure. Surface concentrations from the exact series solutions (Kang and Chueh eq. A.21 for the film; Nickol et al. 2020, eqs. 3 to 5, for the sphere). The ratio plotted, the Weppner–Huggins value computed with the exact surface change over the true D, is this page’s own calculation. Sample: L = 2 µm, D = 10⁻¹¹ cm²/s.</span>
@@ -113,7 +113,7 @@
           <button type="button" data-mode="secondary" aria-pressed="true">5 µm particles</button><button type="button" data-mode="primary" aria-pressed="false">0.25 µm grains</button>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>potential during the pulse</span><span><i style="background:var(--text)"></i>one-line fit (P3)</span><span><i style="background:var(--cyan)"></i>two-line fit (P4)</span></div>
+        <div class="key"><span><i class="act"></i>potential during the pulse</span><span><i style="background:var(--text)"></i>one-line fit (P3)</span><span><i style="background:var(--second)"></i>two-line fit (P4)</span></div>
         <figcaption>Six recipes, one pulse, different answers.
           <span class="try">Try this: slide τ<sub>dl</sub> from 1 s to 100 s, as when the cell is cooled, and watch which bars leave the line at 1.</span>
           <span class="basis">Procedures P1 to P6 (eqs. 10 to 12, single-line, two-line and full fits, E₁ and E₃ read 5 s after switching), the transition time τ<sub>dl</sub> = R<sub>ct</sub>C<sub>dl</sub>, the factor of 400 between 5 µm and 0.25 µm radii, and the effect of a charge-transfer resistance that changes during the pulse, after Nickol et al. 2020; note that they number the potentials from E₀, one lower than figure 11.3. The pulse (r = 5 µm, D = 10⁻¹¹ cm²/s, 30 min) is simulated with their spherical solution plus an ohmic step of 5 mV and a charge-transfer step of 20 mV that arrives with time constant τ<sub>dl</sub>; the “falls” case lowers it by 40 % over the pulse. Values illustrative; the fits are this page’s.</span>
@@ -138,7 +138,7 @@
           <label><input type="checkbox" class="fast"> fast surface process</label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>voltage</span><span><i style="background:var(--text)"></i>pulse fit</span><span><i style="background:var(--cyan)"></i>rest fit</span></div>
+        <div class="key"><span><i class="act"></i>voltage</span><span><i style="background:var(--text)"></i>pulse fit</span><span><i style="background:var(--second)"></i>rest fit</span></div>
         <figcaption>Read the rest, not the pulse.
           <span class="try">Try this: tick “resistance falls 17 %” and compare the two estimates; then lengthen the pulse and watch the straight part of the rest plot shrink.</span>
           <span class="basis">The relaxation variable √(t + τ) − √t, the 17 % resistance change that halves the pulse slope and overestimates D four times, the straight region lasting up to about ten pulse lengths for Dτ/L² = 0.02 and the separation of early non-diffusion transients, and the recommended procedure (large dense single-phase samples, at least three pulse magnitudes), after Kang and Chueh 2021, eqs. 4 and 7, Figs. 2, 3 and 6 and the section “The recommended GITT implementation”. Planar sample, exact series solution; the fast surface process is an illustrative exponential with a time constant of τ/40.</span>
@@ -163,7 +163,7 @@
           <label><input type="checkbox" class="longrest" checked> 4 h rests</label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>cell voltage</span><span><i class="heat"></i>end of pulse (CCV)</span><span><i style="background:var(--cyan)"></i>end of rest (QOCV)</span><span><i style="background:var(--text)"></i>model value</span></div>
+        <div class="key"><span><i class="act"></i>cell voltage</span><span><i class="heat"></i>end of pulse (CCV)</span><span><i style="background:var(--second)"></i>end of rest (QOCV)</span><span><i style="background:var(--text)"></i>model value</span></div>
         <figcaption>A whole GITT run: three results from one experiment.
           <span class="try">Try this: open the Diffusion panel and untick “4 h rests”; find where the 1 h rest was not enough.</span>
           <span class="basis">Quasi-open-circuit voltage, closed-circuit voltage, overpotential η = |CCV − QOCV| and internal resistance η/I, and D at each step, after Kim et al. 2022, eqs. 16 to 19 and section 3; Weppner–Huggins in its sphere form after Abbas et al. 2025, eq. 3. The electrode (r = 2 µm, 10 min pulses at 0.5 mA, D varying fivefold with composition and every pulse below Dτ/r² = 0.025, an IR drop largest at the start of charge) is illustrative, simulated with the spherical solution of Nickol et al. 2020. Rests are drawn compressed.</span>
@@ -198,7 +198,7 @@
           <label><span>frequency</span> <input type="range" class="fsl" min="0" max="4" step="0.05" value="2" aria-label="Frequency, log10 of hertz"> <b class="fsl-val">100 Hz</b></label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>voltage</span><span><i style="background:var(--cyan)"></i>current</span><span><i style="background:var(--text)"></i>Lissajous plot</span></div>
+        <div class="key"><span><i class="act"></i>voltage</span><span><i style="background:var(--second)"></i>current</span><span><i style="background:var(--text)"></i>Lissajous plot</span></div>
         <figcaption>Impedance: a sine in, a sine out, compared in size and timing.
           <span class="try">Try this: choose R ‖ C and slide the frequency from 1 Hz to 10 kHz; watch the line open into an ellipse and close again.</span>
           <span class="basis">Sinusoids, phasors, impedance as magnitude and phase, the responses of R, C and L, and Lissajous plots as a live check of linearity and stability, after Lazanas and Prodromidis 2023, sections 2 to 7 (eqs. 3, 24 to 28, 36 to 43) and Fig. 6; amplitude 5 to 10 mV after their section 16.2. Element values (20 Ω, 100 µF, 20 mH) are illustrative laboratory values; a cell’s are milliohms and farads (figure {{fig:f11-10}}).</span>
@@ -228,7 +228,7 @@
           <label><input type="checkbox" class="stretch"> stretch the vertical axis</label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>impedance; |Z|</span><span><i style="background:var(--cyan)"></i>phase; tops of the arcs</span></div>
+        <div class="key"><span><i class="act"></i>impedance; |Z|</span><span><i style="background:var(--second)"></i>phase; tops of the arcs</span></div>
         <figcaption>One spectrum, two pictures.
           <span class="try">Try this: lower τ₁/τ₂ from 1000 to 1 and find where you could no longer tell that there are two processes.</span>
           <span class="basis">Nyquist and Bode plots, their strengths and weaknesses, the −Z″ convention and equal axes, after Lazanas and Prodromidis 2023, section 7.4; the R‖C semicircle with its top at ω = 1/(RC), and two arcs well resolved only for τ₁ ≫ 100τ₂, after their section 8 (eqs. 48 to 51; eq. 30 as printed lacks the reciprocal on the left, so the parallel rule follows Bard, Faulkner and White 2022, section 11.2). R₀ = 10 Ω, R₁ = R₂ = 20 Ω, τ₂ = 0.1 ms; illustrative.</span>
@@ -251,7 +251,7 @@
           <title id="f1110t">The impedance spectrum of an illustrative commercial cell in milliohms, built up element by element from a circuit drawn above it: inductance and ohmic resistance, then an SEI arc, then a charge-transfer arc, then a diffusion tail, with frequencies marked by decade and the kilohertz, hertz and millihertz ranges shaded. A dot sweeps the spectrum from high to low frequency.</title>
         </svg>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>spectrum so far</span><span><i style="background:var(--text);opacity:.4"></i>whole spectrum</span><span><i style="background:var(--cyan)"></i>decades of frequency</span></div>
+        <div class="key"><span><i class="act"></i>spectrum so far</span><span><i style="background:var(--text);opacity:.4"></i>whole spectrum</span><span><i style="background:var(--second)"></i>decades of frequency</span></div>
         <figcaption>A commercial cell’s spectrum, read from left to right.
           <span class="try">Try this: step through the five callouts and name which part of the cell each new piece of the curve comes from.</span>
           <span class="basis">The idealised spectrum of a commercial cell with its three frequency ranges (above 1 kHz, 1 Hz to 1 kHz, below 1 Hz), the assignment of the inductance, ohmic intercept, mid-frequency arcs and diffusion tail, the milliohm scale and the at-least-four overlapping interfacial processes, after Meddings et al. 2020, Fig. 1 and sections 1 and 3.2.2; the SEI arc at higher frequency than charge transfer after Lazanas and Prodromidis 2023, section 17.1. Circuit: L = 0.15 µH, R₀ = 20 mΩ, R<sub>SEI</sub> = 4 mΩ with a CPE (Q = 0.25, n = 0.9), R<sub>ct</sub> = 10 mΩ, C<sub>dl</sub> = 2 F, and spherical diffusion (Abbas et al. 2025, eq. 6) with R<sub>d</sub> = 0.3 Ω and C<sub>d</sub> = 3000 F, in the Randles arrangement; values illustrative, chosen within the ranges these sources describe.</span>
@@ -276,7 +276,7 @@
           <label><span>pore resistance</span> <input type="range" class="rpor" min="0" max="15" step="1" value="5" aria-label="Pore resistance, milliohms"> <b class="rpor-val">5 mΩ</b></label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>closed end; CPE arc; film</span><span><i style="background:var(--cyan)"></i>open end; porous electrode</span><span><i class="heat"></i>sphere</span><span><i style="background:var(--text)"></i>ideal reference</span></div>
+        <div class="key"><span><i class="act"></i>closed end; CPE arc; film</span><span><i style="background:var(--second)"></i>open end; porous electrode</span><span><i class="heat"></i>sphere</span><span><i style="background:var(--text)"></i>ideal reference</span></div>
         <figcaption>The shapes real cells draw, and the physics behind each.
           <span class="try">Try this: set n = 0.5 in panel A and compare with the 45° line in panel B; then slide the pore resistance to zero in panel D.</span>
           <span class="basis">CPE, its exponent and the depression angle θ = 90°(1 − n), the debated origin of CPE behaviour, finite diffusion with transmissive (tanh) and reflective (coth) boundaries, and the porous electrode as a transmission line, after Lazanas and Prodromidis 2023, sections 12 to 14 (eqs. 70, 71, 76 and 79; their note on the Z<sub>O</sub>/Z<sub>T</sub> labels swaps tanh and coth, so the equations are followed); CPEs fit almost anything and carry no specific physical meaning, after Meddings et al. 2020, section 3.2.2; film and sphere diffusion impedances, their DC limits R<sub>d</sub>/3 and R<sub>d</sub>/15 and the Bisquert transmission line, after Abbas et al. 2025, eqs. 6, 9, 17 and 21. All values illustrative (10 mΩ resistances, 1 F capacitances, R<sub>d</sub> = 24 mΩ).</span>
@@ -300,7 +300,7 @@
           <label><span>α</span> <input type="range" class="alpha" min="0.3" max="0.7" step="0.05" value="0.5" aria-label="Transfer coefficient"> <b class="alpha-val">0.50</b></label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>swept part; current</span><span><i style="background:var(--cyan)"></i>tangent; fundamental</span><span><i style="background:var(--text)"></i>Butler–Volmer curve; pure sine</span></div>
+        <div class="key"><span><i class="act"></i>swept part; current</span><span><i style="background:var(--second)"></i>tangent; fundamental</span><span><i style="background:var(--text)"></i>Butler–Volmer curve; pure sine</span></div>
         <figcaption>How small is small enough?
           <span class="try">Try this: find the amplitude where the distortion passes 1 %, then set α = 0.4 and watch the second harmonic appear.</span>
           <span class="basis">Butler–Volmer current and R<sub>ct</sub> = RT/(Fi₀), after Bard, Faulkner and White 2022, eqs. 3.4.11 and 3.4.13; harmonics from the curvature of the i–η relation, after their section 11.6; amplitude 5 to 10 mV and Lissajous checks after Lazanas and Prodromidis 2023, sections 7 and 16.2; total harmonic distortion (defined there in words), NFRA and NLEIS after Meddings et al. 2020, section 3.1, and Bakenhaster and Dewald 2025, section 4.4. Computed for i₀ = 1 mA at 25 °C over one period by discrete Fourier transform; the absence of a second harmonic at α = 0.5 follows from the symmetry of the curve (this page’s working).</span>
@@ -325,7 +325,7 @@
         </svg>
         <div class="controls"><label><span>cable length</span> <input type="range" class="cable" min="0.5" max="5" step="0.5" value="1" aria-label="Cable length in metres"> <b class="cable-val">1.0 m</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i style="background:var(--cyan)"></i>4 terminals: the cell</span><span><i class="act"></i>2 terminals: cell + wires</span></div>
+        <div class="key"><span><i style="background:var(--second)"></i>4 terminals: the cell</span><span><i class="act"></i>2 terminals: cell + wires</span></div>
         <figcaption>For a cell of milliohms, how it is connected changes the answer.
           <span class="try">Try this: lengthen the cable to 5 m and read how far the two-terminal intercept has moved.</span>
           <span class="basis">Two- and four-terminal measurements of a battery, V = i(Z<sub>BAT</sub> + Z<sub>WIRE</sub>) against V = iZ<sub>BAT</sub>, and cable self-inductance growing with length and worst for low-impedance cells, after Lazanas and Prodromidis 2023, eqs. 82 and 83 and section 15; four terminal-pair definition, shielding, twisted pairs, same cables for compensation, up to 10 % variation of the ohmic value on re-inserting a cell, and the conditions for a steady cell, after Meddings et al. 2020, sections 2.2 and 3.1. Wire values (4 mΩ and 0.2 µH per metre) are illustrative.</span>
@@ -349,7 +349,7 @@
           <label><span>noise</span> <input type="range" class="noise" min="0" max="1" step="0.1" value="0" aria-label="Noise, percent of the impedance magnitude"> <b class="noise-val">0.0 %</b></label>
         </div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>data; real residual</span><span><i style="background:var(--cyan)"></i>test fit; imaginary residual</span></div>
+        <div class="key"><span><i class="act"></i>data; real residual</span><span><i style="background:var(--second)"></i>test fit; imaginary residual</span></div>
         <figcaption>Is the spectrum valid? Test it before you model it.
           <span class="try">Try this: tick “cell drifting” with no noise, then add noise without drift, and compare the two residual patterns.</span>
           <span class="basis">Linearity, causality, stability (stationarity) and finiteness, the Kramers–Kronig relations and the impossibility of using them directly, the linear test with fixed time constants and fitted resistances (Boukamp), residuals that should be small and random, the pseudo-χ² and its rule-of-thumb thresholds, after Lazanas and Prodromidis 2023, sections 7 and 16.5, and Meddings et al. 2020, section 3.3.1 (deviation well below 1 %). The test here fits R‖C elements with log-spaced time constants plus a series R, L and C, weighted by 1/|Z|; the “drift” raises R<sub>SEI</sub> and R<sub>ct</sub> by 30 % over the sweep (one period or 1 s per point, 8 points per decade, 5 kHz to 10 mHz). Illustrative.</span>
@@ -381,7 +381,7 @@
         </svg>
         <div class="controls"><label><span>R₂</span> <input type="range" class="r2v" min="2" max="20" step="1" value="10" aria-label="Second resistance in milliohms"> <b class="r2v-val">10 mΩ</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>circuit 1</span><span><i style="background:var(--cyan)"></i>circuit 2</span></div>
+        <div class="key"><span><i class="act"></i>circuit 1</span><span><i style="background:var(--second)"></i>circuit 2</span></div>
         <figcaption>Two circuits, one spectrum: a perfect fit proves nothing about the circuit.
           <span class="try">Try this: change R₂ and watch the ladder’s values change while the two curves stay on top of each other.</span>
           <span class="basis">Mathematically identical circuits, a series chain of R‖C pairs and its nested ladder, after Lazanas and Prodromidis 2023, section 8 and Fig. 7 (they show a three-pair version); the hierarchical ladder for the SEI, non-uniqueness, and minimal, physics-based circuits after Meddings et al. 2020, section 3.2.2. The conversion between the two-pair versions here (matching the admittance as a continued fraction) is this page’s working, checked numerically. R₀ = 20 mΩ, R₁ = 4 mΩ, C₁ = 0.25 F, C₂ = 2 F; illustrative.</span>
@@ -402,7 +402,7 @@
         </svg>
         <div class="controls"><label><span>λ</span> <input type="range" class="lam" min="-4" max="1" step="0.25" value="-1" aria-label="Regularisation strength, log10"> <b class="lam-val">0.1</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>data; recovered distribution</span><span><i style="background:var(--cyan)"></i>fit</span><span><i style="background:var(--text)"></i>exact distribution</span></div>
+        <div class="key"><span><i class="act"></i>data; recovered distribution</span><span><i style="background:var(--second)"></i>fit</span><span><i style="background:var(--text)"></i>exact distribution</span></div>
         <figcaption>The distribution of relaxation times: overlapping arcs become separate peaks, if the regularization is right.
           <span class="try">Try this: find the range of λ that gives exactly two peaks; then go one step either side.</span>
           <span class="basis">The DRT relation Z = R₀ + R<sub>pol</sub>∫g(τ)/(1 + jωτ)dτ with τ = 1/(2πf), peaks as processes, the need for regularisation and its narrow useful range, sensitivity to bad points, and the restriction to the SEI and charge-transfer arcs, after Meddings et al. 2020, eq. 5 and section 3.2.1, and Bakenhaster and Dewald 2025, eqs. 9 and 10 and section 4.3; time ranges of the bands read from their Fig. 12 (approximate). Here: non-negative least squares with a ridge penalty λ on 61 log-spaced time constants (this page’s method); data from two R‖CPE arcs (4 mΩ, n = 0.9; 10 mΩ, n = 0.85) with 0.2 % noise; the exact distribution of such arcs is the Cole–Cole form (this page’s working).</span>
@@ -424,7 +424,7 @@
         </svg>
         <div class="controls"><label><span>cycles</span> <input type="range" class="cyc" min="0" max="400" step="10" value="0" aria-label="Number of cycles"> <b class="cyc-val">0</b></label></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="act"></i>current spectrum; R<sub>SEI</sub> + R<sub>ct</sub></span><span><i style="background:var(--cyan)"></i>R₀</span><span><i class="heat"></i>capacity</span></div>
+        <div class="key"><span><i class="act"></i>current spectrum; R<sub>SEI</sub> + R<sub>ct</sub></span><span><i style="background:var(--second)"></i>R₀</span><span><i class="heat"></i>capacity</span></div>
         <figcaption>Following a cell as it ages, and the data-driven route.
           <span class="try">Try this: play the ageing and compare how fast the interface resistance and the ohmic resistance grow.</span>
           <span class="basis">Impedance rising with age, check-ups that do not stress the cell, the two effects of degradation, and individual contributions that may correlate better with health or sudden death than total impedance, after Meddings et al. 2020, sections 1 and 3.3.2; the arc growing faster than the intercept moves follows the trend of their Fig. 4d (read from the figure). The workflow after Bakenhaster and Dewald 2025, Fig. 10 (from their ref. 81); Gaussian process regression, relaxation-time models near 1 % error and the limits of the training data after their section 4.2. All numbers in the panels are illustrative, not data.</span>

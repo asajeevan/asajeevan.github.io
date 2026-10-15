@@ -201,7 +201,7 @@
   function phiStrip(g, box, pts, opts) {
     opts = opts || {};
     var vmin = opts.vmin === undefined ? 0 : opts.vmin, vmax = opts.vmax === undefined ? 1 : opts.vmax;
-    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(234,240,236,.04)', stroke: 'var(--line)' }, g);
+    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(20,23,28,.025)', stroke: 'var(--line)' }, g);
     var Y = function (v) { return box.y + box.h - (v - vmin) / (vmax - vmin) * box.h; }, X = function (f) { return box.x + f * box.w; };
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
@@ -241,7 +241,7 @@
   var NOTES = {
     show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
     teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
-    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in cyan.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
+    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in green.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
   };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
@@ -315,16 +315,16 @@
     var x0 = 62, x1 = 470, y0 = 236, y1 = 36, N = 1000;
     var X = function (n) { return x0 + n / N * (x1 - x0); }, Y = function (q) { return y0 - (q - 0.7) / 0.3 * (y0 - y1); };
     el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
-    [0.7, 0.8, 0.9, 1].forEach(function (q) { el('line', { x1: x0, x2: x1, y1: Y(q), y2: Y(q), stroke: q === 0.8 ? 'var(--amber)' : 'var(--line)', 'stroke-dasharray': q === 0.8 ? '5 4' : '2 5' }, g); txt(g, x0 - 6, Y(q) + 4, Math.round(q * 100) + ' %', '', 'end'); });
+    [0.7, 0.8, 0.9, 1].forEach(function (q) { el('line', { x1: x0, x2: x1, y1: Y(q), y2: Y(q), stroke: q === 0.8 ? 'var(--accent)' : 'var(--line)', 'stroke-dasharray': q === 0.8 ? '5 4' : '2 5' }, g); txt(g, x0 - 6, Y(q) + 4, Math.round(q * 100) + ' %', '', 'end'); });
     txt(g, x0 + 6, Y(0.8) + 16, '80 %: end of cycle life', 'amber', 'start');
     [0, 250, 500, 750, 1000].forEach(function (n) { el('line', { x1: X(n), x2: X(n), y1: y0, y2: y0 + 5, stroke: 'var(--line-2)' }, g); txt(g, X(n), y0 + 18, n, '', 'middle'); });
     txt(g, x1, y0 + 34, 'cycle number (schematic)', '', 'end'); txt(g, x0 - 6, y1 - 14, 'capacity measured', '', 'start');
     var parts = [
       { key: 'li', name: 'lithium lost to the SEI', col: 'var(--anion)', f: function (n) { return 0.10 * Math.sqrt(n / N); } },
       { key: 'am', name: 'active material lost', col: 'var(--heat)', f: function (n) { return 0.08 * n / N; } },
-      { key: 'r', name: 'hidden by resistance', col: '#C4B5F7', f: function (n) { return 0.07 * Math.pow(n / N, 1.3); } }
+      { key: 'r', name: 'hidden by resistance', col: 'var(--field)', f: function (n) { return 0.07 * Math.pow(n / N, 1.3); } }
     ];
-    var areas = parts.map(function (p) { return el('path', { fill: p.col, 'fill-opacity': '.45' }, g); }), line = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g);
+    var areas = parts.map(function (p) { return el('path', { fill: p.col, 'fill-opacity': '.45' }, g); }), line = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
     var bdg = [badge(g, 0, 0, 1), badge(g, 0, 0, 2), badge(g, 0, 0, 3)], at = [30, 60, 90];
     function render() {
       var on2 = {}; Array.prototype.forEach.call(boxes, function (b) { on2[b.value] = b.checked; });
@@ -348,7 +348,7 @@
     steps(fig, [
       { text: 'Grey: <b>lithium lost</b> to side reactions, above all to the SEI, which keeps growing after the first charge. Each lithium it locks up is one fewer to rock between the electrodes. Drawn following the square-root law of figure 10.2.' },
       { text: 'Red: <b>active material lost</b>: particles that crack and lose contact, as in figure 7.3, or that dissolve, as in figure 10.3. The lithium may still be there, but there is less room to store it.' },
-      { text: 'Lilac: capacity <b>hidden by resistance</b>. As interfaces thicken and contacts loosen, the voltage under current hits the cut-off sooner (figure 5.3). Measure at a low rate and this part comes back; the other two do not.' }
+      { text: 'Violet: capacity <b>hidden by resistance</b>. As interfaces thicken and contacts loosen, the voltage under current hits the cut-off sooner (figure 5.3). Measure at a low rate and this part comes back; the other two do not.' }
     ]);
     render();
   });
@@ -361,7 +361,7 @@
     el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
     txt(g, x1, y0 + 18, 'time (or charge passed), schematic', '', 'end'); txt(g, x0 - 6, y1 - 10, 'SEI thickness, lithium lost', '', 'start');
     var refs = [0.5, 1, 0].map(function (bb) { var d = ''; for (var i = 0; i <= 100; i++) { var tt = i / 100; d += (i ? 'L' : 'M') + X(tt).toFixed(1) + ',' + Y(0.08 + LL(bb, tt)).toFixed(1); } return el('path', { d: d, fill: 'none', stroke: 'var(--muted)', 'stroke-opacity': '.35', 'stroke-dasharray': '3 4' }, g); });
-    var curve = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.6 }, g), dot = el('circle', { r: 5, fill: 'var(--amber)' }, g);
+    var curve = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.6 }, g), dot = el('circle', { r: 5, fill: 'var(--accent)' }, g);
     var bl = txt(g, x1 - 4, 0, '', 'amber', 'end');
     // cartoon: graphite with a thickening SEI, lithium counter and resistance bar
     var gx = 30, gy = 50;
@@ -369,7 +369,7 @@
     txt(g, gx + 30, gy - 10, 'graphite', 'strong', 'middle');
     var sei = el('rect', { x: gx + 62, y: gy, width: 4, height: 150, fill: 'var(--anion)', 'fill-opacity': '.8' }, g);
     txt(g, gx + 100, gy - 10, 'SEI', '', 'middle');
-    var rbar = el('rect', { x: gx, y: 226, width: 0, height: 10, fill: '#C4B5F7' }, g); txt(g, gx, 250, 'interfacial resistance', '', 'start');
+    var rbar = el('rect', { x: gx, y: 226, width: 0, height: 10, fill: 'var(--field)' }, g); txt(g, gx, 250, 'interfacial resistance', '', 'start');
     badge(g, x0 + 30, y1 + 6, 1); badge(g, gx + 140, gy + 70, 2);
     function L(tt) { return LL(b, tt); }
     function render() {
@@ -395,8 +395,8 @@
     el('rect', { x: nx, y: top, width: 70, height: bot - top, fill: 'var(--panel-2)' }, g);
     for (var i = 0; i < 7; i++) el('line', { x1: nx + 4, x2: nx + 66, y1: top + 10 + i * 20, y2: top + 10 + i * 20, stroke: 'var(--text)', 'stroke-opacity': '.5', 'stroke-width': 2 }, g);
     var sei = el('rect', { x: nx + 70, y: top, width: 8, height: bot - top, fill: 'var(--anion)', 'fill-opacity': '.8' }, g);
-    el('rect', { x: nx + 78, y: top, width: px - nx - 78, height: bot - top, fill: 'var(--cyan)', 'fill-opacity': '.08' }, g);
-    el('rect', { x: px, y: top, width: 80, height: bot - top, fill: 'var(--amber-2)', 'fill-opacity': '.55' }, g);
+    el('rect', { x: nx + 78, y: top, width: px - nx - 78, height: bot - top, fill: 'var(--second)', 'fill-opacity': '.08' }, g);
+    el('rect', { x: px, y: top, width: 80, height: bot - top, fill: 'var(--accent-strong)', 'fill-opacity': '.55' }, g);
     txt(g, nx + 35, top - 12, 'graphite', 'strong', 'middle'); txt(g, nx + 74, bot + 18, 'SEI', '', 'middle'); txt(g, 255, top - 12, 'electrolyte', 'cyan', 'middle'); txt(g, px + 40, top - 12, 'LiMn₂O₄ spinel', 'strong', 'middle');
     var mns = [], n = 0, t = 0;
     var cnt = txt(g, 255, bot + 18, '', 'amber', 'middle'), q = txt(g, nx + 74, bot + 36, '', 'heat', 'middle');
@@ -431,8 +431,8 @@
     [[1, '1 day'], [30, '1 month'], [365, '1 year'], [2920, '8 years']].forEach(function (r) { el('line', { x1: X(r[0]), x2: X(r[0]), y1: 40, y2: 196, stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, g); txt(g, X(r[0]), 214, r[1], '', 'middle'); });
     txt(g, x1, 232, 'time on the shelf (log scale)', '', 'end');
     var rows = [
-      { y: 80, name: 'Li-MnO₂ primary', keep: 0.9, at: 2920, txt: '90 % kept after 8 years', col: 'var(--amber)' },
-      { y: 150, name: 'Ni-MH rechargeable', keep: 0.7, at: 30, txt: 'up to 30 % lost in a month', col: 'var(--cyan)' }
+      { y: 80, name: 'Li-MnO₂ primary', keep: 0.9, at: 2920, txt: '90 % kept after 8 years', col: 'var(--accent)' },
+      { y: 150, name: 'Ni-MH rechargeable', keep: 0.7, at: 30, txt: 'up to 30 % lost in a month', col: 'var(--second)' }
     ];
     rows.forEach(function (r, i) {
       txt(g, x0 - 10, r.y + 4, r.name, 'strong', 'end');
@@ -457,16 +457,16 @@
     [0, 250, 500, 750, 1000].forEach(function (n) { el('line', { x1: X(n), y1: y0, x2: X(n), y2: y0 + 5, stroke: 'var(--line-2)' }, g); txt(g, X(n), y0 + 18, n, '', 'middle'); });
     [0.4, 0.6, 0.8, 1].forEach(function (r) { el('line', { x1: x0, y1: Y(r), x2: x1, y2: Y(r), stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, g); txt(g, x0 - 6, Y(r) + 4, Math.round(r * 100) + ' %', '', 'end'); });
     txt(g, x1, y0 + 34, 'cycle number', '', 'end'); txt(g, x0 - 6, y1 - 12, 'capacity kept', '', 'start');
-    el('line', { x1: x0, y1: Y(0.8), x2: x1, y2: Y(0.8), stroke: 'var(--amber)', 'stroke-dasharray': '5 4' }, g);
+    el('line', { x1: x0, y1: Y(0.8), x2: x1, y2: Y(0.8), stroke: 'var(--accent)', 'stroke-dasharray': '5 4' }, g);
     txt(g, x1, Y(0.8) - 6, '80 %: end of cycle life', 'amber', 'end');
-    el('line', { x1: X(300), y1: y0, x2: X(300), y2: y1, stroke: 'var(--cyan)', 'stroke-dasharray': '5 4' }, g);
+    el('line', { x1: X(300), y1: y0, x2: X(300), y2: y1, stroke: 'var(--second)', 'stroke-dasharray': '5 4' }, g);
     txt(g, X(300) + 6, Y(0.46), 'at least 300 cycles', 'cyan', 'start'); txt(g, X(300) + 6, Y(0.46) + 15, 'for a commercial cell', 'cyan', 'start');
     [0.995, 0.999, 0.9999].forEach(function (c) {
       var d = ''; for (var n = 0; n <= N; n += 5) { var rr = Math.pow(c, n); if (rr < 0.4) break; d += (n ? 'L' : 'M') + X(n).toFixed(1) + ',' + Y(rr).toFixed(1); }
       el('path', { d: d, fill: 'none', stroke: 'var(--muted)', 'stroke-opacity': '.55', 'stroke-dasharray': '2 3' }, g);
     });
     txt(g, X(150), Y(Math.pow(0.995, 150)) + 16, '99.5 %', '', 'start'); txt(g, X(620), Y(Math.pow(0.999, 620)) + 16, '99.9 %', '', 'start'); txt(g, X(880), Y(Math.pow(0.9999, 880)) + 16, '99.99 %', '', 'middle');
-    var line = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), mk = el('circle', { r: 5, fill: 'var(--amber)', stroke: 'var(--bg)' }, g);
+    var line = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), mk = el('circle', { r: 5, fill: 'var(--accent)', stroke: 'var(--bg)' }, g);
     badge(g, x1 - 14, Y(0.8) + 18, 1); badge(g, X(300) - 16, y1 + 14, 2); badge(g, X(60), Y(0.97) + 22, 3);
     function cOf() { return 0.99 + 0.0001 * (+ce.value); }
     function render() {
@@ -477,8 +477,8 @@
     }
     on(ce, 'input', render);
     steps(fig, [
-      { text: 'The amber line is the capacity kept after N cycles if a fixed fraction of the charge is lost for good on every cycle: retention = CE<sup>N</sup>. The dashed amber line is <b>end of life</b>, 80 % of the initial capacity.' },
-      { text: 'The dashed cyan line is the 2004 requirement for a commercial rechargeable cell: <b>at least 300 full cycles</b> with less than 20 % loss.' },
+      { text: 'The blue line is the capacity kept after N cycles if a fixed fraction of the charge is lost for good on every cycle: retention = CE<sup>N</sup>. The dashed blue line is <b>end of life</b>, 80 % of the initial capacity.' },
+      { text: 'The dashed green line is the 2004 requirement for a commercial rechargeable cell: <b>at least 300 full cycles</b> with less than 20 % loss.' },
       { text: 'The grey dotted lines are fixed references at 99.5, 99.9 and 99.99 % for comparison. Slide the efficiency: 99.9 % sounds excellent and still fails. Real cells are not this simple (a later module says why), so read the curve as arithmetic, not as a prediction.' }
     ]);
     render();
@@ -494,7 +494,7 @@
 
   /* ---------- background: slow ions and electrons behind the page ---------- */
   (function background() {
-    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var cv = document.getElementById('learnBg'); if (!cv || getComputedStyle(cv).display === 'none') return;
     var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
     if (!motion || coarse || small) { cv.style.display = 'none'; return; }
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
@@ -515,7 +515,7 @@
         var p = ps[i]; p.x += p.v * dt * boost; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
         var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
-        var c = p.ion ? '255,209,102' : '131,219,208';
+        var c = p.ion ? '31,72,214' : '242,169,0';
         g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 4, 0, 6.283); ctx.fill();
         ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.4) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();

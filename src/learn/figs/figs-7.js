@@ -13,26 +13,26 @@
     var W = 150, top = 46, h = 170, xs = [20, 185, 350];
     var names = [['liquid', 'organic carbonate + LiPF₆'], ['dry polymer', 'PEO + lithium salt'], ['ceramic', 'garnet']];
     xs.forEach(function (x, i) {
-      el('rect', { x: x, y: top, width: W, height: h, rx: 6, fill: i === 0 ? 'var(--cyan)' : i === 1 ? 'var(--cyan-2)' : 'var(--metal)', 'fill-opacity': i === 2 ? '.18' : '.1', stroke: 'var(--line-2)' }, g);
+      el('rect', { x: x, y: top, width: W, height: h, rx: 6, fill: i === 0 ? 'var(--second)' : i === 1 ? 'var(--second-strong)' : 'var(--metal)', 'fill-opacity': i === 2 ? '.18' : '.1', stroke: 'var(--line-2)' }, g);
       txt(g, x + W / 2, top - 22, names[i][0], 'strong', 'middle'); txt(g, x + W / 2, top - 8, names[i][1], '', 'middle');
       badge(g, x + W - 2, top + h + 16, i + 1);
     });
     // liquid: solvent molecules, a solvated Li+, anions; occasional ion pair
-    var sol = []; for (var i = 0; i < 16; i++) sol.push({ x: xs[0] + 10 + Math.random() * 130, y: top + 10 + Math.random() * 150, e: el('ellipse', { rx: 6, ry: 3.5, fill: 'none', stroke: 'var(--cyan)', 'stroke-opacity': '.6' }, g) });
+    var sol = []; for (var i = 0; i < 16; i++) sol.push({ x: xs[0] + 10 + Math.random() * 130, y: top + 10 + Math.random() * 150, e: el('ellipse', { rx: 6, ry: 3.5, fill: 'none', stroke: 'var(--second)', 'stroke-opacity': '.6' }, g) });
     var an1 = []; for (i = 0; i < 4; i++) an1.push({ x: xs[0] + 20 + Math.random() * 110, y: top + 20 + Math.random() * 130, c: el('circle', { r: 4, 'class': 'ion an' }, g) });
-    var shell = el('circle', { r: 11, fill: 'none', stroke: 'var(--cyan)', 'stroke-dasharray': '2 2' }, g);
+    var shell = el('circle', { r: 11, fill: 'none', stroke: 'var(--second)', 'stroke-dasharray': '2 2' }, g);
     var li1 = ourIon(g, xs[0] + 75, top + 85, 5, 'our ion', true), p1 = { x: xs[0] + 75, y: top + 85, vx: 14, vy: 9 };
     var pairT = txt(g, xs[0] + W / 2, top + h + 16, '', 'amber', 'middle');
     // polymer: wavy chains with coordinating sites; Li+ hops between sites as segments move
     var chains = [];
-    for (i = 0; i < 4; i++) chains.push({ y: top + 30 + i * 38, p: el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2, 'stroke-opacity': '.8' }, g), ph: Math.random() * 6 });
+    for (i = 0; i < 4; i++) chains.push({ y: top + 30 + i * 38, p: el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2, 'stroke-opacity': '.8' }, g), ph: Math.random() * 6 });
     var an2 = []; for (i = 0; i < 3; i++) an2.push({ x: xs[1] + 30 + i * 45, y: top + 49 + (i % 2) * 76, c: el('circle', { cx: xs[1] + 30 + i * 45, cy: top + 49 + (i % 2) * 76, r: 4, 'class': 'ion an' }, g) });
     var li2 = el('circle', { r: 5, 'class': 'ion' }, g), p2 = { chain: 1, k: 0.3, tgt: 2, hop: 0 };
     // ceramic: rigid lattice with vacant Li sites
     var lat = [];
     for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) { var lx = xs[2] + 22 + c * 36, ly = top + 26 + r * 40; el('rect', { x: lx - 7, y: ly - 7, width: 14, height: 14, transform: 'rotate(45 ' + lx + ' ' + ly + ')', fill: 'var(--metal)', 'fill-opacity': '.7' }, g); lat.push({ x: lx + 18, y: ly + 20 }); }
     lat = lat.filter(function (p) { return p.x < xs[2] + W - 6 && p.y < top + h - 6; });
-    lat.forEach(function (p) { el('circle', { cx: p.x, cy: p.y, r: 3, fill: 'none', stroke: 'var(--amber)', 'stroke-opacity': '.5', 'stroke-dasharray': '1.5 1.5' }, g); });
+    lat.forEach(function (p) { el('circle', { cx: p.x, cy: p.y, r: 3, fill: 'none', stroke: 'var(--accent)', 'stroke-opacity': '.5', 'stroke-dasharray': '1.5 1.5' }, g); });
     var li3 = el('circle', { r: 5, 'class': 'ion' }, g), p3 = { i: 0, j: 1, k: 0 };
     var frozen = false, t = 0;
     function chainY(ch, x) { return ch.y + Math.sin(x / 9 + ch.ph) * (frozen ? 5 : 5 + 2 * Math.sin(t * 2 + ch.ph)); }
@@ -94,10 +94,10 @@
     function polymer(inv) { var T = 1000 / inv; return -2.6 - 520 / (T - 200); } // log10 of an illustrative curved form
     function liquid(inv) { var T = 1000 / inv; return -1.9 - 240 / (T - 150); }
     var S = [
-      { key: 'liq', name: 'liquid (organic)', col: 'var(--cyan)', f: liquid },
-      { key: 'gel', name: 'gel polymer', col: '#9fe3d9', f: function (i) { return liquid(i) - Math.log10(3.5); } },
-      { key: 'pla', name: 'plasticized PEO-LiTFSI', col: '#C4B5F7', f: function (i) { return polymer(i) + 1; } },
-      { key: 'tfsi', name: 'PEO-LiTFSI', col: 'var(--amber)', f: polymer },
+      { key: 'liq', name: 'liquid (organic)', col: 'var(--second)', f: liquid },
+      { key: 'gel', name: 'gel polymer', col: '#3BA88A', f: function (i) { return liquid(i) - Math.log10(3.5); } },
+      { key: 'pla', name: 'plasticized PEO-LiTFSI', col: 'var(--field)', f: function (i) { return polymer(i) + 1; } },
+      { key: 'tfsi', name: 'PEO-LiTFSI', col: 'var(--accent)', f: polymer },
       { key: 'trf', name: 'PEO-LiCF₃SO₃', col: 'var(--heat)', f: function (i) { return polymer(i) - 1; } }
     ];
     S.forEach(function (s) {
@@ -117,7 +117,7 @@
     Array.prototype.forEach.call(boxes, function (b) { on(b, 'change', render); });
     steps(fig, [
       { text: 'The two lowest curves are dry PEO with two different salts. Changing the salt from LiCF₃SO₃ (triflate) to LiTFSI gains about <b>an order of magnitude</b>.' },
-      { text: 'Adding 10 to 25 % of a plasticizer to the polymer gains <b>another order of magnitude</b>: the lilac curve.' },
+      { text: 'Adding 10 to 25 % of a plasticizer to the polymer gains <b>another order of magnitude</b>: the violet curve.' },
       { text: 'A <b>gel</b>, 60 to 95 % liquid held in a polymer, comes within <b>2 to 5 times</b> of the liquid itself: the two top curves.' },
       { text: 'The dashed red line: dry-polymer lithium cells need warming, up to about <b>80 °C</b>, to bring the polymer to a useful conductivity.' }
     ]);
@@ -128,10 +128,10 @@
   register('f7-10', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), ts = fig.querySelector('.tplus'), tv = fig.querySelector('.tplus-val');
     var xL = 70, xR = 450, y0 = 60, y1 = 170;
-    el('rect', { x: xL - 22, y: y0 - 6, width: 22, height: y1 - y0 + 12, fill: 'var(--metal)' }, g); el('rect', { x: xR, y: y0 - 6, width: 22, height: y1 - y0 + 12, fill: 'var(--amber-2)' }, g);
-    el('rect', { x: xL, y: y0, width: xR - xL, height: y1 - y0, fill: 'var(--cyan)', 'fill-opacity': '.08' }, g);
+    el('rect', { x: xL - 22, y: y0 - 6, width: 22, height: y1 - y0 + 12, fill: 'var(--metal)' }, g); el('rect', { x: xR, y: y0 - 6, width: 22, height: y1 - y0 + 12, fill: 'var(--accent-strong)' }, g);
+    el('rect', { x: xL, y: y0, width: xR - xL, height: y1 - y0, fill: 'var(--second)', 'fill-opacity': '.08' }, g);
     txt(g, xL - 11, y1 + 26, 'Li⁺ released', '', 'middle'); txt(g, xR + 11, y1 + 26, 'Li⁺ taken in', '', 'middle');
-    arrow(g, 220, y0 - 16, 300, y0 - 16, '#C4B5F7', 1.4); txt(g, 260, y0 - 24, 'field in the electrolyte', 'field', 'middle');
+    arrow(g, 220, y0 - 16, 300, y0 - 16, 'var(--field)', 1.4); txt(g, 260, y0 - 24, 'field in the electrolyte', 'field', 'middle');
     txt(g, 260, y1 + 26, 'electrolyte: Li⁺ and its anion', 'cyan', 'middle');
     var cats = [], ans = [];
     for (var i = 0; i < 14; i++) { cats.push({ x: xL + 10 + Math.random() * (xR - xL - 20), y: y0 + 8 + Math.random() * (y1 - y0 - 16), c: el('circle', { r: 4, 'class': 'ion' }, g) }); ans.push({ x: xL + 10 + Math.random() * (xR - xL - 20), y: y0 + 8 + Math.random() * (y1 - y0 - 16), c: el('circle', { r: 4, 'class': 'ion an' }, g) }); }
@@ -145,7 +145,7 @@
     var px0 = xL, px1 = xR, py = 300, ph = 50;
     el('line', { x1: px0, x2: px1, y1: py, y2: py, stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, g);
     txt(g, px0 - 8, py + 4, 'c₀', '', 'end');
-    var prof = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), fillP = el('path', { fill: 'var(--amber)', 'fill-opacity': '.15' }, g);
+    var prof = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), fillP = el('path', { fill: 'var(--accent)', 'fill-opacity': '.15' }, g);
     var hiT = txt(g, px0 + 4, 0, '', '', 'start'), loT = txt(g, px1 - 4, 0, '', '', 'end');
     txt(g, 260, py + ph + 22, 'salt concentration across the cell, steady state', '', 'middle');
     badge(g, bx + bw + 24, by + 7, 1); badge(g, 30, y0 + 40, 2); badge(g, 490, py - 30, 3);
@@ -195,8 +195,8 @@
     el('rect', { x: 290, y: 30, width: 200, height: 180, rx: 6, fill: 'var(--metal)', 'fill-opacity': '.25', stroke: 'var(--line-2)' }, g);
     txt(g, 390, 24, 'rigid solid electrolyte', 'strong', 'middle');
     var hole = el('circle', { cx: cx, cy: cy, r: R0 + 4, fill: 'var(--bg-2)', stroke: 'var(--line-2)' }, g);
-    var part = el('circle', { cx: cx, cy: cy, r: R0, fill: 'var(--amber-2)', 'fill-opacity': '.85' }, g);
-    txt(g, cx, cy + 4, 'electrode particle', 'strong', 'middle');
+    var part = el('circle', { cx: cx, cy: cy, r: R0, fill: 'var(--accent-strong)', 'fill-opacity': '.85' }, g);
+    txt(g, cx, cy + 4, 'electrode particle', 'strong tag', 'middle');
     var gapT = txt(g, 390, 232, '', 'heat', 'middle'), stage = txt(g, 390, 250, '', '', 'middle');
     var path = el('g', {}, g);
     badge(g, 300, 222, 3);

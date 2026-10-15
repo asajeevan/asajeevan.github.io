@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://asajeevan.github.io/batteries/capacity-energy/">
 <meta property="og:site_name" content="Aswadh Shyma Sajeevan">
-<meta name="theme-color" content="#0E1F22">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://asajeevan.github.io/batteries/capacity-energy/">
 <meta name="twitter:card" content="summary">
@@ -19,8 +19,8 @@
 <meta name="twitter:description" content="What do mAh, Wh and Wh/kg mean, and how long would your cell run a lamp? Capacity, energy and power: Faraday&#x27;s law, the C-rate and the Ragone plot.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
 <script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
 /* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
 window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
@@ -167,18 +167,18 @@ At that current the curve would sag and the capacity would fall short of 2 Ah; t
 <span class="fnum">Figure 4.3</span>
 <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f43t">
 <title id="f43t">A Ragone map: supercapacitors high in power and low in energy, fuel cells high in energy and low in power, batteries in between, and the combustion engine beyond all three because its energy is stored in fuel.</title>
-<line x1="60" y1="250" x2="490" y2="250" stroke="var(--line-2, rgba(234,240,236,.26))" marker-end="url(#arr43)"/>
-<line x1="60" y1="250" x2="60" y2="30" stroke="var(--line-2, rgba(234,240,236,.26))" marker-end="url(#arr43)"/>
-<defs><marker id="arr43" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted, #A3B6B1)"/></marker></defs>
+<line x1="60" y1="250" x2="490" y2="250" stroke="var(--line-2)" marker-end="url(#arr43)"/>
+<line x1="60" y1="250" x2="60" y2="30" stroke="var(--line-2)" marker-end="url(#arr43)"/>
+<defs><marker id="arr43" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
 <text x="490" y="272" class="lbl" text-anchor="end">specific energy, Wh/kg (log scale, unnumbered)</text>
 <text x="20" y="140" class="lbl" transform="rotate(-90 20 140)" text-anchor="middle">specific power, W/kg (log scale)</text>
-<ellipse cx="130" cy="80" rx="60" ry="36" fill="var(--cyan, #83DBD0)" fill-opacity=".18" stroke="var(--cyan, #83DBD0)" stroke-opacity=".7"/>
+<ellipse cx="130" cy="80" rx="60" ry="36" fill="var(--second)" fill-opacity=".18" stroke="var(--second)" stroke-opacity=".7"/>
 <text x="130" y="76" class="lbl strong" text-anchor="middle">supercapacitors</text><text x="130" y="92" class="lbl" text-anchor="middle">high power, low energy</text>
-<ellipse cx="240" cy="150" rx="78" ry="48" fill="var(--amber, #F0B441)" fill-opacity=".18" stroke="var(--amber, #F0B441)" stroke-opacity=".7"/>
+<ellipse cx="240" cy="150" rx="78" ry="48" fill="var(--accent)" fill-opacity=".18" stroke="var(--accent)" stroke-opacity=".7"/>
 <text x="240" y="146" class="lbl strong" text-anchor="middle">batteries</text><text x="240" y="162" class="lbl" text-anchor="middle">intermediate in both</text>
-<ellipse cx="370" cy="215" rx="72" ry="30" fill="var(--green, #2F6A5C)" fill-opacity=".35" stroke="var(--green, #2F6A5C)"/>
+<ellipse cx="370" cy="215" rx="72" ry="30" fill="var(--green)" fill-opacity=".35" stroke="var(--green)"/>
 <text x="370" y="212" class="lbl strong" text-anchor="middle">fuel cells</text><text x="370" y="228" class="lbl" text-anchor="middle">high energy, low power</text>
-<ellipse cx="430" cy="80" rx="52" ry="28" fill="var(--heat, #E8663D)" fill-opacity=".18" stroke="var(--heat, #E8663D)" stroke-opacity=".7"/>
+<ellipse cx="430" cy="80" rx="52" ry="28" fill="var(--heat)" fill-opacity=".18" stroke="var(--heat)" stroke-opacity=".7"/>
 <text x="430" y="76" class="lbl strong" text-anchor="middle">combustion engine</text><text x="430" y="92" class="lbl" text-anchor="middle">energy stored in fuel</text>
 </svg>
 <figcaption>The Ragone map: energy against power. Regions only; the axes carry no numbers because the source figure is itself simplified.

@@ -201,7 +201,7 @@
   function phiStrip(g, box, pts, opts) {
     opts = opts || {};
     var vmin = opts.vmin === undefined ? 0 : opts.vmin, vmax = opts.vmax === undefined ? 1 : opts.vmax;
-    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(234,240,236,.04)', stroke: 'var(--line)' }, g);
+    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(20,23,28,.025)', stroke: 'var(--line)' }, g);
     var Y = function (v) { return box.y + box.h - (v - vmin) / (vmax - vmin) * box.h; }, X = function (f) { return box.x + f * box.w; };
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
@@ -241,7 +241,7 @@
   var NOTES = {
     show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
     teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
-    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in cyan.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
+    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in green.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
   };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
@@ -345,12 +345,12 @@
     var b = { x0: 60, y0: 230, x1: 500, y1: 46 }, lo = -4, hi = 2, rmax = 0.07;
     var X = function (t) { return e11log(t, lo, hi, b.x0, b.x1); }, Y = function (r) { return b.y0 - r / rmax * (b.y0 - b.y1); };
     var band = el('g', {}, g);
-    [[1e-4, 2e-4], [2e-4, 0.15], [0.15, 100]].forEach(function (s, i) { el('rect', { x: X(s[0]), y: b.y1, width: X(s[1]) - X(s[0]), height: b.y0 - b.y1, fill: i === 0 ? 'var(--cyan)' : i === 1 ? 'var(--amber)' : '#C4B5F7', 'fill-opacity': '.06' }, band); });
+    [[1e-4, 2e-4], [2e-4, 0.15], [0.15, 100]].forEach(function (s, i) { el('rect', { x: X(s[0]), y: b.y1, width: X(s[1]) - X(s[0]), height: b.y0 - b.y1, fill: i === 0 ? 'var(--second)' : i === 1 ? 'var(--accent)' : 'var(--field)', 'fill-opacity': '.06' }, band); });
     e11axes(g, b, { X: X, Y: Y, xt: [[1e-4, '0.1 ms'], [1e-3, '1 ms'], [1e-2, '10 ms'], [0.1, '0.1 s'], [1, '1 s'], [10, '10 s'], [100, '100 s']], yt: [[0, ''], [0.02, '20'], [0.04, '40'], [0.06, '60']], grid: true, xlab: 'time since the current was switched on (log scale)', ylab: 'ΔV/I read off the voltage, mΩ' });
     var pts = [], k, t;
     for (k = 0; k <= 200; k++) { t = Math.pow(10, lo + (hi - lo) * k / 200); pts.push([X(t), Y(M11.stepResistance(p, t))]); }
-    el('path', { d: e11d(pts), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g);
-    for (k = 0; k <= 24; k++) { t = Math.pow(10, lo + (hi - lo) * k / 24); var z = M11.voigtWZ(p, 1 / t); el('circle', { cx: X(t), cy: Y(z.re), r: 3, fill: 'var(--cyan)', 'fill-opacity': '.85' }, g); }
+    el('path', { d: e11d(pts), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
+    for (k = 0; k <= 24; k++) { t = Math.pow(10, lo + (hi - lo) * k / 24); var z = M11.voigtWZ(p, 1 / t); el('circle', { cx: X(t), cy: Y(z.re), r: 3, fill: 'var(--second)', 'fill-opacity': '.85' }, g); }
     var cur = el('line', { y1: b.y1, y2: b.y0, stroke: 'var(--text)', 'stroke-dasharray': '4 3' }, g), dot = el('circle', { r: 6, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, g);
     var tl = txt(g, 0, 0, '', 'strong tag', 'start');
     badge(g, X(1.4e-4), Y(0.02) - 20, 1); badge(g, X(0.006), Y(0.036) - 24, 2); badge(g, X(14), Y(M11.stepResistance(p, 14)) + 24, 3);
@@ -361,14 +361,14 @@
       tl.setAttribute('x', x > b.x1 - 150 ? x - 10 : x + 10); tl.setAttribute('text-anchor', x > b.x1 - 150 ? 'end' : 'start'); tl.setAttribute('y', Math.max(y - 14, b.y1 + 14)); setSvgText(tl, e11mOhm(R) + ' at ' + e11time(tRead));
       setSvgText(sv, e11time(tRead));
       var part = tRead < 2e-4 ? 'the instantaneous drop, the <b>ohmic</b> resistance of electrolyte, electrodes and contacts' : tRead < 0.15 ? 'the ohmic part plus the <b>interfaces</b> (SEI and charge transfer) charging their double layers' : 'everything above plus a <b>diffusion</b> part that keeps growing as √t';
-      read.innerHTML = 'Read at t = <b>' + e11time(tRead) + '</b>: ΔV/I = <b>' + e11mOhm(R) + '</b>, ' + part + '. Impedance at the matching frequency f = 1/(2πt) = ' + e11Hz(f) + ' has a real part of ' + e11mOhm(z.re) + ' (cyan dots).';
+      read.innerHTML = 'Read at t = <b>' + e11time(tRead) + '</b>: ΔV/I = <b>' + e11mOhm(R) + '</b>, ' + part + '. Impedance at the matching frequency f = 1/(2πt) = ' + e11Hz(f) + ' has a real part of ' + e11mOhm(z.re) + ' (green dots).';
     }
     on(sl, 'input', function () { lt = +sl.value; tRead = Math.pow(10, lt); place(); });
     steps(fig, [
       { text: 'Switch on a constant current I. The voltage jumps at once. That <b>instantaneous drop</b> divided by the current, ΔV/ΔI, is the ohmic resistance: electrolyte, active material, current collectors and contacts. The number you get depends on how fast the instrument samples.' },
       { text: 'Keep the current on and the voltage keeps moving. The interfaces, the SEI and the charge transfer, each in parallel with its double layer, need their own time to answer (here about 1 ms and 20 ms).' },
       { text: 'At long times <b>diffusion</b> adds a part that keeps growing as √t. So “the resistance” of a cell depends on when you read it: the values at 10 ms, 1 s and 10 s are different numbers. That is why test standards fix the pulse length.' },
-      { text: 'The cyan dots are the real part of the impedance of the same cell at f = 1/(2πt). They roughly follow the pulse curve: values from a pulse and from a sine agree when the timescales match. Impedance spectroscopy, from figure L3.1 on, measures one frequency at a time.' }
+      { text: 'The green dots are the real part of the impedance of the same cell at f = 1/(2πt). They roughly follow the pulse curve: values from a pulse and from a sine agree when the timescales match. Impedance spectroscopy, from figure L3.1 on, measures one frequency at a time.' }
     ]);
     place();
     var loop = anim(fig, function (dt) { if (dt === 0) return; lt += dt * 0.9; if (lt > hi) lt = lo; tRead = Math.pow(10, lt); sl.value = lt; place(); }, { autoplay: true, stepDt: 0.5 });
@@ -382,14 +382,14 @@
     function E(i) { var t = sim.t[i] * T; return E1 + (t < tau ? IR : 0) + k * sim.us[i]; }
     // film panel
     var fx0 = 58, fx1 = 210, fy0 = 64, fy1 = 236, c0y = 92, sc = 150;
-    el('rect', { x: 20, y: fy0, width: fx0 - 20, height: fy1 - fy0, fill: 'var(--cyan)', 'fill-opacity': '.08' }, g);
+    el('rect', { x: 20, y: fy0, width: fx0 - 20, height: fy1 - fy0, fill: 'var(--second)', 'fill-opacity': '.08' }, g);
     el('rect', { x: fx0, y: fy0, width: fx1 - fx0, height: fy1 - fy0, rx: 2, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g);
     el('rect', { x: fx1, y: fy0, width: 12, height: fy1 - fy0, fill: 'var(--metal, #8a9aa0)', 'fill-opacity': '.7' }, g);
     txt(g, 39, fy0 - 8, 'electrolyte', '', 'middle'); txt(g, (fx0 + fx1) / 2, fy0 - 28, 'active film, 2 µm', 'strong', 'middle'); txt(g, (fx0 + fx1) / 2, fy0 - 8, 'lithium content', '', 'middle');
     txt(g, fx0 + 2, fy1 + 16, 'surface', '', 'start'); txt(g, fx1 + 12, fy1 + 16, 'back, no flux', '', 'end');
     el('line', { x1: fx0, x2: fx1, y1: c0y, y2: c0y, stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, g);
-    var prof = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g);
-    var flux = arrow(g, fx0 - 4, 150, 26, 150, '#F0B441', 2, 'force-arrow');
+    var prof = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
+    var flux = arrow(g, fx0 - 4, 150, 26, 150, 'var(--accent)', 2, 'force-arrow');
     var ion = ourIon(g, fx0 - 6, 176, 5, 'our ion', true);
     // voltage panel
     var b = { x0: 286, y0: 214, x1: 488, y1: 44 }, vlo = 3.890, vhi = 3.950;
@@ -397,15 +397,15 @@
     e11axes(g, b, { X: X, Y: Y, xt: [[0, '0'], [600, '10'], [1800, '30'], [3600, '60'], [4800, '80 min']], yt: [[3.90, '3.90'], [3.92, '3.92'], [3.94, '3.94']], grid: true, ylab: 'cell voltage, V' });
     var bc = { y0: 262, y1: 236 }, IY = function (on) { return on ? bc.y1 : bc.y0; };
     el('line', { x1: b.x0, x2: b.x1, y1: bc.y0, y2: bc.y0, stroke: 'var(--line-2)' }, g); txt(g, b.x0 - 7, bc.y1 + 4, 'I', 'cyan', 'end'); txt(g, b.x0 - 7, bc.y0 + 4, '0', '', 'end');
-    el('path', { d: 'M' + b.x0 + ',' + bc.y0 + ' V' + bc.y1 + ' H' + X(tau) + ' V' + bc.y0 + ' H' + b.x1, fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.8 }, g);
-    var vfull = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.2, 'stroke-opacity': '.25' }, g), vpath = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g);
+    el('path', { d: 'M' + b.x0 + ',' + bc.y0 + ' V' + bc.y1 + ' H' + X(tau) + ' V' + bc.y0 + ' H' + b.x1, fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.8 }, g);
+    var vfull = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.2, 'stroke-opacity': '.25' }, g), vpath = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
     var all = sim.t.map(function (t, i) { return [X(t * T), Y(E(i))]; }); vfull.setAttribute('d', e11d(all));
     var iEnd = sim.t.findIndex(function (t) { return t * T >= tau; }) - 1, E2 = E1 + IR + k * sim.us[1] * 0, E3 = E(iEnd), E4 = E(sim.t.length - 1);
     // E markers and brackets
     var mk = el('g', {}, g);
     [[0, E1, 'E₁', 'start', 7, 16], [0, E1 + IR, 'E₂', 'start', 7, -6], [tau, E3, 'E₃', 'start', 6, -6], [tEnd, E4, 'E₄', 'end', -6, -6]].forEach(function (m) { el('circle', { cx: X(m[0]), cy: Y(m[1]), r: 3, fill: 'var(--text)' }, mk); txt(mk, X(m[0]) + m[4], Y(m[1]) + m[5], m[2], 'strong', m[3]); });
     el('path', { d: 'M' + (X(tau) + 26) + ',' + Y(E1 + IR) + ' h6 V' + Y(E3) + ' h-6', fill: 'none', stroke: 'var(--heat)', 'stroke-width': 1.6 }, mk); txt(mk, X(tau) + 36, (Y(E1 + IR) + Y(E3)) / 2 + 4, 'ΔEₜ', 'heat', 'start');
-    el('path', { d: 'M' + (X(tEnd) - 30) + ',' + Y(E1) + ' h6 V' + Y(E4) + ' h-6', fill: 'none', stroke: '#C4B5F7', 'stroke-width': 1.6 }, mk); var tes = txt(mk, X(tEnd) - 34, (Y(E1) + Y(E4)) / 2 + 4, 'ΔEₛ', '', 'end'); tes.style.fill = '#C4B5F7';
+    el('path', { d: 'M' + (X(tEnd) - 30) + ',' + Y(E1) + ' h6 V' + Y(E4) + ' h-6', fill: 'none', stroke: 'var(--field)', 'stroke-width': 1.6 }, mk); var tes = txt(mk, X(tEnd) - 34, (Y(E1) + Y(E4)) / 2 + 4, 'ΔEₛ', '', 'end'); tes.style.fill = 'var(--field)';
     el('line', { x1: X(0), x2: X(tEnd), y1: Y(E1), y2: Y(E1), stroke: 'var(--line-2)', 'stroke-dasharray': '2 4' }, mk);
     var cur = el('line', { y1: b.y1, y2: bc.y0, stroke: 'var(--text)', 'stroke-dasharray': '3 3', 'stroke-opacity': '.6' }, g);
     badge(g, fx0 + 16, c0y + 26, 1); badge(g, X(tau / 2), bc.y1 + 13, 2); badge(g, X(2400), Y(E4) - 22, 3); badge(g, X(tau) + 84, (Y(E1 + IR) + Y(E3)) / 2, 4);
@@ -443,14 +443,14 @@
     // left: E - E2 against sqrt(t)
     var a = { x0: 60, y0: 230, x1: 236, y1: 44 }, r = { x0: 300, y0: 230, x1: 505, y1: 44 };
     var gl = el('g', {}, g), gr = el('g', {}, g);
-    var curve = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, gl), ideal = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.4, 'stroke-dasharray': '5 4' }, gl), axl = el('g', {}, gl);
+    var curve = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, gl), ideal = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.4, 'stroke-dasharray': '5 4' }, gl), axl = el('g', {}, gl);
     // right: D(Weppner-Huggins)/D against tau_hat
     var XR = function (th) { return e11log(th, -3, 0, r.x0, r.x1); }, YR = function (q) { return r.y0 - q / 1.2 * (r.y0 - r.y1); };
     e11axes(gr, r, { X: XR, Y: YR, xt: [[0.001, '0.001'], [0.01, '0.01'], [0.1, '0.1'], [1, '1']], yt: [[0, ''], [0.5, '0.5'], [1, '1']], grid: true, xlab: 'D τ / L² (dimensionless pulse)', ylab: 'D from the formula ÷ true D' });
     var cP = [], cS = []; for (var k = 0; k <= 90; k++) { var th = Math.pow(10, -3 + 3 * k / 90); var f1 = M11.slabSurface(th), f3 = M11.sphereF(th); cP.push([XR(th), YR(4 / (Math.PI * th) * (th / f1) * (th / f1))]); cS.push([XR(th), YR(4 / (Math.PI * th) * (1 / 9) * (3 * th / f3) * (3 * th / f3))]); }
-    el('path', { d: e11d(cP), fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2 }, gr); el('path', { d: e11d(cS), fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2 }, gr);
+    el('path', { d: e11d(cP), fill: 'none', stroke: 'var(--second)', 'stroke-width': 2 }, gr); el('path', { d: e11d(cS), fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2 }, gr);
     txt(gr, XR(0.0012), YR(1) - 8, 'planar film', 'cyan', 'start'); txt(gr, XR(0.0012), YR(0.86) + 18, 'sphere', 'heat', 'start');
-    [[0.25, 'cyan'], [0.025, 'heat']].forEach(function (q) { el('line', { x1: XR(q[0]), x2: XR(q[0]), y1: r.y1, y2: r.y0, stroke: q[1] === 'cyan' ? 'var(--cyan)' : 'var(--heat)', 'stroke-dasharray': '3 4', 'stroke-opacity': '.7' }, gr); });
+    [[0.25, 'cyan'], [0.025, 'heat']].forEach(function (q) { el('line', { x1: XR(q[0]), x2: XR(q[0]), y1: r.y1, y2: r.y0, stroke: q[1] === 'cyan' ? 'var(--second)' : 'var(--heat)', 'stroke-dasharray': '3 4', 'stroke-opacity': '.7' }, gr); });
     txt(gr, XR(0.25) - 4, YR(0.2), 'film limit', 'cyan', 'end'); txt(gr, XR(0.025) - 4, YR(0.1), 'sphere limit', 'heat', 'end');
     var mark = el('circle', { r: 6, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, gr);
     badge(g, a.x0 + 30, a.y1 + 22, 1); badge(g, a.x1 - 12, a.y1 + 50, 2); badge(g, XR(0.25) + 16, YR(1.1), 3);
@@ -468,7 +468,7 @@
     on(sl, 'input', render);
     steps(fig, [
       { text: 'The formula rests on two straight lines. First: during a short pulse the diffusion part of the voltage grows as <b>√t</b> (dashed line), because only a thin layer near the surface has been disturbed.' },
-      { text: 'Second: the step ΔEₛ is small enough that the equilibrium curve is straight over it. When both hold, ΔEₛ/ΔEₜ, the pulse length τ and the sample size give D. Lengthen the pulse and watch the amber curve leave the dashed √t line.' },
+      { text: 'Second: the step ΔEₛ is small enough that the equilibrium curve is straight over it. When both hold, ΔEₛ/ΔEₜ, the pulse length τ and the sample size give D. Lengthen the pulse and watch the blue curve leave the dashed √t line.' },
       { text: 'How long is “short”? The number that decides is Dτ/L², the pulse length in units of the time diffusion needs to cross the sample. The recommended limit is below 0.25 for a flat film and ten times less for spheres; most published GITT studies use longer pulses than that.' }
     ]);
     render();
@@ -493,16 +493,16 @@
     // top: E - E0 against sqrt(t)
     var a = { x0: 60, y0: 196, x1: 500, y1: 42 }, smax = Math.sqrt(tp), ymax = 0.06;
     var X = function (s) { return a.x0 + s / smax * (a.x1 - a.x0); }, Y = function (v) { return a.y0 - v / ymax * (a.y0 - a.y1); };
-    el('rect', { x: X(0), y: a.y1, width: X(Math.sqrt(360)) - X(0), height: a.y0 - a.y1, fill: 'var(--cyan)', 'fill-opacity': '.06' }, g);
+    el('rect', { x: X(0), y: a.y1, width: X(Math.sqrt(360)) - X(0), height: a.y0 - a.y1, fill: 'var(--second)', 'fill-opacity': '.06' }, g);
     e11axes(g, a, { X: X, Y: Y, xt: [[0, '0'], [Math.sqrt(360), '√360'], [Math.sqrt(900), '√900'], [Math.sqrt(1800), '√1800']], yt: [[0, '0'], [0.02, '20'], [0.04, '40'], [0.06, '60']], grid: true, xlab: '√t, with t in s', ylab: 'E − E₀ during the pulse, mV' });
     txt(g, X(Math.sqrt(360)) - 4, a.y1 + 14, 'first 360 s', 'cyan', 'end');
-    var cE = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), l3 = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, g), l4a = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.3, 'stroke-opacity': '.6' }, g), l4b = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2 }, g);
+    var cE = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), l3 = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, g), l4a = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.3, 'stroke-opacity': '.6' }, g), l4b = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2 }, g);
     var e1 = el('circle', { r: 4, fill: 'var(--text)' }, g), e1t = txt(g, 0, 0, 'E₁ (5 s)', 'strong', 'start');
     // bottom: bars on a log axis
     var bb = { x0: 70, y0: 414, x1: 500, y1: 266 }, YB = function (q) { return bb.y0 - (Math.log10(q) + 4) / 5 * (bb.y0 - bb.y1); };
     e11axes(g, bb, { X: function (x) { return x; }, Y: YB, yt: [[1e-4, '10⁻⁴'], [1e-3, '10⁻³'], [0.01, '0.01'], [0.1, '0.1'], [1, '1'], [10, '10']], grid: true, ylab: 'D from the recipe ÷ true D' });
     el('line', { x1: bb.x0, x2: bb.x1, y1: YB(1), y2: YB(1), stroke: 'var(--text)', 'stroke-width': 1.4 }, g);
-    var names = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'], bars = names.map(function (n, i) { var x = bb.x0 + 14 + i * 70; txt(g, x + 22, bb.y0 + 16, n, 'strong', 'middle'); return { r: el('rect', { x: x, width: 44, fill: i === 3 || i === 5 ? 'var(--cyan)' : 'var(--amber)', 'fill-opacity': '.8' }, g), t: txt(g, x + 22, 0, '', '', 'middle') }; });
+    var names = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'], bars = names.map(function (n, i) { var x = bb.x0 + 14 + i * 70; txt(g, x + 22, bb.y0 + 16, n, 'strong', 'middle'); return { r: el('rect', { x: x, width: 44, fill: i === 3 || i === 5 ? 'var(--second)' : 'var(--accent)', 'fill-opacity': '.8' }, g), t: txt(g, x + 22, 0, '', '', 'middle') }; });
     badge(g, X(Math.sqrt(5)) + 14, Y(E(5)) - 30, 1); badge(g, X(Math.sqrt(200)), a.y1 + 30, 2); badge(g, bb.x1 - 12, YB(1) - 14, 3);
     function render() {
       tdl = Math.pow(10, +sl.value); fall = cb.checked; setSvgText(sv, tdl < 1 ? tdl.toFixed(1) + ' s' : Math.round(tdl) + ' s');
@@ -524,7 +524,7 @@
       var sc = radius === 'primary' ? Math.pow(0.25 / 5, 2) : 1;
       est.forEach(function (d, i) { var q = Math.max(1.2e-4, Math.min(9, d / D * sc)), y = YB(q), y1 = YB(1); bars[i].r.setAttribute('y', Math.min(y, y1)); bars[i].r.setAttribute('height', Math.max(1.5, Math.abs(y1 - y))); bars[i].t.setAttribute('y', (q >= 1 ? y - 6 : y + 16)); setSvgText(bars[i].t, (d / D * sc) >= 0.1 ? (d / D * sc).toFixed(2) : sci(d / D * sc, 1)); });
       var lo = Math.min.apply(null, est), hi = Math.max.apply(null, est);
-      read.innerHTML = 'One simulated pulse, six recipes. They span a factor of <b>' + (hi / lo).toFixed(1) + '</b>' + (radius === 'primary' ? ', and referring the same data to 0.25 µm primary particles instead of 5 µm secondary particles divides every value by <b>400</b> (D scales with r²).' : '. P4 and P6 (cyan) leave out the start of the pulse, where the double layer is still charging.') + (fall ? ' With the charge-transfer resistance falling during the pulse, the voltage climbs more slowly late in the pulse, and the full fits (P5, P6) overestimate D.' : '');
+      read.innerHTML = 'One simulated pulse, six recipes. They span a factor of <b>' + (hi / lo).toFixed(1) + '</b>' + (radius === 'primary' ? ', and referring the same data to 0.25 µm primary particles instead of 5 µm secondary particles divides every value by <b>400</b> (D scales with r²).' : '. P4 and P6 (green) leave out the start of the pulse, where the double layer is still charging.') + (fall ? ' With the charge-transfer resistance falling during the pulse, the voltage climbs more slowly late in the pulse, and the full fits (P5, P6) overestimate D.' : '');
     }
     on(sl, 'input', render); on(cb, 'change', render);
     steps(fig, [
@@ -552,7 +552,7 @@
       for (var j = 0; j <= 80; j++) { var s = sm * j / 80, t = s * s; ps.push([s, Ep(t) - Ep(0)]); if (j >= 4) { xs.push(s); ys.push(Ep(t) - Ep(0)); } }
       var ymax = Math.max(0.03, ps[ps.length - 1][1] * 1.15), XL = function (s) { return a.x0 + s / sm * (a.x1 - a.x0); }, YL = function (v) { return a.y0 - (v + 0.008) / (ymax + 0.008) * (a.y0 - a.y1); };
       e11axes(gl, a, { X: XL, Y: YL, xt: [[0, '0'], [sm, '√τ']], yt: [[0, '0'], [0.02, '20']], xlab: '√t', ylab: 'E − E(0⁺), mV' });
-      el('path', { d: e11d(ps.map(function (p) { return [XL(p[0]), YL(p[1])]; })), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, gl);
+      el('path', { d: e11d(ps.map(function (p) { return [XL(p[0]), YL(p[1])]; })), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, gl);
       var fp = linfit(xs, ys); el('path', { d: e11d([[XL(0), YL(fp.c)], [XL(sm), YL(fp.c + fp.m * sm)]]), fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, gl);
       var ideal = k * 2 / Math.sqrt(Math.PI), qPulse = Math.pow(ideal / fp.m, 2);
       // rest panel: V - Veq against sqrt(tr + tau) - sqrt(tr)
@@ -560,9 +560,9 @@
       for (j = 0; j <= 160; j++) { var tr = th * Math.pow(10, -4 + 6 * j / 160), xv = Math.sqrt(tr + th) - Math.sqrt(tr), v = Vr(tr); rs.push([xv / sm, v]); if (xv / sm > w0 && xv / sm < w1) { rx.push(xv); ry.push(v); } if (tr <= th * 0.2) { nx.push(Math.sqrt(tr)); ny.push(v); } }
       var ymr = Math.max(0.03, Vr(0) * 1.1), XR = function (q) { return r.x0 + q * (r.x1 - r.x0); }, YR = function (v) { return r.y0 - (v + 0.004) / (ymr + 0.004) * (r.y0 - r.y1); };
       e11axes(gr, r, { X: XR, Y: YR, xt: [[0, '0'], [1, '√τ']], yt: [[0, '0'], [0.02, '20']], xlab: '√(t + τ) − √t, t = time at rest', ylab: 'E − E_eq, mV' });
-      el('rect', { x: XR(w0), y: r.y1, width: XR(w1) - XR(w0), height: r.y0 - r.y1, fill: 'var(--cyan)', 'fill-opacity': '.06' }, gr);
-      el('path', { d: e11d(rs.map(function (p) { return [XR(p[0]), YR(p[1])]; })), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, gr);
-      var fr = linfit(rx, ry); el('path', { d: e11d([[XR(0), YR(fr.c)], [XR(1), YR(fr.c + fr.m * sm)]]), fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }, gr);
+      el('rect', { x: XR(w0), y: r.y1, width: XR(w1) - XR(w0), height: r.y0 - r.y1, fill: 'var(--second)', 'fill-opacity': '.06' }, gr);
+      el('path', { d: e11d(rs.map(function (p) { return [XR(p[0]), YR(p[1])]; })), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, gr);
+      var fr = linfit(rx, ry); el('path', { d: e11d([[XR(0), YR(fr.c)], [XR(1), YR(fr.c + fr.m * sm)]]), fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }, gr);
       txt(gr, XR((w0 + w1) / 2), r.y1 + 14, 'fit here', 'cyan', 'middle');
       var qRelax = Math.pow(ideal / fr.m, 2), fn = linfit(nx, ny), qNaive = Math.pow(ideal / Math.abs(fn.m), 2);
       read.innerHTML = 'Dτ/L² = ' + th.toFixed(3) + '. D from the pulse slope: <b>' + qPulse.toFixed(2) + ' × true</b>; from the early rest against √t: ' + qNaive.toFixed(2) + ' ×; from the rest against √(t + τ) − √t: <b>' + qRelax.toFixed(2) + ' × true</b>.' + (rfall ? ' The resistance falling by 17 % during the pulse corrupts only the pulse value.' : '') + (fast ? ' The fast surface process sits at the start of the rest, outside the fitting region.' : '');
@@ -605,30 +605,30 @@
       e11axes(top, a, { X: function (x) { return x; }, Y: Y, yt: [[3.6, '3.6'], [3.8, '3.8'], [4.0, '4.0']], grid: true, ylab: 'V' });
       var d = '';
       st.forEach(function (s, n) { var xs = a.x0 + n * sw; s.trace.forEach(function (p, i) { var fx = p[0] <= tp ? p[0] / tp * 0.3 : 0.3 + (p[0] - tp) / trest * 0.7; d += (n + i ? 'L' : 'M') + (xs + fx * sw).toFixed(1) + ',' + Y(p[1]).toFixed(1); }); });
-      el('path', { d: d, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.8 }, top);
-      st.forEach(function (s, n) { var xs = a.x0 + n * sw; el('circle', { cx: xs + 0.3 * sw, cy: Y(s.E3), r: 2.6, fill: 'var(--heat)' }, top); el('circle', { cx: xs + sw, cy: Y(s.E4), r: 2.6, fill: 'var(--cyan)' }, top); });
-      txt(top, a.x1, a.y0 + 16, 'end of each pulse (red) and of each rest (cyan)', '', 'end');
+      el('path', { d: d, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.8 }, top);
+      st.forEach(function (s, n) { var xs = a.x0 + n * sw; el('circle', { cx: xs + 0.3 * sw, cy: Y(s.E3), r: 2.6, fill: 'var(--heat)' }, top); el('circle', { cx: xs + sw, cy: Y(s.E4), r: 2.6, fill: 'var(--second)' }, top); });
+      txt(top, a.x1, a.y0 + 16, 'end of each pulse (red) and of each rest (green)', '', 'end');
       // bottom panel
       var X = function (x) { return b.x0 + (x - x0) / (N * dx) * (b.x1 - b.x0); };
       if (mode === 'volt') {
         var Yb = function (v) { return b.y0 - (v - vlo) / (vhi - vlo) * (b.y0 - b.y1); };
         e11axes(bot, b, { X: X, Y: Yb, xt: [[0.1, '0.1'], [0.5, '0.5'], [0.9, '0.9']], yt: [[3.6, '3.6'], [3.8, '3.8'], [4.0, '4.0']], grid: true, xlab: 'lithium removed, x', ylab: 'V' });
         var eq = []; for (var q = 0; q <= 40; q++) { var xx = x0 + N * dx * q / 40; eq.push([X(xx), Yb(Eeq(xx))]); } el('path', { d: e11d(eq), fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.2, 'stroke-dasharray': '4 4' }, bot);
-        el('path', { d: e11d(st.map(function (s) { return [X(s.x), Yb(s.E4)]; })), fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2 }, bot);
+        el('path', { d: e11d(st.map(function (s) { return [X(s.x), Yb(s.E4)]; })), fill: 'none', stroke: 'var(--second)', 'stroke-width': 2 }, bot);
         el('path', { d: e11d(st.map(function (s) { return [X(s.x - dx), Yb(s.E3)]; })), fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2 }, bot);
         txt(bot, X(0.62), Yb(Eeq(0.62)) + 24, 'quasi-OCV (end of rest)', 'cyan', 'start'); txt(bot, X(0.12), Yb(4.0), 'closed-circuit (end of pulse)', 'heat', 'start');
       } else if (mode === 'eta') {
         var Ye = function (v) { return b.y0 - v / 0.08 * (b.y0 - b.y1); };
         e11axes(bot, b, { X: X, Y: Ye, xt: [[0.1, '0.1'], [0.5, '0.5'], [0.9, '0.9']], yt: [[0, '0'], [0.04, '40'], [0.08, '80']], grid: true, xlab: 'lithium removed, x', ylab: 'η = CCV − QOCV, mV' });
-        el('path', { d: e11d(st.map(function (s) { return [X(s.x - dx / 2), Ye(s.eta)]; })), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.2 }, bot);
-        st.forEach(function (s) { el('circle', { cx: X(s.x - dx / 2), cy: Ye(s.eta), r: 3, fill: 'var(--amber)' }, bot); });
+        el('path', { d: e11d(st.map(function (s) { return [X(s.x - dx / 2), Ye(s.eta)]; })), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2 }, bot);
+        st.forEach(function (s) { el('circle', { cx: X(s.x - dx / 2), cy: Ye(s.eta), r: 3, fill: 'var(--accent)' }, bot); });
         txt(bot, b.x1, b.y1 + 12, 'R = η / I: ' + (st[0].eta / I).toFixed(0) + ' Ω at the start, ' + (st[N - 1].eta / I).toFixed(0) + ' Ω at the end (I = 0.5 mA)', '', 'end');
       } else {
         var Yd = function (v) { return b.y0 - (Math.log10(v) + 17.2) / 2 * (b.y0 - b.y1); };
         e11axes(bot, b, { X: X, Y: Yd, xt: [[0.1, '0.1'], [0.5, '0.5'], [0.9, '0.9']], yt: [[1e-17, '10⁻¹³'], [1e-16, '10⁻¹²']], grid: true, xlab: 'lithium removed, x', ylab: 'D, cm²/s (log)' });
         var tru = []; for (q = 0; q <= 40; q++) { xx = x0 + N * dx * q / 40; tru.push([X(xx), Yd(Dx(xx))]); } el('path', { d: e11d(tru), fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.2, 'stroke-dasharray': '4 4' }, bot);
-        el('path', { d: e11d(st.map(function (s) { return [X(s.x - dx / 2), Yd(Math.max(7e-18, s.Dg))]; })), fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2 }, bot);
-        st.forEach(function (s) { el('circle', { cx: X(s.x - dx / 2), cy: Yd(Math.max(7e-18, s.Dg)), r: 3, fill: 'var(--cyan)' }, bot); });
+        el('path', { d: e11d(st.map(function (s) { return [X(s.x - dx / 2), Yd(Math.max(7e-18, s.Dg))]; })), fill: 'none', stroke: 'var(--second)', 'stroke-width': 2 }, bot);
+        st.forEach(function (s) { el('circle', { cx: X(s.x - dx / 2), cy: Yd(Math.max(7e-18, s.Dg)), r: 3, fill: 'var(--second)' }, bot); });
         txt(bot, b.x1, b.y1 + 12, 'dashed: D in the model; dots: Weppner–Huggins from each step', '', 'end');
       }
       var days = N * (tp + trest) / 86400;
@@ -652,7 +652,7 @@
 
   /* ---------- background: slow ions and electrons behind the page ---------- */
   (function background() {
-    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var cv = document.getElementById('learnBg'); if (!cv || getComputedStyle(cv).display === 'none') return;
     var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
     if (!motion || coarse || small) { cv.style.display = 'none'; return; }
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
@@ -673,7 +673,7 @@
         var p = ps[i]; p.x += p.v * dt * boost; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
         var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
-        var c = p.ion ? '255,209,102' : '131,219,208';
+        var c = p.ion ? '31,72,214' : '242,169,0';
         g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 4, 0, 6.283); ctx.fill();
         ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.4) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();

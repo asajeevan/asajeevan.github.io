@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://asajeevan.github.io/batteries/lab/eis-analysis/">
 <meta property="og:site_name" content="Aswadh Shyma Sajeevan">
-<meta name="theme-color" content="#0E1F22">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://asajeevan.github.io/batteries/lab/eis-analysis/">
 <meta name="twitter:card" content="summary">
@@ -19,8 +19,8 @@
 <meta name="twitter:description" content="What does a spectrum mean, and what does a good fit not prove? Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
 <script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
 /* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
 window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
@@ -114,7 +114,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </svg>
 <div class="controls"><label><span>R<sub>2</sub></span> <input type="range" class="r2v" min="2" max="20" step="1" value="10" aria-label="Second resistance in milliohms"> <b class="r2v-val">10 mΩ</b></label></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="act"></i>circuit 1</span><span><i style="background:var(--cyan)"></i>circuit 2</span></div>
+<div class="key"><span><i class="act"></i>circuit 1</span><span><i style="background:var(--second)"></i>circuit 2</span></div>
 <figcaption>Two circuits, one spectrum: a perfect fit proves nothing about the circuit.
 <span class="try">Try this: change R<sub>2</sub> and watch the ladder’s values change while the two curves stay on top of each other.</span>
 <details class="src"><summary>Source</summary><span class="basis">Mathematically identical circuits, a series chain of R‖C pairs and its nested ladder, after Lazanas and Prodromidis 2023, section 8 and Fig. 7 (they show a three-pair version); the hierarchical ladder for the SEI, non-uniqueness, and minimal, physics-based circuits after Meddings et al. 2020, section 3.2.2. The conversion between the two-pair versions here (matching the admittance as a continued fraction) is this page’s working, checked numerically. R<sub>0</sub> = 20 mΩ, R<sub>1</sub> = 4 mΩ, C<sub>1</sub> = 0.25 F, C<sub>2</sub> = 2 F; illustrative.</span></details>
@@ -135,7 +135,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </svg>
 <div class="controls"><label><span>λ</span> <input type="range" class="lam" min="-4" max="1" step="0.25" value="-1" aria-label="Regularisation strength, log10"> <b class="lam-val">0.1</b></label></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="act"></i>data; recovered distribution</span><span><i style="background:var(--cyan)"></i>fit</span><span><i style="background:var(--text)"></i>exact distribution</span></div>
+<div class="key"><span><i class="act"></i>data; recovered distribution</span><span><i style="background:var(--second)"></i>fit</span><span><i style="background:var(--text)"></i>exact distribution</span></div>
 <figcaption>The distribution of relaxation times: overlapping arcs become separate peaks, if the regularization is right.
 <span class="try">Try this: find the range of λ that gives exactly two peaks; then go one step either side.</span>
 <details class="src"><summary>Source</summary><span class="basis">The DRT relation Z = R<sub>0</sub> + R<sub>pol</sub>∫g(τ)/(1 + jωτ)dτ with τ = 1/(2πf), peaks as processes, the need for regularisation and its narrow useful range, sensitivity to bad points, and the restriction to the SEI and charge-transfer arcs, after Meddings et al. 2020, eq. 5 and section 3.2.1, and Bakenhaster and Dewald 2025, eqs. 9 and 10 and section 4.3; time ranges of the bands read from their Fig. 12 (approximate). Here: non-negative least squares with a ridge penalty λ on 61 log-spaced time constants (this page’s method); data from two R‖CPE arcs (4 mΩ, n = 0.9; 10 mΩ, n = 0.85) with 0.2 % noise; the exact distribution of such arcs is the Cole–Cole form (this page’s working).</span></details>
@@ -157,7 +157,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </svg>
 <div class="controls"><label><span>cycles</span> <input type="range" class="cyc" min="0" max="400" step="10" value="0" aria-label="Number of cycles"> <b class="cyc-val">0</b></label></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="act"></i>current spectrum; R<sub>SEI</sub> + R<sub>ct</sub></span><span><i style="background:var(--cyan)"></i>R<sub>0</sub></span><span><i class="heat"></i>capacity</span></div>
+<div class="key"><span><i class="act"></i>current spectrum; R<sub>SEI</sub> + R<sub>ct</sub></span><span><i style="background:var(--second)"></i>R<sub>0</sub></span><span><i class="heat"></i>capacity</span></div>
 <figcaption>Following a cell as it ages, and the data-driven route.
 <span class="try">Try this: play the ageing and compare how fast the interface resistance and the ohmic resistance grow.</span>
 <details class="src"><summary>Source</summary><span class="basis">Impedance rising with age, check-ups that do not stress the cell, the two effects of degradation, and individual contributions that may correlate better with health or sudden death than total impedance, after Meddings et al. 2020, sections 1 and 3.3.2; the arc growing faster than the intercept moves follows the trend of their Fig. 4d (read from the figure). The workflow after Bakenhaster and Dewald 2025, Fig. 10 (from their ref. 81); Gaussian process regression, relaxation-time models near 1 % error and the limits of the training data after their section 4.2. All numbers in the panels are illustrative, not data.</span></details>

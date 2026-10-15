@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://asajeevan.github.io/batteries/solid-state/">
 <meta property="og:site_name" content="Aswadh Shyma Sajeevan">
-<meta name="theme-color" content="#0E1F22">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://asajeevan.github.io/batteries/solid-state/">
 <meta name="twitter:card" content="summary">
@@ -19,8 +19,8 @@
 <meta name="twitter:description" content="Why replace the liquid with a solid, and why is it so hard? Solid electrolytes and solid-state cells: polymer and inorganic ion conductors.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
 <script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
 /* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
 window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
@@ -136,7 +136,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <g class="plot"></g>
 </svg>
 <div class="controls">
-<label><input type="checkbox" value="liq" checked> <i class="sw" style="background:var(--cyan)"></i><span>organic liquid</span></label><label><input type="checkbox" value="gel" checked> <i class="sw" style="background:#9fe3d9"></i><span>gel polymer</span></label><label><input type="checkbox" value="pla" checked> <i class="sw" style="background:#C4B5F7"></i><span>plasticized PEO-LiTFSI</span></label><label><input type="checkbox" value="tfsi" checked> <i class="sw" style="background:var(--amber)"></i><span>PEO-LiTFSI</span></label><label><input type="checkbox" value="trf" checked> <i class="sw" style="background:var(--heat)"></i><span>PEO-LiCF<sub>3</sub>SO<sub>3</sub></span></label>
+<label><input type="checkbox" value="liq" checked> <i class="sw" style="background:var(--second)"></i><span>organic liquid</span></label><label><input type="checkbox" value="gel" checked> <i class="sw" style="background:#3BA88A"></i><span>gel polymer</span></label><label><input type="checkbox" value="pla" checked> <i class="sw" style="background:var(--field)"></i><span>plasticized PEO-LiTFSI</span></label><label><input type="checkbox" value="tfsi" checked> <i class="sw" style="background:var(--accent)"></i><span>PEO-LiTFSI</span></label><label><input type="checkbox" value="trf" checked> <i class="sw" style="background:var(--heat)"></i><span>PEO-LiCF<sub>3</sub>SO<sub>3</sub></span></label>
 </div>
 <div class="part-info"><span class="readout"></span></div>
 <figcaption>Conductivity against temperature: the gaps follow the cited ratios, the heights are schematic.
@@ -186,7 +186,7 @@ This is why 10<sup>−4</sup> S/cm is the bar a solid electrolyte has to clear, 
 <label><span>current density</span> <input type="range" class="icd" min="0.1" max="2" step="0.1" value="1" aria-label="Current density in milliamperes per square centimetre"> <b class="icd-val">1.0 mA/cm<sup>2</sup></b></label>
 </div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i class="heat"></i>bare interface</span><span><i style="background:var(--cyan)"></i>with an interlayer</span><span><i class="zn"></i>lithium</span></div>
+<div class="key"><span><i class="heat"></i>bare interface</span><span><i style="background:var(--second)"></i>with an interlayer</span><span><i class="zn"></i>lithium</span></div>
 <figcaption>Solid-state cells: the trouble is where the lithium meets the ceramic.
 <span class="try">Try this: at 1 mA/cm<sup>2</sup>, read the voltage lost at the bare ALD interface; then add the interlayer.</span>
 <details class="src"><summary>Source</summary><span class="basis">Poor wetting, unstable SEI and dendrites at the lithium/solid-electrolyte interface, and the interface resistances before and after a Li–C composite (381 to 11 Ω cm<sup>2</sup>), an aluminium layer (950 to 75 Ω cm<sup>2</sup>) and ALD Al<sub>2</sub>O<sub>3</sub> (1710 to 1 Ω cm<sup>2</sup>) on garnet, after Rahman et al. 2025, sections 6.1 and 7.1 and Fig. 9. The voltage lost, R × i, is this page’s arithmetic; the contact drawing is schematic.</span></details>

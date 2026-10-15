@@ -206,7 +206,7 @@
     if (!body.classList.contains('toc-open')) return;
     G.fromTo($$('.toc-sec', toc), { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.45, stagger: 0.06, ease: EASE, delay: 0.08, clearProps: 'all' });
     var here = toc.querySelector('.toc-outline a.here');
-    if (here) G.fromTo(here, { backgroundColor: 'rgba(240,180,65,.35)' }, { backgroundColor: 'rgba(240,180,65,.12)', duration: 1.2, delay: 0.3, clearProps: 'backgroundColor' });
+    if (here) G.fromTo(here, { backgroundColor: 'rgba(31,72,214,.22)' }, { backgroundColor: 'rgba(31,72,214,.08)', duration: 1.2, delay: 0.3, clearProps: 'backgroundColor' });
   }).observe(body, { attributes: true, attributeFilter: ['class'] });
   var res = document.getElementById('searchResults');
   if (res) new MutationObserver(function () {

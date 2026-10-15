@@ -12,11 +12,11 @@
   /* A carbonate molecule as a glyph. EC: a small ring (it is cyclic); DMC: a
      stretched capsule (it is a chain). The red dot is the carbonyl oxygen, the
      atom that binds to Li⁺ (R53 p. 9, R57 p. 389). ang points the oxygen. */
-  var M7_O = '#ff8f7a', M7_DMC = '#9fe3d9';
+  var M7_O = '#ff8f7a', M7_DMC = '#3BA88A';
   function m7mol(g, type, x, y, ang, sc) {
     sc = sc || 1.2; var grp = el('g', {}, g);
     if (type === 'ec') {
-      el('circle', { r: 5.5, fill: 'var(--cyan)', 'fill-opacity': '.22', stroke: 'var(--cyan)', 'stroke-width': 1.3 }, grp);
+      el('circle', { r: 5.5, fill: 'var(--second)', 'fill-opacity': '.22', stroke: 'var(--second)', 'stroke-width': 1.3 }, grp);
       el('circle', { cx: 8, cy: 0, r: 2.3, fill: M7_O }, grp);
     } else {
       el('rect', { x: -8, y: -3.2, width: 16, height: 6.4, rx: 3.2, fill: M7_DMC, 'fill-opacity': '.14', stroke: M7_DMC, 'stroke-width': 1.2 }, grp);
@@ -44,14 +44,14 @@
     // panel 1: the recipe
     txt(g, 90, 22, 'the recipe', 'strong', 'middle');
     el('path', { d: 'M52,44 V196 Q52,210 66,210 H114 Q128,210 128,196 V44', fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 1.6 }, g);
-    var liq = el('rect', { x: 54, y: 92, width: 72, height: 116, rx: 10, fill: 'var(--cyan)', 'fill-opacity': '.14' }, g);
+    var liq = el('rect', { x: 54, y: 92, width: 72, height: 116, rx: 10, fill: 'var(--second)', 'fill-opacity': '.14' }, g);
     var r1 = txt(g, 90, 118, '1 mol LiPF₆', 'amber', 'middle'), r2 = txt(g, 90, 136, 'per litre of', '', 'middle'), r3 = txt(g, 90, 154, 'EC : DMC', 'strong', 'middle'), r4 = txt(g, 90, 172, '3 : 7', 'strong', 'middle');
     badge(g, 140, 54, 1);
     // panel 2: count per lithium ion
     var bx = 196, bw = 130, by = 40, bh = 170;
     txt(g, bx + bw / 2 + 4, 22, 'molecules per Li⁺', 'strong', 'middle');
     el('line', { x1: bx, y1: by + bh, x2: bx + bw, y2: by + bh, stroke: 'var(--line-2)' }, g);
-    var bars = [['EC', 'var(--cyan)'], ['DMC', M7_DMC], ['Li⁺', 'var(--cation)'], ['PF₆⁻', 'var(--anion)']].map(function (b, i) {
+    var bars = [['EC', 'var(--second)'], ['DMC', M7_DMC], ['Li⁺', 'var(--cation)'], ['PF₆⁻', 'var(--anion)']].map(function (b, i) {
       var x = bx + 8 + i * 31;
       return { r: el('rect', { x: x, width: 22, y: by + bh, height: 0, fill: b[1], 'fill-opacity': '.75' }, g), v: txt(g, x + 11, by + bh - 4, '', 'strong', 'middle'), l: txt(g, x + 11, by + bh + 16, b[0], '', 'middle'), x: x };
     });
@@ -59,7 +59,7 @@
     // panel 3: a window a few nanometres across
     var wx = 350, wy = 40, ww = 156, wh = 170;
     txt(g, wx + ww / 2, 22, 'a few nanometres of it', 'strong', 'middle');
-    el('rect', { x: wx, y: wy, width: ww, height: wh, rx: 6, fill: 'var(--cyan)', 'fill-opacity': '.05', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: wx, y: wy, width: ww, height: wh, rx: 6, fill: 'var(--second)', 'fill-opacity': '.05', stroke: 'var(--line-2)' }, g);
     var win = el('g', {}, g), cap = txt(g, wx + ww / 2, wy + wh + 18, '', 'amber', 'middle');
     badge(g, wx + ww - 6, wy + wh + 14, 3);
     var mols = [], state = 'mix', t = 0;
@@ -124,22 +124,22 @@
   register('f7-6', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), fb = fig.querySelector('.fieldbtn');
     var x0 = 18, y0 = 36, w = 316, h = 196;
-    el('rect', { x: x0, y: y0, width: w, height: h, rx: 6, fill: 'var(--cyan)', 'fill-opacity': '.05', stroke: 'var(--line-2)' }, g);
+    el('rect', { x: x0, y: y0, width: w, height: h, rx: 6, fill: 'var(--second)', 'fill-opacity': '.05', stroke: 'var(--line-2)' }, g);
     var rnd = m7rng(91), bg = el('g', { opacity: '.45' }, g), bgm = [];
     for (var i = 0; i < 26; i++) { var m = m7mol(bg, i % 3 ? 'dmc' : 'ec', x0 + 12 + rnd() * (w - 24), y0 + 12 + rnd() * (h - 24), rnd() * 6.28); m.fx = m.x; m.fy = m.y; bgm.push(m); }
-    var trail = el('polyline', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.4, 'stroke-opacity': '.8' }, g);
+    var trail = el('polyline', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.4, 'stroke-opacity': '.8' }, g);
     // the field: plates at the two ends and arrows across the liquid
     var farr = el('g', {}, g);
     el('rect', { x: x0 - 8, y: y0, width: 6, height: h, fill: 'var(--heat)', 'fill-opacity': '.8' }, farr); txt(farr, x0 - 5, y0 - 6, '+', 'heat', 'middle', { style: 'font-size:15px;font-weight:700' });
-    el('rect', { x: x0 + w + 2, y: y0, width: 6, height: h, fill: 'var(--cyan-2)', 'fill-opacity': '.9' }, farr); txt(farr, x0 + w + 5, y0 - 6, '−', 'cyan', 'middle', { style: 'font-size:15px;font-weight:700' });
-    [0.2, 0.5, 0.8].forEach(function (f) { arrow(farr, x0 + 40, y0 + h * f, x0 + w - 40, y0 + h * f, 'rgba(196,181,247,.35)', 1.2); });
+    el('rect', { x: x0 + w + 2, y: y0, width: 6, height: h, fill: 'var(--second-strong)', 'fill-opacity': '.9' }, farr); txt(farr, x0 + w + 5, y0 - 6, '−', 'cyan', 'middle', { style: 'font-size:15px;font-weight:700' });
+    [0.2, 0.5, 0.8].forEach(function (f) { arrow(farr, x0 + 40, y0 + h * f, x0 + w - 40, y0 + h * f, 'rgba(122,77,232,.3)', 1.2); });
     txt(farr, x0 + w / 2, y0 - 8, 'field: from + to −', 'field', 'middle');
     var others = [];
     [[1, 0.3], [1, 0.75], [-1, 0.2], [-1, 0.55], [-1, 0.85]].forEach(function (o, k) {
       var c = el('circle', { r: o[0] > 0 ? 4.5 : 6, 'class': o[0] > 0 ? 'ion' : 'ion an' }, g);
       others.push({ z: o[0], c: c, x: x0 + 40 + k * 55, y: y0 + h * o[1], vx: 0, vy: 0 });
     });
-    var shellC = el('circle', { r: 15, fill: 'none', stroke: 'var(--cyan)', 'stroke-dasharray': '2 2' }, g);
+    var shellC = el('circle', { r: 15, fill: 'none', stroke: 'var(--second)', 'stroke-dasharray': '2 2' }, g);
     var ion = ourIon(g, 0, 0, 5, 'our ion', true);
     var cnt = txt(g, x0 + w - 6, y0 + h - 8, '', 'amber', 'end');
     var flab = txt(g, x0 + w / 2, y0 + h + 18, '', 'amber', 'middle');
@@ -161,7 +161,7 @@
       farr.style.display = on1 ? '' : 'none';
       setSvgText(flab, on1 ? 'Li⁺ drift to −, PF₆⁻ to + (drift exaggerated)' : 'no field: no net direction');
       read.innerHTML = on1
-        ? '<b>Field on.</b> Every ion still wanders, but each step is nudged: the lithium ions (amber) drift towards the − plate, down the potential, and the PF₆⁻ anions (grey) towards the + plate. Watch the track of our ion head right. In a real cell the nudge is far gentler than drawn: at 1 mA/cm² the lithium ions move on average about 0.1 µm per second.'
+        ? '<b>Field on.</b> Every ion still wanders, but each step is nudged: the lithium ions (blue) drift towards the − plate, down the potential, and the PF₆⁻ anions (grey) towards the + plate. Watch the track of our ion head right. In a real cell the nudge is far gentler than drawn: at 1 mA/cm² the lithium ions move on average about 0.1 µm per second.'
         : '<b>No field.</b> The ion wanders at random, bumped by its neighbours; it is as likely to go left as right, so on average it goes nowhere. This is diffusion.';
     }
     function tick(dt) {
@@ -196,7 +196,7 @@
     }
     on(fb, 'click', function () { on1 = !on1; pts = []; laps = 0; render(); if (!motion) { for (var n = 0; n < 120; n++) tick(0.05); } });
     steps(fig, [
-      { text: 'Without a field the ion takes a <b>random walk</b>: it is bumped by the molecules around it, in every direction alike. The amber line is its track. On average it gets nowhere; it only spreads out.' },
+      { text: 'Without a field the ion takes a <b>random walk</b>: it is bumped by the molecules around it, in every direction alike. The blue line is its track. On average it gets nowhere; it only spreads out.' },
       { text: 'Draw current and a small field appears across the liquid. Every step is now nudged one way, cations down the potential and anions up it. Press <b>Switch the field on</b>. The drift is exaggerated here so that you can see it.' },
       { text: 'Two ways to move, in roughly equal measure in EC : DMC with LiPF₆: the ion <b>carries its shell along</b>, or it is <b>handed on</b>, leaving some molecules behind and picking up new ones.' }
     ]);

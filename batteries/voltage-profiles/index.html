@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://asajeevan.github.io/batteries/voltage-profiles/">
 <meta property="og:site_name" content="Aswadh Shyma Sajeevan">
-<meta name="theme-color" content="#0E1F22">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://asajeevan.github.io/batteries/voltage-profiles/">
 <meta name="twitter:card" content="summary">
@@ -19,8 +19,8 @@
 <meta name="twitter:description" content="Why is the curve of LiFePO₄ flat while that of LiCoO₂ slopes? The voltage profile: faradaic and capacitive storage, phase equilibria and many-particle electrodes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
 <script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
 /* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
 window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
@@ -114,7 +114,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </svg>
 <div class="controls"><button type="button" data-view="a" aria-pressed="true">Two ideal limits</button><button type="button" data-view="b" aria-pressed="false">A real supercapacitor</button><label class="i0-wrap">Current <input type="range" class="i0" min="10" max="50" step="5" value="50" aria-label="Current, milliamperes"> <b class="i0-val">50 mA</b></label></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i style="background:var(--amber)"></i>battery limit</span><span><i style="background:var(--cyan)"></i>capacitor</span><span><i style="background:var(--muted)"></i>straight-line asymptote</span></div>
+<div class="key"><span><i style="background:var(--accent)"></i>battery limit</span><span><i style="background:var(--second)"></i>capacitor</span><span><i style="background:var(--muted)"></i>straight-line asymptote</span></div>
 <figcaption>Two ways to store charge, and the curves they draw.
 <span class="try">Try this: in the real supercapacitor, halve the current and check that the whole picture shrinks by half, the ramp included.</span>
 <details class="src"><summary>Source</summary><span class="basis">Ideal battery and ideal capacitor materials (after Conway) and their potential-charge curves after Olson, López and Dickinson 2023, section 2.1 and Figures 2 and 3; schematic, no numbers. The supercapacitor is Moya’s capacitor C10 (nominal 1 F) with his fitted values in Table 2: <math><mrow><msub><mi>R</mi><mtext>H</mtext></msub></mrow></math> = 0.31 Ω, <math><mrow><msub><mi>R</mi><mtext>i</mtext></msub></mrow></math> = 0.32 Ω, <math><mrow><mi>C</mi></mrow></math> = 0.94 F, <math><mrow><msub><mi>τ</mi><mtext>i</mtext></msub></mrow></math> = 0.095 s; the curve is his eq. 12 built from eq. 6, for a 10 s charge. Computed from the published circuit, not his measured points.</span></details>
@@ -149,7 +149,7 @@ An ideal battery material at the same current would not move at all: it stores i
 <div class="part-info"><span class="readout"></span></div>
 <div class="key"><span><i class="act"></i>lithium in a particle</span><span><i class="li"></i>where the electrode is on its curve</span></div>
 <figcaption>Plateau or slope: the Gibbs phase rule on a measured curve.
-<span class="try">Try this: press Step until the dot is on the plateau, then count the gold particles; keep stepping and watch the count rise while the voltage stays put.</span>
+<span class="try">Try this: press Step until the dot is on the plateau, then count the dark blue particles; keep stepping and watch the count rise while the voltage stays put.</span>
 <details class="src"><summary>Source</summary><span class="basis">Phase-rule argument after Winter and Brodd 2004, section 2.4 and Figure 16. The LiFePO<sub>4</sub> curve is the open-circuit fit of Safari and Delacourt 2011, eq. 10, made to the average of the charge and discharge curves at C/100; flat at 3.432 V for lithium contents of about 0.15 to 0.85 (our evaluation of their eq. 10). The 20 mV hysteresis at C/1000 is Dreyer and co-workers’ result as cited by Safari and Delacourt. The particles are schematic: each is drawn changing over as a whole, because how the two phases sit inside one particle is still studied, and Safari and Delacourt note that pictures with a lithium-rich shell round a shrinking core disagree with experiments that show the lithium moving along the phase boundary. The single-phase curve is schematic and carries no numbers.</span></details>
 </figcaption>
 </figure>
@@ -175,7 +175,7 @@ An ideal battery material at the same current would not move at all: it stores i
 <div class="controls"><button type="button" data-mode="dis" aria-pressed="true">Discharge</button><button type="button" data-mode="ch" aria-pressed="false">Charge</button><button type="button" data-mode="path" aria-pressed="false">Same 50 %, two histories</button></div>
 <div class="controls"><span class="ctl-label">Rate</span><button type="button" data-rate="0.04" aria-pressed="false">C/25</button><button type="button" data-rate="0.1" aria-pressed="false">C/10</button><button type="button" data-rate="0.2" aria-pressed="false">C/5</button><button type="button" data-rate="0.5" aria-pressed="false">C/2</button><button type="button" data-rate="1" aria-pressed="true">1C</button></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i style="background:var(--amber)"></i>discharge</span><span><i style="background:var(--cyan)"></i>charge</span><span><i style="background:var(--muted)"></i>C/25, and the open-circuit curve dashed</span><span><i class="act"></i>lithium in each group</span></div>
+<div class="key"><span><i style="background:var(--accent)"></i>discharge</span><span><i style="background:var(--second)"></i>charge</span><span><i style="background:var(--muted)"></i>C/25, and the open-circuit curve dashed</span><span><i class="act"></i>lithium in each group</span></div>
 <figcaption>One electrode, many particles: why the plateau tilts with rate, and why the electrode remembers its past.
 <span class="try">Try this: run a 1C discharge and watch group 4; then press “Same 50 %, two histories” and compare where the two charges end.</span>
 <details class="src"><summary>Source</summary><span class="basis">Computed on this page with the model and the case-1 parameters of Safari and Delacourt 2011: eqs. 2 to 12 and Table I (four particle groups of radius 36.5 nm, volume shares 25, 62, 8 and 5 %, contact resistances 0.08, 2.88, 7.81 and 36.99 Ω m<sup>2</sup>, electrode 70 µm thick, active volume fraction 0.43 from their 0.428 to 0.435, lithium counter electrode with 1.90 mA/cm<sup>2</sup> exchange current). 1C here is the current that would pass the theoretical capacity in one hour, 18.4 A/m<sup>2</sup>. Rates stop at 1C because their rate-constant fit (eq. 11) covers C/25 to 1C. Our integration is simpler than theirs (explicit steps on the same equations), and the curves are not their published ones. At 50 % after C/25 it gives a spread of 0.09 in lithium content among the groups, against their 0.097 and 0.089.</span></details>

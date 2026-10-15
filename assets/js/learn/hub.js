@@ -201,7 +201,7 @@
   function phiStrip(g, box, pts, opts) {
     opts = opts || {};
     var vmin = opts.vmin === undefined ? 0 : opts.vmin, vmax = opts.vmax === undefined ? 1 : opts.vmax;
-    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(234,240,236,.04)', stroke: 'var(--line)' }, g);
+    el('rect', { x: box.x, y: box.y, width: box.w, height: box.h, rx: 4, fill: 'rgba(20,23,28,.025)', stroke: 'var(--line)' }, g);
     var Y = function (v) { return box.y + box.h - (v - vmin) / (vmax - vmin) * box.h; }, X = function (f) { return box.x + f * box.w; };
     var fill = el('path', { 'class': 'phi-fill' }, g), line = el('path', { 'class': 'phi-line' }, g);
     txt(g, box.x - 6, box.y + 4, opts.label || 'potential φ', 'phi', 'end');
@@ -241,7 +241,7 @@
   var NOTES = {
     show: 'Just show me: the questions, the figures and the one-line answers; the explanations are folded away.',
     teach: 'Teach me: everything at the main level. The “Go deeper” and “The mathematics” panels stay closed until you open them.',
-    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in cyan.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
+    equations: 'Equations: every “Go deeper” panel and the mathematics of each chapter are now open and outlined in green.' + (document.getElementById('maths') ? ' <a href="#maths">Jump to the mathematics of this chapter</a>.' : '')
   };
   function setMode(m, save) {
     body.setAttribute('data-mode', m);
@@ -315,17 +315,17 @@
     var yT = 70, yB = 210, xN0 = 92, xN1 = 170, xP0 = 300, xP1 = 400;
     // collectors, negative host (layered), electrolyte, positive host (particles)
     el('rect', { x: xN0 - 12, y: yT, width: 12, height: yB - yT, fill: 'var(--copper)', 'fill-opacity': '.9' }, g);
-    el('rect', { x: xP1, y: yT, width: 12, height: yB - yT, fill: '#cfd6d8' }, g);
-    el('rect', { x: xN0, y: yT, width: xN1 - xN0, height: yB - yT, fill: '#2b3538' }, g);
-    for (var i = 0; i < 9; i++) el('line', { x1: xN0 + 6, x2: xN1 - 6, y1: yT + 12 + i * 15.5, y2: yT + 12 + i * 15.5, stroke: 'var(--cyan)', 'stroke-opacity': '.35' }, g);
-    el('rect', { x: xN1, y: yT, width: xP0 - xN1, height: yB - yT, fill: 'var(--cyan)', 'fill-opacity': '.12' }, g);
-    el('line', { x1: (xN1 + xP0) / 2, x2: (xN1 + xP0) / 2, y1: yT + 4, y2: yB - 4, stroke: 'var(--cyan)', 'stroke-dasharray': '3 5', 'stroke-opacity': '.7' }, g);
-    el('rect', { x: xP0, y: yT, width: xP1 - xP0, height: yB - yT, fill: 'var(--amber-2)', 'fill-opacity': '.18' }, g);
+    el('rect', { x: xP1, y: yT, width: 12, height: yB - yT, fill: '#B4BDC6' }, g);
+    el('rect', { x: xN0, y: yT, width: xN1 - xN0, height: yB - yT, fill: '#E3E7EC' }, g);
+    for (var i = 0; i < 9; i++) el('line', { x1: xN0 + 6, x2: xN1 - 6, y1: yT + 12 + i * 15.5, y2: yT + 12 + i * 15.5, stroke: '#7C8796', 'stroke-opacity': '.8' }, g);
+    el('rect', { x: xN1, y: yT, width: xP0 - xN1, height: yB - yT, fill: 'var(--second)', 'fill-opacity': '.12' }, g);
+    el('line', { x1: (xN1 + xP0) / 2, x2: (xN1 + xP0) / 2, y1: yT + 4, y2: yB - 4, stroke: 'var(--second)', 'stroke-dasharray': '3 5', 'stroke-opacity': '.7' }, g);
+    el('rect', { x: xP0, y: yT, width: xP1 - xP0, height: yB - yT, fill: 'var(--accent-strong)', 'fill-opacity': '.18' }, g);
     var parts = [[326, 96, 14], [368, 108, 16], [334, 150, 17], [380, 160, 13], [322, 192, 12], [366, 196, 15]];
-    parts.forEach(function (c) { el('circle', { cx: c[0], cy: c[1], r: c[2], fill: 'var(--amber-2)', 'fill-opacity': '.9', stroke: 'var(--amber)', 'stroke-opacity': '.6' }, g); });
+    parts.forEach(function (c) { el('circle', { cx: c[0], cy: c[1], r: c[2], fill: 'var(--accent-strong)', 'fill-opacity': '.9', stroke: 'var(--accent)', 'stroke-opacity': '.6' }, g); });
     var target = el('circle', { cx: parts[2][0], cy: parts[2][1], r: parts[2][2] + 3, fill: 'none', stroke: 'var(--cation)', 'stroke-opacity': '0' }, g);
     // faint field arrows in the electrolyte (module 0)
-    for (var k = 0; k < 3; k++) { var yy = yT + 34 + k * 44; arrow(g, xN1 + 14, yy, xN1 + 44, yy, '#C4B5F7', 1.1, 'field-arrow').setAttribute('opacity', '.55'); arrow(g, xP0 - 44, yy, xP0 - 14, yy, '#C4B5F7', 1.1, 'field-arrow').setAttribute('opacity', '.55'); }
+    for (var k = 0; k < 3; k++) { var yy = yT + 34 + k * 44; arrow(g, xN1 + 14, yy, xN1 + 44, yy, 'var(--field)', 1.1, 'field-arrow').setAttribute('opacity', '.55'); arrow(g, xP0 - 44, yy, xP0 - 14, yy, 'var(--field)', 1.1, 'field-arrow').setAttribute('opacity', '.55'); }
     // the wire, the lamp and the electrons (module 1)
     var wireD = 'M' + (xN0 - 6) + ',' + yT + ' V34 H' + (xP1 + 6) + ' V' + yT;
     el('path', { d: wireD, fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2 }, g);
@@ -370,7 +370,7 @@
 
   /* ---------- background: slow ions and electrons behind the page ---------- */
   (function background() {
-    var cv = document.getElementById('learnBg'); if (!cv) return;
+    var cv = document.getElementById('learnBg'); if (!cv || getComputedStyle(cv).display === 'none') return;
     var coarse = window.matchMedia('(pointer:coarse)').matches, small = window.innerWidth < 760;
     if (!motion || coarse || small) { cv.style.display = 'none'; return; }
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
@@ -391,7 +391,7 @@
         var p = ps[i]; p.x += p.v * dt * boost; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
         var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
-        var c = p.ion ? '255,209,102' : '131,219,208';
+        var c = p.ion ? '31,72,214' : '242,169,0';
         g.addColorStop(0, 'rgba(' + c + ',' + p.a + ')'); g.addColorStop(1, 'rgba(' + c + ',0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, y, p.r * 4, 0, 6.283); ctx.fill();
         ctx.fillStyle = 'rgba(' + c + ',' + (p.a * 2.4) + ')'; ctx.beginPath(); ctx.arc(p.x, y, p.r, 0, 6.283); ctx.fill();

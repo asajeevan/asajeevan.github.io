@@ -40,9 +40,9 @@
     txt(g, a.x0, 24, 'voltage applied and current measured', 'strong', 'start');
     var lv = txt(g, a.x0 + 6, a.yc - a.h - 12, '', 'amber', 'start'), li = txt(g, a.x0 + 120, a.yc - a.h - 12, '', 'cyan', 'start');
     var tk = [0, 1, 2].map(function (k) { var x = a.x0 + k * (a.x1 - a.x0) / 2; el('line', { x1: x, x2: x, y1: ty, y2: ty + 4, stroke: 'var(--line-2)' }, g); return txt(g, x, ty + 16, '', '', k === 0 ? 'start' : k === 2 ? 'end' : 'middle'); });
-    var pv = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), pi = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2.4 }, g);
+    var pv = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), pi = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2.4 }, g);
     var cur = el('line', { y1: a.yc - a.h - 4, y2: a.yc + a.h + 4, stroke: 'var(--text)', 'stroke-dasharray': '3 3', 'stroke-opacity': '.6' }, g);
-    var dV = el('circle', { r: 4.5, fill: 'var(--amber)' }, g), dI = el('circle', { r: 4.5, fill: 'var(--cyan)' }, g);
+    var dV = el('circle', { r: 4.5, fill: 'var(--accent)' }, g), dI = el('circle', { r: 4.5, fill: 'var(--second)' }, g);
     // Lissajous panel
     var lc = { x: 420, y: 122, r: 62 };
     txt(g, lc.x, 24, 'current against voltage', 'strong', 'middle');
@@ -97,7 +97,7 @@
     var XB = function (f) { return e11log(f, -1, 5, ba.x0, ba.x1); }, YA = function (m) { return e11log(m, 0, 2, ba.y0, ba.y1); }, YP = function (d) { return bp.y0 - d / 60 * (bp.y0 - bp.y1); };
     e11axes(g, ba, { X: XB, Y: YA, xt: [[0.1, ''], [10, ''], [1000, ''], [1e5, '']], yt: [[1, '1'], [10, '10'], [100, '100']], grid: true, ylab: '|Z|, Ω (log)' });
     e11axes(g, bp, { X: XB, Y: YP, xt: [[0.1, '0.1'], [10, '10'], [1000, '1 k'], [1e5, '100 k']], yt: [[0, '0'], [30, '30'], [60, '60']], grid: true, xlab: 'frequency, Hz (log)', ylab: '−phase, degrees' });
-    var pA = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.2 }, g), pP = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2.2 }, g);
+    var pA = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2 }, g), pP = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2.2 }, g);
     var dA = el('circle', { r: 5, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, g), dP = el('circle', { r: 5, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, g);
     var pN = null, dN = null, F = null, zs = [], tau1 = 1e-2, fi = 0, tops = [];
     badge(g, b.x0 + 24, b.y1 + 14, 1); badge(g, ba.x1 - 12, ba.y1 + 12, 2); badge(g, bp.x1 - 12, bp.y1 + 12, 3);
@@ -109,8 +109,8 @@
       var st = cbS.checked ? 2 : 1;
       F = e11nyq(gN, b, [0, 55], 0, { xt: [[0, '0'], [10, '10'], [30, '30'], [50, '50']], yt: [[0, '0'], [10, '10'], [20, '20'], [30, '30'], [40, '40'], [50, '50']], xlab: 'Z′, Ω', ylab: '−Z″, Ω' });
       if (st > 1) { clear(gN); var k = (b.x1 - b.x0) / 55; F = { X: function (v) { return b.x0 + v * k; }, Y: function (v) { return b.y0 - v * k * st; }, k: k }; e11axes(gN, b, { X: F.X, Y: F.Y, xt: [[0, '0'], [10, '10'], [30, '30'], [50, '50']], yt: [[0, '0'], [5, '5'], [10, '10'], [15, '15'], [20, '20']], xlab: 'Z′, Ω', ylab: '−Z″, Ω (stretched ×2)' }); }
-      el('path', { d: e11d(zs.map(function (z) { return [F.X(z.re), F.Y(-z.im)]; })), fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, gN);
-      [tau1, tau2].forEach(function (t, i) { var fT = 1 / (2 * Math.PI * t), z = Z(fT, tau1); el('circle', { cx: F.X(z.re), cy: F.Y(-z.im), r: 3.5, fill: 'var(--cyan)' }, gN); if (lr >= 1) txt(gN, F.X(z.re), F.Y(-z.im) - 10, e11Hz(fT), 'cyan', 'middle'); });
+      el('path', { d: e11d(zs.map(function (z) { return [F.X(z.re), F.Y(-z.im)]; })), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, gN);
+      [tau1, tau2].forEach(function (t, i) { var fT = 1 / (2 * Math.PI * t), z = Z(fT, tau1); el('circle', { cx: F.X(z.re), cy: F.Y(-z.im), r: 3.5, fill: 'var(--second)' }, gN); if (lr >= 1) txt(gN, F.X(z.re), F.Y(-z.im) - 10, e11Hz(fT), 'cyan', 'middle'); });
       txt(gN, b.x0 + 8, b.y0 + 32, 'high f ←', '', 'start');
       dN = el('circle', { r: 5, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, gN);
       pA.setAttribute('d', e11d(fs.map(function (f, i) { return [XB(f), YA(M11.abs(zs[i]))]; })));
@@ -146,21 +146,21 @@
     parts.forEach(function (p, i) { if (i) { el('line', { x1: x - 14, x2: x, y1: 30, y2: 30, stroke: 'var(--line-2)' }, g); } boxes.push(e11box(g, x, 30, p.w, p.lab, 'strong')); x += p.w + 14; });
     txt(g, 22, 54, 'Z_d sits in series with R_ct, both in parallel with C_dl (the Randles arrangement)', '', 'start');
     var b = { x0: 60, y0: 352, x1: 470, y1: 86 }, F = e11nyq(g, b, [18, 59], -6, { xt: [[20, '20'], [30, '30'], [40, '40'], [50, '50']], yt: [[-5, '−5'], [0, '0'], [10, '10'], [20, '20']], xlab: 'Z′, mΩ', ylab: '−Z″, mΩ' });
-    var bands = [[5000, 1000, 'kHz', 'var(--cyan)'], [1000, 1, 'Hz', 'var(--amber)'], [1, 3e-3, 'mHz', '#C4B5F7']];
+    var bands = [[5000, 1000, 'kHz', 'var(--second)'], [1000, 1, 'Hz', 'var(--accent)'], [1, 3e-3, 'mHz', 'var(--field)']];
     function Zs(f, st) { var w = 2 * Math.PI * f, z = M11.add(M11.zL(C.L, w), M11.zR(C.R0)); if (st >= 1) z = M11.add(z, M11.zRQ(C.Rsei, C.Qsei, C.nsei, w)); if (st === 2) z = M11.add(z, M11.parallel(M11.zR(C.Rct), M11.zC(C.Cdl, w))); if (st >= 3) z = M11.add(z, M11.parallel(M11.zC(C.Cdl, w), M11.add(M11.zR(C.Rct), M11.zSphere(C.Rd, C.Cd, w)))); return z; }
     var full = fs.map(function (f) { return M11.cellZ(C, 2 * Math.PI * f); });
     el('path', { d: e11zpath(full, F, b, 1000), fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.2, 'stroke-opacity': '.3' }, g);
-    var bandG = el('g', {}, g), path = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.6 }, g), decs = el('g', {}, g);
+    var bandG = el('g', {}, g), path = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.6 }, g), decs = el('g', {}, g);
     var dot = el('circle', { r: 5.5, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, g);
     badge(g, F.X(20) + 16, F.Y(-4), 1); badge(g, F.X(22.5), F.Y(5), 2); badge(g, F.X(28.3), F.Y(9.5), 3); badge(g, F.X(44), F.Y(18), 4);
     var zs = [], fi = 0;
     function render(st) {
       stage = st; zs = fs.map(function (f) { return Zs(f, st >= 4 ? 3 : st); });
       path.setAttribute('d', e11zpath(zs, F, b, 1000));
-      boxes.forEach(function (r, i) { e11lit(r, i <= st, i === 0 ? 'var(--cyan)' : 'var(--amber)'); });
+      boxes.forEach(function (r, i) { e11lit(r, i <= st, i === 0 ? 'var(--second)' : 'var(--accent)'); });
       clear(decs); clear(bandG);
       var placed = [];
-      [1000, 100, 10, 1, 0.1, 0.01].forEach(function (f) { var z = Zs(f, st >= 4 ? 3 : st), px = F.X(z.re * 1000), py = F.Y(-z.im * 1000); if (py < b.y1) return; el('circle', { cx: px, cy: py, r: 3, fill: 'var(--cyan)' }, decs); var lx = px + 8, ly = py + (f >= 100 ? 18 : -10); if (placed.some(function (q) { return Math.abs(q[0] - lx) < 56 && Math.abs(q[1] - ly) < 18; })) return; placed.push([lx, ly]); txt(decs, lx, ly, e11Hz(f), 'cyan', 'start'); });
+      [1000, 100, 10, 1, 0.1, 0.01].forEach(function (f) { var z = Zs(f, st >= 4 ? 3 : st), px = F.X(z.re * 1000), py = F.Y(-z.im * 1000); if (py < b.y1) return; el('circle', { cx: px, cy: py, r: 3, fill: 'var(--second)' }, decs); var lx = px + 8, ly = py + (f >= 100 ? 18 : -10); if (placed.some(function (q) { return Math.abs(q[0] - lx) < 56 && Math.abs(q[1] - ly) < 18; })) return; placed.push([lx, ly]); txt(decs, lx, ly, e11Hz(f), 'cyan', 'start'); });
       if (st >= 4) bands.forEach(function (bd) { var zA = Zs(bd[0], 3), zB = Zs(bd[1], 3), xA = F.X(zA.re * 1000), xB = Math.min(b.x1, F.X(zB.re * 1000)); el('rect', { x: xA, y: b.y1, width: xB - xA, height: b.y0 - b.y1, fill: bd[3], 'fill-opacity': '.07' }, bandG); txt(bandG, (xA + xB) / 2, b.y1 + 14, bd[2], 'strong', 'middle'); });
       place();
     }
@@ -201,25 +201,25 @@
     // B: semi-infinite, transmissive (tanh), reflective (coth); Rd = 10 mOhm, B = 1 s^1/2
     var B = Math.sqrt(1), Y0 = B / R;
     draw(g, ws.map(function (w) { return M11.zQ(Y0, 0.5, w); }), Fs[1], P[1].b, 'var(--text)', 1.2, '4 4');
-    draw(g, ws.map(function (w) { return M11.zFiniteT(Y0, B, w); }), Fs[1], P[1].b, 'var(--cyan)');
-    draw(g, ws.map(function (w) { return M11.zFiniteR(Y0, B, w); }), Fs[1], P[1].b, 'var(--amber)');
+    draw(g, ws.map(function (w) { return M11.zFiniteT(Y0, B, w); }), Fs[1], P[1].b, 'var(--second)');
+    draw(g, ws.map(function (w) { return M11.zFiniteR(Y0, B, w); }), Fs[1], P[1].b, 'var(--accent)');
     txt(g, Fs[1].X(10.6), Fs[1].Y(1.2), 'open end', 'cyan', 'start'); txt(g, Fs[1].X(3.9), Fs[1].Y(8.6), 'closed end', 'amber', 'start'); txt(g, Fs[1].X(7.6), Fs[1].Y(4.6), '45°, endless', '', 'start');
     // C: Abbas eqs 9 and 6 with the same Rd and Cd: film (1D, coth) against sphere
     var Rd = 0.024, Cd = 1;
-    draw(g, ws.map(function (w) { return M11.scale(M11.div(M11.ccoth(M11.csqrt(M11.cx(0, w * Rd * Cd))), M11.csqrt(M11.cx(0, w * Rd * Cd))), Rd); }), Fs[2], P[2].b, 'var(--amber)');
+    draw(g, ws.map(function (w) { return M11.scale(M11.div(M11.ccoth(M11.csqrt(M11.cx(0, w * Rd * Cd))), M11.csqrt(M11.cx(0, w * Rd * Cd))), Rd); }), Fs[2], P[2].b, 'var(--accent)');
     draw(g, ws.map(function (w) { return M11.zSphere(Rd, Cd, w); }), Fs[2], P[2].b, 'var(--heat)');
-    el('line', { x1: Fs[2].X(8), x2: Fs[2].X(8), y1: P[2].b.y0, y2: P[2].b.y1, stroke: 'var(--amber)', 'stroke-dasharray': '2 4', 'stroke-opacity': '.6' }, g); el('line', { x1: Fs[2].X(1.6), x2: Fs[2].X(1.6), y1: P[2].b.y0, y2: P[2].b.y1, stroke: 'var(--heat)', 'stroke-dasharray': '2 4', 'stroke-opacity': '.6' }, g);
+    el('line', { x1: Fs[2].X(8), x2: Fs[2].X(8), y1: P[2].b.y0, y2: P[2].b.y1, stroke: 'var(--accent)', 'stroke-dasharray': '2 4', 'stroke-opacity': '.6' }, g); el('line', { x1: Fs[2].X(1.6), x2: Fs[2].X(1.6), y1: P[2].b.y0, y2: P[2].b.y1, stroke: 'var(--heat)', 'stroke-dasharray': '2 4', 'stroke-opacity': '.6' }, g);
     txt(g, Fs[2].X(8) + 4, Fs[2].Y(2), 'film: R_d/3', 'amber', 'start'); txt(g, Fs[2].X(1.6) + 6, Fs[2].Y(8.6), 'sphere: R_d/15', 'heat', 'start');
     function render() {
       var n = +sn.value, rp = +sr.value / 1000; setSvgText(snv, n.toFixed(2)); setSvgText(srv, (rp * 1000).toFixed(0) + ' mΩ');
       clear(gA); clear(gD);
-      draw(gA, wsA.map(function (w) { return M11.zRQ(R, 1, n, w); }), Fs[0], P[0].b, 'var(--amber)', 2.4);
+      draw(gA, wsA.map(function (w) { return M11.zRQ(R, 1, n, w); }), Fs[0], P[0].b, 'var(--accent)', 2.4);
       var th = 90 * (1 - n); txt(gA, Fs[0].X(5), Fs[0].Y(0.9), n > 0.98 ? 'ideal semicircle' : 'sunk by ' + th.toFixed(0) + '°', 'amber', 'middle');
       // D: Bisquert line, Rct = 10 mOhm, Cdl = 1 F, plus the plain R || C it reduces to when Rm = 0
       draw(gD, ws.map(function (w) { return M11.parallel(M11.zR(R), M11.zC(1, w)); }), Fs[3], P[3].b, 'var(--text)', 1.2, '4 4');
       if (rp > 0) {
-        draw(gD, ws.map(function (w) { return M11.zPorous(rp, R, 1, w); }), Fs[3], P[3].b, 'var(--cyan)', 2.4);
-        var c = Math.sqrt(rp * R) / Math.tanh(Math.sqrt(rp / R)); el('circle', { cx: Fs[3].X(c * 1000), cy: P[3].b.y0, r: 3.5, fill: 'var(--cyan)' }, gD);
+        draw(gD, ws.map(function (w) { return M11.zPorous(rp, R, 1, w); }), Fs[3], P[3].b, 'var(--second)', 2.4);
+        var c = Math.sqrt(rp * R) / Math.tanh(Math.sqrt(rp / R)); el('circle', { cx: Fs[3].X(c * 1000), cy: P[3].b.y0, r: 3.5, fill: 'var(--second)' }, gD);
         txt(gD, Fs[3].X(0.3), Fs[3].Y(8.4), 'dot: the DC end', 'cyan', 'start');
       }
       read.innerHTML = 'A: n = <b>' + n.toFixed(2) + '</b>; n = 1 is a capacitor, n = 0.5 a Warburg line, n = 0 a resistor. D: pore resistance R<sub>m</sub> = <b>' + (rp * 1000).toFixed(0) + ' mΩ</b>' + (rp > 0 ? '; the arc starts with a 45° line and ends at √(R<sub>m</sub>R<sub>ct</sub>) coth √(R<sub>m</sub>/R<sub>ct</sub>) = ' + (Math.sqrt(rp * R) / Math.tanh(Math.sqrt(rp / R)) * 1000).toFixed(1) + ' mΩ (the dot), not at R<sub>ct</sub> = 10 mΩ.' : ': no pore resistance, the plain semicircle.');

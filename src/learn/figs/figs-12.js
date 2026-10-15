@@ -19,7 +19,7 @@
       txt(g, x, y + 4, n.t, 'strong', 'middle');
     });
     var spin = el('circle', { r: 6, fill: 'var(--heat)' }, g);
-    var coolA = arrow(g, cx + R + 6, cy - 10, cx + R + 52, cy - 10, '#83DBD0', 3), coolT = txt(g, cx + R + 30, cy + 14, 'heat', 'cyan', 'middle'); txt(g, cx + R + 30, cy + 28, 'removed', 'cyan', 'middle');
+    var coolA = arrow(g, cx + R + 6, cy - 10, cx + R + 52, cy - 10, 'var(--second)', 3), coolT = txt(g, cx + R + 30, cy + 14, 'heat', 'cyan', 'middle'); txt(g, cx + R + 30, cy + 28, 'removed', 'cyan', 'middle');
     // schematic temperature traces
     var x0 = 300, x1 = 500, y0 = 230, y1 = 64;
     el('line', { x1: x0, y1: y0, x2: x1, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1, stroke: 'var(--line-2)' }, g);
@@ -81,7 +81,7 @@
     function render() {
       Array.prototype.forEach.call(ab, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-abuse') === mode)); });
       var a = acts[mode];
-      rows.forEach(function (row) { var s = a[row.k]; setSvgText(row.st, s); row.r.setAttribute('stroke', s ? (/cannot|less/.test(s) ? 'var(--heat)' : 'var(--amber)') : 'var(--line-2)'); row.r.setAttribute('stroke-width', s ? 2 : 1); row.st.setAttribute('class', 'lbl ' + (/cannot|less/.test(s) ? 'heat' : 'amber')); });
+      rows.forEach(function (row) { var s = a[row.k]; setSvgText(row.st, s); row.r.setAttribute('stroke', s ? (/cannot|less/.test(s) ? 'var(--heat)' : 'var(--accent)') : 'var(--line-2)'); row.r.setAttribute('stroke-width', s ? 2 : 1); row.st.setAttribute('class', 'lbl ' + (/cannot|less/.test(s) ? 'heat' : 'amber')); });
       read.innerHTML = a.txt;
     }
     Array.prototype.forEach.call(ab, function (b) { on(b, 'click', function () { mode = b.getAttribute('data-abuse'); render(); }); });
@@ -100,8 +100,8 @@
     el('line', { x1: x0, x2: x1, y1: 224, y2: 224, stroke: 'var(--line-2)' }, g);
     [-50, -20, 0, 40, 85].forEach(function (T) { el('line', { x1: X(T), x2: X(T), y1: 220, y2: 228, stroke: 'var(--line-2)' }, g); txt(g, X(T), 244, T + ' °C', '', 'middle'); });
     function band(a, b, y, col, lab) { el('rect', { x: X(a), y: y, width: X(b) - X(a), height: 22, rx: 4, fill: col, 'fill-opacity': '.35', stroke: col }, g); txt(g, X(a), y - 6, lab, 'strong', 'start'); }
-    band(0, 40, 36, 'var(--amber)', 'consumer cells, in use');
-    band(-20, 85, 86, 'var(--cyan)', 'consumer cells, in storage');
+    band(0, 40, 36, 'var(--accent)', 'consumer cells, in use');
+    band(-20, 85, 86, 'var(--second)', 'consumer cells, in storage');
     band(-50, 85, 136, 'var(--metal)', 'military and automotive');
     txt(g, X(-50), 186, 'cold: charging fast risks lithium plating', 'cyan', 'start');
     txt(g, X(85), 206, 'warm: faster self-discharge', 'heat', 'end');
@@ -119,14 +119,14 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
     function node(x, y, w, t, s, col) { el('rect', { x: x, y: y, width: w, height: 44, rx: 8, fill: 'var(--panel-2)', stroke: col || 'var(--line-2)' }, g); txt(g, x + w / 2, y + 18, t, 'strong', 'middle'); if (s) txt(g, x + w / 2, y + 34, s, '', 'middle'); return { x: x, y: y, w: w }; }
     var a = node(20, 20, 150, 'spent cells', 'hazardous goods'), b = node(185, 20, 150, 'pre-treatment', 'discharge, dismantle'), c = node(350, 20, 150, 'crush and sort', 'sieve, density, magnet');
-    var p = node(20, 120, 150, 'pyrometallurgy', 'smelt, about 1000 °C', 'var(--heat)'), h = node(185, 120, 150, 'hydrometallurgy', 'leach in acid', 'var(--cyan)'), d = node(350, 120, 150, 'direct recycling', 'keep materials whole', 'var(--amber)');
+    var p = node(20, 120, 150, 'pyrometallurgy', 'smelt, about 1000 °C', 'var(--heat)'), h = node(185, 120, 150, 'hydrometallurgy', 'leach in acid', 'var(--second)'), d = node(350, 120, 150, 'direct recycling', 'keep materials whole', 'var(--accent)');
     var o1 = txt(g, 95, 190, 'Cu, Ni, Co alloy', '', 'middle'), o1b = txt(g, 95, 206, 'Li, Mn to slag', 'heat', 'middle');
     txt(g, 260, 190, 'metal salts', '', 'middle'); txt(g, 260, 206, 'high recovery, many steps', '', 'middle');
     txt(g, 425, 190, 'electrode materials', '', 'middle'); txt(g, 425, 206, 'still immature', '', 'middle');
-    arrow(g, 170, 42, 183, 42, '#A3B6B1', 1.6); arrow(g, 335, 42, 348, 42, '#A3B6B1', 1.6);
-    [[260, 64, 95, 118], [425, 64, 260, 118], [425, 64, 425, 118]].forEach(function (r) { arrow(g, r[0], r[1], r[2], r[3], '#A3B6B1', 1.4); });
+    arrow(g, 170, 42, 183, 42, 'var(--muted)', 1.6); arrow(g, 335, 42, 348, 42, 'var(--muted)', 1.6);
+    [[260, 64, 95, 118], [425, 64, 260, 118], [425, 64, 425, 118]].forEach(function (r) { arrow(g, r[0], r[1], r[2], r[3], 'var(--muted)', 1.4); });
     txt(g, 260, 244, 'back into new cells', 'amber', 'middle');
-    [95, 260, 425].forEach(function (x) { arrow(g, x, 212, 260, 230, '#F0B441', 1.2); });
+    [95, 260, 425].forEach(function (x) { arrow(g, x, 212, 260, 230, 'var(--accent)', 1.2); });
     var dot = ourIon(g, 95, 42, 5, '', true);
     badge(g, 20, 14, 1); badge(g, 500, 76, 2); badge(g, 20, 114, 3); badge(g, 185, 114, 4); badge(g, 350, 114, 5);
     var route = [[95, 42], [260, 42], [425, 42], [425, 90], [260, 142], [260, 220], [260, 236]], t = 0;

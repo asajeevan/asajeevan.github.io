@@ -7,7 +7,7 @@
      Winter and Brodd 2004, section 1.4; the phase rule after Winter and
      Brodd section 2.4; heat after Jindal et al. 2022, eq. 1.
      ================================================================= */
-  var C5 = { ohm: '#C4B5F7', act: 'var(--amber)', conc: 'var(--cyan)' }; // colours of the three polarizations
+  var C5 = { ohm: 'var(--field)', act: 'var(--accent)', conc: 'var(--second)' }; // colours of the three polarizations
   function niceStep(span, n) { var raw = span / (n || 5), p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; }
   function cellVoc() { var p = rung(cell.pos), n = rung(cell.neg); return Math.max(0.5, p.V - n.V); }
   function mv(v) { return Math.round(v * 1000) + ' mV'; }
@@ -17,10 +17,10 @@
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), mb = fig.querySelectorAll('button[data-mode]');
     var xn0 = 64, xn1 = 112, xp0 = 408, xp1 = 456, ye0 = 92, ye1 = 222, xsep = 260;
     // the cell: negative electrode | electrolyte with separator | positive electrode
-    el('rect', { x: xn1, y: ye0, width: xp0 - xn1, height: ye1 - ye0, fill: 'var(--cyan)', 'fill-opacity': '.1', stroke: 'var(--cyan)', 'stroke-opacity': '.45' }, g);
-    el('line', { x1: xsep, y1: ye0 + 4, x2: xsep, y2: ye1 - 4, stroke: 'var(--cyan)', 'stroke-dasharray': '3 5' }, g);
+    el('rect', { x: xn1, y: ye0, width: xp0 - xn1, height: ye1 - ye0, fill: 'var(--second)', 'fill-opacity': '.1', stroke: 'var(--second)', 'stroke-opacity': '.45' }, g);
+    el('line', { x1: xsep, y1: ye0 + 4, x2: xsep, y2: ye1 - 4, stroke: 'var(--second)', 'stroke-dasharray': '3 5' }, g);
     el('rect', { x: xn0, y: ye0 - 10, width: xn1 - xn0, height: ye1 - ye0 + 20, rx: 3, fill: 'var(--metal)', 'fill-opacity': '.55' }, g);
-    el('rect', { x: xp0, y: ye0 - 10, width: xp1 - xp0, height: ye1 - ye0 + 20, rx: 3, fill: 'var(--amber-2)', 'fill-opacity': '.6' }, g);
+    el('rect', { x: xp0, y: ye0 - 10, width: xp1 - xp0, height: ye1 - ye0 + 20, rx: 3, fill: 'var(--accent-strong)', 'fill-opacity': '.6' }, g);
     for (var k = 0; k < 5; k++) { el('line', { x1: xn0 + 6, x2: xn1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: 'var(--text)', 'stroke-opacity': '.35' }, g); el('line', { x1: xp0 + 6, x2: xp1 - 6, y1: ye0 + 6 + k * 26, y2: ye0 + 6 + k * 26, stroke: 'var(--text)', 'stroke-opacity': '.35' }, g); }
     txt(g, (xn0 + xn1) / 2, ye1 + 26, 'negative', 'strong', 'middle'); txt(g, (xp0 + xp1) / 2, ye1 + 26, 'positive', 'strong', 'middle');
     txt(g, xsep, ye1 + 26, 'electrolyte and separator', 'cyan', 'middle');
@@ -64,7 +64,7 @@
       var V = Voc + s * e.total;
       setSvgText(VT, V.toFixed(2) + ' V'); setSvgText(VT2, mode === 'open' ? '= V_OC' : (s < 0 ? 'V_OC − η' : 'V_OC + η'));
       setSvgText(boxT, mode === 'open' ? 'open switch' : mode === 'discharge' ? 'lamp' : 'charger');
-      box.setAttribute('stroke', mode === 'discharge' ? 'var(--amber)' : mode === 'charge' ? 'var(--cyan)' : 'var(--line-2)');
+      box.setAttribute('stroke', mode === 'discharge' ? 'var(--accent)' : mode === 'charge' ? 'var(--second)' : 'var(--line-2)');
       setSvgText(eDir, mode === 'discharge' ? 'electrons → through the lamp' : mode === 'charge' ? '← electrons pushed by the charger' : '');
       setSvgText(iDir, mode === 'discharge' ? 'Li⁺ → toward the positive' : mode === 'charge' ? '← Li⁺ back to the negative' : 'no net motion');
       eflow.show(mode !== 'open'); eflow.setSpeed(mode === 'charge' ? -55 : 55);
@@ -104,14 +104,14 @@
     var ax = el('g', {}, g), heatD = el('path', { fill: 'var(--heat)', 'fill-opacity': '.2' }, g), heatC = el('path', { fill: 'var(--heat)', 'fill-opacity': '.2' }, g);
     // the breakdown panel: the polarization at the probe, drawn large
     var PX = 394, PW = 24, PY = 150, panel = el('g', {}, g);
-    el('rect', { x: 350, y: 18, width: 162, height: 258, rx: 8, fill: 'rgba(234,240,236,.035)', stroke: 'var(--line)' }, g);
+    el('rect', { x: 350, y: 18, width: 162, height: 258, rx: 8, fill: 'rgba(20,23,28,.03)', stroke: 'var(--line)' }, g);
     var pTitle = txt(g, 431, 36, '', 'strong', 'middle');
     var vocP = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-width': 1.4, 'stroke-dasharray': '4 4' }, g);
-    var dis = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), ch = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2.4 }, g);
+    var dis = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), ch = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2.4 }, g);
     var cutHi = el('line', { stroke: 'var(--line-2)', 'stroke-dasharray': '6 4' }, g), cutLo = el('line', { stroke: 'var(--line-2)', 'stroke-dasharray': '6 4' }, g);
     var cutHiT = txt(g, x1, 0, '', '', 'end'), cutLoT = txt(g, x0 + 4, 0, '', '', 'start');
     var probeL = el('line', { stroke: 'var(--text)', 'stroke-opacity': '.35', 'stroke-dasharray': '2 3' }, g);
-    var bars = el('g', {}, g), pm = [0, 1, 2].map(function (i) { return el('circle', { r: 4, fill: i === 0 ? 'var(--muted)' : i === 1 ? 'var(--amber)' : 'var(--cyan)', stroke: 'var(--bg)', 'stroke-width': 1.2 }, g); }), dot = el('circle', { r: 5.5, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, g);
+    var bars = el('g', {}, g), pm = [0, 1, 2].map(function (i) { return el('circle', { r: 4, fill: i === 0 ? 'var(--muted)' : i === 1 ? 'var(--accent)' : 'var(--second)', stroke: 'var(--bg)', 'stroke-width': 1.2 }, g); }), dot = el('circle', { r: 5.5, fill: 'var(--text)', stroke: 'var(--bg)', 'stroke-width': 1.5 }, g);
     var dLab = txt(g, 0, 0, '← discharge', 'amber tag', 'end'), cLab = txt(g, 0, 0, 'charge →', 'cyan tag', 'start');
     var b1 = badge(g, 0, 0, 1), b2 = badge(g, 0, 0, 2), b3 = badge(g, 0, 0, 3), b4 = badge(g, 0, 0, 4);
     var vmin, vmax, X = function (s) { return x0 + s * (x1 - x0); }, Y = function (v) { return y0 - (v - vmin) / (vmax - vmin) * (y0 - y1); };
@@ -196,8 +196,8 @@
     Array.prototype.forEach.call(sbtn, function (b) { on(b, 'click', function () { shape = b.getAttribute('data-shape'); userShape = true; render(); placeDot(); }); });
     cellListeners.push(function () { if (!userShape) { shape = shapeOfCell(); render(); placeDot(); } });
     steps(fig, [
-      { text: 'The <b>amber</b> branch is a discharge at constant current from a full cell, read right to left; the <b>cyan</b> branch a charge from an empty one, left to right. The dashed grey line is the open-circuit voltage: where the cell would rest at each state of charge.' },
-      { text: 'Move the probe. The panel on the right enlarges the gap at that state of charge: how far the charge sits <b>above</b> the resting voltage and the discharge <b>below</b> it, each split into <b>ohmic</b> (lilac), <b>activation</b> (amber) and <b>concentration</b> (cyan).' },
+      { text: 'The <b>blue</b> branch is a discharge at constant current from a full cell, read right to left; the <b>green</b> branch a charge from an empty one, left to right. The dashed grey line is the open-circuit voltage: where the cell would rest at each state of charge.' },
+      { text: 'Move the probe. The panel on the right enlarges the gap at that state of charge: how far the charge sits <b>above</b> the resting voltage and the discharge <b>below</b> it, each split into <b>ohmic</b> (violet), <b>activation</b> (blue) and <b>concentration</b> (green).' },
       { text: 'Slide the rate up. Every bar grows, the branches move apart, and the discharge hits the <b>lower cut-off</b> earlier: capacity is lost at high rate, mostly to the concentration part, which shoots up near the end.' },
       { text: 'The <b>red areas</b> between each branch and the dashed line are energy turned into heat: the integral of η over the charge passed. Figure {{fig:f5-11}} follows that heat in time.' }
     ]);
@@ -215,7 +215,7 @@
     // bands for the source's time ranges
     el('rect', { x: X(-4), y: y1, width: X(-2) - X(-4), height: y0 - y1, fill: C5.act, 'fill-opacity': '.08' }, g);
     el('rect', { x: X(-2), y: y1, width: x1 - X(-2), height: y0 - y1, fill: C5.conc, 'fill-opacity': '.07' }, g);
-    var ax = el('g', {}, g), curve = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), pre = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g);
+    var ax = el('g', {}, g), curve = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), pre = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
     var jump = el('line', { stroke: C5.ohm, 'stroke-width': 3 }, g), cursor = el('line', { y1: y1, y2: y0, stroke: 'var(--text)', 'stroke-opacity': '.4' }, g);
     el('line', { x1: xb1 + 6, x2: xb1 + 6, y1: y1 - 8, y2: y0, stroke: 'var(--text)', 'stroke-dasharray': '3 3' }, g);
     txt(g, xb1 + 6, y1 - 14, 'current off', 'strong', 'middle');
@@ -251,7 +251,7 @@
     on(rate, 'input', render);
     steps(fig, [
       { text: 'On the left the cell is <b>under load</b>: discharging, its voltage sits η below the open-circuit value. Then the current is switched off and the clock starts. The time axis is logarithmic: each tick is ten times longer than the one before.' , on: function () { tNow = tmin; if (e) draw(); } },
-      { text: 'The <b>ohmic</b> part disappears at once, within a microsecond: no current, no I·R drop. The lilac step is its size.' , on: function () { tNow = -6; if (e) draw(); } },
+      { text: 'The <b>ohmic</b> part disappears at once, within a microsecond: no current, no I·R drop. The violet step is its size.' , on: function () { tNow = -6; if (e) draw(); } },
       { text: 'The <b>activation</b> part relaxes next, between 10⁻⁴ and 10⁻² s, as the two interfaces return to equilibrium.' , on: function () { tNow = -2.5; if (e) draw(); } },
       { text: 'The <b>concentration</b> part is slowest, 10⁻² s and longer: the ions piled up or depleted near the electrodes have to diffuse back. Interrupting the current and timing the recovery is how the three parts are told apart in the lab.' , on: function () { tNow = tmax; if (e) draw(); } }
     ]);
@@ -269,16 +269,16 @@
     [0, 250, 500, 750, 1000].forEach(function (n) { el('line', { x1: X(n), y1: y0, x2: X(n), y2: y0 + 5, stroke: 'var(--line-2)' }, g); txt(g, X(n), y0 + 18, n, '', 'middle'); });
     [0.4, 0.6, 0.8, 1].forEach(function (r) { el('line', { x1: x0, y1: Y(r), x2: x1, y2: Y(r), stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, g); txt(g, x0 - 6, Y(r) + 4, Math.round(r * 100) + ' %', '', 'end'); });
     txt(g, x1, y0 + 34, 'cycle number', '', 'end'); txt(g, x0 - 6, y1 - 12, 'capacity kept', '', 'start');
-    el('line', { x1: x0, y1: Y(0.8), x2: x1, y2: Y(0.8), stroke: 'var(--amber)', 'stroke-dasharray': '5 4' }, g);
+    el('line', { x1: x0, y1: Y(0.8), x2: x1, y2: Y(0.8), stroke: 'var(--accent)', 'stroke-dasharray': '5 4' }, g);
     txt(g, x1, Y(0.8) - 6, '80 %: end of cycle life', 'amber', 'end');
-    el('line', { x1: X(300), y1: y0, x2: X(300), y2: y1, stroke: 'var(--cyan)', 'stroke-dasharray': '5 4' }, g);
+    el('line', { x1: X(300), y1: y0, x2: X(300), y2: y1, stroke: 'var(--second)', 'stroke-dasharray': '5 4' }, g);
     txt(g, X(300) + 6, Y(0.46), 'at least 300 cycles', 'cyan', 'start'); txt(g, X(300) + 6, Y(0.46) + 15, 'for a commercial cell', 'cyan', 'start');
     [0.995, 0.999, 0.9999].forEach(function (c) {
       var d = ''; for (var n = 0; n <= N; n += 5) { var rr = Math.pow(c, n); if (rr < 0.4) break; d += (n ? 'L' : 'M') + X(n).toFixed(1) + ',' + Y(rr).toFixed(1); }
       el('path', { d: d, fill: 'none', stroke: 'var(--muted)', 'stroke-opacity': '.55', 'stroke-dasharray': '2 3' }, g);
     });
     txt(g, X(150), Y(Math.pow(0.995, 150)) + 16, '99.5 %', '', 'start'); txt(g, X(620), Y(Math.pow(0.999, 620)) + 16, '99.9 %', '', 'start'); txt(g, X(880), Y(Math.pow(0.9999, 880)) + 16, '99.99 %', '', 'middle');
-    var line = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), mk = el('circle', { r: 5, fill: 'var(--amber)', stroke: 'var(--bg)' }, g);
+    var line = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), mk = el('circle', { r: 5, fill: 'var(--accent)', stroke: 'var(--bg)' }, g);
     badge(g, x1 - 14, Y(0.8) + 18, 1); badge(g, X(300) - 16, y1 + 14, 2); badge(g, X(60), Y(0.97) + 22, 3);
     function cOf() { return 0.99 + 0.0001 * (+ce.value); }
     function render() {
@@ -289,8 +289,8 @@
     }
     on(ce, 'input', render);
     steps(fig, [
-      { text: 'The amber line is the capacity kept after N cycles if a fixed fraction of the charge is lost for good on every cycle: retention = CE<sup>N</sup>. The dashed amber line is <b>end of life</b>, 80 % of the initial capacity.' },
-      { text: 'The dashed cyan line is the 2004 requirement for a commercial rechargeable cell: <b>at least 300 full cycles</b> with less than 20 % loss.' },
+      { text: 'The blue line is the capacity kept after N cycles if a fixed fraction of the charge is lost for good on every cycle: retention = CE<sup>N</sup>. The dashed blue line is <b>end of life</b>, 80 % of the initial capacity.' },
+      { text: 'The dashed green line is the 2004 requirement for a commercial rechargeable cell: <b>at least 300 full cycles</b> with less than 20 % loss.' },
       { text: 'The grey dotted lines are fixed references at 99.5, 99.9 and 99.99 % for comparison. Slide the efficiency: 99.9 % sounds excellent and still fails. Real cells are not this simple (a later module says why), so read the curve as arithmetic, not as a prediction.' }
     ]);
     render();
@@ -300,7 +300,7 @@
   register('f5-11', function (fig) {
     var svg = fig.querySelector('svg'), g = svg.querySelector('.plot'), read = fig.querySelector('.readout'), rate = fig.querySelector('.rate'), rv = fig.querySelector('.rate-val'), sb = fig.querySelectorAll('button[data-sign]');
     var x0 = 62, x1 = 470, y0 = 224, y1 = 36, sign = 1, dUdT = 0.2e-3; // illustrative magnitude, V/K
-    var ax = el('g', {}, g), irr = el('path', { fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2.2 }, g), rev = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2.2 }, g), tot = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.6, 'stroke-dasharray': '5 3' }, g);
+    var ax = el('g', {}, g), irr = el('path', { fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2.2 }, g), rev = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2.2 }, g), tot = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.6, 'stroke-dasharray': '5 3' }, g);
     var divL = el('line', { stroke: 'var(--line-2)', 'stroke-dasharray': '3 3' }, g), dT = txt(g, 0, y1 + 10, 'discharge', 'amber', 'middle'), cT = txt(g, 0, y1 + 10, 'charge', 'cyan', 'middle');
     var b1 = badge(g, 0, 0, 1), b2 = badge(g, 0, 0, 2), b3 = badge(g, 0, 0, 3);
     function render() {
@@ -337,7 +337,7 @@
     cellListeners.push(render);
     steps(fig, [
       { text: 'The <b>red</b> line is irreversible heat, current times polarization, I·η. It is released on charge and on discharge alike, and since η itself grows with the current, it grows faster than the current does.' },
-      { text: 'The <b>cyan</b> line is the reversible, entropic heat, −I·T·dE/dT. Its size follows the current, and its sign flips when the current reverses: with dE/dT positive the cell cools on discharge and warms on charge (nickel-cadmium); with dE/dT negative, the reverse (lead-acid).' },
+      { text: 'The <b>green</b> line is the reversible, entropic heat, −I·T·dE/dT. Its size follows the current, and its sign flips when the current reverses: with dE/dT positive the cell cools on discharge and warms on charge (nickel-cadmium); with dE/dT negative, the reverse (lead-acid).' },
       { text: 'The dashed line is the total. Slide the rate down to C/10: the entropic part then outweighs the irreversible one. Slide it up to 5C: the irreversible part takes over.' }
     ]);
     render();

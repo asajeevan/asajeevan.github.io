@@ -11,7 +11,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://asajeevan.github.io/batteries/lab/cell-testing/">
 <meta property="og:site_name" content="Aswadh Shyma Sajeevan">
-<meta name="theme-color" content="#0E1F22">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://asajeevan.github.io/batteries/lab/cell-testing/">
 <meta name="twitter:card" content="summary">
@@ -19,8 +19,8 @@
 <meta name="twitter:description" content="How is a test cell made, and what does a cycling test tell us? Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
 <script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
 /* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
 window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
@@ -134,7 +134,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </svg>
 <div class="controls"><label>Lithium lost (LLI) <input type="range" class="lli" min="0" max="20" value="10" aria-label="Loss of lithium inventory, percent"> <b class="lli-val">10 %</b></label><label>Positive material lost <input type="range" class="lam" min="0" max="20" value="0" aria-label="Loss of positive active material, percent"> <b class="lam-val">0 %</b></label></div>
 <div class="part-info"><span class="readout"></span></div>
-<div class="key"><span><i style="background:var(--text)"></i>this cell</span><span><i style="background:var(--muted)"></i>fresh cell, dashed</span><span><i style="background:var(--amber)"></i>positive electrode</span><span><i style="background:var(--cyan)"></i>negative electrode</span></div>
+<div class="key"><span><i style="background:var(--text)"></i>this cell</span><span><i style="background:var(--muted)"></i>fresh cell, dashed</span><span><i style="background:var(--accent)"></i>positive electrode</span><span><i style="background:var(--second)"></i>negative electrode</span></div>
 <figcaption>Reading a curve by its slopes, and what ageing does to them.
 <span class="try">Try this: set LLI to 0, then raise it slowly and watch which dV/dQ peaks move and which stay put.</span>
 <details class="src"><summary>Source</summary><span class="basis">The analysis follows Olson, López and Dickinson 2023: cell voltage as the difference of the electrode potentials, the cell’s dV/dQ as the sum of the electrodes’ contributions, the square plot, and LLI and LAM through their eqs. 48 and 49. The cell is a toy. Each electrode’s lithium content is a sum of smooth steps in its potential, an illustrative choice of ours with the properties they ask of such a function; the plateau potentials (0.12 and 0.21 V; 3.92 and 4.10 V) and the negative-to-positive capacity ratio of 1.15 are invented, not those of a real material. Window 3.0 to 4.2 V. The dV/dQ plot is cut off at the top.</span></details>

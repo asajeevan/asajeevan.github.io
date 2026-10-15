@@ -16,18 +16,18 @@
     var a = { x0: 50, y0: 220, x1: 240, y1: 40 }, X = function (e) { return a.x0 + (e + 0.12) / 0.24 * (a.x1 - a.x0); }, Y = function (i) { return (a.y0 + a.y1) / 2 - i / 0.016 * (a.y0 - a.y1); };
     e11axes(g, a, { X: X, Y: function (i) { return Y(i); }, xt: [[-0.1, '−100'], [0, '0'], [0.1, '100 mV']], yt: [[-0.008, '−8'], [0, '0'], [0.008, '8']], xlab: 'overpotential η', ylab: 'current, mA' });
     el('line', { x1: a.x0, x2: a.x1, y1: Y(0), y2: Y(0), stroke: 'var(--line)', 'stroke-dasharray': '2 4' }, g);
-    var bv = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.6 }, g), tang = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, g), seg = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
+    var bv = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.6 }, g), tang = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, g), seg = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 4, 'stroke-linecap': 'round' }, g);
     txt(g, X(0.02), Y(0.0062), 'slope 1/R_ct', 'cyan', 'start');
     // right top: current over one period against a pure sine
     var r = { x0: 300, y0: 128, x1: 505, y1: 40 }, XT = function (u) { return r.x0 + u * (r.x1 - r.x0); };
     txt(g, r.x0, 24, 'current over one period', 'strong', 'start');
     el('line', { x1: r.x0, x2: r.x1, y1: (r.y0 + r.y1) / 2, y2: (r.y0 + r.y1) / 2, stroke: 'var(--line-2)' }, g);
-    var pS = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, g), pI = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g);
+    var pS = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.3, 'stroke-dasharray': '5 4' }, g), pI = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
     txt(g, r.x1, r.y0 + 18, 'dashed: a pure sine', '', 'end');
     // right bottom: harmonics
     var h = { x0: 320, y0: 270, x1: 505, y1: 192 }, YH = function (q) { return h.y0 - (Math.log10(Math.max(q, 1e-5)) + 5) / 5 * (h.y0 - h.y1); };
     e11axes(g, h, { X: function (x) { return x; }, Y: YH, yt: [[1e-4, '10⁻⁴'], [1e-2, '0.01'], [1, '1']], grid: true, ylab: 'size ÷ fundamental' });
-    var bars = [1, 2, 3, 4, 5].map(function (n) { var x = h.x0 + 8 + (n - 1) * 36; txt(g, x + 13, h.y0 + 16, n === 1 ? 'f' : n + 'f', 'strong', 'middle'); return el('rect', { x: x, width: 26, fill: n === 1 ? 'var(--cyan)' : 'var(--amber)', 'fill-opacity': '.85' }, g); });
+    var bars = [1, 2, 3, 4, 5].map(function (n) { var x = h.x0 + 8 + (n - 1) * 36; txt(g, x + 13, h.y0 + 16, n === 1 ? 'f' : n + 'f', 'strong', 'middle'); return el('rect', { x: x, width: 26, fill: n === 1 ? 'var(--second)' : 'var(--accent)', 'fill-opacity': '.85' }, g); });
     badge(g, X(-0.08), Y(0.0062), 1); badge(g, r.x1 - 12, r.y1 + 6, 2); badge(g, h.x1 - 10, h.y1 + 4, 3);
     function render() {
       var A = Math.pow(10, +sA.value) / 1000, al = +sa.value, res = M11.bvHarmonics(i0, al, A, 298.15, 256);
@@ -60,16 +60,16 @@
     function cell(x, y) { el('rect', { x: x, y: y, width: 40, height: 56, rx: 4, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, g); txt(g, x + 20, y + 33, 'cell', 'strong', 'middle'); }
     function meter(x, y, lab) { el('rect', { x: x, y: y, width: 70, height: 56, rx: 4, fill: 'none', stroke: 'var(--line-2)' }, g); txt(g, x + 35, y + 22, 'analyzer', 'strong', 'middle'); txt(g, x + 35, y + 40, lab, '', 'middle'); }
     meter(20, 40, '2 terminals'); cell(200, 40);
-    el('path', { d: 'M90,54 H200 M90,82 H200', stroke: 'var(--amber)', 'stroke-width': 2, fill: 'none' }, g);
+    el('path', { d: 'M90,54 H200 M90,82 H200', stroke: 'var(--accent)', 'stroke-width': 2, fill: 'none' }, g);
     txt(g, 145, 34, 'current and voltage share the wires', '', 'middle');
     meter(280, 40, '4 terminals'); cell(460, 40);
-    el('path', { d: 'M350,50 H460 M350,86 H460', stroke: 'var(--amber)', 'stroke-width': 2, fill: 'none' }, g);
-    el('path', { d: 'M350,60 H440 V58 H460 M350,76 H440 V78 H460', stroke: 'var(--cyan)', 'stroke-width': 1.6, fill: 'none' }, g);
-    txt(g, 405, 34, 'current pair (amber), sense pair (cyan)', '', 'middle');
+    el('path', { d: 'M350,50 H460 M350,86 H460', stroke: 'var(--accent)', 'stroke-width': 2, fill: 'none' }, g);
+    el('path', { d: 'M350,60 H440 V58 H460 M350,76 H440 V78 H460', stroke: 'var(--second)', 'stroke-width': 1.6, fill: 'none' }, g);
+    txt(g, 405, 34, 'current pair (blue), sense pair (green)', '', 'middle');
     var b = { x0: 60, y0: 330, x1: 470, y1: 130 }, F = e11nyq(g, b, [16, 57], -12, { xt: [[20, '20'], [30, '30'], [40, '40'], [50, '50']], yt: [[-10, '−10'], [0, '0'], [5, '5']], xlab: 'Z′, mΩ', ylab: '−Z″, mΩ' });
     var z4 = fs.map(function (f) { var w = 2 * Math.PI * f; return M11.add(M11.zL(C.L, w), M11.zR(C.R0), M11.zRQ(C.Rsei, C.Qsei, C.nsei, w), M11.parallel(M11.zR(C.Rct), M11.zC(C.Cdl, w))); });
-    el('path', { d: e11zpath(z4, F, b, 1000), fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2.4 }, g);
-    var p2 = el('path', { fill: 'none', stroke: 'var(--amber)', 'stroke-width': 2.4 }, g), mk = el('g', {}, g);
+    el('path', { d: e11zpath(z4, F, b, 1000), fill: 'none', stroke: 'var(--second)', 'stroke-width': 2.4 }, g);
+    var p2 = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), mk = el('g', {}, g);
     txt(g, F.X(36), F.Y(4.8), '4 terminals: the cell', 'cyan', 'start'); var l2 = txt(g, 0, 0, '2 terminals: cell + wires', 'amber', 'start');
     badge(g, 120, 104, 1); badge(g, 400, 104, 2); badge(g, F.X(18), F.Y(-9), 3);
     function render() {
@@ -98,19 +98,19 @@
     function gauss(seed) { var s = seed; return function () { var x = 0; for (var j = 0; j < 6; j++) { s = (s * 1664525 + 1013904223) % 4294967296; x += s / 4294967296; } return (x - 3) / Math.sqrt(0.5); }; }
     var b = { x0: 60, y0: 210, x1: 470, y1: 40 }, F = e11nyq(g, b, [18, 59], -6, { xt: [[20, '20'], [30, '30'], [40, '40'], [50, '50']], yt: [[-5, '−5'], [0, '0'], [10, '10']], xlab: 'Z′, mΩ', ylab: '−Z″, mΩ' });
     var r = { x0: 60, y0: 350, x1: 470, y1: 284 }, XR = function (f) { return e11log(f, -2, Math.log10(5000), r.x0, r.x1); }, YR = function (q) { return (r.y0 + r.y1) / 2 - q / 0.03 * (r.y0 - r.y1); };
-    el('rect', { x: r.x0, y: YR(0.01), width: r.x1 - r.x0, height: YR(-0.01) - YR(0.01), fill: 'var(--cyan)', 'fill-opacity': '.07' }, g);
+    el('rect', { x: r.x0, y: YR(0.01), width: r.x1 - r.x0, height: YR(-0.01) - YR(0.01), fill: 'var(--second)', 'fill-opacity': '.07' }, g);
     e11axes(g, { x0: r.x0, y0: r.y0, x1: r.x1, y1: r.y1 }, { X: XR, Y: YR, xt: [[0.01, '0.01'], [1, '1'], [100, '100'], [5000, '5 kHz']], yt: [[-0.01, '−1'], [0, '0'], [0.01, '1']], ylab: 'residual, % of |Z|' });
     el('line', { x1: r.x0, x2: r.x1, y1: YR(0), y2: YR(0), stroke: 'var(--line-2)' }, g);
-    var gd = el('g', {}, g), fit = el('path', { fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.8 }, g), gr = el('g', {}, g);
+    var gd = el('g', {}, g), fit = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.8 }, g), gr = el('g', {}, g);
     badge(g, F.X(52), F.Y(10), 1); badge(g, r.x1 - 12, r.y1 + 12, 2);
     function render() {
       var drift = cb.checked, nz = +sl.value / 100, rn = gauss(7); setSvgText(sv, (nz * 100).toFixed(1) + ' %');
       var Z = fs.map(function (f, i) { var k = drift ? 1 + 0.3 * ts[i] / T : 1, p = { L: C.L, R0: C.R0, Rsei: C.Rsei * k, Qsei: C.Qsei, nsei: C.nsei, Rct: C.Rct * k, Cdl: C.Cdl, Rd: C.Rd, Cd: C.Cd }, z = M11.cellZ(p, 2 * Math.PI * f), m = M11.abs(z); return { re: z.re + nz * m * rn(), im: z.im + nz * m * rn() }; });
       var kk = M11.linKK(fs, Z);
       clear(gd); clear(gr);
-      Z.forEach(function (z) { var y = F.Y(-z.im * 1000); if (y >= b.y1) el('circle', { cx: F.X(z.re * 1000), cy: y, r: 3, fill: 'var(--amber)' }, gd); });
+      Z.forEach(function (z) { var y = F.Y(-z.im * 1000); if (y >= b.y1) el('circle', { cx: F.X(z.re * 1000), cy: y, r: 3, fill: 'var(--accent)' }, gd); });
       fit.setAttribute('d', e11zpath(kk.fit, F, b, 1000));
-      kk.res.forEach(function (q, i) { el('circle', { cx: XR(fs[i]), cy: Math.max(r.y1, Math.min(r.y0, YR(q.re))), r: 2.6, fill: 'var(--amber)' }, gr); el('circle', { cx: XR(fs[i]), cy: Math.max(r.y1, Math.min(r.y0, YR(q.im))), r: 2.6, fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.4 }, gr); });
+      kk.res.forEach(function (q, i) { el('circle', { cx: XR(fs[i]), cy: Math.max(r.y1, Math.min(r.y0, YR(q.re))), r: 2.6, fill: 'var(--accent)' }, gr); el('circle', { cx: XR(fs[i]), cy: Math.max(r.y1, Math.min(r.y0, YR(q.im))), r: 2.6, fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.4 }, gr); });
       var mx = Math.max.apply(null, kk.res.map(function (q) { return Math.max(Math.abs(q.re), Math.abs(q.im)); })), chi = kk.chi2;
       var verdict = chi < 1e-6 ? 'excellent' : chi < 1e-5 ? 'reasonable' : chi < 1e-4 ? 'marginal' : 'bad';
       read.innerHTML = 'Linear Kramers–Kronig test with ' + kk.M + ' R‖C elements of fixed time constants: pseudo-χ² = <b>' + sci(chi, 1) + '</b> (' + verdict + ' by the usual rule of thumb), largest residual <b>' + (mx * 100).toFixed(2) + ' %</b>. ' + (drift ? 'The cell changed during the ' + Math.round(T / 60) + '-minute sweep, and the residuals at low frequency, measured last, follow a pattern instead of scattering.' : nz > 0 ? 'Noise scatters the residuals evenly around zero: the data are noisy but valid.' : 'The residuals are tiny: the spectrum is consistent with a linear, causal, stable system.');

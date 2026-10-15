@@ -73,3 +73,20 @@ Read the plan first; this file records state, decisions and the checklist so wor
   level switch cross-fades, background ions speed up while scrolling, a cell in the top bar charges as you read.
 - Checks: figures identical (reduced-motion capture, 0 differences), gate exit 0 on 29 pages with motion on, axe clean
   with motion on, 0 broken links, 74 tests.
+
+## Redesign on white (2026-10-15, owner's request: move away from the dark teal and amber look; whole site)
+- Palette (assets/css/site.css :root): white paper, ink #14171C, muted #596170, cobalt accent #1F48D6, emerald second
+  #0B7A5E, hairlines #E4E7EC / #C9CED6. Token names changed with it: --amber -> --accent, --amber-2 -> --accent-strong,
+  --cyan -> --second, --cyan-2 -> --second-strong, --serif -> --display (all sources renamed by script).
+- Figure palette (learn.css): cation and our ion cobalt, electrons signal yellow with a dark edge, anions slate, field
+  violet, heat red, potential ink. Hard-coded figure colours mapped to tokens; labels drawn on filled shapes get a white
+  halo; hero graphite drawn light. Background floating ions switched off (they read as dust on white).
+- Fonts: Schibsted Grotesk (headings), IBM Plex Sans (text, figure labels; has Greek), IBM Plex Mono (structural labels,
+  figure numbers, years). tools/qa/fonts.js serves local copies (QA_FONTS_DIR with the three @fontsource packages).
+- Colour words in captions, keys and step texts updated (amber -> blue, cyan -> green, lilac -> violet, white route ->
+  black route, pale electrons -> yellow, and so on; about 70 places).
+- Home page (index.html, home.js) recoloured with the same tokens; favicon and theme colour new.
+- Fixes found on the way: figure 3.4 ion and electron start on their paths (labels no longer collide), column header
+  clear of the wire; figure keys at full opacity for contrast.
+- Checks: all 94 figures reviewed on contact sheets; gate exit 0 on 29 pages with the new fonts; axe (incl. colour
+  contrast) clean on 29 course pages and the home page; 0 broken links; 74 tests.

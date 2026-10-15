@@ -13,7 +13,7 @@
           <g class="plot"></g>
         </svg>
         <div class="controls">
-          <label><input type="checkbox" value="li" checked> <i class="sw" style="background:var(--anion)"></i><span>lithium lost</span></label><label><input type="checkbox" value="am" checked> <i class="sw" style="background:var(--heat)"></i><span>active material lost</span></label><label><input type="checkbox" value="r" checked> <i class="sw" style="background:#C4B5F7"></i><span>hidden by resistance</span></label>
+          <label><input type="checkbox" value="li" checked> <i class="sw" style="background:var(--anion)"></i><span>lithium lost</span></label><label><input type="checkbox" value="am" checked> <i class="sw" style="background:var(--heat)"></i><span>active material lost</span></label><label><input type="checkbox" value="r" checked> <i class="sw" style="background:var(--field)"></i><span>hidden by resistance</span></label>
           <button type="button" class="slow" aria-pressed="false">Measure at a low rate</button>
         </div>
         <div class="part-info"><span class="readout"></span></div>
@@ -37,7 +37,7 @@
         </svg>
         <div class="controls"><button type="button" data-b="0.5" aria-pressed="true">b = 1/2 (diffusion)</button><button type="button" data-b="1">b = 1 (reaction)</button><button type="button" data-b="0">b = 0 (discharge)</button></div>
         <div class="part-info"><span class="readout"></span></div>
-        <div class="key"><span><i class="an"></i>SEI</span><span><i style="background:#C4B5F7"></i>interfacial resistance</span></div>
+        <div class="key"><span><i class="an"></i>SEI</span><span><i style="background:var(--field)"></i>interfacial resistance</span></div>
         <figcaption>The SEI keeps growing, and the exponent tells you why.
           <span class="try">Try this: both laws start from the same loss after the first month; compare where b = 1/2 and b = 1 end, then imagine the cell stored full and warm.</span>
           <span class="basis">Growth law L<sub>SEI</sub> &#8733; t<sup>b</sup> and capacity loss &#916;Q &#8733; t<sup>b</sup>, with b = 0.5 (diffusion limitation, the literature standard), b = 1 (reaction limitation, or migration limitation while charging) and b = 0 (migration limitation while discharging), after von Kolzenberg, Latz and Horstmann 2020, eqs. 36 and 37; fastest growth at high state of charge and high charging rate, also theirs. That the SEI adds interfacial impedance and evolves with cycling after Goodenough and Park 2013. Axes and the resistance bar are schematic.</span>
