@@ -151,9 +151,9 @@ def assemble_course():
         tail_html += ''.join(tail['sources'])
         if tail_html:
             beats[-1] = insert_tail(beats[-1], tail_html)
-        opening = ('<section class="module" id="ch" data-act="%s" data-nav>\n  <div class="wrap">\n'
+        opening = ('<section class="module" id="ch" data-act="%s" data-num="%s" data-nav>\n  <div class="wrap">\n'
                    '    <p class="mod-n">%s</p>\n    <h1 class="h2">%s</h1>\n    <p class="hook">%s</p>\n%s'
-                   % (p['part'], esc(page_number_label(p)), esc(p['title']), esc(p['question']), where.lstrip('\n')))
+                   % (p['part'], esc(fig_prefix(p)), esc(page_number_label(p)), esc(p['title']), esc(p['question']), where.lstrip('\n')))
         content = opening + ''.join(beats) + '\n\n  </div>\n</section>\n'
         # figure numbers from the manifest
         def fnum(m):
@@ -298,7 +298,7 @@ def old_anchors(page_of_fig):
 COURSE_PAGE_OF_BEAT = {f: p['id'] for p in COURSE['pages'] for f in p['beats']}
 
 def course_map(stats, root):
-    out = []
+    out = ['    <div class="hub-parts">\n      <div class="circuit" aria-hidden="true"><span class="circuit-fill"></span><span class="circuit-ion"></span></div>']
     for part in COURSE['parts']:
         ps = [p for p in COURSE['pages'] if p['part'] == part['id']]
         k = 'Lab handbook' if part['id'] == 'LAB' else 'Part ' + part['id']
@@ -310,6 +310,7 @@ def course_map(stats, root):
                        '<span class="c-full">%s</span><span class="c-q">%s</span><span class="c-m">%d figure%s &#183; about %d min</span></a></li>'
                        % (p['id'], NAV.page_href(root, p['id']), esc(NAV.long_num(p)), esc(p['menu']), esc(p['title']), esc(p['question']), nfig, '' if nfig == 1 else 's', mins))
         out.append('      </ol>\n    </div>')
+    out.append('    </div>')
     return '\n'.join(out)
 
 POLICY = ('<p class="policy"><b>How this course uses its sources.</b> Every factual sentence in the course was checked against one of the textbooks and '

@@ -250,7 +250,15 @@
     Array.prototype.forEach.call(modeNotes, function (n) { n.innerHTML = NOTES[m] || ''; });
     if (save) store('learn.mode', m);
   }
-  Array.prototype.forEach.call(modeBtns, function (b) { b.addEventListener('click', function () { setMode(b.getAttribute('data-mode'), true); }); });
+  Array.prototype.forEach.call(modeBtns, function (b) { b.addEventListener('click', function () {
+    var m = b.getAttribute('data-mode');
+    // the page re-flows when the level changes: cross-fade the two states where the browser can
+    if (motion && document.startViewTransition && body.getAttribute('data-mode') !== m) {
+      document.documentElement.classList.add('vt-mode');
+      var vt = document.startViewTransition(function () { setMode(m, true); });
+      vt.finished.then(function () { document.documentElement.classList.remove('vt-mode'); }, function () { document.documentElement.classList.remove('vt-mode'); });
+    } else setMode(m, true);
+  }); });
   setMode(store('learn.mode') || 'teach', false);
 
   /* ---------- the rail: a cell that charges as you read ---------- */
@@ -590,6 +598,8 @@
     var ctx = cv.getContext('2d'), W, H, ps = [], raf = 0, t0 = null, running = false;
     function size() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
     size(); window.addEventListener('resize', size);
+    var boost = 1, kick = 0, lastY = window.scrollY || 0;
+    window.addEventListener('scroll', function () { var y = window.scrollY || 0; kick = Math.min(7, kick + Math.abs(y - lastY) / 60); lastY = y; }, { passive: true });
     for (var i = 0; i < 34; i++) {
       var ion = i % 5 !== 0; // four cations to one electron
       ps.push({ ion: ion, x: Math.random() * 1600, y: Math.random() * 1000, r: ion ? 2.2 + Math.random() * 2.2 : 1.4 + Math.random(), v: ion ? 6 + Math.random() * 8 : -(14 + Math.random() * 14), ph: Math.random() * 6.28, a: 0.04 + Math.random() * 0.07 });
@@ -597,9 +607,10 @@
     function frame(ts) {
       if (!running) return;
       var dt = t0 === null ? 0 : Math.min(0.05, (ts - t0) / 1000); t0 = ts;
+      boost += (1 + Math.min(7, kick) - boost) * Math.min(1, dt * 4); kick *= Math.pow(0.04, dt);   // ions run faster while the page scrolls, then settle
       ctx.clearRect(0, 0, W, H);
       for (var i = 0; i < ps.length; i++) {
-        var p = ps[i]; p.x += p.v * dt; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
+        var p = ps[i]; p.x += p.v * dt * boost; p.ph += dt * 0.6; var y = p.y + Math.sin(p.ph) * 14;
         if (p.x > W + 20) p.x = -20; if (p.x < -20) p.x = W + 20; if (p.y > H + 20) p.y = Math.random() * H;
         var g = ctx.createRadialGradient(p.x, y, 0, p.x, y, p.r * 4);
         var c = p.ion ? '255,209,102' : '131,219,208';

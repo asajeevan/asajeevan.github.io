@@ -458,3 +458,103 @@ body.search-open{overflow:hidden}
 .t-w{display:block;margin-top:4px;font-size:.8rem}
 .t-w a{color:var(--amber)}
 .terms sub,.terms sup{font-size:.72em}
+
+/* ---------- motion (assets/js/motion.js). Nothing here hides content unless that script runs with
+   the animation library, and nothing moves for readers who ask for reduced motion. ---------- */
+/* between pages: the top bar stays, the page slides the way the reader travels, a card's title grows into the chapter title */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  html { scroll-behavior: smooth; }
+}
+.course-bar { view-transition-name: topbar; }
+#ch h1 { view-transition-name: ch-title; }
+::view-transition-group(topbar) { z-index: 50; animation-duration: .3s; }
+::view-transition-old(root) { animation: .3s cubic-bezier(.4,0,1,1) both vt-out; }
+::view-transition-new(root) { animation: .5s cubic-bezier(0,0,.2,1) .04s both vt-in; }
+html:active-view-transition-type(back)::view-transition-old(root) { animation-name: vt-out-back; }
+html:active-view-transition-type(back)::view-transition-new(root) { animation-name: vt-in-back; }
+::view-transition-group(ch-title) { animation-duration: .55s; animation-timing-function: cubic-bezier(.2,.7,.2,1); }
+html.vt-mode::view-transition-old(root) { animation: .22s ease-in both vt-fade-out; }
+html.vt-mode::view-transition-new(root) { animation: .34s ease-out both vt-fade-in; }
+@keyframes vt-out { to { opacity: 0; transform: translateX(-46px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateX(46px); } }
+@keyframes vt-out-back { to { opacity: 0; transform: translateX(46px); } }
+@keyframes vt-in-back { from { opacity: 0; transform: translateX(-46px); } }
+@keyframes vt-fade-out { to { opacity: 0; } }
+@keyframes vt-fade-in { from { opacity: 0; transform: translateY(8px); } }
+
+/* openings: hidden only while the script plays them in (and shown after 2.6 s whatever happens) */
+html.motion .hub-hero [data-intro],
+html.motion #ch > .wrap > :is(.mod-n, h1, .hook, .where) { opacity: 0; animation: fx-safe 0s 2.6s forwards; }
+@keyframes fx-safe { to { opacity: 1; } }
+html.vt-arrived .hub-hero [data-intro],
+html.vt-arrived #ch > .wrap > :is(.mod-n, h1, .hook, .where) { opacity: 1; animation: none; }
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+.wi { display: inline-block; }
+
+/* the chapter's number, large and in outline, behind its title */
+#ch { position: relative; overflow-x: clip; }
+#ch > .wrap { position: relative; z-index: 1; }
+#ch::after { content: attr(data-num); content: attr(data-num) / ""; position: absolute; z-index: 0; top: calc(clamp(10px, 3vh, 40px) + var(--num-y, 0px)); right: max(2vw, 8px);
+  font-family: var(--serif); font-size: clamp(9rem, 26vw, 22rem); line-height: .8; color: transparent;
+  -webkit-text-stroke: 1.5px rgba(131,219,208,.13); pointer-events: none; user-select: none; }
+
+/* a figure lights up once when it arrives */
+.fig.lit::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(131,219,208,.16) 50%, transparent 65%) no-repeat; background-size: 250% 100%;
+  animation: fig-sheen 1.3s cubic-bezier(.3,.6,.3,1) forwards; }
+.fig.lit { animation: fig-glow 1.8s ease-out; }
+@keyframes fig-sheen { from { background-position: 120% 0; } to { background-position: -60% 0; opacity: 0; } }
+@keyframes fig-glow { 0% { box-shadow: 0 0 0 1px rgba(131,219,208,.55), 0 0 44px rgba(131,219,208,.22); } 100% { box-shadow: var(--shadow); } }
+
+/* section headings draw their rule; one-line lessons fill with light */
+html.fx .text h2.sub { position: relative; }
+html.fx .text h2.sub::after { content: ""; position: absolute; left: 0; top: -1px; width: 72px; height: 2px; background: linear-gradient(90deg, var(--amber), var(--cyan));
+  transform: scaleX(0); transform-origin: left; transition: transform .9s cubic-bezier(.2,.7,.2,1); }
+html.fx .text h2.sub.in::after { transform: scaleX(1); }
+html.fx .lesson { background-repeat: no-repeat; background-size: 0% 100%; transition: background-size 1.2s cubic-bezier(.2,.7,.2,1); }
+html.fx .lesson.in { background-size: 100% 100%; }
+
+/* a place reached through a link flashes once */
+@media (prefers-reduced-motion: no-preference) {
+  .arrive { animation: arrive 1.6s cubic-bezier(.2,.7,.2,1); }
+  .backchip:not([hidden]) { animation: chip-in .55s cubic-bezier(.2,1.5,.4,1); }
+}
+@keyframes arrive { 0% { box-shadow: 0 0 0 0 rgba(240,180,65,0); } 15% { box-shadow: 0 0 0 3px rgba(240,180,65,.85), 0 0 46px rgba(240,180,65,.35); } 100% { box-shadow: 0 0 0 16px rgba(240,180,65,0); } }
+@keyframes chip-in { from { opacity: 0; transform: translateY(20px) scale(.9); } }
+
+/* the course home: a wire runs through the parts and charges as the map scrolls by */
+.hub-parts { position: relative; padding-left: 34px; }
+.circuit { position: absolute; left: 9px; top: 8px; bottom: 24px; width: 2px; border-radius: 2px; background: var(--line-2); }
+.circuit-fill { position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(180deg, var(--amber), var(--cyan)); transform: scaleY(0); transform-origin: top; box-shadow: 0 0 12px rgba(240,180,65,.5); }
+.circuit-ion { position: absolute; left: -5px; top: 0; width: 12px; height: 12px; border-radius: 50%; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(circle at 35% 35%, #fff6d8, var(--amber) 55%, rgba(240,180,65,0) 72%); box-shadow: 0 0 18px 4px rgba(240,180,65,.55); }
+.hub-part { position: relative; }
+.hub-part::before { content: ""; position: absolute; left: -30px; top: 3px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line-2); transition: background .4s, border-color .4s, box-shadow .4s; }
+html:not(.fx) .hub-part::before, .hub-part.lit::before { background: var(--amber); border-color: var(--amber); }
+.hub-part.lit::before { box-shadow: 0 0 0 5px rgba(240,180,65,.15), 0 0 16px rgba(240,180,65,.6); }
+html:not(.fx) .circuit-fill { transform: none; opacity: .5; }
+@media (max-width: 420px) { .hub-parts { padding-left: 24px; } .circuit { left: 5px; } .hub-part::before { left: -24px; } }
+
+/* cards answer the pointer: a soft light where it is (the tilt is set by the script) */
+.card a, .pn, .how-card { position: relative; }
+.card a::after, .pn::after, .how-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .35s;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(240,180,65,.14), transparent 65%); }
+.card a:hover::after, .pn:hover::after, .how-card:hover::after { opacity: 1; }
+.hub-go { will-change: transform; }
+
+/* the top bar: a progress line with a glow, and a cell that charges as the chapter is read */
+.course-bar .progress { background: linear-gradient(90deg, var(--amber), var(--cyan)); box-shadow: 0 0 10px rgba(240,180,65,.45); }
+.tb-cell { display: inline-flex; align-items: center; flex: 0 0 auto; margin-left: 2px; }
+.tb-cell svg { width: 30px; height: 15px; overflow: visible; }
+.cell-b { fill: none; stroke: var(--line-2); stroke-width: 1.5; }
+.cell-cap { fill: var(--line-2); }
+.cell-f { fill: var(--amber); transform-box: fill-box; transform-origin: left center; transform: scaleX(0); transition: transform .25s linear, fill .4s; }
+.tb-cell.full .cell-f { fill: var(--cyan); }
+.tb-cell.full svg { filter: drop-shadow(0 0 4px rgba(131,219,208,.7)); }
+@media (max-width: 420px) { .tb-cell { display: none; } }
+
+@media print {
+  #ch::after { display: none; }
+  .fig, .text > *, .card, .hub-part *, .how-card, .pn, .ref-h, #ch .wrap > *, .hub-hero [data-intro] { opacity: 1 !important; transform: none !important; }
+}

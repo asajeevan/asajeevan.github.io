@@ -21,7 +21,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
-<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
+/* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
+window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
+if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(a[i].pathname.replace(/index\.html$/,"")===f){var c=a[i].querySelector(".c-t");c.style.viewTransitionName="ch-title";e.viewTransition.finished.finally(function(){c.style.viewTransitionName="";});}}}}catch(x){}});})();</script>
 <link rel="stylesheet" href="../../../assets/css/site.css">
 <link rel="stylesheet" href="../../../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Pulse methods and the galvanostatic intermittent titration technique (GITT)", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/gitt/", "inLanguage": "en"}</script>
@@ -34,7 +37,7 @@
 <div class="wrap">
 <button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
 <a class="brand" href="../../../batteries/">How batteries work</a>
-<span class="crumb"><span class="crumb-n">Lab 2</span> <span class="crumb-t">GITT</span></span>
+<span class="crumb"><span class="crumb-n">Lab 2</span> <span class="crumb-t">GITT</span></span><span class="tb-cell" id="tbCell" title="0 % read" aria-hidden="true"><svg viewBox="0 0 32 16"><rect class="cell-b" x="1" y="1" width="26" height="14" rx="3.5"/><rect class="cell-cap" x="28" y="5" width="3" height="6" rx="1"/><rect class="cell-f" x="3.5" y="3.5" width="21" height="9" rx="1.5"/></svg></span>
 <span class="tb-sp"></span>
 <button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
 <a class="tb-btn tb-arrow" rel="prev" href="../../../batteries/lab/cell-testing/" title="Previous: Lab 1 Cell testing (←)" aria-label="Previous: Lab 1 Cell testing">&#8592;</a>
@@ -97,7 +100,7 @@
 
 <main id="top">
 <div id="content">
-<section class="module" id="ch" data-act="LAB" data-nav>
+<section class="module" id="ch" data-act="LAB" data-num="L2" data-nav>
 <div class="wrap">
 <p class="mod-n">Lab handbook · Lab 2</p>
 <h1 class="h2">Pulse methods and the galvanostatic intermittent titration technique (GITT)</h1>
@@ -307,5 +310,6 @@ The check, explained with figure <a class="xref" href="#f11-4">L2.3</a>, says wh
 <script src="../../../assets/js/learn/lab-gitt.js"></script>
 <script src="../../../assets/js/share.js"></script>
 <script src="../../../assets/js/course.js"></script>
+<script src="../../../assets/js/motion.js"></script>
 </body>
 </html>

@@ -60,3 +60,16 @@ Read the plan first; this file records state, decisions and the checklist so wor
   (labels clean, 0 broken citations); axe (wcag2a, wcag2aa, best-practice) clean on 29 pages with the drawer
   closed and open; 0 broken internal links; 74 tests pass.
 - Prose still says "module" in places (for example "everything else in this module"): to be rewritten in phase 4.
+
+## Motion layer (2026-10-15, owner's request: "cool animations and transitions", course only, rich but purposeful)
+- assets/js/motion.js (runs only without reduced motion and with GSAP present; nothing is hidden otherwise), CSS at the
+  end of assets/css/learn.css, a small head script in src/learn/page.src.html for page arrivals.
+- Between pages: cross-document view transitions (Chrome/Edge 126+, Safari 18.2+; others load normally). The top bar
+  stays; the page slides forward or back by course order; a course-home card's title grows into the chapter title.
+- Course home: hero assembles (title words rise, cell figure tilts in and lights), a wire through the parts charges
+  with an ion as the map scrolls, cards stagger in, follow the pointer (light and tilt), the start button leans.
+- Chapters: opening rises in, outlined chapter numeral behind the title, figures slide in from their side and light up,
+  text staggers, section rules draw, lessons fill, folds open and close smoothly, a linked place flashes, the reading
+  level switch cross-fades, background ions speed up while scrolling, a cell in the top bar charges as you read.
+- Checks: figures identical (reduced-motion capture, 0 differences), gate exit 0 on 29 pages with motion on, axe clean
+  with motion on, 0 broken links, 74 tests.

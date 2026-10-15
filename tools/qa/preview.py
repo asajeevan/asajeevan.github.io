@@ -46,7 +46,7 @@ for p in sorted((ROOT / 'batteries').rglob('index.html')):
     put(rel, t)
 for rel in ['assets/css/site.css', 'assets/css/learn.css']:
     put(rel)
-for rel in ['physics.js', 'site.js', 'share.js', 'course.js', 'course-index.js']:
+for rel in ['physics.js', 'site.js', 'share.js', 'course.js', 'motion.js', 'course-index.js']:
     put('assets/js/' + rel)
 for p in sorted((ROOT / 'assets/js/learn').glob('*.js')):
     put(p.relative_to(ROOT).as_posix())

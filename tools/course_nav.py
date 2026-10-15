@@ -129,6 +129,10 @@ def topbar(p, prev, nxt, root):
     crumb = ''
     if p.get('kind') in ('chapter', 'lab'):
         crumb = '<span class="crumb"><span class="crumb-n">%s</span> <span class="crumb-t">%s</span></span>' % (esc(long_num(p)), esc(p['menu']))
+        # a small cell that charges as the page is read (filled by assets/js/course.js)
+        crumb += ('<span class="tb-cell" id="tbCell" title="0 % read" aria-hidden="true"><svg viewBox="0 0 32 16">'
+                  '<rect class="cell-b" x="1" y="1" width="26" height="14" rx="3.5"/><rect class="cell-cap" x="28" y="5" width="3" height="6" rx="1"/>'
+                  '<rect class="cell-f" x="3.5" y="3.5" width="21" height="9" rx="1.5"/></svg></span>')
     elif p.get('crumb'):
         crumb = '<span class="crumb"><span class="crumb-t">%s</span></span>' % esc(p['crumb'])
     def arrow(q, rel, sym):

@@ -21,7 +21,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
-<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
+/* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
+window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
+if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(a[i].pathname.replace(/index\.html$/,"")===f){var c=a[i].querySelector(".c-t");c.style.viewTransitionName="ch-title";e.viewTransition.finished.finally(function(){c.style.viewTransitionName="";});}}}}catch(x){}});})();</script>
 <link rel="stylesheet" href="../assets/css/site.css">
 <link rel="stylesheet" href="../assets/css/learn.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "How batteries work", "description": "The electrochemistry of lithium-ion cells, from first principles to the laboratory", "url": "https://asajeevan.github.io/batteries/", "inLanguage": "en", "provider": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "url": "https://asajeevan.github.io/"}}</script>
@@ -101,16 +104,16 @@
 <div class="wrap">
 <div class="hero-row">
 <div>
-<p class="kicker" data-reveal>A course in nineteen chapters and a lab handbook</p>
-<h1 class="h1" data-reveal>How batteries work</h1>
-<p class="promise" data-reveal>The electrochemistry of lithium-ion cells, from first principles to the laboratory.</p>
-<p class="lede" data-reveal>I spent my doctoral years building cells like the ones in this course. This is the explanation I wish someone had given me at the start. Part I builds the cell at rest, from two charges in empty space to the energy a cell can hold. Part II sets it to work, Part III looks inside it, Part IV surveys the materials it is made of, and Part V follows the ways cells age, fail and are recycled. The lab handbook then shows how all of this is measured. Every chapter is built around figures you can play with. Every factual statement was checked against a textbook or a peer-reviewed article, listed at the end of the chapter that uses it; every curve is computed from the equation in its source, and every figure can show you what it is based on. Nothing here is experimental data.</p>
-<div class="hub-actions" data-reveal>
+<p class="kicker" data-intro>A course in nineteen chapters and a lab handbook</p>
+<h1 class="h1" data-intro>How batteries work</h1>
+<p class="promise" data-intro>The electrochemistry of lithium-ion cells, from first principles to the laboratory.</p>
+<p class="lede" data-intro>I spent my doctoral years building cells like the ones in this course. This is the explanation I wish someone had given me at the start. Part I builds the cell at rest, from two charges in empty space to the energy a cell can hold. Part II sets it to work, Part III looks inside it, Part IV surveys the materials it is made of, and Part V follows the ways cells age, fail and are recycled. The lab handbook then shows how all of this is measured. Every chapter is built around figures you can play with. Every factual statement was checked against a textbook or a peer-reviewed article, listed at the end of the chapter that uses it; every curve is computed from the equation in its source, and every figure can show you what it is based on. Nothing here is experimental data.</p>
+<div class="hub-actions" data-intro>
 <a class="btn hub-go" id="continueBtn" href="../batteries/electrostatics/"><span class="hub-go-k">Start</span> <span class="hub-go-t">Chapter 0 &#183; Electrostatics</span></a>
 <a class="hub-map-link" href="#map">See all chapters</a>
 </div>
 </div>
-<figure class="fig hero-fig-learn" data-reveal data-fig="hero" id="hero-fig">
+<figure class="fig hero-fig-learn" data-intro data-fig="hero" id="hero-fig">
 <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="herot">
 <title id="herot">A lithium-ion cell in motion: electrons run through an external wire and light a lamp while a lithium ion leaves the graphite, crosses the electrolyte and enters the positive host; a strip below shows the potential jumping at the two electrodes. The five chapters of Part I are tagged on the parts they explain.</title>
 </svg>
@@ -124,6 +127,8 @@
 <div class="wrap">
 <h2 class="h2">The chapters</h2>
 <p class="sub">Read them in order: each chapter uses only what the chapters before it have built. Each card gives the question the chapter answers and an estimate of the reading time at the &#8220;Teach me&#8221; level.</p>
+<div class="hub-parts">
+<div class="circuit" aria-hidden="true"><span class="circuit-fill"></span><span class="circuit-ion"></span></div>
 <div class="hub-part" id="part-i">
 <p class="part-k">Part I</p>
 <h3 class="part-t">Foundations: electrostatics and the electrochemical cell</h3>
@@ -185,6 +190,7 @@
 </ol>
 </div>
 </div>
+</div>
 </section>
 
 <section class="section hub-how" id="how">
@@ -243,5 +249,6 @@
 <script src="../assets/js/learn/hub.js"></script>
 <script src="../assets/js/share.js"></script>
 <script src="../assets/js/course.js"></script>
+<script src="../assets/js/motion.js"></script>
 </body>
 </html>

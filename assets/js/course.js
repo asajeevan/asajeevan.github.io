@@ -99,11 +99,22 @@
     local('course.last', { id: pageId, label: (crumbN ? crumbN.textContent : '') + ' · ' + (crumbT ? crumbT.textContent : '') });
   }
   markTicks();
+  var cell = $('tbCell'), cellFill = cell && cell.querySelector('.cell-f'), cellPct = -1;
   function readCheck() {
-    if (!isChapter || visited[pageId] === 2) return;
+    if (!isChapter) return;
     var y = window.scrollY || window.pageYOffset, h = doc.scrollHeight - window.innerHeight;
-    var refs = $('references'), end = refs ? refs.offsetTop - window.innerHeight : h;
-    if (y >= Math.min(h, end) - 40 && y > 0) { visited[pageId] = 2; local('course.visited', visited); markTicks(); }
+    var refs = $('references'), end = Math.min(h, refs ? refs.offsetTop - window.innerHeight : h);
+    if (cellFill) {   // the cell in the top bar charges as the chapter is read
+      var f = end > 0 ? Math.max(0, Math.min(1, y / end)) : 1, pct = Math.round(f * 100);
+      if (pct !== cellPct) {
+        cellPct = pct;
+        cellFill.style.transform = 'scaleX(' + f.toFixed(3) + ')';
+        cell.setAttribute('title', pct + ' % read');
+        cell.classList.toggle('full', pct >= 99);
+      }
+    }
+    if (visited[pageId] === 2) return;
+    if (y >= end - 40 && y > 0) { visited[pageId] = 2; local('course.visited', visited); markTicks(); }
   }
   var cont = $('continueBtn'), last = local('course.last');
   if (cont && last && last.id) {
@@ -125,7 +136,7 @@
     var n = el.querySelector && el.querySelector('.fnum');
     return n ? n.textContent.replace('Figure', 'figure') : '';
   }
-  var sameReturn = null;
+  var sameReturn = null, leftReturn = false;
   function showChip(text, href, onClick) {
     if (!chip) return;
     chip.innerHTML = '<span aria-hidden="true">&#8592;</span> ' + esc(text);
@@ -144,11 +155,11 @@
     var label = anchorLabel(near);
     if (href.charAt(0) === '#') {
       if (href === '#' || href.indexOf('#ref-') === 0 && !a.closest('sup')) return;
-      sameReturn = y;
+      sameReturn = y; leftReturn = false;
       setTimeout(function () { showChip('Back to where you were' + (label ? ', ' + label : ''), '#', function (ev) { ev.preventDefault(); window.scrollTo(0, sameReturn || 0); hideChip(); }); }, 0);
       return;
     }
-    if (a.classList.contains('xref') || /batteries\//.test(href)) {
+    if (pageId !== 'hub' && (a.classList.contains('xref') || /batteries\//.test(href))) {
       session('course.back', { from: pageId, path: location.pathname, y: y, label: 'Back to ' + where + (label ? ', ' + label : '') });
     }
   });
@@ -299,10 +310,13 @@
     if (ticking) return; ticking = true;
     requestAnimationFrame(function () {
       ticking = false; spy(); readCheck();
-      if (sameReturn !== null && Math.abs((window.scrollY || window.pageYOffset) - sameReturn) < 80) hideChip();
+      if (sameReturn !== null) {   // smooth scrolling passes the old place first: hide only once the reader had left it
+        var dy = Math.abs((window.scrollY || window.pageYOffset) - sameReturn);
+        if (dy > 240) leftReturn = true; else if (leftReturn && dy < 80) hideChip();
+      }
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
-  spy();
+  spy(); readCheck();
 })();

@@ -21,7 +21,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E1F22'/><rect x='6' y='9' width='6' height='14' fill='%23E0A93A'/><rect x='13' y='9' width='6' height='14' fill='%2383DBD0'/><rect x='20' y='9' width='6' height='14' fill='%23E0A93A'/></svg>">
-<script>(function(){if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("motion");}})();</script>
+<script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
+/* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
+window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
+if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(a[i].pathname.replace(/index\.html$/,"")===f){var c=a[i].querySelector(".c-t");c.style.viewTransitionName="ch-title";e.viewTransition.finished.finally(function(){c.style.viewTransitionName="";});}}}}catch(x){}});})();</script>
 <link rel="stylesheet" href="{{root}}assets/css/site.css">
 <link rel="stylesheet" href="{{root}}assets/css/learn.css">
 <script type="application/ld+json">{{ldjson}}</script>
@@ -58,5 +61,6 @@
 <script src="{{root}}{{bundle}}"></script>
 <script src="{{root}}assets/js/share.js"></script>
 <script src="{{root}}assets/js/course.js"></script>
+<script src="{{root}}assets/js/motion.js"></script>
 </body>
 </html>
