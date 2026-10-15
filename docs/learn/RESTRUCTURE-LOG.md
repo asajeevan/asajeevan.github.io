@@ -123,3 +123,22 @@ Read the plan first; this file records state, decisions and the checklist so wor
 - Plots and the development chain keep the site colours. The organic particles use a neutral pale tone, not a
   measured colour of the material.
 - Checks: axe clean on the home page; 0 broken links.
+
+## Home page figures repaired (2026-10-15, owner's request: "all the figures in the home page have many problems")
+- Checked every figure with motion on and off, at 1300 px and 390 px.
+- Hero cell: redrawn on a narrower canvas so labels stay readable on phones; layer names on two lines, Cu and Al
+  labels above their foils, key moved below the cell, the discharge arrow the key refers to is now drawn, polymer
+  chains clipped to their layers (they spilled out of the cell).
+- Voltage trace: axis label no longer sits on the axis; the curves start above the axis (the cell never reaches 0 V);
+  narrower canvas for phones.
+- Binder figure: panel titles and region labels that fit on phones (labels were cut off), the ion routes drawn, a
+  red cross where the path stops, ions no longer at the top-left corner with reduced motion, route clear of particles.
+- In situ figure: every particle sits on the Ketjenblack chains; carbon black drawn as small aggregates; capacity
+  values above their bars with reduced motion (they were inside them).
+- Conductivity and impedance: shorter titles that no longer run together on phones; axis labels off the axes; proper
+  −Z″ and Z′; "poor contact" off the arcs; clamp stack with leader-line labels (they overlapped), plate no longer
+  pushed into the lithium, aluminium foil under the electrode, more room above the stack.
+- Recovery: particles no longer land on the stream labels; labels inside their boxes; textured electrode fragment.
+- Map: the Nantes to Thiruvananthapuram arc no longer runs through the Ulm label or the Thiruvananthapuram label.
+- Development chain: a step lights only when the line reaches it; size capped.
+- Checks: axe clean on the home page; 0 broken links.

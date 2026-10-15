@@ -74,10 +74,10 @@
   /* ---------- fallback: static page ---------- */
   function staticFinal() {
     root.classList.remove('motion');
-    if (reduce) { Array.prototype.forEach.call(document.querySelectorAll('animateMotion'), function (a) { a.parentNode.removeChild(a); }); Array.prototype.forEach.call(document.querySelectorAll('.trace .soc'), function (g) { g.style.display = 'none'; }); }
+    if (reduce) { Array.prototype.forEach.call(document.querySelectorAll('animateMotion'), function (a) { a.parentNode.removeChild(a); }); Array.prototype.forEach.call(document.querySelectorAll('.scene .ion[data-x]'), function (c) { c.setAttribute('cx', c.getAttribute('data-x')); c.setAttribute('cy', c.getAttribute('data-y')); }); Array.prototype.forEach.call(document.querySelectorAll('.trace .soc'), function (g) { g.style.display = 'none'; }); }
     Array.prototype.forEach.call(document.querySelectorAll('.scene .bar'), function (b) {
       var big = b.classList.contains('bar-b');
-      b.setAttribute('height', big ? '90' : '27'); b.setAttribute('y', big ? '10' : '73');
+      b.setAttribute('height', big ? '90' : '27'); b.setAttribute('y', big ? '10' : '73'); var tv = document.getElementById(big ? 'barB' : 'barA'); if (tv) tv.setAttribute('y', big ? '2' : '65');
     });
     Array.prototype.forEach.call(document.querySelectorAll('.draw, #map .arc, #chain .chain-line-fill, .trace .tr'), function (p) { p.style.strokeDashoffset = '0'; });
     Array.prototype.forEach.call(document.querySelectorAll('.vft-pts circle'), function (c) { c.style.opacity = '1'; });
@@ -193,7 +193,7 @@
   var chainNodes = document.querySelectorAll('#chain .node');
   gsap.to('#chain .chain-line-fill', { strokeDashoffset: 0, ease: 'none',
     scrollTrigger: { trigger: '#about', start: 'top 60%', end: 'bottom 60%', scrub: true,
-      onUpdate: function (self) { var lit = Math.round(self.progress * (chainNodes.length - 1)); Array.prototype.forEach.call(chainNodes, function (n, i) { n.classList.toggle('lit', i <= lit); }); } } });
+      onUpdate: function (self) { var lit = Math.floor(self.progress * (chainNodes.length - 1) + 0.001); Array.prototype.forEach.call(chainNodes, function (n, i) { n.classList.toggle('lit', i <= lit); }); } } });
 
   /* ---------- scene 2: bars ---------- */
   var A = { v: 0 }, B = { v: 0 }, sc = 90 / 188.2;
@@ -209,14 +209,14 @@
     .from('#scene3 .nyq-1', { scaleX: 0, scaleY: 0, transformOrigin: '50px 150px', duration: .6 }, .8)
     .from('#scene3 .nyq-2', { scaleX: 0, scaleY: 0, transformOrigin: '50px 150px', duration: .6 }, 1.2)
     .from('#scene3 .nyq-3', { scaleX: 0, scaleY: 0, transformOrigin: '50px 150px', duration: .6 }, 1.6)
-    .to('#scene3 .clamp-top', { attr: { y: 32 }, duration: .8, ease: 'power2.inOut' }, 1.0)
+    .fromTo('#scene3 .clamp-top', { attr: { y: 2 } }, { attr: { y: 14 }, duration: .8, ease: 'power2.inOut' }, 1.0)
     .to('#scene3 .arrow', { opacity: .35, yoyo: true, repeat: 3, duration: .4 }, 1.0);
 
   /* ---------- scene 4 ---------- */
   var streamY = { org: 60, li: 150, me: 240 };
   gsap.timeline({ scrollTrigger: { trigger: '#scene4 .scene-fig', start: 'top 70%', once: true } })
     .to('#scene4 .rp', { duration: 1.4, ease: 'power2.inOut', stagger: .08,
-      attr: { cx: function (i) { return 318 + (i % 3) * 18; }, cy: function (i, el) { return streamY[el.classList.contains('org') ? 'org' : el.classList.contains('li') ? 'li' : 'me']; } } }, .2);
+      attr: { cx: function (i) { return 314 + (i % 3) * 14; }, cy: function (i, el) { return streamY[el.classList.contains('org') ? 'org' : el.classList.contains('li') ? 'li' : 'me']; } } }, .2);
 
   /* ---------- experience: scrubbed line, dots, arcs ---------- */
   var tlEl = document.querySelector('.timeline');
