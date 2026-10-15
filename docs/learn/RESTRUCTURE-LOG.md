@@ -291,3 +291,21 @@ Read the plan first; this file records state, decisions and the checklist so wor
 - New paragraph with the review's class capacities, Li₄Ti₅O₁₂'s lack of expansion and its high potential, and carbon
   nanotube composites above 1000 mAh/g.
 - viewBox 520 × 458. Checks: 1300 and 360 px, all modes; gate exit 0; axe clean; 0 broken links; 74 tests.
+
+## Lab 2: cyclic voltammetry (2026-10-16, owner's request: a CV section with basics, theory and figures)
+
+- New page lab/cyclic-voltammetry after Cell testing; GITT, EIS measurement, EIS analysis and post-mortem renumbered
+  Lab 3 to Lab 6. Nine figures (f11-19 to f11-27, Figures L2.1 to L2.9) in src/learn/figs/figs-11cv.js, text in mod-11.
+- Sources read in full for the claims used: Elgrishi et al. 2018 (R83), Kim et al. 2020 (R84), Fleischmann et al. 2020,
+  kinetic-analysis sections (R85), Scheers and Johansson 2014, section 9.2.2 (R86); Ue et al. 2014, Table 2.1 (R54) and
+  Guo et al. 2024 (R78) for the measured examples.
+- physics.js gains cv: a finite-difference CV simulator (Nernst or Butler-Volmer surface, uncompensated resistance,
+  double-layer capacitance), Randles-Sevcik, D from the slope, b-value, Dunn split, peak finder, and a one-resistance
+  battery-electrode model (linearized backward Euler, current from the charge actually moved, so a full or empty
+  electrode passes none). Tests: Randles-Sevcik peak to 0.1 %, ΔEp 58 mV, growth of ΔEp with Ru and with smaller k0.
+- Figures: the three-electrode cell and waveform; the duck with concentration profiles (points A to G); scan rate and
+  ip against v^1/2 with the capacitive bias; reversible, quasi-reversible, irreversible with ΔEp against log v; ohmic
+  drop; b-value and k1/k2 split; graphite and LiFePO4 under slow sweeps against v dQ/dV (auto-scaled current axis);
+  Kim Table 1 diffusion coefficients by method; the stability window and its cut-off.
+- Hub description mentions cyclic voltammetry. Static APA citation: removed a doubled full stop after the initial.
+- Checks: 1300 and 360 px contact sheets; gate exit 0 on all six lab pages; axe clean; 0 broken links; 80 tests.

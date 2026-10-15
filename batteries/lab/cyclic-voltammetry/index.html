@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cyclic voltammetry (CV) explained: a battery lab guide</title>
+<meta name="description" content="Cyclic voltammetry from first principles: the duck-shaped wave, Randles-Sevcik, scan-rate tests, b-values, ohmic drop, battery electrodes and stability windows.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes">
+<meta property="og:description" content="Cyclic voltammetry from first principles: the duck-shaped wave, Randles-Sevcik, scan-rate tests, b-values, ohmic drop, battery electrodes and stability windows.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://asajeevan.github.io/batteries/lab/cyclic-voltammetry/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/batteries/lab/cyclic-voltammetry/">
+<meta name="citation_title" content="Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes">
+<meta name="citation_author" content="Shyma Sajeevan, Aswadh">
+<meta name="citation_date" content="2026/10/16">
+<meta name="citation_publication_date" content="2026/10/16">
+<meta name="citation_language" content="en">
+<meta name="citation_public_url" content="https://asajeevan.github.io/batteries/lab/cyclic-voltammetry/">
+<meta name="DC.title" content="Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes">
+<meta name="DC.creator" content="Shyma Sajeevan, Aswadh">
+<meta name="DC.date" content="2026-10-16">
+<meta name="DC.type" content="Text">
+<meta name="DC.format" content="text/html">
+<meta name="DC.language" content="en">
+<meta name="DC.identifier" content="https://asajeevan.github.io/batteries/lab/cyclic-voltammetry/">
+<meta name="DC.relation.ispartof" content="How batteries work">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes">
+<meta name="twitter:description" content="Cyclic voltammetry from first principles: the duck-shaped wave, Randles-Sevcik, scan-rate tests, b-values, ohmic drop, battery electrodes and stability windows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
+<script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
+/* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
+window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
+if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(a[i].pathname.replace(/index\.html$/,"")===f){var c=a[i].querySelector(".c-t");c.style.viewTransitionName="ch-title";e.viewTransition.finished.finally(function(){c.style.viewTransitionName="";});}}}}catch(x){}});})();</script>
+<link rel="stylesheet" href="../../../assets/css/site.css">
+<link rel="stylesheet" href="../../../assets/css/learn.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": ["Article", "LearningResource"], "headline": "Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "givenName": "Aswadh", "familyName": "Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/cyclic-voltammetry/", "inLanguage": "en", "isAccessibleForFree": true, "learningResourceType": "interactive lesson", "dateModified": "2026-10-16", "description": "Cyclic voltammetry from first principles: the duck-shaped wave, Randles-Sevcik, scan-rate tests, b-values, ohmic drop, battery electrodes and stability windows."}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Aswadh Shyma Sajeevan", "item": "https://asajeevan.github.io/"}, {"@type": "ListItem", "position": 2, "name": "How batteries work", "item": "https://asajeevan.github.io/batteries/"}, {"@type": "ListItem", "position": 3, "name": "Lab 2: Cyclic voltammetry", "item": "https://asajeevan.github.io/batteries/lab/cyclic-voltammetry/"}]}]</script>
+</head>
+<body data-mode="teach" class="course-page kind-lab" data-page="lab/cyclic-voltammetry" data-root="../../../">
+<canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
+<a class="skip" href="#content">Skip to the text</a>
+
+<header class="topbar course-bar" id="topbar">
+<div class="wrap">
+<button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
+<a class="brand" href="../../../batteries/">How batteries work</a>
+<span class="crumb"><span class="crumb-n">Lab 2</span> <span class="crumb-t">Cyclic voltammetry</span></span><span class="tb-cell" id="tbCell" title="0 % read" aria-hidden="true"><svg viewBox="0 0 32 16"><rect class="cell-b" x="1" y="1" width="26" height="14" rx="3.5"/><rect class="cell-cap" x="28" y="5" width="3" height="6" rx="1"/><rect class="cell-f" x="3.5" y="3.5" width="21" height="9" rx="1.5"/></svg></span>
+<span class="tb-sp"></span>
+<button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
+<a class="tb-btn tb-arrow" rel="prev" href="../../../batteries/lab/cell-testing/" title="Previous: Lab 1 Cell testing (←)" aria-label="Previous: Lab 1 Cell testing">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../../batteries/lab/gitt/" title="Next: Lab 3 GITT (→)" aria-label="Next: Lab 3 GITT">&#8594;</a>
+</div>
+<div class="progress" id="progress"></div>
+</header>
+<aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
+<div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
+<div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f11-19"><span class="n">L2.1</span><span class="t">The experiment: three electrodes and a triangular sweep</span></a></li><li class="o-sub"><a href="#s-what-a-cyclic-voltammogram-is"><span class="t">What a cyclic voltammogram is</span></a></li><li class="o-fig"><a href="#f11-20"><span class="n">L2.2</span><span class="t">The duck, step by step: the current and the concentration profiles behind it</span></a></li><li class="o-sub"><a href="#s-the-duck"><span class="t">The duck</span></a></li><li class="o-fig"><a href="#f11-21"><span class="n">L2.3</span><span class="t">Scan rate: the Randles-Sevcik equation, and the capacitive background</span></a></li><li class="o-sub"><a href="#s-scan-rate-and-the-randles-sevcik-equation"><span class="t">Scan rate and the Randles-Sevcik equation</span></a></li><li class="o-fig"><a href="#f11-22"><span class="n">L2.4</span><span class="t">How fast is the electron?</span></a></li><li class="o-sub"><a href="#s-how-fast-is-the-electron"><span class="t">How fast is the electron?</span></a></li><li class="o-fig"><a href="#f11-23"><span class="n">L2.5</span><span class="t">Uncompensated resistance makes a fast couple look slow</span></a></li><li class="o-sub"><a href="#s-ohmic-drop"><span class="t">Ohmic drop</span></a></li><li class="o-fig"><a href="#f11-24"><span class="n">L2.6</span><span class="t">Diffusion or surface?</span></a></li><li class="o-sub"><a href="#s-diffusion-or-surface-the-b-value"><span class="t">Diffusion or surface?</span></a></li><li class="o-fig"><a href="#f11-25"><span class="n">L2.7</span><span class="t">A battery electrode under a slow sweep</span></a></li><li class="o-sub"><a href="#s-battery-electrodes"><span class="t">Battery electrodes</span></a></li><li class="o-fig"><a href="#f11-26"><span class="n">L2.8</span><span class="t">Diffusion coefficients from CV, and from the other methods</span></a></li><li class="o-sub"><a href="#s-a-diffusion-coefficient-from-a-voltammogram"><span class="t">A diffusion coefficient from a voltammogram</span></a></li><li class="o-fig"><a href="#f11-27"><span class="n">L2.9</span><span class="t">The stability window of an electrolyte, and why its edge is a choice</span></a></li><li class="o-sub"><a href="#s-the-stability-window-of-an-electrolyte"><span class="t">The stability window of an electrolyte</span></a></li><li class="o-sub"><a href="#s-before-you-press-start"><span class="t">Before you press start</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
+<a class="toc-home" href="../../../batteries/">Course home</a>
+<div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
+<li data-chap="electrostatics"><a href="../../../batteries/electrostatics/"><span class="n">0</span><span class="t">Electrostatics</span></a></li>
+<li data-chap="galvanic-cells"><a href="../../../batteries/galvanic-cells/"><span class="n">1</span><span class="t">Galvanic cells</span></a></li>
+<li data-chap="cell-anatomy"><a href="../../../batteries/cell-anatomy/"><span class="n">2</span><span class="t">Cell anatomy</span></a></li>
+<li data-chap="cell-voltage"><a href="../../../batteries/cell-voltage/"><span class="n">3</span><span class="t">Cell voltage</span></a></li>
+<li data-chap="capacity-energy"><a href="../../../batteries/capacity-energy/"><span class="n">4</span><span class="t">Capacity and energy</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part II · Cell operation</p><ol>
+<li data-chap="polarization"><a href="../../../batteries/polarization/"><span class="n">5</span><span class="t">Polarization</span></a></li>
+<li data-chap="voltage-profiles"><a href="../../../batteries/voltage-profiles/"><span class="n">6</span><span class="t">Voltage profiles</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part III · Inside the cell</p><ol>
+<li data-chap="insertion-hosts"><a href="../../../batteries/insertion-hosts/"><span class="n">7</span><span class="t">Insertion hosts</span></a></li>
+<li data-chap="liquid-electrolytes"><a href="../../../batteries/liquid-electrolytes/"><span class="n">8</span><span class="t">Liquid electrolytes</span></a></li>
+<li data-chap="ion-transport"><a href="../../../batteries/ion-transport/"><span class="n">9</span><span class="t">Ion transport</span></a></li>
+<li data-chap="sei"><a href="../../../batteries/sei/"><span class="n">10</span><span class="t">The SEI</span></a></li>
+<li data-chap="composite-electrodes"><a href="../../../batteries/composite-electrodes/"><span class="n">11</span><span class="t">Composite electrodes</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part IV · Materials</p><ol>
+<li data-chap="negative-electrodes"><a href="../../../batteries/negative-electrodes/"><span class="n">12</span><span class="t">Negative electrodes</span></a></li>
+<li data-chap="positive-electrodes"><a href="../../../batteries/positive-electrodes/"><span class="n">13</span><span class="t">Positive electrodes</span></a></li>
+<li data-chap="solid-state"><a href="../../../batteries/solid-state/"><span class="n">14</span><span class="t">Solid-state cells</span></a></li>
+<li data-chap="sodium-organic"><a href="../../../batteries/sodium-organic/"><span class="n">15</span><span class="t">Sodium and organic</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Part V · Degradation, safety</p><ol>
+<li data-chap="degradation"><a href="../../../batteries/degradation/"><span class="n">16</span><span class="t">Degradation</span></a></li>
+<li data-chap="safety"><a href="../../../batteries/safety/"><span class="n">17</span><span class="t">Safety</span></a></li>
+<li data-chap="recycling"><a href="../../../batteries/recycling/"><span class="n">18</span><span class="t">Recycling</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
+<li data-chap="lab/cell-testing"><a href="../../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
+<li data-chap="lab/cyclic-voltammetry" class="cur"><a href="../../../batteries/lab/cyclic-voltammetry/" aria-current="page"><span class="n">L2</span><span class="t">Cyclic voltammetry</span></a></li>
+<li data-chap="lab/gitt"><a href="../../../batteries/lab/gitt/"><span class="n">L3</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../../batteries/lab/eis-measurement/"><span class="n">L4</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../../batteries/lab/eis-analysis/"><span class="n">L5</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../../batteries/lab/post-mortem/"><span class="n">L6</span><span class="t">Post-mortem</span></a></li>
+</ol></div>
+<div class="toc-part"><p class="toc-pt">For reference</p><ol>
+<li><a href="../../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
+<li><a href="../../../batteries/figures/"><span class="n">&#183;</span><span class="t">List of figures</span></a></li>
+<li><a href="../../../batteries/equations/"><span class="n">&#183;</span><span class="t">Equations</span></a></li>
+<li><a href="../../../batteries/references/"><span class="n">&#183;</span><span class="t">References</span></a></li>
+</ol></div>
+</nav>
+<p class="toc-keys">Keys: <kbd>t</kbd> contents, <kbd>/</kbd> search, <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> previous and next chapter, <kbd>Esc</kbd> close.</p>
+</aside>
+<div class="toc-scrim" id="tocScrim" hidden></div>
+
+<main id="top">
+<div id="content">
+<section class="module" id="ch" data-act="LAB" data-num="L2" data-nav>
+<div class="wrap">
+<p class="mod-n">Lab handbook · Lab 2</p>
+<h1 class="h2">Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes</h1>
+<p class="hook">What does a voltammogram tell us, and how do we read it?</p>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-19" id="f11-19">
+<span class="fnum">Figure L2.1</span>
+<svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1119t">
+<title id="f1119t">A three-electrode cell under a potentiostat: a glassy carbon working electrode, a reference electrode with a frit and a silver wire, a platinum counter coil, and argon bubbling through the electrolyte. Beside it, the potential against time: a straight rise from the initial to the switching potential and a straight return, the slope being the scan rate.</title>
+</svg>
+<div class="controls"><label>Scan rate <input type="range" class="cvv" min="-2" max="0" step="0.05" value="-1" aria-label="Scan rate"> <b class="cvv-val">100 mV/s</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>The experiment: three electrodes and a triangular sweep.
+<span class="try">Try this: tap each electrode; then slow the sweep to 10 mV/s and see how long one cycle takes.</span>
+<details class="src"><summary>Source</summary><span class="basis">Electrode roles, materials, inert-gas sparging and ferrocene as an internal reference after Elgrishi et al. 2018; the linear sweep, switching and return after Elgrishi et al. 2018 and Kim et al. 2020, section 2.1. Schematic; materials in their real colours.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-what-a-cyclic-voltammogram-is">What a cyclic voltammogram is</h2>
+<p class="explain">In <a class="xref" href="../../../batteries/lab/cell-testing/">Lab 1</a> we held the current and watched the potential. Cyclic voltammetry does the opposite: it drives the potential of an electrode and records the current that flows. The potential is swept linearly in time from an initial value to a switching potential and back; the rate of the sweep, in mV/s or V/s, is the scan rate, and the plot of current against potential is the cyclic voltammogram.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> A sweep in one direction only is linear sweep voltammetry.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">Why bother? A voltammogram shows at a glance where a material is oxidized and reduced and whether the reaction comes back; by changing the scan rate it separates fast from slow processes, diffusion from surface reactions, and it can estimate how fast ions diffuse.<sup class="cite"><a href="#ref-2">2</a></sup> That breadth is also the trap: the same review warns that interpretations of CV in battery research are often deficient or disputed, and that the technique should not be used without the basic electrochemistry behind it.<sup class="cite"><a href="#ref-2">2</a></sup> This page builds that basis, starting from a dissolved molecule and ending with battery electrodes and electrolytes.</p>
+<p class="explain">The measurement needs three electrodes. The <b>working electrode</b> is where the reaction of interest happens: an inert disc of glassy carbon, platinum or gold, polished before each run, or, in battery work, the composite electrode itself. The <b>reference electrode</b> fixes the potential scale; the <b>counter electrode</b>, an inert platinum wire larger than the working electrode, carries the current so that the reference does not have to.<sup class="cite"><a href="#ref-1">1</a></sup> The solution holds the analyte in a large excess of supporting electrolyte, which carries the current and keeps the analyte from migrating in the field, so that it moves by diffusion alone; and dissolved oxygen, which gives peaks of its own, is removed by bubbling an inert gas through it first.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-20" id="f11-20">
+<span class="fnum">Figure L2.2</span>
+<svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1120t">
+<title id="f1120t">Left, a simulated cyclic voltammogram of a reversible one-electron couple with the points A to G marked: start, equal surface concentrations, oxidation peak, switching potential, equal concentrations again, reduction peak, end. Right, the concentrations of the reduced and oxidized forms against distance from the electrode at the chosen moment; a slider moves through the sweep.</title>
+</svg>
+<div class="controls"><label>Time through the sweep <input type="range" class="cvt" min="0" max="1000" step="1" value="300" aria-label="Time through the sweep"> <b class="cvt-val"></b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i style="background:var(--accent)"></i>Red, the reduced form</span><span><i style="background:var(--field)"></i>Ox, the oxidized form</span><span><i class="e"></i>where we are on the curve</span></div>
+<figcaption>The duck, step by step: the current and the concentration profiles behind it.
+<span class="try">Try this: drag the slider slowly past C and watch the depleted layer grow while the current falls.</span>
+<details class="src"><summary>Source</summary><span class="basis">Simulated with this page’s own finite-difference solution of the diffusion equation with the Nernst equation at the surface (assets/js/physics.js, cv.simulate): 1 mM, D = 10<sup>−5</sup> cm<sup>2</sup>/s for both forms, a 3 mm disc, 100 mV/s, 25 °C, oxidation first and oxidation current positive. The simulation reproduces the Randles-Sevcik peak current to 0.1 % and a peak separation of 58 mV (tests). Points A to G, the role of the Nernst equation and the diffusion layer, and the 57 mV separation after Elgrishi et al. 2018, whose example runs the other way, reducing ferrocenium.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-the-duck">The duck</h2>
+<p class="explain">Let us follow one sweep of a solution that holds only the reduced form, Red, of a couple Red = Ox + e<sup>−</sup>. The curve has the shape known as the duck, and two things make it. The first is the <b>Nernst equation</b>: at every moment the potential sets the ratio of the two forms at the electrode surface,<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<span class="mblock"><math display="block"><mrow><mi>E</mi><mo>=</mo><msup><mi>E</mi><mrow><mo>∘</mo><mi>′</mi></mrow></msup><mo>+</mo><mfrac><mrow><mi>R</mi><mi>T</mi></mrow><mrow><mi>n</mi><mi>F</mi></mrow></mfrac><mi>ln</mi><mfrac><mrow><mo stretchy="false">[</mo><mrow><mi mathvariant="normal">O</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false">]</mo></mrow><mrow><mo stretchy="false">[</mo><mrow><mi mathvariant="normal">R</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false">]</mo></mrow></mfrac></mrow></math></span>
+<p class="explain">so as the potential rises past the formal potential E°′, more and more of the Red at the surface must turn into Ox, and the current grows. The second is <b>diffusion</b>. The surface soon runs out of Red, and fresh Red has to diffuse in from the bulk. The region depleted of it, the diffusion layer, keeps growing through the sweep; the farther Red has to come, the slower it arrives, so past the peak the current falls although the potential keeps rising.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">On the way back the Ox made on the way out is reduced again, and a negative peak appears. For an electrochemically reversible one-electron couple the two peaks are 57 mV apart at 25 °C (2.22 RT/F), and their midpoint, E½, is the usual estimate of E°′.<sup class="cite"><a href="#ref-1">1</a></sup> A caution on reading other people&#8217;s plots: two sign conventions are in use, for which way potential increases along the axis and for which current is positive, and papers seldom say which they follow.<sup class="cite"><a href="#ref-1">1</a></sup> In this course oxidation current is positive and potential increases to the right.</p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-21" id="f11-21">
+<span class="fnum">Figure L2.3</span>
+<svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1121t">
+<title id="f1121t">Left, simulated cyclic voltammograms of the same solution at 20, 50, 100, 200 and 500 mV/s, the current growing with scan rate. Right, the oxidation peak current against the square root of scan rate, a straight line through the origin, with the diffusion coefficient recovered from its slope; a slider adds a double-layer capacitance that raises a capacitive background proportional to scan rate.</title>
+</svg>
+<div class="controls"><label>Double-layer capacitance <input type="range" class="cdl" min="0" max="100" step="5" value="0" aria-label="Double-layer capacitance"> <b class="cdl-val">0 µF/cm<sup>2</sup></b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Scan rate: the Randles-Sevcik equation, and the capacitive background.
+<span class="try">Try this: with no capacitance, read D from the slope; then add 60 µF/cm<sup>2</sup> and see what reading peaks from zero does to it.</span>
+<details class="src"><summary>Source</summary><span class="basis">Simulated as in figure <a class="xref" href="#f11-20">L2.2</a>. Randles-Sevcik equation after Elgrishi et al. 2018, eq 3, and Kim et al. 2020, eqs 6, 18 and 19; the capacitive current C<sub>dl</sub>A v after Kim et al. 2020, eq 10. The peak currents are read from zero, on purpose.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-scan-rate-and-the-randles-sevcik-equation">Scan rate and the Randles-Sevcik equation</h2>
+<p class="explain">Sweep faster and the current grows, because the diffusion layer has less time to spread and stays thinner.<sup class="cite"><a href="#ref-1">1</a></sup> For a reversible couple whose species diffuse freely in solution, the peak current follows the <b>Randles-Sevcik equation</b>,<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup></p>
+<span class="mblock"><math display="block"><mrow><msub><mi>i</mi><mi>p</mi></msub><mo>=</mo><mn>0.446</mn><mspace width="0.167em" /><mi>n</mi><mi>F</mi><mi>A</mi><mi>C</mi><msup><mrow><mo stretchy="true" fence="true" form="prefix">(</mo><mfrac><mrow><mi>n</mi><mi>F</mi><mi>v</mi><mi>D</mi></mrow><mrow><mi>R</mi><mi>T</mi></mrow></mfrac><mo stretchy="true" fence="true" form="postfix">)</mo></mrow><mrow><mn>1</mn><mo>/</mo><mn>2</mn></mrow></msup></mrow></math></span>
+<p class="explain">with A the electrode area (usually the geometric one), C the bulk concentration and D the diffusion coefficient. The peak current is proportional to the square root of the scan rate, and a straight line of i<sub>p</sub> against v<sup>1/2</sup> is the test that the species diffuses freely rather than sitting adsorbed on the electrode; its slope gives D.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup></p>
+<p class="explain">Every voltammogram also carries a current that has nothing to do with the analyte: charging the electrical double layer of <a class="xref" href="../../../batteries/cell-voltage/">chapter 3</a>. This capacitive current, C<sub>dl</sub>A v, is proportional to the scan rate itself, so it grows faster with v than the diffusion peak does.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> That is why a background scan of the electrolyte alone comes first: it tests the cell and measures the capacitive current that must be subtracted.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<div class="worked"><b>Worked example.</b> At 25 °C the equation reads i<sub>p</sub> = 2.69 × 10<sup>5</sup> n<sup>3/2</sup>A D<sup>1/2</sup>C v<sup>1/2</sup>, with i<sub>p</sub> in A, A in cm<sup>2</sup>, D in cm<sup>2</sup>/s, C in mol/cm<sup>3</sup> and v in V/s.<sup class="cite"><a href="#ref-2">2</a></sup> Take 1 mM (10<sup>−6</sup> mol/cm<sup>3</sup>), a 3 mm disc (0.0707 cm<sup>2</sup>), D = 10<sup>−5</sup> cm<sup>2</sup>/s, 100 mV/s.
+<span class="line">i<sub>p</sub> = 2.69 × 10<sup>5</sup> × 0.0707 × (10<sup>−5</sup>)<sup>1/2</sup> × 10<sup>−6</sup> × (0.1)<sup>1/2</sup> = <i>19.0 µA</i></span>
+<span class="line">double layer, 20 µF/cm<sup>2</sup>: C<sub>dl</sub>A v = 20 × 10<sup>−6</sup> × 0.0707 × 0.1 = <i>0.14 µA</i></span>
+At 100 V/s the peak would be 32 times larger and the capacitive current 1000 times: the background that was negligible becomes the signal.</div>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-22" id="f11-22">
+<span class="fnum">Figure L2.4</span>
+<svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1122t">
+<title id="f1122t">Left, a simulated voltammogram for a chosen standard rate constant of electron transfer and scan rate, normalized to the reversible peak current, against the reversible voltammogram dashed. Right, the peak separation against scan rate on a log scale for the chosen rate constant, with 57 mV marked.</title>
+</svg>
+<div class="controls"><label><span>Rate constant k<sup>0</sup></span> <input type="range" class="k0" min="-4" max="0" step="0.1" value="0" aria-label="Rate constant k⁰"> <b class="k0-val">1.0 cm/s</b></label><label>Scan rate <input type="range" class="kv" min="-2" max="1" step="0.1" value="-1" aria-label="Scan rate"> <b class="kv-val">100 mV/s</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>How fast is the electron? Reversible, quasi-reversible and irreversible.
+<span class="try">Try this: set k<sup>0</sup> to 10<sup>−2</sup> cm/s and sweep the scan rate from 10 mV/s to 10 V/s; watch where the separation leaves 57 mV.</span>
+<details class="src"><summary>Source</summary><span class="basis">Simulated as in figure <a class="xref" href="#f11-20">L2.2</a> with Butler-Volmer kinetics at the surface (α = 0.5) and a ±0.6 V window. The three regimes and their tests after Kim et al. 2020, section 2.3, and Elgrishi et al. 2018; the labels in the right panel (below 63 mV reversible, below 200 mV quasi-reversible) are this figure&#8217;s rough guide, not a standard.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-how-fast-is-the-electron">How fast is the electron?</h2>
+<p class="explain">The duck assumed that electron transfer at the surface is instantaneous, so that the Nernst equation holds at every moment. Such a couple is <b>electrochemically reversible</b>: the peak potentials do not depend on the scan rate, the peak separation stays at about 57 to 59 mV for one electron, and the two peak currents are equal.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-2">2</a></sup> When electron transfer is slower, extra overpotential is needed to drive it, the peaks move apart and the separation grows with scan rate: a <b>quasi-reversible</b> process. Slower still, the process is <b>irreversible</b>, with the peaks far apart.<sup class="cite"><a href="#ref-2">2</a></sup> The scan-rate dependence is the test, and lithium insertion reactions tend to be quasi-reversible.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">Keep two meanings apart. Electrochemical reversibility is about the speed of electron transfer; chemical reversibility asks whether the product survives to be converted back. A follow-up chemical reaction that destroys the product shrinks the return peak, and a faster sweep, which outruns the chemistry, can bring it back.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+<p class="explain">Molecules that take two electrons can show two waves. If the second electron is accepted more easily than the first, the two merge into one wave with a separation of 28.5 mV; if it is harder, the wave splits into two one-electron waves, each with 57 mV.<sup class="cite"><a href="#ref-1">1</a></sup> An organic electrode material from <a class="xref" href="../../../batteries/sodium-organic/">chapter 15</a> gives an example: dissolved at 5 mM and swept on platinum, Li<sub>2</sub>-PDFSA shows two successive oxidation waves at 0.23 and 0.08 V against the ferrocene couple, 3.66 and 3.51 V against lithium.<sup class="cite"><a href="#ref-3">3</a></sup> Ferrocene, added to the solution from the start, is the recommended reference in nonaqueous solvents, whose reference electrodes drift.<sup class="cite"><a href="#ref-1">1</a></sup></p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-23" id="f11-23">
+<span class="fnum">Figure L2.5</span>
+<svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1123t">
+<title id="f1123t">Simulated cyclic voltammograms of a reversible couple at 1 volt per second, without (dashed) and with an uncompensated resistance between the working and reference electrodes, chosen with a slider; with resistance the peaks spread apart and drop, and the panel gives the peak separation and the i R drop at the peak.</title>
+</svg>
+<div class="controls"><label>Uncompensated resistance <input type="range" class="ru" min="0" max="1000" step="10" value="200" aria-label="Uncompensated resistance"> <b class="ru-val">200 Ω</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Uncompensated resistance makes a fast couple look slow.
+<span class="try">Try this: raise the resistance until the separation doubles, and compare that curve with the slow electron transfer of figure <a class="xref" href="#f11-22">L2.4</a>.</span>
+<details class="src"><summary>Source</summary><span class="basis">Simulated as in figure <a class="xref" href="#f11-20">L2.2</a> (5 mM, 1 V/s), the electrode feeling the applied potential minus i R<sub>u</sub>, solved at each step. Symptoms and remedies after Elgrishi et al. 2018.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-ohmic-drop">Ohmic drop</h2>
+<p class="explain">The potentiostat controls the potential between the working and reference electrodes, but part of the solution resistance lies between them, uncompensated. The electrode then feels the applied potential minus i R<sub>u</sub>, and the voltammogram stretches: the tell-tale sign is a peak separation larger than it should be for a couple known to be reversible, such as ferrocene in the same cell.<sup class="cite"><a href="#ref-1">1</a></sup> Ohmic drop and slow electron transfer look alike, and the larger the current, the worse it gets.</p>
+<p class="explain">The remedies follow from i R<sub>u</sub>. Pass less current, with a smaller electrode or a slower sweep; lower the resistance, with more supporting electrolyte; bring the reference closer to the working electrode. Many potentiostats can also measure R<sub>u</sub> and compensate for it.<sup class="cite"><a href="#ref-1">1</a></sup> In a battery half-cell, the resistance of the porous electrode and of the separator adds to that of the solution, which is one reason battery CVs are run slowly.</p>
+<div class="worked"><b>Worked example.</b> A 5 mM solution swept at 1 V/s on a 3 mm disc gives a peak of about 300 µA (figure <a class="xref" href="#f11-21">L2.3</a>&#8217;s 19 µA, × 5 for the concentration, × 10<sup>1/2</sup> for the rate).
+<span class="line">i R<sub>u</sub> = 300 µA × 200 Ω = <i>60 mV</i> on each peak, in opposite directions</span>
+The peak separation grows by tens of millivolts, enough to mistake a reversible couple for a quasi-reversible one.</div>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-24" id="f11-24">
+<span class="fnum">Figure L2.6</span>
+<svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1124t">
+<title id="f1124t">Left, the voltammogram of an illustrative electrode whose current is the sum of a capacitive term proportional to scan rate and a diffusion term proportional to its square root, with the capacitive part shaded. Right, the peak current against scan rate on log axes with guide lines of slope 0.5 and 1, and the local slope b at the chosen scan rate.</title>
+</svg>
+<div class="controls"><label>Scan rate <input type="range" class="bv" min="-1" max="2" step="0.05" value="0" aria-label="Scan rate"> <b class="bv-val">1.0 mV/s</b></label><label>Capacitive share at 1 mV/s <input type="range" class="bs" min="0" max="90" step="5" value="30" aria-label="Capacitive share at 1 mV/s"> <b class="bs-val">30 %</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>Diffusion or surface? The b-value and the k<sub>1</sub>v + k<sub>2</sub>v<sup>1/2</sup> split.
+<span class="try">Try this: at a 30 % share, sweep from 0.1 to 100 mV/s and watch b rise from near 0.5 towards 1 as the capacitive term takes over.</span>
+<details class="src"><summary>Source</summary><span class="basis">The power law, the split and their limits after Kim et al. 2020, sections 2.4 and 4.1, and Fleischmann et al. 2020. The electrode is this figure&#8217;s illustration, built so that both terms are exact; real voltammograms add peak shifts from ohmic losses that the split ignores.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-diffusion-or-surface-the-b-value">Diffusion or surface? The b-value</h2>
+<p class="explain">Battery electrodes rarely store charge in one way only. Some current comes from diffusion into the bulk of the particles, which scales with v<sup>1/2</sup>; some from processes at the surface, double-layer charging or fast surface redox, which scale with v. Writing the peak current as a power law,<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup></p>
+<span class="mblock"><math display="block"><mrow><mi>i</mi><mo>=</mo><mi>a</mi><mspace width="0.167em" /><msup><mi>v</mi><mrow><mi>b</mi></mrow></msup></mrow></math></span>
+<p class="explain">b is the slope of log i against log v: 0.5 for semi-infinite diffusion, 1 for a surface-controlled process, and between them mixed control or diffusion over a finite length.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup> A finer split works potential by potential: i(V) = k<sub>1</sub>v + k<sub>2</sub>v<sup>1/2</sup>, where a plot of i/v<sup>1/2</sup> against v<sup>1/2</sup> gives k<sub>1</sub> as slope and k<sub>2</sub> as intercept, and so the capacitive and diffusion-controlled fractions of the current.<sup class="cite"><a href="#ref-2">2</a>,<a href="#ref-4">4</a></sup></p>
+<p class="explain">These tools are popular and easily abused. The split ignores the shift of the peaks caused by ohmic losses, which becomes significant above about 10 mV/s; a b of 1 cannot tell double-layer charging from fast surface redox without other evidence; and electrochemical signatures alone cannot establish a mechanism.<sup class="cite"><a href="#ref-4">4</a></sup> In Nb<sub>2</sub>O<sub>5</sub>, b is close to 1 below 20 mV/s but falls to about 0.7 above it, which Kim and co-workers attribute to ohmic contributions of the active material and the SEI, and to diffusion.<sup class="cite"><a href="#ref-2">2</a></sup> Used carefully, the method shows, for instance, that smaller TiO<sub>2</sub> particles store more of their charge at the surface, and that a LiF–MnO composite stores about 94 % of its capacity in surface-controlled reactions.<sup class="cite"><a href="#ref-2">2</a></sup> Pseudocapacitive materials have a recognizable voltammogram: broad peaks whose anodic and cathodic branches are mirror images, barely moving with scan rate over some range; nearly all battery-type materials fail that test (<a class="xref" href="../../../batteries/voltage-profiles/">chapter 6</a>).<sup class="cite"><a href="#ref-4">4</a></sup></p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-25" id="f11-25">
+<span class="fnum">Figure L2.7</span>
+<svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1125t">
+<title id="f1125t">Simulated slow-scan cyclic voltammograms of a 1 milliampere-hour battery electrode against lithium, graphite or LiFePO4, with sliders for the scan rate and a lumped resistance; dashed, the scan rate times the differential capacity of the open-circuit curve, which the voltammogram approaches at slow rates. The peak potentials are labelled.</title>
+</svg>
+<div class="controls"><span class="sw" role="group" aria-label="Material"><button type="button" data-mat="gr" aria-pressed="true">Graphite</button> <button type="button" data-mat="lfp" aria-pressed="false">LiFePO<sub>4</sub></button></span><label>Scan rate <input type="range" class="ev" min="-2" max="-0.3" step="0.05" value="-1.3" aria-label="Scan rate"> <b class="ev-val">0.05 mV/s</b></label><label>Resistance <input type="range" class="er" min="1" max="50" step="1" value="5" aria-label="Resistance"> <b class="er-val">5 Ω</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>A battery electrode under a slow sweep.
+<span class="try">Try this: for graphite, compare 0.02 and 0.2 mV/s; then switch to LiFePO<sub>4</sub> and find the rate at which its peaks are 100 mV apart.</span>
+<details class="src"><summary>Source</summary><span class="basis">Relation dQ/dV = I/v, the difference between a CV and a dQ/dV plot, and the factors that shift battery CV peaks after Kim et al. 2020, sections 2.2 and 3. The electrode model is this page&#8217;s illustration (assets/js/physics.js, cv.electrode): the open-circuit curve of the illustrative graphite of <a class="xref" href="../../../batteries/negative-electrodes/">chapter 12</a>, or of LiFePO<sub>4</sub> after Safari and Delacourt 2011, behind one resistance. Not measured data.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-battery-electrodes">Battery electrodes</h2>
+<p class="explain">A battery electrode is a solid that takes up lithium, not a dissolved couple, but the voltammogram follows from the same bookkeeping. With the potential rising at v = dV/dt and the current being I = dQ/dt, the two combine into<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<span class="mblock"><math display="block"><mrow><mfrac><mrow><mi>d</mi><mi>Q</mi></mrow><mrow><mi>d</mi><mi>V</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>I</mi></mrow><mrow><mi>v</mi></mrow></mfrac></mrow></math></span>
+<p class="explain">so the current at each potential is the scan rate times the charge the electrode stores per volt there. At slow enough rates, a battery CV is the differential capacity of <a class="xref" href="../../../batteries/lab/cell-testing/">Lab 1</a> turned on its side. It is not the same thing: a CV contains rate information that the dQ/dV plot of a galvanostatic test does not, it forces the potential rather than the current, and its i R drop changes along the sweep, so peak positions and shapes can shift.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">What shifts the peaks of a battery electrode? Smaller particles shorten the diffusion paths and raise the peak current; in silicon, the alloying peak that is barely visible with large particles becomes clear with small ones. Thick electrodes show peaks that split faster with scan rate than thin ones, because lithium has farther to go from the surface into the bulk. Higher temperature brings the peaks closer together and earlier.<sup class="cite"><a href="#ref-2">2</a></sup> So report the scan rate, the loading and the temperature with every battery CV, and compare voltammograms only at matching conditions. A slow example from the review: a LiₓMn<sub>2</sub>O<sub>4+</sub>δ electrode swept at 0.04 mV/s against lithium, a full sweep up and down taking 6.9 hours.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+</div>
+</div>
+
+<div class="beat">
+<figure class="fig" data-fig="f11-26" id="f11-26">
+<span class="fnum">Figure L2.8</span>
+<svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1126t">
+<title id="f1126t">For five electrode materials, WO3, silicon, LiCoO2, LiMn2O4 and Li3V2(PO4)3, the lithium diffusion coefficient obtained from cyclic voltammetry and from GITT or impedance, drawn as dots or ranges on a logarithmic axis from 10 to the minus 14 to 10 to the minus 7 square centimetres per second.</title>
+</svg>
+<div class="part-info"><span class="readout"></span></div>
+<div class="key"><span><i style="background:var(--accent)"></i>from CV (Randles-Sevcik)</span><span><i style="background:var(--second)"></i>from GITT or EIS</span></div>
+<figcaption>Diffusion coefficients from CV, and from the other methods.
+<span class="try">Try this: find the material for which the methods disagree by the most orders of magnitude.</span>
+<details class="src"><summary>Source</summary><span class="basis">Values from Kim et al. 2020, Table 1 and section 4.2, which collect them from the original studies.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-a-diffusion-coefficient-from-a-voltammogram">A diffusion coefficient from a voltammogram</h2>
+<p class="explain">The Randles-Sevcik slope is widely used to estimate an apparent diffusion coefficient of lithium in an electrode: plot the peak current against v<sup>1/2</sup>, and D follows from the slope, the area and the lithium concentration in the solid.<sup class="cite"><a href="#ref-2">2</a></sup> The conditions are strict. The analysis assumes semi-infinite diffusion in a single phase, so for a material that changes phase as it charges, such as LiMn<sub>2</sub>O<sub>4</sub> with its two transitions, the numbers must be treated with care; the slope of log i<sub>p</sub> against log v should be 0.5, and when the resistance of the cell rather than diffusion limits the current, the relation breaks down.<sup class="cite"><a href="#ref-2">2</a></sup> At slow sweeps a thin electrode is filled throughout and its peak current grows with v, not v<sup>1/2</sup>.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+<p class="explain">Figure <a class="xref" href="#f11-26">L2.8</a> shows what follows in practice: CV and GITT or impedance (<a class="xref" href="../../../batteries/lab/gitt/">Lab 3</a>, <a class="xref" href="../../../batteries/lab/eis-measurement/">Lab 4</a>) give values that agree within a factor of a few for some materials and span orders of magnitude for others.<sup class="cite"><a href="#ref-2">2</a></sup> Quote an apparent D from CV with its method, its assumptions and its area, and compare trends rather than absolute numbers.</p>
+</div>
+</div>
+
+<div class="beat alt">
+<figure class="fig" data-fig="f11-27" id="f11-27">
+<span class="fnum">Figure L2.9</span>
+<svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1127t">
+<title id="f1127t">An illustrative linear sweep of an electrolyte to positive potentials on an inert electrode, current density on a log scale against potential from 4 to 7 volts vs lithium, rising from a small capacitive floor into an exponential decomposition current. A dashed line marks the chosen cut-off current; the reported stability limit is where the curve crosses it. Ticks at the top mark the oxidation limits measured for single carbonate solvents.</title>
+</svg>
+<div class="controls"><span class="sw" role="group" aria-label="Cut-off current"><button type="button" data-cut="1" aria-pressed="true">1 mA/cm<sup>2</sup></button> <button type="button" data-cut="0.1" aria-pressed="false">0.1 mA/cm<sup>2</sup></button> <button type="button" data-cut="0.01" aria-pressed="false">0.01 mA/cm<sup>2</sup></button></span><label>Sweep rate <input type="range" class="lsv" min="-0.3" max="1.3" step="0.05" value="0.7" aria-label="Sweep rate"> <b class="lsv-val">5 mV/s</b></label></div>
+<div class="part-info"><span class="readout"></span></div>
+<figcaption>The stability window of an electrolyte, and why its edge is a choice.
+<span class="try">Try this: change the cut-off from 1 to 0.01 mA/cm<sup>2</sup> and read how far the “limit” moves.</span>
+<details class="src"><summary>Source</summary><span class="basis">Oxidation limits of EC, PC, DMC, EMC and DEC (6.2, 6.6, 6.5, 6.7 and 6.7 V vs Li<sup>+</sup>/Li) from Ue et al. 2014, Table 2.1, measured in 1 mol/dm<sup>3</sup> Et<sub>4</sub>NBF<sub>4</sub> (0.65 mol/dm<sup>3</sup> Bu<sub>4</sub>NBF<sub>4</sub> for the linear carbonates) on glassy carbon at 5 mV/s with a cut-off of 1 mA/cm<sup>2</sup>. The effect of cut-off, sweep rate and electrode choice after Scheers and Johansson 2014, section 9.2.2. The curve itself is illustrative.</span></details>
+</figcaption>
+</figure>
+<div class="text">
+<h2 class="sub" id="s-the-stability-window-of-an-electrolyte">The stability window of an electrolyte</h2>
+<p class="explain">Voltammetry is also how the electrochemical stability of an electrolyte is measured, the window of <a class="xref" href="../../../batteries/cell-voltage/">chapter 3</a>. A linear sweep runs the potential until one of the components starts to be oxidized or reduced and a current flows; the potential at which that current reaches a chosen cut-off is reported as the stability limit.<sup class="cite"><a href="#ref-5">5</a></sup> Single carbonate solvents measured this way, in a tetraalkylammonium salt on glassy carbon at 5 mV/s with a cut-off of 1 mA/cm<sup>2</sup>, reach their oxidation limits between 6.2 V (EC) and 6.7 V (EMC, DEC) vs Li<sup>+</sup>/Li.<sup class="cite"><a href="#ref-6">6</a></sup></p>
+<p class="explain">Those numbers sit far above the 4.2 to 4.4 V at which carbonate electrolytes run in real cells, and the reasons are in the method. The cut-off current and the sweep rate are arbitrary choices that change the reported limit, as do the electrode, the electrolyte composition and whether a sweep or a step is used.<sup class="cite"><a href="#ref-5">5</a></sup> An inert, non-porous electrode such as platinum or glassy carbon measures the intrinsic stability of the liquid, but excludes the catalytic activity of porous transition-metal oxides, which a real positive electrode brings; Scheers and Johansson advise taking stability values from one source rather than mixing studies, and testing as close to the real cell as possible when the cell is the question.<sup class="cite"><a href="#ref-5">5</a></sup></p>
+<h2 class="sub" id="s-before-you-press-start">Before you press start</h2>
+<p class="explain">Most bad voltammograms are made before the first sweep. Polish the working electrode, and polish it again after each experiment, because analytes adsorb. Use a large excess of dry, pure supporting electrolyte. Remove oxygen by bubbling inert gas, then lift the gas line above the liquid. Run a background scan without the analyte. In nonaqueous solvents, add ferrocene from the start and quote potentials against it. Check the uncompensated resistance on a reversible couple, and compensate it if the instrument can. And say which sign convention the plot follows.<sup class="cite"><a href="#ref-1">1</a></sup> For a battery electrode, add the scan rate, the loading, the temperature and the cell format to that list.<sup class="cite"><a href="#ref-2">2</a></sup></p>
+</div>
+</div>
+
+
+</div>
+</section>
+
+</div>
+<nav class="pagenav wrap" aria-label="Previous and next">
+<a class="pn prev" href="../../../batteries/lab/cell-testing/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Lab 1 Cell testing</span><span class="pn-q">How is a test cell made, and what does a cycling test tell us?</span></a>
+<a class="pn next" href="../../../batteries/lab/gitt/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Lab 3 GITT</span><span class="pn-q">How do we measure resistance and diffusion?</span></a>
+</nav>
+<section class="section page-refs" id="references">
+<div class="wrap">
+<h2 class="h2">References for this page</h2>
+<p class="policy">Numbers in the text refer to this list. <a href="../../../batteries/references/">All references of the course</a>, with the chapters that use each one.</p>
+<ol class="refs"><li id="ref-1" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">1</span> <span class="ref-body">N. Elgrishi, K. J. Rountree, B. D. McCarthy, E. S. Rountree, T. T. Eisenhart, J. L. Dempsey, "A Practical Beginner's Guide to Cyclic Voltammetry", <i>Journal of Chemical Education</i> <b>95</b>, 2018, 197-206. <a href="https://doi.org/10.1021/acs.jchemed.7b00361" target="_blank" rel="noopener">doi:10.1021/acs.jchemed.7b00361</a></span></li><li id="ref-2" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">2</span> <span class="ref-body">T. Kim, W. Choi, H.-C. Shin, J.-Y. Choi, J. M. Kim, M.-S. Park, W.-S. Yoon, "Applications of Voltammetry in Lithium Ion Battery Research", <i>Journal of Electrochemical Science and Technology</i> <b>11</b>, 2020, 14-25. <a href="https://doi.org/10.33961/jecst.2019.00619" target="_blank" rel="noopener">doi:10.33961/jecst.2019.00619</a></span></li><li id="ref-3" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">3</span> <span class="ref-body">X. Guo, P. Apostol, X. Zhou, J. Wang, X. Lin, D. Rambabu, M. Du, S. Er, A. Vlad, "Towards the 4 V-class n-type organic lithium-ion positive electrode materials: the case of conjugated triflimides and cyanamides", <i>Energy &amp; Environmental Science</i> <b>17</b>, 2024, 173–182. <a href="https://doi.org/10.1039/d3ee02897f" target="_blank" rel="noopener">doi:10.1039/d3ee02897f</a></span></li><li id="ref-4" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">4</span> <span class="ref-body">S. Fleischmann, J. B. Mitchell, R. Wang, C. Zhan, D. Jiang, V. Presser, V. Augustyn, "Pseudocapacitance: From Fundamental Understanding to High Power Energy Storage Materials", <i>Chemical Reviews</i> <b>120</b>, 2020, 6738-6782. <a href="https://doi.org/10.1021/acs.chemrev.0c00170" target="_blank" rel="noopener">doi:10.1021/acs.chemrev.0c00170</a></span></li><li id="ref-5" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">5</span> <span class="ref-body">J. Scheers, P. Johansson, "Prediction of Electrolyte and Additive Electrochemical Stabilities", <i>in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York</i>, 2014, 403-443. <a href="https://doi.org/10.1007/978-1-4939-0302-3_9" target="_blank" rel="noopener">doi:10.1007/978-1-4939-0302-3_9</a></span></li><li id="ref-6" itemscope itemtype="https://schema.org/ScholarlyArticle"><span class="ref-n">6</span> <span class="ref-body">M. Ue, Y. Sasaki, Y. Tanaka, M. Morita, "Nonaqueous Electrolytes with Advances in Solvents", <i>in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York</i>, 2014, 93-165. <a href="https://doi.org/10.1007/978-1-4939-0302-3_2" target="_blank" rel="noopener">doi:10.1007/978-1-4939-0302-3_2</a></span></li></ol>
+</div>
+</section>
+<section class="section cite-sec" id="cite" aria-labelledby="citeH" data-title="Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes" data-url="https://asajeevan.github.io/batteries/lab/cyclic-voltammetry/" data-date="2026-10-16" data-course-title="How batteries work" data-course-subtitle="The electrochemistry of lithium-ion cells, from first principles to the laboratory" data-course-url="https://asajeevan.github.io/batteries/" data-family="Shyma Sajeevan" data-given="Aswadh">
+  <div class="wrap">
+    <h2 class="h2" id="citeH">Cite this page</h2>
+    <p class="cite-lede">Using this page in teaching, a thesis or an article? Cite it as follows; the date is the last update of the course.</p>
+    <div class="cite-ui"><p class="cite-out cite-static">Shyma Sajeevan, A. (2026). <i>Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes</i>. How batteries work. https://asajeevan.github.io/batteries/lab/cyclic-voltammetry/</p></div>
+  </div>
+</section>
+
+<a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
+<a class="backchip" id="backChip" href="#" hidden></a>
+</main>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search the course" hidden>
+<div class="search-panel">
+<div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="searchInput" type="search" placeholder="Search chapters, figures and text" autocomplete="off" spellcheck="false" aria-controls="searchResults"><button class="search-x" id="searchClose" type="button" aria-label="Close the search">Esc</button></div>
+<p class="search-hint" id="searchHint">Type a word or two: a material (LiFePO4), a method (GITT), an idea (tortuosity).</p>
+<ol class="search-results" id="searchResults" role="list"></ol>
+</div>
+</div>
+
+<footer class="footer">
+<div class="wrap">
+<p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../../../">Home</a></p>
+<p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution: <a href="#cite">cite this page</a>.</p>
+</div>
+</footer>
+
+<script src="../../../assets/js/gsap.min.js"></script>
+<script src="../../../assets/js/ScrollTrigger.min.js"></script>
+<script src="../../../assets/js/physics.js"></script>
+<script src="../../../assets/js/site.js"></script>
+<script src="../../../assets/js/learn/lab-cyclic-voltammetry.js"></script>
+<script src="../../../assets/js/share.js"></script>
+<script src="../../../assets/js/course.js"></script>
+<script src="../../../assets/js/cite.js"></script>
+<script src="../../../assets/js/motion.js"></script>
+</body>
+</html>

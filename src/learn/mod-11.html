@@ -438,6 +438,206 @@
       </div>
     </div>
 
+    <div class="beat">
+      <figure class="fig" data-fig="f11-19" id="f11-19">
+        <span class="fnum">Figure 11.19</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1119t">
+          <title id="f1119t">A three-electrode cell under a potentiostat: a glassy carbon working electrode, a reference electrode with a frit and a silver wire, a platinum counter coil, and argon bubbling through the electrolyte. Beside it, the potential against time: a straight rise from the initial to the switching potential and a straight return, the slope being the scan rate.</title>
+        </svg>
+        <div class="controls"><label>Scan rate <input type="range" class="cvv" min="-2" max="0" step="0.05" value="-1" aria-label="Scan rate"> <b class="cvv-val">100 mV/s</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The experiment: three electrodes and a triangular sweep.
+          <span class="try">Try this: tap each electrode; then slow the sweep to 10 mV/s and see how long one cycle takes.</span>
+          <span class="basis">Electrode roles, materials, inert-gas sparging and ferrocene as an internal reference after Elgrishi et al. 2018; the linear sweep, switching and return after Elgrishi et al. 2018 and Kim et al. 2020, section 2.1. Schematic; materials in their real colours.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">What a cyclic voltammogram is</h3>
+        <p class="explain">In {{ch:lab/cell-testing}} we held the current and watched the potential. Cyclic voltammetry does the opposite: it drives the potential of an electrode and records the current that flows. The potential is swept linearly in time from an initial value to a switching potential and back; the rate of the sweep, in mV/s or V/s, is the scan rate, and the plot of current against potential is the cyclic voltammogram.{{cite:R83,R84}} A sweep in one direction only is linear sweep voltammetry.{{cite:R84}}</p>
+        <p class="explain">Why bother? A voltammogram shows at a glance where a material is oxidized and reduced and whether the reaction comes back; by changing the scan rate it separates fast from slow processes, diffusion from surface reactions, and it can estimate how fast ions diffuse.{{cite:R84}} That breadth is also the trap: the same review warns that interpretations of CV in battery research are often deficient or disputed, and that the technique should not be used without the basic electrochemistry behind it.{{cite:R84}} This page builds that basis, starting from a dissolved molecule and ending with battery electrodes and electrolytes.</p>
+        <p class="explain">The measurement needs three electrodes. The <b>working electrode</b> is where the reaction of interest happens: an inert disc of glassy carbon, platinum or gold, polished before each run, or, in battery work, the composite electrode itself. The <b>reference electrode</b> fixes the potential scale; the <b>counter electrode</b>, an inert platinum wire larger than the working electrode, carries the current so that the reference does not have to.{{cite:R83}} The solution holds the analyte in a large excess of supporting electrolyte, which carries the current and keeps the analyte from migrating in the field, so that it moves by diffusion alone; and dissolved oxygen, which gives peaks of its own, is removed by bubbling an inert gas through it first.{{cite:R83}}</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f11-20" id="f11-20">
+        <span class="fnum">Figure 11.20</span>
+        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1120t">
+          <title id="f1120t">Left, a simulated cyclic voltammogram of a reversible one-electron couple with the points A to G marked: start, equal surface concentrations, oxidation peak, switching potential, equal concentrations again, reduction peak, end. Right, the concentrations of the reduced and oxidized forms against distance from the electrode at the chosen moment; a slider moves through the sweep.</title>
+        </svg>
+        <div class="controls"><label>Time through the sweep <input type="range" class="cvt" min="0" max="1000" step="1" value="300" aria-label="Time through the sweep"> <b class="cvt-val"></b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--accent)"></i>Red, the reduced form</span><span><i style="background:var(--field)"></i>Ox, the oxidized form</span><span><i class="e"></i>where we are on the curve</span></div>
+        <figcaption>The duck, step by step: the current and the concentration profiles behind it.
+          <span class="try">Try this: drag the slider slowly past C and watch the depleted layer grow while the current falls.</span>
+          <span class="basis">Simulated with this page&#8217;s own finite-difference solution of the diffusion equation with the Nernst equation at the surface (assets/js/physics.js, cv.simulate): 1 mM, D = 10⁻⁵ cm²/s for both forms, a 3 mm disc, 100 mV/s, 25 °C, oxidation first and oxidation current positive. The simulation reproduces the Randles-Sevcik peak current to 0.1 % and a peak separation of 58 mV (tests). Points A to G, the role of the Nernst equation and the diffusion layer, and the 57 mV separation after Elgrishi et al. 2018, whose example runs the other way, reducing ferrocenium.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The duck</h3>
+        <p class="explain">Let us follow one sweep of a solution that holds only the reduced form, Red, of a couple Red = Ox + e⁻. The curve has the shape known as the duck, and two things make it. The first is the <b>Nernst equation</b>: at every moment the potential sets the ratio of the two forms at the electrode surface,{{cite:R83}}</p>
+        <md>E = E^{\circ\prime} + \frac{RT}{nF}\ln\frac{[\mathrm{Ox}]}{[\mathrm{Red}]}</md>
+        <p class="explain">so as the potential rises past the formal potential E°′, more and more of the Red at the surface must turn into Ox, and the current grows. The second is <b>diffusion</b>. The surface soon runs out of Red, and fresh Red has to diffuse in from the bulk. The region depleted of it, the diffusion layer, keeps growing through the sweep; the farther Red has to come, the slower it arrives, so past the peak the current falls although the potential keeps rising.{{cite:R83}}</p>
+        <p class="explain">On the way back the Ox made on the way out is reduced again, and a negative peak appears. For an electrochemically reversible one-electron couple the two peaks are 57 mV apart at 25 °C (2.22 RT/F), and their midpoint, E½, is the usual estimate of E°′.{{cite:R83}} A caution on reading other people&#8217;s plots: two sign conventions are in use, for which way potential increases along the axis and for which current is positive, and papers seldom say which they follow.{{cite:R83}} In this course oxidation current is positive and potential increases to the right.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-21" id="f11-21">
+        <span class="fnum">Figure 11.21</span>
+        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1121t">
+          <title id="f1121t">Left, simulated cyclic voltammograms of the same solution at 20, 50, 100, 200 and 500 mV/s, the current growing with scan rate. Right, the oxidation peak current against the square root of scan rate, a straight line through the origin, with the diffusion coefficient recovered from its slope; a slider adds a double-layer capacitance that raises a capacitive background proportional to scan rate.</title>
+        </svg>
+        <div class="controls"><label>Double-layer capacitance <input type="range" class="cdl" min="0" max="100" step="5" value="0" aria-label="Double-layer capacitance"> <b class="cdl-val">0 µF/cm²</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Scan rate: the Randles-Sevcik equation, and the capacitive background.
+          <span class="try">Try this: with no capacitance, read D from the slope; then add 60 µF/cm² and see what reading peaks from zero does to it.</span>
+          <span class="basis">Simulated as in figure {{fig:f11-20}}. Randles-Sevcik equation after Elgrishi et al. 2018, eq 3, and Kim et al. 2020, eqs 6, 18 and 19; the capacitive current C<sub>dl</sub>A v after Kim et al. 2020, eq 10. The peak currents are read from zero, on purpose.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Scan rate and the Randles-Sevcik equation</h3>
+        <p class="explain">Sweep faster and the current grows, because the diffusion layer has less time to spread and stays thinner.{{cite:R83}} For a reversible couple whose species diffuse freely in solution, the peak current follows the <b>Randles-Sevcik equation</b>,{{cite:R83,R84}}</p>
+        <md>i_p = 0.446\,nFAC\left(\frac{nFvD}{RT}\right)^{1/2}</md>
+        <p class="explain">with A the electrode area (usually the geometric one), C the bulk concentration and D the diffusion coefficient. The peak current is proportional to the square root of the scan rate, and a straight line of i<sub>p</sub> against v<sup>1/2</sup> is the test that the species diffuses freely rather than sitting adsorbed on the electrode; its slope gives D.{{cite:R83,R84}}</p>
+        <p class="explain">Every voltammogram also carries a current that has nothing to do with the analyte: charging the electrical double layer of {{ch:cell-voltage}}. This capacitive current, C<sub>dl</sub>A v, is proportional to the scan rate itself, so it grows faster with v than the diffusion peak does.{{cite:R83,R84}} That is why a background scan of the electrolyte alone comes first: it tests the cell and measures the capacitive current that must be subtracted.{{cite:R83}}</p>
+        <div class="worked"><b>Worked example.</b> At 25 °C the equation reads i<sub>p</sub> = 2.69 × 10⁵ n<sup>3/2</sup>A D<sup>1/2</sup>C v<sup>1/2</sup>, with i<sub>p</sub> in A, A in cm², D in cm²/s, C in mol/cm³ and v in V/s.{{cite:R84}} Take 1 mM (10⁻⁶ mol/cm³), a 3 mm disc (0.0707 cm²), D = 10⁻⁵ cm²/s, 100 mV/s.
+          <span class="line">i<sub>p</sub> = 2.69 × 10⁵ × 0.0707 × (10⁻⁵)<sup>1/2</sup> × 10⁻⁶ × (0.1)<sup>1/2</sup> = <i>19.0 µA</i></span>
+          <span class="line">double layer, 20 µF/cm²: C<sub>dl</sub>A v = 20 × 10⁻⁶ × 0.0707 × 0.1 = <i>0.14 µA</i></span>
+          At 100 V/s the peak would be 32 times larger and the capacitive current 1000 times: the background that was negligible becomes the signal.</div>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f11-22" id="f11-22">
+        <span class="fnum">Figure 11.22</span>
+        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1122t">
+          <title id="f1122t">Left, a simulated voltammogram for a chosen standard rate constant of electron transfer and scan rate, normalized to the reversible peak current, against the reversible voltammogram dashed. Right, the peak separation against scan rate on a log scale for the chosen rate constant, with 57 mV marked.</title>
+        </svg>
+        <div class="controls"><label><span>Rate constant k⁰</span> <input type="range" class="k0" min="-4" max="0" step="0.1" value="0" aria-label="Rate constant k⁰"> <b class="k0-val">1.0 cm/s</b></label><label>Scan rate <input type="range" class="kv" min="-2" max="1" step="0.1" value="-1" aria-label="Scan rate"> <b class="kv-val">100 mV/s</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>How fast is the electron? Reversible, quasi-reversible and irreversible.
+          <span class="try">Try this: set k⁰ to 10⁻² cm/s and sweep the scan rate from 10 mV/s to 10 V/s; watch where the separation leaves 57 mV.</span>
+          <span class="basis">Simulated as in figure {{fig:f11-20}} with Butler-Volmer kinetics at the surface (α = 0.5) and a ±0.6 V window. The three regimes and their tests after Kim et al. 2020, section 2.3, and Elgrishi et al. 2018; the labels in the right panel (below 63 mV reversible, below 200 mV quasi-reversible) are this figure&#8217;s rough guide, not a standard.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">How fast is the electron?</h3>
+        <p class="explain">The duck assumed that electron transfer at the surface is instantaneous, so that the Nernst equation holds at every moment. Such a couple is <b>electrochemically reversible</b>: the peak potentials do not depend on the scan rate, the peak separation stays at about 57 to 59 mV for one electron, and the two peak currents are equal.{{cite:R83,R84}} When electron transfer is slower, extra overpotential is needed to drive it, the peaks move apart and the separation grows with scan rate: a <b>quasi-reversible</b> process. Slower still, the process is <b>irreversible</b>, with the peaks far apart.{{cite:R84}} The scan-rate dependence is the test, and lithium insertion reactions tend to be quasi-reversible.{{cite:R84}}</p>
+        <p class="explain">Keep two meanings apart. Electrochemical reversibility is about the speed of electron transfer; chemical reversibility asks whether the product survives to be converted back. A follow-up chemical reaction that destroys the product shrinks the return peak, and a faster sweep, which outruns the chemistry, can bring it back.{{cite:R83}}</p>
+        <p class="explain">Molecules that take two electrons can show two waves. If the second electron is accepted more easily than the first, the two merge into one wave with a separation of 28.5 mV; if it is harder, the wave splits into two one-electron waves, each with 57 mV.{{cite:R83}} An organic electrode material from {{ch:sodium-organic}} gives an example: dissolved at 5 mM and swept on platinum, Li₂-PDFSA shows two successive oxidation waves at 0.23 and 0.08 V against the ferrocene couple, 3.66 and 3.51 V against lithium.{{cite:R78}} Ferrocene, added to the solution from the start, is the recommended reference in nonaqueous solvents, whose reference electrodes drift.{{cite:R83}}</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-23" id="f11-23">
+        <span class="fnum">Figure 11.23</span>
+        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1123t">
+          <title id="f1123t">Simulated cyclic voltammograms of a reversible couple at 1 volt per second, without (dashed) and with an uncompensated resistance between the working and reference electrodes, chosen with a slider; with resistance the peaks spread apart and drop, and the panel gives the peak separation and the i R drop at the peak.</title>
+        </svg>
+        <div class="controls"><label>Uncompensated resistance <input type="range" class="ru" min="0" max="1000" step="10" value="200" aria-label="Uncompensated resistance"> <b class="ru-val">200 Ω</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Uncompensated resistance makes a fast couple look slow.
+          <span class="try">Try this: raise the resistance until the separation doubles, and compare that curve with the slow electron transfer of figure {{fig:f11-22}}.</span>
+          <span class="basis">Simulated as in figure {{fig:f11-20}} (5 mM, 1 V/s), the electrode feeling the applied potential minus i R<sub>u</sub>, solved at each step. Symptoms and remedies after Elgrishi et al. 2018.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Ohmic drop</h3>
+        <p class="explain">The potentiostat controls the potential between the working and reference electrodes, but part of the solution resistance lies between them, uncompensated. The electrode then feels the applied potential minus i R<sub>u</sub>, and the voltammogram stretches: the tell-tale sign is a peak separation larger than it should be for a couple known to be reversible, such as ferrocene in the same cell.{{cite:R83}} Ohmic drop and slow electron transfer look alike, and the larger the current, the worse it gets.</p>
+        <p class="explain">The remedies follow from i R<sub>u</sub>. Pass less current, with a smaller electrode or a slower sweep; lower the resistance, with more supporting electrolyte; bring the reference closer to the working electrode. Many potentiostats can also measure R<sub>u</sub> and compensate for it.{{cite:R83}} In a battery half-cell, the resistance of the porous electrode and of the separator adds to that of the solution, which is one reason battery CVs are run slowly.</p>
+        <div class="worked"><b>Worked example.</b> A 5 mM solution swept at 1 V/s on a 3 mm disc gives a peak of about 300 µA (figure {{fig:f11-21}}&#8217;s 19 µA, × 5 for the concentration, × 10<sup>1/2</sup> for the rate).
+          <span class="line">i R<sub>u</sub> = 300 µA × 200 Ω = <i>60 mV</i> on each peak, in opposite directions</span>
+          The peak separation grows by tens of millivolts, enough to mistake a reversible couple for a quasi-reversible one.</div>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f11-24" id="f11-24">
+        <span class="fnum">Figure 11.24</span>
+        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1124t">
+          <title id="f1124t">Left, the voltammogram of an illustrative electrode whose current is the sum of a capacitive term proportional to scan rate and a diffusion term proportional to its square root, with the capacitive part shaded. Right, the peak current against scan rate on log axes with guide lines of slope 0.5 and 1, and the local slope b at the chosen scan rate.</title>
+        </svg>
+        <div class="controls"><label>Scan rate <input type="range" class="bv" min="-1" max="2" step="0.05" value="0" aria-label="Scan rate"> <b class="bv-val">1.0 mV/s</b></label><label>Capacitive share at 1 mV/s <input type="range" class="bs" min="0" max="90" step="5" value="30" aria-label="Capacitive share at 1 mV/s"> <b class="bs-val">30 %</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Diffusion or surface? The b-value and the k₁v + k₂v<sup>1/2</sup> split.
+          <span class="try">Try this: at a 30 % share, sweep from 0.1 to 100 mV/s and watch b rise from near 0.5 towards 1 as the capacitive term takes over.</span>
+          <span class="basis">The power law, the split and their limits after Kim et al. 2020, sections 2.4 and 4.1, and Fleischmann et al. 2020. The electrode is this figure&#8217;s illustration, built so that both terms are exact; real voltammograms add peak shifts from ohmic losses that the split ignores.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Diffusion or surface? The b-value</h3>
+        <p class="explain">Battery electrodes rarely store charge in one way only. Some current comes from diffusion into the bulk of the particles, which scales with v<sup>1/2</sup>; some from processes at the surface, double-layer charging or fast surface redox, which scale with v. Writing the peak current as a power law,{{cite:R84,R85}}</p>
+        <md>i = a\,v^{b}</md>
+        <p class="explain">b is the slope of log i against log v: 0.5 for semi-infinite diffusion, 1 for a surface-controlled process, and between them mixed control or diffusion over a finite length.{{cite:R85,R84}} A finer split works potential by potential: i(V) = k₁v + k₂v<sup>1/2</sup>, where a plot of i/v<sup>1/2</sup> against v<sup>1/2</sup> gives k₁ as slope and k₂ as intercept, and so the capacitive and diffusion-controlled fractions of the current.{{cite:R84,R85}}</p>
+        <p class="explain">These tools are popular and easily abused. The split ignores the shift of the peaks caused by ohmic losses, which becomes significant above about 10 mV/s; a b of 1 cannot tell double-layer charging from fast surface redox without other evidence; and electrochemical signatures alone cannot establish a mechanism.{{cite:R85}} In Nb₂O₅, b is close to 1 below 20 mV/s but falls to about 0.7 above it, which Kim and co-workers attribute to ohmic contributions of the active material and the SEI, and to diffusion.{{cite:R84}} Used carefully, the method shows, for instance, that smaller TiO₂ particles store more of their charge at the surface, and that a LiF–MnO composite stores about 94 % of its capacity in surface-controlled reactions.{{cite:R84}} Pseudocapacitive materials have a recognizable voltammogram: broad peaks whose anodic and cathodic branches are mirror images, barely moving with scan rate over some range; nearly all battery-type materials fail that test ({{ch:voltage-profiles}}).{{cite:R85}}</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-25" id="f11-25">
+        <span class="fnum">Figure 11.25</span>
+        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1125t">
+          <title id="f1125t">Simulated slow-scan cyclic voltammograms of a 1 milliampere-hour battery electrode against lithium, graphite or LiFePO4, with sliders for the scan rate and a lumped resistance; dashed, the scan rate times the differential capacity of the open-circuit curve, which the voltammogram approaches at slow rates. The peak potentials are labelled.</title>
+        </svg>
+        <div class="controls"><span class="sw" role="group" aria-label="Material"><button type="button" data-mat="gr" aria-pressed="true">Graphite</button> <button type="button" data-mat="lfp" aria-pressed="false">LiFePO₄</button></span><label>Scan rate <input type="range" class="ev" min="-2" max="-0.3" step="0.05" value="-1.3" aria-label="Scan rate"> <b class="ev-val">0.05 mV/s</b></label><label>Resistance <input type="range" class="er" min="1" max="50" step="1" value="5" aria-label="Resistance"> <b class="er-val">5 Ω</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>A battery electrode under a slow sweep.
+          <span class="try">Try this: for graphite, compare 0.02 and 0.2 mV/s; then switch to LiFePO₄ and find the rate at which its peaks are 100 mV apart.</span>
+          <span class="basis">Relation dQ/dV = I/v, the difference between a CV and a dQ/dV plot, and the factors that shift battery CV peaks after Kim et al. 2020, sections 2.2 and 3. The electrode model is this page&#8217;s illustration (assets/js/physics.js, cv.electrode): the open-circuit curve of the illustrative graphite of {{ch:negative-electrodes}}, or of LiFePO₄ after Safari and Delacourt 2011, behind one resistance. Not measured data.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Battery electrodes</h3>
+        <p class="explain">A battery electrode is a solid that takes up lithium, not a dissolved couple, but the voltammogram follows from the same bookkeeping. With the potential rising at v = dV/dt and the current being I = dQ/dt, the two combine into{{cite:R84}}</p>
+        <md>\frac{dQ}{dV} = \frac{I}{v}</md>
+        <p class="explain">so the current at each potential is the scan rate times the charge the electrode stores per volt there. At slow enough rates, a battery CV is the differential capacity of {{ch:lab/cell-testing}} turned on its side. It is not the same thing: a CV contains rate information that the dQ/dV plot of a galvanostatic test does not, it forces the potential rather than the current, and its i R drop changes along the sweep, so peak positions and shapes can shift.{{cite:R84}}</p>
+        <p class="explain">What shifts the peaks of a battery electrode? Smaller particles shorten the diffusion paths and raise the peak current; in silicon, the alloying peak that is barely visible with large particles becomes clear with small ones. Thick electrodes show peaks that split faster with scan rate than thin ones, because lithium has farther to go from the surface into the bulk. Higher temperature brings the peaks closer together and earlier.{{cite:R84}} So report the scan rate, the loading and the temperature with every battery CV, and compare voltammograms only at matching conditions. A slow example from the review: a LiₓMn₂O₄₊δ electrode swept at 0.04 mV/s against lithium, a full sweep up and down taking 6.9 hours.{{cite:R84}}</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-26" id="f11-26">
+        <span class="fnum">Figure 11.26</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1126t">
+          <title id="f1126t">For five electrode materials, WO3, silicon, LiCoO2, LiMn2O4 and Li3V2(PO4)3, the lithium diffusion coefficient obtained from cyclic voltammetry and from GITT or impedance, drawn as dots or ranges on a logarithmic axis from 10 to the minus 14 to 10 to the minus 7 square centimetres per second.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--accent)"></i>from CV (Randles-Sevcik)</span><span><i style="background:var(--second)"></i>from GITT or EIS</span></div>
+        <figcaption>Diffusion coefficients from CV, and from the other methods.
+          <span class="try">Try this: find the material for which the methods disagree by the most orders of magnitude.</span>
+          <span class="basis">Values from Kim et al. 2020, Table 1 and section 4.2, which collect them from the original studies.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">A diffusion coefficient from a voltammogram</h3>
+        <p class="explain">The Randles-Sevcik slope is widely used to estimate an apparent diffusion coefficient of lithium in an electrode: plot the peak current against v<sup>1/2</sup>, and D follows from the slope, the area and the lithium concentration in the solid.{{cite:R84}} The conditions are strict. The analysis assumes semi-infinite diffusion in a single phase, so for a material that changes phase as it charges, such as LiMn₂O₄ with its two transitions, the numbers must be treated with care; the slope of log i<sub>p</sub> against log v should be 0.5, and when the resistance of the cell rather than diffusion limits the current, the relation breaks down.{{cite:R84}} At slow sweeps a thin electrode is filled throughout and its peak current grows with v, not v<sup>1/2</sup>.{{cite:R84}}</p>
+        <p class="explain">Figure {{fig:f11-26}} shows what follows in practice: CV and GITT or impedance ({{ch:lab/gitt}}, {{ch:lab/eis-measurement}}) give values that agree within a factor of a few for some materials and span orders of magnitude for others.{{cite:R84}} Quote an apparent D from CV with its method, its assumptions and its area, and compare trends rather than absolute numbers.</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f11-27" id="f11-27">
+        <span class="fnum">Figure 11.27</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1127t">
+          <title id="f1127t">An illustrative linear sweep of an electrolyte to positive potentials on an inert electrode, current density on a log scale against potential from 4 to 7 volts vs lithium, rising from a small capacitive floor into an exponential decomposition current. A dashed line marks the chosen cut-off current; the reported stability limit is where the curve crosses it. Ticks at the top mark the oxidation limits measured for single carbonate solvents.</title>
+        </svg>
+        <div class="controls"><span class="sw" role="group" aria-label="Cut-off current"><button type="button" data-cut="1" aria-pressed="true">1 mA/cm²</button> <button type="button" data-cut="0.1" aria-pressed="false">0.1 mA/cm²</button> <button type="button" data-cut="0.01" aria-pressed="false">0.01 mA/cm²</button></span><label>Sweep rate <input type="range" class="lsv" min="-0.3" max="1.3" step="0.05" value="0.7" aria-label="Sweep rate"> <b class="lsv-val">5 mV/s</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The stability window of an electrolyte, and why its edge is a choice.
+          <span class="try">Try this: change the cut-off from 1 to 0.01 mA/cm² and read how far the &#8220;limit&#8221; moves.</span>
+          <span class="basis">Oxidation limits of EC, PC, DMC, EMC and DEC (6.2, 6.6, 6.5, 6.7 and 6.7 V vs Li⁺/Li) from Ue et al. 2014, Table 2.1, measured in 1 mol/dm³ Et₄NBF₄ (0.65 mol/dm³ Bu₄NBF₄ for the linear carbonates) on glassy carbon at 5 mV/s with a cut-off of 1 mA/cm². The effect of cut-off, sweep rate and electrode choice after Scheers and Johansson 2014, section 9.2.2. The curve itself is illustrative.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The stability window of an electrolyte</h3>
+        <p class="explain">Voltammetry is also how the electrochemical stability of an electrolyte is measured, the window of {{ch:cell-voltage}}. A linear sweep runs the potential until one of the components starts to be oxidized or reduced and a current flows; the potential at which that current reaches a chosen cut-off is reported as the stability limit.{{cite:R86}} Single carbonate solvents measured this way, in a tetraalkylammonium salt on glassy carbon at 5 mV/s with a cut-off of 1 mA/cm², reach their oxidation limits between 6.2 V (EC) and 6.7 V (EMC, DEC) vs Li⁺/Li.{{cite:R54}}</p>
+        <p class="explain">Those numbers sit far above the 4.2 to 4.4 V at which carbonate electrolytes run in real cells, and the reasons are in the method. The cut-off current and the sweep rate are arbitrary choices that change the reported limit, as do the electrode, the electrolyte composition and whether a sweep or a step is used.{{cite:R86}} An inert, non-porous electrode such as platinum or glassy carbon measures the intrinsic stability of the liquid, but excludes the catalytic activity of porous transition-metal oxides, which a real positive electrode brings; Scheers and Johansson advise taking stability values from one source rather than mixing studies, and testing as close to the real cell as possible when the cell is the question.{{cite:R86}}</p>
+        <h3 class="sub">Before you press start</h3>
+        <p class="explain">Most bad voltammograms are made before the first sweep. Polish the working electrode, and polish it again after each experiment, because analytes adsorb. Use a large excess of dry, pure supporting electrolyte. Remove oxygen by bubbling inert gas, then lift the gas line above the liquid. Run a background scan without the analyte. In nonaqueous solvents, add ferrocene from the start and quote potentials against it. Check the uncompensated resistance on a reversible couple, and compensate it if the instrument can. And say which sign convention the plot follows.{{cite:R83}} For a battery electrode, add the scan rate, the loading, the temperature and the cell format to that list.{{cite:R84}}</p>
+      </div>
+    </div>
+
     <div class="beat alt">
       <figure class="fig" data-fig="f11-18" id="f11-18">
         <span class="fnum">Figure 11.18</span>
@@ -470,7 +670,7 @@
           <p class="eqline"><span class="eq">i = i₀[e<sup>(1−α)Fη/RT</sup> − e<sup>−αFη/RT</sup>], R<sub>ct</sub> = RT/(Fi₀)</span><span class="eqnote">Butler–Volmer and its linear limit; harmonics measure the curvature</span></p>
           <p class="eqline"><span class="eq">Z(ω) = R₀ + R<sub>pol</sub>∫g(τ)/(1 + jωτ)dτ</span><span class="eqnote">the distribution of relaxation times, found by regularized least squares</span></p>
         </div></details>
-        {{sources:R1,B2,R38,R63,R64,R65,R66,R67,R68,R69,R2,R6,R21,R48}}
+        {{sources:R1,B2,R38,R63,R64,R65,R66,R67,R68,R69,R2,R6,R21,R48,R83,R84,R85,R86,R54,R78}}
       </div>
     </div>
 

@@ -55,7 +55,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <span class="tb-sp"></span>
 <button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
 <a class="tb-btn tb-arrow" rel="prev" href="../../../batteries/recycling/" title="Previous: Chapter 18 Recycling (←)" aria-label="Previous: Chapter 18 Recycling">&#8592;</a>
-<a class="tb-btn tb-arrow" rel="next" href="../../../batteries/lab/gitt/" title="Next: Lab 2 GITT (→)" aria-label="Next: Lab 2 GITT">&#8594;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../../batteries/lab/cyclic-voltammetry/" title="Next: Lab 2 Cyclic voltammetry (→)" aria-label="Next: Lab 2 Cyclic voltammetry">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
@@ -96,10 +96,11 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </ol></div>
 <div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
 <li data-chap="lab/cell-testing" class="cur"><a href="../../../batteries/lab/cell-testing/" aria-current="page"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
-<li data-chap="lab/gitt"><a href="../../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
-<li data-chap="lab/eis-measurement"><a href="../../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
-<li data-chap="lab/eis-analysis"><a href="../../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
-<li data-chap="lab/post-mortem"><a href="../../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+<li data-chap="lab/cyclic-voltammetry"><a href="../../../batteries/lab/cyclic-voltammetry/"><span class="n">L2</span><span class="t">Cyclic voltammetry</span></a></li>
+<li data-chap="lab/gitt"><a href="../../../batteries/lab/gitt/"><span class="n">L3</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../../batteries/lab/eis-measurement/"><span class="n">L4</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../../batteries/lab/eis-analysis/"><span class="n">L5</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../../batteries/lab/post-mortem/"><span class="n">L6</span><span class="t">Post-mortem</span></a></li>
 </ol></div>
 <div class="toc-part"><p class="toc-pt">For reference</p><ol>
 <li><a href="../../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
@@ -130,7 +131,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <div class="part-info"><span class="readout"></span></div>
 <figcaption>One cell, four measurements, four questions.
 <span class="try">Try this: for each panel, name the thief of <a class="xref" href="../../../batteries/degradation/">chapter 16</a> it would help to catch.</span>
-<details class="src"><summary>Source</summary><span class="basis">The discharge curve as a source of capacity, rate and temperature effects and state of health, and current interruption, after Winter and Brodd 2004, sections 1.4 and 1.5; current pulses after Meddings et al. 2020, section 3.1; GITT after Weppner and Huggins 1977 and Kim et al. 2022; impedance after Lazanas and Prodromidis 2023, section 1. The small curves are sketches of the shapes in figures <a class="xref" href="../../../batteries/polarization/#f5-1">5.1</a>, <a class="xref" href="../../../batteries/lab/gitt/#f11-2">L2.1</a>, <a class="xref" href="../../../batteries/lab/gitt/#f11-3">L2.2</a> and <a class="xref" href="../../../batteries/lab/eis-measurement/#f11-10">L3.3</a>, not data.</span></details>
+<details class="src"><summary>Source</summary><span class="basis">The discharge curve as a source of capacity, rate and temperature effects and state of health, and current interruption, after Winter and Brodd 2004, sections 1.4 and 1.5; current pulses after Meddings et al. 2020, section 3.1; GITT after Weppner and Huggins 1977 and Kim et al. 2022; impedance after Lazanas and Prodromidis 2023, section 1. The small curves are sketches of the shapes in figures <a class="xref" href="../../../batteries/polarization/#f5-1">5.1</a>, <a class="xref" href="../../../batteries/lab/gitt/#f11-2">L3.1</a>, <a class="xref" href="../../../batteries/lab/gitt/#f11-3">L3.2</a> and <a class="xref" href="../../../batteries/lab/eis-measurement/#f11-10">L4.3</a>, not data.</span></details>
 </figcaption>
 </figure>
 <div class="text">
@@ -177,7 +178,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </div>
 <nav class="pagenav wrap" aria-label="Previous and next">
 <a class="pn prev" href="../../../batteries/recycling/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Chapter 18 Recycling</span><span class="pn-q">What happens to a battery when it is finished?</span></a>
-<a class="pn next" href="../../../batteries/lab/gitt/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Lab 2 GITT</span><span class="pn-q">How do we measure resistance and diffusion?</span></a>
+<a class="pn next" href="../../../batteries/lab/cyclic-voltammetry/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Lab 2 Cyclic voltammetry</span><span class="pn-q">What does a voltammogram tell us, and how do we read it?</span></a>
 </nav>
 <section class="section page-refs" id="references">
 <div class="wrap">
@@ -190,7 +191,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
   <div class="wrap">
     <h2 class="h2" id="citeH">Cite this page</h2>
     <p class="cite-lede">Using this page in teaching, a thesis or an article? Cite it as follows; the date is the last update of the course.</p>
-    <div class="cite-ui"><p class="cite-out cite-static">Shyma Sajeevan, A.. (2026). <i>Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis</i>. How batteries work. https://asajeevan.github.io/batteries/lab/cell-testing/</p></div>
+    <div class="cite-ui"><p class="cite-out cite-static">Shyma Sajeevan, A. (2026). <i>Cell assembly and galvanostatic testing: coin cells, cycling protocols and differential analysis</i>. How batteries work. https://asajeevan.github.io/batteries/lab/cell-testing/</p></div>
   </div>
 </section>
 

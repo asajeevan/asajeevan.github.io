@@ -16,7 +16,7 @@
   "2026-10-16"
  ],
  "composite-electrodes": [
-  "1250eeb845011c42",
+  "de59cd8197410849",
   "2026-10-16"
  ],
  "degradation": [
@@ -28,11 +28,11 @@
   "2026-10-16"
  ],
  "equations": [
-  "ba5d638324b61ac8",
+  "5d9f18fc976323d0",
   "2026-10-16"
  ],
  "figures": [
-  "75c19e02cd9e22dc",
+  "385d62999987eca5",
   "2026-10-16"
  ],
  "galvanic-cells": [
@@ -40,7 +40,7 @@
   "2026-10-16"
  ],
  "hub": [
-  "2daf85fd0e38ef42",
+  "61da5e03d34eed0b",
   "2026-10-16"
  ],
  "insertion-hosts": [
@@ -52,23 +52,27 @@
   "2026-10-16"
  ],
  "lab/cell-testing": [
-  "3abeff757cccdfde",
+  "affd825b1a716100",
+  "2026-10-16"
+ ],
+ "lab/cyclic-voltammetry": [
+  "e848e6f3de837670",
   "2026-10-16"
  ],
  "lab/eis-analysis": [
-  "d938d351b06cf494",
+  "949d46864ea1ef30",
   "2026-10-16"
  ],
  "lab/eis-measurement": [
-  "daa0ac52bea6c7a2",
+  "a15f5b0ede6dc086",
   "2026-10-16"
  ],
  "lab/gitt": [
-  "f8460e574de8648a",
+  "7750aa567de14360",
   "2026-10-16"
  ],
  "lab/post-mortem": [
-  "d9945fae7054ce67",
+  "f60d4deba99d561d",
   "2026-10-16"
  ],
  "liquid-electrolytes": [
@@ -80,7 +84,7 @@
   "2026-10-16"
  ],
  "polarization": [
-  "5c306c5cd9279d31",
+  "a4f12f6859f08ea2",
   "2026-10-16"
  ],
  "positive-electrodes": [
@@ -92,7 +96,7 @@
   "2026-10-16"
  ],
  "references": [
-  "29f81d12af1f8de1",
+  "f589fb72d3373b59",
   "2026-10-16"
  ],
  "safety": [
@@ -112,7 +116,7 @@
   "2026-10-16"
  ],
  "terms": [
-  "27e553d9a682ccc7",
+  "9170857e7b124b47",
   "2026-10-16"
  ],
  "voltage-profiles": [

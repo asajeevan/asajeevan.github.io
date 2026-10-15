@@ -41,7 +41,7 @@ window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.c
 if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(a[i].pathname.replace(/index\.html$/,"")===f){var c=a[i].querySelector(".c-t");c.style.viewTransitionName="ch-title";e.viewTransition.finished.finally(function(){c.style.viewTransitionName="";});}}}}catch(x){}});})();</script>
 <link rel="stylesheet" href="../../../assets/css/site.css">
 <link rel="stylesheet" href="../../../assets/css/learn.css">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": ["Article", "LearningResource"], "headline": "Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "givenName": "Aswadh", "familyName": "Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/eis-measurement/", "inLanguage": "en", "isAccessibleForFree": true, "learningResourceType": "interactive lesson", "dateModified": "2026-10-16", "description": "How to measure battery impedance spectra you can trust: Nyquist and Bode plots, amplitude and linearity, cell connections and Kramers-Kronig validation."}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Aswadh Shyma Sajeevan", "item": "https://asajeevan.github.io/"}, {"@type": "ListItem", "position": 2, "name": "How batteries work", "item": "https://asajeevan.github.io/batteries/"}, {"@type": "ListItem", "position": 3, "name": "Lab 3: EIS: measurement", "item": "https://asajeevan.github.io/batteries/lab/eis-measurement/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": ["Article", "LearningResource"], "headline": "Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation", "isPartOf": {"@type": "Course", "name": "How batteries work", "url": "https://asajeevan.github.io/batteries/"}, "author": {"@type": "Person", "name": "Aswadh Shyma Sajeevan", "givenName": "Aswadh", "familyName": "Shyma Sajeevan", "url": "https://asajeevan.github.io/"}, "url": "https://asajeevan.github.io/batteries/lab/eis-measurement/", "inLanguage": "en", "isAccessibleForFree": true, "learningResourceType": "interactive lesson", "dateModified": "2026-10-16", "description": "How to measure battery impedance spectra you can trust: Nyquist and Bode plots, amplitude and linearity, cell connections and Kramers-Kronig validation."}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Aswadh Shyma Sajeevan", "item": "https://asajeevan.github.io/"}, {"@type": "ListItem", "position": 2, "name": "How batteries work", "item": "https://asajeevan.github.io/batteries/"}, {"@type": "ListItem", "position": 3, "name": "Lab 4: EIS: measurement", "item": "https://asajeevan.github.io/batteries/lab/eis-measurement/"}]}]</script>
 </head>
 <body data-mode="teach" class="course-page kind-lab" data-page="lab/eis-measurement" data-root="../../../">
 <canvas id="learnBg" class="learn-bg" aria-hidden="true"></canvas>
@@ -51,18 +51,18 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <div class="wrap">
 <button class="tb-btn tb-toc" id="tocBtn" type="button" aria-controls="toc" aria-expanded="false" title="Contents (t)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="tb-l">Contents</span></button>
 <a class="brand" href="../../../batteries/">How batteries work</a>
-<span class="crumb"><span class="crumb-n">Lab 3</span> <span class="crumb-t">EIS: measurement</span></span><span class="tb-cell" id="tbCell" title="0 % read" aria-hidden="true"><svg viewBox="0 0 32 16"><rect class="cell-b" x="1" y="1" width="26" height="14" rx="3.5"/><rect class="cell-cap" x="28" y="5" width="3" height="6" rx="1"/><rect class="cell-f" x="3.5" y="3.5" width="21" height="9" rx="1.5"/></svg></span>
+<span class="crumb"><span class="crumb-n">Lab 4</span> <span class="crumb-t">EIS: measurement</span></span><span class="tb-cell" id="tbCell" title="0 % read" aria-hidden="true"><svg viewBox="0 0 32 16"><rect class="cell-b" x="1" y="1" width="26" height="14" rx="3.5"/><rect class="cell-cap" x="28" y="5" width="3" height="6" rx="1"/><rect class="cell-f" x="3.5" y="3.5" width="21" height="9" rx="1.5"/></svg></span>
 <span class="tb-sp"></span>
 <button class="tb-btn" id="searchBtn" type="button" aria-controls="search" aria-expanded="false" title="Search (/)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="tb-l">Search</span></button>
-<a class="tb-btn tb-arrow" rel="prev" href="../../../batteries/lab/gitt/" title="Previous: Lab 2 GITT (←)" aria-label="Previous: Lab 2 GITT">&#8592;</a>
-<a class="tb-btn tb-arrow" rel="next" href="../../../batteries/lab/eis-analysis/" title="Next: Lab 4 EIS: analysis (→)" aria-label="Next: Lab 4 EIS: analysis">&#8594;</a>
+<a class="tb-btn tb-arrow" rel="prev" href="../../../batteries/lab/gitt/" title="Previous: Lab 3 GITT (←)" aria-label="Previous: Lab 3 GITT">&#8592;</a>
+<a class="tb-btn tb-arrow" rel="next" href="../../../batteries/lab/eis-analysis/" title="Next: Lab 5 EIS: analysis (→)" aria-label="Next: Lab 5 EIS: analysis">&#8594;</a>
 </div>
 <div class="progress" id="progress"></div>
 </header>
 <aside class="toc" id="toc" aria-label="Contents" tabindex="-1">
 <div class="toc-head"><span class="toc-title">Contents</span><button class="toc-x" id="tocClose" type="button" aria-label="Close the contents">&#215;</button></div>
 <div class="toc-sec toc-modes"><p class="toc-k">Reading level</p><div class="modes" role="group" aria-label="Choose how to read"><button type="button" data-mode="show" aria-pressed="false">Just show me</button><button type="button" data-mode="teach" aria-pressed="true">Teach me</button><button type="button" data-mode="equations" aria-pressed="false">I want the equations</button></div><p class="modes-note"></p></div>
-<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f11-8"><span class="n">L3.1</span><span class="t">Impedance: a sine in, a sine out, compared in size and timing</span></a></li><li class="o-sub"><a href="#s-impedance-spectroscopy-from-the-beginning"><span class="t">Impedance spectroscopy, from the beginning</span></a></li><li class="o-fig"><a href="#f11-9"><span class="n">L3.2</span><span class="t">One spectrum, two pictures</span></a></li><li class="o-fig"><a href="#f11-10"><span class="n">L3.3</span><span class="t">A commercial cell’s spectrum, read from left to right</span></a></li><li class="o-fig"><a href="#f11-11"><span class="n">L3.4</span><span class="t">The shapes real cells draw, and the physics behind each</span></a></li><li class="o-fig"><a href="#f11-12"><span class="n">L3.5</span><span class="t">How small is small enough?</span></a></li><li class="o-sub"><a href="#s-measuring-well"><span class="t">Measuring well</span></a></li><li class="o-fig"><a href="#f11-13"><span class="n">L3.6</span><span class="t">For a cell of milliohms, how it is connected changes the answer</span></a></li><li class="o-fig"><a href="#f11-14"><span class="n">L3.7</span><span class="t">Is the spectrum valid?</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
+<nav class="toc-sec toc-page" aria-label="On this page"><p class="toc-k">On this page</p><ol class="toc-outline"><li class="o-fig"><a href="#f11-8"><span class="n">L4.1</span><span class="t">Impedance: a sine in, a sine out, compared in size and timing</span></a></li><li class="o-sub"><a href="#s-impedance-spectroscopy-from-the-beginning"><span class="t">Impedance spectroscopy, from the beginning</span></a></li><li class="o-fig"><a href="#f11-9"><span class="n">L4.2</span><span class="t">One spectrum, two pictures</span></a></li><li class="o-fig"><a href="#f11-10"><span class="n">L4.3</span><span class="t">A commercial cell’s spectrum, read from left to right</span></a></li><li class="o-fig"><a href="#f11-11"><span class="n">L4.4</span><span class="t">The shapes real cells draw, and the physics behind each</span></a></li><li class="o-fig"><a href="#f11-12"><span class="n">L4.5</span><span class="t">How small is small enough?</span></a></li><li class="o-sub"><a href="#s-measuring-well"><span class="t">Measuring well</span></a></li><li class="o-fig"><a href="#f11-13"><span class="n">L4.6</span><span class="t">For a cell of milliohms, how it is connected changes the answer</span></a></li><li class="o-fig"><a href="#f11-14"><span class="n">L4.7</span><span class="t">Is the spectrum valid?</span></a></li><li class="o-end"><a href="#references"><span class="t">References</span></a></li></ol></nav>
 <nav class="toc-sec toc-course" aria-label="The course"><p class="toc-k">The course</p>
 <a class="toc-home" href="../../../batteries/">Course home</a>
 <div class="toc-part"><p class="toc-pt">Part I · Foundations</p><ol>
@@ -96,10 +96,11 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </ol></div>
 <div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
 <li data-chap="lab/cell-testing"><a href="../../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
-<li data-chap="lab/gitt"><a href="../../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
-<li data-chap="lab/eis-measurement" class="cur"><a href="../../../batteries/lab/eis-measurement/" aria-current="page"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
-<li data-chap="lab/eis-analysis"><a href="../../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
-<li data-chap="lab/post-mortem"><a href="../../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+<li data-chap="lab/cyclic-voltammetry"><a href="../../../batteries/lab/cyclic-voltammetry/"><span class="n">L2</span><span class="t">Cyclic voltammetry</span></a></li>
+<li data-chap="lab/gitt"><a href="../../../batteries/lab/gitt/"><span class="n">L3</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement" class="cur"><a href="../../../batteries/lab/eis-measurement/" aria-current="page"><span class="n">L4</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../../batteries/lab/eis-analysis/"><span class="n">L5</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../../batteries/lab/post-mortem/"><span class="n">L6</span><span class="t">Post-mortem</span></a></li>
 </ol></div>
 <div class="toc-part"><p class="toc-pt">For reference</p><ol>
 <li><a href="../../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
@@ -114,15 +115,15 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 
 <main id="top">
 <div id="content">
-<section class="module" id="ch" data-act="LAB" data-num="L3" data-nav>
+<section class="module" id="ch" data-act="LAB" data-num="L4" data-nav>
 <div class="wrap">
-<p class="mod-n">Lab handbook · Lab 3</p>
+<p class="mod-n">Lab handbook · Lab 4</p>
 <h1 class="h2">Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation</h1>
 <p class="hook">How do we record an impedance spectrum we can trust?</p>
 
 <div class="beat alt">
 <figure class="fig" data-fig="f11-8" id="f11-8">
-<span class="fnum">Figure L3.1</span>
+<span class="fnum">Figure L4.1</span>
 <svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f118t">
 <title id="f118t">Left: a sinusoidal voltage of 10 millivolts amplitude and the current it drives, over two periods, for a resistor, a capacitor, an inductor or a resistor in parallel with a capacitor. Right: the Lissajous plot of current against voltage, a diagonal line when they are in phase, a circle at 90 degrees, an ellipse in between. A readout gives the magnitude and phase of the impedance.</title>
 </svg>
@@ -134,7 +135,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <div class="key"><span><i class="act"></i>voltage</span><span><i style="background:var(--second)"></i>current</span><span><i style="background:var(--text)"></i>Lissajous plot</span></div>
 <figcaption>Impedance: a sine in, a sine out, compared in size and timing.
 <span class="try">Try this: choose R ‖ C and slide the frequency from 1 Hz to 10 kHz; watch the line open into an ellipse and close again.</span>
-<details class="src"><summary>Source</summary><span class="basis">Sinusoids, phasors, impedance as magnitude and phase, the responses of R, C and L, and Lissajous plots as a live check of linearity and stability, after Lazanas and Prodromidis 2023, sections 2 to 7 (eqs. 3, 24 to 28, 36 to 43) and Fig. 6; amplitude 5 to 10 mV after their section 16.2. Element values (20 Ω, 100 µF, 20 mH) are illustrative laboratory values; a cell’s are milliohms and farads (figure <a class="xref" href="#f11-10">L3.3</a>).</span></details>
+<details class="src"><summary>Source</summary><span class="basis">Sinusoids, phasors, impedance as magnitude and phase, the responses of R, C and L, and Lissajous plots as a live check of linearity and stability, after Lazanas and Prodromidis 2023, sections 2 to 7 (eqs. 3, 24 to 28, 36 to 43) and Fig. 6; amplitude 5 to 10 mV after their section 16.2. Element values (20 Ω, 100 µF, 20 mH) are illustrative laboratory values; a cell’s are milliohms and farads (figure <a class="xref" href="#f11-10">L4.3</a>).</span></details>
 </figcaption>
 </figure>
 <div class="text">
@@ -152,7 +153,7 @@ A factor of nearly three between the largest and smallest reading of the same si
 
 <div class="beat">
 <figure class="fig" data-fig="f11-9" id="f11-9">
-<span class="fnum">Figure L3.2</span>
+<span class="fnum">Figure L4.2</span>
 <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f119t">
 <title id="f119t">The impedance of a resistor in series with two resistor-capacitor pairs, shown as a Nyquist plot, minus the imaginary part against the real part on equal scales, and as a Bode plot, magnitude and minus phase against log frequency. A dot sweeps from high to low frequency on both. A slider sets the ratio of the two time constants; at ratios above about 100 two arcs and two phase peaks appear, at equal time constants one.</title>
 </svg>
@@ -173,13 +174,13 @@ A factor of nearly three between the largest and smallest reading of the same si
 <div class="worked"><b>Worked example.</b> Charge transfer in a commercial cell: R<sub>ct</sub> = 10 mΩ in parallel with a double layer of C<sub>dl</sub> = 2 F.
 <span class="line"><math><mrow><mi>τ</mi><mo>=</mo><msub><mi>R</mi><mrow><mi>c</mi><mi>t</mi></mrow></msub><msub><mi>C</mi><mrow><mi>d</mi><mi>l</mi></mrow></msub><mo>=</mo><mn>0.010</mn><mtext> </mtext><mi>Ω</mi><mo>×</mo><mn>2</mn><mtext> </mtext><mtext>F</mtext><mo>=</mo><mn>0.020</mn><mtext> </mtext><mtext>s</mtext></mrow></math></span>
 <span class="line"><math><mrow><mi>f</mi><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mi>τ</mi><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><mn>2</mn><mi>π</mi><mo>×</mo><mn>0.020</mn><mtext> </mtext><mtext>s</mtext><mo stretchy="false">)</mo></mrow></math> = <i>8 Hz</i></span>
-Milliohms times farads still make milliseconds: the arcs of a large cell sit at hertz, as in figure <a class="xref" href="#f11-10">L3.3</a>.</div>
+Milliohms times farads still make milliseconds: the arcs of a large cell sit at hertz, as in figure <a class="xref" href="#f11-10">L4.3</a>.</div>
 </div>
 </div>
 
 <div class="beat alt">
 <figure class="fig" data-fig="f11-10" id="f11-10">
-<span class="fnum">Figure L3.3</span>
+<span class="fnum">Figure L4.3</span>
 <svg viewBox="0 0 520 390" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1110t">
 <title id="f1110t">The impedance spectrum of an illustrative commercial cell in milliohms, built up element by element from a circuit drawn above it: inductance and ohmic resistance, then an SEI arc, then a charge-transfer arc, then a diffusion tail, with frequencies marked by decade and the kilohertz, hertz and millihertz ranges shaded. A dot sweeps the spectrum from high to low frequency.</title>
 </svg>
@@ -200,7 +201,7 @@ Milliohms times farads still make milliseconds: the arcs of a large cell sit at 
 
 <div class="beat">
 <figure class="fig" data-fig="f11-11" id="f11-11">
-<span class="fnum">Figure L3.4</span>
+<span class="fnum">Figure L4.4</span>
 <svg viewBox="0 0 520 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1111t">
 <title id="f1111t">Four small Nyquist plots on equal scales in milliohms. A: a resistor in parallel with a constant phase element, a semicircle depressed below the axis as the exponent n falls. B: diffusion into a film, the endless 45 degree Warburg line, the open-ended version bending back to the axis, and the closed-ended version turning vertical. C: a film and a sphere with the same diffusion resistance and capacitance, turning vertical at one third and one fifteenth of it. D: a porous electrode, a 45 degree line at high frequency then an arc, compared with the plain semicircle.</title>
 </svg>
@@ -216,7 +217,7 @@ Milliohms times farads still make milliseconds: the arcs of a large cell sit at 
 </figcaption>
 </figure>
 <div class="text">
-<p class="explain">The spectrum of figure <a class="xref" href="#f11-10">L3.3</a> is idealized; real spectra are never made of perfect semicircles. Arcs are <b>depressed</b>: their centres sit below the axis. The usual fix replaces the capacitor with a <b>constant phase element</b>, <math><mrow><mi>Z</mi><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msub><mi>Y</mi><mn>0</mn></msub><mo stretchy="false">(</mo><mi>j</mi><mi>ω</mi><msup><mo stretchy="false">)</mo><mi>n</mi></msup><mo stretchy="false">)</mo></mrow></math>: <math><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow></math> is a capacitor, <math><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> a resistor and <math><mrow><mi>n</mi><mo>=</mo><mn>0.5</mn></mrow></math> a Warburg diffusion line. Surface roughness, fractal geometry and adsorption have all been proposed as its cause, and the question is not settled.<sup class="cite"><a href="#ref-1">1</a></sup> A CPE with a free exponent can fit almost any valid data, so its parameters cannot be read as real capacitances.<sup class="cite"><a href="#ref-3">3</a></sup></p>
+<p class="explain">The spectrum of figure <a class="xref" href="#f11-10">L4.3</a> is idealized; real spectra are never made of perfect semicircles. Arcs are <b>depressed</b>: their centres sit below the axis. The usual fix replaces the capacitor with a <b>constant phase element</b>, <math><mrow><mi>Z</mi><mo>=</mo><mn>1</mn><mo>/</mo><mo stretchy="false">(</mo><msub><mi>Y</mi><mn>0</mn></msub><mo stretchy="false">(</mo><mi>j</mi><mi>ω</mi><msup><mo stretchy="false">)</mo><mi>n</mi></msup><mo stretchy="false">)</mo></mrow></math>: <math><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow></math> is a capacitor, <math><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow></math> a resistor and <math><mrow><mi>n</mi><mo>=</mo><mn>0.5</mn></mrow></math> a Warburg diffusion line. Surface roughness, fractal geometry and adsorption have all been proposed as its cause, and the question is not settled.<sup class="cite"><a href="#ref-1">1</a></sup> A CPE with a free exponent can fit almost any valid data, so its parameters cannot be read as real capacitances.<sup class="cite"><a href="#ref-3">3</a></sup></p>
 <p class="explain"><b>Diffusion</b> into a layer of finite thickness starts as the 45° Warburg line, then bends. If the far side lets lithium through, the line bends back to the axis in an arc; if it blocks lithium, as the inside of a particle does, the line turns vertical like a capacitor.<sup class="cite"><a href="#ref-1">1</a></sup> Particles are closer to spheres than to films: with the same diffusion resistance <math><mrow><msub><mi>R</mi><mi>d</mi></msub></mrow></math> and capacitance <math><mrow><msub><mi>C</mi><mi>d</mi></msub></mrow></math>, a sphere turns upward earlier and its tail stands at <math><mrow><msub><mi>R</mi><mi>d</mi></msub><mo>/</mo><mn>15</mn></mrow></math> instead of <math><mrow><msub><mi>R</mi><mi>d</mi></msub><mo>/</mo><mn>3</mn></mrow></math>, and the diffusion coefficient follows as <math><mrow><mi>D</mi><mo>=</mo><msup><mi>r</mi><mn>2</mn></msup><mo>/</mo><mo stretchy="false">(</mo><msub><mi>R</mi><mi>d</mi></msub><msub><mi>C</mi><mi>d</mi></msub><mo stretchy="false">)</mo></mrow></math>.<sup class="cite"><a href="#ref-4">4</a></sup></p>
 <p class="explain">A <b>porous electrode</b> is a ladder: the electrolyte resistance runs down each pore, and every grain wall has its own interface. The result is a 45° line at high frequency followed by an arc.<sup class="cite"><a href="#ref-1">1</a>,<a href="#ref-3">3</a></sup> In the same study, fitted to an NMC622 electrode, such a transmission-line model gave a diffusion coefficient about four times larger than GITT or impedance models that put diffusion in simple series.<sup class="cite"><a href="#ref-4">4</a></sup></p>
 </div>
@@ -224,7 +225,7 @@ Milliohms times farads still make milliseconds: the arcs of a large cell sit at 
 
 <div class="beat alt">
 <figure class="fig" data-fig="f11-12" id="f11-12">
-<span class="fnum">Figure L3.5</span>
+<span class="fnum">Figure L4.5</span>
 <svg viewBox="0 0 520 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1112t">
 <title id="f1112t">Left: the Butler-Volmer current against overpotential from minus to plus 120 millivolts, with its tangent at zero of slope one over the charge-transfer resistance, and the part swept by the sine highlighted. Right top: the current over one period compared with a pure sine. Right bottom: the sizes of the fundamental and the second to fifth harmonics on a log scale.</title>
 </svg>
@@ -252,7 +253,7 @@ A 1000 times larger exchange current, as on a large electrode, gives 25.7 mΩ.<s
 
 <div class="beat">
 <figure class="fig" data-fig="f11-13" id="f11-13">
-<span class="fnum">Figure L3.6</span>
+<span class="fnum">Figure L4.6</span>
 <svg viewBox="0 0 520 370" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1113t">
 <title id="f1113t">Top: an analyser connected to a cell with two wires that carry the current and sense the voltage, and with four wires, a current pair and a separate sense pair. Bottom: the high-frequency part of the spectrum measured both ways; the two-terminal curve is shifted right by the wire resistance and pulled further below the axis by the wire inductance, more so for longer cables.</title>
 </svg>
@@ -273,7 +274,7 @@ A 1000 times larger exchange current, as on a large electrode, gives 25.7 mΩ.<s
 
 <div class="beat alt">
 <figure class="fig" data-fig="f11-14" id="f11-14">
-<span class="fnum">Figure L3.7</span>
+<span class="fnum">Figure L4.7</span>
 <svg viewBox="0 0 520 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1114t">
 <title id="f1114t">Top: a measured spectrum as dots with the fit of a linear Kramers-Kronig test circuit as a line. Bottom: the residuals of the real and imaginary parts, in percent of the impedance magnitude, against log frequency, with a band of plus and minus one percent. With a drifting cell the low-frequency residuals form a pattern; with noise they scatter randomly.</title>
 </svg>
@@ -312,8 +313,8 @@ A 1000 times larger exchange current, as on a large electrode, gives 25.7 mΩ.<s
 
 </div>
 <nav class="pagenav wrap" aria-label="Previous and next">
-<a class="pn prev" href="../../../batteries/lab/gitt/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Lab 2 GITT</span><span class="pn-q">How do we measure resistance and diffusion?</span></a>
-<a class="pn next" href="../../../batteries/lab/eis-analysis/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Lab 4 EIS: analysis</span><span class="pn-q">What does a spectrum mean, and what does a good fit not prove?</span></a>
+<a class="pn prev" href="../../../batteries/lab/gitt/" rel="prev"><span class="pn-k">&#8592; Previous</span><span class="pn-t">Lab 3 GITT</span><span class="pn-q">How do we measure resistance and diffusion?</span></a>
+<a class="pn next" href="../../../batteries/lab/eis-analysis/" rel="next"><span class="pn-k">Next &#8594;</span><span class="pn-t">Lab 5 EIS: analysis</span><span class="pn-q">What does a spectrum mean, and what does a good fit not prove?</span></a>
 </nav>
 <section class="section page-refs" id="references">
 <div class="wrap">
@@ -326,7 +327,7 @@ A 1000 times larger exchange current, as on a large electrode, gives 25.7 mΩ.<s
   <div class="wrap">
     <h2 class="h2" id="citeH">Cite this page</h2>
     <p class="cite-lede">Using this page in teaching, a thesis or an article? Cite it as follows; the date is the last update of the course.</p>
-    <div class="cite-ui"><p class="cite-out cite-static">Shyma Sajeevan, A.. (2026). <i>Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation</i>. How batteries work. https://asajeevan.github.io/batteries/lab/eis-measurement/</p></div>
+    <div class="cite-ui"><p class="cite-out cite-static">Shyma Sajeevan, A. (2026). <i>Electrochemical impedance spectroscopy (EIS) I: principles, measurement and validation</i>. How batteries work. https://asajeevan.github.io/batteries/lab/eis-measurement/</p></div>
   </div>
 </section>
 

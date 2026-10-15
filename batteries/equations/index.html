@@ -96,10 +96,11 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </ol></div>
 <div class="toc-part"><p class="toc-pt">Lab handbook</p><ol>
 <li data-chap="lab/cell-testing"><a href="../../batteries/lab/cell-testing/"><span class="n">L1</span><span class="t">Cell testing</span></a></li>
-<li data-chap="lab/gitt"><a href="../../batteries/lab/gitt/"><span class="n">L2</span><span class="t">GITT</span></a></li>
-<li data-chap="lab/eis-measurement"><a href="../../batteries/lab/eis-measurement/"><span class="n">L3</span><span class="t">EIS: measurement</span></a></li>
-<li data-chap="lab/eis-analysis"><a href="../../batteries/lab/eis-analysis/"><span class="n">L4</span><span class="t">EIS: analysis</span></a></li>
-<li data-chap="lab/post-mortem"><a href="../../batteries/lab/post-mortem/"><span class="n">L5</span><span class="t">Post-mortem</span></a></li>
+<li data-chap="lab/cyclic-voltammetry"><a href="../../batteries/lab/cyclic-voltammetry/"><span class="n">L2</span><span class="t">Cyclic voltammetry</span></a></li>
+<li data-chap="lab/gitt"><a href="../../batteries/lab/gitt/"><span class="n">L3</span><span class="t">GITT</span></a></li>
+<li data-chap="lab/eis-measurement"><a href="../../batteries/lab/eis-measurement/"><span class="n">L4</span><span class="t">EIS: measurement</span></a></li>
+<li data-chap="lab/eis-analysis"><a href="../../batteries/lab/eis-analysis/"><span class="n">L5</span><span class="t">EIS: analysis</span></a></li>
+<li data-chap="lab/post-mortem"><a href="../../batteries/lab/post-mortem/"><span class="n">L6</span><span class="t">Post-mortem</span></a></li>
 </ol></div>
 <div class="toc-part"><p class="toc-pt">For reference</p><ol>
 <li><a href="../../batteries/terms/"><span class="n">&#183;</span><span class="t">Index of terms</span></a></li>
@@ -236,8 +237,8 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <p class="eqline"><span class="eq">Q&#775; = I(U &#8722; V) &#8722; I&#8239;T&#8239;dU/dT</span><span class="eqnote">the heat a cell makes in normal use (<a class="xref" href="../../batteries/polarization/">chapter 5</a>, figure <a class="xref" href="../../batteries/polarization/#f5-11">5.5</a>); in runaway the side reactions add their own heat on top</span></p>
 <p class="eqline"><span class="eq">L<sub>SEI</sub> &#8733; t<sup>b</sup></span><span class="eqnote">the ageing law of <a class="xref" href="../../batteries/degradation/">chapter 16</a> behind the advice to avoid long periods at full charge</span></p>
 </div>
-<h2 class="ref-h" id="eq-lab-post-mortem"><a href="../../batteries/lab/post-mortem/#maths">Lab 5 &#183; Post-mortem</a></h2>
-<div class="eq-block"><p class="eqline"><span class="eq">ΔV/I = R<sub>0</sub> + Σ R<sub>k</sub>(1 − e<sup>−t/R<sub>k</sub>C<sub>k</sub></sup>) + 2σ√(2t/π)</span><span class="eqnote">the pulse resistance of figure <a class="xref" href="../../batteries/lab/gitt/#f11-2">L2.1</a>: ohmic, R‖C pairs and a Warburg element of coefficient σ</span></p>
+<h2 class="ref-h" id="eq-lab-post-mortem"><a href="../../batteries/lab/post-mortem/#maths">Lab 6 &#183; Post-mortem</a></h2>
+<div class="eq-block"><p class="eqline"><span class="eq">ΔV/I = R<sub>0</sub> + Σ R<sub>k</sub>(1 − e<sup>−t/R<sub>k</sub>C<sub>k</sub></sup>) + 2σ√(2t/π)</span><span class="eqnote">the pulse resistance of figure <a class="xref" href="../../batteries/lab/gitt/#f11-2">L3.1</a>: ohmic, R‖C pairs and a Warburg element of coefficient σ</span></p>
 <p class="eqline"><span class="eq">D = (4/πτ)(m<sub>B</sub>V<sub>M</sub>/M<sub>B</sub>S)<sup>2</sup>(ΔE<sub>s</sub>/ΔE<sub>t</sub>)<sup>2</sup>; for spheres the bracket is r/3</span><span class="eqnote">Weppner–Huggins, valid for Dτ/L<sup>2</sup> below 0.25 (flat) or about 0.025 (spheres)</span></p>
 <p class="eqline"><span class="eq">f(τ̂) = 3τ̂ + 1/5 − 2Σ e<sup>−α<sub>n</sub><sup>2</sup>τ̂</sup>/α<sub>n</sub><sup>2</sup>, with α<sub>n</sub> = tan α<sub>n</sub></span><span class="eqnote">surface change of a sphere under constant flux, τ̂ = Dt/r<sup>2</sup>; 2√(τ̂/π) at short times (Nickol et al.)</span></p>
 <p class="eqline"><span class="eq">V − V<sub>eq</sub> ∝ √(t + τ) − √t</span><span class="eqnote">the rest after a pulse of length τ, t the time at rest; its slope gives D (Kang and Chueh)</span></p>
@@ -258,7 +259,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
   <div class="wrap">
     <h2 class="h2" id="citeH">Cite this page</h2>
     <p class="cite-lede">Using this page in teaching, a thesis or an article? Cite it as follows; the date is the last update of the course.</p>
-    <div class="cite-ui"><p class="cite-out cite-static">Shyma Sajeevan, A.. (2026). <i>Equations</i>. How batteries work. https://asajeevan.github.io/batteries/equations/</p></div>
+    <div class="cite-ui"><p class="cite-out cite-static">Shyma Sajeevan, A. (2026). <i>Equations</i>. How batteries work. https://asajeevan.github.io/batteries/equations/</p></div>
   </div>
 </section>
 

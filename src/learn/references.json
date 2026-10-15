@@ -522,5 +522,41 @@
     "doi": "10.1088/978-0-7503-4881-2ch1",
     "status": "verified",
     "short": "Arote 2022"
+  },
+  "R83": {
+    "authors": "N. Elgrishi, K. J. Rountree, B. D. McCarthy, E. S. Rountree, T. T. Eisenhart, J. L. Dempsey",
+    "title": "A Practical Beginner's Guide to Cyclic Voltammetry",
+    "journal": "Journal of Chemical Education",
+    "year": 2018, "volume": "95", "pages": "197-206",
+    "doi": "10.1021/acs.jchemed.7b00361",
+    "status": "verified",
+    "short": "Elgrishi et al. 2018"
+  },
+  "R84": {
+    "authors": "T. Kim, W. Choi, H.-C. Shin, J.-Y. Choi, J. M. Kim, M.-S. Park, W.-S. Yoon",
+    "title": "Applications of Voltammetry in Lithium Ion Battery Research",
+    "journal": "Journal of Electrochemical Science and Technology",
+    "year": 2020, "volume": "11", "pages": "14-25",
+    "doi": "10.33961/jecst.2019.00619",
+    "status": "verified",
+    "short": "Kim et al. 2020"
+  },
+  "R85": {
+    "authors": "S. Fleischmann, J. B. Mitchell, R. Wang, C. Zhan, D. Jiang, V. Presser, V. Augustyn",
+    "title": "Pseudocapacitance: From Fundamental Understanding to High Power Energy Storage Materials",
+    "journal": "Chemical Reviews",
+    "year": 2020, "volume": "120", "pages": "6738-6782",
+    "doi": "10.1021/acs.chemrev.0c00170",
+    "status": "verified",
+    "short": "Fleischmann et al. 2020"
+  },
+  "R86": {
+    "authors": "J. Scheers, P. Johansson",
+    "title": "Prediction of Electrolyte and Additive Electrochemical Stabilities",
+    "journal": "in T. R. Jow, K. Xu, O. Borodin, M. Ue (eds.), Electrolytes for Lithium and Lithium-Ion Batteries, Modern Aspects of Electrochemistry 58, Springer, New York",
+    "year": 2014, "volume": "", "pages": "403-443",
+    "doi": "10.1007/978-1-4939-0302-3_9",
+    "status": "verified",
+    "short": "Scheers and Johansson 2014"
   }
 }

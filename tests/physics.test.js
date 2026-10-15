@@ -438,3 +438,39 @@ test('Illustrative plating model: faster or colder charging plates earlier; LTO 
   ok(N9.graphiteU(0.95) > 0.06 && N9.graphiteU(0.95) < 0.09);
   ok(N9.platingOnset(6, 263.15, () => 1.55) === 1); // within the figure's range (to 6C, down to −10 °C)
 });
+
+/* ---------- Lab: cyclic voltammetry (Elgrishi et al. 2018; Kim et al. 2020; Fleischmann et al. 2020) ---------- */
+const cvBase = { Ei: -0.3, Es: 0.3, E0: 0, D: 1e-5, C: 1e-6, A: 0.0707 };
+test('CV simulation reproduces the Randles-Sevcik peak current within 1 % (Elgrishi et al. 2018, eq 3)', () => {
+  for (const v of [0.01, 0.1, 1]) {
+    const p = P.cv.peaks(P.cv.simulate(Object.assign({}, cvBase, { v })));
+    const rs = P.cv.randlesSevcik(1, cvBase.A, cvBase.C, cvBase.D, v);
+    close(p.ipa / rs, 1, 0.01);
+  }
+});
+test('reversible one-electron couple: peak separation close to 57 mV at 25 C, E1/2 at the formal potential (Elgrishi et al. 2018)', () => {
+  const p = P.cv.peaks(P.cv.simulate(Object.assign({}, cvBase, { v: 0.1, steps: 1600 })));
+  close(p.dEp * 1000, 57.5, 1.5);
+  close(p.E12 * 1000, 0, 2);
+});
+test('peak current grows with the square root of scan rate: 100 times faster, 10 times more current', () => {
+  const a = P.cv.peaks(P.cv.simulate(Object.assign({}, cvBase, { v: 0.01 }))), b = P.cv.peaks(P.cv.simulate(Object.assign({}, cvBase, { v: 1 })));
+  close(b.ipa / a.ipa, 10, 0.1);
+  close(P.cv.bValue(a.ipa, 0.01, b.ipa, 1), 0.5, 0.005);
+});
+test('slow electron transfer and uncompensated resistance both widen the peak separation (Elgrishi et al. 2018)', () => {
+  const rev = P.cv.peaks(P.cv.simulate(Object.assign({}, cvBase, { v: 0.1 }))).dEp;
+  assert.ok(P.cv.peaks(P.cv.simulate(Object.assign({}, cvBase, { v: 0.1, k0: 1e-3 }))).dEp > rev + 0.1);
+  assert.ok(P.cv.peaks(P.cv.simulate(Object.assign({}, cvBase, { v: 0.1, Ru: 1000 }))).dEp > rev + 0.03);
+});
+test('capacitive current is Cdl A v, proportional to scan rate (Kim et al. 2020, eq 10)', () => {
+  const o = P.cv.simulate(Object.assign({}, cvBase, { v: 0.1, C: 0, Cdl: 20e-6 }));
+  close(o.i[100], 20e-6 * 0.0707 * 0.1, 1e-10);
+});
+test('k1 v + k2 v^(1/2) fit recovers both terms, and D from the Randles-Sevcik slope round-trips', () => {
+  const vs = [0.001, 0.002, 0.005, 0.01, 0.02], is = vs.map((v) => 3e-4 * v + 2e-5 * Math.sqrt(v));
+  const k = P.cv.dunnFit(vs, is);
+  close(k.k1, 3e-4, 1e-9); close(k.k2, 2e-5, 1e-10);
+  const slope = P.cv.randlesSevcik(1, 1, 1e-6, 1e-5, 1) / 1;
+  close(P.cv.dFromRSSlope(slope, 1, 1, 1e-6), 1e-5, 1e-9);
+});

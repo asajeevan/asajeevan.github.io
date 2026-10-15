@@ -700,6 +700,108 @@
     ]
   };
 
+  /* ---------- Lab: cyclic voltammetry ---------- */
+  /* A simulated cyclic voltammogram of a dissolved redox couple Red = Ox + n e-, only Red present at
+     the start, the potential swept positive first (oxidation), anodic current positive. Semi-infinite
+     linear diffusion (Fick's second law) with equal diffusion coefficients, solved by explicit finite
+     differences (D dt / dx^2 = 0.45). At the electrode the flux is set by Butler-Volmer kinetics with
+     rate constant k0 (cm/s) and transfer coefficient alpha; k0 = Infinity gives the Nernstian limit,
+     Ox/Red = exp(nf(E - E0)) (Nernst equation, Elgrishi et al. 2018, eq 1). Optional uncompensated
+     resistance Ru (ohm) shifts the potential the electrode feels by i Ru (Elgrishi et al. 2018, ohmic
+     drop) and a double-layer capacitance Cdl (F/cm2) adds the capacitive current Cdl A dE/dt, which is
+     proportional to scan rate (Elgrishi et al. 2018; Kim et al. 2020, eq 10). This page's own working;
+     it reproduces the Randles-Sevcik peak current and the 57 mV peak separation (tests).
+     Units: D cm2/s, C mol/cm3, A cm2, v V/s; returns E (applied, V), Ee (felt, V), i (A), t (s). */
+  function cvSimulate(o) {
+    var def = function (x, d) { return x === undefined ? d : x; };
+    var n = def(o.n, 1), T = def(o.T, T0), f = n * F / (R * T), E0 = def(o.E0, 0), Ei = o.Ei, Es = o.Es, v = o.v;
+    var D = def(o.D, 1e-5), C = def(o.C, 1e-6), A = def(o.A, 0.0707), k0 = def(o.k0, Infinity), al = def(o.alpha, 0.5);
+    var Ru = def(o.Ru, 0), Cdl = def(o.Cdl, 0), N = def(o.steps, 800), cycles = def(o.cycles, 1);
+    var span = Math.abs(Es - Ei), dt = span / v / N, tTot = 2 * cycles * span / v;
+    var dx = Math.sqrt(D * dt / 0.45), L = 6 * Math.sqrt(D * tTot), nx = Math.min(6000, Math.ceil(L / dx) + 3);
+    var c = new Float64Array(nx), cn = new Float64Array(nx), k;
+    for (k = 0; k < nx; k++) c[k] = 1;                               // fraction of Red; Ox = 1 - c
+    var out = { E: [], Ee: [], i: [], t: [], prof: [] }, EePrev = Ei, lam = D * dt / (dx * dx);
+    var every = def(o.profEvery, 0), total = 2 * cycles * N, Q = n * F * A * D * C / (2 * dx);
+    function surface(eta, c1, c2) {                                  // c0 from the flux balance, second-order gradient
+      if (k0 === Infinity) return 1 / (1 + Math.exp(f * eta));
+      var ka = k0 * Math.exp((1 - al) * f * eta), kc = k0 * Math.exp(-al * f * eta), g = D / (2 * dx);
+      return (g * (4 * c1 - c2) + kc) / (3 * g + ka + kc);           // D(-3c0 + 4c1 - c2)/(2dx) = ka c0 - kc (1 - c0)
+    }
+    for (var s = 1; s <= total; s++) {
+      var seg = Math.floor((s - 1) / N), up = seg % 2 === 0, u = (s - (seg * N)) / N;
+      var E = up ? Ei + (Es - Ei) * u : Es - (Es - Ei) * u;
+      for (k = 1; k < nx - 1; k++) cn[k] = c[k] + lam * (c[k + 1] - 2 * c[k] + c[k - 1]);
+      cn[nx - 1] = 1;
+      var c1 = cn[1], c2 = cn[2];
+      var cur = function (Ee) { var c0 = surface(Ee - E0, c1, c2); return { c0: c0, i: Q * (-3 * c0 + 4 * c1 - c2) + Cdl * A * (Ee - EePrev) / dt }; };
+      var Ee = E, r = cur(E);
+      if (Ru > 0) {                                                  // the electrode feels E - i Ru: solve for it by bisection
+        var lo = E - 1.5, hi = E + 1.5;
+        for (var it = 0; it < 40; it++) { var mid = 0.5 * (lo + hi), rm = cur(mid); if (mid - E + Ru * rm.i > 0) hi = mid; else lo = mid; }
+        Ee = 0.5 * (lo + hi); r = cur(Ee);
+      }
+      cn[0] = r.c0;
+      var tmp = c; c = cn; cn = tmp;
+      EePrev = Ee;
+      out.E.push(E); out.Ee.push(Ee); out.i.push(r.i); out.t.push(s * dt);
+      if (every && s % every === 0) { var pr = [], st = Math.max(1, Math.floor(nx / 80)); for (k = 0; k < nx; k += st) pr.push([k * dx, c[k]]); out.prof.push({ t: s * dt, E: E, p: pr }); }
+    }
+    out.dx = dx; out.nx = nx; out.dt = dt;
+    return out;
+  }
+  /* Randles-Sevcik peak current of a reversible couple, ip = 0.446 n F A C (n F v D / R T)^(1/2)
+     (Elgrishi et al. 2018, eq 3; Kim et al. 2020, eq 6; the factor is 0.4463). */
+  function randlesSevcik(n, A, C, D, v, T) { return 0.4463 * n * F * A * C * Math.sqrt(n * F * v * D / (R * (T || T0))); }
+  /* Apparent diffusion coefficient from the slope of ip against v^(1/2) (Kim et al. 2020, eqs 18 and 19). */
+  function dFromRSSlope(slope, n, A, C, T) { var q = slope / (0.4463 * n * F * A * C); return q * q * R * (T || T0) / (n * F); }
+  /* The power law i = a v^b and its two-point slope (Kim et al. 2020, eqs 9 to 13; Fleischmann et al. 2020, eq 8). */
+  function bValue(i1, v1, i2, v2) { return Math.log(i2 / i1) / Math.log(v2 / v1); }
+  /* i = k1 v + k2 v^(1/2) (Kim et al. 2020, eq 15; Fleischmann et al. 2020, eq 12): the least-squares k1, k2
+     from i/v^(1/2) = k1 v^(1/2) + k2 (their eq 17). */
+  function dunnFit(vs, is) {
+    var n = vs.length, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (var j = 0; j < n; j++) { var x = Math.sqrt(vs[j]), y = is[j] / x; sx += x; sy += y; sxx += x * x; sxy += x * y; }
+    var k1 = (n * sxy - sx * sy) / (n * sxx - sx * sx), k2 = (sy - k1 * sx) / n;
+    return { k1: k1, k2: k2 };
+  }
+  /* Peaks of a simulated voltammogram: the largest anodic current on the forward sweep and the most
+     negative current on the reverse sweep, with their potentials (applied). */
+  function cvPeaks(out) {
+    var N = out.E.length / 2, ia = -Infinity, Ea = 0, ic = Infinity, Ec = 0;
+    for (var j = 0; j < out.E.length; j++) {
+      if (j < N && out.i[j] > ia) { ia = out.i[j]; Ea = out.E[j]; }
+      if (j >= N && out.i[j] < ic) { ic = out.i[j]; Ec = out.E[j]; }
+    }
+    return { ipa: ia, Epa: Ea, ipc: ic, Epc: Ec, dEp: Ea - Ec, E12: (Ea + Ec) / 2 };
+  }
+  /* A slow sweep over a battery electrode, this page's own illustrative model: the electrode follows its
+     open-circuit curve U(x) (x the lithium fraction) behind one lumped resistance R, so the current is
+     i = (E - U(x)) / R (anodic positive, delithiating) and dx/dt = -i / Q. With R -> 0 the current becomes
+     v dQ/dV of the open-circuit curve (Kim et al. 2020, eq 4: dQ/dV = I/v). Sweeps Ei -> Es -> Ei once.
+     Units: Q in coulombs, R in ohm, v in V/s. */
+  function cvElectrode(o) {
+    // one electrode behind one resistance: i = (E - U(x)) / R, dx/dt = -i / Q, x the lithium fraction.
+    // Linearized backward Euler (stable on steep parts of U); x is held to [0, 1], and the current
+    // reported is the charge actually moved, so a full or empty electrode passes no current.
+    var U = o.U, Q = o.Q, Rr = o.R, v = o.v, Ei = o.Ei, Es = o.Es, x = o.x0, N = o.steps || 1500, sub = o.sub || 20;
+    var span = Math.abs(Es - Ei), dt = span / v / N / sub, out = { E: [], i: [], x: [] }, h = 1e-5;
+    for (var s = 1; s <= 2 * N; s++) {
+      var acc = 0, E;
+      for (var m = 1; m <= sub; m++) {
+        var u = ((s - 1) * sub + m) / (N * sub);
+        E = u <= 1 ? Ei + (Es - Ei) * u : Es - (Es - Ei) * (u - 1);
+        var a = Math.max(0, x - h), c = Math.min(1, x + h), dU = (U(c) - U(a)) / (c - a);
+        var f = -(E - U(x)) / (Rr * Q), fp = dU / (Rr * Q);
+        var xn = Math.min(1, Math.max(0, x + dt * f / Math.max(1, 1 - dt * fp)));
+        acc += -(xn - x) * Q / dt; x = xn;
+      }
+      out.E.push(E); out.i.push(acc / sub); out.x.push(x);
+    }
+    return out;
+  }
+  var cv = { simulate: cvSimulate, electrode: cvElectrode, randlesSevcik: randlesSevcik, dFromRSSlope: dFromRSSlope, bValue: bValue, dunnFit: dunnFit, peaks: cvPeaks };
+
   return {
     F: F, R: R, T0: T0, e: e, NA: NA, eps0: eps0,
     coulombForce: coulombForce, fieldOfCharge: fieldOfCharge, potentialOfCharge: potentialOfCharge, uniformField: uniformField,
@@ -720,6 +822,7 @@
     chargePassed: chargePassed, cRateCurrent: cRateCurrent, lfpOcp: lfpOcp, lfpDiffusion: lfpDiffusion, lfpElectrode: lfpElectrode,
     edlcCharge: edlcCharge, edlcCycle: edlcCycle, solidDiffusionRatio: solidDiffusionRatio,
     m11: m11,
+    cv: cv,
     m9: m9,
     data: data
   };

@@ -57,9 +57,9 @@ def cite_section(title, url, is_course):
     year = CITE_DATE[:4]
     course_full = '%s: %s' % (COURSE['title'], COURSE['subtitle'])
     if is_course:
-        apa = '%s, %s. (%s). <i>%s</i>. %s' % (AUTHOR['family'], AUTHOR['given'][0] + '.', year, esc(course_full), esc(url))
+        apa = '%s, %s (%s). <i>%s</i>. %s' % (AUTHOR['family'], AUTHOR['given'][0] + '.', year, esc(course_full), esc(url))
     else:
-        apa = '%s, %s. (%s). <i>%s</i>. %s. %s' % (AUTHOR['family'], AUTHOR['given'][0] + '.', year, esc(title), esc(COURSE['title']), esc(url))
+        apa = '%s, %s (%s). <i>%s</i>. %s. %s' % (AUTHOR['family'], AUTHOR['given'][0] + '.', year, esc(title), esc(COURSE['title']), esc(url))
     return ('<section class="section cite-sec" id="cite" aria-labelledby="citeH" data-title="%s" data-url="%s" data-date="%s" data-course-title="%s" '
             'data-course-subtitle="%s" data-course-url="%s" data-family="%s" data-given="%s"%s>\n  <div class="wrap">\n'
             '    <h2 class="h2" id="citeH">%s</h2>\n'
@@ -505,7 +505,7 @@ def build_course():
     hub = hub.replace('{{course_map}}', course_map(stats, '../')).replace('{{modes}}', NAV.MODES)
     hours = max(1, round(sum(v[0] for v in stats.values()) / 60))
     meta = {'page_title': 'How batteries work: an interactive lithium-ion battery course', 'og_title': COURSE['title'], 'cite_title': '%s: %s' % (COURSE['title'], COURSE['subtitle']),
-            'description': 'Free interactive course on how lithium-ion batteries work: 19 chapters and a lab handbook, from cell voltage to the SEI, degradation, GITT and EIS.',
+            'description': 'Free interactive course on how lithium-ion batteries work: 19 chapters and a lab handbook, from cell voltage to the SEI, degradation, cyclic voltammetry, GITT and EIS.',
             'ld': {'@context': 'https://schema.org', '@type': 'Course', 'name': COURSE['title'], 'description': COURSE['subtitle'], 'url': COURSE['base'], 'inLanguage': 'en',
                    'provider': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'},
                    'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
