@@ -43,8 +43,8 @@
     Array.prototype.forEach.call(boxes, function (b) { on(b, 'change', render); });
     on(slow, 'click', function () { slow.setAttribute('aria-pressed', String(slow.getAttribute('aria-pressed') !== 'true')); render(); });
     steps(fig, [
-      { text: 'Grey: <b>lithium lost</b> to side reactions, above all to the SEI, which keeps growing after the first charge. Each lithium it locks up is one fewer to rock between the electrodes. Drawn following the square-root law of figure 10.2.' },
-      { text: 'Red: <b>active material lost</b>: particles that crack and lose contact, as in figure {{fig:f9-2}}, or that dissolve, as in figure 10.3. The lithium may still be there, but there is less room to store it.' },
+      { text: 'Grey: <b>lithium lost</b> to side reactions, above all to the SEI, which keeps growing after the first charge. Each lithium it locks up is one fewer to rock between the electrodes. Drawn following the square-root law of figure {{fig:f10-2}}.' },
+      { text: 'Red: <b>active material lost</b>: particles that crack and lose contact, as in figure {{fig:f9-2}}, or that dissolve, as in figure {{fig:f10-3}}. The lithium may still be there, but there is less room to store it.' },
       { text: 'Violet: capacity <b>hidden by resistance</b>. As interfaces thicken and contacts loosen, the voltage under current hits the cut-off sooner (figure {{fig:f5-3}}). Measure at a low rate and this part comes back; the other two do not.' }
     ]);
     render();

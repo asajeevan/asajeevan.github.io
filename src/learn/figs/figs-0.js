@@ -110,7 +110,7 @@
     render();
     steps(fig, [
       { text: 'The violet arrows map the <b>field</b>: at each point, the force a unit positive charge would feel. Around a positive charge they point outward.' },
-      { text: 'Farther out the arrows shrink: the field falls as <b>1/r²</b>, like the force in figure 0.1. Slide the probe out and watch its force arrow shorten.' },
+      { text: 'Farther out the arrows shrink: the field falls as <b>1/r²</b>, like the force in figure {{fig:f0-1}}. Slide the probe out and watch its force arrow shorten.' },
       { text: 'The graph is the <b>potential</b>: the work per unit charge to bring the probe in from far away, against the field. Only differences of φ can be measured; here “far away” is taken as zero.' },
       { text: 'The field is the <b>slope</b> of the potential (violet tangent): where φ falls steeply, the push is strong. This is the picture to keep: potential is height, field is slope.' }
     ]);

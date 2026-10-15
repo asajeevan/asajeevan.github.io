@@ -237,3 +237,23 @@ Read the plan first; this file records state, decisions and the checklist so wor
 - Voltage ladder: Ca(Li₂)-p-DHT label moved below its dot (it sat on the 2.91 V line); labels have a halo.
 - Key, title and basis updated. viewBox 520 × 300.
 - Checks: all three views at 1300 and 360 px; gate exit 0; axe clean; 0 broken links.
+
+## Figure 13.1 positive electrodes (2026-10-16, owner's request: improve it visually and add missing data from the latest articles)
+- Chemistries view: each material carries a glyph for its structural family (layered, spinel, olivine; Manthiram
+  2020) and its bar is drawn in that family's colour; a tick (or bracket, for a range) marks the theoretical capacity
+  where Faruque et al. 2026 give one (LiCoO₂ 274, nickel-cobalt layered oxides 270-285, LiMn₂O₄ 148, LiFePO₄ 170
+  mAh/g); values in a fixed column; second legend row for families and the tick; readouts updated.
+- New view "Four in numbers" from Faruque et al. 2026, Tables 4 and 5: LiCoO₂, the nickel-cobalt layered oxides,
+  LiMn₂O₄ and LiFePO₄ compared in practical against theoretical capacity, voltage, energy per kilogram of material,
+  tap density, specific surface area and cycle life; tap a column for safety, environment and use. The basis notes
+  that the review's Table 5 gives somewhat different practical capacities and potentials. New step 3; NMC steps now
+  4 and 5; NMC badge moved off the 4.6 V bar.
+- New text "Four families in numbers": the numbers above, LiMn₂O₄ above 55 °C and its remedies, LiNiO₂ at about
+  200 mAh/g and Panasonic's 3.1 Ah, 248 Wh/kg, 660 Wh/L cell, LiFePO₄'s lower environmental impact, and the review's
+  overall ranking.
+- Course-wide fix found on the way: 19 plain-text references such as "figure 10.1" still carried the old module
+  numbers (the degradation figure is now 16.1). They are now {{fig:}} links that carry the current number. In the
+  mathematics panels, where plain numbers decide which page a line goes to, the build keeps placing by the old number
+  and then writes the reference as a link (tools/build_course.py); the placement of every line is unchanged.
+- Checks: three views at 1300 and 360 px; gate exit 0 on 29 pages; axe clean; 29 pages, 3291 links, 0 broken;
+  74 tests.

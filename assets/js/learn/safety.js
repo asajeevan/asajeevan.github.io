@@ -622,6 +622,8 @@
     ]);
     place();
   });
+  /* figs-9p.js */
+  var FAM = { L: { n: 'layered', c: 'var(--accent)' }, S: { n: 'spinel', c: 'var(--field)' }, O: { n: 'olivine', c: 'var(--second)' } };
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

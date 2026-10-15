@@ -165,7 +165,8 @@ def assemble_course():
                     if fid in page_of_fig:
                         dest = page_of_fig[fid]; break
                 h, ls = maths.setdefault(dest, (head, []))
-                ls.append(ln)
+                # plain old figure numbers place the line; they are then written as links that carry the new numbers
+                ls.append(re.sub(r'(figures? )(\d+\.\d+)(?!\.\d|\d)', lambda m: m.group(1) + ('{{fig:%s}}' % OLD_NUM[m.group(2)] if m.group(2) in OLD_NUM else m.group(2)), ln))
     built = {}
     for p in pages:
         beats = []

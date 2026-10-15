@@ -404,23 +404,23 @@
   }
   /* figs-9p.js */
   var POS = [ // r: 2 good, 1 moderate, 0 poor, -1 not rated (cost: Low = good)
-    { n: 'LCO', f: 'LiCoO₂', q: 140, ql: '135–140', qk: 'p', r: { cost: 0, en: 1, th: 0, cy: 2 },
-      t: 'The original lithium-ion positive electrode, still in phones and laptops. In practice it gives up only about half its lithium, about 135 to 140 mAh/g; structural degradation at high states of charge limits it to half its theoretical capacity. Ratings: high cost, moderate energy density, poor thermal stability, good cycle life.' , s: 'Frith et al. 2023; Manthiram 2020; Marie and Gifford 2023' },
-    { n: 'LMO', f: 'LiMn₂O₄', q: 130, ql: '< 130', qk: 'p', r: { cost: 2, en: 1, th: 2, cy: 0 },
-      t: 'A spinel at about 4 V with three-dimensional lithium channels, so it delivers power well; cheap because manganese is cheap. Its practical capacity is below 130 mAh/g, and manganese dissolution poisons the graphite and fades the capacity, worst when hot. Ratings: low cost, moderate energy density, good thermal stability, poor cycle life.', s: 'Manthiram 2020; Marie and Gifford 2023' },
-    { n: 'LFP', f: 'LiFePO₄', q: 170, ql: '170*', qk: 't', r: { cost: 2, en: 0, th: 2, cy: 2 },
+    { n: 'LCO', f: 'LiCoO₂', fam: 'L', qt: [274], q: 140, ql: '135–140', qk: 'p', r: { cost: 0, en: 1, th: 0, cy: 2 },
+      t: 'The original lithium-ion positive electrode, still in phones and laptops. In practice it gives up only about half its lithium, about 135 to 140 mAh/g; structural degradation at high states of charge limits it to half its theoretical capacity. Its theoretical capacity is 274 mAh/g, the tick on the bar. Ratings: high cost, moderate energy density, poor thermal stability, good cycle life.' , s: 'Frith et al. 2023; Manthiram 2020; Marie and Gifford 2023; Faruque et al. 2026' },
+    { n: 'LMO', f: 'LiMn₂O₄', fam: 'S', qt: [148], q: 130, ql: '< 130', qk: 'p', r: { cost: 2, en: 1, th: 2, cy: 0 },
+      t: 'A spinel at about 4 V with three-dimensional lithium channels, so it delivers power well; cheap because manganese is cheap. Its practical capacity is below 130 mAh/g, and manganese dissolution poisons the graphite and fades the capacity, worst when hot. Its theoretical capacity is 148 mAh/g. Ratings: low cost, moderate energy density, good thermal stability, poor cycle life.', s: 'Manthiram 2020; Marie and Gifford 2023; Faruque et al. 2026' },
+    { n: 'LFP', f: 'LiFePO₄', fam: 'O', qt: [170], q: 170, ql: '170*', qk: 't', r: { cost: 2, en: 0, th: 2, cy: 2 },
       t: 'An olivine of iron and phosphate, flat at 3.43 V vs Li. Lower voltage and lower specific capacity than NMC (the bar is the theoretical 170 mAh/g of chapter 4), but a considerably longer cycle and calendar life than most NMC cells; state-of-the-art cells rose from 90 Wh/kg in 2010 to 160 Wh/kg in 2022. Used for grid storage and shorter-range electric cars. Ratings: low cost, low energy density, good thermal stability, good cycle life.', s: 'Safari and Delacourt 2011; Marie and Gifford 2023' },
-    { n: 'LMFP', f: 'LiMnₓFe₁₋ₓPO₄', q: 0, ql: '–', qk: 'n', r: { cost: -1, en: -1, th: -1, cy: -1 },
+    { n: 'LMFP', f: 'LiMnₓFe₁₋ₓPO₄', fam: 'O', q: 0, ql: '–', qk: 'n', r: { cost: -1, en: -1, th: -1, cy: -1 },
       t: 'LFP with manganese added. Cells reach around 210 to 240 Wh/kg, roughly 40 % more than LFP. Not rated in the source table; capacity not given there.', s: 'Marie and Gifford 2023' },
-    { n: 'NMC622', f: 'LiNi₀.₆Mn₀.₂Co₀.₂O₂', q: 178, ql: '178', qk: 'p', r: { cost: 0, en: 2, th: 1, cy: 2 },
-      t: 'Widely used in electric cars today. In one study, full cells against graphite gave 178 mAh/g of NMC when charged to 4.4 V and kept 94 % after 300 cycles at 1C, the highest stable specific energy of the three NMCs tested. Ratings: high cost, high energy density, moderate thermal stability, good cycle life.', s: 'Marie and Gifford 2023; Jung et al. 2017' },
-    { n: 'NMC811', f: 'LiNi₀.₈Mn₀.₁Co₀.₁O₂', q: 200, ql: '~200', qk: 'p', r: { cost: 0, en: 2, th: 0, cy: 1 },
-      t: 'More nickel, less cobalt: about 200 mAh/g. But it releases oxygen and fades sooner: in one study it cycled stably only to 4.0 V against graphite. Ratings: high cost, high energy density, poor thermal stability, moderate cycle life.', s: 'Marie and Gifford 2023; Jung et al. 2017' },
-    { n: 'NCA', f: 'LiNi₀.₈Co₀.₁₅Al₀.₀₅O₂', q: 205, ql: '200–210', qk: 'r', r: { cost: 0, en: 2, th: 0, cy: 1 },
-      t: 'Aluminium in place of manganese; first deployed in electric cars by Tesla. With NMC, 200 to 210 mAh/g in the 3.0 to 4.3 V window vs Li; its cycling tends to be better than NMC811’s but it holds more cobalt, about 10 wt%. Ratings: high cost, high energy density, poor thermal stability, moderate cycle life.', s: 'Marie and Gifford 2023; Eshetu et al. 2021' },
-    { n: 'LNMO', f: 'LiNi₀.₅Mn₁.₅O₄', q: 135, ql: '~135', qk: 'p', r: { cost: -1, en: -1, th: -1, cy: -1 },
+    { n: 'NMC622', f: 'LiNi₀.₆Mn₀.₂Co₀.₂O₂', fam: 'L', qt: [270, 285], q: 178, ql: '178', qk: 'p', r: { cost: 0, en: 2, th: 1, cy: 2 },
+      t: 'Widely used in electric cars today. In one study, full cells against graphite gave 178 mAh/g of NMC when charged to 4.4 V and kept 94 % after 300 cycles at 1C, the highest stable specific energy of the three NMCs tested. The tick spans the 270 to 285 mAh/g that a 2026 review gives as the theoretical capacity of the nickel-cobalt layered oxides. Ratings: high cost, high energy density, moderate thermal stability, good cycle life.', s: 'Marie and Gifford 2023; Jung et al. 2017; Faruque et al. 2026' },
+    { n: 'NMC811', f: 'LiNi₀.₈Mn₀.₁Co₀.₁O₂', fam: 'L', qt: [270, 285], q: 200, ql: '~200', qk: 'p', r: { cost: 0, en: 2, th: 0, cy: 1 },
+      t: 'More nickel, less cobalt: about 200 mAh/g. But it releases oxygen and fades sooner: in one study it cycled stably only to 4.0 V against graphite. The tick spans the 270 to 285 mAh/g that a 2026 review gives as the theoretical capacity of the nickel-cobalt layered oxides. Ratings: high cost, high energy density, poor thermal stability, moderate cycle life.', s: 'Marie and Gifford 2023; Jung et al. 2017; Faruque et al. 2026' },
+    { n: 'NCA', f: 'LiNi₀.₈Co₀.₁₅Al₀.₀₅O₂', fam: 'L', qt: [270, 285], q: 205, ql: '200–210', qk: 'r', r: { cost: 0, en: 2, th: 0, cy: 1 },
+      t: 'Aluminium in place of manganese; first deployed in electric cars by Tesla. With NMC, 200 to 210 mAh/g in the 3.0 to 4.3 V window vs Li; its cycling tends to be better than NMC811’s but it holds more cobalt, about 10 wt%. The tick spans the 270 to 285 mAh/g that a 2026 review gives as the theoretical capacity of the nickel-cobalt layered oxides. Ratings: high cost, high energy density, poor thermal stability, moderate cycle life.', s: 'Marie and Gifford 2023; Eshetu et al. 2021; Faruque et al. 2026' },
+    { n: 'LNMO', f: 'LiNi₀.₅Mn₁.₅O₄', fam: 'S', q: 135, ql: '~135', qk: 'p', r: { cost: -1, en: -1, th: -1, cy: -1 },
       t: 'The high-voltage spinel: about 4.7 V and about 135 mAh/g, cobalt-free. It releases no oxygen up to 5 V, but few electrolytes survive at that voltage. Not rated in the source table.', s: 'Manthiram 2020; Jung et al. 2017' },
-    { n: 'LMR-NMC', f: 'Li₁.₂Mn₀.₄₈Ni₀.₁₆Co₀.₁₆O₂', q: 280, ql: '~280', qk: 'p', r: { cost: 1, en: 2, th: 1, cy: 0 },
+    { n: 'LMR-NMC', f: 'Li₁.₂Mn₀.₄₈Ni₀.₁₆Co₀.₁₆O₂', fam: 'L', q: 280, ql: '~280', qk: 'p', r: { cost: 1, en: 2, th: 1, cy: 0 },
       t: 'Lithium- and manganese-rich layered oxide, a candidate for the next generation: about 280 mAh/g against about 200 for NMC811, with oxide ions taking part in the redox. Its voltage decays on cycling as manganese migrates. Ratings: moderate cost, high energy density, moderate thermal stability, poor cycle life.', s: 'Manthiram 2020; Marie and Gifford 2023' }
   ];
   var POS_ASP = ['cost', 'en', 'th', 'cy'];
@@ -438,38 +438,104 @@
     else if (r === 0) { var d = rad * 0.56; el('circle', { cx: x, cy: y, r: rad, fill: 'none', stroke: 'var(--heat)', 'stroke-width': 1.8 }, g); el('path', { d: 'M' + (x - d) + ',' + (y - d) + ' L' + (x + d) + ',' + (y + d) + ' M' + (x + d) + ',' + (y - d) + ' L' + (x - d) + ',' + (y + d), stroke: 'var(--heat)', 'stroke-width': 1.8 }, g); }
     else el('line', { x1: x - 5, x2: x + 5, y1: y, y2: y, stroke: 'var(--muted)', 'stroke-width': 1.6 }, g);
   }
+  var FAM = { L: { n: 'layered', c: 'var(--accent)' }, S: { n: 'spinel', c: 'var(--field)' }, O: { n: 'olivine', c: 'var(--second)' } };
+  function famGlyph(g, x, y, f) {
+    var c = FAM[f].c, a = { fill: 'none', stroke: c, 'stroke-width': 1.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' };
+    if (f === 'L') [-4, 0, 4].forEach(function (d) { el('line', Object.assign({ x1: x - 7, x2: x + 7, y1: y + d, y2: y + d }, a), g); });
+    else if (f === 'S') { el('rect', Object.assign({ x: x - 6, y: y - 3, width: 9, height: 9 }, a), g); el('path', Object.assign({ d: 'M' + (x - 6) + ',' + (y - 3) + ' l3,-3 h9 v9 l-3,3 M' + (x + 3) + ',' + (y - 3) + ' l3,-3' }, a), g); }
+    else { el('path', Object.assign({ d: 'M' + (x - 8) + ',' + (y + 5) + ' l4,-9 l4,9 z M' + x + ',' + (y + 5) + ' l4,-9 l4,9 z' }, a), g); }
+  }
+  var FOUR = [
+    { n: 'LCO', fam: 'L', qp: [135, 140], qt: [274], V: 3.6, E: 564, tap: [2.8, 3.0], ssa: [0.4, 0.6], cyc: 300,
+      t: '<b>Lithium cobalt oxide</b>, layered. It gives 135 to 140 mAh/g of a theoretical 274, about half. Its powder packs densest, to a tap density of 2.8 to 3.0 g/cm³, but it has the shortest cycle life of the four, at least 300 cycles. It contains cobalt; an exothermic reaction starts at about 180 to 220 °C and oxygen is released at about 200 to 250 °C. Used in small batteries.' },
+    { n: 'NMC, NCA', fam: 'L', qp: [155, 165], qt: [270, 285], V: 3.5, E: 608, tap: [2.0, 2.3], ssa: [0.2, 0.4], cyc: 800,
+      t: '<b>The nickel-cobalt layered oxides</b> (the review&#8217;s &#8220;ternary&#8221; materials). 155 to 165 mAh/g of a theoretical 270 to 285, at least 800 cycles. They contain nickel and cobalt; more nickel, less stability, and oxygen is released at a high state of charge at about 180 to 220 °C. Used in small batteries and small power batteries.' },
+    { n: 'LMO', fam: 'S', qp: [100, 115], qt: [148], V: 3.7, E: 480, tap: [2.2, 2.4], ssa: [0.4, 0.8], cyc: 500,
+      t: '<b>Lithium manganese oxide</b>, a spinel. 100 to 115 mAh/g of a theoretical 148, at least 500 cycles, nontoxic. It decomposes at about 220 to 250 °C, more stable than LiCoO₂ or NMC but less than LiFePO₄. Its Mn³⁺ becomes unstable above 55 °C; doping with Ni, Cr, Fe, Co or Mg and acid-resistant coatings stabilize it. Used in power batteries.' },
+    { n: 'LFP', fam: 'O', qp: [130, 140], qt: [170], V: 3.2, E: 525, tap: [1.0, 1.4], ssa: [12, 20], cyc: 2000,
+      t: '<b>Lithium iron phosphate</b>, an olivine. 130 to 140 mAh/g of a theoretical 170 (150 to 160 in the review&#8217;s text), at least 2000 cycles, nontoxic. The loosest powder, 1.0 to 1.4 g/cm³, with some thirty times the surface area of the others, 12 to 20 m²/g. The most thermally stable: exothermic reaction only at about 270 to 320 °C, oxygen at about 400 °C, held by the strong P–O bonds. Lower global warming potential, toxicity and resource depletion than LiCoO₂ and NMC. Used in power and energy-storage batteries.' }
+  ];
   register('f9-12', function (fig) {
     var svg = fig.querySelector('svg'), read = fig.querySelector('.readout'), vb = fig.querySelectorAll('button[data-view]');
-    var gC = el('g', {}, svg), gN = el('g', {}, svg), sel = null, nsel = null;
-    // ---------- the chemistries ----------
-    var rx = 16, cQ = 104, qw = 92, c0 = 300, cw = 58, ry0 = 52, rh = 24;
+    var gC = el('g', {}, svg), gF = el('g', {}, svg), gN = el('g', {}, svg), sel = null, nsel = null, fsel = null;
+    // ---------- view 1: the chemistries ----------
+    var rx = 16, cQ = 104, qw = 92, c0 = 300, cw = 58, ry0 = 52, rh = 23, QX = function (q) { return cQ + qw * q / 300; };
     txt(gC, rx, 34, 'material', 'strong', 'start');
-    txt(gC, cQ, 18, 'typical capacity', 'strong', 'start'); txt(gC, cQ, 35, 'mAh/g', '', 'start');
+    txt(gC, cQ, 18, 'capacity, mAh/g', 'strong', 'start'); txt(gC, cQ, 35, 'typical, and theoretical |', '', 'start');
     POS_ASP.forEach(function (a, j) { var x = c0 + j * cw; txt(gC, x, 18, POS_HEAD[a][0], 'strong', 'middle'); txt(gC, x, 35, POS_HEAD[a][1], 'strong', 'middle'); });
     var rows = [];
     POS.forEach(function (p, i) {
       var y = ry0 + i * rh, row = el('g', { tabindex: 0, role: 'button', 'aria-label': p.n + ', ' + p.f, style: 'cursor:pointer' }, gC);
       var bg = el('rect', { x: 8, y: y - rh / 2 + 1, width: 504, height: rh - 2, rx: 6, fill: i % 2 ? 'transparent' : 'rgba(20,23,28,.03)', stroke: 'var(--accent)', 'stroke-opacity': 0, 'stroke-width': 1.5 }, row);
       txt(row, rx, y + 4, p.n, 'strong', 'start');
+      if (p.fam) famGlyph(row, 88, y, p.fam);
+      var col = p.fam ? FAM[p.fam].c : 'var(--second)';
+      el('line', { x1: cQ, x2: cQ + qw, y1: y, y2: y, stroke: 'var(--line)', 'stroke-width': 1 }, row);
       if (p.q) {
         var w = qw * p.q / 300;
-        if (p.qk === 't') el('rect', { x: cQ, y: y - 6, width: w, height: 12, rx: 3, fill: 'none', stroke: 'var(--second)', 'stroke-dasharray': '3 2' }, row);
-        else el('rect', { x: cQ, y: y - 6, width: w, height: 12, rx: 3, fill: 'var(--second)', 'fill-opacity': '.7' }, row);
-        txt(row, cQ + w + 5, y + 4, p.ql, '', 'start');
-      } else txt(row, cQ, y + 4, 'not given', '', 'start', { style: 'fill:var(--muted)' });
-      POS_ASP.forEach(function (a, j) { ratingSymbol(row, c0 + j * cw, y, p.r[a], 7); });
+        if (p.qk === 't') el('rect', { x: cQ, y: y - 5, width: w, height: 10, rx: 3, fill: 'none', stroke: col, 'stroke-dasharray': '3 2', 'stroke-width': 1.3 }, row);
+        else el('rect', { x: cQ, y: y - 5, width: w, height: 10, rx: 3, fill: col, 'fill-opacity': '.78' }, row);
+        txt(row, cQ + qw + 8, y + 4, p.ql, '', 'start');
+      } else txt(row, cQ + qw + 8, y + 4, 'not given', '', 'start', { style: 'fill:var(--muted)' });
+      if (p.qt) { // the theoretical capacity: a tick, or a short bracket for a range
+        var a = QX(p.qt[0]), b = QX(p.qt[p.qt.length - 1]);
+        el('path', { d: 'M' + a + ',' + (y - 8) + ' V' + (y + 8) + (b > a ? ' M' + a + ',' + y + ' H' + b + ' M' + b + ',' + (y - 8) + ' V' + (y + 8) : ''), fill: 'none', stroke: 'var(--text)', 'stroke-width': 1.5 }, row);
+      }
+      POS_ASP.forEach(function (as, j) { ratingSymbol(row, c0 + j * cw, y, p.r[as], 7); });
       rows.push({ p: p, bg: bg });
       pressable(row, function () { sel = p; placeC(); });
     });
     var ly = ry0 + POS.length * rh + 6;
     [[2, 'good'], [1, 'moderate'], [0, 'poor'], [-1, 'not rated']].forEach(function (L, j) { var x = 26 + j * 116; ratingSymbol(gC, x, ly, L[0], 6); txt(gC, x + 11, ly + 4, L[1], '', 'start'); });
-    badge(gC, cQ + qw + 64, ry0 + 2 * rh, 1); badge(gC, c0 + 3 * cw + 30, ry0 + 4 * rh, 2);
+    ['L', 'S', 'O'].forEach(function (f, j) { var x = 28 + j * 92; famGlyph(gC, x, ly + 20, f); txt(gC, x + 13, ly + 24, FAM[f].n, '', 'start'); });
+    el('line', { x1: 312, x2: 312, y1: ly + 12, y2: ly + 28, stroke: 'var(--text)', 'stroke-width': 1.5 }, gC); txt(gC, 320, ly + 24, 'theoretical capacity', '', 'start');
+    badge(gC, 268, ry0 + 2 * rh, 1); badge(gC, c0 + 3 * cw + 30, ry0 + 4 * rh, 2);
     function placeC() {
       rows.forEach(function (r) { r.bg.setAttribute('stroke-opacity', sel === r.p ? 1 : 0); });
-      if (!sel) { read.innerHTML = 'Tap a row to read what lies behind it. Ratings are the Faraday Institution’s 2023 summary; the capacities come from several sources under different conditions, so read them as typical values, not a contest.'; return; }
-      read.innerHTML = '<b>' + sel.n + '</b> (' + sel.f + '). ' + sel.t + ' <span style="color:var(--muted)">Sources: ' + sel.s + '.</span>';
+      if (!sel) { read.innerHTML = 'Tap a row to read what lies behind it. Ratings are the Faraday Institution’s 2023 summary; the capacities come from several sources under different conditions, so read them as typical values, not a contest. The glyph gives each material&#8217;s structural family.'; return; }
+      read.innerHTML = '<b>' + sel.n + '</b> (' + sel.f + (sel.fam ? ', ' + FAM[sel.fam].n : '') + '). ' + sel.t + ' <span style="color:var(--muted)">Sources: ' + sel.s + '.</span>';
     }
-    // ---------- the NMCs ----------
+    // ---------- view 2: the four commercial families in numbers ----------
+    var FX = [200, 282, 364, 446], FW = 70, FY = [72, 126, 164, 202, 240, 278];
+    var MET = [
+      { k: 'cap', h: 'capacity, mAh/g', s: 'practical; outline:', s2: 'theoretical', max: 300 },
+      { k: 'V', h: 'voltage, V', s: 'nominal', max: 4 },
+      { k: 'E', h: 'energy, Wh/kg', s: 'of the material', max: 700 },
+      { k: 'tap', h: 'tap density, g/cm³', s: 'how densely it packs', max: 3.2 },
+      { k: 'ssa', h: 'surface area, m²/g', s: 'specific', max: 20 },
+      { k: 'cyc', h: 'cycle life', s: 'at least, cycles', max: 2000 }
+    ];
+    var colsF = [];
+    FOUR.forEach(function (m, j) {
+      var x = FX[j], c = FAM[m.fam].c, g = el('g', { tabindex: 0, role: 'button', 'aria-label': m.n, style: 'cursor:pointer' }, gF);
+      var hl = el('rect', { x: x - 40, y: 8, width: 80, height: FY[5] + 24 - 8, rx: 8, fill: 'var(--panel-2)', stroke: c, 'stroke-width': 1.5, 'stroke-opacity': 0, 'fill-opacity': 0 }, g);
+      txt(g, x, 24, m.n, 'strong', 'middle'); famGlyph(g, x - 18, 40, m.fam); txt(g, x - 6, 44, FAM[m.fam].n, '', 'start', { style: 'font-size:11px' });
+      var L = function (v, max) { return Math.max(1.5, FW * v / max); }, xL = x - FW / 2;
+      MET.forEach(function (mt, i) {
+        var y = FY[i], lab, fm = function (v) { return mt.k === 'tap' ? v.toFixed(1) : String(v); };
+        if (mt.k === 'cap') {
+          el('rect', { x: xL, y: y + 5, width: L(m.qt[m.qt.length - 1], 300), height: 9, rx: 2, fill: 'none', stroke: c, 'stroke-width': 1.2, 'stroke-dasharray': m.qt.length > 1 ? '3 2' : '' }, g);
+          el('rect', { x: xL, y: y + 5, width: L(m.qp[1], 300), height: 9, rx: 2, fill: c, 'fill-opacity': .45 }, g);
+          el('rect', { x: xL, y: y + 5, width: L(m.qp[0], 300), height: 9, rx: 2, fill: c, 'fill-opacity': .9 }, g);
+          lab = m.qp[0] + '–' + m.qp[1]; txt(g, xL, y + 27, 'of ' + m.qt.join('–'), '', 'start', { style: 'fill:var(--muted);font-size:10.5px' });
+        } else {
+          var v = m[mt.k], lo = Array.isArray(v) ? v[0] : v, hi = Array.isArray(v) ? v[1] : v;
+          if (hi > lo) el('rect', { x: xL, y: y + 5, width: L(hi, mt.max), height: 9, rx: 2, fill: c, 'fill-opacity': .45 }, g);
+          el('rect', { x: xL, y: y + 5, width: L(lo, mt.max), height: 9, rx: 2, fill: c, 'fill-opacity': .9 }, g);
+          lab = mt.k === 'cyc' ? '≥ ' + hi : (hi > lo ? fm(lo) + '–' + fm(hi) : fm(lo));
+        }
+        txt(g, xL, y, lab, 'strong', 'start', { style: 'font-size:11.5px' });
+      });
+      colsF.push({ m: m, hl: hl });
+      pressable(g, function () { fsel = m; placeF(); });
+    });
+    MET.forEach(function (mt, i) { var y = FY[i]; txt(gF, 12, y + 2, mt.h, 'strong', 'start'); txt(gF, 12, y + 15, mt.s, '', 'start', { style: 'fill:var(--muted);font-size:11px' }); if (mt.s2) txt(gF, 12, y + 28, mt.s2, '', 'start', { style: 'fill:var(--muted);font-size:11px' }); if (i) el('line', { x1: 10, x2: 510, y1: y - 15, y2: y - 15, stroke: 'var(--line)' }, gF); });
+    badge(gF, 140, 30, 3);
+    function placeF() {
+      colsF.forEach(function (c) { var on1 = fsel === c.m; c.hl.setAttribute('stroke-opacity', on1 ? 1 : 0); c.hl.setAttribute('fill-opacity', on1 ? 1 : 0); });
+      read.innerHTML = fsel ? fsel.t + ' <span style="color:var(--muted)">Source: Faruque et al. 2026, Tables 4 and 5.</span>' : 'The four commercial families as a 2026 review tabulates them. Tap a column.';
+    }
+    // ---------- view 3: the NMCs ----------
     var B = { x0: 64, y0: 236, x1: 500, y1: 44 }, VS = [4.0, 4.1, 4.2, 4.4, 4.6], gw = (B.x1 - B.x0) / VS.length;
     var YQ = function (q) { return B.y0 - q / 220 * (B.y0 - B.y1); };
     plotAxes(gN, B, { yt: [50, 100, 150, 200], ylo: 0, yhi: 220, yf: function (v) { return String(v); } });
@@ -489,24 +555,26 @@
         pressable(g, function () { nsel = d; placeN(); });
       });
     });
-    badge(gN, B.x0 + gw * 2.5, YQ(205), 3); badge(gN, B.x0 + gw * 4.5 + 34, YQ(120), 4);
+    badge(gN, B.x0 + gw * 2.5, YQ(205), 4); badge(gN, B.x0 + gw * 4.5 + 42, YQ(120), 5);
     function placeN() {
       bars.forEach(function (b) { b.ring.setAttribute('stroke-opacity', nsel === b.d ? 0.9 : 0); });
       if (!nsel) { read.innerHTML = 'Pale bar: capacity at cycle 5; solid bar: at cycle 300; the number is the capacity kept. Full cells against graphite, 1C, 25 °C, one study. Tap a bar.'; return; }
       var d = nsel;
       read.innerHTML = '<b>' + d.m + ' charged to ' + d.v.toFixed(1) + ' V</b> against graphite: ' + d.a.toFixed(1) + ' mAh/g at cycle 5, ' + d.b.toFixed(1) + ' at cycle 300, <b>' + d.ret + ' % kept</b>. ' + (d.ret >= 90 ? 'Stable.' : 'The positive electrode’s impedance grew. The study links this to oxygen released from the surface of the NMC, which begins at about 4.3 V vs Li for NMC811 and about 4.7 V for NMC111 and NMC622; these cut-offs are full-cell voltages, roughly 0.1 V below the potential of the positive electrode.');
     }
+    var VIEWS = { c: gC, f: gF, n: gN };
     function setView(v) {
-      gC.style.display = v === 'c' ? '' : 'none'; gN.style.display = v === 'n' ? '' : 'none';
+      Object.keys(VIEWS).forEach(function (k) { VIEWS[k].style.display = k === v ? '' : 'none'; });
       Array.prototype.forEach.call(vb, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view') === v)); });
-      if (v === 'c') placeC(); else placeN();
+      if (v === 'c') placeC(); else if (v === 'f') placeF(); else placeN();
     }
-    var st = null;
-    Array.prototype.forEach.call(vb, function (b) { on(b, 'click', function () { var v = b.getAttribute('data-view'); if (st) st.go(v === 'n' ? 2 : 0); else setView(v); }); });
+    var st = null, FIRST = { c: 0, f: 2, n: 3 };
+    Array.prototype.forEach.call(vb, function (b) { on(b, 'click', function () { var v = b.getAttribute('data-view'); if (st) st.go(FIRST[v]); else setView(v); }); });
     setView('c');
     st = steps(fig, [
-      { text: 'Nine positive electrode materials and how they score. No row is good everywhere: the layered oxides rich in nickel win on energy and mostly lose on heat and cost; LFP and LMO are cheap and thermally stable but store less.', on: function () { sel = null; setView('c'); } },
+      { text: 'Nine positive electrode materials and how they score, each marked with its structural family. No row is good everywhere: the layered oxides rich in nickel win on energy and mostly lose on heat and cost; LFP and LMO are cheap and thermally stable but store less. The tick is the theoretical capacity: LiCoO₂ delivers about half of its 274 mAh/g.', on: function () { sel = null; setView('c'); } },
       { text: 'Look down the columns. The nickel-rich layered oxides score high on energy, poor on cost and mostly poor on heat; LFP rates good on cost, heat and cycle life. The next generation, LMR-NMC, promises the most capacity but does not yet last.', on: function () { sel = POS[8]; setView('c'); } },
+      { text: 'The four commercial families in numbers. LiFePO₄ lasts longest, at least 2000 cycles, but packs loosest, 1.0 to 1.4 g/cm³ against 2.8 to 3.0 for LiCoO₂, with thirty times the surface area. The nickel-cobalt oxides store the most energy per kilogram of material.', on: function () { fsel = FOUR[3]; setView('f'); } },
       { text: 'Now the NMCs side by side. Charging to a higher voltage takes out more lithium: more capacity. NMC111 and NMC622 stay stable to 4.4 V; NMC811 only to 4.0 V.', on: function () { nsel = NMC_DATA[4]; setView('n'); } },
       { text: 'Push past the limit and the capacity collapses: 42 % and 39 % kept at 4.6 V, 66 % for NMC811 at 4.2 V. More nickel buys capacity at a lower voltage, but leaves less margin.', on: function () { nsel = NMC_DATA[8]; setView('n'); } }
     ]);
