@@ -226,3 +226,14 @@ Read the plan first; this file records state, decisions and the checklist so wor
   size of Li⁺. Bars and potential rungs use a deeper tone of the same colours. The basis line says that the shading
   and halo are drawing style only. viewBox 520 × 386 (was 268).
 - Checks: 1300 and 360 px; gate exit 0; axe clean; 0 broken links.
+
+## Figure 15.3 organic electrodes (2026-10-16, owner's request: improve the figure)
+- "How they work": the R boxes are replaced by an aromatic ring for the redox-active molecule with a charge badge,
+  shaded counter-ions (Li⁺ as the course's cation, A⁻ as its anion), an electron on each arrow, and labelled rows
+  (oxidized, neutral, reduced) on a potential axis.
+- New view "One molecule": Li₂-PDCA drawn as skeletal formulas through its two charging steps, dianion with two Li⁺,
+  radical anion, neutral quinonediimine, with the solid-state step potentials 3.15 and 3.32 V (Guo et al. 2024,
+  redox-mechanism section, Fig. 3A, Table 1). A new step 4 goes with it; the ladder steps are now 5 and 6.
+- Voltage ladder: Ca(Li₂)-p-DHT label moved below its dot (it sat on the 2.91 V line); labels have a halo.
+- Key, title and basis updated. viewBox 520 × 300.
+- Checks: all three views at 1300 and 360 px; gate exit 0; axe clean; 0 broken links.
