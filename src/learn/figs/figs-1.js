@@ -116,40 +116,61 @@
     el('rect', { x: xb, y: yT, width: xs1 - xb, height: yB - yT, rx: 4, fill: MV('electrolyte'), stroke: '#9FB3C2' }, g);
     txt(g, (xm0 + xb) / 2, yT - 17, 'metal electrode', 'strong', 'middle'); txt(g, (xb + xs1) / 2, yT - 17, 'liquid electrolyte', 'strong', 'middle');
     txt(g, (xm0 + xb) / 2, yT - 2, 'ions fixed in a lattice, electrons free', '', 'middle'); txt(g, (xb + xs1) / 2, yT - 2, 'ions free, no free electrons', '', 'middle');
-    // lattice of fixed ion cores
+    // lattice of fixed ion cores, centred in the metal and clear of the boundary
+    var cx0 = xm0 + 18, cy0 = yT + 22, dx = 30, dy = 32;
     var lat = el('g', {}, g);
-    for (var r = 0; r < 4; r++) for (var c = 0; c < 7; c++) { var x = xm0 + 22 + c * 32, y = yT + 24 + r * 32; el('circle', { cx: x, cy: y, r: 6, fill: MB('steel'), stroke: '#7E8A96' }, lat); txt(lat, x, y + 4, '+', 'strong', 'middle'); }
-    // mobile electrons in the metal, mobile ions in the liquid
-    var es = []; for (var i = 0; i < 10; i++) es.push({ x: xm0 + 10 + Math.random() * (xb - xm0 - 20), y: yT + 10 + Math.random() * (yB - yT - 20), c: el('circle', { r: 3, 'class': 'e-dot' }, g) });
-    var cats = []; for (i = 0; i < 6; i++) cats.push({ x: xb + 20 + Math.random() * 190, y: yT + 14 + Math.random() * (yB - yT - 28), c: el('circle', { r: 4, 'class': 'ion' }, g) });
-    var ans = []; for (i = 0; i < 5; i++) ans.push({ x: xb + 20 + Math.random() * 190, y: yT + 14 + Math.random() * (yB - yT - 28), c: el('circle', { r: 3.4, 'class': 'ion an' }, g) });
-    var our = ourIon(g, 0, 0, 4, 'our ion'); cats[0].our = true;
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 7; c++) { var x = cx0 + c * dx, y = cy0 + r * dy; el('circle', { cx: x, cy: y, r: 6, fill: MB('steel'), stroke: '#7E8A96' }, lat); txt(lat, x, y + 4, '+', 'strong', 'middle'); }
+    // the boundary line, and the place where deposited atoms join the metal
+    el('line', { x1: xb, y1: yT, x2: xb, y2: yB, stroke: 'var(--accent)', 'stroke-width': 2 }, g);
+    // electrons run in the lanes between the rows of cores; cations and anions in lanes of their own
+    var lanesE = [cy0 + dy / 2, cy0 + 3 * dy / 2, cy0 + 5 * dy / 2];
+    var es = [], cats = [], ans = [], i;
+    for (i = 0; i < 9; i++) es.push({ x: xm0 + 12 + Math.floor(i / 3) * 66 + (i % 3) * 23, y0: lanesE[i % 3], ph: i * 1.7, c: el('circle', { r: 3, 'class': 'e-dot' }, g) });
+    var lanesC = [yT + 22, yT + 52, yT + 82, yT + 112], lanesA = [yT + 37, yT + 67, yT + 97, yT + 127];
+    [[xb + 12, 2], [xb + 96, 0], [xb + 150, 3], [xb + 58, 1], [xb + 196, 2], [xb + 122, 1]].forEach(function (s, k) { cats.push({ x: s[0], y0: lanesC[s[1]], ph: k * 1.3, c: el('circle', { r: 4, 'class': 'ion' }, g) }); });
+    [[xb + 40, 0], [xb + 110, 2], [xb + 170, 1], [xb + 80, 3], [xb + 190, 3]].forEach(function (s, k) { ans.push({ x: s[0], y0: lanesA[s[1]], ph: k * 0.9, c: el('circle', { r: 3.4, 'class': 'ion an' }, g) }); });
+    var our = ourIon(g, 0, 0, 4, 'our ion', true); cats[1].our = true;
+    var atoms = el('g', {}, g), ev = el('g', { 'class': 'event' }, g); // drawn last, above the moving charges
     // field arrows, same direction in both phases (from + to −); here + is on the right
     var fa = el('g', {}, g);
     arrow(fa, 150, yB + 22, 90, yB + 22, 'var(--field)', 1.4, 'field-arrow'); txt(g, 120, yB + 40, 'field: force on a + charge', 'field', 'middle');
     arrow(fa, 400, yB + 22, 340, yB + 22, 'var(--field)', 1.4, 'field-arrow'); txt(g, 370, yB + 40, 'same field, same direction', 'field', 'middle');
     txt(g, 120, yB + 56, 'electrons pushed the other way →', 'cyan', 'middle'); txt(g, 370, yB + 56, '← cations along it, anions against it', 'amber', 'middle');
-    // the boundary: reaction event
-    el('line', { x1: xb, y1: yT, x2: xb, y2: yB, stroke: 'var(--accent)', 'stroke-width': 2 }, g);
-    var ev = el('g', { 'class': 'event' }, g);
     txt(g, xb, 24, 'boundary: a reaction hands the charge over', 'amber', 'middle');
     badge(g, 26, yB - 10, 1); badge(g, 494, yB - 10, 2); badge(g, xb, yB + 22, 3); badge(g, 30, yB + 22, 4);
-    var t = 0, evT = 0;
+    var t = 0, evAge = 0;
+    // a reaction at the boundary, at the height where the cation arrived: the ring, the label, and a new atom on the metal side
+    function react(y) {
+      clear(ev); evAge = 0;
+      el('circle', { cx: xb, cy: y, r: 10, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.8 }, ev);
+      var ly = lanesE.reduce(function (a, b) { return Math.abs(b - y) < Math.abs(a - y) ? b : a; }); // the label sits between two rows of cores
+      if (Math.abs(ly - y) > 4) el('line', { x1: xb - 14, y1: ly, x2: xb - 8, y2: y + (ly < y ? -6 : 6), stroke: 'var(--accent)', 'stroke-width': 1 }, ev);
+      el('rect', { x: xb - 140, y: ly - 10, width: 126, height: 20, rx: 10, fill: 'var(--panel)', 'fill-opacity': .94, stroke: 'var(--accent)', 'stroke-width': 1 }, ev); txt(ev, xb - 77, ly + 4, 'cation + e⁻ → atom', 'amber', 'middle');
+      var a = el('circle', { cx: xb - 5, cy: y, r: 4.5, fill: MB('zinc'), stroke: '#7E8A96', 'stroke-width': .8 }, atoms);
+      a.style.transition = 'opacity 1.4s'; setTimeout(function () { a.style.opacity = '0'; }, 900); setTimeout(function () { if (a.parentNode) a.parentNode.removeChild(a); }, 2400);
+      ev.style.opacity = '1';
+    }
+    function yOf(p, amp, w) { return p.y0 + amp * Math.sin(w * t + p.ph); }
     function place() {
-      es.forEach(function (p) { p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', p.y); });
-      cats.forEach(function (p) { p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', p.y); if (p.our) our.move(p.x, p.y); });
-      ans.forEach(function (p) { p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', p.y); });
+      es.forEach(function (p) { p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', yOf(p, 2.5, 5)); });
+      cats.forEach(function (p) { var y = yOf(p, 3, 2); p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', y); if (p.our) our.move(p.x, y); });
+      ans.forEach(function (p) { p.c.setAttribute('cx', p.x); p.c.setAttribute('cy', yOf(p, 3, 2)); });
     }
     function tick(dt) {
       if (dt === 0) { place(); return; }
-      t += dt; evT += dt;
-      es.forEach(function (p) { p.x += 28 * dt; p.y += Math.sin(t * 4 + p.x) * 8 * dt; if (p.x > xb - 8) { p.x = xm0 + 8; } });
-      cats.forEach(function (p) { p.x -= 16 * dt; p.y += Math.sin(t * 2 + p.x) * 6 * dt; if (p.x < xb + 10) { p.x = xs1 - 12; } });
-      ans.forEach(function (p) { p.x += 12 * dt; if (p.x > xs1 - 10) p.x = xb + 12; });
-      if (evT > 2.2) { evT = 0; clear(ev); var y = yT + 30 + Math.random() * (yB - yT - 60); el('circle', { cx: xb, cy: y, r: 10, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6 }, ev); txt(ev, xb + 16, y + 4, 'cation + e⁻ → atom', 'amber'); ev.style.opacity = '1'; }
-      if (evT > 1.2) ev.style.opacity = '0';
+      t += dt; evAge += dt;
+      // electrons drift toward the boundary; there they are used up, and the outside circuit feeds new ones in at the far side
+      es.forEach(function (p) { p.x += 26 * dt; if (p.x > xb - 7) p.x = xm0 + 6; });
+      // a cation that reaches the boundary takes an electron and becomes an atom; a new cation enters at the far side
+      cats.forEach(function (p) {
+        p.x -= 18 * dt;
+        if (p.x < xb + 6) { react(yOf(p, 3, 2)); p.x = xs1 - 8; p.y0 = lanesC[(lanesC.indexOf(p.y0) + 1) % lanesC.length]; }
+      });
+      ans.forEach(function (p) { p.x += 12 * dt; if (p.x > xs1 - 8) p.x = xb + 12; });
+      if (evAge > 1.4) ev.style.opacity = '0';
       place();
     }
+    react(yOf(cats[0], 3, 2)); cats[0].x = xb + 16;
     read.innerHTML = 'Two kinds of conductor, one field. In the metal the charge carriers are electrons; in the liquid they are ions. Charge can cross the boundary between them only through an electrode reaction that consumes electrons on one side and ions on the other.';
     steps(fig, [
       { text: 'In the <b>metal</b> the ion cores are locked in a lattice; only the electrons move. Pushed by the field (opposite to the arrow, because they are negative) they drift toward the + end.' },
@@ -159,6 +180,7 @@
     ]);
     var loop = anim(fig, tick, { autoplay: true, stepDt: 0.3 });
     bind(fig, loop);
+    place();
   });
 
   /* ===== 1.3 Cell versus battery: potentials add along a path, charge adds side by side ===== */

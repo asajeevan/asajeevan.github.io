@@ -206,3 +206,15 @@ Read the plan first; this file records state, decisions and the checklist so wor
   render there); figure bases name the sources instead.
 - Checks: new figures reviewed at 1300 and 360 px; gate exit 0 on 29 pages; axe clean on the eight touched pages;
   29 pages, 3270 links, 0 broken; 74 tests.
+
+## Figure 1.2 reaction marker (2026-10-15, owner's report: the circle appears in the wrong place)
+- The reaction ring at the metal-electrolyte boundary used to appear at a random height, unrelated to any ion, while
+  cations that reached the boundary jumped back to the far side without reacting. Now each cation that reaches the
+  boundary triggers the reaction at its own height: the ring is drawn there, a metal atom appears inside it on the
+  metal side and fades into the electrode, and the label "cation + e⁻ → atom" sits in a pill between two rows of
+  ion cores, with a short leader when needed; a new cation then enters at the far side.
+- Also fixed: the last column of ion cores touched the boundary (lattice now centred, clear of it); electrons and ions
+  drifted out of their phases over time (they now move in fixed lanes with a bounded wiggle, electrons between the
+  rows of cores); electrons bunched in threes; random start positions replaced by fixed ones, so the figure looks the
+  same on every load. With reduced motion the figure shows one reaction in place.
+- Checks: motion on and off at 1300 and 360 px; gate exit 0; axe clean; 74 tests.
