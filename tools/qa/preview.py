@@ -29,7 +29,9 @@ def fix_href(m):
     if re.match(r'([a-z]+:|#|data:)', h, re.I):
         return m.group(0)
     path, hash_, frag = h.partition('#')
-    if path.endswith('/'):
+    if re.fullmatch(r'(\.\./)*', path) and path:   # the site's own home page
+        path += 'site-home.html'
+    elif path.endswith('/'):
         path += 'index.html'
     return m.group(1) + path + hash_ + frag + m.group(3)
 
@@ -52,6 +54,15 @@ for p in sorted((ROOT / 'assets/js/learn').glob('*.js')):
     put(p.relative_to(ROOT).as_posix())
 for p in sorted((ROOT / 'assets/img/learn').glob('*')):
     put(p.relative_to(ROOT).as_posix())
+# the site's home page, as site-home.html beside the course (the preview's landing page is written separately)
+home = (ROOT / 'index.html').read_text(encoding='utf-8')
+home = re.sub(r'(<a\b[^>]*\bhref=")([^"]*)(")', fix_href, home)
+home = re.sub(r'<script src="[./]*assets/js/(gsap|ScrollTrigger)\.min\.js"></script>',
+              lambda m: '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/%s.min.js"></script>' % m.group(1), home)
+put('site-home.html', home)
+put('assets/js/home.js')
+for img in sorted(set(re.findall(r'src="(assets/img/[^"]+)"', home))):
+    put(img)
 (out / 'files.json').write_text(json.dumps(files, indent=0), encoding='utf-8')
 size = sum((out / f).stat().st_size for f in files)
 print('preview: %d files, %d bytes in %s' % (len(files), size, out))
