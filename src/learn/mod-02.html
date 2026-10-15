@@ -68,6 +68,28 @@
       </div>
     </div>
 
+    <div class="beat">
+      <figure class="fig" data-fig="f2-5" id="f2-5">
+        <span class="fnum">Figure 2.5</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f25t">
+          <title id="f25t">Four cell formats drawn side by side in their real materials: a steel coin cell, a cylindrical cell in a steel can, a prismatic cell in an aluminium case with a vent, and a flat pouch cell in a silvery laminate with two tabs. Choosing a format shows how its name is decoded, where its name encodes size.</title>
+        </svg>
+        <div class="controls"><button type="button" data-fmt="coin" aria-pressed="true">Coin</button><button type="button" data-fmt="cyl">Cylindrical</button><button type="button" data-fmt="prism">Prismatic</button><button type="button" data-fmt="pouch">Pouch</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i class="m-steel"></i>stainless or nickel-plated steel</span><span><i class="m-alu"></i>aluminium</span><span><i class="m-copper"></i>copper tab</span><span><i class="m-lco"></i>printed wrap</span></div>
+        <figcaption>Four formats, and how their names are read.
+          <span class="try">Try this: decode CR2025 and 504050, then see why the cylindrical code is left alone.</span>
+          <span class="basis">Formats, their construction and the coin and prismatic codes after Arote 2022, section 1.7; the response to vibration after Faruque et al. 2026, section 8.5. Shapes drawn in proportion only roughly; materials in their real colours.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Four formats</h3>
+        <p class="explain">The same layers come in four common shapes, and some of them are named by their size.{{cite:B3}} A <b>coin cell</b> is a flat stainless-steel case, wider than it is high, with a gasket, a cap, a spacer plate and a spring holding the layers together; in the laboratory its negative electrode is often lithium foil. Its name, standardized by the IEC, is a code: in CR2025, C stands for a lithium chemistry, R for round, 20 for the diameter in millimetres and 25 for the height in tenths of a millimetre, so 2.5 mm. CR2025 is the most common design at laboratory scale.{{cite:B3}}</p>
+        <p class="explain">In a <b>cylindrical cell</b> the electrodes and separator are wound into a spiral inside a cylindrical case, the roll of figure {{fig:f2-2}}: good cycling stability, but round cells pack less densely. Its five-digit name, such as 18650 or 21700, gives its size. A <b>prismatic cell</b> holds large stacked sheets in a rectangular case of aluminium, steel or semi-hard plastic, usually with a vent, and suits uses where swelling matters; its six digits give the thickness in tenths of a millimetre, then the width and the length in millimetres, so 504050 is 5.0 by 40 by 50 mm. A <b>pouch cell</b> stacks its electrodes in a sealed, soft, flat case: light and cheap to make.{{cite:B3}}</p>
+        <p class="explain">Shape matters in use as well. In electric vehicles, vibration and shock speed up the loss of capacity and the rise of resistance, through the loss of active material and of lithium inventory of {{ch:degradation}}; a 2026 review reports cylindrical 18650 cells as particularly susceptible, and pouch and prismatic cells as more tolerant when tightly packed.{{cite:R82}}</p>
+      </div>
+    </div>
+
     <div class="beat alt">
       <figure class="fig" data-fig="f2-4" id="f2-4">
         <span class="fnum">Figure 2.4</span>
@@ -94,7 +116,7 @@
           <p class="eqline"><span class="eq">D<sub>eff</sub> = D &#949;/&#964;,&#8195;&#964; = &#949;<sup>1&#8722;&#945;</sup></span><span class="eqnote">the same correction for diffusion, with &#964; the tortuosity of the pore network</span></p>
           <p class="mnote">With &#949; = 0.3 and &#945; = 1.5, &#954;<sub>eff</sub> = 0.3<sup>1.5</sup> &#954; = 0.16 &#954;: the electrolyte inside a coating conducts about a sixth as well as the free liquid. The module on composite electrodes, still to come, builds on this.</p>
         </div></details>
-        {{sources:R1,R6,R21,B2,R36}}
+        {{sources:R1,R6,R21,B2,R36,B3,R82}}
       </div>
     </div>
   </div>

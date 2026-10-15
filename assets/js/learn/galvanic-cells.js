@@ -335,7 +335,10 @@
     hematite:    ['#7E3527', '#B0604C', '#83392B', '#55221A', '#8F4636'],
     iron:        ['#5E6368', '#969BA1', '#63686D', '#3F4246', '#71767B'],
     li2o:        ['#ECEAE5', '#FFFFFF', '#EEECE7', '#D3D0C8', '#F4F3EF'],
-    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40']
+    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40'],
+    silver:      ['#C9CDD2', '#F5F6F7', '#D3D6DA', '#A3A8AE', '#DDE0E3'],
+    lead:        ['#6B7178', '#9CA2A8', '#70767D', '#4E535A', '#7E848A'],
+    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31']
   };
   var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
   function MC(k) { return (MAT[k] || MAT.steel)[0]; }
@@ -586,6 +589,135 @@
       { text: 'Parallel: all + ends are joined and all − ends are joined, so there is one rise, <b>V</b>. The current splits between the three cells, each gives a third, and together they hold <b>3Q</b>: the capacity adds, the voltage does not.' }
     ]);
     show('single');
+  });
+  register('f1-4', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    // marks: 2 meets, 1 partly, 0 does not; verdict b battery, h hybrid, n not a battery
+    var Y = 2, P = 1, N = 0;
+    var SYS = [
+      { n: 'Li-ion, no graphite', m: [Y, Y, Y, Y, Y], v: 'b', t: 'All five tests met. The Comment’s worked example is Li₄Ti₅O₁₂‖LiCoO₂. On charge, at the negative electrode Li₄Ti₅O₁₂ + 3Li⁺ + 3e⁻ → Li₇Ti₅O₁₂; at the positive one LiCoO₂ → CoO₂ + Li⁺ + e⁻.' },
+      { n: 'Li-ion, graphite negative', m: [Y, P, Y, Y, Y], v: 'b', t: 'Only partly C2: citing a recent analysis, the Comment argues that graphite stores lithium as a volumic capacitor, without a redox reaction tied to the storage. It still counts these cells as batteries. A proposal, not settled usage.' },
+      { n: 'metal and metal-ion', m: [Y, Y, Y, Y, Y], v: 'b', t: '“Metal” when the negative electrode is the metal itself (Li, Na, K, Mg, Ca, Zn, Al and others); “metal-ion” when it stores the ions by insertion (Li₄Ti₅O₁₂), alloying (Si) or conversion (Fe₃O₄). The electrolyte may be liquid, solid or an ionic liquid.' },
+      { n: 'halide-ion (F⁻, Cl⁻, Br⁻, I⁻)', m: [Y, Y, Y, Y, Y], v: 'b', t: 'Anion shuttles: halide ions, not cations, cross the electrolyte between the electrodes while electrons go round the circuit. All five tests met.' },
+      { n: 'lead-acid', m: [Y, Y, Y, Y, Y], v: 'b', t: 'Solid electrodes and an aqueous electrolyte; all five tests met.' },
+      { n: 'redox flow', m: [Y, Y, Y, Y, Y], v: 'b', t: 'The reactants are dissolved in the negolyte and the posolyte, kept in tanks and pumped through a cell with an ion-conducting membrane. Outside the cell but inside the system: still closed, so C1 holds.' },
+      { n: 'capacitor', m: [Y, N, Y, Y, N], v: 'n', t: 'Two conducting surfaces with a dielectric between them: charge is stored by polarization, not by faradaic reactions.' },
+      { n: 'supercapacitor', m: [Y, N, Y, Y, N], v: 'n', t: 'Electrodes of very large surface area, such as porous carbons, with an electrolyte; ions gather at the interfaces. No faradaic reactions, so not a battery.' },
+      { n: 'pseudocapacitor', m: [Y, P, Y, Y, P], v: 'n', t: 'Fast faradaic reactions confined to the surface, with the behaviour of a capacitor. The share stored by redox depends on particle size: nanoscale LiCoO₂ behaves pseudocapacitively, micrometre particles like a battery material.' },
+      { n: 'metal-ion capacitor', m: [Y, N, Y, Y, N], v: 'n', t: 'A supercapacitor-like positive electrode with a graphite negative one, which the Comment counts as a volumic capacitor: neither electrode works faradaically.' },
+      { n: 'fuel cell', m: [N, Y, Y, Y, Y], v: 'n', t: 'Fuel and usually oxidant come from outside and the product leaves: an open system, so C1 fails.' },
+      { n: '“metal-air battery”', m: [N, Y, Y, Y, Y], v: 'h', t: 'The gas that reacts at the positive electrode (O₂, CO₂ or N₂) is exchanged with the surroundings, so that electrode works like a fuel cell and C1 fails: a hybrid.' },
+      { n: '“thermal battery” (molten salt)', m: [Y, Y, Y, Y, Y], v: 'b', t: 'A primary cell whose salt electrolyte is solid at room temperature and is melted with pyrotechnic material to start it. Redox at both electrodes, closed: a battery.' },
+      { n: 'thermal energy storage', m: [N, N, N, N, N], v: 'n', t: 'Stores heat; electricity only through a turbine and generator, in a thermodynamic cycle. No test met.' },
+      { n: '“structural battery”', m: [Y, Y, Y, Y, Y], v: 'b', t: 'Electrodes and separator built into a load-bearing composite, often with carbon fibres and solid or polymer electrolytes. It is a battery that is also part of the structure.' },
+      { n: '“nuclear battery”', m: [N, N, N, N, N], v: 'n', t: 'Converts the energy of radioactive decay with semiconductor converters, not chemical reactions.' },
+      { n: '“quantum battery”', m: [N, N, N, N, N], v: 'n', t: 'Stores and releases energy within quantum systems; no electrochemistry.' },
+      { n: '“mechanical battery”', m: [N, N, N, N, N], v: 'n', t: 'Potential or kinetic energy, such as a flywheel’s, turned into electricity by a machine.' }
+    ];
+    var CRIT = ['closed system', 'faradaic redox', 'redox at two electrodes', 'ions inside, electrons outside', 'electrical output'];
+    var cx0 = 236, cw = 34, vx = 410, y0 = 50, rh = 18;
+    txt(g, 14, 22, 'system', 'strong', 'start');
+    CRIT.forEach(function (c, j) { txt(g, cx0 + j * cw, 22, 'C' + (j + 1), 'strong', 'middle'); });
+    txt(g, vx, 22, 'verdict', 'strong', 'start');
+    el('line', { x1: 8, x2: 512, y1: 32, y2: 32, stroke: 'var(--line-2)' }, g);
+    function mark(p, x, y, r) {
+      var rad = 5.5;
+      if (r === 2) { el('circle', { cx: x, cy: y, r: rad, fill: 'var(--second)' }, p); el('path', { d: 'M' + (x - 2.6) + ',' + y + ' l1.9,2 l3.6,-4', fill: 'none', stroke: '#fff', 'stroke-width': 1.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, p); }
+      else if (r === 1) { el('circle', { cx: x, cy: y, r: rad, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.5 }, p); el('path', { d: 'M' + x + ',' + (y - rad) + ' A' + rad + ',' + rad + ' 0 0 0 ' + x + ',' + (y + rad) + ' Z', fill: 'var(--accent)' }, p); }
+      else { var d = rad * 0.55; el('circle', { cx: x, cy: y, r: rad, fill: 'none', stroke: 'var(--heat)', 'stroke-width': 1.6 }, p); el('path', { d: 'M' + (x - d) + ',' + (y - d) + ' L' + (x + d) + ',' + (y + d) + ' M' + (x + d) + ',' + (y - d) + ' L' + (x - d) + ',' + (y + d), stroke: 'var(--heat)', 'stroke-width': 1.6 }, p); }
+    }
+    var VERD = { b: ['battery', 'cyan'], h: ['hybrid', 'amber'], n: ['not a battery', ''] }, rows = [], sel = null;
+    SYS.forEach(function (s, i) {
+      var y = y0 + i * rh, row = el('g', { tabindex: 0, role: 'button', 'aria-label': s.n + ': ' + VERD[s.v][0], style: 'cursor:pointer' }, g);
+      var bg = el('rect', { x: 8, y: y - rh / 2 + 1, width: 504, height: rh - 2, rx: 5, fill: i % 2 ? 'transparent' : 'rgba(20,23,28,.03)', stroke: 'var(--accent)', 'stroke-opacity': 0, 'stroke-width': 1.5 }, row);
+      txt(row, 14, y + 4, s.n, '', 'start');
+      s.m.forEach(function (r, j) { mark(row, cx0 + j * cw, y, r); });
+      txt(row, vx, y + 4, VERD[s.v][0], 'strong ' + VERD[s.v][1], 'start');
+      rows.push({ s: s, bg: bg });
+      pressable(row, function () { sel = s; place(); });
+    });
+    // separators between the groups: batteries, capacitors, open systems, other uses of the word
+    [6, 10, 12].forEach(function (k) { var y = y0 + k * rh - rh / 2; el('line', { x1: 8, x2: 512, y1: y, y2: y, stroke: 'var(--line-2)', 'stroke-dasharray': '2 3' }, g); });
+    badge(g, 205, 18, 1); badge(g, 205, y0 + 7 * rh, 2); badge(g, 205, y0 + 10 * rh, 3);
+    function place() {
+      rows.forEach(function (r) { r.bg.setAttribute('stroke-opacity', sel === r.s ? 1 : 0); });
+      if (!sel) { read.innerHTML = 'C1 closed system · C2 faradaic redox · C3 oxidation and reduction at two separate electrodes · C4 ions through the electrolyte, electrons round the circuit · C5 electrical energy out. Tap a row for the reasoning.'; return; }
+      var fails = sel.m.map(function (r, j) { return r === 2 ? null : 'C' + (j + 1) + (r === 1 ? ' (partly)' : ''); }).filter(Boolean);
+      read.innerHTML = '<b>' + sel.n + '</b>: ' + VERD[sel.v][0] + (fails.length ? '; not fully met: ' + fails.join(', ') : '; all five met') + '. ' + sel.t;
+    }
+    steps(fig, [
+      { text: 'The five operational criteria of a 2026 Comment. C1: a <b>closed</b> system; C2: energy stored by reversible <b>faradaic</b> reactions; C3: oxidation and reduction at <b>two separate electrodes</b>; C4: ions through the electrolyte while electrons go round the outside circuit; C5: <b>electrical energy</b> delivered. A system is a battery only if it meets all five.' },
+      { text: 'Capacitors and supercapacitors fail C2: they store charge by polarization at surfaces, not by redox reactions. A pseudocapacitor meets it only in part.' },
+      { text: 'Fuel cells fail C1, because their fuel and oxidant are fed from outside; metal-air cells, half battery and half fuel cell, are hybrids. Tap any row for the reasoning; the marks are the Comment’s.' }
+    ]);
+    place();
+  });
+  register('f1-5', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    var EV = [
+      { y: '1800', s: 'Volta', kind: 'pile', h: 'Volta’s pile', l: ['zinc and silver sheets, with cloth', 'soaked in salt water between them'], neg: 'zinc', pos: 'silver', r: '', t: 'Around 1800 Alessandro Volta built the first real battery: a pile of zinc and silver sheets separated by cloth soaked in salt water. Zinc is the negative electrode, silver the positive.' },
+      { y: '1836', s: 'Daniell', kind: 'daniell', h: 'Daniell’s cell', l: ['zinc in zinc sulfate, copper in', 'copper(II) sulfate, a porous wall between'], neg: 'zinc', pos: 'copper', r: 'Zn + Cu²⁺ → Zn²⁺ + Cu', t: 'In 1836 John Frederic Daniell separated two half-cells by a porous partition: zinc in zinc sulfate (or dilute sulfuric acid) and copper in copper(II) sulfate. Neither half works alone. This is the cell of figure 1.1.' },
+      { y: '1859', s: 'Planté', kind: 'tank', h: 'Planté’s lead-acid cell', l: ['lead and lead dioxide', 'in dilute sulfuric acid'], neg: 'lead', pos: 'pbo2', el: 'electrolyte', r: 'PbO₂ + 2H₂SO₄ + Pb ⇌ 2PbSO₄ + 2H₂O', t: 'In 1859 Gaston Planté invented the lead-acid battery, the first rechargeable battery to be produced commercially. Lead sulfate forms at both electrodes on discharge; an external current reverses the reaction.' },
+      { y: '1866', s: 'Leclanché', kind: 'tank', h: 'Leclanché’s zinc-carbon cell', l: ['zinc; manganese dioxide with carbon;', 'ammonium chloride solution'], neg: 'zinc', pos: 'carbon', el: 'electrolyte', r: '', t: 'In 1866 Georges Leclanché paired zinc with manganese dioxide and carbon, wrapped in a porous material, in ammonium chloride solution: the zinc-carbon cell, the first widely used battery. For commercial use the liquid was replaced by a paste.' },
+      { y: '1886', s: 'dry cell', kind: 'tank', h: 'The first dry cell', l: ['a variant of the Leclanché cell,', 'its electrolyte a paste'], neg: 'zinc', pos: 'carbon', el: 'polymer', r: '', t: 'The first dry cell, of 1886, was a variant of the Leclanché zinc-carbon cell. A dry cell need not be dry: its electrolyte is a paste.' },
+      { y: '1901', s: 'Ni-Cd, Ni-Fe', kind: 'tank', h: 'Nickel-cadmium and nickel-iron', l: ['cadmium; nickel oxyhydroxide;', 'potassium hydroxide solution'], neg: 'zinc', pos: 'carbon', el: 'electrolyte', r: 'Cd + 2NiOOH + 2H₂O ⇌ Cd(OH)₂ + 2Ni(OH)₂', t: 'In 1901 Waldemar Jungner and Thomas Edison introduced the nickel-cadmium and nickel-iron batteries. For many years nickel-cadmium was the rechargeable cell of choice, until the toxicity of cadmium sent the search for other materials.' },
+      { y: '1991', s: 'Li-ion', kind: 'liion', h: 'The lithium-ion cell', l: ['carbon and LiCoO₂ in a lithium salt', 'dissolved in organic solvents'], neg: 'graphite', pos: 'lco', el: 'electrolyte', r: 'LiCoO₂ + xC₆ ⇌ Li_{1−x}CoO₂ + xLiC₆', t: 'In 1991 Sony brought out the first commercial lithium-ion battery, with LiCoO₂ as the positive electrode and carbon as the negative. Lithium is light and has a very negative electrode potential.' },
+      { y: '2019', s: 'Nobel', kind: 'liion', h: 'The Nobel Prize in Chemistry', l: ['John Goodenough, Stanley Whittingham', 'and Akira Yoshino'], neg: 'graphite', pos: 'lco', el: 'electrolyte', r: '', t: 'In 2019 John Goodenough, Stanley Whittingham and Akira Yoshino received the Nobel Prize in Chemistry for the development of lithium-ion batteries.' }
+    ];
+    // nickel-cadmium: the silvery cadmium is drawn with the zinc gradient, the black NiOOH with the carbon one
+    var x0 = 54, x1 = 490, ty = 46, dx = (x1 - x0) / (EV.length - 1), dots = [], sel = 1;
+    el('line', { x1: x0 - 12, x2: x1 + 12, y1: ty, y2: ty, stroke: 'var(--line-2)', 'stroke-width': 2 }, g);
+    EV.forEach(function (e, i) {
+      var x = x0 + i * dx, grp = el('g', { tabindex: 0, role: 'button', 'aria-label': e.y + ', ' + e.h, style: 'cursor:pointer' }, g);
+      el('rect', { x: x - dx / 2 + 2, y: ty - 34, width: dx - 4, height: 76, fill: 'transparent' }, grp);
+      txt(grp, x, ty - 14, e.y, 'strong', 'middle');
+      var d = el('circle', { cx: x, cy: ty, r: 6, fill: 'var(--panel)', stroke: 'var(--accent)', 'stroke-width': 2 }, grp);
+      txt(grp, x, ty + 22 + (i % 2) * 14, e.s, '', 'middle');
+      dots.push(d);
+      pressable(grp, function () { sel = i; place(); });
+    });
+    var card = el('g', {}, g);
+    badge(g, 13, ty, 1); badge(g, x0 + 2.5 * dx, ty - 20, 2); badge(g, x0 + 5.5 * dx, ty - 20, 3);
+    function bar(p, x, y, w, h, mat) { el('rect', { x: x, y: y, width: w, height: h, rx: 2, fill: M(mat), stroke: 'rgba(16,24,40,.25)', 'stroke-width': .6, filter: 'url(#fx-lift)' }, p); }
+    function place() {
+      dots.forEach(function (d, i) { d.setAttribute('fill', i === sel ? 'var(--accent)' : 'var(--panel)'); d.setAttribute('r', i === sel ? 7.5 : 6); });
+      clear(card); var e = EV[sel], ox = 30, oy = 112;
+      if (e.kind === 'pile') {
+        for (var k = 0; k < 5; k++) {
+          var y = oy + 128 - k * 28;
+          el('rect', { x: ox + 20, y: y, width: 90, height: 9, rx: 2, fill: MV('zinc'), stroke: 'rgba(16,24,40,.25)', 'stroke-width': .6 }, card);
+          el('rect', { x: ox + 23, y: y - 8, width: 84, height: 8, rx: 2, fill: MV('polymer'), stroke: '#C9C3B4', 'stroke-width': .6 }, card);
+          el('rect', { x: ox + 20, y: y - 17, width: 90, height: 9, rx: 2, fill: MV('silver'), stroke: 'rgba(16,24,40,.25)', 'stroke-width': .6 }, card);
+        }
+        txt(card, ox + 118, oy + 136, 'zinc', '', 'start'); txt(card, ox + 118, oy + 124, 'cloth in brine', '', 'start'); txt(card, ox + 118, oy + 112, 'silver', '', 'start');
+      } else {
+        var bx = ox + 6, bw = 186, bh = 116, by = oy + 18;
+        var liq = e.kind === 'daniell' ? null : (e.el || 'electrolyte');
+        if (e.kind === 'daniell') {
+          el('rect', { x: bx, y: by + 22, width: bw / 2, height: bh - 22, fill: MV('electrolyte') }, card);
+          el('rect', { x: bx + bw / 2, y: by + 22, width: bw / 2, height: bh - 22, fill: MV('cuso4'), 'fill-opacity': .8 }, card);
+          el('rect', { x: bx + bw / 2 - 3, y: by + 16, width: 6, height: bh - 16, fill: M('ceramic'), stroke: '#C9C3B4', 'stroke-width': .6 }, card);
+        } else {
+          el('rect', { x: bx, y: by + 22, width: bw, height: bh - 22, fill: MV(liq) }, card);
+        }
+        el('rect', { x: bx, y: by, width: bw, height: bh, rx: 6, fill: 'none', stroke: '#9FB3C2', 'stroke-width': 1.4 }, card);
+        el('rect', { x: bx + 6, y: by + 8, width: 3, height: bh - 16, rx: 1.5, fill: '#fff', opacity: .55 }, card);
+        bar(card, bx + 26, by - 10, 22, bh - 10, e.neg); bar(card, bx + bw - 48, by - 10, 22, bh - 10, e.pos);
+        txt(card, bx + 37, by + bh + 16, '−', 'strong', 'middle'); txt(card, bx + bw - 37, by + bh + 16, '+', 'strong', 'middle');
+      }
+      var tx = 262;
+      txt(card, tx, oy + 4, e.y + ': ' + e.h, 'strong', 'start');
+      e.l.forEach(function (line, j) { txt(card, tx, oy + 26 + j * 17, line, '', 'start'); });
+      if (e.r) { txt(card, tx, oy + 76, 'cell reaction:', '', 'start'); txt(card, tx, oy + 94, e.r, 'amber', 'start'); }
+      txt(card, tx, oy + 168, 'drawn in real colours, not to scale', '', 'start', { style: 'fill:var(--muted)' });
+      read.innerHTML = e.t;
+    }
+    steps(fig, [
+      { text: '<b>Volta’s pile</b>, around 1800: zinc and silver with brine-soaked cloth between them, the first real battery.' },
+      { text: '<b>Daniell</b> (1836) separated the two half-cells; <b>Planté</b> (1859) made the first rechargeable battery to be produced commercially, lead-acid; <b>Leclanché</b> (1866) the zinc-carbon cell that, as a paste, became the dry cell (1886).' },
+      { text: '<b>Nickel-cadmium</b> and nickel-iron (1901) were the rechargeable cells of the twentieth century; the <b>lithium-ion</b> cell arrived in 1991. Tap any milestone.' }
+    ]);
+    place();
   });
 
   /* ---------- typeset the dynamic text of every figure card ---------- */

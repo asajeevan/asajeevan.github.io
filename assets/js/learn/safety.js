@@ -335,7 +335,10 @@
     hematite:    ['#7E3527', '#B0604C', '#83392B', '#55221A', '#8F4636'],
     iron:        ['#5E6368', '#969BA1', '#63686D', '#3F4246', '#71767B'],
     li2o:        ['#ECEAE5', '#FFFFFF', '#EEECE7', '#D3D0C8', '#F4F3EF'],
-    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40']
+    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40'],
+    silver:      ['#C9CDD2', '#F5F6F7', '#D3D6DA', '#A3A8AE', '#DDE0E3'],
+    lead:        ['#6B7178', '#9CA2A8', '#70767D', '#4E535A', '#7E848A'],
+    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31']
   };
   var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
   function MC(k) { return (MAT[k] || MAT.steel)[0]; }
@@ -486,6 +489,136 @@
       { text: 'Why the middle is kind: in the cold, a fast charge can push the graphite into <b>lithium plating</b>; in the heat, self-discharge speeds up. And at any temperature, a cell kept full and charged fast grows its SEI fastest (chapter 16).' }
     ]);
     read.innerHTML = 'Temperature ranges for cells of around 2004; the two notes give directions only, without numbers.';
+  });
+  register('f12-5', function (fig) {
+    var svg = fig.querySelector('svg'), read = fig.querySelector('.readout'), vb = fig.querySelectorAll('button[data-view]');
+    var x0 = 196, x1 = 500, T0 = 80, T1 = 420, X = function (T) { return x0 + (T - T0) / (T1 - T0) * (x1 - x0); };
+    var gA = el('g', {}, svg), gB = el('g', {}, svg), sel = null;
+    var COL = { neg: 'var(--accent)', pos: 'var(--heat)', ely: 'var(--second)', o2: 'var(--field)' };
+    function axis(p, yAx) {
+      el('line', { x1: x0, x2: x1, y1: yAx, y2: yAx, stroke: 'var(--line-2)' }, p);
+      for (var T = 100; T <= 400; T += 50) { el('line', { x1: X(T), x2: X(T), y1: yAx, y2: yAx + 5, stroke: 'var(--line-2)' }, p); el('line', { x1: X(T), x2: X(T), y1: 30, y2: yAx, stroke: 'var(--line)', 'stroke-dasharray': '2 5' }, p); txt(p, X(T), yAx + 18, String(T), '', 'middle'); }
+      txt(p, x1, yAx + 34, 'temperature, °C', '', 'end');
+    }
+    // ---------- reactions in the cell (Table 23) ----------
+    var RX = [
+      { n: 'SEI decomposition', a: 100, b: 130, h: '186–257', s: 'neg' },
+      { n: 'LiC₆ + electrolyte', a: 110, b: 290, h: '1460–1714', s: 'neg' },
+      { n: 'LiC₆ + PVDF binder', a: 220, b: 400, h: '1100–1500', s: 'neg' },
+      { n: 'Li_{x}CoO₂ decomposition', a: 178, b: 250, h: '146', s: 'pos' },
+      { n: 'Li_{x}Ni_{0.8}Co_{0.2}O₂ decomposition', a: 175, b: 340, h: '115', s: 'pos' },
+      { n: 'Li_{x}CoO₂ + electrolyte', a: 167, b: 300, h: '381–625', s: 'pos' },
+      { n: 'Li_{x}Ni_{0.8}Co_{0.2}O₂ + electrolyte', a: 180, b: 230, h: '600–1256', s: 'pos' },
+      { n: 'electrolyte decomposition', a: 225, b: 300, h: '155–258', s: 'ely' }
+    ];
+    var y0 = 40, rh = 25, rowsA = [];
+    txt(gA, 12, 20, 'exothermic process', 'strong', 'start'); txt(gA, x1, 20, 'J/g released', 'strong', 'end');
+    RX.forEach(function (r, i) {
+      var y = y0 + i * rh, row = el('g', { tabindex: 0, role: 'button', 'aria-label': plain(r.n) + ', ' + r.a + ' to ' + r.b + ' degrees, ' + r.h + ' joules per gram', style: 'cursor:pointer' }, gA);
+      var bg = el('rect', { x: 6, y: y - 11, width: 508, height: 22, rx: 5, fill: i % 2 ? 'transparent' : 'rgba(20,23,28,.03)', stroke: 'var(--accent)', 'stroke-opacity': 0, 'stroke-width': 1.5 }, row);
+      txt(row, 12, y + 4, r.n, '', 'start');
+      var xa = X(r.a), xb = X(r.b);
+      el('rect', { x: xa, y: y - 6, width: xb - xa, height: 12, rx: 3, fill: COL[r.s], 'fill-opacity': .8 }, row);
+      var inside = xb + 62 > x1 + 14;
+      txt(row, inside ? xa + 5 : xb + 5, y + 4, r.h, inside ? 'strong' : '', 'start', inside ? { style: 'fill:#fff' } : null);
+      rowsA.push({ r: r, bg: bg });
+      pressable(row, function () { sel = r; place(); });
+    });
+    var yAx = y0 + RX.length * rh;
+    axis(gA, yAx);
+    el('line', { x1: X(130), x2: X(130), y1: 28, y2: yAx, stroke: 'var(--text)', 'stroke-dasharray': '4 3', 'stroke-width': 1.2 }, gA);
+    txt(gA, X(130) + 4, 30, 'heating test, 130 °C', '', 'start', { style: 'fill:var(--text)' });
+    // ---------- positive electrodes (Table 4) ----------
+    var PS = [
+      { n: 'LiCoO₂', heat: [180, 220], o2: [200, 250], t: 'Frequent exothermic reaction at about 180 to 220 °C; oxygen released at about 200 to 250 °C. Strongly affected by overcharge and by mechanical and thermal abuse.' },
+      { n: 'NCM (layered Ni, Mn, Co)', heat: null, o2: [180, 220], t: 'Oxygen released at a high state of charge at about 180 to 220 °C; more nickel, less stability. Prone to fire at high state of charge under mechanical and thermal abuse.' },
+      { n: 'LiMn₂O₄', heat: [220, 250], o2: null, t: 'Thermal decomposition at about 220 to 250 °C; oxygen released at high temperature, less severely than from LiCoO₂ or NCM.' },
+      { n: 'LiFePO₄', heat: [270, 320], o2: [400, 400], t: 'The most thermally stable of the four: exothermic reaction only at about 270 to 320 °C, and oxygen released only at about 400 °C, held by the strong P–O bonds.' }
+    ];
+    var yb0 = 60, rhb = 40, rowsB = [];
+    txt(gB, 12, 20, 'positive electrode', 'strong', 'start'); txt(gB, x1, 20, 'heat (red), oxygen (violet)', 'strong', 'end');
+    PS.forEach(function (p, i) {
+      var y = yb0 + i * rhb, row = el('g', { tabindex: 0, role: 'button', 'aria-label': plain(p.n), style: 'cursor:pointer' }, gB);
+      var bg = el('rect', { x: 6, y: y - 16, width: 508, height: 32, rx: 6, fill: i % 2 ? 'transparent' : 'rgba(20,23,28,.03)', stroke: 'var(--accent)', 'stroke-opacity': 0, 'stroke-width': 1.5 }, row);
+      txt(row, 12, y + 4, p.n, 'strong', 'start');
+      if (p.heat) el('rect', { x: X(p.heat[0]), y: y - 9, width: X(p.heat[1]) - X(p.heat[0]), height: 8, rx: 2, fill: COL.pos, 'fill-opacity': .85 }, row);
+      if (p.o2) {
+        if (p.o2[0] === p.o2[1]) { el('circle', { cx: X(p.o2[0]), cy: y + 5, r: 5, fill: COL.o2 }, row); txt(row, X(p.o2[0]) - 8, y + 9, 'about', '', 'end'); }
+        else el('rect', { x: X(p.o2[0]), y: y + 1, width: X(p.o2[1]) - X(p.o2[0]), height: 8, rx: 2, fill: COL.o2, 'fill-opacity': .85 }, row);
+      }
+      rowsB.push({ p: p, bg: bg });
+      pressable(row, function () { sel = p; place(); });
+    });
+    var ybAx = yb0 + PS.length * rhb - 10;
+    axis(gB, ybAx);
+    txt(gB, 12, ybAx + 62, 'heat release starts, lowest to highest:  LiCoO₂ < NCA < NCM < LiFePO₄', 'amber', 'start');
+    var view = 'cell';
+    var badges = [badge(gA, x0 - 14, y0, 1), badge(gA, 488, y0 + rh, 2), badge(gB, X(410) + 2, yb0 + 3 * rhb - 18, 3)];
+    function place() {
+      gA.style.display = view === 'cell' ? '' : 'none'; gB.style.display = view === 'pos' ? '' : 'none';
+      Array.prototype.forEach.call(vb, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view') === view)); });
+      rowsA.forEach(function (o) { o.bg.setAttribute('stroke-opacity', sel === o.r ? 1 : 0); });
+      rowsB.forEach(function (o) { o.bg.setAttribute('stroke-opacity', sel === o.p ? 1 : 0); });
+      if (view === 'cell') {
+        if (sel && sel.h) read.innerHTML = '<b>' + sel.n + '</b>: about ' + sel.a + ' to ' + sel.b + ' °C, releasing ' + sel.h + ' J/g. Ranges compiled from separate studies by Faruque et al. 2026.';
+        else read.innerHTML = 'Each bar is the temperature range of one exothermic process; the number is its heat, in joules per gram. Blue: negative electrode; red: positive electrode; green: electrolyte. Tap a bar.';
+      } else {
+        if (sel && sel.t) read.innerHTML = '<b>' + sel.n + '</b>. ' + sel.t;
+        else read.innerHTML = 'Where each positive electrode material releases heat (red) and oxygen (violet), as compared in a 2026 review. Tap a material.';
+      }
+    }
+    Array.prototype.forEach.call(vb, function (b) { on(b, 'click', function () { view = b.getAttribute('data-view'); sel = null; place(); }); });
+    steps(fig, [
+      { text: 'First to go is the <b>SEI</b>, from about 100 to 130 °C. The dashed line marks the temperature of a standard heating test, 130 °C.', on: function () { view = 'cell'; place(); } },
+      { text: 'The largest heat comes from <b>lithiated graphite meeting the electrolyte</b>: 1460 to 1714 J/g, between about 110 and 290 °C. The charged positive electrode joins from about 167 °C.', on: function () { view = 'cell'; place(); } },
+      { text: 'Positive electrodes differ: <b>LiFePO₄</b> holds its oxygen to about 400 °C thanks to its strong P–O bonds, while LiCoO₂ gives it up from about 200 °C.', on: function () { view = 'pos'; place(); } }
+    ]);
+    place();
+  });
+  register('f12-6', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    var FAM = [
+      { k: 'echem', n: 'electrochemical', s: 'charge, current, shorts', t: 'overcharge and overdischarge, discharge at high and low temperature, external short circuit, forced discharge' },
+      { k: 'mech', n: 'mechanical', s: 'force and impact', t: 'drop, heavy impact, nail penetration, shaking and squeezing, acceleration, crush' },
+      { k: 'therm', n: 'thermal', s: 'heat', t: 'heating, thermal shock, spark' },
+      { k: 'env', n: 'surroundings', s: 'air and water', t: 'low pressure at high altitude, soaking' }
+    ];
+    var tiles = [], sel = 2, tw = 140, th = 62;
+    FAM.forEach(function (f, i) {
+      var x = 16 + (i % 2) * (tw + 10), y = 34 + Math.floor(i / 2) * (th + 10), grp = el('g', { tabindex: 0, role: 'button', 'aria-label': f.n + ' tests', style: 'cursor:pointer' }, g);
+      var r = el('rect', { x: x, y: y, width: tw, height: th, rx: 8, fill: 'var(--panel-2)', stroke: 'var(--line-2)' }, grp);
+      txt(grp, x + 12, y + 26, f.n, 'strong', 'start'); txt(grp, x + 12, y + 44, f.s, '', 'start');
+      tiles.push(r); pressable(grp, function () { sel = i; place(); });
+    });
+    txt(g, 16, 20, 'four families of abuse test', 'strong', 'start');
+    // heating test programme of GB/T 31485
+    var hx0 = 362, hx1 = 506, hy0 = 150, hy1 = 46, tMax = 60, Tm = 140, HX = function (t) { return hx0 + t / tMax * (hx1 - hx0); }, HY = function (T) { return hy0 - (T - 20) / (Tm - 20) * (hy0 - hy1); };
+    txt(g, hx0 - 8, 20, 'heating test, GB/T 31485', 'strong', 'start');
+    el('line', { x1: hx0, y1: hy0, x2: hx1, y2: hy0, stroke: 'var(--line-2)' }, g); el('line', { x1: hx0, y1: hy0, x2: hx0, y2: hy1 - 4, stroke: 'var(--line-2)' }, g);
+    [25, 130].forEach(function (T) { txt(g, hx0 - 5, HY(T) + 4, T + ' °C', '', 'end'); el('line', { x1: hx0 - 3, x2: hx0, y1: HY(T), y2: HY(T), stroke: 'var(--line-2)' }, g); });
+    var tRamp = (130 - 25) / 5; // minutes at 5 °C per minute
+    el('path', { d: 'M' + HX(0) + ',' + HY(25) + ' L' + HX(tRamp) + ',' + HY(130) + ' L' + HX(tRamp + 30) + ',' + HY(130), fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2.4 }, g);
+    el('path', { d: 'M' + HX(tRamp + 30) + ',' + HY(130) + ' L' + HX(tMax) + ',' + HY(130), fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2.4, 'stroke-dasharray': '4 3' }, g);
+    txt(g, HX(tRamp / 2) + 4, HY(70), '5 °C/min', '', 'start');
+    txt(g, HX(tRamp + 15), HY(130) - 8, 'hold ≥ 30 min', '', 'middle');
+    txt(g, hx1, hy0 + 16, 'minutes', '', 'end'); txt(g, HX(0), hy0 + 16, '0', '', 'middle'); txt(g, HX(tRamp), hy0 + 16, Math.round(tRamp), '', 'middle'); 
+    txt(g, hx0 - 8, hy0 + 34, 'pass: no fire, no leak', '', 'start');
+    // standards
+    el('line', { x1: 16, x2: 504, y1: 206, y2: 206, stroke: 'var(--line-2)' }, g);
+    txt(g, 16, 226, 'standards that set such tests', 'strong', 'start');
+    var STD = [['UN 38.3', 'transport'], ['IEC 62133', ''], ['UL 2580', ''], ['GB/T 31485', 'EV traction'], ['SAE J2464', 'EV abuse'], ['ISO 16750-2', 'road vehicles']];
+    STD.forEach(function (s, i) { var x = 16 + i * 82; el('rect', { x: x, y: 236, width: 76, height: 40, rx: 6, fill: 'var(--panel)', stroke: 'var(--line-2)' }, g); txt(g, x + 38, 252, s[0], 'strong', 'middle', { style: 'font-size:10.5px' }); if (s[1]) txt(g, x + 38, 268, s[1], '', 'middle'); });
+    badge(g, 300, 20, 1); badge(g, HX(tRamp + 30) + 10, HY(130) + 22, 2); badge(g, 504, 226, 3);
+    function place() {
+      tiles.forEach(function (r, i) { r.setAttribute('stroke', i === sel ? 'var(--accent)' : 'var(--line-2)'); r.setAttribute('stroke-width', i === sel ? 2.2 : 1); });
+      read.innerHTML = '<b>' + FAM[sel].n.charAt(0).toUpperCase() + FAM[sel].n.slice(1) + ' tests</b>: ' + FAM[sel].t + '.' + (FAM[sel].k === 'therm' ? ' The heating test of GB/T 31485 is drawn on the right.' : FAM[sel].k === 'echem' ? ' In the GB/T 31485 external short circuit, a fully charged cell kept at 25 ± 2 °C for 30 minutes is shorted through 5 mΩ; it passes if it neither bursts nor catches fire.' : '');
+    }
+    steps(fig, [
+      { text: 'Four <b>families</b> of abuse: electrochemical, mechanical, thermal and the surroundings. Tap a family for its tests.' },
+      { text: 'One protocol in full: the GB/T 31485 <b>heating test</b> raises the cell to 130 ± 2 °C at 5 °C per minute and holds it there for at least 30 minutes.' },
+      { text: 'The <b>standards</b>: UN 38.3 for transport, IEC 62133, UL 2580, GB/T 31485 for the traction batteries of electric vehicles, SAE J2464 and ISO 16750-2.' }
+    ]);
+    place();
   });
 
   /* ---------- typeset the dynamic text of every figure card ---------- */

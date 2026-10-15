@@ -173,3 +173,77 @@
       { text: 'Look at the dots. Every system with a <b>water-based</b> electrolyte sits at or below 2 V; every system above 2 V uses lithium and a nonaqueous electrolyte. {{Ch:cell-voltage}} explains both facts.' }
     ]);
   });
+
+  /* ===== 2.5 Four formats and their names (Arote 2022, B3, section 1.7; vibration after Faruque et al. 2026, R82) ===== */
+  register('f2-5', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), fb = fig.querySelectorAll('button[data-fmt]');
+    var cells = el('g', {}, g), dec = el('g', {}, g), rings = {};
+    var X = { coin: 70, cyl: 190, prism: 320, pouch: 448 }, base = 146;
+    function ring(k, x, w, h) { rings[k] = el('rect', { x: x - w / 2 - 8, y: base - h - 14, width: w + 16, height: h + 22, rx: 8, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-opacity': 0 }, cells); }
+    // coin: top view and a thin side view
+    (function () {
+      var x = X.coin, r = 34, cy = base - 58;
+      ring('coin', x, 76, 104);
+      el('circle', { cx: x, cy: cy, r: r, fill: MB('steel'), stroke: '#8B95A0', filter: 'url(#fx-lift)' }, cells);
+      el('circle', { cx: x, cy: cy, r: r - 6, fill: 'none', stroke: '#8B95A0', 'stroke-width': .8 }, cells);
+      txt(cells, x, cy + 5, '+', 'strong', 'middle');
+      el('rect', { x: x - r, y: base - 12, width: 2 * r, height: 6, rx: 2, fill: MV('steel'), stroke: '#8B95A0', 'stroke-width': .6 }, cells);
+      el('rect', { x: x - r + 3, y: base - 15, width: 2 * r - 6, height: 3, rx: 1, fill: '#2B2E33' }, cells);
+    })();
+    // cylindrical: steel can with printed wrap
+    ring('cyl', X.cyl, 40, 112); cellCan(cells, X.cyl - 20, base - 104, 40, 104);
+    // prismatic: aluminium case, two terminals and a vent
+    (function () {
+      var x = X.prism, w = 74, h = 96, y = base - h;
+      ring('prism', x, w, h + 8);
+      el('rect', { x: x - w / 2, y: y, width: w, height: h, rx: 4, fill: M('alu'), stroke: '#A6AEB7', filter: 'url(#fx-lift)' }, cells);
+      el('rect', { x: x - w / 2 + 6, y: y + 4, width: 6, height: h - 8, rx: 3, fill: '#fff', opacity: .35 }, cells);
+      el('rect', { x: x - 26, y: y - 7, width: 12, height: 7, rx: 1.5, fill: M('alu'), stroke: '#A6AEB7' }, cells);
+      el('rect', { x: x + 14, y: y - 7, width: 12, height: 7, rx: 1.5, fill: M('copper'), stroke: '#8F4F26' }, cells);
+      el('ellipse', { cx: x, cy: y + 10, rx: 7, ry: 4, fill: '#C7CDD3', stroke: '#8B95A0', 'stroke-width': .8 }, cells);
+    })();
+    // pouch: silvery laminate, sealed rim, two tabs
+    (function () {
+      var x = X.pouch, w = 76, h = 92, y = base - h;
+      ring('pouch', x, w, h + 12);
+      el('rect', { x: x - w / 2, y: y, width: w, height: h, rx: 3, fill: MV('alu'), stroke: '#A6AEB7', filter: 'url(#fx-lift)' }, cells);
+      el('rect', { x: x - w / 2 + 6, y: y + 6, width: w - 12, height: h - 12, rx: 3, fill: M('alu'), stroke: '#B9C0C7', 'stroke-width': .8 }, cells);
+      el('rect', { x: x - 24, y: y - 12, width: 12, height: 14, fill: M('alu'), stroke: '#A6AEB7', 'stroke-width': .6 }, cells);
+      el('rect', { x: x + 12, y: y - 12, width: 12, height: 14, fill: M('copper'), stroke: '#8F4F26', 'stroke-width': .6 }, cells);
+    })();
+    [['coin', 'coin'], ['cyl', 'cylindrical'], ['prism', 'prismatic'], ['pouch', 'pouch']].forEach(function (k) { txt(cells, X[k[0]], base + 18, k[1], 'strong', 'middle'); });
+    el('line', { x1: 16, x2: 504, y1: base + 30, y2: base + 30, stroke: 'var(--line-2)' }, g);
+    var INFO = {
+      coin: { code: [['C', 'a lithium', 'chemistry'], ['R', 'round', ''], ['20', '20 mm', 'across'], ['25', '2.5 mm', 'high']], t: '<b>Coin cell.</b> A flat stainless-steel case, wider than it is high, with a gasket, a cap, a spacer plate and a spring; in the laboratory its negative electrode is often lithium foil. Its name is standardized by the IEC: CR2025 is the most common design at laboratory scale.' },
+      cyl: { note: ['18650, 21700, 26650 …', 'five digits that give the size'], t: '<b>Cylindrical cell.</b> Electrodes and separator wound in a spiral inside a cylindrical case: good cycling stability, but round cells pack less densely. A 2026 review reports cylindrical 18650 cells as particularly susceptible to damage by vibration.' },
+      prism: { code: [['50', '5.0 mm', 'thick'], ['40', '40 mm', 'wide'], ['50', '50 mm', 'long']], t: '<b>Prismatic cell.</b> Large stacked sheets in a rectangular case of aluminium, steel or semi-hard plastic, usually with a vent; suits uses where swelling matters. Its six digits give the thickness in tenths of a millimetre, then the width and the length in millimetres.' },
+      pouch: { note: ['stacked layers in a sealed, flexible foil', 'light and cheap to make'], t: '<b>Pouch cell.</b> Electrodes and separator stacked, not wound, in a sealed, soft, flat case; tabs welded to the current collectors, aluminium on the positive side and copper on the negative, carry the current out. Pouch and prismatic cells are reported as more tolerant of vibration when tightly packed.' }
+    };
+    var mode = 'coin';
+    function render() {
+      Array.prototype.forEach.call(fb, function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-fmt') === mode)); });
+      Object.keys(rings).forEach(function (k) { rings[k].setAttribute('stroke-opacity', k === mode ? 1 : 0); });
+      clear(dec); var I = INFO[mode], y = base + 58;
+      if (I.code) {
+        var bw = 58, gap = 34, n = I.code.length, tot = n * bw + (n - 1) * gap, xs = 260 - tot / 2;
+        txt(dec, 260, y - 14, mode === 'coin' ? 'reading the name CR2025' : 'reading the name 504050', 'strong', 'middle');
+        I.code.forEach(function (c, j) {
+          var x = xs + j * (bw + gap);
+          el('rect', { x: x, y: y, width: bw, height: 30, rx: 6, fill: 'var(--panel-2)', stroke: 'var(--accent)' }, dec);
+          txt(dec, x + bw / 2, y + 20, c[0], 'strong big', 'middle');
+          txt(dec, x + bw / 2, y + 48, c[1], 'amber', 'middle'); if (c[2]) txt(dec, x + bw / 2, y + 63, c[2], '', 'middle');
+        });
+      } else {
+        txt(dec, 260, y + 14, I.note[0], 'strong', 'middle'); txt(dec, 260, y + 34, I.note[1], '', 'middle');
+      }
+      read.innerHTML = I.t;
+    }
+    Array.prototype.forEach.call(fb, function (b) { on(b, 'click', function () { mode = b.getAttribute('data-fmt'); render(); }); });
+    badge(g, 18, 120, 1); badge(g, X.prism + 50, 24, 2); badge(g, 500, base + 46, 3);
+    steps(fig, [
+      { text: 'The same layers in four shapes. A <b>coin cell</b> is the laboratory’s format: CR2025, the most common, is read as C (a lithium chemistry), R (round), 20 mm across, 2.5 mm high.' },
+      { text: '<b>Wound or stacked.</b> Cylindrical cells wind the layers into a spiral; prismatic and pouch cells stack them, in a rigid case or a flexible foil.' },
+      { text: 'Some names are <b>sizes</b>: six digits for a prismatic cell (504050: 5.0 by 40 by 50 mm), five for a cylindrical one. Choose a format to read it.' }
+    ]);
+    render();
+  });

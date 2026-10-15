@@ -335,7 +335,10 @@
     hematite:    ['#7E3527', '#B0604C', '#83392B', '#55221A', '#8F4636'],
     iron:        ['#5E6368', '#969BA1', '#63686D', '#3F4246', '#71767B'],
     li2o:        ['#ECEAE5', '#FFFFFF', '#EEECE7', '#D3D0C8', '#F4F3EF'],
-    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40']
+    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40'],
+    silver:      ['#C9CDD2', '#F5F6F7', '#D3D6DA', '#A3A8AE', '#DDE0E3'],
+    lead:        ['#6B7178', '#9CA2A8', '#70767D', '#4E535A', '#7E848A'],
+    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31']
   };
   var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
   function MC(k) { return (MAT[k] || MAT.steel)[0]; }
@@ -674,6 +677,54 @@
     ]);
     var loop = anim(fig, tick, { autoplay: true, stepDt: 0.5 });
     bind(fig, loop);
+  });
+  register('f9-15', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    var IONS = [
+      { s: 'Li', ion: 'Li⁺', q: 3861, E: -3.04, r: 0.76, col: 'var(--cation)', t: 'Lithium: 3861 mAh/g as metal, −3.04 V vs SHE, ion radius 0.76 Å. The most charge per gram and the most negative potential of the four.' },
+      { s: 'Na', ion: 'Na⁺', q: 1165, E: -2.71, r: 1.02, col: '#C46BD1', t: 'Sodium: 1165 mAh/g, −2.71 V, 1.02 Å. About 0.3 V less negative than lithium and a larger ion, but abundant; Na⁺ does not intercalate well into graphite, so hard carbon is its most promising negative electrode.' },
+      { s: 'K', ion: 'K⁺', q: 685, E: -2.93, r: 1.38, col: '#B5651D', t: 'Potassium: 685 mAh/g, −2.93 V, 1.38 Å. High voltage and fast ionic diffusion, but the large ion strains the hosts.' },
+      { s: 'Ca', ion: 'Ca²⁺', q: 1337, E: -2.87, r: 1.00, col: '#2E8A62', t: 'Calcium: 1337 mAh/g, −2.87 V, 1.00 Å. Two electrons per ion lift its charge per gram above sodium’s.' }
+    ];
+    var sel = null, groups = [];
+    // panel 1: charge per gram of metal
+    var bx0 = 40, by0 = 210, by1 = 50, bw = 34, gap = 14, QM = 4000, BY = function (q) { return by0 - q / QM * (by0 - by1); };
+    txt(g, 16, 24, 'charge per gram of metal, mAh/g', 'strong', 'start');
+    el('line', { x1: bx0 - 6, x2: bx0 + 4 * (bw + gap), y1: by0, y2: by0, stroke: 'var(--line-2)' }, g);
+    // panel 2: potential ladder
+    var lx = 270, lx1 = 310, ly0 = 220, ly1 = 50, EY = function (E) { return ly1 + (E - -3.10) / (-2.65 - -3.10) * (ly0 - ly1); };
+    txt(g, 236, 24, 'E° vs SHE', 'strong', 'start');
+    el('line', { x1: lx, x2: lx, y1: ly1 - 8, y2: ly0 + 8, stroke: 'var(--line-2)' }, g);
+    [-3.0, -2.9, -2.8, -2.7].forEach(function (E) { el('line', { x1: lx - 4, x2: lx, y1: EY(E), y2: EY(E), stroke: 'var(--line-2)' }, g); txt(g, lx - 7, EY(E) + 4, E.toFixed(1).replace('-', '−') + ' V', '', 'end'); });
+    txt(g, lx + 4, ly0 + 22, 'less negative ↓', '', 'start');
+    // panel 3: ions to scale
+    var cx0 = 380, scale = 20; // px per angstrom of radius
+    txt(g, 392, 24, 'ions to scale', 'strong', 'start');
+    IONS.forEach(function (o, i) {
+      var grp = el('g', { tabindex: 0, role: 'button', 'aria-label': o.s + ', ' + o.q + ' milliampere hours per gram, ' + o.E + ' volts', style: 'cursor:pointer' }, g);
+      var x = bx0 + i * (bw + gap);
+      var bar = el('rect', { x: x, y: BY(o.q), width: bw, height: by0 - BY(o.q), rx: 3, fill: o.col, 'fill-opacity': .8 }, grp);
+      txt(grp, x + bw / 2, BY(o.q) - 6, String(o.q), '', 'middle'); txt(grp, x + bw / 2, by0 + 16, o.s, 'strong', 'middle');
+      el('line', { x1: lx, x2: lx1, y1: EY(o.E), y2: EY(o.E), stroke: o.col, 'stroke-width': 2.4 }, grp);
+      txt(grp, lx1 + 4, EY(o.E) + 4, o.s + '  ' + o.E.toFixed(2).replace('-', '−'), 'strong', 'start');
+      var cy = 60 + i * 54;
+      var c = el('circle', { cx: cx0 + 40, cy: cy, r: o.r * scale, fill: o.col, stroke: '#fff', 'stroke-width': 1.2 }, grp);
+      txt(grp, cx0 + 40, cy + 4, o.ion, 'strong', 'middle', { style: 'fill:#fff' });
+      txt(grp, cx0 + 76, cy + 4, o.r.toFixed(2) + ' Å', '', 'start');
+      groups.push({ o: o, bar: bar, c: c });
+      pressable(grp, function () { sel = o; place(); });
+    });
+    badge(g, bx0 + bw + 22, BY(3861) + 6, 1); badge(g, lx - 30, ly1 - 4, 2); badge(g, 506, 38, 3);
+    function place() {
+      groups.forEach(function (gg) { var on1 = sel === gg.o; gg.bar.setAttribute('stroke', on1 ? 'var(--text)' : 'none'); gg.bar.setAttribute('stroke-width', 1.5); gg.c.setAttribute('stroke', on1 ? 'var(--text)' : '#fff'); });
+      read.innerHTML = sel ? sel.t : 'Four metals compared, as a 2026 review tabulates them. Tap a bar, a rung or an ion.';
+    }
+    steps(fig, [
+      { text: '<b>Charge per gram</b> of the metal: lithium 3861 mAh/g, far ahead; calcium gives two electrons per ion and comes second.' },
+      { text: '<b>Potential</b> against the standard hydrogen electrode: lithium lowest at −3.04 V; sodium is about 0.3 V less negative, which costs cell voltage.' },
+      { text: '<b>Size</b>: Na⁺ and Ca²⁺ are about a third larger than Li⁺, K⁺ nearly twice as large, which is why hosts that serve lithium may not serve them.' }
+    ]);
+    place();
   });
 
   /* ---------- typeset the dynamic text of every figure card ---------- */

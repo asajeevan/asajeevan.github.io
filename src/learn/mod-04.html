@@ -60,6 +60,31 @@
       </div>
     </div>
 
+    <div class="beat alt">
+      <figure class="fig" data-fig="f4-4" id="f4-4">
+        <span class="fnum">Figure 4.4</span>
+        <svg viewBox="0 0 520 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f44t">
+          <title id="f44t">Energy drawn as area on a plot of voltage against charge: an outlined rectangle for the charge put in, as wide as the charge and as high as the average charge voltage, and a filled rectangle for the charge taken out at the lower average discharge voltage. The difference, shaded, is the energy lost; sliders set the coulombic efficiency and the two average voltages.</title>
+        </svg>
+        <div class="controls"><label>Coulombic efficiency <input type="range" class="ce" min="0" max="100" value="90" aria-label="Coulombic efficiency"> <b class="ce-val">99.5 %</b></label><label>Charge voltage <input type="range" class="vc" min="0" max="70" value="30" aria-label="Average charge voltage"> <b class="vc-val">3.80 V</b></label><label>Discharge voltage <input type="range" class="vd" min="0" max="70" value="45" aria-label="Average discharge voltage"> <b class="vd-val">3.65 V</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:transparent;border:1.5px solid var(--second)"></i>energy put in on charge</span><span><i style="background:var(--accent)"></i>energy taken out on discharge</span><span><i class="heat"></i>energy lost</span></div>
+        <figcaption>Three efficiencies, drawn as areas.
+          <span class="try">Try this: set the coulombic efficiency to 100 % and see that energy is still lost; then close the gap between the two voltages.</span>
+          <span class="basis">Definitions of coulombic, voltage and energy efficiency, the charge factor, nominal voltage and capacity, and the round-trip efficiency after Arote 2022, sections 1.3.3, 1.4.5 and 1.5. The product rule follows from E = &#8747;V dQ with voltages averaged over the charge. The default values are illustrative, not a measured cell.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Three efficiencies</h3>
+        <p class="explain">A cell never gives back all it took. Three ratios measure how much it keeps.{{cite:B3}} The <b>coulombic efficiency</b> is the ratio of the charge taken out on discharge to the charge put in on charge, over one cycle; for a good cell it is close to 100 %, and its reciprocal is called the <b>charge factor</b>. The <b>voltage efficiency</b> is the ratio of the average discharge voltage to the average charge voltage. The <b>energy efficiency</b> is the ratio of the energy delivered on discharge to the energy taken on charge, and it depends strongly on the charge and discharge rates.{{cite:B3}} Because energy is charge times voltage, E = &#8747;V dQ, the energy efficiency is the product of the other two when each average voltage is taken over the charge.</p>
+        <p class="explain">The two factors have different causes. The coulombic efficiency counts charge lost to side reactions such as the growth of the SEI ({{ch:degradation}}); the voltage efficiency counts the overpotentials and the hysteresis of {{ch:polarization}}. One textbook puts the round-trip efficiency of lithium-ion batteries at about 95 %, higher than that of other batteries.{{cite:B3}} Data sheets add two reference values: the <b>nominal voltage</b>, the average voltage over a whole discharge at 0.2 C, and the <b>nominal capacity</b>, the capacity of that discharge.{{cite:B3}}</p>
+        <div class="worked"><b>Worked example.</b> The default setting of the figure.
+          <span class="line">voltage efficiency = 3.65 V &#247; 3.80 V = <i>96.1 %</i></span>
+          <span class="line">energy efficiency = 0.995 &#215; 0.961 = <i>95.6 %</i>; charge factor = 1 &#247; 0.995 = <i>1.005</i></span>
+          Almost all of the loss here is voltage, not charge: a cell with a perfect coulombic efficiency would still waste about 4 % of its energy as heat.</div>
+      </div>
+    </div>
+
     <div class="beat">
       <figure class="fig" data-fig="f4-3" id="f4-3">
         <span class="fnum">Figure 4.3</span>
@@ -107,7 +132,7 @@
           <p class="eqline"><span class="eq">&#951;<sub>Coulombic</sub> = 100 &#215; Q<sub>dis</sub> / Q<sub>ch</sub></span><span class="eqnote">the share of the charge put in on charging that comes back on discharge; a later module follows it cycle by cycle</span></p>
           <p class="eqline"><span class="eq">&#951;<sub>energy</sub> = 100 &#215; &#8747;V<sub>dis</sub> dq / &#8747;V<sub>ch</sub> dq</span><span class="eqnote">the share of the energy that comes back; lower than the Coulombic efficiency because the charge branch sits above the discharge branch</span></p>
         </div></details>
-        {{sources:R1,R2,R6,B2}}
+        {{sources:R1,R2,R6,B2,B3}}
       </div>
     </div>
 

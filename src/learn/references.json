@@ -495,5 +495,32 @@
     "doi": "10.1016/j.ensm.2025.104456",
     "status": "verified",
     "short": "Jouhara et al. 2025"
+  },
+  "R81": {
+    "authors": "C. Villevieille, P. Novák, H. H. Girault",
+    "title": "Your battery may not be a battery",
+    "journal": "Nature Nanotechnology",
+    "year": 2026, "volume": "", "pages": "Comment, published online 15 October 2026",
+    "doi": "10.1038/s41565-026-02296-w",
+    "status": "verified",
+    "short": "Villevieille, Novák and Girault 2026"
+  },
+  "R82": {
+    "authors": "O. Faruque, M. J. Isalm, O. Faruq, M. M. Alam",
+    "title": "A comprehensive review of past and present developments of Li-ion batteries",
+    "journal": "Discover Sustainability",
+    "year": 2026, "volume": "7", "pages": "881",
+    "doi": "10.1007/s43621-026-02920-8",
+    "status": "verified",
+    "short": "Faruque et al. 2026"
+  },
+  "B3": {
+    "authors": "S. A. Arote",
+    "title": "Fundamentals and perspectives of lithium-ion batteries",
+    "journal": "chapter 1 of Lithium-ion and Lithium–Sulfur Batteries: Fundamentals to Performance, IOP Publishing",
+    "year": 2022, "volume": "", "pages": "pp. 1-1 to 1-26",
+    "doi": "10.1088/978-0-7503-4881-2ch1",
+    "status": "verified",
+    "short": "Arote 2022"
   }
 }

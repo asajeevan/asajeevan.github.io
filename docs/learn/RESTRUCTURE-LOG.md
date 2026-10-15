@@ -155,3 +155,28 @@ Read the plan first; this file records state, decisions and the checklist so wor
 - Checks: block tested in a browser (all formats, scope switch, copy, download) at 1300 and 390 px; gate exit 0 on 29
   pages (f7-6 once reported an overlap from its randomly moving ion; two reruns clean); axe clean; 0 broken links;
   74 tests.
+
+## Three new sources (2026-10-15, owner's request: use all valuable information from three articles)
+- Sources added to references.json: R81 Villevieille, Novák and Girault, "Your battery may not be a battery", Nature
+  Nanotechnology (2026), doi 10.1038/s41565-026-02296-w; R82 Faruque et al., "A comprehensive review of past and present
+  developments of Li-ion batteries", Discover Sustainability 7, 881 (2026), doi 10.1007/s43621-026-02920-8; B3 Arote,
+  "Fundamentals and perspectives of lithium-ion batteries", in Lithium-ion and Lithium-Sulfur Batteries (IOP, 2022),
+  doi 10.1088/978-0-7503-4881-2ch1. All three read in full.
+- New figures: 1.4 "What makes a battery a battery?" (the Comment's five criteria applied to its eighteen systems; the
+  graphite "volumic capacitor" view presented as the authors' proposal, not settled usage); 1.5 "From Volta's pile to
+  the lithium-ion cell" (eight dated events); 2.3 "Four formats" (coin, cylindrical, prismatic, pouch; CR2025 and
+  504050 decoded); 4.4 "Three efficiencies" (coulombic, voltage and energy efficiency as areas, charge factor, worked
+  example); 15.2 "Four candidate charge carriers" (Li, Na, K, Ca); 17.2 "The chain of heat" (reactions in the cell and
+  positive electrodes); 17.4 "How cells are tested" (four abuse families, standards, GB/T 31485 heating test, BMS,
+  insulation resistance). Numbers as built; later figures in those chapters move up by one.
+- New text: mechanical abuse; Li-ion self-discharge; ionic liquids; polymer versus liquid conductivity; whole-cell
+  costs and cycle life; nanoscale LiCoO2 as pseudocapacitive; the 15 to 35 °C operating band; lithium sourcing and waste.
+- Left out on purpose (errors or unsupported claims in the sources): the Parthian "battery"; "85 to 94.85 %" lithium
+  recovery by pyrometallurgy; a typo in lithium's volumetric capacity; a garbled overcharge test; the "water with
+  ethylene" coolant; odd vibration-test numbers; Arote's swapped 18650 dimensions (so cylindrical codes are named but
+  not decoded) and his second, conflicting coulombic-efficiency definition (only the charge ratio is used).
+- Layout: on screens up to 820 px the beat grid is minmax(0, 1fr), so a wide table now scrolls inside its frame
+  instead of widening the page (sodium-organic did this before); select menus may wrap on phones; range sliders shrink
+  to 80 px. Figure 4.4 sliders step in 0.01 V and 0.05 %, so the defaults match the worked example exactly.
+- Checks: alternate views reviewed at 1300 and 360 px; gate exit 0 on 24 pages; axe clean; 29 pages, 0 broken links;
+  74 tests.

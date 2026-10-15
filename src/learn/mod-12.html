@@ -65,6 +65,49 @@
       <div class="text">
         <p class="explain">So far we have looked at abuse. Ordinary use matters too: temperature and state of charge decide how a cell ages, and we take temperature first. Consumer cells are designed to work between about 0 and 40 &#176;C and to be stored between &#8722;20 and 85 &#176;C; military and automotive cells must work from &#8722;50 to 85 &#176;C.{{cite:R1}} Within those limits, three trends matter. Self-discharge rises with temperature.{{cite:R1}} The SEI grows fastest when the cell sits at a high state of charge and is charged fast.{{cite:R37}} And at high current and low temperature, lithium can plate on the graphite instead of entering it.{{cite:R48}}</p>
         <p class="aside"><b>What that means in your pocket.</b> Read together, those statements favour keeping a cell cool, not leaving it full for long periods, and not fast-charging it in the cold. This is our own reading of the three statements above, not a rule stated in any of the works cited.</p>
+        <p class="explain">A 2026 review gives a narrower band in which performance and ageing stay balanced: 15 to 35 &#176;C.{{cite:R82}}</p>
+      </div>
+    </div>
+
+    <div class="beat alt">
+      <figure class="fig" data-fig="f12-5" id="f12-5">
+        <span class="fnum">Figure 12.5</span>
+        <svg viewBox="0 0 520 296" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f125t">
+          <title id="f125t">Two views on a temperature axis from 80 to 420 degrees. First, bars for the temperature ranges of eight exothermic reactions in a lithium-ion cell, from the decomposition of the SEI at 100 to 130 degrees to the reaction of lithiated graphite with the binder at 220 to 400 degrees, with a dashed line at 130 degrees for a standard heating test. Second, for four positive electrode materials, the ranges where each releases heat and oxygen, lowest for lithium cobalt oxide and highest for lithium iron phosphate.</title>
+        </svg>
+        <div class="controls"><button type="button" data-view="cell" aria-pressed="true">Reactions in the cell</button><button type="button" data-view="pos">Positive electrodes</button></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <div class="key"><span><i style="background:var(--accent)"></i>negative electrode</span><span><i class="heat"></i>positive electrode</span><span><i style="background:var(--second)"></i>electrolyte</span><span><i style="background:var(--field)"></i>oxygen released</span></div>
+        <figcaption>The order in which a hot cell starts to burn.
+          <span class="try">Try this: find the reaction that releases the most heat per gram, and the material that holds its oxygen longest.</span>
+          <span class="basis">Temperature ranges and enthalpies of the exothermic processes from Faruque et al. 2026, Table 23, which compiles separate studies; the positive electrodes from their Table 4 and the order of onset from their section 9.1.3; the 130 &#176;C heating test of GB/T 31485 from their section 9.1.6.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The chain of heat</h3>
+        <p class="explain">Which reactions feed the loop of figure {{fig:f12-1}}, and in what order? A 2026 review gathers measured temperature ranges and heats of reaction for the main exothermic processes in a lithium-ion cell. The SEI decomposes first, from about 100 to 130 &#176;C, releasing 186 to 257 J/g. Lithiated graphite reacts with the electrolyte between about 110 and 290 &#176;C, with 1460 to 1714 J/g, the largest heat in the table, and with the PVDF binder between 220 and 400 &#176;C. On the positive side, charged Li<sub>x</sub>CoO&#8322; reacts with the electrolyte from about 167 &#176;C and decomposes from about 178 &#176;C, and the electrolyte itself decomposes from about 225 &#176;C.{{cite:R82}} The ranges come from different studies, so read them as a ladder, not as the history of one cell.</p>
+        <p class="explain">The positive electrode matters as much. In the review&#8217;s comparison, LiCoO&#8322; releases heat from about 180 to 220 &#176;C and oxygen from about 200 to 250 &#176;C; layered nickel-manganese-cobalt oxides release oxygen at a high state of charge from about 180 to 220 &#176;C; LiMn&#8322;O&#8324; decomposes at about 220 to 250 &#176;C; and LiFePO&#8324; releases heat only at about 270 to 320 &#176;C and holds its oxygen to about 400 &#176;C, thanks to its strong P&#8211;O bonds. The temperature at which heat release starts rises in the order LiCoO&#8322; &lt; NCA &lt; NCM &lt; LiFePO&#8324;.{{cite:R82}} This is the thermal side of the trade-offs in {{ch:positive-electrodes}}.</p>
+        <p class="explain">Cooling is the other side of the loop. Battery packs shed heat with air blown by fans, with liquid cooling by water or glycol, with phase-change materials or with heat pipes; liquids are preferred where much heat must go, because they conduct and absorb heat better than air.{{cite:R82}}</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f12-6" id="f12-6">
+        <span class="fnum">Figure 12.6</span>
+        <svg viewBox="0 0 520 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f126t">
+          <title id="f126t">Four families of abuse tests as tiles, electrochemical, mechanical, thermal and the surroundings, each opening its list of tests; beside them the temperature programme of a standard heating test, a ramp at 5 degrees per minute to 130 degrees held for at least 30 minutes; below, the standards that set such tests.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>How cells are tested before they are sold.
+          <span class="try">Try this: open each family, then find which test the 130 &#176;C line of figure {{fig:f12-5}} belongs to.</span>
+          <span class="basis">The four families of tests, the standards and the two GB/T 31485 protocols after Faruque et al. 2026, sections 9.1.4 to 9.1.7 and Tables 25 and 26; the battery management system and insulation-resistance testing after their sections 9.1 and 9.1.4.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">How cells are tested</h3>
+        <p class="explain">Before a cell is sold, standards check what it does under abuse. A 2026 review groups the tests in four families: electrochemical (overcharge and overdischarge, discharge at high and low temperature, external short circuit, forced discharge), mechanical (drop, heavy impact, nail penetration, shaking and squeezing, acceleration, crush), thermal (heating, thermal shock, spark) and the surroundings (low pressure at high altitude, soaking). Standards that set such tests include the United Nations transport tests UN 38.3, IEC 62133, UL 2580, the Chinese GB/T 31485 for the traction batteries of electric vehicles, SAE J2464 and ISO 16750-2.{{cite:R82}}</p>
+        <p class="explain">Two GB/T 31485 tests show what such a protocol looks like. In the heating test the cell is heated to 130 &#177; 2 &#176;C at 5 &#176;C per minute and held there for at least 30 minutes; it passes if it neither burns nor leaks. In the external short-circuit test a fully charged cell, kept at 25 &#177; 2 &#176;C for 30 minutes, is shorted through 5 m&#937; while its voltage and temperature are recorded; it passes if it neither bursts nor catches fire.{{cite:R82}} Set 130 &#176;C against figure {{fig:f12-5}}: it is the top of the range in which the SEI decomposes.</p>
+        <p class="explain">A battery adds its own safeguards to those of the cell. The <b>battery management system</b> measures voltage, current and temperature with its sensors, keeps the cells within their safe limits, regulates the charge, balances the cells, manages the heat and reports the state of the battery. It estimates the state of charge by counting coulombs, from the open-circuit voltage or from the impedance, and increasingly with model-based filters and machine learning.{{cite:R82}} For the high-voltage batteries of electric vehicles, insulation-resistance testing detects insulation degraded by shock and vibration, moisture or heat before it can cause an electric shock or thermal runaway; IEC 62660, ISO 6469, SAE J2464 and GB/T 18384.1 cover it.{{cite:R82}}</p>
       </div>
     </div>
 
@@ -84,6 +127,7 @@
         <p class="explain">Even a cell that is used kindly reaches the end of its life. What becomes of it then? Recycling a lithium-ion battery means recovering above all its cobalt, lithium and nickel, besides aluminium and copper. Two chemical routes dominate: <b>pyrometallurgy</b>, which smelts the cells at about 1000 &#176;C into a copper-nickel-cobalt alloy while lithium and manganese go to the slag, and <b>hydrometallurgy</b>, which dissolves the electrode materials in acid and separates the metals, with higher recovery and lower energy use but more complex processing. <b>Direct recycling</b>, which keeps the electrode materials whole, is still immature.{{cite:R48}}</p>
         <p class="explain">Why does this matter? Cobalt is scarce, costly and toxic, which is one reason the positive electrode has moved from LiCoO&#8322; toward materials with less of it.{{cite:R47,R44}} Lead-acid batteries show what a closed loop can look like: by a 2004 account, about 98 % of them were recycled in the United States.{{cite:R1}}</p>
         <p class="explain">A loop can only close if the spent cells are collected in the first place. For lithium batteries, a 2020 European proposal would raise the collection target for portable batteries from 45 % to 65 % by 2025 and 70 % by 2030, and require all batteries from electric vehicles and stationary storage to be collected and recycled.{{cite:R48}}</p>
+        <p class="explain">Where does the lithium come from in the first place? It is extracted from brines and from minerals rich in it, spodumene, petalite and lepidolite, and spodumene is commonly processed with sulfuric acid. About 130 000 tonnes of lithium were mined in 2022, with about 15 tonnes of CO&#8322; emitted per tonne of lithium. The International Energy Agency put lithium-ion battery waste from electric vehicles at about 500 000 tonnes, expected to rise to 8 million tonnes by 2040; about 97 000 tonnes of lithium-ion batteries were recycled worldwide in 2018. The European Union has made battery manufacturers responsible for collecting batteries at the end of their life.{{cite:R82}}</p>
         <p class="aside"><b>From my own work.</b> The organic electrode materials of my doctorate were designed with their end of life in mind: I developed a route that recovers the organic precursor from a cycled electrode material, Mg(Li&#8322;)-<i>p</i>-DHT, and separates the streams containing lithium and magnesium (manuscript in preparation).</p>
         <p class="recap"><b>You can now explain</b> what thermal runaway is and what breaks the loop, why lithium cells need electronics as well as chemistry to stay safe, why temperature and state of charge decide how a cell ages, and the three ways its materials can go back into a new cell.</p>
         <p class="bridge">This is where my own work starts: <a href="{{root}}#research">the research behind these pages</a>.</p>
@@ -92,7 +136,7 @@
           <p class="eqline"><span class="eq">Q&#775; = I(U &#8722; V) &#8722; I&#8239;T&#8239;dU/dT</span><span class="eqnote">the heat a cell makes in normal use ({{ch:polarization}}, figure {{fig:f5-11}}); in runaway the side reactions add their own heat on top</span></p>
           <p class="eqline"><span class="eq">L<sub>SEI</sub> &#8733; t<sup>b</sup></span><span class="eqnote">the ageing law of {{ch:degradation}} behind the advice to avoid long periods at full charge</span></p>
         </div></details>
-        {{sources:R1,R45,R46,R6,R55,R47,R37,R48,R44,R49}}
+        {{sources:R1,R45,R46,R6,R55,R47,R37,R48,R44,R49,R82}}
       </div>
     </div>
 

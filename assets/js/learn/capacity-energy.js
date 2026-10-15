@@ -335,7 +335,10 @@
     hematite:    ['#7E3527', '#B0604C', '#83392B', '#55221A', '#8F4636'],
     iron:        ['#5E6368', '#969BA1', '#63686D', '#3F4246', '#71767B'],
     li2o:        ['#ECEAE5', '#FFFFFF', '#EEECE7', '#D3D0C8', '#F4F3EF'],
-    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40']
+    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40'],
+    silver:      ['#C9CDD2', '#F5F6F7', '#D3D6DA', '#A3A8AE', '#DDE0E3'],
+    lead:        ['#6B7178', '#9CA2A8', '#70767D', '#4E535A', '#7E848A'],
+    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31']
   };
   var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
   function MC(k) { return (MAT[k] || MAT.steel)[0]; }
@@ -524,6 +527,50 @@
       { text: '<b>Batteries</b> sit between the two and overlap both; a thin-film battery can reach the power of a supercapacitor.' },
       { text: 'The <b>combustion engine</b> is not an electrochemical device: it beats all three on both axes because its energy is stored in a fuel tank, not in an electrode. No single electrochemical system matches it, which is why the sources suggest combining them.' }
     ]);
+  });
+  register('f4-4', function (fig) {
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
+    var sCE = fig.querySelector('.ce'), sVc = fig.querySelector('.vc'), sVd = fig.querySelector('.vd');
+    var vCE = fig.querySelector('.ce-val'), vVc = fig.querySelector('.vc-val'), vVd = fig.querySelector('.vd-val');
+    var x0 = 70, x1 = 430, y0 = 228, y1 = 30, Vmax = 5;
+    var X = function (q) { return x0 + q / 1.0 * (x1 - x0); }, Y = function (v) { return y0 - v / Vmax * (y0 - y1); };
+    el('line', { x1: x0, y1: y0, x2: x1 + 14, y2: y0, stroke: 'var(--line-2)' }, g); el('line', { x1: x0, y1: y0, x2: x0, y2: y1 - 6, stroke: 'var(--line-2)' }, g);
+    [0, 1, 2, 3, 4].forEach(function (v) { el('line', { x1: x0 - 4, x2: x0, y1: Y(v), y2: Y(v), stroke: 'var(--line-2)' }, g); txt(g, x0 - 8, Y(v) + 4, v + ' V', '', 'end'); });
+    txt(g, x0, y0 + 18, '0', '', 'middle'); txt(g, X(1), y0 + 18, '100 %', '', 'middle'); txt(g, x1 + 14, y0 + 34, 'charge, % of the charge put in →', '', 'end');
+    txt(g, x0 - 8, y1 - 14, 'average voltage', '', 'start');
+    var lostTop = el('rect', { fill: 'var(--heat)', 'fill-opacity': .45 }, g), lostSide = el('rect', { fill: 'var(--heat)', 'fill-opacity': .45 }, g);
+    var outR = el('rect', { fill: 'var(--accent)', 'fill-opacity': .85 }, g);
+    var inR = el('rect', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 2 }, g);
+    var tIn = txt(g, 0, 0, '', 'cyan', 'start'), tOut = txt(g, 0, 0, '', 'strong', 'middle', { style: 'fill:#fff' }), tLost = txt(g, 0, 0, '', 'heat', 'start');
+    var panel = el('g', {}, g), px = 448;
+    var r1 = txt(panel, px, 66, '', 'strong', 'start'), r2 = txt(panel, px, 108, '', 'strong', 'start'), r3 = txt(panel, px, 150, '', 'strong big', 'start'), r4 = txt(panel, px, 206, '', '', 'start');
+    txt(panel, px, 50, 'coulombic', '', 'start'); txt(panel, px, 92, 'voltage', '', 'start'); txt(panel, px, 134, 'energy', '', 'start'); txt(panel, px, 176, 'charge', '', 'start'); txt(panel, px, 190, 'factor', '', 'start');
+    badge(g, X(1) - 4, Y(4.6), 1); badge(g, X(0.5), y0 - 20, 2); badge(g, px + 58, 140, 3);
+    function vals() {
+      var ce = 95 + 5 * (+sCE.value) / 100, vc = 3.5 + (+sVc.value) / 100, vd = 3.2 + (+sVd.value) / 100;
+      if (vd > vc) vd = vc;
+      return { ce: ce / 100, vc: vc, vd: vd };
+    }
+    function render() {
+      var v = vals(), qd = v.ce, ve = v.vd / v.vc, ee = v.ce * ve;
+      setSvgText(vCE, (v.ce * 100).toFixed(1) + ' %'); setSvgText(vVc, v.vc.toFixed(2) + ' V'); setSvgText(vVd, v.vd.toFixed(2) + ' V');
+      inR.setAttribute('x', X(0)); inR.setAttribute('y', Y(v.vc)); inR.setAttribute('width', X(1) - X(0)); inR.setAttribute('height', y0 - Y(v.vc));
+      outR.setAttribute('x', X(0)); outR.setAttribute('y', Y(v.vd)); outR.setAttribute('width', X(qd) - X(0)); outR.setAttribute('height', y0 - Y(v.vd));
+      lostTop.setAttribute('x', X(0)); lostTop.setAttribute('y', Y(v.vc)); lostTop.setAttribute('width', X(qd) - X(0)); lostTop.setAttribute('height', Math.max(0, Y(v.vd) - Y(v.vc)));
+      lostSide.setAttribute('x', X(qd)); lostSide.setAttribute('y', Y(v.vc)); lostSide.setAttribute('width', Math.max(0, X(1) - X(qd))); lostSide.setAttribute('height', y0 - Y(v.vc));
+      tIn.setAttribute('x', X(0) + 6); tIn.setAttribute('y', Y(v.vc) - 7); setSvgText(tIn, 'in: charge × ' + v.vc.toFixed(2) + ' V');
+      tOut.setAttribute('x', (X(0) + X(qd)) / 2); tOut.setAttribute('y', (Y(v.vd) + y0) / 2 + 4); setSvgText(tOut, 'out: ' + (qd * 100).toFixed(1) + ' % of the charge × ' + v.vd.toFixed(2) + ' V');
+      tLost.setAttribute('x', X(0) + 6); tLost.setAttribute('y', Y(v.vc) - 22); setSvgText(tLost, ee < 0.995 ? 'lost: ' + ((1 - ee) * 100).toFixed(1) + ' % of the energy' : '');
+      setSvgText(r1, (v.ce * 100).toFixed(1) + ' %'); setSvgText(r2, (ve * 100).toFixed(1) + ' %'); setSvgText(r3, (ee * 100).toFixed(1) + ' %'); setSvgText(r4, (1 / v.ce).toFixed(3));
+      read.innerHTML = 'Coulombic efficiency <b>' + (v.ce * 100).toFixed(1) + ' %</b> × voltage efficiency <b>' + (ve * 100).toFixed(1) + ' %</b> = energy efficiency <b>' + (ee * 100).toFixed(1) + ' %</b>. ' + ((1 - v.ce) < (1 - ve) ? 'Most of the loss is voltage: overpotential and hysteresis, turned into heat.' : 'Most of the loss is charge: side reactions that the cell does not give back.') + ' Illustrative values, not a measured cell.';
+    }
+    [sCE, sVc, sVd].forEach(function (s) { on(s, 'input', render); });
+    steps(fig, [
+      { text: 'The outlined rectangle is the energy put in: as wide as the charge, as high as the average charge voltage. The <b>coulombic efficiency</b> is the share of that charge that comes back out; its reciprocal is the <b>charge factor</b>.' },
+      { text: 'The filled rectangle is the energy taken out, at the lower average discharge voltage. Their ratio of heights is the <b>voltage efficiency</b>.' },
+      { text: 'The <b>energy efficiency</b> is the ratio of the two areas, so it is the product of the other two. The shaded strips are the energy lost as heat or to side reactions.' }
+    ]);
+    render();
   });
 
   /* ---------- typeset the dynamic text of every figure card ---------- */

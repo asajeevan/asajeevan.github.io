@@ -335,7 +335,10 @@
     hematite:    ['#7E3527', '#B0604C', '#83392B', '#55221A', '#8F4636'],
     iron:        ['#5E6368', '#969BA1', '#63686D', '#3F4246', '#71767B'],
     li2o:        ['#ECEAE5', '#FFFFFF', '#EEECE7', '#D3D0C8', '#F4F3EF'],
-    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40']
+    go:          ['#4A3D31', '#76675A', '#4E4135', '#2F261E', '#5A4C40'],
+    silver:      ['#C9CDD2', '#F5F6F7', '#D3D6DA', '#A3A8AE', '#DDE0E3'],
+    lead:        ['#6B7178', '#9CA2A8', '#70767D', '#4E535A', '#7E848A'],
+    pbo2:        ['#3E2E25', '#6A5446', '#43322A', '#281D17', '#4E3B31']
   };
   var RUNG_MAT = { li: 'lithium', gr: 'graphite', alloy: 'silicon', lto: 'lto', tis2: 'tis2', s: 'sulfur', lfp: 'lfp', lco: 'lco', lnmo: 'lco' };
   function MC(k) { return (MAT[k] || MAT.steel)[0]; }
