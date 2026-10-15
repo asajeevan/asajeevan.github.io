@@ -325,10 +325,46 @@ def build_identity():
         text, order = render_page(p['id'], contents[p['id']], meta, nav_for(pages, i, root), bundles[p['id']], OUT / p['id'] / 'index.html', outline=False)
         print('%-16s %7d bytes html, %7d bytes js, %2d refs' % (p['id'], len(text.encode()), sizes[p['id']], len(order)))
 
-def article_ld(headline, url):
-    return {'@context': 'https://schema.org', '@type': 'Article', 'headline': headline, 'isPartOf': {'@type': 'Course', 'name': COURSE['title'], 'url': COURSE['base']},
-            'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
-            'url': url, 'inLanguage': 'en', 'dateModified': CITE_DATE}
+def article_ld(headline, url, desc=None, crumb=None):
+    """JSON-LD for a page of the course: the page as an article and learning resource, and its breadcrumb trail."""
+    art = {'@context': 'https://schema.org', '@type': ['Article', 'LearningResource'], 'headline': headline, 'isPartOf': {'@type': 'Course', 'name': COURSE['title'], 'url': COURSE['base']},
+           'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
+           'url': url, 'inLanguage': 'en', 'isAccessibleForFree': True, 'learningResourceType': 'interactive lesson', 'dateModified': CITE_DATE}
+    if desc:
+        art['description'] = desc
+    trail = [('Aswadh Shyma Sajeevan', 'https://asajeevan.github.io/'), (COURSE['title'], COURSE['base']), (crumb or headline, url)]
+    bc = {'@context': 'https://schema.org', '@type': 'BreadcrumbList',
+          'itemListElement': [{'@type': 'ListItem', 'position': k + 1, 'name': n, 'item': u} for k, (n, u) in enumerate(trail)]}
+    return [art, bc]
+
+SUFFIX = ' | How batteries work'
+def seo_title(p):
+    t = p.get('seo_title') or ('%s %s' % (NAV.long_num(p), p['menu']))
+    return t + SUFFIX if len(t + SUFFIX) <= 62 else t
+
+# ---------------------------------------------------------------- last modified, per page, for the sitemap
+LASTMOD_FILE = ROOT / 'tools' / 'lastmod.json'
+def page_lastmod(store, key, path):
+    """The date a page's content last changed: a hash of its <main>, without the citation block (whose date
+    follows the course), compared with the stored one. A new page starts from the date of its last commit."""
+    import hashlib, datetime
+    text = path.read_text(encoding='utf-8')
+    i, j = text.find('<main'), text.find('</main>')
+    main = re.sub(r'<section class="section cite-sec".*?</section>', '', text[i:j] if i >= 0 and j > i else text, flags=re.S)
+    h = hashlib.sha1(main.encode('utf-8')).hexdigest()[:16]
+    old = store.get(key)
+    if old and old[0] == h:
+        return old[1]
+    if old:
+        date = datetime.date.today().isoformat()
+    else:
+        try:
+            date = subprocess.check_output(['git', 'log', '-1', '--format=%cs', '--', str(path)], cwd=str(ROOT), text=True).strip()
+        except Exception:
+            date = ''
+        date = date or datetime.date.today().isoformat()
+    store[key] = [h, date]
+    return date
 
 def old_anchors(page_of_fig):
     """Where the anchors of the old single page now live: {old id: path below batteries/}."""
@@ -454,9 +490,9 @@ def build_course():
     total, rendered, used_by, stats = 0, {}, {}, {}
     for i, p in enumerate(pages):
         root = root_of(p['id'])
-        meta = {'page_title': '%s %s | How batteries work' % (NAV.long_num(p), p['menu']),
-                'og_title': p['title'], 'cite_title': p['title'], 'description': p['question'] + ' ' + p['title'] + '.',
-                'ld': article_ld(p['title'], COURSE['base'] + p['id'] + '/'),
+        meta = {'page_title': seo_title(p),
+                'og_title': p['title'], 'cite_title': p['title'], 'description': p.get('seo_desc') or (p['question'] + ' ' + p['title'] + '.'),
+                'ld': article_ld(p['title'], COURSE['base'] + p['id'] + '/', p.get('seo_desc'), '%s: %s' % (NAV.long_num(p), p['menu'])),
                 'kind_word': 'chapter' if p['kind'] == 'chapter' else 'page', 'body_class': 'kind-' + p['kind']}
         text, order = render_page(p['id'], contents[p['id']], meta, nav_for(seq, i + 1, root), bundles[p['id']], OUT / p['id'] / 'index.html')
         rendered[p['id']], used_by[p['id']] = text, order
@@ -467,11 +503,16 @@ def build_course():
     # the hub
     hub = (SRC / 'hub.src.html').read_text(encoding='utf-8')
     hub = hub.replace('{{course_map}}', course_map(stats, '../')).replace('{{modes}}', NAV.MODES)
-    meta = {'page_title': 'How batteries work: a course on the electrochemistry of lithium-ion cells', 'og_title': COURSE['title'], 'cite_title': '%s: %s' % (COURSE['title'], COURSE['subtitle']),
-            'description': 'A course in nineteen chapters and a lab handbook: ' + COURSE['subtitle'][0].lower() + COURSE['subtitle'][1:] + '. Every statement checked against its source, every figure computed from it.',
+    hours = max(1, round(sum(v[0] for v in stats.values()) / 60))
+    meta = {'page_title': 'How batteries work: an interactive lithium-ion battery course', 'og_title': COURSE['title'], 'cite_title': '%s: %s' % (COURSE['title'], COURSE['subtitle']),
+            'description': 'Free interactive course on how lithium-ion batteries work: 19 chapters and a lab handbook, from cell voltage to the SEI, degradation, GITT and EIS.',
             'ld': {'@context': 'https://schema.org', '@type': 'Course', 'name': COURSE['title'], 'description': COURSE['subtitle'], 'url': COURSE['base'], 'inLanguage': 'en',
                    'provider': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'},
                    'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
+                   'isAccessibleForFree': True, 'educationalLevel': 'university', 'learningResourceType': 'interactive course',
+                   'offers': [{'@type': 'Offer', 'category': 'Free', 'price': 0, 'priceCurrency': 'EUR'}],
+                   'hasCourseInstance': [{'@type': 'CourseInstance', 'courseMode': 'Online', 'courseWorkload': 'PT%dH' % hours}],
+                   'syllabusSections': [{'@type': 'Syllabus', 'name': '%s: %s' % (NAV.long_num(p), p['menu']), 'description': p.get('seo_desc', p['title']), 'url': COURSE['base'] + p['id'] + '/'} for p in pages],
                    'dateModified': CITE_DATE},
             'kind_word': 'page', 'refs': False, 'body_class': 'kind-hub'}
     anchors = '<script type="application/json" id="oldAnchors">%s</script>' % json.dumps(old_anchors(page_of_fig), separators=(',', ':'))
@@ -489,7 +530,7 @@ def build_course():
              ('equations', 'Equations', equations_page_content(maths, root), 'The mathematics of every chapter on one page.')]
     for pid, title, content, desc in specs:
         meta = {'page_title': '%s | How batteries work' % title, 'og_title': '%s: How batteries work' % title, 'cite_title': title, 'description': desc,
-                'ld': article_ld(title, COURSE['base'] + pid + '/'), 'kind_word': 'page', 'refs': pid == 'equations', 'body_class': 'kind-ref'}
+                'ld': article_ld(title, COURSE['base'] + pid + '/', desc), 'kind_word': 'page', 'refs': pid == 'equations', 'body_class': 'kind-ref'}
         text, order = render_page(pid, content, meta, nav_for(seq, None, root, {'id': pid, 'kind': 'ref', 'crumb': title}), bundles[pid], OUT / pid / 'index.html', outline=False)
         total += len(text.encode())
         print('%-26s %7d bytes html%s' % (pid, len(text.encode()), (', %d references' % nrefs) if pid == 'references' else (', %d terms' % nterms) if pid == 'terms' else ''))
@@ -504,11 +545,23 @@ def build_course():
     print('search index: %d entries, %d bytes' % (len(idx['e']), len(js.encode())))
     print('course: %d pages + hub + 4 reference pages, %d bytes of html' % (len(pages), total))
     # the sitemap: the site home, then every page of the course
-    urls = [COURSE['base']] + [COURSE['base'] + p['id'] + '/' for p in pages] + [COURSE['base'] + pid + '/' for pid, _t, _c, _d in specs]
+    # with the date each page last changed; a page's JSON-LD dateModified follows the same date
+    store = json.loads(LASTMOD_FILE.read_text(encoding='utf-8')) if LASTMOD_FILE.exists() else {}
+    keys = [''] + [p['id'] for p in pages] + [pid for pid, _t, _c, _d in specs]
+    urls = [COURSE['base'] + (k + '/' if k else '') for k in keys]
+    home = page_lastmod(store, '/', ROOT / 'index.html')
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-          '  <url>\n    <loc>https://asajeevan.github.io/</loc>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>']
-    for k, u in enumerate(urls):
-        sm.append('  <url>\n    <loc>%s</loc>\n    <changefreq>%s</changefreq>\n    <priority>%s</priority>\n  </url>' % (u, 'weekly' if k == 0 else 'monthly', '0.8' if k == 0 else '0.6'))
+          '  <url>\n    <loc>https://asajeevan.github.io/</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>' % home]
+    for k, (key, u) in enumerate(zip(keys, urls)):
+        path = OUT / key / 'index.html' if key else OUT / 'index.html'
+        date = page_lastmod(store, key or 'hub', path)
+        if key:
+            t = path.read_text(encoding='utf-8')
+            t2 = t.replace('"dateModified": "%s"' % CITE_DATE, '"dateModified": "%s"' % date, 1)
+            if t2 != t:
+                path.write_text(t2, encoding='utf-8')
+        sm.append('  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>%s</changefreq>\n    <priority>%s</priority>\n  </url>' % (u, date, 'weekly' if k == 0 else 'monthly', '0.8' if k == 0 else '0.6'))
+    LASTMOD_FILE.write_text(json.dumps(store, indent=1, sort_keys=True) + '\n', encoding='utf-8')
     sm.append('</urlset>\n')
     (ROOT / 'sitemap.xml').write_text('\n'.join(sm), encoding='utf-8')
 

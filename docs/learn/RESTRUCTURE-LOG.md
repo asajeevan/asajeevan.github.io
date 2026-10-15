@@ -257,3 +257,22 @@ Read the plan first; this file records state, decisions and the checklist so wor
   and then writes the reference as a link (tools/build_course.py); the placement of every line is unchanged.
 - Checks: three views at 1300 and 360 px; gate exit 0 on 29 pages; axe clean; 29 pages, 3291 links, 0 broken;
   74 tests.
+
+## Search engines (2026-10-16, owner's request: more visitors through search, not social media)
+- Every course page has a search title and description written around what people type (course.json seo_title,
+  seo_desc; e.g. "GITT explained: diffusion coefficients from current pulses", "Positive electrodes (cathodes): NMC,
+  LFP, LCO, NCA and LMO"). The visible headings are unchanged. Titles end in " | How batteries work" only when the
+  whole fits in 62 characters. Formulas are written plainly (LiFePO4) because the typesetting pass would otherwise put
+  <sub> tags into the head. "Anode" and "cathode" appear in two titles in brackets because that is what people search
+  for; the prose keeps negative and positive electrode.
+- Hub: title "How batteries work: an interactive lithium-ion battery course"; description shortened to 150 characters;
+  Course JSON-LD gains isAccessibleForFree, educationalLevel, offers (free), hasCourseInstance (online, workload from
+  the reading times) and syllabusSections listing every chapter.
+- Every page: JSON-LD is now Article plus LearningResource with a description, and a BreadcrumbList (site, course,
+  page). Its dateModified is the page's own last change.
+- Sitemap: each URL has a lastmod, the date its main content last changed (hash of <main> without the citation
+  block, stored in tools/lastmod.json; a new entry starts from the file's last commit date). Rebuilding without
+  changes keeps the dates.
+- Home page description shortened to 145 characters.
+- Checks: every JSON-LD block parses; no markup in any <head>; sitemap is valid XML; gate exit 0 on the hub and two
+  chapters; axe clean; 0 broken links; 74 tests.
