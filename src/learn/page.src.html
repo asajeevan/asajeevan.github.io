@@ -14,6 +14,7 @@
 <meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="{{url}}">
+<!--@citemeta-->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{og_title}}">
 <meta name="twitter:description" content="{{description}}">
@@ -42,6 +43,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 </div>
 {{pagenav}}
 {{refsection}}
+<!--@cite-->
 <a class="totop" id="toTop" href="#top" aria-label="Back to top">&#8593;</a>
 <a class="backchip" id="backChip" href="#" hidden></a>
 </main>
@@ -50,7 +52,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <footer class="footer">
   <div class="wrap">
     <p>&#169; <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="{{root}}">Home</a></p>
-    <p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution.</p>
+    <p>Figures are schematic and computed from the cited equations; they are not experimental data. Text and figures may be reused for teaching with attribution: <a href="#cite">cite this page</a>.</p>
   </div>
 </footer>
 
@@ -61,6 +63,7 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <script src="{{root}}{{bundle}}"></script>
 <script src="{{root}}assets/js/share.js"></script>
 <script src="{{root}}assets/js/course.js"></script>
+<script src="{{root}}assets/js/cite.js"></script>
 <script src="{{root}}assets/js/motion.js"></script>
 </body>
 </html>

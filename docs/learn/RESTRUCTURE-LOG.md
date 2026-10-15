@@ -142,3 +142,16 @@ Read the plan first; this file records state, decisions and the checklist so wor
 - Map: the Nantes to Thiruvananthapuram arc no longer runs through the Ulm label or the Thiruvananthapuram label.
 - Development chain: a step lights only when the line reaches it; size capped.
 - Checks: axe clean on the home page; 0 broken links.
+
+## Cite this page (2026-10-15, owner's request: a citation option, course pages only)
+- Every course page (hub, chapters, lab pages, reference pages) ends with a "Cite this page" block (the hub: "Cite this
+  course"). Without scripts it shows an APA reference. assets/js/cite.js adds: this page or the whole course; APA 7,
+  Nature, Harvard (Cite Them Right), BibTeX and RIS; copy (with italics where the paste target keeps them); .bib and
+  .ris download; today's date as the access date. The chosen format is remembered in the browser.
+- Author as cited: Shyma Sajeevan, Aswadh (family name, given name). Date: the last commit that changed the course
+  sources (tools/build_course.py, course_date()); the year in the references comes from it.
+- Head metadata for reference managers and indexers: Highwire citation_* tags and Dublin Core (DC.*); the JSON-LD gains
+  the author's given and family names and dateModified. The footer links to the block ("cite this page").
+- Checks: block tested in a browser (all formats, scope switch, copy, download) at 1300 and 390 px; gate exit 0 on 29
+  pages (f7-6 once reported an overlap from its randomly moving ion; two reruns clean); axe clean; 0 broken links;
+  74 tests.

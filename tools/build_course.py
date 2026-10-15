@@ -26,6 +26,48 @@ BEAT_OF = {b['fig']: (m, i) for m, p in MODS.items() for i, b in enumerate(p['be
 def esc(s):
     return html.escape(s, quote=True)
 
+# ---------------------------------------------------------------- citation
+AUTHOR = {'family': 'Shyma Sajeevan', 'given': 'Aswadh'}
+def course_date():
+    """The date of the course as cited: the last commit that changed its sources (falls back to today)."""
+    import datetime
+    try:
+        d = subprocess.check_output(['git', 'log', '-1', '--format=%cs', '--', 'src/learn', 'tools/build_course.py'], cwd=str(ROOT), text=True).strip()
+        if re.fullmatch(r'\d{4}-\d{2}-\d{2}', d):
+            return d
+    except Exception:
+        pass
+    return datetime.date.today().isoformat()
+CITE_DATE = course_date()
+
+def cite_meta(title, url):
+    """Tags that reference managers (Zotero and others) and indexers read: Highwire citation_*, Dublin Core."""
+    y, m, d = CITE_DATE.split('-')
+    tags = [('citation_title', title), ('citation_author', '%s, %s' % (AUTHOR['family'], AUTHOR['given'])),
+            ('citation_date', '%s/%s/%s' % (y, m, d)), ('citation_publication_date', '%s/%s/%s' % (y, m, d)),
+            ('citation_language', 'en'), ('citation_public_url', url),
+            ('DC.title', title), ('DC.creator', '%s, %s' % (AUTHOR['family'], AUTHOR['given'])), ('DC.date', CITE_DATE),
+            ('DC.type', 'Text'), ('DC.format', 'text/html'), ('DC.language', 'en'), ('DC.identifier', url),
+            ('DC.relation.ispartof', COURSE['title'])]
+    return '\n'.join('<meta name="%s" content="%s">' % (k, esc(v)) for k, v in tags)
+
+def cite_section(title, url, is_course):
+    """The 'Cite this page' block: a plain APA reference (works without scripts); assets/js/cite.js adds the
+    formats (APA, Nature, Harvard, BibTeX, RIS), the page or course choice, copy and download."""
+    year = CITE_DATE[:4]
+    course_full = '%s: %s' % (COURSE['title'], COURSE['subtitle'])
+    if is_course:
+        apa = '%s, %s. (%s). <i>%s</i>. %s' % (AUTHOR['family'], AUTHOR['given'][0] + '.', year, esc(course_full), esc(url))
+    else:
+        apa = '%s, %s. (%s). <i>%s</i>. %s. %s' % (AUTHOR['family'], AUTHOR['given'][0] + '.', year, esc(title), esc(COURSE['title']), esc(url))
+    return ('<section class="section cite-sec" id="cite" aria-labelledby="citeH" data-title="%s" data-url="%s" data-date="%s" data-course-title="%s" '
+            'data-course-subtitle="%s" data-course-url="%s" data-family="%s" data-given="%s"%s>\n  <div class="wrap">\n'
+            '    <h2 class="h2" id="citeH">%s</h2>\n'
+            '    <p class="cite-lede">Using this %s in teaching, a thesis or an article? Cite it as follows; the date is the last update of the course.</p>\n'
+            '    <div class="cite-ui"><p class="cite-out cite-static">%s</p></div>\n  </div>\n</section>\n') % (
+        esc(title), esc(url), CITE_DATE, esc(COURSE['title']), esc(COURSE['subtitle']), esc(COURSE['base']), esc(AUTHOR['family']), esc(AUTHOR['given']),
+        ' data-course-only' if is_course else '', 'Cite this course' if is_course else 'Cite this page', 'course' if is_course else 'page', apa)
+
 # ---------------------------------------------------------------- scripts
 def js_bundles(pages_figs):
     """pages_figs: {page_id: [fig ids]} -> ({page_id: bundle path relative to ROOT}, {page_id: bytes}).
@@ -226,6 +268,9 @@ def render_page(pid, content, meta, nav, bundle, out_path, current=None, outline
     text = text.replace('{{content}}', resolve_xrefs(NAV.add_heading_ids(content), pid, root))
     text = text.replace('{{root}}', root)
     text, order = BL.render(text, refs_fn=page_refs, quiet=True)
+    url = COURSE['base'] + (pid + '/' if pid else '')
+    ctitle = meta.get('cite_title', meta['og_title'])
+    text = text.replace('<!--@citemeta-->', cite_meta(ctitle, url)).replace('<!--@cite-->', cite_section(ctitle, url, not pid) if meta.get('cite', True) else '')
     if not order:   # nothing cited on this page: no reference section
         text = re.sub(r'<section class="section page-refs" id="references">.*?</section>\n?', '', text, flags=re.S)
     items = NAV.outline(text) if outline else []
@@ -281,7 +326,8 @@ def build_identity():
 
 def article_ld(headline, url):
     return {'@context': 'https://schema.org', '@type': 'Article', 'headline': headline, 'isPartOf': {'@type': 'Course', 'name': COURSE['title'], 'url': COURSE['base']},
-            'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'}, 'url': url, 'inLanguage': 'en'}
+            'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
+            'url': url, 'inLanguage': 'en', 'dateModified': CITE_DATE}
 
 def old_anchors(page_of_fig):
     """Where the anchors of the old single page now live: {old id: path below batteries/}."""
@@ -408,7 +454,7 @@ def build_course():
     for i, p in enumerate(pages):
         root = root_of(p['id'])
         meta = {'page_title': '%s %s | How batteries work' % (NAV.long_num(p), p['menu']),
-                'og_title': p['title'], 'description': p['question'] + ' ' + p['title'] + '.',
+                'og_title': p['title'], 'cite_title': p['title'], 'description': p['question'] + ' ' + p['title'] + '.',
                 'ld': article_ld(p['title'], COURSE['base'] + p['id'] + '/'),
                 'kind_word': 'chapter' if p['kind'] == 'chapter' else 'page', 'body_class': 'kind-' + p['kind']}
         text, order = render_page(p['id'], contents[p['id']], meta, nav_for(seq, i + 1, root), bundles[p['id']], OUT / p['id'] / 'index.html')
@@ -420,10 +466,12 @@ def build_course():
     # the hub
     hub = (SRC / 'hub.src.html').read_text(encoding='utf-8')
     hub = hub.replace('{{course_map}}', course_map(stats, '../')).replace('{{modes}}', NAV.MODES)
-    meta = {'page_title': 'How batteries work: a course on the electrochemistry of lithium-ion cells', 'og_title': COURSE['title'],
+    meta = {'page_title': 'How batteries work: a course on the electrochemistry of lithium-ion cells', 'og_title': COURSE['title'], 'cite_title': '%s: %s' % (COURSE['title'], COURSE['subtitle']),
             'description': 'A course in nineteen chapters and a lab handbook: ' + COURSE['subtitle'][0].lower() + COURSE['subtitle'][1:] + '. Every statement checked against its source, every figure computed from it.',
             'ld': {'@context': 'https://schema.org', '@type': 'Course', 'name': COURSE['title'], 'description': COURSE['subtitle'], 'url': COURSE['base'], 'inLanguage': 'en',
-                   'provider': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'}},
+                   'provider': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'},
+                   'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
+                   'dateModified': CITE_DATE},
             'kind_word': 'page', 'refs': False, 'body_class': 'kind-hub'}
     anchors = '<script type="application/json" id="oldAnchors">%s</script>' % json.dumps(old_anchors(page_of_fig), separators=(',', ':'))
     text, _ = render_page('', hub + '<!--@anchors-->\n', meta, nav_for(seq, 0, '../', {'id': '', 'kind': 'hub'}), bundles['hub'], OUT / 'index.html',
@@ -439,7 +487,7 @@ def build_course():
              ('figures', 'List of figures', figures_page_content(rendered, root), 'Every figure of the course with the first sentence of its caption.'),
              ('equations', 'Equations', equations_page_content(maths, root), 'The mathematics of every chapter on one page.')]
     for pid, title, content, desc in specs:
-        meta = {'page_title': '%s | How batteries work' % title, 'og_title': '%s: How batteries work' % title, 'description': desc,
+        meta = {'page_title': '%s | How batteries work' % title, 'og_title': '%s: How batteries work' % title, 'cite_title': title, 'description': desc,
                 'ld': article_ld(title, COURSE['base'] + pid + '/'), 'kind_word': 'page', 'refs': pid == 'equations', 'body_class': 'kind-ref'}
         text, order = render_page(pid, content, meta, nav_for(seq, None, root, {'id': pid, 'kind': 'ref', 'crumb': title}), bundles[pid], OUT / pid / 'index.html', outline=False)
         total += len(text.encode())
