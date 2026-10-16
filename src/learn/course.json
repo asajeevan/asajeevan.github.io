@@ -131,7 +131,7 @@
      "title": "Electrochemical impedance spectroscopy (EIS) II: equivalent circuits and the distribution of relaxation times",
      "question": "What does a spectrum mean, and what does a good fit not prove?",
      "seo_title": "EIS analysis: equivalent circuit fitting and DRT", "seo_desc": "Interpreting battery impedance spectra: equivalent circuits, why a good fit proves little, the distribution of relaxation times (DRT) and following ageing.",
-     "beats": ["f11-15", "f11-16", "f11-17"]},
+     "beats": ["f11-15", "f11-40", "f11-42", "f11-41", "f11-16", "f11-17"]},
     {"id": "lab/post-mortem", "kind": "lab", "num": "Lab 6", "part": "LAB", "menu": "Post-mortem",
      "title": "Post-mortem and electrode characterization",
      "question": "When the outside of a cell is not enough, what then?",

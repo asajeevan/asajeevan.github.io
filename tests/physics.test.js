@@ -474,3 +474,20 @@ test('k1 v + k2 v^(1/2) fit recovers both terms, and D from the Randles-Sevcik s
   const slope = P.cv.randlesSevcik(1, 1, 1e-6, 1e-5, 1) / 1;
   close(P.cv.dFromRSSlope(slope, 1, 1, 1e-6), 1e-5, 1e-9);
 });
+
+test('Lab 5: complex nonlinear least squares recovers two R||CPE arcs from noisy data', () => {
+  const m = P.m11, ws = m.freqs(1e5, 0.1, 8).map(f => 2 * Math.PI * f), truth = [0.02, 0.004, 2.0, 0.9, 0.010, 40, 0.85];
+  let seed = 5; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647 - 0.5; };
+  const Z = ws.map(w => { const z = m.chainZ(truth, w), a = m.abs(z); return { re: z.re + 0.004 * a * rnd(), im: z.im + 0.004 * a * rnd() }; });
+  const f = m.cnls(ws, Z, m.chainZ, [0.02, 0.005, 1, 0.9, 0.005, 30, 0.9], [false, false, false, true, false, false, true], 80);
+  assert.ok(Math.abs(f.p[0] - 0.02) < 0.0005 && Math.abs(f.p[1] - 0.004) < 0.0004 && Math.abs(f.p[4] - 0.010) < 0.0005);
+  assert.ok(f.chi2 < 1e-5);
+});
+test('Lab 1: CC-CV cycle conserves charge and the CV share grows with resistance', () => {
+  const U = x => P.lfpOcp(1 - x) - P.m9.graphiteU(x);
+  const a = P.lab.cccv({ U, Q: 0.002, R: 20, crate: 1, Vmax: 3.8, Vmin: 2.5, cvRate: 0.05, tau: 0.04 });
+  const b = P.lab.cccv({ U, Q: 0.002, R: 150, crate: 1, Vmax: 3.8, Vmin: 2.5, cvRate: 0.05, tau: 0.04 });
+  assert.ok(Math.abs(a.Qdis - a.Qch) / a.Qch < 0.06);
+  assert.ok(b.Qcv / b.Qch > a.Qcv / a.Qch);
+  assert.ok(Math.abs(P.lab.cyclesTo(0.999, 0.8) - 223) < 1);
+});

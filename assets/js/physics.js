@@ -567,13 +567,56 @@
        in sqrt(t_relax + tau) - sqrt(t_relax) with slope proportional to 1/sqrt(D). */
     function kangVariable(trelax, tau) { return Math.sqrt(trelax + tau) - Math.sqrt(trelax); }
 
+    /* Complex nonlinear least squares by Levenberg-Marquardt with a numerical Jacobian and modulus weighting
+       (each residual divided by |Z| of the data point). model(p, w) returns {re, im}; p is fitted in log space,
+       so every parameter stays positive; the exponents of CPEs are passed through a logistic map (0 .. 1).
+       Returns {p, chi2 (the weighted sum of squares over the number of points), res: [[re, im] residuals]}. */
+    function cnls(ws, Z, model, p0, isExp, iters) {
+      var n = ws.length, m = p0.length, q = p0.map(function (v, k) { return isExp[k] ? Math.log(v / (1 - v)) : Math.log(v); });
+      function unpack(qq) { return qq.map(function (v, k) { return isExp[k] ? 1 / (1 + Math.exp(-v)) : Math.exp(v); }); }
+      function resid(qq) {
+        var pp = unpack(qq), r = [];
+        for (var i = 0; i < n; i++) { var z = model(pp, ws[i]), s = 1 / Math.max(1e-12, abs(Z[i])); r.push((z.re - Z[i].re) * s, (z.im - Z[i].im) * s); }
+        return r;
+      }
+      var lam = 1e-3, r = resid(q), S = 0; for (var i = 0; i < r.length; i++) S += r[i] * r[i];
+      for (var it = 0; it < (iters || 60); it++) {
+        var J = [], h = 1e-5;
+        for (var k = 0; k < m; k++) { var q2 = q.slice(); q2[k] += h; var r2 = resid(q2), col = []; for (i = 0; i < r.length; i++) col.push((r2[i] - r[i]) / h); J.push(col); }
+        var A = [], b = [];
+        for (var a2 = 0; a2 < m; a2++) { A.push([]); var bb = 0; for (i = 0; i < r.length; i++) bb -= J[a2][i] * r[i]; b.push(bb); for (var c = 0; c < m; c++) { var sum = 0; for (i = 0; i < r.length; i++) sum += J[a2][i] * J[c][i]; A[a2].push(sum); } }
+        var improved = false;
+        for (var tries = 0; tries < 8 && !improved; tries++) {
+          var M = A.map(function (row, i2) { return row.map(function (v, j) { return i2 === j ? v * (1 + lam) : v; }); });
+          var dq = solve(M, b); if (!dq) { lam *= 10; continue; }
+          var qn = q.map(function (v, k) { return v + Math.max(-2, Math.min(2, dq[k])); }), rn = resid(qn), Sn = 0; for (i = 0; i < rn.length; i++) Sn += rn[i] * rn[i];
+          if (Sn < S) { q = qn; r = rn; var done = (S - Sn) < 1e-12 * S; S = Sn; lam = Math.max(1e-9, lam / 3); improved = true; if (done) it = 1e9; } else lam *= 10;
+        }
+        if (!improved) break;
+      }
+      var res = []; for (i = 0; i < n; i++) res.push([r[2 * i], r[2 * i + 1]]);
+      return { p: unpack(q), chi2: S / n, res: res };
+    }
+    function solve(M, b) {
+      var m = b.length, A = M.map(function (row, i) { return row.concat([b[i]]); });
+      for (var c = 0; c < m; c++) {
+        var piv = c; for (var r = c + 1; r < m; r++) if (Math.abs(A[r][c]) > Math.abs(A[piv][c])) piv = r;
+        if (Math.abs(A[piv][c]) < 1e-14) return null;
+        var t = A[c]; A[c] = A[piv]; A[piv] = t;
+        for (r = 0; r < m; r++) if (r !== c) { var f = A[r][c] / A[c][c]; for (var k = c; k <= m; k++) A[r][k] -= f * A[c][k]; }
+      }
+      return A.map(function (row, i) { return row[m] / row[i]; });
+    }
+    /* a chain of R0 and k R||CPE arcs: p = [R0, R1, Q1, n1, R2, Q2, n2, ...] */
+    function chainZ(p, w) { var z = cx(p[0], 0); for (var k = 1; k < p.length; k += 3) z = add(z, zRQ(p[k], p[k + 1], p[k + 2], w)); return z; }
+
     return {
       cx: cx, add: add, mul: mul, div: div, inv: inv, scale: scale, abs: abs, arg: arg, csqrt: csqrt, cpow: cpow, ctanh: ctanh, ccoth: ccoth,
       series: series, parallel: parallel, zR: zR, zC: zC, zL: zL, zQ: zQ, zW: zW, zFiniteT: zFiniteT, zFiniteR: zFiniteR, zSphere: zSphere,
       zRQ: zRQ, zPorous: zPorous, freqs: freqs, CELL: CELL, cellZ: cellZ, stepResistance: stepResistance, voigtWZ: voigtWZ,
       voigtToLadder: voigtToLadder, ladderZ: ladderZ, bvHarmonics: bvHarmonics, lstsq: lstsq, linKK: linKK, nnls: nnls, drt: drt,
       gittSlab: gittSlab, slabSurface: slabSurface, sphereF: sphereF, sphereSurface: sphereSurface, ROOTS: ROOTS,
-      gittDSphere: gittDSphere, gittDSlope: gittDSlope, tauHat: tauHat, kangVariable: kangVariable
+      gittDSphere: gittDSphere, gittDSlope: gittDSlope, tauHat: tauHat, kangVariable: kangVariable, cnls: cnls, chainZ: chainZ
     };
   })();
 

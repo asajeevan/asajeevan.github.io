@@ -160,7 +160,7 @@
       el('path', { d: cvPath(ts, vs, fV.X, fV.Y), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2 }, gv);
       el('path', { d: cvPath(ts, is, fI.X, fI.Y), fill: 'none', stroke: 'var(--heat)', 'stroke-width': 2 }, gi);
       var cvShare = 100 * o.Qcv / o.Qch;
-      read.innerHTML = 'At ' + scv.textContent + ' behind ' + R + ' Ω, the constant-current charge reaches ' + Vmax + ' V after ' + (o.Qcc * 1000).toFixed(2) + ' mAh; the constant-voltage hold adds <b>' + (o.Qcv * 1000).toFixed(2) + ' mAh (' + cvShare.toFixed(0) + ' %)</b> before the current falls to C/20. After a rest the discharge returns ' + (o.Qdis * 1000).toFixed(2) + ' mAh. Illustrative: a 2 mAh LiFePO₄ | graphite cell as one resistance in series with its open-circuit curve, the surface of the particles leading the average in proportion to the current; the model has no side reactions, so its Coulombic efficiency is exactly 100 %.';
+      read.innerHTML = 'At ' + scv.textContent + ' behind ' + R + ' Ω, the constant-current charge reaches ' + Vmax + ' V after ' + (o.Qcc * 1000).toFixed(2) + ' mAh; the constant-voltage hold adds <b>' + (o.Qcv * 1000).toFixed(2) + ' mAh (' + cvShare.toFixed(0) + ' %)</b> before the current falls to C/20. After a rest the discharge returns ' + (o.Qdis * 1000).toFixed(2) + ' mAh. Illustrative: a 2 mAh LiFePO₄ | graphite cell as one resistance in series with its open-circuit curve, the surface of the particles leading the average in proportion to the current; the model has no side reactions; what the discharge does not return is lithium left behind by the cut-off, which the next cycle would recover, not a loss.';
     }
     on(sc, 'input', place); on(sr, 'input', place);
     steps(fig, [

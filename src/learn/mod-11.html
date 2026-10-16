@@ -712,7 +712,7 @@
         <div class="part-info"><span class="readout"></span></div>
         <figcaption>One cycle: constant current, constant voltage, rest, discharge.
           <span class="try">Try this: at 1C, raise the resistance to 250 Ω and watch how much of the charge moves into the constant-voltage hold.</span>
-          <span class="basis">CC-CV charging, cut-offs and the end-of-charge current after Chen et al. 2020 (C/10 CC-CV formation, two-hour rests, C/3 CC-CV in validation cycling) and Bogomolov, Yitzhack and Ein-Eli 2026 (4.2 and 2.5 V cut-offs, 10 galvanostatic cycles). The cell is illustrative: the open-circuit curve of the LiFePO4 of Safari and Delacourt 2011 against the illustrative graphite of chapter 12, in series with one resistance, the particle surface leading the average in proportion to the current (assets/js/physics.js, lab.cccv); it has no side reactions.</span>
+          <span class="basis">CC-CV charging, cut-offs and the end-of-charge current after Chen et al. 2020 (C/10 CC-CV formation, two-hour rests, C/3 CC-CV in validation cycling) and Bogomolov, Yitzhack and Ein-Eli 2026 (4.2 and 2.5 V cut-offs, 10 galvanostatic cycles). The cell is illustrative: the open-circuit curve of the LiFePO4 of Safari and Delacourt 2011 against the illustrative graphite of chapter 12, in series with one resistance, the particle surface leading the average in proportion to the current (assets/js/physics.js, lab.cccv); it has no side reactions, so any charge it does not return is left behind by the cut-off, not lost.</span>
         </figcaption>
       </figure>
       <div class="text">
@@ -890,6 +890,68 @@
         <p class="explain"><b>Nuclear magnetic resonance</b> of <sup>7</sup>Li, on active material scraped from the copper and sealed in a rotor inside the glovebox, is direct: metallic lithium has a Knight shift of 245 to 270 ppm, far from the ions near 0, and the peak appeared in both artificially aged cells and in neither the fresh cell nor a cell aged in a car to 93 %. It was still there after 11 weeks of storage. It is qualitative.{{cite:R93}} <b>ICP-OES</b> of the lithium that dissolves when a weighed piece of electrode is stirred in water is quantitative, with errors of 1 to 3 %, because plated metal reacts with the water and is counted; but it is indirect, and lithium that has already become insoluble LiF is missed.{{cite:R93}} The <b>electron microscope</b> showed a mossy layer on the aged graphite, absent from the fresh and the car-aged samples, with oxygen and fluorine hot spots where the metal had met the air during preparation; it cannot map lithium, and it sees a square centimetre at most.{{cite:R93}} The authors&#8217; own conclusion is the handbook&#8217;s: NMR direct but not quantitative, ICP quantitative but indirect, microscopy local; and the methods that need the least preparation reproduce best.{{cite:R93}}</p>
         <p class="explain">That is the pattern of the whole page. No technique proves a mechanism alone, and {{fig:f11-18}} is read as a set of questions, each with the cheapest technique that answers it: the differential curves before opening for lost lithium and lost material, the peel test for delamination, the microscope for cracks, deposits and exfoliation, diffraction for the lithium left in the lattices, surface spectroscopy for what the electrolyte became, the rebuilt coin cell for what the material can still do, and NMR for the metal. Agreement among them, on samples whose positions are known, is what a post-mortem can prove.</p>
         <p class="lesson">Plated lithium is found by its nuclear signature, by what dissolves, and by what the microscope sees; one of them alone is a hint.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-40" id="f11-40">
+        <span class="fnum">Figure 11.40</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1140t">
+          <title id="f1140t">Left, a Nyquist plot of two resistor-capacitor pairs in series after an ohmic resistance: two semicircles whose diameters are the resistances, with the apex frequency written above each. Right, the negative imaginary part against frequency on a log axis, one peak per arc. Sliders set the second resistance and the ratio of the two time constants; below a ratio of a hundred the arcs merge into one.</title>
+        </svg>
+        <div class="controls"><label>Second resistance R₂ <input type="range" class="ar" min="4" max="40" step="1" value="20" aria-label="Second resistance R₂"> <b class="ar-val">20 mΩ</b></label><label>τ₂ / τ₁ <input type="range" class="at" min="0" max="3" step="0.05" value="2.5" aria-label="τ₂ / τ₁"> <b class="at-val">316</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Reading an arc: diameter, apex frequency, time constant; and when two arcs resolve.
+          <span class="try">Try this: bring the ratio of time constants down from 300 to 10 and watch the two arcs become one.</span>
+          <span class="basis">Resistance as the diameter, the apex at ωRC = 1 and τ = RC, and the hundredfold rule for resolving two arcs, after Lazanas and Prodromidis 2023, sections 9 and 10. R₀ = 10 mΩ, R₁ = 20 mΩ, C₁ = 100 µF, ideal capacitors; illustrative.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Reading before fitting</h3>
+        <p class="explain">Before any fit, a spectrum can be read by hand, and the reading is what the fit must later agree with. A resistor in parallel with a capacitor draws a semicircle whose <b>diameter is the resistance</b>: the curve leaves the real axis at R<sub>0</sub> and returns to it at R<sub>0</sub> + R<sub>1</sub>. At its top, where the imaginary part is largest, ωRC = 1, so the frequency at the top gives the <b>time constant</b> τ = RC, and the capacitance follows from R and τ.{{cite:R63}} Two pairs in series draw two arcs only when their time constants differ by about a hundredfold; closer than that they overlap, and at equal time constants a single arc appears.{{cite:R63}} A Bode plot of −Z″ against frequency shows each arc as a peak and keeps the frequencies, which a Nyquist plot discards; the two plots are read together.</p>
+        <p class="explain">These readings are approximate for real arcs, which are depressed below the axis and are drawn by constant phase elements rather than capacitors ({{fig:f11-11}}); but a fit that returns a resistance far from the diameter read by eye, or a time constant far from the apex, is a fit to be distrusted.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-41" id="f11-41">
+        <span class="fnum">Figure 11.41</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1141t">
+          <title id="f1141t">Left, an Arrhenius plot: the charge-transfer resistance relative to its value at 25 degrees against 1000 over T, two straight lines for the two electrodes with activation energies of 17.8 and 35.0 kilojoules per mole, the two measured NMC points at 25 and 60 degrees, and a moving dot at the chosen temperature. Right, the charge-transfer arc of the NMC electrode shrinking as the temperature rises.</title>
+        </svg>
+        <div class="controls"><label>Temperature <input type="range" class="et" min="10" max="70" step="1" value="25" aria-label="Temperature"> <b class="et-val">25 °C</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Temperature tells the arcs apart: charge transfer follows an Arrhenius law.
+          <span class="try">Try this: warm the cell from 25 to 60 °C and read how much the NMC arc shrinks; then compare with what the graphite line would do.</span>
+          <span class="basis">Charge-transfer resistances of the NMC 811 electrode (1.80 Ω at 25 °C, 0.94 Ω at 60 °C), the activation energies of 17.8 kJ/mol (NMC 811) and 35.0 kJ/mol (graphite-SiOx), the measurement conditions (50 % state of charge, 10 mV, 10 mHz to 500 kHz, 25 to 60 °C in a chamber) and the circuit of a series resistance, two R-CPE arcs and a CPE tail, from Chen et al. 2020, Table VI, eq. 18 and the surrounding text. The exchange current from Rct = RT/(F i0) is the linear limit of Butler-Volmer of chapter 5. The arc on the right is schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Which arc is which: let the temperature decide</h3>
+        <p class="explain">A fit returns resistances, not names. The name comes from how each resistance responds to what we change, and temperature is the most telling change. Charge transfer is an activated process: its resistance falls with temperature along an Arrhenius line, and the slope of that line is an activation energy. On an NMC 811 electrode the charge-transfer resistance fell from 1.80 Ω at 25 °C to 0.94 Ω at 60 °C, an activation energy of 17.8 kJ/mol; on the graphite-SiOx electrode of the same cell the activation energy was 35.0 kJ/mol, twice as large.{{cite:R89}} The spectra were taken at 50 % state of charge with a 10 mV excitation from 10 mHz to 500 kHz, in a temperature chamber, and fitted with a series resistance, two R-CPE arcs and a CPE for the low-frequency tail.{{cite:R89}}</p>
+        <p class="explain">Once an arc has been named charge transfer, its resistance becomes kinetics: in the linear limit of the Butler-Volmer equation ({{ch:polarization}}), R<sub>ct</sub> = RT/(F i<sub>0</sub>), so the exchange current follows, and its temperature dependence gives the activation energy of the reaction itself.{{cite:R89}} The same logic names the other arcs: change the state of charge, the cycle count or the cell itself, in symmetric cells of two harvested electrodes, and see which resistance follows ({{fig:f11-17}}). A spectrum measured once, at one temperature and one state of charge, cannot be named at all.</p>
+        <p class="lesson">A resistance is named by what moves it: temperature for charge transfer, cycling for films, state of charge for the electrode.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-42" id="f11-42">
+        <span class="fnum">Figure 11.42</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1142t">
+          <title id="f1142t">Left above, a Nyquist plot of noisy data made from two depressed arcs, with the fitted curve for one, two or three arcs chosen by buttons. Left below, the residuals of the fit, real and imaginary, against frequency: a pattern for one arc, noise for two and three. Right, the fitted values and the chi-square, which falls at every step, with the true values for comparison.</title>
+        </svg>
+        <div class="controls"><span class="sw" role="group" aria-label="Arcs in the model"><button type="button" data-k="1" aria-pressed="true">One arc</button> <button type="button" data-k="2" aria-pressed="false">Two arcs</button> <button type="button" data-k="3" aria-pressed="false">Three arcs</button></span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>How many elements? The χ² always falls; the residuals say when to stop.
+          <span class="try">Try this: go from two arcs to three and read what happened to the second resistance.</span>
+          <span class="basis">Complex nonlinear least squares, modulus weighting, χ² as the measure of a fit, the improvement with every added element and the demand that each element stand for a process, after Lazanas and Prodromidis 2023, sections 8 and 16; the dependence of fitted values on starting guesses and weighting after Meddings et al. 2020, section 3.2.2. The fitter is this page’s own Levenberg-Marquardt (assets/js/physics.js, m11.cnls); data from arcs of 4 mΩ (n = 0.90) and 10 mΩ (n = 0.85) after 20 mΩ, with 0.4 % noise.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Fitting, and knowing when to stop</h3>
+        <p class="explain">The fit itself is complex nonlinear least squares: the parameters of the circuit are adjusted until the weighted sum of the squared differences between the model and the data, real and imaginary parts together, is as small as it can be, and that sum, the χ², measures the fit.{{cite:R63}} The weighting matters, because the impedance spans decades: dividing each residual by the modulus of its data point gives every frequency the same say, where an unweighted fit would see only the largest arc.{{cite:R64}} And the answer can depend on where the fit starts, so a fit is run from several starting guesses and the one with the smallest χ² kept, with suspicion if the others land far away.{{cite:R64}}</p>
+        <p class="explain">{{fig:f11-42}} shows the trap and the way out. One arc cannot follow two: the residuals, the differences between fit and data plotted against frequency, swing systematically. Two arcs leave residuals that are noise, and return the values the data were made with. Three arcs lower the χ² a little further, because adding an element always does,{{cite:R63}} but the third arc stands for nothing: depending on where the fit starts, it collapses to a fraction of a milliohm or takes a share of the second arc, and the data cannot decide between the two. The rule is the one the tutorial gives: as many elements as there are processes, each one tied to a process by the physics of the cell, and no more.{{cite:R63}} The residual plot, not the look of the Nyquist curve, is the judge.</p>
+        <p class="lesson">Stop at the smallest circuit whose residuals are noise and whose every element names a process.</p>
       </div>
     </div>
 

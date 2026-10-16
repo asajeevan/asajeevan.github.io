@@ -375,3 +375,15 @@ Read the plan first; this file records state, decisions and the checklist so wor
   (R92); Abbas et al. 2025, Sustain. Energy Fuels (R93); with Meddings et al. 2020 (R64) for the order of operations.
   The Waldmann et al. 2016 review and an Energies 2023 NMC post-mortem could not be fetched and are not cited.
 - Page now about 25 min, 27 references. Checks: contact sheets 1300 and 360; gate exit 0; axe clean; 0 broken links.
+
+## Lab 5 EIS analysis (2026-10-16, owner's request: improve the lab handbook pages)
+
+- Three new beats, f11-40 to f11-42 (Figures L5.2 to L5.4), in src/learn/figs/figs-11ef.js: reading an arc (diameter,
+  apex frequency, time constant, the hundredfold rule, Bode peaks); temperature as the test that names the
+  charge-transfer arc (Chen et al. 2020: 1.80 to 0.94 ohm from 25 to 60 °C, 17.8 and 35.0 kJ/mol) with the exchange
+  current from the Butler-Volmer linear limit; a live complex nonlinear least-squares fit (physics.js m11.cnls,
+  Levenberg-Marquardt with modulus weighting) of one, two and three arcs to noisy two-arc data, with residual plots.
+- Page order: non-uniqueness, reading, fitting, naming by temperature, DRT, ageing. Sources: Lazanas and Prodromidis
+  2023 (R63, re-read on PMC for sections 9 to 11), Chen et al. 2020 (R89), Meddings et al. 2020 (R64).
+- Tests: 82 (two new: the CNLS fit recovers two arcs; the CC-CV model's charge balance and CV share).
+- Checks: contact sheets; gate exit 0; axe clean; 0 broken links.
