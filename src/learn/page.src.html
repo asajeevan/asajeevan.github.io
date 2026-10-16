@@ -10,18 +10,26 @@
 <meta property="og:description" content="{{description}}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{url}}">
+<meta property="og:image" content="{{og_image}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{og_title}}">
+<meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Aswadh Shyma Sajeevan">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="{{url}}">
 <!--@citemeta-->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{og_title}}">
 <meta name="twitter:description" content="{{description}}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231F48D6'/><rect x='8' y='9' width='4' height='14' rx='1' fill='%23fff'/><rect x='14' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.7'/><rect x='20' y='9' width='4' height='14' rx='1' fill='%23fff' fill-opacity='.4'/></svg>">
+<meta name="twitter:image" content="{{og_image}}">
+<link rel="preload" href="{{root}}assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{root}}assets/css/fonts.css">
+<link rel="icon" href="{{root}}favicon.ico" sizes="48x48">
+<link rel="icon" href="{{root}}favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{root}}assets/img/apple-touch-icon.png">
+<link rel="manifest" href="{{root}}site.webmanifest">
 <script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}
 /* a page reached through an animated transition: which way the reader went, and the course-home card that receives the chapter title (assets/js/motion.js sets these on the way out) */
 window.addEventListener("pagereveal",function(e){if(!e.viewTransition)return;d.classList.add("vt-arrived");try{var t=sessionStorage.getItem("vt-dir"),f=sessionStorage.getItem("vt-from");if(t)e.viewTransition.types.add(t);
@@ -57,15 +65,15 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
   </div>
 </footer>
 
-<script src="{{root}}assets/js/gsap.min.js"></script>
-<script src="{{root}}assets/js/ScrollTrigger.min.js"></script>
-<script src="{{root}}assets/js/physics.js"></script>
-<script src="{{root}}assets/js/site.js"></script>
-<script src="{{root}}{{bundle}}"></script>
-<script src="{{root}}assets/js/share.js"></script>
-<script src="{{root}}assets/js/export.js"></script>
-<script src="{{root}}assets/js/course.js"></script>
-<script src="{{root}}assets/js/cite.js"></script>
-<script src="{{root}}assets/js/motion.js"></script>
+<script defer src="{{root}}assets/js/gsap.min.js"></script>
+<script defer src="{{root}}assets/js/ScrollTrigger.min.js"></script>
+<script defer src="{{root}}assets/js/physics.js"></script>
+<script defer src="{{root}}assets/js/site.js"></script>
+<script defer src="{{root}}{{bundle}}"></script>
+<script defer src="{{root}}assets/js/share.js"></script>
+<script defer src="{{root}}assets/js/export.js"></script>
+<script defer src="{{root}}assets/js/course.js"></script>
+<script defer src="{{root}}assets/js/cite.js"></script>
+<script defer src="{{root}}assets/js/motion.js"></script>
 </body>
 </html>

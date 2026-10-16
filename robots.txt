@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+# Build sources, notes and tooling: not pages for readers (the built pages are under /batteries/)
+Disallow: /src/
+Disallow: /docs/
+Disallow: /tools/
+Disallow: /tests/
+Disallow: /counter/
+Disallow: /PROGRESS.md
+Disallow: /WORKING-OFFLINE.md
 
 Sitemap: https://asajeevan.github.io/sitemap.xml

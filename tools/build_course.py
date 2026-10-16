@@ -258,7 +258,7 @@ def render_page(pid, content, meta, nav, bundle, out_path, current=None, outline
     text = TEMPLATE
     rep = {
         '{{page_title}}': esc(meta['page_title']), '{{og_title}}': esc(meta['og_title']), '{{description}}': esc(meta['description']),
-        '{{url}}': COURSE['base'] + (pid + '/' if pid else ''), '{{ldjson}}': json.dumps(meta['ld'], ensure_ascii=False),
+        '{{url}}': COURSE['base'] + (pid + '/' if pid else ''), '{{og_image}}': share_image(pid), '{{ldjson}}': json.dumps(meta['ld'], ensure_ascii=False),
         '{{page_id}}': pid or 'hub', '{{body_class}}': meta.get('body_class', ''),
         '{{topbar}}': nav['topbar'], '{{drawer}}': '<!--@drawer-->', '{{search}}': NAV.SEARCH, '{{pagenav}}': nav['bottom'],
         '{{refsection}}': (REFSECTION % (meta['kind_word'], root)) if meta.get('refs', True) else '',
@@ -325,11 +325,33 @@ def build_identity():
         text, order = render_page(p['id'], contents[p['id']], meta, nav_for(pages, i, root), bundles[p['id']], OUT / p['id'] / 'index.html', outline=False)
         print('%-16s %7d bytes html, %7d bytes js, %2d refs' % (p['id'], len(text.encode()), sizes[p['id']], len(order)))
 
+PERSON_ID = 'https://asajeevan.github.io/#person'   # the Person entity on the home page; every page's author points at it
+SHARE_DIR = ROOT / 'assets' / 'img' / 'share'
+def share_image(pid):
+    """The page's 1200x630 share card (og:image, twitter:image, JSON-LD image), drawn by tools/share_images.js."""
+    key = pid.replace('/', '-') if pid else 'hub'
+    if not (SHARE_DIR / (key + '.png')).exists():
+        print('note: no share image for %s; run tools/share_images.js' % (pid or 'hub'))
+        key = 'hub'
+    return 'https://asajeevan.github.io/assets/img/share/%s.png' % key
+
+def first_published(pid):
+    """The date the page first appeared in the repository (its first commit); today for a page not yet committed."""
+    path = 'batteries/' + (pid + '/' if pid else '') + 'index.html'
+    try:
+        d = subprocess.check_output(['git', 'log', '--diff-filter=A', '--follow', '--format=%cs', '--', path], cwd=str(ROOT), text=True).split()
+        if d and re.fullmatch(r'\d{4}-\d{2}-\d{2}', d[-1]):
+            return d[-1]
+    except Exception:
+        pass
+    return CITE_DATE
+
 def article_ld(headline, url, desc=None, crumb=None):
     """JSON-LD for a page of the course: the page as an article and learning resource, and its breadcrumb trail."""
     art = {'@context': 'https://schema.org', '@type': ['Article', 'LearningResource'], 'headline': headline, 'isPartOf': {'@type': 'Course', 'name': COURSE['title'], 'url': COURSE['base']},
-           'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
-           'url': url, 'inLanguage': 'en', 'isAccessibleForFree': True, 'learningResourceType': 'interactive lesson', 'dateModified': CITE_DATE}
+           'author': {'@type': 'Person', '@id': PERSON_ID, 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
+           'url': url, 'inLanguage': 'en', 'isAccessibleForFree': True, 'learningResourceType': 'interactive lesson',
+           'image': share_image(url[len(COURSE['base']):].rstrip('/')), 'datePublished': first_published(url[len(COURSE['base']):].rstrip('/')), 'dateModified': CITE_DATE}
     if desc:
         art['description'] = desc
     trail = [('Aswadh Shyma Sajeevan', 'https://asajeevan.github.io/'), (COURSE['title'], COURSE['base']), (crumb or headline, url)]
@@ -474,6 +496,51 @@ def equations_page_content(maths, root):
     out.append('</div>\n</section>\n')
     return '\n'.join(out)
 
+def write_404(pages):
+    """404.html, which GitHub Pages serves for any missing address: a way back to the home page, the course
+    and every chapter, so a broken or outdated link still lands the reader somewhere useful. Absolute
+    paths, because the page is served at whatever address was asked for. Not indexed."""
+    groups = []
+    for part in COURSE['parts']:
+        items = ''.join('<li><a href="/batteries/%s/">%s: %s</a></li>' % (p['id'], esc(NAV.long_num(p)), esc(p['menu'])) for p in pages if p['part'] == part['id'])
+        if items:
+            groups.append('<h2 class="nf-h">%s</h2><ul class="nf-list">%s</ul>' % (esc(part['menu']), items))
+    page = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found | Aswadh Shyma Sajeevan</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/fonts.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+body{background:var(--bg,#fff);color:var(--text,#14171C)}
+.nf{padding:clamp(48px,10vw,110px) 0 72px}
+.nf h1{font-family:var(--display);font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:14px 0 12px}
+.nf .row{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 40px}
+.nf-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 36px}
+.nf-h{font-family:var(--display);font-size:1.05rem;margin:18px 0 6px}
+.nf-list{list-style:none;padding:0;margin:0}.nf-list li{margin:4px 0}
+.nf-list a{color:var(--accent,#1F48D6);text-decoration:none}.nf-list a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<main class="nf"><div class="wrap">
+<p class="kicker">Error 404</p>
+<h1>This page does not exist</h1>
+<p class="lede">The address may be mistyped, or the page may have moved when the course was reorganised. Everything is still here:</p>
+<div class="row"><a class="btn primary" href="/batteries/">How batteries work: the course</a><a class="btn" href="/">Home: research and publications</a></div>
+<div class="nf-cols">%s</div>
+</div></main>
+</body>
+</html>
+""" % '\n'.join('<div>%s</div>' % g for g in groups)
+    (ROOT / '404.html').write_text(page, encoding='utf-8')
+
+
 def build_course():
     contents, page_of_fig, number_of, maths = assemble_course()
     XREF['page_of_fig'], XREF['number_of'] = page_of_fig, number_of
@@ -515,8 +582,9 @@ def build_course():
     meta = {'page_title': 'How batteries work: an interactive lithium-ion battery course', 'og_title': COURSE['title'], 'cite_title': '%s: %s' % (COURSE['title'], COURSE['subtitle']),
             'description': 'Free interactive course on how lithium-ion batteries work: 19 chapters and a lab handbook, from cell voltage to the SEI, degradation, cyclic voltammetry, GITT and EIS.',
             'ld': {'@context': 'https://schema.org', '@type': 'Course', 'name': COURSE['title'], 'description': COURSE['subtitle'], 'url': COURSE['base'], 'inLanguage': 'en',
-                   'provider': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'},
-                   'author': {'@type': 'Person', 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
+                   'provider': {'@type': 'Person', '@id': PERSON_ID, 'name': 'Aswadh Shyma Sajeevan', 'url': 'https://asajeevan.github.io/'},
+                   'image': share_image(''), 'datePublished': first_published(''),
+                   'author': {'@type': 'Person', '@id': PERSON_ID, 'name': 'Aswadh Shyma Sajeevan', 'givenName': AUTHOR['given'], 'familyName': AUTHOR['family'], 'url': 'https://asajeevan.github.io/'},
                    'isAccessibleForFree': True, 'educationalLevel': 'university', 'learningResourceType': 'interactive course',
                    'offers': [{'@type': 'Offer', 'category': 'Free', 'price': 0, 'priceCurrency': 'EUR'}],
                    'hasCourseInstance': [{'@type': 'CourseInstance', 'courseMode': 'Online', 'courseWorkload': 'PT%dH' % hours}],
@@ -532,10 +600,12 @@ def build_course():
     root = '../../'
     refs_html, nrefs = ref_page_content(used_by, root)
     terms_html, nterms = terms_page_content(rendered, root)
-    specs = [('references', 'References', refs_html, 'All the references of the course, with the chapters that rest on each one.'),
-             ('terms', 'Index of terms', terms_html, 'Every term the course introduces, with the sentence that introduces it.'),
-             ('figures', 'List of figures', figures_page_content(rendered, root), 'Every figure of the course with the first sentence of its caption.'),
-             ('equations', 'Equations', equations_page_content(maths, root), 'The mathematics of every chapter on one page.')]
+    figs_html = figures_page_content(rendered, root)
+    nfigs = figs_html.count('<li><a ')
+    specs = [('references', 'References', refs_html, 'All the references of How batteries work: the textbooks and peer-reviewed articles on lithium-ion batteries and electrochemistry, with the chapters that rest on each one.'),
+             ('terms', 'Index of terms', terms_html, 'Index of terms for How batteries work: every battery and electrochemistry term the course introduces, from overpotential to tortuosity, with the sentence that introduces it.'),
+             ('figures', 'List of figures', figs_html, 'All %d interactive figures of How batteries work, a free lithium-ion battery course, numbered by chapter, each linked to its place in the chapter.' % nfigs),
+             ('equations', 'Equations', equations_page_content(maths, root), "The mathematics of How batteries work on one page: from Coulomb's law and the Nernst equation to Butler-Volmer kinetics, Fick's law and the Warburg impedance.")]
     for pid, title, content, desc in specs:
         meta = {'page_title': '%s | How batteries work' % title, 'og_title': '%s: How batteries work' % title, 'cite_title': title, 'description': desc,
                 'ld': article_ld(title, COURSE['base'] + pid + '/', desc), 'kind_word': 'page', 'refs': pid == 'equations', 'body_class': 'kind-ref'}
@@ -552,12 +622,15 @@ def build_course():
     (ROOT / 'assets' / 'js' / 'course-index.js').write_text(js, encoding='utf-8')
     print('search index: %d entries, %d bytes' % (len(idx['e']), len(js.encode())))
     print('course: %d pages + hub + 4 reference pages, %d bytes of html' % (len(pages), total))
+    write_404(pages)
     # the sitemap: the site home, then every page of the course
     # with the date each page last changed; a page's JSON-LD dateModified follows the same date
     store = json.loads(LASTMOD_FILE.read_text(encoding='utf-8')) if LASTMOD_FILE.exists() else {}
     keys = [''] + [p['id'] for p in pages] + [pid for pid, _t, _c, _d in specs]
     urls = [COURSE['base'] + (k + '/' if k else '') for k in keys]
     home = page_lastmod(store, '/', ROOT / 'index.html')
+    import home_seo   # the home page's JSON-LD (profile, person, publications), regenerated from the page
+    print('home page JSON-LD: %d publications' % home_seo.update(ROOT / 'index.html', home))
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
           '  <url>\n    <loc>https://asajeevan.github.io/</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>' % home]
     for k, (key, u) in enumerate(zip(keys, urls)):

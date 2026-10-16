@@ -154,6 +154,7 @@ NODE_PATH=/opt/node22/lib/node_modules node tools/qa/check45.js     # module 4 a
 ```
 
 The build fails on any citation of a reference whose status is not `verified`.
+Search-engine and sharing setup (share images, structured data, robots, favicons, fonts): see `docs/seo.md`.
 `acta.js` exits non-zero on any JS error or any label overlap or clip at 360 px.
 
 ## 4. Sources: what was in hand, what must be re-supplied

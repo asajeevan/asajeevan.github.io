@@ -94,7 +94,8 @@
   if (lb && typeof lb.showModal === 'function') {
     Array.prototype.forEach.call(document.querySelectorAll('img[data-caption]'), function (img) {
       img.addEventListener('click', function () {
-        lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt; lbCap.textContent = img.getAttribute('data-caption');
+        // thumbnails carry the full-size file in data-full
+        lbImg.src = img.getAttribute('data-full') || img.currentSrc || img.src; lbImg.alt = img.alt; lbCap.textContent = img.getAttribute('data-caption');
         lb.showModal();
       });
       img.parentNode.addEventListener('keydown', function (e) { if (e.key === 'Enter') img.click(); });

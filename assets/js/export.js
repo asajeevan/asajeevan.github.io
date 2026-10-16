@@ -10,7 +10,7 @@
   root = root.replace(/assets\/js\/export\.js.*$/, '');
   var SITE = 'asajeevan.github.io/batteries', AUTHOR = (d.given || 'Aswadh') + ' ' + (d.family || 'Shyma Sajeevan');
   var year = (d.date || '').slice(0, 4) || String(new Date().getFullYear());
-  var FONT_CSS = (document.querySelector('link[href*="fonts.googleapis.com/css"]') || {}).href || '';
+  var FONT_CSS = (document.querySelector('link[href*="assets/css/fonts.css"], link[href*="fonts.googleapis.com/css"]') || {}).href || '';
   var STYLE_PROPS = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-width', 'stroke-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'opacity', 'font-family', 'font-size', 'font-weight', 'font-style', 'letter-spacing', 'text-anchor', 'dominant-baseline', 'visibility', 'paint-order', 'mix-blend-mode', 'filter', 'transform', 'transform-origin', 'transform-box', 'color', 'display'];
   var INHERIT_OK = { 'fill': 1, 'stroke': 1, 'font-family': 1, 'font-size': 1, 'font-weight': 1, 'font-style': 1, 'text-anchor': 1, 'color': 1 };
 
@@ -78,7 +78,7 @@
           if (!/U\+0000-00FF/.test(b)) return;
           var fam = (b.match(/font-family:\s*'([^']+)'/) || [])[1], w = (b.match(/font-weight:\s*(\d+)/) || [])[1] || '400', s = (b.match(/font-style:\s*(\w+)/) || [])[1] || 'normal';
           var url = (b.match(/url\(([^)]+\.woff2)\)/) || [])[1];
-          if (fam && url) faces.push({ fam: fam, w: w, s: s, url: url, css: null });
+          if (fam && url) faces.push({ fam: fam, w: w, s: s, url: new URL(url.replace(/^['"]|['"]$/g, ''), FONT_CSS).href, css: null });
         });
         return faces;
       }).catch(function () { return []; });
