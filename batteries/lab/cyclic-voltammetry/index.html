@@ -146,14 +146,14 @@ if(f){var a=document.querySelectorAll(".card a");for(var i=0;i<a.length;i++){if(
 <div class="beat alt">
 <figure class="fig" data-fig="f11-20" id="f11-20">
 <span class="fnum">Figure L2.2</span>
-<svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1120t">
-<title id="f1120t">Left, a simulated cyclic voltammogram of a reversible one-electron couple with the points A to G marked: start, equal surface concentrations, oxidation peak, switching potential, equal concentrations again, reduction peak, end. Right, the concentrations of the reduced and oxidized forms against distance from the electrode at the chosen moment; a slider moves through the sweep.</title>
+<svg viewBox="0 0 520 334" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1120t">
+<title id="f1120t">Left, a simulated cyclic voltammogram of a reversible one-electron couple with the points A to G marked, drawn up to the present moment, with a strip beneath showing the triangular sweep in time and a cursor. Right, the concentration profiles of the reduced and oxidized forms against distance from the electrode, the depleted layer shaded, a flux arrow at the electrode whose length follows the current, and a bar giving the surface ratio of the two forms as the Nernst equation sets it. A slider or the play button moves time through the sweep.</title>
 </svg>
 <div class="controls"><label>Time through the sweep <input type="range" class="cvt" min="0" max="1000" step="1" value="300" aria-label="Time through the sweep"> <b class="cvt-val"></b></label></div>
 <div class="part-info"><span class="readout"></span></div>
 <div class="key"><span><i style="background:var(--accent)"></i>Red, the reduced form</span><span><i style="background:var(--field)"></i>Ox, the oxidized form</span><span><i class="e"></i>where we are on the curve</span></div>
 <figcaption>The duck, step by step: the current and the concentration profiles behind it.
-<span class="try">Try this: drag the slider slowly past C and watch the depleted layer grow while the current falls.</span>
+<span class="try">Try this: press play and watch the flux arrow at the electrode: it is longest at the peaks, and it reverses with the sweep.</span>
 <details class="src"><summary>Source</summary><span class="basis">Simulated with this page’s own finite-difference solution of the diffusion equation with the Nernst equation at the surface (assets/js/physics.js, cv.simulate): 1 mM, D = 10<sup>−5</sup> cm<sup>2</sup>/s for both forms, a 3 mm disc, 100 mV/s, 25 °C, oxidation first and oxidation current positive. The simulation reproduces the Randles-Sevcik peak current to 0.1 % and a peak separation of 58 mV (tests). Points A to G, the role of the Nernst equation and the diffusion layer, and the 57 mV separation after Elgrishi et al. 2018, whose example runs the other way, reducing ferrocenium.</span></details>
 </figcaption>
 </figure>

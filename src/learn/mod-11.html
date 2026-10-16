@@ -8,12 +8,12 @@
     <div class="beat">
       <figure class="fig" data-fig="f11-1" id="f11-1">
         <span class="fnum">Figure 11.1</span>
-        <svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f111t">
-          <title id="f111t">Four panels, one per measurement on the same cell: cycling at constant current, a current pulse, GITT pulses with rests, and impedance spectroscopy, each with the shape of its result, the question it answers and where in this module it is explained.</title>
+        <svg viewBox="0 0 520 356" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f111t">
+          <title id="f111t">A coin cell drawn in the middle, with six measurement stations joined to it by leads: galvanostatic cycling, cyclic voltammetry, GITT, impedance, a current pulse, and post-mortem. Each station shows a small trace of what is imposed on the cell, a current or a potential against time, and beside it the trace of what is measured, with a moving dot on both; the post-mortem station shows an opened electrode under a magnifier. Each station can be selected for its question and the degradation it helps to find.</title>
         </svg>
         <div class="part-info"><span class="readout"></span></div>
-        <figcaption>One cell, four measurements, four questions.
-          <span class="try">Try this: for each panel, name the thief of {{ch:degradation}} it would help to catch.</span>
+        <figcaption>One cell, six measurements: what each one imposes, what it measures, and the question it answers.
+          <span class="try">Try this: press play and watch which stations impose a current and which a potential; then tap each one for the question it answers.</span>
           <span class="basis">The discharge curve as a source of capacity, rate and temperature effects and state of health, and current interruption, after Winter and Brodd 2004, sections 1.4 and 1.5; current pulses after Meddings et al. 2020, section 3.1; GITT after Weppner and Huggins 1977 and Kim et al. 2022; impedance after Lazanas and Prodromidis 2023, section 1. The small curves are sketches of the shapes in figures {{fig:f5-1}}, {{fig:f11-2}}, {{fig:f11-3}} and {{fig:f11-10}}, not data.</span>
         </figcaption>
       </figure>
@@ -463,14 +463,14 @@
     <div class="beat alt">
       <figure class="fig" data-fig="f11-20" id="f11-20">
         <span class="fnum">Figure 11.20</span>
-        <svg viewBox="0 0 520 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1120t">
-          <title id="f1120t">Left, a simulated cyclic voltammogram of a reversible one-electron couple with the points A to G marked: start, equal surface concentrations, oxidation peak, switching potential, equal concentrations again, reduction peak, end. Right, the concentrations of the reduced and oxidized forms against distance from the electrode at the chosen moment; a slider moves through the sweep.</title>
+        <svg viewBox="0 0 520 334" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1120t">
+          <title id="f1120t">Left, a simulated cyclic voltammogram of a reversible one-electron couple with the points A to G marked, drawn up to the present moment, with a strip beneath showing the triangular sweep in time and a cursor. Right, the concentration profiles of the reduced and oxidized forms against distance from the electrode, the depleted layer shaded, a flux arrow at the electrode whose length follows the current, and a bar giving the surface ratio of the two forms as the Nernst equation sets it. A slider or the play button moves time through the sweep.</title>
         </svg>
         <div class="controls"><label>Time through the sweep <input type="range" class="cvt" min="0" max="1000" step="1" value="300" aria-label="Time through the sweep"> <b class="cvt-val"></b></label></div>
         <div class="part-info"><span class="readout"></span></div>
         <div class="key"><span><i style="background:var(--accent)"></i>Red, the reduced form</span><span><i style="background:var(--field)"></i>Ox, the oxidized form</span><span><i class="e"></i>where we are on the curve</span></div>
         <figcaption>The duck, step by step: the current and the concentration profiles behind it.
-          <span class="try">Try this: drag the slider slowly past C and watch the depleted layer grow while the current falls.</span>
+          <span class="try">Try this: press play and watch the flux arrow at the electrode: it is longest at the peaks, and it reverses with the sweep.</span>
           <span class="basis">Simulated with this page&#8217;s own finite-difference solution of the diffusion equation with the Nernst equation at the surface (assets/js/physics.js, cv.simulate): 1 mM, D = 10⁻⁵ cm²/s for both forms, a 3 mm disc, 100 mV/s, 25 °C, oxidation first and oxidation current positive. The simulation reproduces the Randles-Sevcik peak current to 0.1 % and a peak separation of 58 mV (tests). Points A to G, the role of the Nernst equation and the diffusion layer, and the 57 mV separation after Elgrishi et al. 2018, whose example runs the other way, reducing ferrocenium.</span>
         </figcaption>
       </figure>

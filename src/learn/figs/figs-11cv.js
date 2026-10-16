@@ -203,46 +203,69 @@
     show(); place();
   });
 
-  /* f11-20: the duck, step by step: the voltammogram and the concentration profiles behind it */
+  /* f11-20: the duck, step by step: the voltammogram, the sweep in time, and the concentration profiles behind it */
   register('f11-20', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), st = fig.querySelector('.cvt'), stv = fig.querySelector('.cvt-val');
-    var o = cvRun({ v: 0.1, steps: 600, profEvery: 6 }), pk = P.cv.peaks(o), n = o.E.length;
-    var b = { x0: 58, y0: 236, x1: 292, y1: 34 }, imax = uA(pk.ipa) * 1.15;
+    var o = cvRun({ v: 0.1, steps: 600, profEvery: 6 }), pk = P.cv.peaks(o), n = o.E.length, half = n / 2;
+    var b = { x0: 58, y0: 232, x1: 292, y1: 34 }, imax = uA(pk.ipa) * 1.15;
     var fr = cvFrame(g, b, [-0.3, 0.3], [-imax * 0.85, imax], { xt: [[-0.3, '−0.3'], [-0.15, '−0.15'], [0, '0'], [0.15, '+0.15'], [0.3, '+0.3']], yt: [[-10, '−10'], [0, '0'], [10, '10'], [20, '20']], zero: true, xl: 'E − E°′, V', yl: 'i, µA (oxidation +)' });
-    el('path', { d: cvPath(o.E, o.i.map(uA), fr.X, fr.Y), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.2 }, g);
-    // the lettered points
+    el('path', { d: cvPath(o.E, o.i.map(uA), fr.X, fr.Y), fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 2.2 }, g);
+    var trace = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
     function idxOf(test) { for (var k = 0; k < n; k++) if (test(k)) return k; return 0; }
-    var half = n / 2, iA = 0, iB = idxOf(function (k) { return k < half && o.E[k] >= 0; }), iC = o.i.indexOf(pk.ipa), iD = half - 1, iE = idxOf(function (k) { return k >= half && o.E[k] <= 0; }), iF = o.i.indexOf(pk.ipc), iG = n - 1;
+    var iA = 0, iB = idxOf(function (k) { return k < half && o.E[k] >= 0; }), iC = o.i.indexOf(pk.ipa), iD = half - 1, iE = idxOf(function (k) { return k >= half && o.E[k] <= 0; }), iF = o.i.indexOf(pk.ipc), iG = n - 1;
     var PTS = [['A', iA, 8, -8], ['B', iB, -10, -6], ['C', iC, 0, -10], ['D', iD, 8, 4], ['E', iE, 10, 12], ['F', iF, 0, 18], ['G', iG, -8, 14]];
     PTS.forEach(function (p) { var x = fr.X(o.E[p[1]]), y = fr.Y(uA(o.i[p[1]])); el('circle', { cx: x, cy: y, r: 3, fill: 'var(--text)' }, g); txt(g, x + p[2], y + p[3], p[0], 'strong', 'middle'); });
     var mk = el('circle', { r: 6, fill: 'var(--electron)', stroke: 'var(--electron-edge)', 'stroke-width': 1.2 }, g);
+    // the sweep in time, a strip under the duck: where in the triangle we are
+    var tb = { x0: 58, y0: 318, x1: 292, y1: 272 }, ft = cvFrame(g, tb, [0, o.t[n - 1]], [-0.35, 0.35], { yt: [[-0.3, '−0.3'], [0.3, '+0.3']], yl: '' });
+    txt(g, tb.x0 - 6, tb.y1 - 4, 'E(t), the sweep', '', 'start', { style: 'font-size:10px' });
+    txt(g, tb.x1, tb.y0 + 12, 't →', '', 'end', { style: 'font-size:10px' });
+    el('path', { d: cvPath(o.t, o.E, ft.X, ft.Y), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.6 }, g);
+    var tcur = el('line', { y1: tb.y1, y2: tb.y0, stroke: 'var(--text)', 'stroke-dasharray': '3 3' }, g), tdot = el('circle', { r: 4, fill: 'var(--electron)', stroke: 'var(--electron-edge)' }, g);
     // the concentration profiles beside the electrode
-    var pb = { x0: 340, y0: 236, x1: 506, y1: 34 }, xmax = 6 * Math.sqrt(CV_D * o.t[n - 1]) * 0.35;
+    var pb = { x0: 352, y0: 232, x1: 506, y1: 34 }, xmax = 6 * Math.sqrt(CV_D * o.t[n - 1]) * 0.35;
     var pf = cvFrame(g, pb, [0, xmax * 1e4], [0, 1], { xt: [[0, '0'], [Math.round(xmax * 1e4 / 2), String(Math.round(xmax * 1e4 / 2))], [Math.round(xmax * 1e4), String(Math.round(xmax * 1e4))]], yt: [[0, '0'], [0.5, '0.5'], [1, '1']], xl: 'distance from electrode, µm', yl: 'fraction of the couple' });
-    el('rect', { x: pb.x0 - 4, y: pb.y1, width: 4, height: pb.y0 - pb.y1, fill: MV('carbon') }, g);
+    el('rect', { x: pb.x0 - 6, y: pb.y1, width: 6, height: pb.y0 - pb.y1, fill: MV('carbon') }, g);
+    var dep = el('path', { fill: 'var(--accent)', 'fill-opacity': .1, stroke: 'none' }, g);
     var red = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g), ox = el('path', { fill: 'none', stroke: 'var(--field)', 'stroke-width': 2.4 }, g);
     txt(g, pb.x1 - 4, pb.y1 + 14, 'Red', 'amber', 'end'); txt(g, pb.x1 - 4, pb.y1 + 30, 'Ox', 'field', 'end');
-    var dl = el('line', { y1: pb.y1 + 40, y2: pb.y0, stroke: 'var(--muted)', 'stroke-dasharray': '3 3' }, g), dlt = txt(g, 0, pb.y1 + 52, 'diffusion layer', '', 'start', { style: 'font-size:11px' });
+    var dl = el('line', { y1: pb.y1 + 40, y2: pb.y0, stroke: 'var(--muted)', 'stroke-dasharray': '3 3' }, g), dlt = txt(g, 0, pb.y1 + 52, 'depleted layer', '', 'start', { style: 'font-size:10px' });
+    // the flux at the surface: an arrow whose length follows the gradient, which is the current
+    var flux = el('line', { x1: pb.x0 + 2, y1: pb.y0 - 14, x2: pb.x0 + 2, y2: pb.y0 - 14, stroke: 'var(--heat)', 'stroke-width': 2.5, 'marker-end': marker(svg, '#E5402A') }, g);
+    var fluxT = txt(g, pb.x0 + 6, pb.y0 - 24, '', 'heat', 'start', { style: 'font-size:10px' });
+    // the Nernst gauge: the surface ratio Ox/Red as a two-colour bar
+    var gb = { x: 352, y: 286, w: 154, h: 10 };
+    txt(g, gb.x, gb.y - 6, 'at the surface: Red  |  Ox', '', 'start', { style: 'font-size:10px' });
+    el('rect', { x: gb.x, y: gb.y, width: gb.w, height: gb.h, rx: 3, fill: 'var(--field)' }, g);
+    var gred = el('rect', { x: gb.x, y: gb.y, width: gb.w, height: gb.h, rx: 3, fill: 'var(--accent)' }, g), gtxt = txt(g, gb.x + gb.w, gb.y + 24, '', 'strong', 'end', { style: 'font-size:10px' });
     badge(g, fr.X(o.E[iC]) + 22, fr.Y(uA(pk.ipa)) + 4, 1); badge(g, fr.X(0.25), fr.Y(uA(o.i[Math.round(half * 0.92)])) - 22, 2); badge(g, fr.X(o.E[iF]) - 20, fr.Y(uA(pk.ipc)) + 4, 3);
     function place() {
       var u = +st.value / 1000, j = Math.min(o.prof.length - 1, Math.round(u * (o.prof.length - 1))), pr = o.prof[j], k = Math.min(n - 1, (j + 1) * 6 - 1);
       mk.setAttribute('cx', fr.X(o.E[k])); mk.setAttribute('cy', fr.Y(uA(o.i[k])));
-      var dR = '', dO = '', thick = 0;
-      pr.p.forEach(function (q, m) { if (q[0] > xmax) return; var x = pf.X(q[0] * 1e4); dR += (m ? 'L' : 'M') + x.toFixed(1) + ',' + pf.Y(q[1]).toFixed(1); dO += (m ? 'L' : 'M') + x.toFixed(1) + ',' + pf.Y(1 - q[1]).toFixed(1); });
+      trace.setAttribute('d', cvPath(o.E, o.i.map(uA), fr.X, fr.Y, 0, k + 1));
+      tcur.setAttribute('x1', ft.X(o.t[k])); tcur.setAttribute('x2', ft.X(o.t[k])); tdot.setAttribute('cx', ft.X(o.t[k])); tdot.setAttribute('cy', ft.Y(o.E[k]));
+      var dR = '', dO = '', dD = '', thick = 0;
+      pr.p.forEach(function (q, m) { if (q[0] > xmax) return; var x = pf.X(q[0] * 1e4); dR += (m ? 'L' : 'M') + x.toFixed(1) + ',' + pf.Y(q[1]).toFixed(1); dO += (m ? 'L' : 'M') + x.toFixed(1) + ',' + pf.Y(1 - q[1]).toFixed(1); dD += (m ? 'L' : 'M') + x.toFixed(1) + ',' + pf.Y(q[1]).toFixed(1); });
       for (var m = 0; m < pr.p.length; m++) if (Math.abs(pr.p[m][1] - pr.p[pr.p.length - 1][1]) < 0.05 && Math.abs(pr.p[m][1] - 1) < 0.05) { thick = pr.p[m][0]; break; }
-      red.setAttribute('d', dR); ox.setAttribute('d', dO);
-      var xt = pf.X(Math.min(xmax, thick) * 1e4); dl.setAttribute('x1', xt); dl.setAttribute('x2', xt); dlt.setAttribute('x', Math.min(xt + 4, pb.x1 - 70));
+      red.setAttribute('d', dR); ox.setAttribute('d', dO); dep.setAttribute('d', dD + ' L' + pf.X(Math.min(xmax, pr.p[pr.p.length - 1][0]) * 1e4).toFixed(1) + ',' + pf.Y(1) + ' L' + pf.X(0) + ',' + pf.Y(1) + ' Z');
+      var xt = pf.X(Math.min(xmax, thick) * 1e4), left = xt > (pb.x0 + pb.x1) / 2; dl.setAttribute('x1', xt); dl.setAttribute('x2', xt); dlt.setAttribute('x', left ? xt - 4 : xt + 4); dlt.setAttribute('text-anchor', left ? 'end' : 'start');
+      var i = o.i[k], a = Math.max(0, Math.min(1, Math.abs(i) / pk.ipa));
+      flux.setAttribute('x1', pb.x0 + 8 + 70 * a); flux.setAttribute('x2', pb.x0 + 4); flux.setAttribute('marker-end', marker(svg, i >= 0 ? '#E5402A' : '#1F48D6')); flux.setAttribute('stroke', i >= 0 ? 'var(--heat)' : 'var(--accent)'); flux.style.opacity = a < 0.03 ? 0 : 1;
+      setSvgText(fluxT, i >= 0 ? 'Red arrives: flux ∝ current' : 'Ox arrives: flux ∝ current'); fluxT.setAttribute('style', 'font-size:10px;fill:' + (i >= 0 ? 'var(--heat)' : 'var(--accent)'));
+      var E = o.E[k], surf = pr.p[0][1], ratio = (1 - surf) / Math.max(1e-6, surf);
+      gred.setAttribute('width', (gb.w * Math.max(0.005, surf)).toFixed(1)); setSvgText(gtxt, 'Ox/Red = ' + (ratio >= 1e4 ? 'over 10⁴' : ratio <= 1e-4 ? 'under 10⁻⁴' : ratio >= 100 ? ratio.toFixed(0) : ratio >= 10 ? ratio.toFixed(1) : ratio.toPrecision(2)) + ' = e^{F(E − E°′)/RT}');
       setSvgText(stv, (o.t[k]).toFixed(1) + ' s');
-      var E = o.E[k], surf = pr.p[0][1];
-      read.innerHTML = 'At t = ' + o.t[k].toFixed(1) + ' s the electrode is at <b>' + (E * 1000).toFixed(0) + ' mV</b> from E°′ on the ' + (k < half ? 'forward (positive)' : 'reverse (negative)') + ' sweep; at its surface Ox/Red = ' + ((1 - surf) / Math.max(1e-6, surf)).toPrecision(2) + ', as the Nernst equation demands. Current <b>' + uA(o.i[k]).toFixed(1) + ' µA</b>; the depleted layer reaches about ' + (thick * 1e4).toFixed(0) + ' µm. Simulated: 1 mM, D = 10⁻⁵ cm²/s, 3 mm disc, 100 mV/s.';
+      read.innerHTML = 'At t = ' + o.t[k].toFixed(1) + ' s the electrode is at <b>' + (E * 1000).toFixed(0) + ' mV</b> from E°′ on the ' + (k < half ? 'forward (positive)' : 'reverse (negative)') + ' sweep; at its surface Ox/Red = ' + ratio.toPrecision(2) + ', as the Nernst equation demands. Current <b>' + uA(i).toFixed(1) + ' µA</b>, set by the slope of the Red profile at the surface; the depleted layer reaches about ' + (thick * 1e4).toFixed(0) + ' µm. Simulated: 1 mM, D = 10⁻⁵ cm²/s, 3 mm disc, 100 mV/s.';
     }
     on(st, 'input', place);
     steps(fig, [
       { text: '<b>A to C.</b> The potential rises past E°′ (at B the two forms are equal at the surface) and Red is oxidized as fast as it arrives. The current peaks at C, about 29 mV past E°′.', on: function () { st.value = Math.round(1000 * iC / n); place(); } },
-      { text: '<b>C to D.</b> The surface is now emptied of Red; the current is set by diffusion from ever farther away, and as the depleted layer grows the current falls.', on: function () { st.value = Math.round(1000 * (iD - 10) / n); place(); } },
+      { text: '<b>C to D.</b> The surface is now emptied of Red; the current is set by diffusion from ever farther away, and as the depleted layer (shaded) grows the current falls.', on: function () { st.value = Math.round(1000 * (iD - 10) / n); place(); } },
       { text: '<b>D to G.</b> The sweep turns back; the Ox made on the way out is reduced again, giving the negative peak F. For a reversible couple the peaks are 57 mV apart at 25 °C, and their midpoint, E½, estimates E°′.', on: function () { st.value = Math.round(1000 * iF / n); place(); } }
     ]);
     place();
+    var loop = anim(fig, function (dt) { if (dt === 0) return; var v = (+st.value + dt * 70) % 1000; st.value = Math.round(v); place(); }, { autoplay: true, stepDt: 0.5 });
+    bind(fig, loop);
   });
 
   /* f11-21: scan rate, the Randles-Sevcik equation, and the capacitive background */

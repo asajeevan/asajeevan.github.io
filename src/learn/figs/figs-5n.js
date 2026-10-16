@@ -657,9 +657,10 @@
   function toyU(st, x) { var lo = -3, hi = 7; for (var n = 0; n < 60; n++) { var m = 0.5 * (lo + hi); if (toyX(st, m) > x) lo = m; else hi = m; } return 0.5 * (lo + hi); }
   register('f5-9', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sLLI = fig.querySelector('.lli'), sLAM = fig.querySelector('.lam'), vLLI = fig.querySelector('.lli-val'), vLAM = fig.querySelector('.lam-val');
-    var A = { x0: 50, y0: 128, x1: 290, y1: 28 }, B = { x0: 50, y0: 296, x1: 290, y1: 176 }, Cb = { x0: 344, y0: 128, x1: 505, y1: 28 }, D = { x0: 382, y0: 296, x1: 500, y1: 178 };
+    var A = { x0: 50, y0: 132, x1: 290, y1: 28 }, A2 = { x0: 50, y0: 190, x1: 290, y1: 150 }, B = { x0: 50, y0: 352, x1: 290, y1: 226 }, Cb = { x0: 344, y0: 150, x1: 505, y1: 28 }, D = { x0: 382, y0: 352, x1: 500, y1: 226 };
     var Vlo = 3.0, Vhi = 4.2, Cn0 = 1.15, QMAX = 1.0, DVMAX = 12, DQMAX = 5;
-    plotAxes(g, A, { yt: [3.0, 3.6, 4.2], ylo: 2.9, yhi: 4.3, yf: function (v) { return v.toFixed(1); }, ylab: 'cell voltage V', xlab: 'charge Q →' });
+    plotAxes(g, A, { yt: [3.0, 3.6, 4.2], ylo: 2.9, yhi: 4.3, yf: function (v) { return v.toFixed(1); }, ylab: 'cell voltage V, and U_{pos} (thin, blue)' });
+    plotAxes(g, A2, { yt: [0, 0.3, 0.6], ylo: -0.02, yhi: 0.7, yf: function (v) { return v.toFixed(1); }, ylab: 'U_{neg} against Li', xlab: 'charge Q →' });
     plotAxes(g, B, { ylab: 'dV/dQ', xlab: 'charge Q →' });
     plotAxes(g, Cb, { ylab: 'dQ/dV' });
     [3.0, 3.6, 4.2].forEach(function (v) { txt(g, Cb.x0 + (v - Vlo) / (Vhi - Vlo) * (Cb.x1 - Cb.x0), Cb.y0 + 15, v.toFixed(1) + (v > 4 ? ' V' : ''), '', v > 4 ? 'end' : 'middle'); });
@@ -674,9 +675,10 @@
     var pVf = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '3 3' }, g), pV = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 2 }, g);
     var pP = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.4 }, g), pN = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.4 }, g), pT = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 2 }, g);
     var pCf = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '3 3' }, g), pC = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 2 }, g);
-    txt(g, B.x1 - 4, B.y1 + 12, 'from the positive', 'amber', 'end'); txt(g, B.x1 - 4, B.y1 + 30, 'from the negative', 'cyan', 'end');
+        var pUp = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.3 }, g), pUn = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.8 }, g), pkG = el('g', {}, g);
+    var YA2 = function (v) { return A2.y0 - (v + 0.02) / 0.72 * (A2.y0 - A2.y1); };
     var dots = [0, 1, 2, 3].map(function () { return el('circle', { r: 4, 'class': 'ion' }, g); });
-    badge(g, A.x0 + 18, A.y1 + 12, 1); badge(g, B.x0 + 18, B.y1 + 14, 2); badge(g, Cb.x0 + 18, Cb.y1 + 14, 3); badge(g, D.x0 - 18, D.y0 - 22, 4);
+    badge(g, A.x0 + 18, A.y1 + 14, 1); badge(g, B.x0 + 18, B.y1 + 14, 2); badge(g, Cb.x0 + 18, Cb.y1 + 14, 3); badge(g, D.x0 - 18, D.y0 - 22, 4);
     var cur = null, fresh = null, kq = 0.5;
     function cell(LLI, LAM) {
       var Cp = 1 - LAM, nLi = 1 - LLI;
@@ -687,7 +689,7 @@
         var Q = q0 + (q1 - q0) * i / N, h = (q1 - q0) / N * 0.25;
         var up = toyU(TOY.pos, (nLi - Q) / Cp), un = toyU(TOY.neg, Q / Cn0);
         var dup = (toyU(TOY.pos, (nLi - Q - h) / Cp) - toyU(TOY.pos, (nLi - Q + h) / Cp)) / (2 * h), dun = (toyU(TOY.neg, (Q - h) / Cn0) - toyU(TOY.neg, (Q + h) / Cn0)) / (2 * h);
-        pts.push({ Q: Q - q0, V: up - un, dP: dup, dN: dun, dV: dup + dun, xn: Q / Cn0, yp: 1 - (nLi - Q) / Cp });
+        pts.push({ Q: Q - q0, V: up - un, up: up, un: un, dP: dup, dN: dun, dV: dup + dun, xn: Q / Cn0, yp: 1 - (nLi - Q) / Cp });
       }
       return { pts: pts, cap: q1 - q0, a: Cn0 / Cp, b: 1 - nLi / Cp, q0: q0, q1: q1, Cp: Cp, nLi: nLi };
     }
@@ -702,6 +704,11 @@
       var P1 = cur.pts, F1 = fresh.pts;
       pVf.setAttribute('d', polyD(F1.map(function (p) { return XA(p.Q); }), F1.map(function (p) { return YA(p.V); })));
       pV.setAttribute('d', polyD(P1.map(function (p) { return XA(p.Q); }), P1.map(function (p) { return YA(p.V); })));
+      pUp.setAttribute('d', polyD(P1.map(function (p) { return XA(p.Q); }), P1.map(function (p) { return YA(Math.min(4.3, p.up)); })));
+      pUn.setAttribute('d', polyD(P1.map(function (p) { return XA(p.Q); }), P1.map(function (p) { return YA2(Math.min(0.7, p.un)); })));
+      // mark each dV/dQ peak with the colour of the electrode that makes it
+      clear(pkG);
+      for (var i = 2; i < P1.length - 2; i++) { var d = P1[i].dV; if (d > 1.2 && d > P1[i - 1].dV && d >= P1[i + 1].dV && d > P1[i - 2].dV && d >= P1[i + 2].dV) el('circle', { cx: XB(P1[i].Q), cy: Math.max(B.y1 + 6, YB(d) - 7), r: 3.5, fill: P1[i].dP > P1[i].dN ? 'var(--accent)' : 'var(--second)', stroke: '#fff' }, pkG); }
       pP.setAttribute('d', polyD(P1.map(function (p) { return XB(p.Q); }), P1.map(function (p) { return YB(p.dP); })));
       pN.setAttribute('d', polyD(P1.map(function (p) { return XB(p.Q); }), P1.map(function (p) { return YB(p.dN); })));
       pT.setAttribute('d', polyD(P1.map(function (p) { return XB(p.Q); }), P1.map(function (p) { return YB(p.dV); })));

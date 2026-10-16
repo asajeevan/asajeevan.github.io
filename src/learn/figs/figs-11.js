@@ -45,27 +45,75 @@
 
   /* ===== 11.1 One cell, many questions ===== */
   register('f11-1', function (fig) {
-    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
-    var P4 = [
-      { x: 20, y: 20, t: 'cycling at constant current', q: 'How much charge, at what voltage, for how many cycles?', where: '{{ch:polarization}}' },
-      { x: 270, y: 20, t: 'a current pulse', q: 'How big is the resistance, read after how long?', where: 'figure {{fig:f11-2}}' },
-      { x: 20, y: 170, t: 'GITT: pulse and rest', q: 'How fast does lithium move inside the solid?', where: '{{ch:lab/gitt}}' },
-      { x: 270, y: 170, t: 'impedance spectroscopy', q: 'Which part resists, and how fast does it answer?', where: '{{ch:lab/eis-measurement}} and {{ch:lab/eis-analysis}}' }
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sel = 0, ph = 0.3;
+    // six stations round one cell: what we impose (left sparkline) and what comes back (right sparkline)
+    var ST = [
+      { t: 'Galvanostatic cycling', k: 'Lab 1', q: 'How much charge, at what voltage, for how many cycles?', where: '{{ch:lab/cell-testing}}', thief: 'lost lithium and lost material, from the capacity and its slopes',
+        imp: function (u) { return u < 0.5 ? 0.8 : 0.2; }, impL: 'I', res: function (u) { return u < 0.5 ? 0.25 + 0.45 * u + 0.4 * Math.pow(2 * u, 8) * 0.5 : 0.75 - 0.45 * (u - 0.5) - 0.4 * Math.pow(2 * (u - 0.5), 8) * 0.5; }, resL: 'V' },
+      { t: 'Cyclic voltammetry', k: 'Lab 2', q: 'Where does it react, and how fast?', where: '{{ch:lab/cyclic-voltammetry}}', thief: 'a surface film or a sluggish reaction, from peaks that drift apart',
+        imp: function (u) { return u < 0.5 ? 0.2 + 1.2 * u : 1.4 - 1.2 * u; }, impL: 'E', res: function (u) { var e = u < 0.5 ? 0.2 + 1.2 * u : 1.4 - 1.2 * u; return 0.5 + (u < 0.5 ? 0.42 * Math.exp(-Math.pow((e - 0.95) / 0.16, 2)) - 0.02 : -0.42 * Math.exp(-Math.pow((e - 0.65) / 0.16, 2)) + 0.02); }, resL: 'i' },
+      { t: 'GITT', k: 'Lab 3', q: 'How fast does lithium move inside the solid?', where: '{{ch:lab/gitt}}', thief: 'slowed transport in a cracked or coated particle',
+        imp: function (u) { return (u % 0.34) < 0.12 ? 0.75 : 0.2; }, impL: 'I', res: function (u) { var k = Math.floor(u / 0.34), f = u % 0.34, base = 0.25 + 0.17 * k; return f < 0.12 ? base + 0.08 + 0.1 * Math.sqrt(f / 0.12) : base + 0.17 * 0.5 - 0.09 * Math.exp(-(f - 0.12) / 0.06) + 0.0; }, resL: 'V' },
+      { t: 'Impedance', k: 'Labs 4 and 5', q: 'Which part resists, and how fast does it answer?', where: '{{ch:lab/eis-measurement}}', thief: 'a thickening interface or a lost contact, from an arc that grows',
+        imp: function (u) { return 0.5 + 0.35 * Math.sin(u * 6 * Math.PI * (0.4 + u)); }, impL: 'E, f', res: function (u) { return 0.5 + 0.28 * Math.sin(u * 6 * Math.PI * (0.4 + u) - 0.6); }, resL: 'i', nyq: true },
+      { t: 'A current pulse', k: 'Figure L3.1', q: 'How big is the resistance, read after how long?', where: '{{ch:lab/gitt}}', thief: 'resistance that has grown, from the drop at a fixed time',
+        imp: function (u) { return u < 0.2 ? 0.2 : 0.75; }, impL: 'I', res: function (u) { return u < 0.2 ? 0.25 : 0.55 + 0.2 * (1 - Math.exp(-(u - 0.2) * 12)) + 0.15 * Math.sqrt(u - 0.2); }, resL: 'V' },
+      { t: 'Post-mortem', k: 'Lab 6', q: 'When the outside is not enough, what is inside?', where: '{{ch:lab/post-mortem}}', thief: 'plated lithium, cracks, deposits and lost adhesion, seen directly',
+        imp: null, impL: '', res: null, resL: '' }
     ];
-    var W = 230, H = 130;
-    P4.forEach(function (p, i) {
-      el('rect', { x: p.x, y: p.y, width: W, height: H, rx: 6, fill: 'var(--panel-2)', 'fill-opacity': '.5', stroke: 'var(--line-2)' }, g);
-      txt(g, p.x + 10, p.y + 18, p.t, 'strong', 'start');
-      var px = p.x + 16, py = p.y + 100, d = '', k, j, u;
-      if (i === 0) { for (var cyc = 0; cyc < 2; cyc++) { var ox = px + cyc * 96; for (k = 0; k <= 24; k++) { u = k / 24; d += (cyc + k ? 'L' : 'M') + (ox + u * 48).toFixed(1) + ',' + (py - 62 + 22 * u + 22 * Math.pow(u, 8) + cyc * 3).toFixed(1); } for (k = 0; k <= 24; k++) { u = k / 24; d += 'L' + (ox + 48 + u * 48).toFixed(1) + ',' + (py - 18 - 22 * u - 22 * Math.pow(u, 8) + cyc * 3).toFixed(1); } } }
-      if (i === 1) { d = 'M' + px + ',' + (py - 10) + ' H' + (px + 40) + ' V' + (py - 40); for (k = 0; k <= 40; k++) { var lt = k / 40; d += ' L' + (px + 40 + lt * 150).toFixed(1) + ',' + (py - 40 - 20 * (1 - Math.exp(-lt * 6)) - 14 * Math.sqrt(lt)).toFixed(1); } }
-      if (i === 2) { d = 'M' + px + ',' + (py - 20); for (k = 0; k < 3; k++) { var x = px + k * 62; d += ' L' + (x + 6) + ',' + (py - 20 - k * 12) + ' L' + (x + 6) + ',' + (py - 32 - k * 12); for (j = 1; j <= 6; j++) d += ' L' + (x + 6 + j * 3) + ',' + (py - 32 - k * 12 - 10 * Math.sqrt(j / 6)).toFixed(1); d += ' L' + (x + 24) + ',' + (py - 34 - k * 12); for (j = 1; j <= 10; j++) d += ' L' + (x + 24 + j * 3.6).toFixed(1) + ',' + (py - 32 - (k + 1) * 12 + 12 * Math.exp(-j / 2.5)).toFixed(1); } }
-      if (i === 3) { for (k = 0; k <= 50; k++) { var a = Math.PI * k / 50; d += (k ? 'L' : 'M') + (px + 30 + 34 - 34 * Math.cos(a)).toFixed(1) + ',' + (py - 34 * Math.sin(a) * 0.9).toFixed(1); } d += ' L' + (px + 170) + ',' + (py - 60); }
-      el('path', { d: d, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2 }, g);
-      txt(g, p.x + 10, p.y + H - 6, p.where, '', 'start');
-      badge(g, p.x + W - 14, p.y + 14, i + 1);
+    var CX = 260, CY = 178;
+    // the cell in the middle: a coin cell seen from above, with its leads
+    el('circle', { cx: CX, cy: CY, r: 34, fill: M('steel'), stroke: '#8B95A0', filter: 'url(#fx-lift)' }, g);
+    el('circle', { cx: CX, cy: CY, r: 24, fill: 'none', stroke: '#8B95A0', 'stroke-opacity': .5 }, g);
+    txt(g, CX, CY + 4, '+', 'strong', 'middle', { style: 'font-size:16px' });
+    txt(g, CX, CY + 52, 'one cell', '', 'middle', { style: 'font-size:11px' });
+    var POS = [[14, 14], [292, 14], [14, 112], [292, 112], [14, 262], [292, 262]], W = 214, H = 80, cards = [], curs = [];
+    ST.forEach(function (s, k) {
+      var x = POS[k][0], y = POS[k][1], grp = el('g', { tabindex: 0, role: 'button', 'aria-label': plain(s.t), style: 'cursor:pointer' }, g);
+      var card = el('rect', { x: x, y: y, width: W, height: H, rx: 8, fill: 'var(--panel-2)', 'fill-opacity': .6, stroke: 'var(--line-2)' }, grp);
+      txt(grp, x + 10, y + 16, s.t, 'strong', 'start', { style: 'font-size:11.5px' });
+      txt(grp, x + W - 8, y + 16, s.k, 'tag', 'end', { style: 'font-size:10px' });
+      // the lead from the card to the cell
+      var lx = x < CX ? x + W : x, ly = y + H / 2; el('path', { d: 'M' + lx + ',' + ly + ' Q' + ((lx + CX) / 2) + ',' + ly + ' ' + (CX + (x < CX ? -36 : 36)) + ',' + CY, fill: 'none', stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, g);
+      if (s.imp) {
+        var bx = x + 10, by = y + 70, w = 86, h = 40;
+        [[bx, s.imp, 'var(--muted)', s.impL, 'impose'], [bx + 112, s.res, 'var(--accent)', s.resL, 'measure']].forEach(function (q, j) {
+          var d = '';
+          if (s.nyq && j === 1) { for (var m = 0; m <= 40; m++) { var a2 = Math.PI * m / 40; d += (m ? 'L' : 'M') + (q[0] + 8 + 30 - 30 * Math.cos(a2)).toFixed(1) + ',' + (by - 30 * Math.sin(a2) * 0.8).toFixed(1); } d += ' L' + (q[0] + w) + ',' + (by - 36); }
+          else for (var m2 = 0; m2 <= 60; m2++) { var u = m2 / 60; d += (m2 ? 'L' : 'M') + (q[0] + u * w).toFixed(1) + ',' + (by - q[1](u) * h).toFixed(1); }
+          el('line', { x1: q[0], x2: q[0] + w, y1: by + 2, y2: by + 2, stroke: 'var(--line-2)' }, grp);
+          el('path', { d: d, fill: 'none', stroke: q[2], 'stroke-width': 1.6 }, grp);
+          txt(grp, q[0], by + 2 - h - 2, q[3], '', 'start', { style: 'font-size:9px;fill:' + q[2] });
+          txt(grp, q[0] + w, by + 2 - h - 2, q[4], '', 'end', { style: 'font-size:9px;fill:' + q[2] });
+        });
+        arrow(grp, bx + w + 6, by - 20, bx + 112 - 6, by - 20, 'var(--muted)', 1.2);
+        curs.push([el('circle', { r: 3, fill: 'var(--electron)', stroke: 'var(--electron-edge)' }, grp), el('circle', { r: 3, fill: 'var(--electron)', stroke: 'var(--electron-edge)' }, grp), s, bx, by, w, h]);
+      } else {
+        // post-mortem: the opened cell and a magnifier
+        el('rect', { x: x + 14, y: y + 34, width: 60, height: 34, rx: 3, fill: MV('graphite') }, grp); el('rect', { x: x + 14, y: y + 34, width: 60, height: 34, rx: 3, fill: 'none', stroke: '#1C1F23' }, grp);
+        [[x + 26, y + 44], [x + 48, y + 56], [x + 62, y + 42]].forEach(function (p) { el('circle', { cx: p[0], cy: p[1], r: 3.5, fill: '#C9A14A' }, grp); });
+        el('circle', { cx: x + 120, cy: y + 50, r: 16, fill: 'rgba(255,255,255,.5)', stroke: 'var(--accent)', 'stroke-width': 2 }, grp); el('line', { x1: x + 132, y1: y + 62, x2: x + 146, y2: y + 76, stroke: 'var(--accent)', 'stroke-width': 3, 'stroke-linecap': 'round' }, grp);
+        txt(grp, x + 150, y + 54, 'open, look', '', 'start', { style: 'font-size:9px;fill:var(--accent)' });
+      }
+      cards.push(card); pressable(grp, function () { sel = k; place(); });
     });
-    steps(fig, P4.map(function (p) { return { text: '<b>' + p.t.charAt(0).toUpperCase() + p.t.slice(1) + '</b>. ' + p.q, on: function () { read.innerHTML = 'The question this measurement answers: <b>' + p.q + '</b> (' + p.where + ')'; } }; }));
+    function place() {
+      cards.forEach(function (c, k) { c.setAttribute('stroke', k === sel ? 'var(--accent)' : 'var(--line-2)'); c.setAttribute('stroke-width', k === sel ? 2 : 1); });
+      var s = ST[sel];
+      read.innerHTML = '<b>' + s.t + '</b> (' + s.where + '). The question: <b>' + s.q + '</b> The thief it helps to catch: ' + s.thief + '.';
+    }
+    function tick(dt) {
+      ph = (ph + dt / 6) % 1;
+      curs.forEach(function (c) { var s = c[2], bx = c[3], by = c[4], w = c[5], h = c[6]; c[0].setAttribute('cx', bx + ph * w); c[0].setAttribute('cy', by - s.imp(ph) * h); if (s.nyq) { var a2 = Math.PI * Math.min(1, ph * 1.3); c[1].setAttribute('cx', ph < 0.77 ? bx + 112 + 8 + 30 - 30 * Math.cos(a2) : bx + 112 + 68 + (ph - 0.77) / 0.23 * 18); c[1].setAttribute('cy', ph < 0.77 ? by - 30 * Math.sin(a2) * 0.8 : by - (ph - 0.77) / 0.23 * 36); } else { c[1].setAttribute('cx', bx + 112 + ph * w); c[1].setAttribute('cy', by - s.res(ph) * h); } });
+    }
+    steps(fig, [
+      { text: 'Every measurement <b>imposes</b> one thing on the cell and <b>measures</b> another: a current and read the voltage, or a voltage and read the current. The left trace in each card is what we impose, the right what comes back.', on: function () { sel = 0; place(); } },
+      { text: 'Three measurements impose a <b>current</b>: steady for cycling, a step for the pulse, pulses and rests for GITT. Two impose a <b>potential</b>: a sweep for voltammetry, a small sine at many frequencies for impedance.', on: function () { sel = 2; place(); } },
+      { text: 'The sixth does neither: when the outside is not enough, the cell is opened. Choose the question first; the handbook takes the six in this order.', on: function () { sel = 5; place(); } }
+    ]);
+    place();
+    var loop = anim(fig, tick, { autoplay: true, stepDt: 0.4 });
+    bind(fig, loop);
   });
 
   /* ===== 11.2 A current pulse: the resistance depends on when you read it ===== */

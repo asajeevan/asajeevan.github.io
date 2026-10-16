@@ -392,27 +392,75 @@
 
   /* figs-11.js */
   register('f11-1', function (fig) {
-    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout');
-    var P4 = [
-      { x: 20, y: 20, t: 'cycling at constant current', q: 'How much charge, at what voltage, for how many cycles?', where: 'chapter 5' },
-      { x: 270, y: 20, t: 'a current pulse', q: 'How big is the resistance, read after how long?', where: 'figure L3.1' },
-      { x: 20, y: 170, t: 'GITT: pulse and rest', q: 'How fast does lithium move inside the solid?', where: 'Lab 3' },
-      { x: 270, y: 170, t: 'impedance spectroscopy', q: 'Which part resists, and how fast does it answer?', where: 'Lab 4 and Lab 5' }
+    var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sel = 0, ph = 0.3;
+    // six stations round one cell: what we impose (left sparkline) and what comes back (right sparkline)
+    var ST = [
+      { t: 'Galvanostatic cycling', k: 'Lab 1', q: 'How much charge, at what voltage, for how many cycles?', where: 'Lab 1', thief: 'lost lithium and lost material, from the capacity and its slopes',
+        imp: function (u) { return u < 0.5 ? 0.8 : 0.2; }, impL: 'I', res: function (u) { return u < 0.5 ? 0.25 + 0.45 * u + 0.4 * Math.pow(2 * u, 8) * 0.5 : 0.75 - 0.45 * (u - 0.5) - 0.4 * Math.pow(2 * (u - 0.5), 8) * 0.5; }, resL: 'V' },
+      { t: 'Cyclic voltammetry', k: 'Lab 2', q: 'Where does it react, and how fast?', where: 'Lab 2', thief: 'a surface film or a sluggish reaction, from peaks that drift apart',
+        imp: function (u) { return u < 0.5 ? 0.2 + 1.2 * u : 1.4 - 1.2 * u; }, impL: 'E', res: function (u) { var e = u < 0.5 ? 0.2 + 1.2 * u : 1.4 - 1.2 * u; return 0.5 + (u < 0.5 ? 0.42 * Math.exp(-Math.pow((e - 0.95) / 0.16, 2)) - 0.02 : -0.42 * Math.exp(-Math.pow((e - 0.65) / 0.16, 2)) + 0.02); }, resL: 'i' },
+      { t: 'GITT', k: 'Lab 3', q: 'How fast does lithium move inside the solid?', where: 'Lab 3', thief: 'slowed transport in a cracked or coated particle',
+        imp: function (u) { return (u % 0.34) < 0.12 ? 0.75 : 0.2; }, impL: 'I', res: function (u) { var k = Math.floor(u / 0.34), f = u % 0.34, base = 0.25 + 0.17 * k; return f < 0.12 ? base + 0.08 + 0.1 * Math.sqrt(f / 0.12) : base + 0.17 * 0.5 - 0.09 * Math.exp(-(f - 0.12) / 0.06) + 0.0; }, resL: 'V' },
+      { t: 'Impedance', k: 'Labs 4 and 5', q: 'Which part resists, and how fast does it answer?', where: 'Lab 4', thief: 'a thickening interface or a lost contact, from an arc that grows',
+        imp: function (u) { return 0.5 + 0.35 * Math.sin(u * 6 * Math.PI * (0.4 + u)); }, impL: 'E, f', res: function (u) { return 0.5 + 0.28 * Math.sin(u * 6 * Math.PI * (0.4 + u) - 0.6); }, resL: 'i', nyq: true },
+      { t: 'A current pulse', k: 'Figure L3.1', q: 'How big is the resistance, read after how long?', where: 'Lab 3', thief: 'resistance that has grown, from the drop at a fixed time',
+        imp: function (u) { return u < 0.2 ? 0.2 : 0.75; }, impL: 'I', res: function (u) { return u < 0.2 ? 0.25 : 0.55 + 0.2 * (1 - Math.exp(-(u - 0.2) * 12)) + 0.15 * Math.sqrt(u - 0.2); }, resL: 'V' },
+      { t: 'Post-mortem', k: 'Lab 6', q: 'When the outside is not enough, what is inside?', where: 'Lab 6', thief: 'plated lithium, cracks, deposits and lost adhesion, seen directly',
+        imp: null, impL: '', res: null, resL: '' }
     ];
-    var W = 230, H = 130;
-    P4.forEach(function (p, i) {
-      el('rect', { x: p.x, y: p.y, width: W, height: H, rx: 6, fill: 'var(--panel-2)', 'fill-opacity': '.5', stroke: 'var(--line-2)' }, g);
-      txt(g, p.x + 10, p.y + 18, p.t, 'strong', 'start');
-      var px = p.x + 16, py = p.y + 100, d = '', k, j, u;
-      if (i === 0) { for (var cyc = 0; cyc < 2; cyc++) { var ox = px + cyc * 96; for (k = 0; k <= 24; k++) { u = k / 24; d += (cyc + k ? 'L' : 'M') + (ox + u * 48).toFixed(1) + ',' + (py - 62 + 22 * u + 22 * Math.pow(u, 8) + cyc * 3).toFixed(1); } for (k = 0; k <= 24; k++) { u = k / 24; d += 'L' + (ox + 48 + u * 48).toFixed(1) + ',' + (py - 18 - 22 * u - 22 * Math.pow(u, 8) + cyc * 3).toFixed(1); } } }
-      if (i === 1) { d = 'M' + px + ',' + (py - 10) + ' H' + (px + 40) + ' V' + (py - 40); for (k = 0; k <= 40; k++) { var lt = k / 40; d += ' L' + (px + 40 + lt * 150).toFixed(1) + ',' + (py - 40 - 20 * (1 - Math.exp(-lt * 6)) - 14 * Math.sqrt(lt)).toFixed(1); } }
-      if (i === 2) { d = 'M' + px + ',' + (py - 20); for (k = 0; k < 3; k++) { var x = px + k * 62; d += ' L' + (x + 6) + ',' + (py - 20 - k * 12) + ' L' + (x + 6) + ',' + (py - 32 - k * 12); for (j = 1; j <= 6; j++) d += ' L' + (x + 6 + j * 3) + ',' + (py - 32 - k * 12 - 10 * Math.sqrt(j / 6)).toFixed(1); d += ' L' + (x + 24) + ',' + (py - 34 - k * 12); for (j = 1; j <= 10; j++) d += ' L' + (x + 24 + j * 3.6).toFixed(1) + ',' + (py - 32 - (k + 1) * 12 + 12 * Math.exp(-j / 2.5)).toFixed(1); } }
-      if (i === 3) { for (k = 0; k <= 50; k++) { var a = Math.PI * k / 50; d += (k ? 'L' : 'M') + (px + 30 + 34 - 34 * Math.cos(a)).toFixed(1) + ',' + (py - 34 * Math.sin(a) * 0.9).toFixed(1); } d += ' L' + (px + 170) + ',' + (py - 60); }
-      el('path', { d: d, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2 }, g);
-      txt(g, p.x + 10, p.y + H - 6, p.where, '', 'start');
-      badge(g, p.x + W - 14, p.y + 14, i + 1);
+    var CX = 260, CY = 178;
+    // the cell in the middle: a coin cell seen from above, with its leads
+    el('circle', { cx: CX, cy: CY, r: 34, fill: M('steel'), stroke: '#8B95A0', filter: 'url(#fx-lift)' }, g);
+    el('circle', { cx: CX, cy: CY, r: 24, fill: 'none', stroke: '#8B95A0', 'stroke-opacity': .5 }, g);
+    txt(g, CX, CY + 4, '+', 'strong', 'middle', { style: 'font-size:16px' });
+    txt(g, CX, CY + 52, 'one cell', '', 'middle', { style: 'font-size:11px' });
+    var POS = [[14, 14], [292, 14], [14, 112], [292, 112], [14, 262], [292, 262]], W = 214, H = 80, cards = [], curs = [];
+    ST.forEach(function (s, k) {
+      var x = POS[k][0], y = POS[k][1], grp = el('g', { tabindex: 0, role: 'button', 'aria-label': plain(s.t), style: 'cursor:pointer' }, g);
+      var card = el('rect', { x: x, y: y, width: W, height: H, rx: 8, fill: 'var(--panel-2)', 'fill-opacity': .6, stroke: 'var(--line-2)' }, grp);
+      txt(grp, x + 10, y + 16, s.t, 'strong', 'start', { style: 'font-size:11.5px' });
+      txt(grp, x + W - 8, y + 16, s.k, 'tag', 'end', { style: 'font-size:10px' });
+      // the lead from the card to the cell
+      var lx = x < CX ? x + W : x, ly = y + H / 2; el('path', { d: 'M' + lx + ',' + ly + ' Q' + ((lx + CX) / 2) + ',' + ly + ' ' + (CX + (x < CX ? -36 : 36)) + ',' + CY, fill: 'none', stroke: 'var(--line-2)', 'stroke-dasharray': '3 4' }, g);
+      if (s.imp) {
+        var bx = x + 10, by = y + 70, w = 86, h = 40;
+        [[bx, s.imp, 'var(--muted)', s.impL, 'impose'], [bx + 112, s.res, 'var(--accent)', s.resL, 'measure']].forEach(function (q, j) {
+          var d = '';
+          if (s.nyq && j === 1) { for (var m = 0; m <= 40; m++) { var a2 = Math.PI * m / 40; d += (m ? 'L' : 'M') + (q[0] + 8 + 30 - 30 * Math.cos(a2)).toFixed(1) + ',' + (by - 30 * Math.sin(a2) * 0.8).toFixed(1); } d += ' L' + (q[0] + w) + ',' + (by - 36); }
+          else for (var m2 = 0; m2 <= 60; m2++) { var u = m2 / 60; d += (m2 ? 'L' : 'M') + (q[0] + u * w).toFixed(1) + ',' + (by - q[1](u) * h).toFixed(1); }
+          el('line', { x1: q[0], x2: q[0] + w, y1: by + 2, y2: by + 2, stroke: 'var(--line-2)' }, grp);
+          el('path', { d: d, fill: 'none', stroke: q[2], 'stroke-width': 1.6 }, grp);
+          txt(grp, q[0], by + 2 - h - 2, q[3], '', 'start', { style: 'font-size:9px;fill:' + q[2] });
+          txt(grp, q[0] + w, by + 2 - h - 2, q[4], '', 'end', { style: 'font-size:9px;fill:' + q[2] });
+        });
+        arrow(grp, bx + w + 6, by - 20, bx + 112 - 6, by - 20, 'var(--muted)', 1.2);
+        curs.push([el('circle', { r: 3, fill: 'var(--electron)', stroke: 'var(--electron-edge)' }, grp), el('circle', { r: 3, fill: 'var(--electron)', stroke: 'var(--electron-edge)' }, grp), s, bx, by, w, h]);
+      } else {
+        // post-mortem: the opened cell and a magnifier
+        el('rect', { x: x + 14, y: y + 34, width: 60, height: 34, rx: 3, fill: MV('graphite') }, grp); el('rect', { x: x + 14, y: y + 34, width: 60, height: 34, rx: 3, fill: 'none', stroke: '#1C1F23' }, grp);
+        [[x + 26, y + 44], [x + 48, y + 56], [x + 62, y + 42]].forEach(function (p) { el('circle', { cx: p[0], cy: p[1], r: 3.5, fill: '#C9A14A' }, grp); });
+        el('circle', { cx: x + 120, cy: y + 50, r: 16, fill: 'rgba(255,255,255,.5)', stroke: 'var(--accent)', 'stroke-width': 2 }, grp); el('line', { x1: x + 132, y1: y + 62, x2: x + 146, y2: y + 76, stroke: 'var(--accent)', 'stroke-width': 3, 'stroke-linecap': 'round' }, grp);
+        txt(grp, x + 150, y + 54, 'open, look', '', 'start', { style: 'font-size:9px;fill:var(--accent)' });
+      }
+      cards.push(card); pressable(grp, function () { sel = k; place(); });
     });
-    steps(fig, P4.map(function (p) { return { text: '<b>' + p.t.charAt(0).toUpperCase() + p.t.slice(1) + '</b>. ' + p.q, on: function () { read.innerHTML = 'The question this measurement answers: <b>' + p.q + '</b> (' + p.where + ')'; } }; }));
+    function place() {
+      cards.forEach(function (c, k) { c.setAttribute('stroke', k === sel ? 'var(--accent)' : 'var(--line-2)'); c.setAttribute('stroke-width', k === sel ? 2 : 1); });
+      var s = ST[sel];
+      read.innerHTML = '<b>' + s.t + '</b> (' + s.where + '). The question: <b>' + s.q + '</b> The thief it helps to catch: ' + s.thief + '.';
+    }
+    function tick(dt) {
+      ph = (ph + dt / 6) % 1;
+      curs.forEach(function (c) { var s = c[2], bx = c[3], by = c[4], w = c[5], h = c[6]; c[0].setAttribute('cx', bx + ph * w); c[0].setAttribute('cy', by - s.imp(ph) * h); if (s.nyq) { var a2 = Math.PI * Math.min(1, ph * 1.3); c[1].setAttribute('cx', ph < 0.77 ? bx + 112 + 8 + 30 - 30 * Math.cos(a2) : bx + 112 + 68 + (ph - 0.77) / 0.23 * 18); c[1].setAttribute('cy', ph < 0.77 ? by - 30 * Math.sin(a2) * 0.8 : by - (ph - 0.77) / 0.23 * 36); } else { c[1].setAttribute('cx', bx + 112 + ph * w); c[1].setAttribute('cy', by - s.res(ph) * h); } });
+    }
+    steps(fig, [
+      { text: 'Every measurement <b>imposes</b> one thing on the cell and <b>measures</b> another: a current and read the voltage, or a voltage and read the current. The left trace in each card is what we impose, the right what comes back.', on: function () { sel = 0; place(); } },
+      { text: 'Three measurements impose a <b>current</b>: steady for cycling, a step for the pulse, pulses and rests for GITT. Two impose a <b>potential</b>: a sweep for voltammetry, a small sine at many frequencies for impedance.', on: function () { sel = 2; place(); } },
+      { text: 'The sixth does neither: when the outside is not enough, the cell is opened. Choose the question first; the handbook takes the six in this order.', on: function () { sel = 5; place(); } }
+    ]);
+    place();
+    var loop = anim(fig, tick, { autoplay: true, stepDt: 0.4 });
+    bind(fig, loop);
   });
   /* figs-11ct.js */
   register('f11-28', function (fig) {
@@ -681,9 +729,10 @@
   function toyU(st, x) { var lo = -3, hi = 7; for (var n = 0; n < 60; n++) { var m = 0.5 * (lo + hi); if (toyX(st, m) > x) lo = m; else hi = m; } return 0.5 * (lo + hi); }
   register('f5-9', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sLLI = fig.querySelector('.lli'), sLAM = fig.querySelector('.lam'), vLLI = fig.querySelector('.lli-val'), vLAM = fig.querySelector('.lam-val');
-    var A = { x0: 50, y0: 128, x1: 290, y1: 28 }, B = { x0: 50, y0: 296, x1: 290, y1: 176 }, Cb = { x0: 344, y0: 128, x1: 505, y1: 28 }, D = { x0: 382, y0: 296, x1: 500, y1: 178 };
+    var A = { x0: 50, y0: 132, x1: 290, y1: 28 }, A2 = { x0: 50, y0: 190, x1: 290, y1: 150 }, B = { x0: 50, y0: 352, x1: 290, y1: 226 }, Cb = { x0: 344, y0: 150, x1: 505, y1: 28 }, D = { x0: 382, y0: 352, x1: 500, y1: 226 };
     var Vlo = 3.0, Vhi = 4.2, Cn0 = 1.15, QMAX = 1.0, DVMAX = 12, DQMAX = 5;
-    plotAxes(g, A, { yt: [3.0, 3.6, 4.2], ylo: 2.9, yhi: 4.3, yf: function (v) { return v.toFixed(1); }, ylab: 'cell voltage V', xlab: 'charge Q →' });
+    plotAxes(g, A, { yt: [3.0, 3.6, 4.2], ylo: 2.9, yhi: 4.3, yf: function (v) { return v.toFixed(1); }, ylab: 'cell voltage V, and U_{pos} (thin, blue)' });
+    plotAxes(g, A2, { yt: [0, 0.3, 0.6], ylo: -0.02, yhi: 0.7, yf: function (v) { return v.toFixed(1); }, ylab: 'U_{neg} against Li', xlab: 'charge Q →' });
     plotAxes(g, B, { ylab: 'dV/dQ', xlab: 'charge Q →' });
     plotAxes(g, Cb, { ylab: 'dQ/dV' });
     [3.0, 3.6, 4.2].forEach(function (v) { txt(g, Cb.x0 + (v - Vlo) / (Vhi - Vlo) * (Cb.x1 - Cb.x0), Cb.y0 + 15, v.toFixed(1) + (v > 4 ? ' V' : ''), '', v > 4 ? 'end' : 'middle'); });
@@ -698,9 +747,10 @@
     var pVf = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '3 3' }, g), pV = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 2 }, g);
     var pP = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.4 }, g), pN = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.4 }, g), pT = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 2 }, g);
     var pCf = el('path', { fill: 'none', stroke: 'var(--muted)', 'stroke-dasharray': '3 3' }, g), pC = el('path', { fill: 'none', stroke: 'var(--text)', 'stroke-width': 2 }, g);
-    txt(g, B.x1 - 4, B.y1 + 12, 'from the positive', 'amber', 'end'); txt(g, B.x1 - 4, B.y1 + 30, 'from the negative', 'cyan', 'end');
+        var pUp = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 1.3 }, g), pUn = el('path', { fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.8 }, g), pkG = el('g', {}, g);
+    var YA2 = function (v) { return A2.y0 - (v + 0.02) / 0.72 * (A2.y0 - A2.y1); };
     var dots = [0, 1, 2, 3].map(function () { return el('circle', { r: 4, 'class': 'ion' }, g); });
-    badge(g, A.x0 + 18, A.y1 + 12, 1); badge(g, B.x0 + 18, B.y1 + 14, 2); badge(g, Cb.x0 + 18, Cb.y1 + 14, 3); badge(g, D.x0 - 18, D.y0 - 22, 4);
+    badge(g, A.x0 + 18, A.y1 + 14, 1); badge(g, B.x0 + 18, B.y1 + 14, 2); badge(g, Cb.x0 + 18, Cb.y1 + 14, 3); badge(g, D.x0 - 18, D.y0 - 22, 4);
     var cur = null, fresh = null, kq = 0.5;
     function cell(LLI, LAM) {
       var Cp = 1 - LAM, nLi = 1 - LLI;
@@ -711,7 +761,7 @@
         var Q = q0 + (q1 - q0) * i / N, h = (q1 - q0) / N * 0.25;
         var up = toyU(TOY.pos, (nLi - Q) / Cp), un = toyU(TOY.neg, Q / Cn0);
         var dup = (toyU(TOY.pos, (nLi - Q - h) / Cp) - toyU(TOY.pos, (nLi - Q + h) / Cp)) / (2 * h), dun = (toyU(TOY.neg, (Q - h) / Cn0) - toyU(TOY.neg, (Q + h) / Cn0)) / (2 * h);
-        pts.push({ Q: Q - q0, V: up - un, dP: dup, dN: dun, dV: dup + dun, xn: Q / Cn0, yp: 1 - (nLi - Q) / Cp });
+        pts.push({ Q: Q - q0, V: up - un, up: up, un: un, dP: dup, dN: dun, dV: dup + dun, xn: Q / Cn0, yp: 1 - (nLi - Q) / Cp });
       }
       return { pts: pts, cap: q1 - q0, a: Cn0 / Cp, b: 1 - nLi / Cp, q0: q0, q1: q1, Cp: Cp, nLi: nLi };
     }
@@ -726,6 +776,11 @@
       var P1 = cur.pts, F1 = fresh.pts;
       pVf.setAttribute('d', polyD(F1.map(function (p) { return XA(p.Q); }), F1.map(function (p) { return YA(p.V); })));
       pV.setAttribute('d', polyD(P1.map(function (p) { return XA(p.Q); }), P1.map(function (p) { return YA(p.V); })));
+      pUp.setAttribute('d', polyD(P1.map(function (p) { return XA(p.Q); }), P1.map(function (p) { return YA(Math.min(4.3, p.up)); })));
+      pUn.setAttribute('d', polyD(P1.map(function (p) { return XA(p.Q); }), P1.map(function (p) { return YA2(Math.min(0.7, p.un)); })));
+      // mark each dV/dQ peak with the colour of the electrode that makes it
+      clear(pkG);
+      for (var i = 2; i < P1.length - 2; i++) { var d = P1[i].dV; if (d > 1.2 && d > P1[i - 1].dV && d >= P1[i + 1].dV && d > P1[i - 2].dV && d >= P1[i + 2].dV) el('circle', { cx: XB(P1[i].Q), cy: Math.max(B.y1 + 6, YB(d) - 7), r: 3.5, fill: P1[i].dP > P1[i].dN ? 'var(--accent)' : 'var(--second)', stroke: '#fff' }, pkG); }
       pP.setAttribute('d', polyD(P1.map(function (p) { return XB(p.Q); }), P1.map(function (p) { return YB(p.dP); })));
       pN.setAttribute('d', polyD(P1.map(function (p) { return XB(p.Q); }), P1.map(function (p) { return YB(p.dN); })));
       pT.setAttribute('d', polyD(P1.map(function (p) { return XB(p.Q); }), P1.map(function (p) { return YB(p.dV); })));
@@ -752,6 +807,27 @@
     var loop = anim(fig, function (dt) { if (dt === 0) return; kq += dt / 10; if (kq > 1) kq = 0; place(); }, { autoplay: true, stepDt: 0.4 });
     bind(fig, loop);
   });
+  /* figs-9p.js */
+  var POS = [ // r: 2 good, 1 moderate, 0 poor, -1 not rated (cost: Low = good)
+    { n: 'LCO', f: 'LiCoO₂', fam: 'L', qt: [274], q: 140, ql: '135–140', qk: 'p', r: { cost: 0, en: 1, th: 0, cy: 2 },
+      t: 'The original lithium-ion positive electrode, still in phones and laptops. In practice it gives up only about half its lithium, about 135 to 140 mAh/g; structural degradation at high states of charge limits it to half its theoretical capacity. Its theoretical capacity is 274 mAh/g, the tick on the bar. Ratings: high cost, moderate energy density, poor thermal stability, good cycle life.' , s: 'Frith et al. 2023; Manthiram 2020; Marie and Gifford 2023; Faruque et al. 2026' },
+    { n: 'LMO', f: 'LiMn₂O₄', fam: 'S', qt: [148], q: 130, ql: '< 130', qk: 'p', r: { cost: 2, en: 1, th: 2, cy: 0 },
+      t: 'A spinel at about 4 V with three-dimensional lithium channels, so it delivers power well; cheap because manganese is cheap. Its practical capacity is below 130 mAh/g, and manganese dissolution poisons the graphite and fades the capacity, worst when hot. Its theoretical capacity is 148 mAh/g. Ratings: low cost, moderate energy density, good thermal stability, poor cycle life.', s: 'Manthiram 2020; Marie and Gifford 2023; Faruque et al. 2026' },
+    { n: 'LFP', f: 'LiFePO₄', fam: 'O', qt: [170], q: 170, ql: '170*', qk: 't', r: { cost: 2, en: 0, th: 2, cy: 2 },
+      t: 'An olivine of iron and phosphate, flat at 3.43 V vs Li. Lower voltage and lower specific capacity than NMC (the bar is the theoretical 170 mAh/g of chapter 4), but a considerably longer cycle and calendar life than most NMC cells; state-of-the-art cells rose from 90 Wh/kg in 2010 to 160 Wh/kg in 2022. Used for grid storage and shorter-range electric cars. Ratings: low cost, low energy density, good thermal stability, good cycle life.', s: 'Safari and Delacourt 2011; Marie and Gifford 2023' },
+    { n: 'LMFP', f: 'LiMnₓFe₁₋ₓPO₄', fam: 'O', q: 0, ql: '–', qk: 'n', r: { cost: -1, en: -1, th: -1, cy: -1 },
+      t: 'LFP with manganese added. Cells reach around 210 to 240 Wh/kg, roughly 40 % more than LFP. Not rated in the source table; capacity not given there.', s: 'Marie and Gifford 2023' },
+    { n: 'NMC622', f: 'LiNi₀.₆Mn₀.₂Co₀.₂O₂', fam: 'L', qt: [270, 285], q: 178, ql: '178', qk: 'p', r: { cost: 0, en: 2, th: 1, cy: 2 },
+      t: 'Widely used in electric cars today. In one study, full cells against graphite gave 178 mAh/g of NMC when charged to 4.4 V and kept 94 % after 300 cycles at 1C, the highest stable specific energy of the three NMCs tested. The tick spans the 270 to 285 mAh/g that a 2026 review gives as the theoretical capacity of the nickel-cobalt layered oxides. Ratings: high cost, high energy density, moderate thermal stability, good cycle life.', s: 'Marie and Gifford 2023; Jung et al. 2017; Faruque et al. 2026' },
+    { n: 'NMC811', f: 'LiNi₀.₈Mn₀.₁Co₀.₁O₂', fam: 'L', qt: [270, 285], q: 200, ql: '~200', qk: 'p', r: { cost: 0, en: 2, th: 0, cy: 1 },
+      t: 'More nickel, less cobalt: about 200 mAh/g. But it releases oxygen and fades sooner: in one study it cycled stably only to 4.0 V against graphite. The tick spans the 270 to 285 mAh/g that a 2026 review gives as the theoretical capacity of the nickel-cobalt layered oxides. Ratings: high cost, high energy density, poor thermal stability, moderate cycle life.', s: 'Marie and Gifford 2023; Jung et al. 2017; Faruque et al. 2026' },
+    { n: 'NCA', f: 'LiNi₀.₈Co₀.₁₅Al₀.₀₅O₂', fam: 'L', qt: [270, 285], q: 205, ql: '200–210', qk: 'r', r: { cost: 0, en: 2, th: 0, cy: 1 },
+      t: 'Aluminium in place of manganese; first deployed in electric cars by Tesla. With NMC, 200 to 210 mAh/g in the 3.0 to 4.3 V window vs Li; its cycling tends to be better than NMC811’s but it holds more cobalt, about 10 wt%. The tick spans the 270 to 285 mAh/g that a 2026 review gives as the theoretical capacity of the nickel-cobalt layered oxides. Ratings: high cost, high energy density, poor thermal stability, moderate cycle life.', s: 'Marie and Gifford 2023; Eshetu et al. 2021; Faruque et al. 2026' },
+    { n: 'LNMO', f: 'LiNi₀.₅Mn₁.₅O₄', fam: 'S', q: 135, ql: '~135', qk: 'p', r: { cost: -1, en: -1, th: -1, cy: -1 },
+      t: 'The high-voltage spinel: about 4.7 V and about 135 mAh/g, cobalt-free. It releases no oxygen up to 5 V, but few electrolytes survive at that voltage. Not rated in the source table.', s: 'Manthiram 2020; Jung et al. 2017' },
+    { n: 'LMR-NMC', f: 'Li₁.₂Mn₀.₄₈Ni₀.₁₆Co₀.₁₆O₂', fam: 'L', q: 280, ql: '~280', qk: 'p', r: { cost: 1, en: 2, th: 1, cy: 0 },
+      t: 'Lithium- and manganese-rich layered oxide, a candidate for the next generation: about 280 mAh/g against about 200 for NMC811, with oxide ions taking part in the redox. Its voltage decays on cycling as manganese migrates. Ratings: moderate cost, high energy density, moderate thermal stability, poor cycle life.', s: 'Manthiram 2020; Marie and Gifford 2023' }
+  ];
 
   /* ---------- typeset the dynamic text of every figure card ---------- */
   var mo = ('MutationObserver' in window) ? new MutationObserver(function (recs) {

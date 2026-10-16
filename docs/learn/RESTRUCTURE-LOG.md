@@ -387,3 +387,16 @@ Read the plan first; this file records state, decisions and the checklist so wor
   2023 (R63, re-read on PMC for sections 9 to 11), Chen et al. 2020 (R89), Meddings et al. 2020 (R64).
 - Tests: 82 (two new: the CNLS fit recovers two arcs; the CC-CV model's charge balance and CV share).
 - Checks: contact sheets; gate exit 0; axe clean; 0 broken links.
+
+## Figures L1.1, L1.8 and L2.2 (2026-10-16, owner's request: improve these figures)
+
+- L1.1 (f11-1): redrawn as one coin cell with six measurement stations round it (cycling, CV, GITT, impedance,
+  current pulse, post-mortem), each showing what is imposed and what is measured as animated sparklines; tappable
+  for the question and the degradation it helps to find. viewBox 520 × 356.
+- L1.8 (f5-9): taller layout; the positive electrode potential drawn with the cell voltage and the negative
+  electrode potential in its own strip; each dV/dQ peak marked in the colour of the electrode that makes it;
+  in-panel legend replaced by the key. viewBox 520 × 376.
+- L2.2 (f11-20): the voltammogram now draws up to the present moment with a sweep-in-time strip and cursor; the
+  depleted layer is shaded; a flux arrow at the electrode follows the current and reverses with the sweep; a
+  Nernst bar shows the surface ratio; play and step controls. viewBox 520 × 334.
+- Checks: gate exit 0 on the three pages; axe clean; 0 broken links.
