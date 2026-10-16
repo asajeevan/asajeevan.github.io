@@ -9,6 +9,8 @@
 - The home page JSON-LD (WebSite, ProfilePage, Person, one ScholarlyArticle per published paper) is
   regenerated from the page by `tools/home_seo.py` on every build. Edit the Publications list in
   `index.html` and rebuild; the structured data follows. Manuscripts without a journal and DOI are skipped.
+  An embedded video becomes a VideoObject from the `data-video-*` attributes of its `figure.shot.video`
+  (id, date, name, description); give a new video the same attributes.
 - `sitemap.xml` with each page's real last-change date (`tools/lastmod.json`).
 - `404.html` with links to every chapter (not indexed).
 

@@ -56,6 +56,21 @@ def publications(page):
     return out
 
 
+def videos(page):
+    """One VideoObject per embedded video: <figure class="shot video" data-video-id data-video-date
+    data-video-name data-video-description>, so Google can list the video with the page."""
+    out = []
+    for attrs in re.findall(r'<figure class="shot video"([^>]*)>', page):
+        a = {k: html.unescape(v) for k, v in re.findall(r'data-video-([a-z]+)="([^"]*)"', attrs)}
+        if not all(k in a for k in ('id', 'date', 'name', 'description')):
+            continue
+        out.append({'@type': 'VideoObject', 'name': a['name'], 'description': a['description'], 'uploadDate': a['date'],
+                    'thumbnailUrl': 'https://i.ytimg.com/vi/%s/hqdefault.jpg' % a['id'],
+                    'embedUrl': 'https://www.youtube.com/embed/' + a['id'], 'url': 'https://www.youtube.com/watch?v=' + a['id'],
+                    'about': {'@id': PERSON_ID}, 'inLanguage': 'en'})
+    return out
+
+
 def build(page, modified=None):
     meta = lambda n: html.unescape(re.search(r'<meta name="%s" content="([^"]*)"' % n, page).group(1))
     old = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', page, re.S).group(1))
@@ -72,7 +87,7 @@ def build(page, modified=None):
         profile['dateModified'] = modified
     website = {'@type': 'WebSite', '@id': SITE + '#website', 'url': SITE, 'name': 'Aswadh Shyma Sajeevan',
                'inLanguage': 'en', 'publisher': {'@id': PERSON_ID}}
-    return {'@context': 'https://schema.org', '@graph': [website, profile, person] + publications(page)}
+    return {'@context': 'https://schema.org', '@graph': [website, profile, person] + publications(page) + videos(page)}
 
 
 def update(path=ROOT / 'index.html', modified=None):
@@ -82,8 +97,8 @@ def update(path=ROOT / 'index.html', modified=None):
     assert n == 1, 'no JSON-LD block on the home page'
     if new != page:
         path.write_text(new, encoding='utf-8')
-    return len(build(page)['@graph']) - 3
+    return len(publications(page)), len(videos(page))
 
 
 if __name__ == '__main__':
-    print('home page JSON-LD: %d publications' % update(modified=sys.argv[1] if len(sys.argv) > 1 else None))
+    print('home page JSON-LD: %d publications, %d videos' % update(modified=sys.argv[1] if len(sys.argv) > 1 else None))

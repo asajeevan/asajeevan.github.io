@@ -630,7 +630,7 @@ def build_course():
     urls = [COURSE['base'] + (k + '/' if k else '') for k in keys]
     home = page_lastmod(store, '/', ROOT / 'index.html')
     import home_seo   # the home page's JSON-LD (profile, person, publications), regenerated from the page
-    print('home page JSON-LD: %d publications' % home_seo.update(ROOT / 'index.html', home))
+    print('home page JSON-LD: %d publications, %d videos' % home_seo.update(ROOT / 'index.html', home))
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
           '  <url>\n    <loc>https://asajeevan.github.io/</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>' % home]
     for k, (key, u) in enumerate(zip(keys, urls)):
