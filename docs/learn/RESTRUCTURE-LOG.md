@@ -348,3 +348,16 @@ Read the plan first; this file records state, decisions and the checklist so wor
 - Chapter map: a colour per part (dot, label, the card's top rule, the hover light, the circuit wire's gradient),
   an outlined watermark number on every card (data-n), read cards tinted with a tick. How-to cards numbered with lift.
 - Checks: 1300 and 390 px with and without motion; no script errors; axe clean; 0 broken links.
+
+## Lab 1 Cell testing (2026-10-16, owner's request: improve the lab handbook pages, Lab 1 first)
+
+- Six new beats, f11-28 to f11-33 (Figures L1.2 to L1.7), in src/learn/figs/figs-11ct.js, between the overview and the
+  dQ/dV figure: the CR2032 half cell part by part in its stacking order; from a punched disc to the C-rate current
+  (active mass, areal loading, nF/M, the practical-capacity convention); the open-circuit voltage as assembled and the
+  crimp gauge; one CC-CV-rest-discharge cycle on a one-resistance LiFePO4 | graphite cell with a current-proportional
+  surface lag (physics.js lab.cccv); Coulombic efficiency compounding (CE^n, cycles to 80 %); a rate-test staircase with
+  temperature through an Arrhenius resistance and lag.
+- Sources read in full for the parts used: López et al. 2024, NPL GPG 153 (R87); Bogomolov, Yitzhack and Ein-Eli 2026,
+  ChemTexts (R88); Chen et al. 2020, JES (R89); Dai and Cai 2022, Commun. Mater. (R90). The Dahn coin-cell guide (R21)
+  and the Argonne standardization paper could not be read (publisher blocks fetching) and are not cited for new claims.
+- Page now about 30 min, 9 references. Checks: contact sheets 1300 and 360; gate exit 0; axe clean; 0 broken links; 80 tests.

@@ -558,5 +558,41 @@
     "doi": "10.1007/978-1-4939-0302-3_9",
     "status": "verified",
     "short": "Scheers and Johansson 2014"
+  },
+  "R87": {
+    "authors": "C. M. López, X. Yao, R. Samajdar, K. Vajaria",
+    "title": "Assembling Coin Cells in Half Cell Format",
+    "journal": "NPL Good Practice Guide 153, National Physical Laboratory, Teddington",
+    "year": 2024, "volume": "", "pages": "",
+    "doi": "10.47120/npl.mgpg153",
+    "status": "verified",
+    "short": "López et al. 2024"
+  },
+  "R88": {
+    "authors": "K. Bogomolov, N. Yitzhack, Y. Ein-Eli",
+    "title": "Introducing Li-ion battery technology to undergraduate students via hands-on lab studies and analysis",
+    "journal": "ChemTexts",
+    "year": 2026, "volume": "12", "pages": "7",
+    "doi": "10.1007/s40828-026-00219-9",
+    "status": "verified",
+    "short": "Bogomolov, Yitzhack and Ein-Eli 2026"
+  },
+  "R89": {
+    "authors": "C.-H. Chen, F. Brosa Planella, K. O'Regan, D. Gastol, W. D. Widanage, E. Kendrick",
+    "title": "Development of Experimental Techniques for Parameterization of Multi-scale Lithium-ion Battery Models",
+    "journal": "Journal of The Electrochemical Society",
+    "year": 2020, "volume": "167", "pages": "080534",
+    "doi": "10.1149/1945-7111/ab9050",
+    "status": "verified",
+    "short": "Chen et al. 2020"
+  },
+  "R90": {
+    "authors": "F. Dai, M. Cai",
+    "title": "Best practices in lithium battery cell preparation and evaluation",
+    "journal": "Communications Materials",
+    "year": 2022, "volume": "3", "pages": "64",
+    "doi": "10.1038/s43246-022-00286-8",
+    "status": "verified",
+    "short": "Dai and Cai 2022"
   }
 }

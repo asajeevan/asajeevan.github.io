@@ -639,6 +639,136 @@
       </div>
     </div>
 
+    <div class="beat">
+      <figure class="fig" data-fig="f11-28" id="f11-28">
+        <span class="fnum">Figure 11.28</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1128t">
+          <title id="f1128t">An exploded view of a CR2032 coin cell in half-cell format, drawn as nine discs in the order they are stacked: can, gasket, the 14 mm positive electrode, the separator wetted with 100 microlitres of electrolyte, a 15 mm lithium disc, two 16 mm spacers, a wave washer and the cap. Each part can be selected for its description.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>A coin cell, part by part, in the order it is stacked.
+          <span class="try">Try this: tap each part, from the can upwards, and find the one that is wetted with the electrolyte.</span>
+          <span class="basis">Parts, diameters, thicknesses, the electrolyte volume, the drying, the crimp and the stacking order after López et al. 2024 (NPL Good Practice Guide 153), sections 2 and 3; the stacking order of the cap-first variant after Bogomolov, Yitzhack and Ein-Eli 2026. Schematic; parts in their real colours, not to scale in height.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Building a cell that can be trusted</h3>
+        <p class="explain">Before any measurement there is a cell to make, and most of the scatter in published cycling data is made at the bench, not at the cycler. A measurement institute that audited academic laboratories found the repeatability of coin-cell results &#8220;moderate to low&#8221; and the reproducibility between laboratories poor, and traced it to bespoke assembly methods; its guide treats assembly as a process, with a written procedure, training and a record for every cell.{{cite:R87}} We follow that guide here for the commonest format, the <b>CR2032</b> half cell: 20 mm across and 3.2 mm tall, with the electrode under study facing a disc of lithium metal.{{cite:R87}}</p>
+        <p class="explain">The cell is built in an argon glovebox with oxygen and water below 0.1 ppm, and with a nitrogen filter, because lithium reacts with nitrogen as well; a dry room controls only moisture and is not enough.{{cite:R87}} The parts go in as {{fig:f11-28}} shows: the can, then the gasket with its narrower opening down against the can, the positive electrode, the separator, the electrolyte dropped onto the separator once it is in place, the lithium, two spacers (the top one may carry the wave washer) and the cap; the electrode is aligned by eye through the translucent separator.{{cite:R87}} Some laboratories build the same stack cap first, spring and spacers down, negative electrode, separator, positive electrode, can; what matters is that every cell of a batch is built the same way.{{cite:R88}} The lithium is punched at 15 mm and 200 µm, on a PEEK or POM base and never on PTFE, with a punch kept for lithium alone; only shiny, smooth, grey foil is used, and anything black, white or reddish is rejected.{{cite:R87}} The separator is a polypropylene-polyethylene trilayer, never dried above 50 °C, and filter paper is to be avoided.{{cite:R87}} The electrolyte, 100 µL from a calibrated pipette, is dispensed in the same amount in every cell, because any excess is squeezed out at the crimp and the amount then differs from cell to cell.{{cite:R87,R90}} The negative electrode is cut a little larger than the positive, so that a small misalignment does not leave positive material facing nothing; that is also how commercial cells are built.{{cite:R90}}</p>
+        <p class="explain">Three habits make the difference. Never mix parts from different suppliers, and record part numbers rather than descriptions: cans, caps, spacers and gaskets differ in diameter, thickness and coating, and a mismatch of about half a millimetre between the parts and the crimper has been found in several laboratories, one of which had its crimper retooled.{{cite:R87}} Take a break after every four or five cells, because fatigue is a source of error, and spread a large batch over several days.{{cite:R87}} And keep a spreadsheet with, for every cell, a unique number, the date and the assembler, the collector and electrode masses and the formulation, the diameters of the electrodes and separator, the electrolyte, the open-circuit voltage as assembled, and notes.{{cite:R87}}</p>
+        <p class="lesson">A cell is a process: the same parts, the same order, the same amounts, and a record of each one.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-29" id="f11-29">
+        <span class="fnum">Figure 11.29</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1129t">
+          <title id="f1129t">A chain of four boxes: the mass of a punched electrode disc, the active mass after subtracting the bare collector and multiplying by the active fraction, the areal loading per square centimetre, and the current needed for a chosen C-rate, computed from the theoretical capacity of the material. Buttons choose the material and sliders set the disc mass, the active fraction and the C-rate.</title>
+        </svg>
+        <div class="controls"><span class="sw" role="group" aria-label="Material"><button type="button" data-mat="lfp" aria-pressed="true">LiFePO₄</button> <button type="button" data-mat="lco" aria-pressed="false">LiCoO₂</button> <button type="button" data-mat="gr" aria-pressed="false">Graphite</button></span><label>Disc mass <input type="range" class="dm" min="7" max="40" step="0.1" value="18" aria-label="Disc mass"> <b class="dm-val">18.0 mg</b></label><label>Active fraction <input type="range" class="fa" min="70" max="96" step="1" value="90" aria-label="Active fraction"> <b class="fa-val">90 %</b></label><label>C-rate <input type="range" class="cr" min="-1.3" max="0.7" step="0.1" value="-1" aria-label="C-rate"> <b class="cr-val">C/10</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>From a punched disc to the current to type into the cycler.
+          <span class="try">Try this: halve the disc mass and watch what happens to the loading and to the current; then change the rate from C/10 to 1C.</span>
+          <span class="basis">Active mass from the disc mass, the mean mass of at least ten bare collector discs and the formulation, after López et al. 2024, section 3.2.1; theoretical specific capacity nF/M and the C-rate after Bogomolov, Yitzhack and Ein-Eli 2026, with M = 72.07 (LiC6), 97.87 (LiCoO2) and 157.76 g/mol (LiFePO4); defining C-rates from the practical capacity of a slow cycle after Chen et al. 2020. The collector mass of 6.2 mg is an example.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">How much is in the cell</h3>
+        <p class="explain">Every capacity in mAh/g divides a measured charge by a mass, so the mass must be known at least as well as the charge. The electrode disc is weighed on a balance reading to 0.1 mg or better; at least ten bare collector discs are punched with the same punch and weighed, and their mean is subtracted; the active fraction of the formulation then gives the active mass.{{cite:R87}} The <b>areal loading</b>, in mg/cm² or mAh/cm², is that mass over the area of the disc, and it should be reported with every result: a thick electrode and a thin one of the same material behave differently at the same C-rate ({{ch:composite-electrodes}}).</p>
+        <p class="explain">The theoretical specific capacity of a material is nF/M, with n the electrons per formula unit and M its molar mass, which is 26 801 n/M in mAh/g: 372 mAh/g for graphite as LiC<sub>6</sub> and about 274 mAh/g for LiCoO<sub>2</sub>.{{cite:R88}} The <b>C-rate</b> is the current divided by the capacity: 1C discharges the capacity in one hour, 2C in half an hour, C/2 in two hours.{{cite:R88}} Which capacity? A careful study defines it from the practical capacity measured in a slow cycle, C/20 or C/50, in a half cell, not from the theoretical value, because the practical value is what the electrode actually delivers;{{cite:R89}} whichever is chosen, it must be stated, because every current, every rate and every efficiency that follows depends on it.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-30" id="f11-30">
+        <span class="fnum">Figure 11.30</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1130t">
+          <title id="f1130t">Two gauges. Above, the open-circuit voltage of a freshly assembled NMC 811 half cell with its zones: discard at or below 2.00 volts, seldom reproducible between 2.00 and 3.18 volts, in range from 3.18 to 3.45 volts; a slider moves a needle across it. Below, the crimp pressure with a target of 500 psi and a red zone above 700 psi.</title>
+        </svg>
+        <div class="controls"><label>Open-circuit voltage as assembled <input type="range" class="ocv" min="1.2" max="3.6" step="0.01" value="3.3" aria-label="Open-circuit voltage as assembled"> <b class="ocv-val">3.30 V</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Before the first cycle: the open-circuit voltage, the crimp, the cleaning.
+          <span class="try">Try this: drag the needle below 2 V and read what to do with the cell.</span>
+          <span class="basis">Open-circuit voltage ranges for NMC 811 with a carbonate electrolyte and a Celgard 2325 separator, the 500 psi target, the over-700 psi incident, the cleaning of the cell and the holders, after López et al. 2024, sections 3.1 to 3.4. The zones are those of one chemistry; others have their own.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Before the first cycle</h3>
+        <p class="explain">The crimp makes the cell: a target of about 500 psi (3.4 MPa) on a typical manual crimper, undershooting rather than overshooting, because overpressure shorts cells and jams them in the die; one laboratory that pressed to over 700 psi lost a cell inside the glovebox.{{cite:R87}} Right after crimping the cell is wiped with a tissue of DMC, EMC or acetone, inside the glovebox and without immersing it, because the salt residue reacts with moisture to form HF, which corrodes the can and, later, the holders.{{cite:R87}}</p>
+        <p class="explain">Then the first measurement, with a hand-held meter: the <b>open-circuit voltage as assembled</b>. For an NMC 811 half cell with a carbonate electrolyte, 3.18 to 3.45 V is in range; a cell at 2.00 V or below is discarded; in between, the cell may cycle, but such cells are often irreproducible for no visible reason, and they are run at the user&#8217;s own risk.{{cite:R87}} The value is written in the spreadsheet and the number of the cell on the can, in permanent marker, never in graphite.{{cite:R87}}</p>
+        <p class="explain">Connecting is a step of its own. Holders suffer metal fatigue and lose contact pressure, and an exposed contact can short a cell, so every holder and lead is checked before every run; gold-plated holders with springs are preferred.{{cite:R87}} And a cell on a bench is a cell at whatever temperature the room has that day: coin cells exchange heat quickly with their surroundings, so the cycling happens in a temperature chamber, after a rest there for the cell to settle, because &#8220;room temperature&#8221; drifts and the drift shows up in the long-term data.{{cite:R90}}</p>
+        <p class="lesson">A cell that reads wrong before the first cycle will not read right after it.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-31" id="f11-31">
+        <span class="fnum">Figure 11.31</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1131t">
+          <title id="f1131t">Simulated cell voltage and current against time for one cycle of a 2 milliampere-hour LiFePO4 | graphite cell: a constant-current charge up to the upper cut-off, a constant-voltage hold during which the current decays to one twentieth of the C-rate, a rest, and a constant-current discharge to the lower cut-off. Sliders set the C-rate and the cell resistance; the four phases are shaded.</title>
+        </svg>
+        <div class="controls"><label>C-rate <input type="range" class="pc" min="-1.3" max="0.7" step="0.1" value="0" aria-label="C-rate"> <b class="pc-val">1C</b></label><label>Cell resistance <input type="range" class="pr" min="10" max="200" step="5" value="60" aria-label="Cell resistance"> <b class="pr-val">60 Ω</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>One cycle: constant current, constant voltage, rest, discharge.
+          <span class="try">Try this: at 1C, raise the resistance to 250 Ω and watch how much of the charge moves into the constant-voltage hold.</span>
+          <span class="basis">CC-CV charging, cut-offs and the end-of-charge current after Chen et al. 2020 (C/10 CC-CV formation, two-hour rests, C/3 CC-CV in validation cycling) and Bogomolov, Yitzhack and Ein-Eli 2026 (4.2 and 2.5 V cut-offs, 10 galvanostatic cycles). The cell is illustrative: the open-circuit curve of the LiFePO4 of Safari and Delacourt 2011 against the illustrative graphite of chapter 12, in series with one resistance, the particle surface leading the average in proportion to the current (assets/js/physics.js, lab.cccv); it has no side reactions.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The cycling protocol</h3>
+        <p class="explain">A galvanostatic cycle is written as a short programme. <b>Constant current</b> (CC) until an upper cut-off voltage; a <b>constant-voltage</b> (CV) hold at that cut-off until the current has decayed to a set fraction of the C-rate; a rest; a constant-current discharge to a lower cut-off; a rest. The cut-offs are chosen for the chemistry: 4.2 and 2.5 V for a layered-oxide full cell, 4.2 and 2.5 V for NMC against lithium, 1.5 and 0.005 V for a graphite-based negative electrode against lithium, the last chosen because lower voltages plated lithium as dendrites.{{cite:R88,R89}} Rests of two hours between steps let the cell relax before the next one.{{cite:R89}}</p>
+        <p class="explain">Why the CV hold? The constant-current step stops when the measured voltage, which is the open-circuit voltage plus the i R drop ({{ch:polarization}}), reaches the cut-off, not when the electrode is full. Holding the voltage lets the current fall and the hidden charge flow in; the faster the rate or the larger the resistance, the larger that share, as {{fig:f11-31}} shows. The capacity of each half cycle is the current integrated over time, which the cycler reports; the <b>Coulombic efficiency</b> is the discharge capacity divided by the charge capacity, and the difference between the two is the irreversible capacity.{{cite:R88}}</p>
+        <p class="explain">The first cycles are different. During them the SEI forms on the negative electrode by reduction of the electrolyte ({{ch:sei}}), consuming lithium that does not come back, so the first-cycle efficiency is low and is reported separately; a formation of two slow cycles, C/10 with CC-CV charging, precedes any test, and two further slow cycles recondition a cell before a new series.{{cite:R88,R89}} A slow cycle at C/20 also gives the <b>pseudo-open-circuit curve</b> of the cell: &#8220;pseudo&#8221; because the cell is never at open circuit and a small polarization remains in it.{{cite:R89}} Its differential capacity, {{fig:f5-9}}, shifts with polarization, the peaks moving to higher voltage on charge and lower on discharge.{{cite:R89}}</p>
+        <p class="lesson">CC to the cut-off, CV until the current dies, rest, discharge: the cut-offs, the end current and the rests are part of the result.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-32" id="f11-32">
+        <span class="fnum">Figure 11.32</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1132t">
+          <title id="f1132t">Left, the capacity kept after up to a thousand cycles when every cycle returns the same fraction of its charge, drawn for Coulombic efficiencies of 99, 99.5, 99.9, 99.95 and 99.99 per cent, with the chosen value highlighted and the 80 per cent line marked. Right, the charge of one cycle as a bar, with the lost fraction drawn as a thin red cap. A slider sets the efficiency.</title>
+        </svg>
+        <div class="controls"><label>Coulombic efficiency <input type="range" class="ce" min="99" max="99.99" step="0.01" value="99.9" aria-label="Coulombic efficiency"> <b class="ce-val">99.90 %</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Coulombic efficiency compounds.
+          <span class="try">Try this: set 99.9 %, then 99.95 %: the bar on the right hardly changes, the curve on the left changes a great deal.</span>
+          <span class="basis">Coulombic efficiency as discharge over charge capacity, irreversible capacity as their difference and the first-cycle SEI loss after Bogomolov, Yitzhack and Ein-Eli 2026. The compounding CE to the power n is arithmetic of ours, not a model of any mechanism; real cells lose capacity for several reasons at once (chapter 16).</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">What Coulombic efficiency can and cannot say</h3>
+        <p class="explain">Coulombic efficiency is the measure of reversibility: the share of the charge put in that comes back out, with the rest gone into side reactions.{{cite:R88}} The arithmetic in {{fig:f11-32}} is the whole lesson. If a cell returns 99.9 % of its charge each cycle and loses the rest for good, it keeps 90 % after a hundred cycles and reaches 80 % after about 220; at 99.95 % it takes twice as long; at 99.99 %, ten times. A tenth of a percent per cycle is invisible in a single cycle and decisive over a thousand.</p>
+        <p class="explain">That sets the demands on the measurement. To tell a 99.9 % material from a 99.95 % one, the charge of a cycle must be measured to better than 0.05 %, which asks for a stable current, a stable temperature, a fixed rate and a fixed window; the same cell at a faster rate, a warmer chamber or a wider window gives another number. Ten cycles on an ordinary cycler cannot rank two materials by cycle life, and a plot that shows a Coulombic efficiency of &#8220;about 99 %&#8221; for a hundred cycles is showing a cell that has already lost most of its capacity. The first cycle is reported on its own, because its loss is the SEI forming rather than a steady leak.{{cite:R88}}</p>
+        <p class="explain">In a half cell the lithium counter electrode supplies lithium without limit, so the cell&#8217;s capacity can hold while the electrode under study is quietly consuming lithium; the efficiency, not the capacity, shows it. A full cell has only the lithium it started with, and the same loss appears as fade ({{ch:degradation}}). This is why the two formats are tested for different questions: the half cell for the electrode, the full cell for the pairing.</p>
+        <p class="lesson">Efficiency, measured precisely, predicts; capacity retention over ten cycles does not.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-33" id="f11-33">
+        <span class="fnum">Figure 11.33</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1133t">
+          <title id="f1133t">Left, a rate test as a staircase: five cycles each at C/10, C/5, C/2, 1C, 2C and 5C, then five more at C/10, with the simulated discharge capacity of each cycle as a dot. Right, the discharge curves at the six rates, capacity against voltage, sagging as the rate rises. A slider sets the temperature, which sets the cell resistance.</title>
+        </svg>
+        <div class="controls"><label>Temperature <input type="range" class="rt" min="-10" max="45" step="1" value="25" aria-label="Temperature"> <b class="rt-val">25 °C</b></label></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Rate and temperature, and the recovery step that tells loss from polarization.
+          <span class="try">Try this: cool the cell to 0 °C and see which rates suffer; then check that the final C/10 step still returns the full capacity.</span>
+          <span class="basis">Rate capability as the loss of discharge capacity with C-rate through ohmic, activation and concentration polarization, and the effect of temperature on resistance and on the risk of plating, after Bogomolov, Yitzhack and Ein-Eli 2026; rate steps with rests after Chen et al. 2020; the need for a temperature chamber after Dai and Cai 2022. The model is that of figure 11.31, its resistance and surface lag following an Arrhenius law (40 kJ/mol, a choice of ours); illustrative.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Rate and temperature</h3>
+        <p class="explain">A rate test cycles the cell a few times at each of a series of C-rates, slow to fast, and then slow again. The discharge capacity falls with the rate because the ohmic, activation and concentration polarizations grow with the current and bring the voltage to the cut-off before the electrode is empty; the ohmic part grows in proportion to the current.{{cite:R88}} The return to the slow rate is the control: if the capacity comes back, the fast cycles hid capacity without destroying it; if it does not, they did harm.</p>
+        <p class="explain">Temperature enters through the same polarizations. Warmer, the electrolyte is less viscous and more conductive and the ohmic and activation losses fall; colder, the kinetics slow, and the concentration polarization can push a graphite electrode to the potential at which lithium plates.{{cite:R88}} Warm cycling has its own cost, in the long run, in particle cracking and side reactions.{{cite:R88}} So a result quoted without its temperature is not comparable with any other, and a chamber with stable control is part of the test bench, not a luxury.{{cite:R90}}</p>
+        <h3 class="sub">How many cells, and what to report</h3>
+        <p class="explain">One cell proves little. For laboratory coin cells, three to ten cells per batch are encouraged, enough to see the spread; a study of thirty identical cells showed that even smaller sets reveal a reasonable spread, and that spread belongs on the plot.{{cite:R90}} With every result, then: the format and parts, the electrode loading and formulation, the electrolyte and its volume, the formation, the window, the rates, the end-of-charge current, the rests, the temperature, the number of cells, and the capacity the C-rate was defined from. Cells that are built the same and tested the same can be compared; everything else is a comparison of procedures.</p>
+        <p class="lesson">Report the conditions with the numbers, and the number of cells with the conditions.</p>
+      </div>
+    </div>
+
     <div class="beat alt">
       <figure class="fig" data-fig="f11-18" id="f11-18">
         <span class="fnum">Figure 11.18</span>
@@ -671,7 +801,7 @@
           <p class="eqline"><span class="eq">i = i₀[e<sup>(1−α)Fη/RT</sup> − e<sup>−αFη/RT</sup>], R<sub>ct</sub> = RT/(Fi₀)</span><span class="eqnote">Butler–Volmer and its linear limit; harmonics measure the curvature</span></p>
           <p class="eqline"><span class="eq">Z(ω) = R₀ + R<sub>pol</sub>∫g(τ)/(1 + jωτ)dτ</span><span class="eqnote">the distribution of relaxation times, found by regularized least squares</span></p>
         </div></details>
-        {{sources:R1,B2,R38,R63,R64,R65,R66,R67,R68,R69,R2,R6,R21,R48,R83,R84,R85,R86,R54,R78}}
+        {{sources:R1,B2,R38,R63,R64,R65,R66,R67,R68,R69,R2,R6,R21,R48,R83,R84,R85,R86,R54,R78,R87,R88,R89,R90}}
       </div>
     </div>
 

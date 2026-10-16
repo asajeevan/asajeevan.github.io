@@ -800,6 +800,39 @@
     }
     return out;
   }
+  /* ---------- Lab 1: cell assembly and galvanostatic testing ---------- */
+  /* active mass of a punched electrode disc: disc mass minus the mean mass of the bare current-collector
+     discs, times the active fraction of the formulation (NPL GPG 153, section 3.2.1). All in g. */
+  function activeMass(mDisc, mCollector, fActive) { return Math.max(0, mDisc - mCollector) * fActive; }
+  /* areal loading in mg/cm2 of a disc of diameter d (mm) */
+  function arealLoading(mActive_g, d_mm) { var A = Math.PI * (d_mm / 20) * (d_mm / 20); return 1000 * mActive_g / A; }
+  /* capacity after n cycles if a constant fraction ce (0..1) of the charge comes back each cycle: ce^n */
+  function retention(ce, n) { return Math.pow(ce, n); }
+  /* cycles until the capacity has fallen to the fraction f of the start */
+  function cyclesTo(ce, f) { return ce >= 1 ? Infinity : Math.log(f) / Math.log(ce); }
+  /* one CC-CV charge and one CC discharge of a one-resistance cell: V = U(x) + I R on charge.
+     o: {U(x) in V, Q in Ah, R in ohm, crate, cvRate (end of CV as a fraction of 1C), Vmax, Vmin, x0, dt in h}.
+     Returns {t, V, I, x, Qch, Qcc, Qcv, Qdis} with times in hours. */
+  function cccv(o) {
+    var U = o.U, Q = o.Q, R = o.R, I1 = Q * o.crate, Iend = Q * (o.cvRate || 0.05), dt = o.dt || 1 / 600, x = o.x0 === undefined ? 0.02 : o.x0, tau = o.tau || 0;
+    // the surface of the particles leads the average by (I/Q) tau: an illustrative lag that stands for solid-state diffusion
+    function V(I) { var xs = Math.max(0, Math.min(1, x + I / Q * tau)); return U(xs) + I * R; }
+    var out = { t: [], V: [], I: [], x: [], Qch: 0, Qcc: 0, Qcv: 0, Qdis: 0 }, t = 0, guard = 0;
+    function push(I) { out.t.push(t); out.V.push(V(I)); out.I.push(I); out.x.push(x); }
+    push(0);
+    while (V(I1) < o.Vmax && x < 0.999 && guard++ < 2e5) { x = Math.min(1, x + I1 * dt / Q); t += dt; out.Qcc += I1 * dt; push(I1); }
+    var I = I1;
+    while (I > Iend && x < 0.999 && guard++ < 2e5) {
+      // the current that holds the terminal at Vmax: solved by bisection, because the lag depends on it
+      var lo = 0, hi = I1; for (var k = 0; k < 30; k++) { var mid = (lo + hi) / 2; if (V(mid) > o.Vmax) hi = mid; else lo = mid; } I = (lo + hi) / 2;
+      x = Math.min(1, x + I * dt / Q); t += dt; out.Qcv += I * dt; push(I);
+    }
+    out.Qch = out.Qcc + out.Qcv;
+    for (var r = 0; r < 12; r++) { t += dt * 10; push(0); }
+    while (V(-I1) > o.Vmin && x > 0.001 && guard++ < 2e5) { x = Math.max(0, x - I1 * dt / Q); t += dt; out.Qdis += I1 * dt; push(-I1); }
+    return out;
+  }
+  var lab = { activeMass: activeMass, arealLoading: arealLoading, retention: retention, cyclesTo: cyclesTo, cccv: cccv };
   var cv = { simulate: cvSimulate, electrode: cvElectrode, randlesSevcik: randlesSevcik, dFromRSSlope: dFromRSSlope, bValue: bValue, dunnFit: dunnFit, peaks: cvPeaks };
 
   return {
@@ -823,6 +856,7 @@
     edlcCharge: edlcCharge, edlcCycle: edlcCycle, solidDiffusionRatio: solidDiffusionRatio,
     m11: m11,
     cv: cv,
+    lab: lab,
     m9: m9,
     data: data
   };
