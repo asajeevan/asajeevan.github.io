@@ -1,6 +1,6 @@
 /* ==========================================================
    Aswadh Shyma Sajeevan, research site v4: the home page
-   Light and dark from one set of tokens (light-dark()), following the
+   Light and dark from one set of tokens (one light set, one dark set), following the
    system theme unless the visitor chooses; fluid type; container queries;
    scroll-driven animations where the browser has them; glass and aurora
    in the hero. The course pages keep site.css.
@@ -11,32 +11,38 @@
 
 :root{
   color-scheme:light dark;
+  /* light values; the dark set follows below and is applied by the system theme or the switch */
+  --bg:#FFFFFF;
+  --bg-2:#F4F6F9;
+  --panel:#FFFFFF;
+  --panel-2:#F1F3F6;
+  --glass:rgba(255,255,255,.72);
+  --text:#121519;
+  --muted:#596170;
+  --accent:#1F48D6;
+  --accent-strong:#1736A6;
+  --accent-ink:#FFFFFF;
+  --accent-soft:rgba(31,72,214,.08);
+  --second:#0B7A5E;
+  --second-strong:#075C47;
+  --second-soft:rgba(11,122,94,.08);
+  --warm:#F0A35B;
+  --green:#2E8A62;
+  --line:#E4E7EC;
+  --line-2:#C9CED6;
+  --sh-a:rgba(16,24,40,.05);
+  --sh-b:rgba(16,24,40,.07);
+  --sh-c:rgba(16,24,40,.12);
+  --ring:rgba(31,72,214,.18);
+  --carbon-key:#141517;
+  --sea:#D9E8F2;
+  --land:#EFEADC;
+  --land-line:#B9C8D3;
+  --graticule:#C4D6E3;
   /* paper and ink */
-  --bg:light-dark(#FFFFFF,#0A0E15);
-  --bg-2:light-dark(#F4F6F9,#0F141C);
-  --panel:light-dark(#FFFFFF,#121824);
-  --panel-2:light-dark(#F1F3F6,#18202D);
-  --glass:light-dark(rgba(255,255,255,.72),rgba(18,24,36,.62));
-  --text:light-dark(#121519,#E9EDF4);
-  --muted:light-dark(#596170,#9AA5B8);
   /* cobalt accent, emerald second, a warm highlight for the aurora */
-  --accent:light-dark(#1F48D6,#86A0FF);
-  --accent-strong:light-dark(#1736A6,#B3C3FF);
-  --accent-ink:light-dark(#FFFFFF,#0A0E15);
-  --accent-soft:light-dark(rgba(31,72,214,.08),rgba(134,160,255,.12));
-  --second:light-dark(#0B7A5E,#4AD3AA);
-  --second-strong:light-dark(#075C47,#7FE6C6);
-  --second-soft:light-dark(rgba(11,122,94,.08),rgba(74,211,170,.12));
-  --warm:light-dark(#F0A35B,#FFBE7A);
-  --green:light-dark(#2E8A62,#5BD3A0);
-  --line:light-dark(#E4E7EC,rgba(255,255,255,.08));
-  --line-2:light-dark(#C9CED6,rgba(255,255,255,.16));
-  --sh-a:light-dark(rgba(16,24,40,.05),rgba(0,0,0,.4));
-  --sh-b:light-dark(rgba(16,24,40,.07),rgba(0,0,0,.45));
-  --sh-c:light-dark(rgba(16,24,40,.12),rgba(0,0,0,.55));
   --shadow:0 1px 2px var(--sh-a),0 8px 24px var(--sh-b);
   --shadow-lift:0 2px 4px var(--sh-a),0 18px 44px var(--sh-c);
-  --ring:light-dark(rgba(31,72,214,.18),rgba(134,160,255,.28));
   --measure:66ch;
   --wrap:1180px;
   --display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
@@ -48,8 +54,68 @@
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 :root[data-theme="light"]{color-scheme:light}
-:root[data-theme="dark"]{color-scheme:dark;--grain:.06;--aurora-o:.5;--grid-o:.35;--glow-o:.45;--grain-blend:screen}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--grain:.06;--aurora-o:.5;--grid-o:.35;--glow-o:.45;--grain-blend:screen}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0A0E15;
+  --bg-2:#0F141C;
+  --panel:#121824;
+  --panel-2:#18202D;
+  --glass:rgba(18,24,36,.62);
+  --text:#E9EDF4;
+  --muted:#9AA5B8;
+  --accent:#86A0FF;
+  --accent-strong:#B3C3FF;
+  --accent-ink:#0A0E15;
+  --accent-soft:rgba(134,160,255,.12);
+  --second:#4AD3AA;
+  --second-strong:#7FE6C6;
+  --second-soft:rgba(74,211,170,.12);
+  --warm:#FFBE7A;
+  --green:#5BD3A0;
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.16);
+  --sh-a:rgba(0,0,0,.4);
+  --sh-b:rgba(0,0,0,.45);
+  --sh-c:rgba(0,0,0,.55);
+  --ring:rgba(134,160,255,.28);
+  --carbon-key:#C9CED6;
+  --sea:#0E1622;
+  --land:#232B38;
+  --land-line:#3A4556;
+  --graticule:#263040;
+  --grain:.06;--aurora-o:.5;--grid-o:.35;--glow-o:.45;--grain-blend:screen;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0A0E15;
+  --bg-2:#0F141C;
+  --panel:#121824;
+  --panel-2:#18202D;
+  --glass:rgba(18,24,36,.62);
+  --text:#E9EDF4;
+  --muted:#9AA5B8;
+  --accent:#86A0FF;
+  --accent-strong:#B3C3FF;
+  --accent-ink:#0A0E15;
+  --accent-soft:rgba(134,160,255,.12);
+  --second:#4AD3AA;
+  --second-strong:#7FE6C6;
+  --second-soft:rgba(74,211,170,.12);
+  --warm:#FFBE7A;
+  --green:#5BD3A0;
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.16);
+  --sh-a:rgba(0,0,0,.4);
+  --sh-b:rgba(0,0,0,.45);
+  --sh-c:rgba(0,0,0,.55);
+  --ring:rgba(134,160,255,.28);
+  --carbon-key:#C9CED6;
+  --sea:#0E1622;
+  --land:#232B38;
+  --land-line:#3A4556;
+  --graticule:#263040;
+  --grain:.06;--aurora-o:.5;--grid-o:.35;--glow-o:.45;--grain-blend:screen;
+}}
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none;interpolate-size:allow-keywords}
@@ -316,10 +382,8 @@ main{counter-reset:sec}
 .tl .org{font-family:var(--display);color:var(--muted);font-size:1.02rem}
 .tl p{color:var(--muted);font-size:.94rem;margin-top:8px;max-width:68ch}
 .map-fig{position:sticky;top:96px;padding:12px}
-.cell-key{--carbon-key:light-dark(#141517,#C9CED6)}
-#map{--sea:light-dark(#D9E8F2,#0E1622)}
-#map .land{fill:light-dark(#EFEADC,#232B38);stroke:light-dark(#B9C8D3,#3A4556);stroke-width:.8;stroke-linejoin:round}
-#map .graticule{stroke:light-dark(#C4D6E3,#263040)}
+#map .land{fill:var(--land);stroke:var(--land-line);stroke-width:.8;stroke-linejoin:round}
+#map .graticule{stroke:var(--graticule)}
 #map .arc{fill:none;stroke:var(--accent);stroke-width:1.5;stroke-dasharray:400;stroke-dashoffset:400}
 #map .pin circle{fill:var(--second)}
 #map .pin.collab circle{fill:var(--bg);stroke:var(--second);stroke-width:2}
