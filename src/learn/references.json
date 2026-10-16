@@ -594,5 +594,32 @@
     "doi": "10.1038/s43246-022-00286-8",
     "status": "verified",
     "short": "Dai and Cai 2022"
+  },
+  "R91": {
+    "authors": "A. Moretti, D. Vieira Carvalho, N. Ehteshami, E. Paillard, W. Porcher, D. Brun-Buisson, J.-B. Ducros, I. de Meatza, A. Eguia-Barrio, K. Trad, S. Passerini",
+    "title": "A Post-Mortem Study of Stacked 16 Ah Graphite//LiFePO4 Pouch Cells Cycled at 5 °C",
+    "journal": "Batteries",
+    "year": 2019, "volume": "5", "pages": "45",
+    "doi": "10.3390/batteries5020045",
+    "status": "verified",
+    "short": "Moretti et al. 2019"
+  },
+  "R92": {
+    "authors": "W. Wheeler, Y. Bultel, P. Venet, A. Sari, E. Riviere",
+    "title": "Postmortem Analysis of 18650 Graphite/LFP Cells in a Long-Term Aging Study for Second-Life Applications",
+    "journal": "Batteries",
+    "year": 2024, "volume": "10", "pages": "119",
+    "doi": "10.3390/batteries10040119",
+    "status": "verified",
+    "short": "Wheeler et al. 2024"
+  },
+  "R93": {
+    "authors": "S. M. Abbas, A. Jodlbauer, M. Wilkening, H. Wiltsche, J. V. Ecker, C. Ellersdorfer, G. Gstrein, I. Hanzu",
+    "title": "Post-mortem identification of lithium plating in high energy automotive batteries",
+    "journal": "Sustainable Energy & Fuels",
+    "year": 2025, "volume": "9", "pages": "5342-5353",
+    "doi": "10.1039/d5se00509d",
+    "status": "verified",
+    "short": "Abbas et al. 2025"
   }
 }

@@ -361,3 +361,17 @@ Read the plan first; this file records state, decisions and the checklist so wor
   ChemTexts (R88); Chen et al. 2020, JES (R89); Dai and Cai 2022, Commun. Mater. (R90). The Dahn coin-cell guide (R21)
   and the Argonne standardization paper could not be read (publisher blocks fetching) and are not cited for new claims.
 - Page now about 30 min, 9 references. Checks: contact sheets 1300 and 360; gate exit 0; axe clean; 0 broken links; 80 tests.
+
+## Lab 6 Post-mortem (2026-10-16, owner's request: improve the lab handbook pages)
+
+- Six new beats, f11-34 to f11-39 (Figures L6.2 to L6.7), in src/learn/figs/figs-11pm.js after the technique matrix:
+  the post-mortem workflow as a six-step ladder; residual capacity of harvested LiFePO4 discs by stack position and
+  edge or centre (Moretti Table 4, cells A and B); the 90-degree peel test (Moretti Table 3, log scale); the aged
+  graphite sheet of an 18650 cell and the 9 against 30 percent gap between harvested discs and the whole electrode
+  (Wheeler); FePO4 left after discharge by position from Rietveld refinement (Moretti Table 5) with a schematic
+  two-peak pattern; the three ways of finding plated lithium (Abbas: 7Li NMR Knight shift, water-soluble Li by
+  ICP-OES, SEM with elemental mapping).
+- Sources read in full for the parts used: Moretti et al. 2019, Batteries (R91); Wheeler et al. 2024, Batteries
+  (R92); Abbas et al. 2025, Sustain. Energy Fuels (R93); with Meddings et al. 2020 (R64) for the order of operations.
+  The Waldmann et al. 2016 review and an Energies 2023 NMC post-mortem could not be fetched and are not cited.
+- Page now about 25 min, 27 references. Checks: contact sheets 1300 and 360; gate exit 0; axe clean; 0 broken links.

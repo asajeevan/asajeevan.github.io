@@ -136,7 +136,7 @@
      "title": "Post-mortem and electrode characterization",
      "question": "When the outside of a cell is not enough, what then?",
      "seo_title": "Battery post-mortem analysis: opening and characterizing cells", "seo_desc": "What to do when electrochemistry is not enough: opening aged cells and the techniques that characterize their electrodes, from microscopy to spectroscopy.",
-     "beats": ["f11-18"]}
+     "beats": ["f11-18", "f11-34", "f11-35", "f11-36", "f11-37", "f11-38", "f11-39"]}
   ],
   "tails": {
     "m00": "electrostatics", "m01": "galvanic-cells", "m02": "cell-anatomy", "m03": "cell-voltage",

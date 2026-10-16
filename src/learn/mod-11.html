@@ -769,6 +769,130 @@
       </div>
     </div>
 
+    <div class="beat">
+      <figure class="fig" data-fig="f11-34" id="f11-34">
+        <span class="fnum">Figure 11.34</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1134t">
+          <title id="f1134t">Six numbered boxes joined by arrows, the steps of a post-mortem in order: outside first (capacity, differential curves, impedance); discharge to the lower cut-off; open in argon with oxygen and water at or below one part per million; map the samples by stack position, edge and centre; wash in dimethyl carbonate or leave unwashed; measure. Each box can be selected for its description. A note says the path is one way.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The post-mortem, in order: outside first, then discharged, in argon, mapped, and only then measured.
+          <span class="try">Try this: tap the boxes in order and find the two steps at which evidence can be lost for good.</span>
+          <span class="basis">Non-destructive checks first, a fresh cell as baseline and discharge before opening after Meddings et al. 2020, section 3.3; the discharge (C/2 to 2.5 V, then constant voltage to C/50), the glovebox at or below 1 ppm, the ceramic scissors, the sampling by stack position and by edge and centre, the DMC dip and the unwashed XPS samples after Moretti et al. 2019; leaving bulky deposits unwashed after Wheeler et al. 2024; sampling by layer after Abbas et al. 2025.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The order of a post-mortem</h3>
+        <p class="explain">A post-mortem is a sequence, and the sequence protects the evidence. First everything that can be measured from outside: the capacity and its history, the differential curves of {{fig:f5-9}}, which already separate lost lithium from lost material and flag plating, and the impedance; a fresh cell measured the same way is the baseline, and once a cell is opened none of this can be repeated.{{cite:R64}} Then the cell is discharged to its lower cut-off, slowly, with a constant-voltage hold, so that the positive electrode is as full of lithium as it can be: in one study, C/2 to 2.5 V and a hold to C/50.{{cite:R91}} It is opened in an argon glovebox with oxygen and water at or below 1 ppm, a pouch along its long side with ceramic scissors and a scalpel, without touching the stack.{{cite:R91}}</p>
+        <p class="explain">Then the sampling, which is where most post-mortems go wrong. A large cell does not age as one piece: in a 16 Ah pouch cell of 38 negative and 37 positive sheets, samples were cut from the beginning, middle and end of the stack and from the edge and centre of each sheet, and every result was labelled with its position;{{cite:R91}} a 64 Ah cell was sampled layer by layer, 2, 4, 8, 16 and 32 from the outside, and at the middle and the tab side of each.{{cite:R93}} The sampling is part of the result: a number without its position is a number from somewhere.</p>
+        <p class="explain">Washing is a choice. A dip in dimethyl carbonate and drying under vacuum removes the electrolyte residue that would otherwise dominate a surface spectrum, but surface spectroscopy is also done on unwashed samples, and electrodes carrying bulky deposits are left unwashed, because the deposits would go with the solvent.{{cite:R91,R92}} Samples for microscopy travel in an inert transfer chamber or a sealed pouch; the one that was prepared in air showed oxygen where the plated lithium had reacted with it.{{cite:R91,R93}}</p>
+        <p class="lesson">Outside first, discharged, in argon, mapped, and washed only on purpose: the order is the method.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-35" id="f11-35">
+        <span class="fnum">Figure 11.35</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1135t">
+          <title id="f1135t">Left, a pouch cell stack drawn edge-on, 38 negative and 37 positive sheets, with the beginning, middle and end marked. Centre, one positive sheet face on with four sample squares coloured by the residual capacity measured after harvesting: beginning edge, beginning centre, middle edge, middle centre. Right, the colour scale from 60 to 95 per cent. Buttons choose cell A, charged at 0.3C, or cell B, charged at 2C.</title>
+        </svg>
+        <div class="controls"><span class="sw" role="group" aria-label="Cell"><button type="button" data-cell="A" aria-pressed="true">Cell A, 0.3C charge</button> <button type="button" data-cell="B" aria-pressed="false">Cell B, 2C charge</button></span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Where the capacity went: harvested discs of one cell, cycled again, by position.
+          <span class="try">Try this: compare the centre of the middle sheet with the edge of the first sheet, then switch to cell B.</span>
+          <span class="basis">Residual capacities of harvested LiFePO4 discs (percent of the pristine 2.53 mAh), the stack of 38 and 37 sheets, the states of health, the equivalent cycles and the conclusion that loss of active material was negligible against loss of lithium inventory, from Moretti et al. 2019, Tables 2 and 4 and section 2.4; the 5 °C ageing at 0.3C or 2C charge. The sheet is drawn schematically; the four squares show the four sampled positions.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Harvested electrodes, cycled again</h3>
+        <p class="explain">The most direct test of a harvested electrode is to make it work again. Discs are punched from the sampled positions, one side of the coating is removed where the sheet was coated on both, and each disc is built into a coin cell against lithium, in the same glovebox and with a fresh electrolyte, then cycled slowly.{{cite:R91}} The capacity it delivers, compared with a disc from a fresh cell, is the <b>residual capacity</b> of that piece of electrode; the rate test that follows says whether the material is intact.{{cite:R91}}</p>
+        <p class="explain">{{fig:f11-35}} shows what came out of two 16 Ah LiFePO<sub>4</sub> | graphite pouch cells cycled at 5 °C, one charged at 0.3C and one at 2C, until they had lost a fifth or more of their capacity. In cell A, the centre of the middle sheet still delivered 89 % of the pristine capacity, the edge of the first sheet 71 %, and its centre 63 %: a spread of a factor of three in one cell.{{cite:R91}} After the first discharge, all the discs performed alike in the rate test, so the loss of active material was negligible against the loss of lithium inventory; the lithium had been consumed, unevenly, and the authors trace the pattern mainly to the pressure, which is highest in the middle of the stack and at the centre of each sheet.{{cite:R91}} In cell B, charged faster, the spread was smaller, which they attribute to the higher current warming the cell above 5 °C.{{cite:R91}}</p>
+        <p class="lesson">One cell, one electrode, three different states of health, depending on where the disc was punched.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-36" id="f11-36">
+        <span class="fnum">Figure 11.36</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1136t">
+          <title id="f1136t">Left, a sketch of the 90-degree peel test: a strip of coating pulled upward from its current collector at 20 millimetres per minute. Right, pairs of bars on a logarithmic scale giving the adhesion in newtons per metre of the negative and positive coatings for a pristine electrode, a formed fresh cell, and the beginning, middle and end of the stack of two aged cells; the positive bars stand near 300 to 580, the negative near 2 to 8.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>The peel test: how hard the coating still holds.
+          <span class="try">Try this: tap the pristine and the fresh pairs and read what formation alone did to the graphite coating.</span>
+          <span class="basis">Adhesion values and the 90-degree peel test (20 mm/min, strips of 20 by 90 mm) from Moretti et al. 2019, Table 3 and section 2.2; the middle positive electrode of cell B is given there as above the 550 N/m range of the instrument and is drawn at 560. The failure to build some negative half cells for want of adhesion, from the same work.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Mechanics first: the peel test</h3>
+        <p class="explain">Before chemistry, mechanics. A strip of the coating is pulled off its current collector at a right angle, slowly, and the force per width is the <b>adhesion</b>; it costs nothing and it decides which samples can be handled. The positive coating of a commercial LiFePO<sub>4</sub> electrode holds with several hundred newtons per metre, pristine or aged; the graphite coating with a few, and formation alone, the first cycles in which the SEI forms and the graphite swells, cut it from 5.4 to 2.2 N/m.{{cite:R91}} In the aged cells the positive coating stayed above 330 N/m everywhere, while the negative was so loose in places that half cells could not be built from it.{{cite:R91}}</p>
+        <p class="explain">A coating that comes away is more than a handling problem. The material that no longer touches the collector no longer counts, and its lithium no longer cycles ({{ch:composite-electrodes}}); in one cell the separator carried dark patches where the graphite coating had detached, visible before any instrument was switched on.{{cite:R91}} Thickness is measured at the same time, because a swollen electrode is one whose pores have filled with reaction products or whose particles have cracked.{{cite:R91}}</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-37" id="f11-37">
+        <span class="fnum">Figure 11.37</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1137t">
+          <title id="f1137t">Two views. First, an aged graphite sheet from an 18650 cell drawn unrolled: deposits in gold and grey concentrated at the two ends of the roll, with cracks, over a dark coating. Second, two bars: the capacity lost by harvested graphite discs tested in coin cells, about 9 per cent, against the loss of the whole negative electrode estimated from outside the cell, about 30 per cent.</title>
+        </svg>
+        <div class="controls"><span class="sw" role="group" aria-label="View"><button type="button" data-view="map" aria-pressed="true">The sheet</button> <button type="button" data-view="bars" aria-pressed="false">Disc against cell</button></span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>What the coin cell can and cannot see.
+          <span class="try">Try this: switch to the bars and ask where the missing 21 % is.</span>
+          <span class="basis">The three A123 18650 LiFePO4 | graphite cells cycled at 50 °C to 30 to 40 percent state of health, opened in argon without washing, the deposits on 11 percent of the negative sheet (8.4 and 13.2 percent on its two sides) and mainly at the ends of the roll, the electron-probe findings (deposits mainly oxygen, light grey areas about 60 percent fluorine read as LiF), the unchanged LiFePO4, the 9 percent loss of the harvested discs against about 30 percent for the whole negative electrode, and the deposits that peeled off the copper, from Wheeler et al. 2024, sections 2.3 and 3. The sheet is drawn schematically.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Inspection, microscopy, and the limits of the harvested disc</h3>
+        <p class="explain">The eye comes first. Three 18650 LiFePO<sub>4</sub> | graphite cells driven at 50 °C with a vehicle profile until they held 30 to 40 % of their capacity were opened in argon and photographed before anything else: the positive sheet showed no deposits, cracks or exfoliation, the negative showed all three, concentrated at the two ends of the wound roll, with deposits over 11 % of its area.{{cite:R92}} The electron microscope then sorted the surface into regions: the dark grey coating that looked like the fresh one; light grey areas of small spheres whose elemental map read about 60 % fluorine, taken as LiF; and bulky gold deposits that were mainly oxygen and hid the graphite beneath.{{cite:R92}} The LiFePO<sub>4</sub> looked and analysed as it had when new.{{cite:R92}}</p>
+        <p class="explain">Then the discs. Harvested LiFePO<sub>4</sub> discs in coin cells delivered their full capacity; harvested graphite discs had lost 9 % on average.{{cite:R92}} But the whole cell&#8217;s negative electrode, estimated from outside in a companion study, had lost about 30 %, and the authors say why: the material under the bulky deposits peeled off the copper and could not be punched, so the discs that reached a coin cell were the good ones.{{cite:R92}} The harvested-disc test measures what survives harvesting, and a post-mortem number carries its sampling with it; here the gap between 9 and 30 % is itself the finding, that a third of the negative electrode had become inoperable.{{cite:R92}}</p>
+        <p class="lesson">The coin cell tests what could be punched; what fell off is part of the answer.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-38" id="f11-38">
+        <span class="fnum">Figure 11.38</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1138t">
+          <title id="f1138t">Left, a schematic diffraction pattern with two peaks, LiFePO4 and FePO4, whose heights follow the selected sample. Right, horizontal bars of the FePO4 fraction left after a full discharge: 9 per cent in the fresh cell; in cell A from 15 to 30 per cent by sheet and by edge or centre; in cell B 25, 26 and 3 per cent for the beginning, middle and end sheets.</title>
+        </svg>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Where the lithium went: FePO₄ left in discharged positive electrodes, by position.
+          <span class="try">Try this: tap the fresh bar, then the centre and the edge of the first sheet of cell A.</span>
+          <span class="basis">LiFePO4 and FePO4 fractions from Rietveld refinement of patterns measured on the electrodes themselves (Cu K-alpha, 10 to 85 degrees), from Moretti et al. 2019, Table 5 and section 2.5. The diffraction pattern drawn is a schematic of two peaks whose areas follow the table, not the measured pattern.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">Diffraction: the lithium that did not come back</h3>
+        <p class="explain">A two-phase positive electrode keeps its own account. LiFePO<sub>4</sub> and FePO<sub>4</sub> are distinct phases with distinct diffraction peaks, so a pattern taken on the discharged electrode itself, refined for the two phases, says what fraction is still FePO<sub>4</sub>: lattice that no lithium came back to fill, because that lithium was lost on the negative side.{{cite:R91}} The fresh cell leaves 9 %; cell A leaves up to 30 % at the centre of its first sheet, 20 % at its edge, 15 % at the edge of the middle sheet; cell B&#8217;s last sheet only 3 %.{{cite:R91}} The pattern follows the residual capacities of {{fig:f11-35}} and the surface chemistry of the same samples, where the salt-decomposition products were thickest at the edges and the outer sheets: the same lost lithium, counted three ways.{{cite:R91}}</p>
+        <p class="explain">On the negative side, diffraction reads the graphite 00<i>l</i> peak, whose shift with lithium content tells how much lithium the graphite still holds in the discharged state.{{cite:R91}} For the surface itself, X-ray photoelectron spectroscopy on unwashed samples, kept from air in an antechamber, found LiF, Li<sub>2</sub>CO<sub>3</sub> and the fluorophosphates of the salt on the aged graphite, more of the salt products at the edges and in the outer sheets, and on the positive electrode a thinner interphase at the edges than in the middle of the stack.{{cite:R91}}</p>
+        <p class="lesson">Each technique counts the same lost lithium in its own currency; agreement between them is the proof.</p>
+      </div>
+    </div>
+
+    <div class="beat">
+      <figure class="fig" data-fig="f11-39" id="f11-39">
+        <span class="fnum">Figure 11.39</span>
+        <svg viewBox="0 0 520 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="f1139t">
+          <title id="f1139t">Three views chosen by buttons. A schematic lithium-7 NMR spectrum with the ionic lithium peak near 0 ppm for all samples and a metallic lithium peak near 258 ppm only for the artificially aged cell; a bar chart of the order of water-soluble lithium found by ICP-OES, lowest in the fresh cell and highest in the aged cell stored for eleven weeks; and a sketch of a scanning electron micrograph with bare graphite particles and a mossy region.</title>
+        </svg>
+        <div class="controls"><span class="sw" role="group" aria-label="Technique"><button type="button" data-tech="nmr" aria-pressed="true">⁷Li NMR</button> <button type="button" data-tech="icp" aria-pressed="false">ICP-OES</button> <button type="button" data-tech="sem" aria-pressed="false">SEM, EDX</button></span></div>
+        <div class="part-info"><span class="readout"></span></div>
+        <figcaption>Finding plated lithium: three techniques, three kinds of evidence.
+          <span class="try">Try this: look at each view and say which is direct, which is quantitative, and which is local.</span>
+          <span class="basis">From Abbas et al. 2025: 64.6 Ah graphite-SiOx | NMC712 pouch cells cycled at 1.5C and 10 °C to 82 to 85 percent state of health; the Knight shift of metallic lithium at 245 to 270 ppm found only in the artificially aged cells and still present after 11 weeks of storage; water-soluble lithium by ICP-OES with errors of 1 to 3 percent, highest in the stored aged cell and lowest in the fresh one; the mossy layer with oxygen and fluorine hot spots on the ambient-prepared SEM sample. The spectrum, bars and micrograph are schematic.</span>
+        </figcaption>
+      </figure>
+      <div class="text">
+        <h3 class="sub">The finding that matters most: plated lithium</h3>
+        <p class="explain">Metallic lithium on the graphite is the post-mortem finding that bears on safety, and the one that is easiest to miss, because by the time the cell is opened the metal may have reacted with the electrolyte into SEI and LiF, or with the air of a careless preparation.{{cite:R93}} A study of 64.6 Ah automotive cells cycled at 1.5C and 10 °C, conditions chosen to plate, compared three ways of finding it.{{cite:R93}}</p>
+        <p class="explain"><b>Nuclear magnetic resonance</b> of <sup>7</sup>Li, on active material scraped from the copper and sealed in a rotor inside the glovebox, is direct: metallic lithium has a Knight shift of 245 to 270 ppm, far from the ions near 0, and the peak appeared in both artificially aged cells and in neither the fresh cell nor a cell aged in a car to 93 %. It was still there after 11 weeks of storage. It is qualitative.{{cite:R93}} <b>ICP-OES</b> of the lithium that dissolves when a weighed piece of electrode is stirred in water is quantitative, with errors of 1 to 3 %, because plated metal reacts with the water and is counted; but it is indirect, and lithium that has already become insoluble LiF is missed.{{cite:R93}} The <b>electron microscope</b> showed a mossy layer on the aged graphite, absent from the fresh and the car-aged samples, with oxygen and fluorine hot spots where the metal had met the air during preparation; it cannot map lithium, and it sees a square centimetre at most.{{cite:R93}} The authors&#8217; own conclusion is the handbook&#8217;s: NMR direct but not quantitative, ICP quantitative but indirect, microscopy local; and the methods that need the least preparation reproduce best.{{cite:R93}}</p>
+        <p class="explain">That is the pattern of the whole page. No technique proves a mechanism alone, and {{fig:f11-18}} is read as a set of questions, each with the cheapest technique that answers it: the differential curves before opening for lost lithium and lost material, the peel test for delamination, the microscope for cracks, deposits and exfoliation, diffraction for the lithium left in the lattices, surface spectroscopy for what the electrolyte became, the rebuilt coin cell for what the material can still do, and NMR for the metal. Agreement among them, on samples whose positions are known, is what a post-mortem can prove.</p>
+        <p class="lesson">Plated lithium is found by its nuclear signature, by what dissolves, and by what the microscope sees; one of them alone is a hint.</p>
+      </div>
+    </div>
+
     <div class="beat alt">
       <figure class="fig" data-fig="f11-18" id="f11-18">
         <span class="fnum">Figure 11.18</span>
@@ -801,7 +925,7 @@
           <p class="eqline"><span class="eq">i = i₀[e<sup>(1−α)Fη/RT</sup> − e<sup>−αFη/RT</sup>], R<sub>ct</sub> = RT/(Fi₀)</span><span class="eqnote">Butler–Volmer and its linear limit; harmonics measure the curvature</span></p>
           <p class="eqline"><span class="eq">Z(ω) = R₀ + R<sub>pol</sub>∫g(τ)/(1 + jωτ)dτ</span><span class="eqnote">the distribution of relaxation times, found by regularized least squares</span></p>
         </div></details>
-        {{sources:R1,B2,R38,R63,R64,R65,R66,R67,R68,R69,R2,R6,R21,R48,R83,R84,R85,R86,R54,R78,R87,R88,R89,R90}}
+        {{sources:R1,B2,R38,R63,R64,R65,R66,R67,R68,R69,R2,R6,R21,R48,R83,R84,R85,R86,R54,R78,R87,R88,R89,R90,R91,R92,R93}}
       </div>
     </div>
 
