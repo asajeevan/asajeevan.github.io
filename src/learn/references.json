@@ -621,5 +621,32 @@
     "doi": "10.1039/d5se00509d",
     "status": "verified",
     "short": "Abbas et al. 2025"
+  },
+  "R94": {
+    "authors": "P. Ghasemiahangarani, D. del Mundo, R. C. Chow, G. Farhan, L. W. Gordon, T. Schoetz",
+    "title": "A tutorial for the identification and quantitative disentangling of charge storage mechanisms by variable-rate cyclic voltammetry",
+    "journal": "Electrochimica Acta",
+    "year": 2026, "volume": "551", "pages": "148127",
+    "doi": "10.1016/j.electacta.2026.148127",
+    "status": "verified",
+    "short": "Ghasemiahangarani et al. 2026"
+  },
+  "R95": {
+    "authors": "X. Pu, D. Zhao, C. Fu, Z. Chen, S. Cao, C. Wang, Y. Cao",
+    "title": "Understanding and Calibration of Charge Storage Mechanism in Cyclic Voltammetry Curves",
+    "journal": "Angewandte Chemie International Edition",
+    "year": 2021, "volume": "60", "pages": "21310-21318",
+    "doi": "10.1002/anie.202104167",
+    "status": "verified",
+    "short": "Pu et al. 2021"
+  },
+  "R96": {
+    "authors": "H. Chen, P. Dhiman, H.-Y. S. Huang",
+    "title": "Dislocation-induced artifacts in cyclic voltammetry of battery materials",
+    "journal": "Journal of Solid State Electrochemistry",
+    "year": 2026, "volume": "", "pages": "",
+    "doi": "10.1007/s10008-026-06729-3",
+    "status": "verified",
+    "short": "Chen, Dhiman and Huang 2026"
   }
 }

@@ -400,3 +400,29 @@ Read the plan first; this file records state, decisions and the checklist so wor
   depleted layer is shaded; a flux arrow at the electrode follows the current and reverses with the sweep; a
   Nernst bar shows the surface ratio; play and step controls. viewBox 520 × 334.
 - Checks: gate exit 0 on the three pages; axe clean; 0 broken links.
+
+## Lab 2, parameter extraction (2026-10-16, owner's request: improve the CV section with three uploaded articles and explain how to extract every useful parameter)
+
+- Three new sources, read in full from the uploaded PDFs: Ghasemiahangarani et al. 2026, Electrochim. Acta 551,
+  148127 (R94, the three-term fit |i| = a v^1/2 + b v + c v^3/2 with deConV); Pu et al. 2021, Angew. Chem. Int.
+  Ed. 60, 21310 (R95, de-polarization, de-residual, de-background and the matrix least squares); Chen, Dhiman and
+  Huang 2026, J. Solid State Electrochem. (R96, stress-coupled CV, the sigma Omega / F shift and the 3.3x DRS
+  inflation).
+- Four new figures (src/learn/figs/figs-11cx.js): L2.4 (f11-43) reads every parameter off one simulated curve
+  with the foot-fitted baselines, the charge under the peak and the double-layer capacitance from the forward
+  foot (sliders for C_dl to 2000 uF/cm2 and R_u); L2.7 (f11-44) de-polarization: E_p against i_p at five rates,
+  two parallel lines, the slope and intercepts, an "as recorded / de-polarized" switch; L2.9 (f11-45) the
+  three-power fit by non-negative least squares at every potential on an illustrative electrode of three shapes
+  normalised to unit charge, stacked by mechanism, with shares and mean R², and a decomposition-at-the-edge
+  toggle; L2.12 (f11-46) the stress artefact: a flat stress shift against a growing ohmic one, and the apparent
+  D inflation against stress.
+- Four new text sections and a parameter sheet (table): what one curve gives; correct before you fit; three
+  mechanisms, three powers of v; when the lattice is stressed. The sheet lists each parameter, its source, how
+  it is read and its trap, with citations.
+- Honesty notes carried in the figures: the simulated reversible couple in solution gives a slope above the
+  resistance put in (208 against 150 ohm), stated in the readout and the prose as an upper estimate, with the
+  intercepts as the robust part; the C_dl is read from the forward foot alone because the reverse sweep carries
+  the reduction tail; the decomposition term scales as v^1.25 so the fit splits it between v and v^3/2, with
+  Ghasemiahangarani's warning quoted.
+- Checks: contact sheets at 1300 and 360 for all four; gate exit 0 (one tick overlap fixed); axe clean; 0
+  broken links; 82 tests pass.

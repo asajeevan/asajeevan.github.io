@@ -116,7 +116,7 @@
      "title": "Cyclic voltammetry: principles, diffusion, kinetics and battery electrodes",
      "question": "What does a voltammogram tell us, and how do we read it?",
      "seo_title": "Cyclic voltammetry (CV) explained: a battery lab guide", "seo_desc": "Cyclic voltammetry from first principles: the duck-shaped wave, Randles-Sevcik, scan-rate tests, b-values, ohmic drop, battery electrodes and stability windows.",
-     "beats": ["f11-19", "f11-20", "f11-21", "f11-22", "f11-23", "f11-24", "f11-25", "f11-26", "f11-27"]},
+     "beats": ["f11-19", "f11-20", "f11-21", "f11-43", "f11-22", "f11-23", "f11-44", "f11-24", "f11-45", "f11-25", "f11-26", "f11-46", "f11-27"]},
     {"id": "lab/gitt", "kind": "lab", "num": "Lab 3", "part": "LAB", "menu": "GITT",
      "title": "Pulse methods and the galvanostatic intermittent titration technique (GITT)",
      "question": "How do we measure resistance and diffusion?",
