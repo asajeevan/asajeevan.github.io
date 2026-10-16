@@ -309,3 +309,14 @@ Read the plan first; this file records state, decisions and the checklist so wor
   Kim Table 1 diffusion coefficients by method; the stability window and its cut-off.
 - Hub description mentions cyclic voltammetry. Static APA citation: removed a doubled full stop after the initial.
 - Checks: 1300 and 360 px contact sheets; gate exit 0 on all six lab pages; axe clean; 0 broken links; 80 tests.
+
+## Figure L2.1 cell and sweep (2026-10-16, owner's request: improve the figure)
+
+- Redrawn cell: PTFE lid, glassy carbon disc in a PTFE body, silver-wire reference behind a porous frit, platinum
+  coil, supporting-electrolyte ions, argon kept as a blanket above the liquid during the scan (Elgrishi et al. 2018).
+- Potentiostat with WE, RE and CE sockets and a live display of E, i and real time.
+- Animated: electrons in the leads and ionic current in the solution, with speed and direction following the simulated
+  current; the potential-sense path WE to RE shown in step 2; a close-up lens of the selected electrode.
+- The E(t) triangle has a moving cursor, and a new lower panel traces the same current against E as the sweep runs,
+  linking the waveform to the voltammogram (fourth step). viewBox 520 × 400.
+- Checks: 1300 and 360 px; gate exit 0; axe clean; 0 broken links; 80 tests.

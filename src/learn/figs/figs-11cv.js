@@ -22,73 +22,185 @@
   function cvRun(o) { return P.cv.simulate(Object.assign({ Ei: -0.3, Es: 0.3, E0: 0, D: CV_D, C: CV_C, A: CV_A, steps: 600 }, o)); }
   function uA(i) { return i * 1e6; }
 
-  /* f11-19: the experiment: a three-electrode cell and the triangular sweep */
+  /* f11-19: the experiment: a three-electrode cell, the triangular sweep, and the voltammogram it draws */
   register('f11-19', function (fig) {
     var svg = fig.querySelector('svg'), g = el('g', {}, svg), read = fig.querySelector('.readout'), sv = fig.querySelector('.cvv'), vv = fig.querySelector('.cvv-val');
-    // the potentiostat
-    el('rect', { x: 40, y: 14, width: 150, height: 40, rx: 6, fill: M('steel'), stroke: '#8B95A0', filter: 'url(#fx-lift)' }, g);
-    el('rect', { x: 52, y: 22, width: 64, height: 22, rx: 3, fill: '#1B2430', stroke: '#0E141B' }, g);
-    var lcd = txt(g, 84, 37, '', 'strong', 'middle', { style: 'fill:#7CF0C4;font-size:11px' });
-    txt(g, 156, 38, 'potentiostat', '', 'middle', { style: 'font-size:11px' });
-    // the cell: a glass beaker of electrolyte
-    tank(g, 40, 112, 170, 150, 'electrolyte', 10);
-    var parts = {}, sel = 'we';
-    function lead(x, col) { el('path', { d: 'M' + x + ',54 C' + x + ',70 ' + x + ',76 ' + x + ',92', fill: 'none', stroke: col, 'stroke-width': 2.2 }, g); }
-    // working electrode: glassy carbon disc in an insulating body
+    var sel = 'we', sense = false, phase = 0.3, sim = null, imax = 1;
+    var XW = 92, XR = 132, XC = 178, LIQ = 150;
+    // ---- the potentiostat: a live display and three sockets ----
+    el('rect', { x: 18, y: 8, width: 214, height: 60, rx: 7, fill: M('steel'), stroke: '#8B95A0', filter: 'url(#fx-lift)' }, g);
+    el('rect', { x: 27, y: 15, width: 112, height: 40, rx: 4, fill: '#1B2430', stroke: '#0E141B' }, g);
+    var MONO = 'fill:#7CF0C4;font-size:10px;font-family:var(--mono)';
+    var lcdE = txt(g, 33, 28, '', '', 'start', { style: MONO }), lcdI = txt(g, 33, 40, '', '', 'start', { style: MONO }), lcdT = txt(g, 33, 52, '', '', 'start', { style: MONO + ';opacity:.75' });
+    txt(g, 186, 25, 'potentiostat', '', 'middle', { style: 'font-size:11px' });
+    var lcdV = txt(g, 186, 40, '', 'strong', 'middle', { style: 'font-size:11px' });
+    [[64, 'var(--accent)', 'WE'], [126, 'var(--second)', 'RE'], [188, 'var(--heat)', 'CE']].forEach(function (s) {
+      el('circle', { cx: s[0], cy: 61, r: 4.2, fill: '#2A3038', stroke: s[1], 'stroke-width': 2 }, g);
+    });
+    // ---- the cell: glass, electrolyte, a PTFE lid ----
+    el('rect', { x: 47, y: LIQ, width: 184, height: 149, rx: 10, fill: MV('electrolyte') }, g);
+    el('line', { x1: 48, x2: 230, y1: LIQ, y2: LIQ, stroke: '#9FB3C2', 'stroke-width': 1 }, g);
+    el('rect', { x: 46, y: 122, width: 186, height: 178, rx: 10, fill: 'none', stroke: '#9FB3C2', 'stroke-width': 1.6 }, g);
+    el('rect', { x: 52, y: 134, width: 3, height: 150, rx: 1.5, fill: '#fff', opacity: 0.6 }, g);
+    el('rect', { x: 40, y: 112, width: 198, height: 14, rx: 3, fill: MV('polymer'), stroke: '#C9C3B4' }, g);
+    // supporting electrolyte: many ions, far more than the analyte
+    var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (var q = 0; q < 70; q++) {
+      var ix = 56 + rnd() * 168, iy = LIQ + 10 + rnd() * 128, cat = q % 2 === 0;
+      if (Math.abs(ix - XW) < 14 || Math.abs(ix - XR) < 13 || Math.abs(ix - XC) < 16 || (iy > 274 && ix > 70 && ix < 200) || (Math.abs(ix - 66) < 14 && Math.abs(iy - 200) < 14) || (Math.abs(ix - 155) < 14 && Math.abs(iy - 160) < 14)) continue;
+      el('circle', { cx: ix.toFixed(1), cy: iy.toFixed(1), r: cat ? 2 : 2.6, fill: cat ? 'var(--cation)' : 'var(--anion)', opacity: 0.45 }, g);
+    }
+    // ---- leads from the sockets ----
+    function lead(d, col) { return el('path', { d: d, fill: 'none', stroke: col, 'stroke-width': 2.4, 'stroke-linecap': 'round' }, g); }
+    var dWE = 'M64,65 C64,78 ' + XW + ',72 ' + XW + ',88', dCE = 'M188,65 C188,78 ' + XC + ',72 ' + XC + ',86';
+    lead(dWE, 'var(--accent)'); lead('M126,65 C126,76 ' + XR + ',72 ' + XR + ',86', 'var(--second)'); lead(dCE, 'var(--heat)');
+    // ---- working electrode: a glassy carbon disc set in a PTFE shroud ----
+    var parts = {};
     var we = el('g', { tabindex: 0, role: 'button', 'aria-label': 'working electrode', style: 'cursor:pointer' }, g);
-    lead(78, 'var(--accent)');
-    el('rect', { x: 70, y: 92, width: 16, height: 128, rx: 3, fill: MV('polymer'), stroke: '#B9B3A3' }, we);
-    el('rect', { x: 72, y: 218, width: 12, height: 5, rx: 1.5, fill: MV('carbon') }, we);
-    parts.we = el('rect', { x: 66, y: 88, width: 24, height: 140, rx: 5, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-opacity': 0 }, we);
-    // reference electrode: a glass tube with a frit and a silver wire
+    el('rect', { x: XW - 5, y: 86, width: 10, height: 10, rx: 1.5, fill: M('steel') }, we);
+    el('rect', { x: XW - 8, y: 96, width: 16, height: 170, rx: 3, fill: M('polymer'), stroke: '#B9B3A3' }, we);
+    el('rect', { x: XW - 5.5, y: 261, width: 11, height: 5, rx: 1, fill: MV('carbon') }, we);
+    parts.we = el('rect', { x: XW - 12, y: 82, width: 24, height: 190, rx: 5, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-opacity': 0 }, we);
+    // ---- reference electrode: a silver wire in its own solution, behind a porous frit ----
     var re = el('g', { tabindex: 0, role: 'button', 'aria-label': 'reference electrode', style: 'cursor:pointer' }, g);
-    lead(122, 'var(--second)');
-    el('rect', { x: 114, y: 92, width: 16, height: 118, rx: 7, fill: 'rgba(225,238,246,.55)', stroke: '#9FB3C2' }, re);
-    el('rect', { x: 115, y: 204, width: 14, height: 8, rx: 2, fill: MV('ceramic'), stroke: '#B8B0A0', 'stroke-width': .6 }, re);
-    el('line', { x1: 122, y1: 92, x2: 122, y2: 196, stroke: MC('silver'), 'stroke-width': 2 }, re);
-    parts.re = el('rect', { x: 110, y: 88, width: 24, height: 128, rx: 8, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-opacity': 0 }, re);
-    // counter electrode: a platinum wire coil
+    el('rect', { x: XR - 8, y: 88, width: 16, height: 8, rx: 2, fill: MV('polymer'), stroke: '#C9C3B4' }, re);
+    el('rect', { x: XR - 7, y: 96, width: 14, height: 156, rx: 7, fill: 'rgba(225,238,246,.6)', stroke: '#9FB3C2' }, re);
+    el('rect', { x: XR - 5.5, y: 136, width: 11, height: 108, rx: 4, fill: MV('electrolyte'), opacity: 0.9 }, re);
+    el('rect', { x: XR - 6, y: 243, width: 12, height: 8, rx: 2, fill: MV('ceramic'), stroke: '#B8B0A0', 'stroke-width': 0.6 }, re);
+    el('line', { x1: XR, y1: 86, x2: XR, y2: 232, stroke: MC('silver'), 'stroke-width': 2 }, re);
+    parts.re = el('rect', { x: XR - 11, y: 82, width: 22, height: 176, rx: 8, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-opacity': 0 }, re);
+    // ---- counter electrode: a platinum wire wound into a coil ----
     var ce = el('g', { tabindex: 0, role: 'button', 'aria-label': 'counter electrode', style: 'cursor:pointer' }, g);
-    lead(166, 'var(--heat)');
-    var d = 'M166,92 V170'; for (var k = 0; k < 7; k++) d += ' q8,4 0,8 q-8,4 0,8'; // a coil
-    el('path', { d: d.replace(/ q-8,4 0,8/g, ' q-8,4 0,8'), fill: 'none', stroke: MC('silver'), 'stroke-width': 2.2 }, ce);
-    parts.ce = el('rect', { x: 154, y: 88, width: 24, height: 150, rx: 6, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-opacity': 0 }, ce);
-    // inert gas bubbling through the solution
-    el('path', { d: 'M200,40 V100 Q200,106 196,108 L196,232', fill: 'none', stroke: '#9FB3C2', 'stroke-width': 3 }, g);
-    [[196, 222], [199, 205], [194, 190], [198, 172], [195, 156], [199, 140]].forEach(function (p, j) { el('circle', { cx: p[0], cy: p[1], r: 2.4 + (j % 2), fill: '#fff', stroke: '#9FB3C2', 'stroke-width': .8 }, g); });
-    txt(g, 206, 36, 'Ar', 'strong', 'start', { style: 'font-size:11px' });
-    txt(g, 78, 248, 'WE', 'amber', 'middle'); txt(g, 122, 248, 'RE', 'cyan', 'middle'); txt(g, 166, 248, 'CE', 'heat', 'middle');
+    el('line', { x1: XC, y1: 86, x2: XC, y2: 172, stroke: MC('silver'), 'stroke-width': 2 }, ce);
+    for (var c = 0; c < 8; c++) {
+      var cy = 172 + c * 11;
+      el('path', { d: 'M' + (XC + 9) + ',' + cy + ' Q' + XC + ',' + (cy - 4) + ' ' + (XC - 9) + ',' + (cy + 1), fill: 'none', stroke: '#9DA3AA', 'stroke-width': 1.8 }, ce);
+      el('path', { d: 'M' + (XC - 9) + ',' + (cy + 1) + ' Q' + XC + ',' + (cy + 9) + ' ' + (XC + 9) + ',' + (cy + 11), fill: 'none', stroke: MC('silver'), 'stroke-width': 2.2 }, ce);
+    }
+    parts.ce = el('rect', { x: XC - 14, y: 82, width: 28, height: 186, rx: 6, fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-opacity': 0 }, ce);
+    // ---- argon: sparged through the liquid first, then kept as a blanket above it during the scan ----
+    el('path', { d: 'M252,84 H220 Q214,84 214,90 V142', fill: 'none', stroke: '#9FB3C2', 'stroke-width': 3.2 }, g);
+    txt(g, 252, 78, 'Ar', 'strong', 'end', { style: 'font-size:11px' });
+    arrow(g, 210, 144, 196, 146, '#9FB3C2', 1.2); arrow(g, 218, 144, 228, 140, '#9FB3C2', 1.2);
+    // ---- the current: electrons in the leads, ions in the solution ----
+    var fl = [el('path', { d: dWE, fill: 'none', stroke: 'var(--electron)', 'stroke-width': 2.6, 'stroke-dasharray': '2 7', 'stroke-linecap': 'round' }, g),
+              el('path', { d: dCE, fill: 'none', stroke: 'var(--electron)', 'stroke-width': 2.6, 'stroke-dasharray': '2 7', 'stroke-linecap': 'round' }, g),
+              el('path', { d: 'M' + (XW + 7) + ',266 C118,280 162,280 ' + (XC - 8) + ',256', fill: 'none', stroke: 'var(--field)', 'stroke-width': 2, 'stroke-dasharray': '5 6' }, g)];
+    var sl = el('g', {}, g);
+    el('path', { d: 'M' + (XR - 3) + ',252 L' + (XW + 7) + ',262', fill: 'none', stroke: 'var(--second)', 'stroke-width': 1.6, 'stroke-dasharray': '2 3' }, sl);
+    txt(sl, 112, 252, 'E', 'cyan', 'middle', { style: 'font-size:11px;font-weight:600' });
+    txt(g, XW, 294, 'WE', 'amber', 'middle'); txt(g, XR, 294, 'RE', 'cyan', 'middle'); txt(g, XC, 294, 'CE', 'heat', 'middle');
     [['we', we], ['re', re], ['ce', ce]].forEach(function (p) { pressable(p[1], function () { sel = p[0]; place(); }); });
-    // the waveform
-    var b = { x0: 284, y0: 228, x1: 506, y1: 48 }, Ei = -0.3, Es = 0.3;
-    var gw = el('g', {}, g), fr = cvFrame(gw, b, [0, 2], [-0.4, 0.4], { yt: [[-0.3, '−0.3'], [0, '0'], [0.3, '+0.3']], zero: true, yl: 'E, V vs reference' });
-    var tlab = [0, 1, 2].map(function (k) { return txt(gw, fr.X(k), b.y0 + 16, '', '', 'middle'); });
-    txt(gw, b.x1, b.y0 + 32, 'time, s →', '', 'end');
-    el('path', { d: 'M' + fr.X(0) + ',' + fr.Y(Ei) + ' L' + fr.X(1) + ',' + fr.Y(Es) + ' L' + fr.X(2) + ',' + fr.Y(Ei), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, gw);
-    [[0, Ei, 'initial', 'start', 6, 16], [1, Es, 'switching', 'middle', 0, -10], [2, Ei, 'final', 'end', -6, 16]].forEach(function (p) { el('circle', { cx: fr.X(p[0]), cy: fr.Y(p[1]), r: 4, fill: 'var(--accent)' }, gw); txt(gw, fr.X(p[0]) + p[4], fr.Y(p[1]) + p[5], p[2], '', p[3]); });
-    txt(gw, fr.X(1), fr.Y(-0.1), 'slope = scan rate', 'amber', 'middle', { style: 'font-size:11px' }); var slope = txt(gw, fr.X(1), fr.Y(-0.1) + 15, '', 'amber', 'middle', { style: 'font-size:11px' });
-    badge(g, 30, 160, 1); badge(g, 140, 268, 2); badge(g, 500, 64, 3);
+    // ---- the close-up lens ----
+    var uid = 'cvl' + Math.random().toString(36).slice(2, 7), defs = svg.querySelector('defs') || el('defs', {}, svg);
+    el('circle', { cx: 52, cy: 352, r: 38 }, el('clipPath', { id: uid }, defs));
+    var leader = el('line', { stroke: 'var(--muted)', 'stroke-width': 1, 'stroke-dasharray': '3 3' }, g);
+    el('circle', { cx: 52, cy: 352, r: 38, fill: '#fff' }, g);
+    var lens = el('g', { 'clip-path': 'url(#' + uid + ')' }, g);
+    el('circle', { cx: 52, cy: 352, r: 38, fill: 'none', stroke: '#9FB3C2', 'stroke-width': 2 }, g);
+    var lt1 = txt(g, 100, 336, '', 'strong', 'start', { style: 'font-size:11px' }), lt2 = txt(g, 100, 352, '', '', 'start', { style: 'font-size:10px' }), lt3 = txt(g, 100, 366, '', '', 'start', { style: 'font-size:10px' });
+    function drawLens() {
+      clear(lens);
+      if (sel === 'we') {
+        el('rect', { x: 14, y: 314, width: 76, height: 76, fill: MV('polymer') }, lens);
+        el('circle', { cx: 52, cy: 352, r: 17, fill: MB('carbon') }, lens);
+        el('ellipse', { cx: 46, cy: 345, rx: 7, ry: 3.5, fill: '#fff', opacity: 0.35, transform: 'rotate(-30 46 345)' }, lens);
+        el('line', { x1: 35, x2: 69, y1: 376, y2: 376, stroke: 'var(--text)', 'stroke-width': 1 }, lens);
+        txt(lens, 52, 386, '3 mm', '', 'middle', { style: 'font-size:9px' });
+        setSvgText(lt1, 'Working electrode, end-on'); setSvgText(lt2, 'glassy carbon disc, PTFE body,'); setSvgText(lt3, 'polished before each run');
+      } else if (sel === 're') {
+        el('rect', { x: 14, y: 314, width: 76, height: 76, fill: MV('electrolyte') }, lens);
+        el('rect', { x: 36, y: 300, width: 32, height: 82, rx: 14, fill: 'rgba(225,238,246,.8)', stroke: '#9FB3C2', 'stroke-width': 1.6 }, lens);
+        el('rect', { x: 37, y: 366, width: 30, height: 14, rx: 3, fill: MV('ceramic'), stroke: '#B8B0A0' }, lens);
+        for (var k = 0; k < 6; k++) el('circle', { cx: 41 + k * 4.4, cy: 371 + (k % 2) * 4, r: 1.1, fill: '#B8B0A0' }, lens);
+        el('line', { x1: 52, y1: 300, x2: 52, y2: 356, stroke: MC('silver'), 'stroke-width': 3 }, lens);
+        setSvgText(lt1, 'Reference electrode'); setSvgText(lt2, 'silver wire in its own solution'); setSvgText(lt3, 'behind a porous frit; no current');
+      } else {
+        el('rect', { x: 14, y: 314, width: 76, height: 76, fill: MV('electrolyte') }, lens);
+        for (var j = 0; j < 4; j++) {
+          var y = 322 + j * 18;
+          el('path', { d: 'M74,' + y + ' Q52,' + (y - 8) + ' 30,' + (y + 2), fill: 'none', stroke: '#9DA3AA', 'stroke-width': 3.4 }, lens);
+          el('path', { d: 'M30,' + (y + 2) + ' Q52,' + (y + 16) + ' 74,' + (y + 18), fill: 'none', stroke: MC('silver'), 'stroke-width': 4 }, lens);
+        }
+        setSvgText(lt1, 'Counter electrode'); setSvgText(lt2, 'platinum wire coil, larger'); setSvgText(lt3, 'than the working electrode');
+      }
+      var tip = { we: [XW - 6, 266], re: [XR - 6, 250], ce: [XC - 10, 262] }[sel];
+      leader.setAttribute('x1', 80); leader.setAttribute('y1', 326); leader.setAttribute('x2', tip[0]); leader.setAttribute('y2', tip[1]);
+    }
+    // ---- right: the waveform E(t), and the current plotted against E ----
+    var Ei = -0.3, Es = 0.3, bt = { x0: 300, y0: 150, x1: 506, y1: 34 };
+    var ft = cvFrame(g, bt, [0, 2], [-0.4, 0.4], { yt: [[-0.3, '−0.3'], [0, '0'], [0.3, '+0.3']], zero: true, yl: 'E − E°′, V' });
+    var tlab = [0, 1, 2].map(function (k) { return txt(g, ft.X(k), bt.y0 + 16, '', '', 'middle'); });
+    txt(g, bt.x1, bt.y0 + 30, 'time, s →', '', 'end');
+    el('path', { d: 'M' + ft.X(0) + ',' + ft.Y(Ei) + ' L' + ft.X(1) + ',' + ft.Y(Es) + ' L' + ft.X(2) + ',' + ft.Y(Ei), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, g);
+    [[0, Ei, 'initial', 'start', 6, 14], [1, Es, 'switching', 'middle', 0, -9], [2, Ei, 'final', 'end', -6, 14]].forEach(function (p) { el('circle', { cx: ft.X(p[0]), cy: ft.Y(p[1]), r: 3.5, fill: 'var(--accent)' }, g); txt(g, ft.X(p[0]) + p[4], ft.Y(p[1]) + p[5], p[2], '', p[3], { style: 'font-size:11px' }); });
+    txt(g, ft.X(1), ft.Y(-0.12), 'slope = scan rate', 'amber', 'middle', { style: 'font-size:11px' });
+    var tline = el('line', { y1: bt.y1, y2: bt.y0, stroke: 'var(--muted)', 'stroke-dasharray': '2 3' }, g), tdot = el('circle', { r: 5.5, fill: 'var(--electron)', stroke: 'var(--electron-edge)', 'stroke-width': 1.2 }, g);
+    txt(g, 403, 200, 'the same current, plotted against E', '', 'middle', { style: 'font-size:11px' });
+    arrow(g, 403, 204, 403, 218, 'var(--muted)', 1.4);
+    var gi = el('g', {}, g), bi = { x0: 300, y0: 362, x1: 506, y1: 234 }, fi, ghost, trace, idot;
+    function frameI() {
+      clear(gi);
+      var top = uA(imax), st = top > 40 ? 20 : top > 16 ? 10 : 5, yt = [];
+      for (var t = -Math.floor(top * 0.8 / st) * st; t <= top; t += st) yt.push([t, (t < 0 ? '−' : '') + Math.abs(t)]);
+      fi = cvFrame(gi, bi, [-0.3, 0.3], [-top * 0.85, top * 1.2], { xt: [[-0.3, '−0.3'], [0, '0'], [0.3, '+0.3']], yt: yt, zero: true, xl: 'E − E°′, V', yl: 'i, µA (oxidation +)' });
+      ghost = el('path', { fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 1.6, d: cvPath(sim.E, sim.i.map(uA), fi.X, fi.Y) }, gi);
+      trace = el('path', { fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2.4 }, gi);
+      idot = el('circle', { r: 5.5, fill: 'var(--electron)', stroke: 'var(--electron-edge)', 'stroke-width': 1.2 }, gi);
+      txt(gi, fi.X(0.24), fi.Y(uA(imax) * 0.62), 'forward', '', 'middle', { style: 'font-size:10px' });
+      txt(gi, fi.X(-0.2), fi.Y(-uA(imax) * 0.5), 'return', '', 'middle', { style: 'font-size:10px' });
+    }
+    badge(g, 66, 200, 1); badge(g, 155, 160, 2); badge(g, 494, 50, 3); badge(g, 494, 250, 4);
     var INFO = {
       we: '<b>Working electrode</b>: where the reaction we study happens. It must be inert over the potential range and have a clean, well-defined surface: a glassy carbon, platinum or gold disc, polished before every experiment. For a battery material, the working electrode is the composite electrode itself.',
       re: '<b>Reference electrode</b>: a fixed point against which the working electrode&#8217;s potential is measured; no current should pass through it. In nonaqueous solvents a Ag⁺/Ag reference drifts, so potentials are best quoted against ferrocene added from the start; in a lithium half-cell the reference is lithium metal.',
       ce: '<b>Counter electrode</b>: completes the circuit by running the opposite reaction. It should be inert and larger than the working electrode; a platinum wire or coil is typical.'
     };
+    function scanRate() { return Math.pow(10, +sv.value); }
+    function rebuild() {
+      var v = scanRate(); sim = cvRun({ v: v, steps: 400 }); imax = P.cv.peaks(sim).ipa;
+      var tSw = (Es - Ei) / v;
+      tlab.forEach(function (t, k) { var s = k * tSw; setSvgText(t, s >= 10 ? s.toFixed(0) : s.toFixed(1)); });
+      setSvgText(vv, (v * 1000).toFixed(0) + ' mV/s'); setSvgText(lcdV, (v * 1000).toFixed(0) + ' mV/s');
+      frameI();
+    }
+    function show() {
+      var n = sim.E.length, k = Math.min(n - 1, Math.round(phase * (n - 1))), E = sim.E[k], i = sim.i[k];
+      var x = ft.X(2 * phase); tline.setAttribute('x1', x); tline.setAttribute('x2', x); tdot.setAttribute('cx', x); tdot.setAttribute('cy', ft.Y(E));
+      trace.setAttribute('d', cvPath(sim.E, sim.i.map(uA), fi.X, fi.Y, 0, k + 1)); idot.setAttribute('cx', fi.X(E)); idot.setAttribute('cy', fi.Y(uA(i)));
+      setSvgText(lcdE, 'E  ' + (E >= 0 ? '+' : '−') + Math.abs(E).toFixed(3) + ' V');
+      setSvgText(lcdI, 'i  ' + (i >= 0 ? '+' : '−') + Math.abs(uA(i)).toFixed(1) + ' µA');
+      setSvgText(lcdT, 't  ' + sim.t[k].toFixed(1) + ' s');
+      var a = Math.min(1, Math.abs(i) / imax);
+      fl.forEach(function (p) { p.setAttribute('stroke-opacity', (0.15 + 0.85 * a).toFixed(2)); });
+    }
+    var flow = 0;
     function place() {
       Object.keys(parts).forEach(function (k) { parts[k].setAttribute('stroke-opacity', k === sel ? 1 : 0); });
-      var v = Math.pow(10, +sv.value), tSw = (Es - Ei) / v;
-      setSvgText(vv, (v * 1000).toFixed(0) + ' mV/s');
-      tlab.forEach(function (t, k) { var s = k * tSw; setSvgText(t, s >= 100 ? s.toFixed(0) : s >= 10 ? s.toFixed(0) : s.toFixed(1)); });
-      setSvgText(slope, (v * 1000).toFixed(0) + ' mV/s');
-      setSvgText(lcd, (v * 1000).toFixed(0) + ' mV/s');
-      read.innerHTML = INFO[sel] + ' At ' + (v * 1000).toFixed(0) + ' mV/s the 0.6 V sweep there and back takes ' + (2 * tSw >= 60 ? (2 * tSw / 60).toFixed(1) + ' min' : (2 * tSw).toFixed(1) + ' s') + '.';
+      sl.style.opacity = sense ? 1 : 0.0;
+      drawLens();
+      var v = scanRate(), tSw = (Es - Ei) / v;
+      read.innerHTML = INFO[sel] + ' At ' + (v * 1000).toFixed(0) + ' mV/s the 0.6 V sweep there and back takes ' + (2 * tSw >= 60 ? (2 * tSw / 60).toFixed(1) + ' min' : (2 * tSw).toFixed(1) + ' s') + '; the animation runs at one pace for every scan rate, and the display shows real time.';
     }
-    on(sv, 'input', place);
+    on(sv, 'input', function () { rebuild(); show(); place(); });
     steps(fig, [
-      { text: 'The <b>working electrode</b> is where the reaction happens; we control its potential and measure the current through it.', on: function () { sel = 'we'; place(); } },
-      { text: 'Two more electrodes make it work: a <b>reference</b> that fixes the potential scale and carries no current, and a <b>counter</b> electrode that carries the current. Argon bubbled through the solution first removes oxygen, which would add peaks of its own.', on: function () { sel = 're'; place(); } },
-      { text: 'The <b>sweep</b>: the potential runs linearly from the initial value to the switching potential and back. Its slope is the scan rate; everything that follows depends on it.', on: function () { sel = 'we'; place(); } }
+      { text: 'The <b>working electrode</b> is where the reaction happens; the potentiostat sets its potential and measures the current through it. Around it, a large excess of supporting electrolyte (the small dots) carries the current through the solution.', on: function () { sel = 'we'; sense = false; place(); } },
+      { text: 'Two more electrodes make it work. The current runs between the working and <b>counter</b> electrodes: electrons in the leads, ions in the solution. The potential is sensed between the working and <b>reference</b> electrodes, through which no current passes. Argon bubbled through first removes oxygen; during the scan the gas line is lifted to keep a blanket above the liquid.', on: function () { sel = 're'; sense = true; place(); } },
+      { text: 'The <b>sweep</b>: the potential runs linearly in time from the initial value to the switching potential and back. Its slope is the scan rate; everything that follows depends on it.', on: function () { sel = 'we'; sense = false; place(); } },
+      { text: 'The <b>voltammogram</b> is the same record, with the current plotted against the potential instead of time. The forward sweep gives the oxidation peak, the return sweep the reduction peak. Watch the leads: the current surges at each peak and reverses direction on the way back.', on: function () { sel = 'we'; sense = false; place(); } }
     ]);
-    place();
+    rebuild();
+    var loop = anim(fig, function (dt) {
+      phase = (phase + dt / 9) % 1.08; var ph = Math.min(1, phase);
+      if (sim) {
+        var n = sim.E.length, i = sim.i[Math.min(n - 1, Math.round(ph * (n - 1)))];
+        flow += dt * 30 * Math.min(1, Math.abs(i) / imax) * (i >= 0 ? 1 : -1);
+        fl[0].setAttribute('stroke-dashoffset', (flow).toFixed(1)); fl[1].setAttribute('stroke-dashoffset', (-flow).toFixed(1)); fl[2].setAttribute('stroke-dashoffset', (-flow).toFixed(1));
+        var keep = phase; phase = ph; show(); phase = keep;
+      }
+    }, { autoplay: true, stepDt: 0.35 });
+    bind(fig, loop);
+    show(); place();
   });
 
   /* f11-20: the duck, step by step: the voltammogram and the concentration profiles behind it */
