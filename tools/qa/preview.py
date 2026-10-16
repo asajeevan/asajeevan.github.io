@@ -46,7 +46,7 @@ for p in sorted((ROOT / 'batteries').rglob('index.html')):
     t = re.sub(r'<script src="[./]*assets/js/(gsap|ScrollTrigger)\.min\.js"></script>',
                lambda m: '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/%s.min.js"></script>' % m.group(1), t)
     put(rel, t)
-for rel in ['assets/css/site.css', 'assets/css/learn.css']:
+for rel in ['assets/css/site.css', 'assets/css/learn.css', 'assets/css/home.css']:
     put(rel)
 for rel in ['physics.js', 'site.js', 'share.js', 'course.js', 'cite.js', 'motion.js', 'course-index.js']:
     put('assets/js/' + rel)
