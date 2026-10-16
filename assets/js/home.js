@@ -19,7 +19,7 @@
     var h = document.documentElement.scrollHeight - window.innerHeight;
     var p = h > 0 ? Math.min(1, Math.max(0, y / h)) : 0;
     railFill.style.height = (p * 100) + '%';
-    progress.style.width = (p * 100) + '%';
+    progress.style.setProperty('--p', String(p));
     rail.classList.toggle('show', y > window.innerHeight * 0.6);
     var current = null, mid = y + window.innerHeight * 0.35;
     for (var i = 0; i < sections.length; i++) if (sections[i].offsetTop <= mid) current = sections[i].id;
@@ -44,6 +44,46 @@
   navLinks.forEach(function (a) { a.addEventListener('click', closeNav); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
   window.addEventListener('resize', function () { if (window.innerWidth > 900) closeNav(); });
+
+  /* Theme: follows the system until the visitor chooses; the choice is kept in this browser */
+  (function theme() {
+    var btn = document.getElementById('themeBtn'); if (!btn) return;
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    function mode() { return root.getAttribute('data-theme') || 'auto'; }
+    function label(m) {
+      var next = m === 'auto' ? 'light' : m === 'light' ? 'dark' : 'automatic';
+      btn.setAttribute('data-mode', m);
+      btn.setAttribute('aria-label', (m === 'auto' ? 'Theme: follows your system' : m === 'light' ? 'Theme: light' : 'Theme: dark') + '. Switch to ' + next);
+    }
+    btn.addEventListener('click', function () {
+      var m = mode(), next = m === 'auto' ? 'light' : m === 'light' ? 'dark' : 'auto';
+      if (next === 'auto') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', next);
+      try { if (next === 'auto') localStorage.removeItem('theme'); else localStorage.setItem('theme', next); } catch (e) {}
+      label(next);
+    });
+    label(mode());
+    if (mq.addEventListener) mq.addEventListener('change', function () { label(mode()); });
+  })();
+
+  /* Spotlight: cards learn where the pointer is, in their own coordinates */
+  if (window.matchMedia('(pointer: fine)').matches) {
+    Array.prototype.forEach.call(document.querySelectorAll('.figures li, .lab, .pub, .tool, .hero-fig'), function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+      });
+    });
+    /* the hero card tilts a few degrees towards the pointer */
+    var tilt = document.querySelector('.hero-fig');
+    if (tilt && !reduce) {
+      tilt.addEventListener('pointermove', function (e) {
+        var r = tilt.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        tilt.style.setProperty('--rx', (x * 6).toFixed(2) + 'deg'); tilt.style.setProperty('--ry', (-y * 6).toFixed(2) + 'deg');
+      });
+      tilt.addEventListener('pointerleave', function () { tilt.style.setProperty('--rx', '0deg'); tilt.style.setProperty('--ry', '0deg'); });
+    }
+  }
 
   /* Back to top */
   var toTop = document.getElementById('toTop');

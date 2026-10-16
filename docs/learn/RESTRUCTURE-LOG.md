@@ -320,3 +320,18 @@ Read the plan first; this file records state, decisions and the checklist so wor
 - The E(t) triangle has a moving cursor, and a new lower panel traces the same current against E as the sweep runs,
   linking the waveform to the voltammogram (fourth step). viewBox 520 × 400.
 - Checks: 1300 and 360 px; gate exit 0; axe clean; 0 broken links; 80 tests.
+
+## Home page v4 (2026-10-16, owner's request: a visually stronger home page, latest techniques)
+
+- New stylesheet assets/css/home.css for index.html only; the course keeps site.css and its white look.
+- Light and dark from one token set with light-dark() and color-scheme: light dark; follows the system, with a
+  three-state switch (auto, light, dark) in the top bar remembered in localStorage and applied before first paint.
+- Hero: aurora background (blurred radial fields of the site colours plus a turning conic layer on a registered
+  @property angle), masked graph grid, paper grain (SVG feTurbulence), gradient-clipped name, glass cell card with a
+  gradient hairline (mask-composite) and a pointer-driven 3D tilt and spotlight; glass bento tiles for the figures.
+- Elsewhere: floating glass pill navigation, scroll-driven progress bar (animation-timeline: scroll()), CSS-counter
+  section numbers, container-query tiles, spotlight hover on cards (pointer position as custom properties),
+  animated details panels (::details-content with interpolate-size), @starting-style fade for the lightbox,
+  tinted bands behind research, publications and tools, a glow behind the contact card, color-mix() tints throughout.
+- SVG colours that were fixed (map sea and land, key dots) now use tokens. Print stays light.
+- Checks: light, dark and phone screenshots; theme switch and persistence tested; axe clean; 0 broken links.
