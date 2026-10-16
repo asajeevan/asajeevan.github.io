@@ -81,6 +81,15 @@
       .from(hero.querySelector('.hero-fig-learn'), { opacity: 0, y: 30, rotateX: -12, scale: 0.94, transformPerspective: 900, duration: 1.1, ease: 'expo.out',
         onComplete: function () { hero.querySelector('.hero-fig-learn').classList.add('lit'); } }, 0.3);
     intros.push(intro); if (doc.classList.contains('vt-arrived')) intro.progress(1);
+    // the course in numbers counts up as the hero settles
+    var nums = $$('.hub-numbers li');
+    if (nums.length) {
+      G.from(nums, { opacity: 0, y: 24, duration: 0.7, stagger: 0.08, delay: 0.8, ease: EASE, clearProps: 'transform' });
+      nums.forEach(function (li) {
+        var b = li.querySelector('b[data-count]'), o = { v: 0 }, t = +b.getAttribute('data-count');
+        G.to(o, { v: t, duration: 1.6, ease: 'power2.out', delay: 1, onUpdate: function () { b.textContent = Math.round(o.v); } });
+      });
+    }
     // the hero cell drifts up a little as the page scrolls away
     G.to(hero.querySelector('.hero-fig-learn'), { yPercent: -8, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
     // the start button leans toward the pointer
@@ -117,7 +126,7 @@
     G.from(c, { opacity: 0, y: 30, duration: 0.7, delay: (i % 4) * 0.08, ease: EASE, scrollTrigger: { trigger: c, start: 'top 88%', once: true } });
   });
   /* cards follow the pointer: a soft light where it is, a slight tilt toward it */
-  if (fine) $$('.card a, .pn, .how-card').forEach(function (a) {
+  if (fine) $$('.card a, .pn, .how-card, .hub-numbers li').forEach(function (a) {
     var tilt = a.classList.contains('card') || a.parentNode.classList.contains('card');
     var rx = tilt && G.quickTo(a, 'rotateX', { duration: 0.5, ease: 'power3' }), ry = tilt && G.quickTo(a, 'rotateY', { duration: 0.5, ease: 'power3' });
     if (tilt) G.set(a, { transformPerspective: 700 });

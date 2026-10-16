@@ -643,3 +643,83 @@ html:not(.fx) .circuit-fill { transform: none; opacity: .5; }
 .cite-acts .btn[hidden]{display:none}
 .cite-note{color:var(--second);font-size:13px}
 @media print{.cite-bar,.cite-tabs,.cite-acts{display:none}.cite-panel{border:0;padding:0;background:none}}
+
+/* ==========================================================
+   The course home, v2: an aurora behind the hero, the course in numbers,
+   chapter cards with a watermark number and a part colour, sticky part
+   headings, and scroll-driven touches where the browser has them.
+   ========================================================== */
+@property --hub-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.hub-hero { position: relative; overflow: hidden; isolation: isolate; padding-bottom: 44px; }
+.hub-aurora { position: absolute; inset: -30% -10% -20%; z-index: -2; pointer-events: none; filter: blur(70px) saturate(1.1); opacity: .5;
+  background: radial-gradient(34% 40% at 16% 26%, rgba(31,72,214,.45), transparent 70%),
+              radial-gradient(30% 36% at 84% 22%, rgba(11,122,94,.38), transparent 70%),
+              radial-gradient(24% 30% at 62% 64%, rgba(240,163,91,.32), transparent 70%);
+  animation: hub-aurora 26s ease-in-out infinite alternate; }
+.hub-aurora::after { content: ""; position: absolute; inset: 0; animation: hub-turn 40s linear infinite;
+  background: conic-gradient(from var(--hub-a) at 50% 40%, transparent 0 60%, rgba(31,72,214,.2) 75%, transparent 100%); }
+@keyframes hub-aurora { from { transform: translate3d(-2%,-1%,0) scale(1); } to { transform: translate3d(2%,3%,0) scale(1.08); } }
+@keyframes hub-turn { to { --hub-a: 360deg; } }
+.hub-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, transparent 45%, var(--bg) 100%); }
+.hub-grid-lines { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .55;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 100%); mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 100%); }
+@supports (animation-timeline: scroll()) {
+  .hub-grid-lines { animation: hub-drift 1s linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+  @keyframes hub-drift { to { translate: 0 18vh; opacity: 0; } }
+}
+.hub-hero .kicker { padding: 7px 14px 7px 10px; border: 1px solid rgba(31,72,214,.3); border-radius: 999px; background: rgba(31,72,214,.07); }
+.hub-hero .kicker::before { width: 8px; height: 8px; border-radius: 50%; background: var(--second); animation: hub-pulse 2.4s ease-in-out infinite; }
+@keyframes hub-pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(11,122,94,.14); } 50% { box-shadow: 0 0 0 7px transparent; } }
+.hub-hero .h1 .grad { background: linear-gradient(100deg, var(--accent) 0%, #2E63D1 35%, var(--second) 70%, var(--accent) 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: hub-shimmer 9s ease-in-out infinite alternate; }
+@keyframes hub-shimmer { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+.hero-fig-learn { position: relative; background: rgba(255,255,255,.72); backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); border-color: transparent; box-shadow: var(--shadow-lift); }
+.hero-fig-learn::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; z-index: 2;
+  background: linear-gradient(135deg, rgba(31,72,214,.6), transparent 40%, transparent 60%, rgba(11,122,94,.6));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.hub-go { border-radius: 999px; padding: 12px 22px; background: linear-gradient(135deg, var(--accent), #2E63D1); box-shadow: 0 10px 28px -10px rgba(31,72,214,.75); position: relative; isolation: isolate; }
+.hub-go::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; box-shadow: 0 0 0 0 rgba(31,72,214,.45); animation: hub-halo 2.8s ease-out infinite; }
+@keyframes hub-halo { to { box-shadow: 0 0 0 14px rgba(31,72,214,0); } }
+.hub-progress { display: flex; align-items: center; gap: 12px; margin: 18px 0 0; font-size: .86rem; color: var(--muted); max-width: 440px; }
+.hub-progress[hidden] { display: none; }
+.hp-bar { flex: 1 1 120px; height: 6px; border-radius: 3px; background: var(--panel-2); border: 1px solid var(--line); overflow: hidden; }
+.hp-fill { display: block; height: 100%; width: 0; border-radius: 3px; background: linear-gradient(90deg, var(--second), var(--accent)); transition: width 1.2s cubic-bezier(.2,.7,.2,1); }
+.hp-t b { color: var(--text); }
+/* the course in numbers */
+.hub-numbers { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.hub-numbers li { position: relative; overflow: hidden; padding: 18px 18px 16px; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: var(--shadow); transition: transform .3s cubic-bezier(.2,.7,.2,1), border-color .3s, box-shadow .3s; }
+.hub-numbers li::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s; background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(31,72,214,.12), transparent 60%); }
+.hub-numbers li:hover { transform: translateY(-4px); border-color: rgba(31,72,214,.4); box-shadow: var(--shadow-lift); }
+.hub-numbers li:hover::before { opacity: 1; }
+.hub-numbers b { display: block; font-family: var(--display); font-weight: 700; letter-spacing: -.04em; font-size: clamp(2rem, 3vw, 2.7rem); line-height: 1; font-variant-numeric: tabular-nums; background: linear-gradient(135deg, var(--text), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hn-k { display: block; margin-top: 6px; font-weight: 600; font-size: .92rem; color: var(--text); }
+.hn-s { display: block; font-size: .8rem; color: var(--muted); line-height: 1.35; }
+@media (max-width: 900px) { .hub-numbers { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .hub-hero .kicker { font-size: .66rem; letter-spacing: .06em; line-height: 1.35; } .hub-numbers { grid-template-columns: 1fr 1fr; gap: 10px; } .hub-numbers li { padding: 14px; } .hub-numbers li:last-child { grid-column: 1 / -1; } }
+/* the map: a colour per part, a watermark number on each card, sticky part headings */
+#part-i { --part: #1F48D6; } #part-ii { --part: #0B7A5E; } #part-iii { --part: #6B3FD6; } #part-iv { --part: #B4541B; } #part-v { --part: #B52D43; } #part-lab { --part: #1C7F9E; }
+.hub-part::before { border-color: var(--part, var(--line-2)); background: var(--bg); }
+html:not(.fx) .hub-part::before, .hub-part.lit::before { background: var(--part, var(--accent)); border-color: var(--part, var(--accent)); box-shadow: 0 0 0 5px color-mix(in srgb, var(--part, var(--accent)) 16%, transparent); }
+.hub-part .part-k { color: var(--part, var(--accent)); }
+.hub-part > .part-k, .hub-part > .part-t { position: relative; z-index: 2; }
+.hub-part { padding-top: 2px; }
+.hub-part + .hub-part { margin-top: 44px; }
+.card a { overflow: hidden; border-color: var(--line); }
+.card a::before { content: attr(data-n); position: absolute; right: 10px; top: -14px; z-index: 0; pointer-events: none; font-family: var(--display); font-weight: 700; font-size: 5.2rem; line-height: 1; letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1.2px color-mix(in srgb, var(--part, var(--accent)) 22%, transparent); transition: -webkit-text-stroke-color .3s, transform .5s cubic-bezier(.2,.7,.2,1); }
+.card a:hover::before { -webkit-text-stroke-color: color-mix(in srgb, var(--part, var(--accent)) 55%, transparent); transform: translateY(-4px) scale(1.06); }
+.card a > span { position: relative; z-index: 1; }
+.card a { box-shadow: inset 0 3px 0 0 var(--part, var(--accent)), var(--shadow); }
+.card a:hover { border-color: var(--part, var(--accent)); box-shadow: inset 0 3px 0 0 var(--part, var(--accent)), var(--shadow-lift); }
+.card .c-n { color: var(--part, var(--accent)); }
+.card.done a { background: linear-gradient(180deg, color-mix(in srgb, var(--part, var(--accent)) 6%, var(--panel)), var(--panel)); }
+.card.done .c-t::after { content: " \2713"; color: var(--second); font-weight: 700; }
+.card a::after { background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--part, var(--accent)) 9%, transparent), transparent 65%); }
+/* the circuit wire takes the colour of the part it has reached */
+.circuit-fill { background: linear-gradient(180deg, #1F48D6, #0B7A5E 25%, #6B3FD6 45%, #B4541B 62%, #B52D43 78%, #1C7F9E); }
+/* how to read: numbered, hairline gradient on hover */
+.how-grid { counter-reset: how; }
+.how-card { counter-increment: how; position: relative; background: var(--panel); border-radius: 16px; transition: transform .3s cubic-bezier(.2,.7,.2,1), border-color .3s, box-shadow .3s; }
+.how-card::before { content: "0" counter(how); display: inline-block; margin-bottom: 10px; font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .12em; color: var(--accent); padding: 4px 10px; border-radius: 999px; background: rgba(31,72,214,.08); }
+.how-card:hover { transform: translateY(-3px); border-color: rgba(31,72,214,.4); box-shadow: var(--shadow); }
+@media (prefers-reduced-motion: reduce) { .hub-aurora, .hub-aurora::after, .hub-go::after, .hub-hero .kicker::before { animation: none !important; } }
+@media print { .hub-aurora, .hub-grid-lines, .hub-numbers { display: none; } }

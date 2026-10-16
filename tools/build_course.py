@@ -389,9 +389,9 @@ def course_map(stats, root):
         out.append('    <div class="hub-part" id="part-%s">\n      <p class="part-k">%s</p>\n      <h3 class="part-t">%s</h3>\n      <ol class="cards">' % (part['id'].lower(), esc(k), esc(t)))
         for p in ps:
             mins, nfig = stats[p['id']]
-            out.append('        <li class="card" data-chap="%s"><a href="%s"><span class="c-n">%s</span><span class="c-t">%s</span>'
+            out.append('        <li class="card" data-chap="%s"><a href="%s" data-n="%s"><span class="c-n">%s</span><span class="c-t">%s</span>'
                        '<span class="c-full">%s</span><span class="c-q">%s</span><span class="c-m">%d figure%s &#183; about %d min</span></a></li>'
-                       % (p['id'], NAV.page_href(root, p['id']), esc(NAV.long_num(p)), esc(p['menu']), esc(p['title']), esc(p['question']), nfig, '' if nfig == 1 else 's', mins))
+                       % (p['id'], NAV.page_href(root, p['id']), esc(p['num'].replace('Lab ', 'L')), esc(NAV.long_num(p)), esc(p['menu']), esc(p['title']), esc(p['question']), nfig, '' if nfig == 1 else 's', mins))
         out.append('      </ol>\n    </div>')
     out.append('    </div>')
     return '\n'.join(out)
@@ -502,8 +502,16 @@ def build_course():
         print('%-26s %7d bytes html, %7d bytes js, %2d refs, %5d words, about %d min' % (p['id'], len(text.encode()), sizes[p['id']], len(order), words, mins))
     # the hub
     hub = (SRC / 'hub.src.html').read_text(encoding='utf-8')
-    hub = hub.replace('{{course_map}}', course_map(stats, '../')).replace('{{modes}}', NAV.MODES)
     hours = max(1, round(sum(v[0] for v in stats.values()) / 60))
+    nrefs_all = len({k for ks in used_by.values() for k in ks})
+    numbers = [(len([p for p in pages if p['kind'] == 'chapter']), 'chapters', 'from the electron to the recycled cell'),
+               (len([p for p in pages if p['kind'] == 'lab']), 'lab pages', 'the methods behind every number'),
+               (sum(v[1] for v in stats.values()), 'live figures', 'every one computed from its source'),
+               (nrefs_all, 'sources', 'textbooks and peer-reviewed articles'),
+               (hours, 'hours', 'to read at the Teach me level')]
+    strip = '<ul class="hub-numbers" aria-label="The course in numbers">' + ''.join(
+        '<li><b data-count="%d">%d</b><span class="hn-k">%s</span><span class="hn-s">%s</span></li>' % (n, n, esc(k), esc(t)) for n, k, t in numbers) + '</ul>'
+    hub = hub.replace('{{course_map}}', course_map(stats, '../')).replace('{{modes}}', NAV.MODES).replace('{{course_numbers}}', strip)
     meta = {'page_title': 'How batteries work: an interactive lithium-ion battery course', 'og_title': COURSE['title'], 'cite_title': '%s: %s' % (COURSE['title'], COURSE['subtitle']),
             'description': 'Free interactive course on how lithium-ion batteries work: 19 chapters and a lab handbook, from cell voltage to the SEI, degradation, cyclic voltammetry, GITT and EIS.',
             'ld': {'@context': 'https://schema.org', '@type': 'Course', 'name': COURSE['title'], 'description': COURSE['subtitle'], 'url': COURSE['base'], 'inLanguage': 'en',

@@ -99,6 +99,18 @@
     local('course.last', { id: pageId, label: (crumbN ? crumbN.textContent : '') + ' · ' + (crumbT ? crumbT.textContent : '') });
   }
   markTicks();
+  /* the course home shows how much of the course this browser has read */
+  var hp = $('hubProgress');
+  if (hp) {
+    var cards = document.querySelectorAll('.card[data-chap]'), done = 0, seen = 0;
+    each(cards, function (c) { var v = visited[c.getAttribute('data-chap')]; if (v === 2) done++; else if (v === 1) seen++; });
+    if (done + seen > 0) {
+      hp.hidden = false;
+      hp.querySelector('.hp-t').innerHTML = '<b>' + done + ' of ' + cards.length + '</b> pages read' + (seen ? ', ' + seen + ' opened' : '');
+      var fill = hp.querySelector('.hp-fill');
+      setTimeout(function () { fill.style.width = (100 * done / cards.length).toFixed(1) + '%'; }, 300);
+    }
+  }
   var cell = $('tbCell'), cellFill = cell && cell.querySelector('.cell-f'), cellPct = -1;
   function readCheck() {
     if (!isChapter) return;

@@ -335,3 +335,16 @@ Read the plan first; this file records state, decisions and the checklist so wor
   tinted bands behind research, publications and tools, a glow behind the contact card, color-mix() tints throughout.
 - SVG colours that were fixed (map sea and land, key dots) now use tokens. Print stays light.
 - Checks: light, dark and phone screenshots; theme switch and persistence tested; axe clean; 0 broken links.
+
+## Course home v2 (2026-10-16, owner's request: a visually stronger course home with advanced animation)
+
+- Hero: aurora background (blurred colour fields plus a turning conic layer on a registered @property angle) and a
+  masked graph grid that drifts away on a CSS scroll timeline; the title's last word gradient-filled with a slow
+  shimmer; the hero figure as a glass card with a gradient hairline; a pulsing halo on the start button; a pill kicker.
+- "The course in numbers": chapters, lab pages, live figures, sources and hours, computed at build time
+  ({{course_numbers}} in hub.src.html), revealed and counted up by motion.js, with pointer spotlight.
+- Reading progress: the home page shows "N of 25 pages read, M opened" with a bar, from the browser's own record
+  (course.js, course.visited), hidden until something has been opened.
+- Chapter map: a colour per part (dot, label, the card's top rule, the hover light, the circuit wire's gradient),
+  an outlined watermark number on every card (data-n), read cards tinted with a tick. How-to cards numbered with lift.
+- Checks: 1300 and 390 px with and without motion; no script errors; axe clean; 0 broken links.
