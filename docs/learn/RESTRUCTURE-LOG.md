@@ -426,3 +426,19 @@ Read the plan first; this file records state, decisions and the checklist so wor
   Ghasemiahangarani's warning quoted.
 - Checks: contact sheets at 1300 and 360 for all four; gate exit 0 (one tick overlap fixed); axe clean; 0
   broken links; 82 tests pass.
+
+## Save a figure (2026-10-16, owner's request: let readers export clean images and animations, with a small credit line and a request for citation)
+
+- assets/js/export.js, loaded by every course page after share.js: a "Save figure" button in each figure
+  caption opens a dialog with PNG (3x), SVG and, for figures that move, a 6 s GIF (12 fps, 1.5x) recorded
+  from the live figure. Options: remove the numbered step markers (default on) and a white background.
+- The copy inlines the computed styles of every element (so CSS variables and classes resolve), drops
+  hidden parts, buttons and inputs, adds a 16-unit strip below the drawing with the credit line
+  "Aswadh Shyma Sajeevan · asajeevan.github.io/batteries · Figure Lx.y", and a <desc> asking for citation.
+  The Google web fonts are fetched and embedded as data URIs when reachable; otherwise the system font.
+- The dialog shows the citation for that figure (author, year, figure number, page title, course, URL),
+  a copy button, and a link to the page's other citation styles. learn-core now exposes
+  window.LearnCore.loops so the exporter can start a figure's animation before recording.
+- GIF encoding by gifenc 1.0.3 (MIT), vendored at assets/js/gifenc.js and loaded only on demand.
+- Checks: PNG, SVG and GIF produced in headless Chromium for L2.2 (animated) and 3.1 (static); 0 broken
+  links; axe clean; gate exit 0.

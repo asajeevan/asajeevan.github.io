@@ -389,6 +389,7 @@
   var loops = []; // {fig, loop}
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
+  window.LearnCore = { loops: loops };   // read by assets/js/export.js to record animated figures
 
   /* figs-5.js */
   function niceStep(span, n) { var raw = span / (n || 5), p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; }

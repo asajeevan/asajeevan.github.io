@@ -389,6 +389,7 @@
   var loops = []; // {fig, loop}
   function register(id, fn) { figs[id] = fn; }
   function bind(fig, loop) { if (loop) loops.push({ fig: fig, loop: loop }); }
+  window.LearnCore = { loops: loops };   // read by assets/js/export.js to record animated figures
 
   /* figs-11cv.js */
   function uA(i) { return i * 1e6; }
