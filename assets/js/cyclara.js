@@ -284,6 +284,56 @@
     box.addEventListener('close', function () { img.removeAttribute('src'); if (opener) opener.focus(); });
   })();
 
+  /* ---------- download counter ----------
+     GitHub's own count of every installer download, summed over all releases, read from the public releases API.
+     Shown at once from the last count this browser saw, then checked again on load and every five minutes while
+     the page is visible; the browser revalidates with the response's ETag, and an unchanged answer does not count
+     against GitHub's limit of 60 requests an hour for a visitor. Without an answer and without a stored count, the
+     line stays hidden. */
+  (function () {
+    var box = document.getElementById('downloads');
+    if (!box || !window.fetch) return;
+    var API = 'https://api.github.com/repos/asajeevan/electrochem-toolkit/releases?per_page=100';
+    var KEY = 'cyclara-downloads', EVERY = 5 * 60 * 1000;
+    var KINDS = [['win', /-Setup\.exe$/i], ['arm', /-macOS-AppleSilicon\.zip$/i], ['intel', /-macOS-Intel\.zip$/i]];
+    function $(id) { return document.getElementById(id); }
+    function stored() { try { var d = JSON.parse(localStorage.getItem(KEY) || 'null'); return d && typeof d.t === 'number' ? d : null; } catch (e) { return null; } }
+    function store(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} }
+    function count(releases) {
+      var d = { win: 0, arm: 0, intel: 0 };
+      (releases || []).forEach(function (r) {
+        (r.assets || []).forEach(function (a) {
+          KINDS.forEach(function (k) { if (k[1].test(a.name || '')) d[k[0]] += +a.download_count || 0; });
+        });
+      });
+      return d;
+    }
+    function show(d, fresh) {
+      var total = d.win + d.arm + d.intel;
+      var when = new Date(d.t).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      $('dlTotal').textContent = total.toLocaleString('en-GB');
+      $('dlLabel').textContent = total === 1 ? 'installer download so far' : 'installer downloads so far';
+      $('dlSplit').textContent = 'Windows ' + d.win.toLocaleString('en-GB') + ', Mac with Apple silicon ' + d.arm.toLocaleString('en-GB') + ', Mac with Intel ' + d.intel.toLocaleString('en-GB') + '.';
+      $('dlWhen').textContent = fresh ? 'Counted by GitHub, checked at ' + when + '.' : 'Counted by GitHub at ' + when + '; GitHub cannot be reached just now.';
+      box.classList.toggle('stale', !fresh);
+      box.hidden = false;
+    }
+    function load() {
+      fetch(API, { cache: 'no-cache', headers: { Accept: 'application/vnd.github+json' } })
+        .then(function (r) { if (!r.ok) throw new Error('GitHub answered ' + r.status); return r.json(); })
+        .then(function (releases) { var d = count(releases); d.t = Date.now(); store(d); show(d, true); })
+        .catch(function () { var d = stored(); if (d) show(d, false); });
+    }
+    var last = stored();
+    if (last) show(last, Date.now() - last.t < EVERY);
+    load();
+    setInterval(function () { if (document.visibilityState === 'visible') load(); }, EVERY);
+    document.addEventListener('visibilitychange', function () {
+      var d = stored();
+      if (document.visibilityState === 'visible' && (!d || Date.now() - d.t >= EVERY)) load();
+    });
+  })();
+
   /* ---------- copy buttons ---------- */
   (function () {
     function fallback(text) {

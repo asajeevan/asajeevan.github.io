@@ -58,6 +58,11 @@ The build prints `note: no share image for ...` when a page has none.
 - Pictures: `assets/img/cyclara/`, WebP copies of the toolkit's `docs/images/app/` screenshots and figures (light
   and dark where both exist; the page shows the one matching the theme).
 - Share image: the `cyclara` card in `tools/share_images.js`; `ONLY=cyclara` redraws only that card.
+- Download counter (under the download buttons): the visitor's browser asks GitHub's public releases API
+  (`api.github.com`, no key) for the download counts of the installers of every release, on load and every five
+  minutes while the page is visible, and remembers the last count in `localStorage` to show it at once and when
+  GitHub cannot be reached. This is the page's one request to a third party: GitHub sees it, as it sees every
+  download. GitHub allows 60 such requests an hour per visitor; an unchanged answer (304) does not count.
 - `tools/build_course.py` lists the page in `sitemap.xml` (`STANDALONE_PAGES`) with its last-change date.
 - After a new Cyclara release, update on the page: the version and date, the download links and sizes, the
   checksums, the reference and BibTeX (`python -m electrochem.analyze --cite --bibtex`), and the JSON-LD

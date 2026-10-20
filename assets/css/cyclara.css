@@ -122,6 +122,14 @@ code{background:var(--panel-2);border:1px solid var(--line);border-radius:6px;pa
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 14px}
 .mac{display:flex;flex-wrap:wrap;gap:10px}
 .facts{font-size:.9rem;color:var(--muted);max-width:56ch;margin:16px 0 0}
+/* the download counter: GitHub's own count of the installer downloads */
+.downloads{margin:18px 0 0;padding:12px 0 0;border-top:1px solid var(--line);max-width:56ch}
+.downloads[hidden]{display:none}
+.dl-main{display:flex;align-items:baseline;gap:10px;margin:0;font-weight:500;color:var(--text)}
+.dl-main b{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.dl-live{width:9px;height:9px;flex:none;border-radius:50%;background:var(--second);box-shadow:0 0 0 4px var(--second-soft);align-self:center}
+.downloads.stale .dl-live{background:var(--line-2);box-shadow:none}
+.dl-meta{margin:6px 0 0;font-size:.84rem;color:var(--muted)}
 .facts a{white-space:nowrap}
 
 /* the live figure */
