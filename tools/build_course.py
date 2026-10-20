@@ -28,13 +28,21 @@ def esc(s):
 
 # ---------------------------------------------------------------- citation
 AUTHOR = {'family': 'Shyma Sajeevan', 'given': 'Aswadh'}
+COURSE_DATE_SKIP = ROOT / 'tools' / 'course_date_skip.txt'
 def course_date():
-    """The date of the course as cited: the last commit that changed its sources (falls back to today)."""
+    """The date of the course as cited: the last commit that changed its sources (falls back to today).
+    Commits listed in tools/course_date_skip.txt changed this script without changing the course (the sitemap of
+    the site's other pages, for instance) and do not count."""
     import datetime
+    skip = set()
+    if COURSE_DATE_SKIP.exists():
+        skip = {l.split()[0] for l in COURSE_DATE_SKIP.read_text(encoding='utf-8').splitlines() if l.strip() and not l.startswith('#')}
     try:
-        d = subprocess.check_output(['git', 'log', '-1', '--format=%cs', '--', 'src/learn', 'tools/build_course.py'], cwd=str(ROOT), text=True).strip()
-        if re.fullmatch(r'\d{4}-\d{2}-\d{2}', d):
-            return d
+        log = subprocess.check_output(['git', 'log', '--format=%H %cs', '--', 'src/learn', 'tools/build_course.py'], cwd=str(ROOT), text=True)
+        for line in log.splitlines():
+            h, d = line.split()
+            if h not in skip and re.fullmatch(r'\d{4}-\d{2}-\d{2}', d):
+                return d
     except Exception:
         pass
     return datetime.date.today().isoformat()
