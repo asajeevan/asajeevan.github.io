@@ -58,7 +58,8 @@ for n in sorted(curves):
     data.append(entry)
 
 summary = json.loads((run / "summary.json").read_text())
-payload = {"source": "data/demo/cyclara_demo_synthetic.mpt (synthetic), analysed by Cyclara 0.8.0",
+version = json.loads((run / "settings.json").read_text())["analyze_version"]   # the engine that wrote the folder
+payload = {"source": f"data/demo/cyclara_demo_synthetic.mpt (synthetic), analysed by Cyclara {version}",
            "summary": {"cycles": summary["complete_cycles"],
                        "first_qd": round(summary["first_cycle_specific_discharge_mAh_g"], 2),
                        "first_ce": round(summary["first_cycle_coulombic_efficiency_pct"], 2),
