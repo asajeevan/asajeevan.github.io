@@ -31,6 +31,9 @@ const cards = [
   { key: 'terms', kicker: 'Reference pages', title: 'Index of terms', sub: 'Every term the course introduces, with the sentence that defines it.', foot: 'asajeevan.github.io/batteries' },
   { key: 'figures', kicker: 'Reference pages', title: 'List of figures', sub: 'Every interactive figure of the course, computed from its source.', foot: 'asajeevan.github.io/batteries' },
   { key: 'equations', kicker: 'Reference pages', title: 'Equations', sub: 'The mathematics of every chapter on one page.', foot: 'asajeevan.github.io/batteries' },
+  { key: 'cyclara', brand: 'Aswadh Shyma Sajeevan', kicker: 'Free app for battery cycling data', title: 'Cyclara',
+    sub: 'From cycler files to checked numbers and journal-ready figures.',
+    footLeft: 'Windows and macOS, GPL-3.0', foot: 'asajeevan.github.io/cyclara', big: true, image: 'assets/img/cyclara/light-overview-960.webp' },
 ];
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -49,12 +52,15 @@ function page(c) {
   .sub{margin-top:24px;font-size:29px;line-height:1.35;color:#596170;max-width:1000px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .foot{position:absolute;left:76px;right:76px;bottom:46px;display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid #E4E7EC;padding-top:22px;font-size:25px}
   .foot b{font-weight:600}.foot span{font:500 23px 'IBM Plex Mono',monospace;color:#596170}
-  </style></head><body><div class="bar"></div>
-  <div class="brand">${icon}<span>${c.key === 'home' ? 'Battery electrochemistry' : esc(course.title)}</span></div>
+  .pic .kicker,.pic .title,.pic .sub{max-width:560px}
+  .shot{position:absolute;left:660px;top:92px;width:620px;border-radius:14px;border:1px solid #E4E7EC;box-shadow:0 18px 44px rgba(16,24,40,.16)}
+  </style></head><body${c.image ? ' class="pic"' : ''}><div class="bar"></div>
+  ${c.image ? '<img class="shot" src="file://' + path.join(ROOT, c.image) + '" alt="">' : ''}
+  <div class="brand">${icon}<span>${c.brand ? esc(c.brand) : c.key === 'home' ? 'Battery electrochemistry' : esc(course.title)}</span></div>
   <p class="kicker">${esc(c.kicker)}</p>
   <h1 class="title" id="t">${esc(c.title)}</h1>
   <p class="sub">${esc(c.sub)}</p>
-  <div class="foot"><b>${c.key === 'home' ? 'Research, publications and teaching' : 'Aswadh Shyma Sajeevan'}</b><span>${esc(c.foot)}</span></div>
+  <div class="foot"><b>${c.footLeft ? esc(c.footLeft) : c.key === 'home' ? 'Research, publications and teaching' : 'Aswadh Shyma Sajeevan'}</b><span>${esc(c.foot)}</span></div>
 </body></html>`;
 }
 
@@ -63,7 +69,10 @@ function page(c) {
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || (fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined) });
   const p = await browser.newPage({ viewport: { width: 1200, height: 630 } });
   const tmp = path.join(require('os').tmpdir(), 'share-card.html');
+  const only = process.env.ONLY ? process.env.ONLY.split(',') : null;   // e.g. ONLY=cyclara redraws one card
+  const drawn = [];
   for (const c of cards) {
+    if (only && !only.includes(c.key)) continue;
     fs.writeFileSync(tmp, page(c));
     await p.goto('file://' + tmp);
     // after the web fonts load: the largest title size that fits its box (3 lines for a chapter, 2 for the big cards)
@@ -76,14 +85,16 @@ function page(c) {
       return t.scrollHeight > max;
     }, c.big ? 92 : 66);
     if (clipped) throw new Error('title does not fit: ' + c.key);
+    await p.waitForFunction(() => Array.from(document.images).every(i => i.complete));
     await p.screenshot({ path: path.join(OUT, c.key + '.png') });
+    drawn.push(path.join(OUT, c.key + '.png'));
   }
   await browser.close();
   fs.unlinkSync(tmp);
   // flat text on white: a 64-colour palette keeps every edge and cuts the files to about a third
   try {
     require('child_process').execFileSync('python3', ['-I', '-c',
-      'import sys,glob\nfrom PIL import Image\nfor f in glob.glob(sys.argv[1]+"/*.png"):\n Image.open(f).convert("RGB").quantize(64,dither=Image.Dither.NONE).save(f,optimize=True)', OUT]);
+      'import sys\nfrom PIL import Image\nfor f in sys.argv[1:]:\n Image.open(f).convert("RGB").quantize(64,dither=Image.Dither.NONE).save(f,optimize=True)', ...drawn]);
   } catch (e) { console.warn('palette step skipped (needs python3 with Pillow): ' + e.message); }
-  console.log(cards.length + ' share images in ' + path.relative(ROOT, OUT));
+  console.log(drawn.length + ' share images in ' + path.relative(ROOT, OUT));
 })().catch(e => { console.error(e); process.exit(1); });

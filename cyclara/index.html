@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cyclara: free analysis of battery cycling data</title>
+<meta name="description" content="Free desktop app for Windows and macOS that turns cycling files from EC-Lab, Arbin, Maccor, Neware and other cyclers into checked numbers and journal-ready figures.">
+<meta name="author" content="Aswadh Shyma Sajeevan">
+<meta property="og:title" content="Cyclara: free analysis of battery cycling data">
+<meta property="og:description" content="A free desktop app that reads cycling files from EC-Lab and seven other cyclers, asks only what a file cannot say, and returns checked numbers and figures at journal size.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://asajeevan.github.io/cyclara/">
+<meta property="og:site_name" content="Aswadh Shyma Sajeevan">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://asajeevan.github.io/assets/img/share/cyclara.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Cyclara, a free desktop app for battery cycling data, with its overview window">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cyclara: free analysis of battery cycling data">
+<meta name="twitter:description" content="A free desktop app that reads cycling files from EC-Lab and seven other cyclers, asks only what a file cannot say, and returns checked numbers and figures at journal size.">
+<meta name="twitter:image" content="https://asajeevan.github.io/assets/img/share/cyclara.png">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0E15" media="(prefers-color-scheme: dark)">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://asajeevan.github.io/cyclara/">
+<link rel="preload" href="../assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<script>(function(){var d=document.documentElement;if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("motion");}try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark"){d.setAttribute("data-theme",t);}}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/cyclara.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","@id":"https://asajeevan.github.io/cyclara/#app","name":"Cyclara","alternateName":"electrochem-toolkit","url":"https://asajeevan.github.io/cyclara/","description":"Free desktop app that reads battery cycling files from BioLogic EC-Lab, Arbin, Maccor, Neware, BaSyTec, Novonix, PEC and Landt cyclers and returns capacities, Coulombic efficiencies, dQ/dE peaks and journal-ready figures, with every number written out as a table.","applicationCategory":"Scientific data analysis","operatingSystem":"Windows 10, Windows 11, macOS 14 or later","softwareVersion":"0.8.0","datePublished":"2026-10-20","license":"https://www.gnu.org/licenses/gpl-3.0.html","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"downloadUrl":"https://github.com/asajeevan/electrochem-toolkit/releases/latest","installUrl":"https://github.com/asajeevan/electrochem-toolkit/releases/latest","releaseNotes":"https://github.com/asajeevan/electrochem-toolkit/releases/tag/v0.8.0","screenshot":["https://asajeevan.github.io/assets/img/cyclara/light-overview-1600.webp","https://asajeevan.github.io/assets/img/cyclara/light-evolution-1600.webp","https://asajeevan.github.io/assets/img/cyclara/light-figures-1600.webp"],"author":{"@type":"Person","@id":"https://asajeevan.github.io/#person","name":"Aswadh Shyma Sajeevan","url":"https://asajeevan.github.io/"},"sameAs":["https://github.com/asajeevan/electrochem-toolkit"]},
+{"@type":"SoftwareSourceCode","@id":"https://asajeevan.github.io/cyclara/#source","name":"electrochem-toolkit","codeRepository":"https://github.com/asajeevan/electrochem-toolkit","programmingLanguage":"Python","license":"https://www.gnu.org/licenses/gpl-3.0.html","author":{"@id":"https://asajeevan.github.io/#person"},"targetProduct":{"@id":"https://asajeevan.github.io/cyclara/#app"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Aswadh Shyma Sajeevan","item":"https://asajeevan.github.io/"},{"@type":"ListItem","position":2,"name":"Cyclara","item":"https://asajeevan.github.io/cyclara/"}]}
+]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Aswadh Shyma Sajeevan, home page">Aswadh Shyma Sajeevan</a>
+    <span class="crumb" aria-hidden="true">Cyclara</span>
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="siteNav" aria-label="On this page">
+      <a href="#tour">Inside</a>
+      <a href="#outputs">Outputs</a>
+      <a href="#trust">Why trust it</a>
+      <a href="#cyclers">Cyclers</a>
+      <a href="#install">Install</a>
+      <a href="#cite">Cite</a>
+      <a href="../#tools">Other tools</a>
+    </nav>
+    <button class="theme" id="themeBtn" type="button" data-mode="auto" aria-label="Theme: follows your system. Switch to light" title="Theme">
+      <svg class="auto" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17A8.5 8.5 0 0 0 12 3.5z" fill="currentColor" stroke="none"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow"><span class="mark"><img class="img-light" src="../assets/img/cyclara/mark-light.svg" alt="" width="56" height="56"><img class="img-dark" src="../assets/img/cyclara/mark-dark.svg" alt="" width="56" height="56"></span>Free desktop app for battery cycling data</p>
+      <h1 class="title">Cyclara</h1>
+      <p class="tagline">Every cycle, clearly.</p>
+      <p class="lede">Open a cycling file from EC-Lab, Arbin, Maccor, Neware, BaSyTec, Novonix, PEC or Landt. Cyclara finds every charge and discharge, asks you only what the file cannot say, and returns capacities, Coulombic efficiencies, dQ/dE peaks and figures at journal size, with every number also written out as a table.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/asajeevan/electrochem-toolkit/releases/download/v0.8.0/Cyclara-0.8.0-Setup.exe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></svg><span>Download for Windows<small>105&nbsp;MB, Windows 10 or 11</small></span></a>
+        <span class="mac"><a class="btn" href="https://github.com/asajeevan/electrochem-toolkit/releases/download/v0.8.0/Cyclara-0.8.0-macOS-AppleSilicon.zip"><span>Mac, Apple silicon<small>147&nbsp;MB, M1 to M4</small></span></a>
+        <a class="btn" href="https://github.com/asajeevan/electrochem-toolkit/releases/download/v0.8.0/Cyclara-0.8.0-macOS-Intel.zip"><span>Mac, Intel<small>154&nbsp;MB</small></span></a></span>
+      </div>
+      <p class="facts">Version 0.8.0, released 20 October 2026, for Windows 10 or 11 and macOS 14 or later. Free and open source under GPL-3.0; it carries its own Python, works offline and never changes your files. <a href="https://github.com/asajeevan/electrochem-toolkit/releases/tag/v0.8.0">Release notes and checksums</a>, <a href="https://github.com/asajeevan/electrochem-toolkit">source code</a>.</p>
+    </div>
+
+    <figure class="demo" id="demo">
+      <div class="demo-plot" id="demoPlot"></div>
+      <div class="strip-wrap" id="demoStripWrap">
+        <div class="strip" id="demoStrip" aria-hidden="true"></div>
+        <label class="vh" for="demoCycle">Cycle shown in the figure</label>
+        <input class="strip-input" id="demoCycle" type="range" min="1" max="50" step="1" value="1">
+      </div>
+      <div class="strip-axis" aria-hidden="true"><span>cycle 1</span><span>bar height: discharge capacity</span><span>50</span></div>
+      <dl class="readout" id="demoReadout" aria-live="off">
+        <div class="cyc"><dt>Cycles</dt><dd>1–50</dd></div>
+        <div><dt>First discharge</dt><dd>117.3&nbsp;mAh&nbsp;g<sup>−1</sup></dd></div>
+        <div><dt>Retention at cycle 50</dt><dd>91.1&nbsp;%</dd></div>
+        <div><dt>Mean efficiency, cycles 2–50</dt><dd>99.65&nbsp;%</dd></div>
+      </dl>
+      <figcaption>A synthetic cell from Cyclara's demonstration file, 50 cycles, analysed by Cyclara itself. Point at a curve, or drag along the strip (arrow keys work too), to bring one cycle forward.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== TOUR ===================== -->
+<section class="section" id="tour">
+  <div class="wrap">
+    <h2 class="h2">A look inside</h2>
+    <p class="sub">The app's own screens, on its demonstration files. Click a picture to see it full size.</p>
+    <div class="tabs" role="tablist" aria-label="Screens of the app">
+      <button class="tab" role="tab" id="t-overview" aria-controls="p-overview" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t-questions" aria-controls="p-questions" aria-selected="false" tabindex="-1">Questions</button>
+      <button class="tab" role="tab" id="t-evolution" aria-controls="p-evolution" aria-selected="false" tabindex="-1">Evolution</button>
+      <button class="tab" role="tab" id="t-plateaus" aria-controls="p-plateaus" aria-selected="false" tabindex="-1">Plateaus</button>
+      <button class="tab" role="tab" id="t-figures" aria-controls="p-figures" aria-selected="false" tabindex="-1">Figures</button>
+      <button class="tab" role="tab" id="t-import" aria-controls="p-import" aria-selected="false" tabindex="-1">Other cyclers</button>
+      <button class="tab" role="tab" id="t-methods" aria-controls="p-methods" aria-selected="false" tabindex="-1">Methods</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-overview" aria-labelledby="t-overview" tabindex="0">
+      <button class="shot" type="button" data-full-light="../assets/img/cyclara/light-overview-1600.webp" data-full-dark="../assets/img/cyclara/dark-overview-1600.webp" data-alt="The Overview view of Cyclara with four linked plots, the cycle strip and the questions panel" data-caption="Overview: four linked panels, the cycle strip and the questions">
+        <img class="img-light" src="../assets/img/cyclara/light-overview-960.webp" srcset="../assets/img/cyclara/light-overview-960.webp 960w, ../assets/img/cyclara/light-overview-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" alt="The Overview view: potential against capacity, capacity and efficiency by cycle, dQ/dE and average potentials, with the cycle strip below and the questions on the right">
+        <img class="img-dark" src="../assets/img/cyclara/dark-overview-960.webp" srcset="../assets/img/cyclara/dark-overview-960.webp 960w, ../assets/img/cyclara/dark-overview-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="The Overview view in the dark theme: four linked plots, the cycle strip and the questions">
+      </button>
+      <div>
+        <p class="what">Four views of one cell, linked.</p>
+        <p>Potential against capacity, capacity and efficiency by cycle, dQ/dE, and the average potentials. The cycle you focus appears in all four; the strip underneath picks the cycles the figures will export.</p>
+        <p class="note">Undo any answer with Ctrl+Z; Ctrl+K finds any action by name. Light and dark themes, and it fits a 14-inch laptop at 150&nbsp;% scaling.</p>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-questions" aria-labelledby="t-questions" tabindex="0" hidden>
+      <button class="shot" type="button" data-full-light="../assets/img/cyclara/light-unanswered-1600.webp" data-full-dark="../assets/img/cyclara/dark-unanswered-1600.webp" data-alt="Cyclara before any question is answered: the recorded potential and current over time" data-caption="Before any answer: only what was recorded">
+        <img class="img-light" src="../assets/img/cyclara/light-unanswered-960.webp" srcset="../assets/img/cyclara/light-unanswered-960.webp 960w, ../assets/img/cyclara/light-unanswered-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="Before any question is answered: the recorded potential and current over time, with the open questions on the right">
+        <img class="img-dark" src="../assets/img/cyclara/dark-unanswered-960.webp" srcset="../assets/img/cyclara/dark-unanswered-960.webp 960w, ../assets/img/cyclara/dark-unanswered-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="The same screen in the dark theme">
+      </button>
+      <div>
+        <p class="what">Nothing is assumed.</p>
+        <p>Until you answer, the window shows only what was recorded. Each question shows what the file suggests, as evidence rather than a decision, and what the answer will unlock. A value that needs an unanswered question is shown as withheld, with the reason.</p>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-evolution" aria-labelledby="t-evolution" tabindex="0" hidden>
+      <button class="shot" type="button" data-full-light="../assets/img/cyclara/light-evolution-1600.webp" data-full-dark="../assets/img/cyclara/dark-evolution-1600.webp" data-alt="The Evolution view: dQ/dE of every cycle as a colour map" data-caption="Evolution: every cycle's dQ/dE as a colour map">
+        <img class="img-light" src="../assets/img/cyclara/light-evolution-960.webp" srcset="../assets/img/cyclara/light-evolution-960.webp 960w, ../assets/img/cyclara/light-evolution-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="The Evolution view: differential capacity of every cycle as a colour map against cell potential and cycle number">
+        <img class="img-dark" src="../assets/img/cyclara/dark-evolution-960.webp" srcset="../assets/img/cyclara/dark-evolution-960.webp 960w, ../assets/img/cyclara/dark-evolution-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="The Evolution view in the dark theme">
+      </button>
+      <div>
+        <p class="what">Every cycle's dQ/dE at once.</p>
+        <p>A colour map of differential capacity against potential and cycle number. A plateau that fades, drifts or appears shows up as a changing stripe, which is hard to see in fifty overlaid curves.</p>
+        <p class="note">Exported as fig6_dqde_map and fig7_dqde_surface, the same data as a colour map and as 3D surfaces.</p>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-plateaus" aria-labelledby="t-plateaus" tabindex="0" hidden>
+      <button class="shot" type="button" data-full-light="../assets/img/cyclara/light-plateaus-1600.webp" data-alt="A cell with several plateaus, with the plateau list of the focused cycle in the inspector" data-caption="Several plateaus: each peak with its capacity, partner and cycles">
+        <img src="../assets/img/cyclara/light-plateaus-960.webp" srcset="../assets/img/cyclara/light-plateaus-960.webp 960w, ../assets/img/cyclara/light-plateaus-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="A synthetic cell with several plateaus in the Evolution view; the inspector lists each plateau of the focused cycle with its capacity and its partner">
+      </button>
+      <div>
+        <p class="what">Several plateaus, described, not labelled.</p>
+        <p>For each peak of the differential capacity: the capacity under it, its partner in the opposite branch of the same cycle (within 200&nbsp;mV) or the status <i>unpaired</i>, and the cycles in which it is seen, such as <i>first cycle only</i> or <i>appears from cycle 3</i>. Whether a process is reversible stays your judgement.</p>
+        <p class="note">This screen uses a second synthetic cell, a full cell built with plateaus known in advance, so the axis is the cell voltage and the derivative dQ/dV. The plateau analysis has not yet been tried on a real material with several plateaus.</p>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-figures" aria-labelledby="t-figures" tabindex="0" hidden>
+      <button class="shot" type="button" data-full-light="../assets/img/cyclara/light-figures-1600.webp" data-full-dark="../assets/img/cyclara/dark-figures-1600.webp" data-alt="The Figures view: a figure at journal size with the list of checks" data-caption="Figures: true journal size, checked after drawing">
+        <img class="img-light" src="../assets/img/cyclara/light-figures-960.webp" srcset="../assets/img/cyclara/light-figures-960.webp 960w, ../assets/img/cyclara/light-figures-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="The Figures view: the four-panel summary figure at its journal width, with the result of each check beside it">
+        <img class="img-dark" src="../assets/img/cyclara/dark-figures-960.webp" srcset="../assets/img/cyclara/dark-figures-960.webp 960w, ../assets/img/cyclara/dark-figures-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="The Figures view in the dark theme">
+      </button>
+      <div>
+        <p class="what">Figures at the journal's own size.</p>
+        <p>Nature or Elsevier widths, type from 5 to 7&nbsp;pt, panel letters at 8&nbsp;pt. After drawing, each figure is checked: size, type including sub- and superscripts, text inside the canvas, legends clear of every kind of data, every point inside its axes, line weights and contrast.</p>
+        <p class="note">Saved as vector PDF and SVG with editable text, and as 600&nbsp;dpi PNG.</p>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-import" aria-labelledby="t-import" tabindex="0" hidden>
+      <button class="shot" type="button" data-full-light="../assets/img/cyclara/light-mapping-1600.webp" data-alt="The import review page for an unknown cycler's export" data-caption="Other cyclers: the import review page">
+        <img src="../assets/img/cyclara/light-mapping-960.webp" srcset="../assets/img/cyclara/light-mapping-960.webp 960w, ../assets/img/cyclara/light-mapping-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 820px" width="1600" height="1000" loading="lazy" alt="The import review page: the first rows of an unknown export, the proposed role and unit of each column, and the conventions to confirm">
+      </button>
+      <div>
+        <p class="what">A cycler it has never seen.</p>
+        <p>A file no import profile recognises opens this page: the first rows, the proposed column roles and units, the three conventions no file states about itself, and a check that reads the whole file and compares the instrument's own capacity counter with the integral of the current. Confirm once, and that instrument is remembered by its header.</p>
+        <p class="note">The column names in this picture are invented.</p>
+      </div>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-methods" aria-labelledby="t-methods" tabindex="0" hidden>
+      <button class="shot" type="button" data-full-light="../assets/img/cyclara/light-methods-1040.webp" data-alt="The window How the numbers are calculated" data-caption="Help: how the numbers are calculated">
+        <img src="../assets/img/cyclara/light-methods-1040.webp" width="1040" height="680" loading="lazy" alt="The window How the numbers are calculated, on the topic of energy and average potential, in plain words and in full">
+      </button>
+      <div>
+        <p class="what">The method, inside the app.</p>
+        <p>Help, How the numbers are calculated: twelve topics, each in plain words and then in full (equation, units, sign convention, what the file must contain, when the value is not produced), filled in with the open file's own settings. A methods paragraph for your manuscript is one click away.</p>
+        <p class="note">The texts are tested against the code, so a threshold described is the threshold used.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OUTPUTS ===================== -->
+<section class="section" id="outputs">
+  <div class="wrap">
+    <h2 class="h2">What you take away</h2>
+    <p class="sub">Export writes everything into a new folder and never overwrites. A typical folder holds the following.</p>
+    <div class="outputs">
+      <figure class="folder">
+        <figcaption class="folder-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5V18a1.5 1.5 0 0 0 1.5 1.5h15A1.5 1.5 0 0 0 21 18V9a1.5 1.5 0 0 0-1.5-1.5h-7.2L10.5 5.2H4.5A1.5 1.5 0 0 0 3 6.7z"/></svg>my_cell_export/</figcaption>
+        <dl>
+          <div class="row"><dt>fig1 … fig7, fig_summary</dt><dd><b>Figures</b>: potential against capacity, capacity and efficiency, dQ/dE, average potentials, the whole test against time, the dQ/dE map and surfaces, and a four-panel summary. PDF, SVG and PNG.</dd></div>
+          <div class="row"><dt>summary.json</dt><dd>The headline numbers: first-cycle capacities and efficiency, retention, the cycle at 80&nbsp;%, fade per cycle, mean efficiency, average potential and hysteresis.</dd></div>
+          <div class="row"><dt>cycles.csv</dt><dd>One row per cycle: capacities in mAh and mAh g<sup>−1</sup>, Coulombic efficiency, retention, Δx, average and mid-capacity potentials, energies, energy efficiency, C-rates.</dd></div>
+          <div class="row"><dt>branches.csv</dt><dd>One row per charge or discharge, split into constant-current and constant-voltage parts, each checked against the instrument's own counter.</dd></div>
+          <div class="row"><dt>rests.csv</dt><dd>Every rest: duration, potential at its start and end, relaxation.</dd></div>
+          <div class="row"><dt>curves_*.csv, dqde_*.csv</dt><dd>Full-resolution curves, differential capacity on a stated voltage grid, every peak with its partner, and the cycle-by-cycle map.</dd></div>
+          <div class="row"><dt>metadata.json</dt><dd>Everything the file's header declares, including the programmed step table.</dd></div>
+          <div class="row"><dt>settings.json</dt><dd>The file's SHA-256, the columns used, every convention and choice, the equations, the figure checks, a methods paragraph and the citation.</dd></div>
+          <div class="row"><dt>origin/</dt><dd>The same tables laid out for Origin, and a script that builds an editable .opju on a PC with Origin 2021 or later.</dd></div>
+        </dl>
+      </figure>
+      <figure class="paper">
+        <img src="../assets/img/cyclara/fig-summary-760.webp" srcset="../assets/img/cyclara/fig-summary-760.webp 760w, ../assets/img/cyclara/fig-summary-1400.webp 1400w" sizes="(max-width: 900px) 92vw, 600px" width="1400" height="1120" loading="lazy" alt="The four-panel summary figure: potential against specific capacity for selected cycles, capacity and Coulombic efficiency by cycle, dQ/dE with discharge on the left and charge on the right, and average potentials by cycle">
+        <figcaption>fig_summary as exported, at Nature's double-column width (synthetic demonstration file).</figcaption>
+      </figure>
+    </div>
+    <figure class="paper wide-fig">
+      <img src="../assets/img/cyclara/fig-plateau-surface-900.webp" srcset="../assets/img/cyclara/fig-plateau-surface-900.webp 900w, ../assets/img/cyclara/fig-plateau-surface-1600.webp 1600w" sizes="(max-width: 1100px) 92vw, 1000px" width="1600" height="448" loading="lazy" alt="Two 3D surfaces of dQ/dV against cell voltage and cycle number, one for charge and one for discharge">
+      <figcaption>fig7_dqde_surface for the synthetic full cell with several plateaus: the differential capacity of every cycle as surfaces, charge (a) and discharge (b). Against cell voltage the derivative is dQ/dV; against an electrode potential Cyclara writes dQ/dE. Both panels share one voltage scale, so a pair of peaks lines up.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== TRUST ===================== -->
+<section class="section" id="trust">
+  <div class="wrap">
+    <h2 class="h2">Why trust the numbers</h2>
+    <p class="sub">Each claim with the evidence behind it. The full method is in the <a href="https://github.com/asajeevan/electrochem-toolkit/blob/main/docs/M01_Cycling_Method_Specification.md">cycling method specification</a>.</p>
+    <dl class="claims">
+      <div class="claim"><dt>It does not guess.</dt><dd>A file cannot say which current direction charges the cell, whether a cycle starts with a charge or a discharge, what its potential column measures, or how much active material was in the electrode. Cyclara asks those four things, shows what the file suggests, and withholds any value that depends on an unanswered one, saying why.</dd></div>
+      <div class="claim"><dt>It agrees with the instrument.</dt><dd>On a 110-cycle lithium half-cell, Coulombic efficiency matches EC-Lab's own column to <b>4&nbsp;×&nbsp;10<sup>−6</sup>&nbsp;%</b> and discharge capacity to <b>6&nbsp;×&nbsp;10<sup>−9</sup>&nbsp;mAh</b>, from the binary .mpr and from its text export alike. Every branch is checked against the instrument's charge counter, and a time reset or gap is never integrated across.</dd></div>
+      <div class="claim"><dt>It is honest about other cyclers.</dt><dd><b>Sixteen</b> import profiles, each written from a real export that was read and checked, with that file and what it showed recorded in the profile. Any other export is learned from one file, asking only the conventions no file states. Nothing is claimed for a dialect nobody has checked.</dd></div>
+      <div class="claim"><dt>It describes plateaus without labelling them.</dt><dd>Each dQ/dE peak gets the capacity under it, a partner in the opposite branch or the status <i>unpaired</i>, and the cycles in which it is seen. The average potential of a branch stays energy over charge, which with several plateaus is their capacity-weighted mean.</dd></div>
+      <div class="claim"><dt>The method travels with the result.</dt><dd>settings.json records the file's SHA-256, the columns used, each choice and the equations. The app writes a methods paragraph and the citation of the exact version, so someone else can repeat the analysis.</dd></div>
+      <div class="claim"><dt>Large files open quickly.</dt><dd>A million-row EC-Lab export opens in about <b>3&nbsp;s</b>. Other cyclers' exports are read in blocks, with progress shown, up to 2&nbsp;GB.</dd></div>
+      <div class="claim"><dt>It is tested, and so are its releases.</dt><dd>More than <b>900</b> automated tests, from exact arithmetic on synthetic cells to real instrument files. Each release on GitHub is immutable: its files cannot be swapped, each has a published SHA-256, and GitHub signs a record of what was released.</dd></div>
+      <div class="claim"><dt>It stays free.</dt><dd>Open source under GPL-3.0. No account, no internet after installation, and your measurement files are read, never changed.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ===================== CYCLERS ===================== -->
+<section class="section" id="cyclers">
+  <div class="wrap">
+    <h2 class="h2">Cyclers it reads</h2>
+    <p class="sub">Recognised from the file itself. What was checked for each dialect, and on which real file, is in the <a href="https://github.com/asajeevan/electrochem-toolkit/blob/main/docs/P08d_Instrument_Compatibility_Matrix.md">compatibility matrix</a>.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Cycler</th><th scope="col">Files</th><th scope="col">Checked on</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">BioLogic EC-Lab, BT-Lab</th><td>.mpr and .mpt</td><td><span class="ok">EC-Lab's own counters; public files and a 110-cycle cell</span></td></tr>
+          <tr><th scope="row">Arbin</th><td>MITS Pro CSV and Excel exports; .res tables saved as CSV</td><td><span class="ok">real exports: three dialects in full, a fourth by its columns</span></td></tr>
+          <tr><th scope="row">Maccor</th><td>text exports</td><td><span class="ok">real exports: three dialects in full; one more on inspected files, one recognised only</span></td></tr>
+          <tr><th scope="row">Neware</th><td>Excel and flat CSV exports</td><td><span class="ok">real exports, both dialects</span></td></tr>
+          <tr><th scope="row">BaSyTec</th><td>result files</td><td><span class="ok">a real export (a charge only)</span></td></tr>
+          <tr><th scope="row">Novonix</th><td>UHPC CSV</td><td><span class="ok">a real export (one charge step)</span></td></tr>
+          <tr><th scope="row">PEC</th><td>CSV</td><td><span class="ok">a real export; a second dialect recognised</span></td></tr>
+          <tr><th scope="row">Landt, LANHE</th><td>Excel exports</td><td><span class="ok">a real export</span></td></tr>
+          <tr><th scope="row">Any other</th><td>a text or spreadsheet export</td><td><span class="ok learn">learned from one file on the import page</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:12px">Instrument binaries other than .mpr (Arbin .res, Neware .nda and .ndax) are not read: export them to text or Excel from the instrument's software first.</p>
+  </div>
+</section>
+
+<!-- ===================== INSTALL ===================== -->
+<section class="section" id="install">
+  <div class="wrap">
+    <h2 class="h2">Install</h2>
+    <p class="sub">Each download carries its own Python and every package, so nothing else needs installing.</p>
+    <div class="install">
+      <div class="os">
+        <h3 class="h3">Windows</h3>
+        <p class="req">Windows 10 (version 1903 or later) or 11, 64-bit.</p>
+        <a class="btn primary small" href="https://github.com/asajeevan/electrochem-toolkit/releases/download/v0.8.0/Cyclara-0.8.0-Setup.exe">Cyclara-0.8.0-Setup.exe</a>
+        <ol class="steps">
+          <li>Run the installer and click Next, Install, Finish. It installs for you alone, without an administrator password, and replaces 0.7.0 if you have it.</li>
+          <li>The first time, Windows may say "Windows protected your PC", because the installer has no paid signature. Click <i>More info</i>, then <i>Run anyway</i>.</li>
+          <li>Open Cyclara from the desktop or the Start menu, and try the demonstration file from its home page.</li>
+        </ol>
+      </div>
+      <div class="os">
+        <h3 class="h3">macOS</h3>
+        <p class="req">macOS 14 Sonoma or later. Apple menu, About This Mac shows which chip you have.</p>
+        <a class="btn primary small" href="https://github.com/asajeevan/electrochem-toolkit/releases/download/v0.8.0/Cyclara-0.8.0-macOS-AppleSilicon.zip">Apple silicon (M1 to M4)</a><a class="btn small" href="https://github.com/asajeevan/electrochem-toolkit/releases/download/v0.8.0/Cyclara-0.8.0-macOS-Intel.zip">Intel</a>
+        <ol class="steps">
+          <li>Unzip the download (Safari does it for you) and drag Cyclara.app to Applications.</li>
+          <li>The first time, macOS says it cannot verify the app. Click <i>Done</i>, open System Settings, Privacy &amp; Security, and click <i>Open Anyway</i>. On macOS 14, right-click the app and choose <i>Open</i> instead.</li>
+          <li>Open Cyclara again; from then on it opens normally.</li>
+        </ol>
+      </div>
+    </div>
+    <p class="handout"><a class="btn" href="https://github.com/asajeevan/electrochem-toolkit/releases/download/v0.8.0/Cyclara_handout_v0.8.0.pdf">Handout (PDF, 15 pages)</a><span>Every step with pictures, and a page on reading several plateaus.</span></p>
+
+    <details class="check">
+      <summary>Check what you downloaded</summary>
+      <div class="body">
+        <p>Download only from this page or the release page. If someone sends you a file another way, compare its SHA-256 with this list, which is also attached to the release as SHA256SUMS.txt.</p>
+        <div class="code"><pre id="sums" tabindex="0" aria-label="SHA-256 checksums">7182922082ba701e517987f18c7a285464a54b4e2a503788d38d8e7ca43d2070  Cyclara-0.8.0-Setup.exe
+20ab5b3d96153f5b10118e2e5ffccf3776a85759180b8f97f705f616fc528fb3  Cyclara-0.8.0-macOS-AppleSilicon.zip
+fc4ad59cb0ae7da111e5d424677eff7c7cdd8c537837c555c6767b8d74d54dd1  Cyclara-0.8.0-macOS-Intel.zip
+12e639bab09db54edfe321e7c6cb5318c9e1c3bd65731bf2e52d3983389d5d18  Cyclara_handout_v0.8.0.pdf</pre><button class="btn small copy" type="button" data-copy="sums">Copy</button></div>
+        <ul class="cmds">
+          <li>Windows, PowerShell: <code>Get-FileHash .\Cyclara-0.8.0-Setup.exe</code></li>
+          <li>macOS, Terminal: <code>shasum -a 256 ~/Downloads/Cyclara-0.8.0-macOS-AppleSilicon.zip</code></li>
+          <li>With the GitHub CLI, against GitHub's signed record of the release: <code>gh release verify-asset v0.8.0 Cyclara-0.8.0-Setup.exe -R asajeevan/electrochem-toolkit</code></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ===================== CITE ===================== -->
+<section class="section" id="cite">
+  <div class="wrap">
+    <h2 class="h2">Cite it</h2>
+    <p class="sub">If Cyclara contributed to a publication, cite the version you used. The app gives the same text under Help, Cite Cyclara.</p>
+    <p class="ref" id="refText">Shyma Sajeevan, A. (2026). Cyclara: traceable analysis of battery cycling data (Version 0.8.0) [Computer software]. https://github.com/asajeevan/electrochem-toolkit</p>
+    <div class="copy-row"><button class="btn small" type="button" data-copy="refText">Copy the reference</button><button class="btn small" type="button" data-copy="bibText">Copy BibTeX</button></div>
+    <div class="code"><pre id="bibText" tabindex="0" aria-label="BibTeX entry">@software{cyclara_0_8_0,
+  author  = {{Shyma Sajeevan}, Aswadh},
+  title   = {{Cyclara: traceable analysis of battery cycling data}},
+  version = {0.8.0},
+  year    = {2026},
+  url     = {https://github.com/asajeevan/electrochem-toolkit},
+  license = {GPL-3.0-or-later},
+  note    = {Free software under the GNU General Public License, version 3 or later}
+}</pre></div>
+  </div>
+</section>
+
+<!-- ===================== LIMITS ===================== -->
+<section class="section" id="limits">
+  <div class="wrap">
+    <h2 class="h2">What it does not do yet</h2>
+    <ul class="limits">
+      <li>Cyclic voltammetry, impedance, conductivity and batch processing across cells are not in the app yet. They are the next work.</li>
+      <li>The installers have been tested under Wine and by automated checks, not yet by a user on a physical Windows PC or a Mac. A report from your first installation is the most useful thing you can send.</li>
+      <li>The installers are not code-signed, hence the one-time warnings above.</li>
+      <li>The plateau analysis is verified on a synthetic cell whose answers are known by construction, not yet on a real material with several plateaus.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== AUTHOR ===================== -->
+<section class="section" id="why">
+  <div class="wrap author">
+    <blockquote>
+      <p>I built this tool for my own cycling data. During my PhD I kept rewriting the same scripts for every new cell and fixing figures by hand before every paper, and I wanted one place where the numbers are checked once and the figures come out right the first time. It is free, and it will stay free.</p>
+      <footer>Aswadh Shyma Sajeevan, battery electrochemist, <a href="../">about me</a></footer>
+    </blockquote>
+    <div class="report">
+      <h3 class="h3">Found something wrong?</h3>
+      <p>A file it refused or read wrongly, a number that disagrees with your instrument, or a figure you still had to fix: these reports help most. Help, Report a problem in the app opens the same page.</p>
+      <a class="btn" href="https://github.com/asajeevan/electrochem-toolkit/issues/new">Report a problem on GitHub</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>© <span id="year">2026</span> Aswadh Shyma Sajeevan. Battery electrochemist and materials researcher. <a href="../">Home page</a></p>
+    <p><a href="https://www.linkedin.com/in/aswadh" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://orcid.org/0009-0008-2959-3993" target="_blank" rel="noopener">ORCID</a> · <a href="https://scholar.google.com/citations?user=Zg94mgUAAAAJ" target="_blank" rel="noopener">Google Scholar</a> · <a href="https://github.com/asajeevan/electrochem-toolkit" target="_blank" rel="noopener">Cyclara on GitHub</a></p>
+    <p class="foot-share"><button class="btn js-share" type="button">Share this page</button> <span>Know someone who cycles cells? Send them the link.</span></p>
+    <p class="visits" id="visits" hidden>Visitors: <b id="visitCount">0</b></p>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="viewer" aria-label="Picture">
+  <button class="close" type="button" aria-label="Close">×</button>
+  <img alt="">
+  <p></p>
+</dialog>
+
+<script src="../assets/js/cyclara-demo.js"></script>
+<script src="../assets/js/cyclara.js"></script>
+<script src="../assets/js/share.js"></script>
+</body>
+</html>

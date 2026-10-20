@@ -366,6 +366,8 @@ def seo_title(p):
 
 # ---------------------------------------------------------------- last modified, per page, for the sitemap
 LASTMOD_FILE = ROOT / 'tools' / 'lastmod.json'
+# pages written by hand outside the course, listed in the sitemap after the home page: (path, change frequency, priority)
+STANDALONE_PAGES = [('cyclara/', 'monthly', '0.8')]
 def page_lastmod(store, key, path):
     """The date a page's content last changed: a hash of its <main>, without the citation block (whose date
     follows the course), compared with the stored one. A new page starts from the date of its last commit."""
@@ -633,6 +635,9 @@ def build_course():
     print('home page JSON-LD: %d publications, %d videos' % home_seo.update(ROOT / 'index.html', home))
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
           '  <url>\n    <loc>https://asajeevan.github.io/</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>1.0</priority>\n  </url>' % home]
+    for rel, freq, prio in STANDALONE_PAGES:
+        date = page_lastmod(store, '/' + rel, ROOT / rel / 'index.html')
+        sm.append('  <url>\n    <loc>https://asajeevan.github.io/%s</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>%s</changefreq>\n    <priority>%s</priority>\n  </url>' % (rel, date, freq, prio))
     for k, (key, u) in enumerate(zip(keys, urls)):
         path = OUT / key / 'index.html' if key else OUT / 'index.html'
         date = page_lastmod(store, key or 'hub', path)

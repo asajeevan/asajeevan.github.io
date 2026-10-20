@@ -47,3 +47,18 @@ The build prints `note: no share image for ...` when a page has none.
    LinkedIn and GitHub (profile README), and the lab or university pages that list you.
 4. Share chapters where students and researchers ask questions (LinkedIn posts, course forums,
    Reddit r/batteries or r/electrochemistry, teaching colleagues). Each link now shows its own preview image.
+
+## The Cyclara page (`/cyclara/`), written by hand
+
+- `cyclara/index.html` is not built: edit it directly. Its style is `assets/css/cyclara.css` (the site's tokens,
+  top bar, buttons and footer, plus Cyclara's cycle ramp), its script `assets/js/cyclara.js` (theme, menu, the live
+  figure, the tour tabs, the picture viewer, copy buttons), and `share.js` for the footer.
+- The live figure's data, `assets/js/cyclara-demo.js`, is Cyclara's own analysis of its synthetic demonstration
+  file, made by `tools/cyclara_demo_data.py` from the output folder of the command written at the top of that file.
+- Pictures: `assets/img/cyclara/`, WebP copies of the toolkit's `docs/images/app/` screenshots and figures (light
+  and dark where both exist; the page shows the one matching the theme).
+- Share image: the `cyclara` card in `tools/share_images.js`; `ONLY=cyclara` redraws only that card.
+- `tools/build_course.py` lists the page in `sitemap.xml` (`STANDALONE_PAGES`) with its last-change date.
+- After a new Cyclara release, update on the page: the version and date, the download links and sizes, the
+  checksums, the reference and BibTeX (`python -m electrochem.analyze --cite --bibtex`), and the JSON-LD
+  `softwareVersion`; then rebuild so the sitemap date follows.
