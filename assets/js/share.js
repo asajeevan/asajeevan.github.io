@@ -53,6 +53,18 @@
       .catch(function () { box.hidden = true; });
   })();
 
+  /* ---------- Cloudflare Web Analytics ----------
+     Page views and visits by country, page and referrer, with no cookies and no individual
+     tracking; the token is public by nature. Loaded from here so that every page that has the
+     share script reports, without a tag in each page. Skipped on previews opened from disk. */
+  if (location.protocol !== 'file:') {
+    var cf = document.createElement('script');
+    cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    cf.setAttribute('data-cf-beacon', '{"token": "e1cf20c72c4e404e96c6841b04860f49"}');
+    cf.defer = true;
+    document.body.appendChild(cf);
+  }
+
   /* ---------- share ----------
      Every element with class "js-share" opens the device's own share sheet where
      the browser has one (phones, Safari, Edge) and otherwise a small menu: copy
